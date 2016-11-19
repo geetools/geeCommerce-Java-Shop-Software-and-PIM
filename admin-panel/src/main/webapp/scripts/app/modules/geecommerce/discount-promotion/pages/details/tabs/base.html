@@ -1,0 +1,139 @@
+
+<div id="discount-promotion-details-base">
+    <div data-bind="toolbar: {
+        targetId: 'discountPromotionBaseForm',
+        i18n: 'app:modules.discount-promotion.toolbarSaveMsg',
+        saveCallback: saveData }"></div>
+
+    <form class="form-horizontal" role="form" id="discountPromotionBaseForm">
+
+        <div class="form-group">
+            <label for="inputPrdPromotionKey" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabKey">Key</label>
+            <div class="col-sm-9">
+                <input data-bind="value: discountPromotionVM.key" class="form-control" id="inputPrdPromotionKey" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionLabel" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabName">Label</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: discountPromotionVM.label" class="form-control" id="inputDscPromotionLabel" placeholder="Enter name" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionDescription" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabDescription">Description</label>
+            <div class="col-sm-9 switch-wrapper">
+                <div id="inputDscPromotionDescription" data-bind="i18nEditor: {value: discountPromotionVM.description}"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionDescriptionEmail" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabDescriptionEmail">Description for Email</label>
+            <div class="col-sm-9 switch-wrapper">
+                <div id="inputDscPromotionDescriptionEmail" data-bind="i18nEditor: {value: discountPromotionVM.descriptionEmail}"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionTitlePromoPage" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabTitlePromoPage">Title for Promo page</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: discountPromotionVM.titlePromoPage" class="form-control" id="inputDscPromotionTitlePromoPage" placeholder="Enter title for promo page" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionDescriptionPromo" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabDescriptionPromo">Description for Promo page</label>
+            <div class="col-sm-9 switch-wrapper">
+                <div id="inputDscPromotionDescriptionPromo" data-bind="i18nEditor: {value: discountPromotionVM.descriptionPromoPage}"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPrdPromotionShowTimes" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabShowTimes">Show Times</label>
+            <div class="col-sm-9">
+                <input data-bind="value: discountPromotionVM.showTimes" class="form-control" id="inputPrdPromotionShowTimes" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionRerunAfter" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabRerunAfter">Rerun After</label>
+            <div class="col-sm-9">
+                <input data-bind="value: discountPromotionVM.rerunAfter" class="form-control" id="inputDscPromotionRerunAfter" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionCouponDuration" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabCouponDuration">Coupon Duration</label>
+            <div class="col-sm-9">
+                <input data-bind="value: discountPromotionVM.couponDuration" class="form-control" id="inputDscPromotionCouponDuration" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionShowFrom" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabShowFrom">Show From</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="datepicker: discountPromotionVM.showFrom, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputDscPromotionShowFrom" type="text">
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionShowTo" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabShowTo">Show To</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="datepicker: discountPromotionVM.showTo, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputDscPromotionShowTo" type="text">
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscPromotionCoupon" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabCoupon">Coupon</label>
+            <div class="col-sm-9">
+                <select id="inputDscPromotionCoupon" class="form-control select2"
+                        data-bind="select: discountPromotionVM.couponId, data: $root.discountPromotionVM.couponOptions"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputDscOnlyForNewCustomer" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabShowForAll">Show for all</label>
+            <div class="col-sm-9">
+                <input type="checkbox" data-bind="checked: discountPromotionVM.showForAll" id="inputDscOnlyForNewCustomer">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.enabled">Enabled</label>
+            <div class="col-sm-6 switch-wrapper">
+                <input type="checkbox" data-bind="ctxBool: discountPromotionVM.enabled, switchOptions: {default: false}" />
+            </div>
+			<div class="col-sm-3" data-bind="contextInfo"></div>            
+        </div>
+
+        <!-- ko ifnot: discountPromotionVM.isNew() -->
+        <div class="form-group">
+            <label for="inputDscExportSelect" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseExport">Export</label>
+            <div class="col-sm-9">
+                <select id="inputDscExportSelect" class=" select2"
+                        data-bind="select: discountPromotionVM.export, data: $root.discountPromotionVM.exportOptions"></select>
+                <span class="input-group-btn ">
+                    <a data-bind="attr: { href: $root.discountPromotionVM.exportUrl() }"  target="_blank" class="btn btn-primary" type="button"><i class="fa fa-download"></i></a>
+                </span>
+            </div>
+        </div>
+        <!-- /ko -->
+    </form>
+</div>

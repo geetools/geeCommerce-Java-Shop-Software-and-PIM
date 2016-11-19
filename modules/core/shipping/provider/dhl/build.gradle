@@ -1,0 +1,8 @@
+group = 'com.scs'
+description = ''
+dependencies {
+  compile project(':scs:scs-modules:scs-module-shipping')
+  compile project(':scs:scs-modules:scs-module-unit-converter')
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version:'2.2.7'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version:'2.2.7'
+}

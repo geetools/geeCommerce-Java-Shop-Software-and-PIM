@@ -1,0 +1,70 @@
+<div>
+
+	<!-- Refresh button -->
+    <div class="row">
+        <div class="col-md-6">
+	        <form>
+		        <div class="form-group">
+                    <span class="input-group-btn ">
+                        <select  class="form-control select2 form-control-small" style="display: inline-block;"
+                                data-bind="options: $root.pager.limitOptions,
+                                                        optionsText: 'label',
+                                                        optionsValue: 'value',
+                                                        value: $root.pager.limit"></select>
+
+                        <button class="btn btn-primary" type="button"><i class="fa fa-refresh"></i></button>
+                    </span>
+	        	</div>
+        	</form>
+        </div>
+        <a class="btn btn-primary" data-bind="text: 'New', attr: { href: '#/magazines/details/new' }"></a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+					<!--  Sort fields -->            
+                	<tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+		                <th><div data-bind="click: $root.pager.sort,  i18n: column.label, css: { pagerHideColHeader: column.name == '' }"></div></th>
+	                </tr>
+					<!--  Filter fields -->            
+                	<tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+                        <td data-bind="visible: !column.isDate()">
+                            <input type="text" class="form-control" data-bind="value: column.value, valueUpdate:'afterkeyup', css: { pagerHideColHeader: column.name == '' }"/>
+
+                        </td>
+                        <td data-bind="visible: column.isDate()">
+                            <div class="form-inline">
+                                <div class="row">
+                                    <div class="col-6 col-sm-6 col-lg-6">
+                                        <input data-bind="datepicker: column.dateValue.startDate, event: { change:$root.pager.refresh}, datepickerOptions: { format: 'yyyy-mm-dd'}"
+                                               class="form-control datepicker" id="startDate" type="text" placeholder="from">
+                                    </div>
+                                    <div class="col-6 col-sm-6 col-lg-6">
+                                        <input data-bind="datepicker: column.dateValue.endDate, event: { change:$root.pager.refresh}, datepickerOptions: { format: 'yyyy-mm-dd'}"
+                                               class="form-control datepicker" id="endDate" type="text" placeholder="to">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+				<!--  Data -->            
+                <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
+                    <tr>
+                        <td><a data-bind="text: row.title, attr: { href: '#/magazines/details/' + row.id }"></a></td>
+                        <td data-bind="text: moment(row.showFrom).format('L')"></td>
+                        <td data-bind="text: moment(row.showTo).format('L')"></td>
+                        <td data-bind="html: $root.statusEnabled(row)"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+			<!--  Pagination -->            
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: pager.pages, as: 'page' }">
+                <li data-bind="click: $root.pager.page, css: { active: $root.pager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

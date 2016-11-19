@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn" name="geeCommerce Common" packages="">
+  <appenders>
+    <Routing name="Routing">
+      <Routes pattern="$${ctx:log.path}">
+        <Route>
+          <RollingFile name="geeCommerce-App-Rolling-Log" fileName="${ctx:log.path}/app.log"
+                       filePattern="${ctx:log.path}/cron-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+              <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+          </RollingFile>
+        </Route>
+      </Routes>
+    </Routing>
+  </appenders>
+  <loggers>
+	<logger name="com.sevon.common.cache" level="INFO"/>
+	<logger name="com.geecommerce" level="INFO"/>
+	<logger name="com.geemodule" level="INFO"/>
+	<logger name="org.reflections" level="INFO"/>
+	<logger name="net.sourceforge.stripes" level="INFO"/>
+	<logger name="com.geecommerce.service.inject" level="INFO"/>
+	<logger name="com.geecommerce.core.service.inject" level="INFO"/>
+	<logger name="com.geecommerce.core.inject" level="INFO"/>
+	<logger name="com.geecommerce.core.reflect" level="INFO"/>
+	<logger name="com.geecommerce.core.threadlocal" level="INFO"/>
+	<logger name="com.geecommerce.core.interceptor" level="INFO"/>
+	<logger name="com.geecommerce.core.web" level="INFO"/>
+	<logger name="com.geecommerce.navigation" level="INFO"/>
+	<logger name="com.geecommerce.customer" level="INFO"/>
+	<logger name="com.geecommerce.checkout" level="INFO"/>
+	<logger name="com.geecommerce.cart" level="INFO"/>
+	<logger name="com.geecommerce.calculation" level="INFO"/>
+	<logger name="com.geecommerce.wishlist" level="INFO"/>
+	<logger name="com.geecommerce.payment" level="INFO"/>
+	<logger name="com.geecommerce.tax" level="INFO"/>
+	<logger name="com.geecommerce.shipping" level="INFO"/>
+	<logger name="com.geecommerce.retail" level="INFO"/>
+	<logger name="org.apache.commons" level="ERROR"/>
+	<logger name="org.apache.catalina" level="ERROR"/>
+	<logger name="com.google.inject" level="ERROR"/>
+	<logger name="com.sun.jersey" level="ERROR"/>
+	
+    <root level="INFO">
+      <appender-ref ref="Routing"/>
+    </root>
+  </loggers>
+</configuration>

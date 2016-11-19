@@ -1,0 +1,55 @@
+<div class="ctx-value-editor-widget">
+    <a href="javascript:void(0)" class="ctx-info-icon" data-bind="click: showModal"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+
+    <!-- ko if: ctxValues -->
+    <div role="dialog" class="modal fade contextEditor" data-bind="modal: { show: showModal }">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel" data-bind="i18n: title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="ctx-values-editor">
+                        <div class="cve-rows">
+                            <!-- ko foreach: { data: ctxValues, as: 'ctxVal' } -->
+                            <div class="row">
+                                <div class="cve-scope-col col-xs-12 col-sm-5">
+                                    <div class="cve-scope-label" data-bind="text: ctxVal.scope"></div>
+                                    <div class="cve-scope-val" data-bind="text: ctxVal.name"></div>
+                                </div>
+                                <div class="cve-val col-xs-12 col-sm-7">
+                                    <!-- ko if: $parent.isBoolean -->
+                                    <div class="switch-wrapper" data-bind="css: { 'cve-inherited': ctxVal.inherited }">
+                                        <div data-bind="bool: ctxVal.value, switchOptions: { change: function(){ctxVal.inherited(false)} }, css: { 'cve-inherited': ctxVal.inherited }"></div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.isSelect -->
+                                    <div data-bind="css: { 'cve-inherited': ctxVal.inherited }">
+                                        <select class="selectpicker" data-size="15"
+                                            data-bind="select: ctxVal.value, data: $parent.selectData, sort: true, selectOptions: {title: $root.gc.app.i18n('app:modules.product.newProgrammeSelectTitle'), header: $root.gc.app.i18n('app:modules.product.newProgrammeSelectTitle')}, css: { 'cve-inherited': ctxVal.inherited }">
+                                        </select>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.isText -->
+                                    <div>
+                                        <input data-bind="value: ctxVal.value, css: { 'cve-inherited': ctxVal.inherited }" onkeydown="$(this).removeClass('cve-inherited')" class="form-control" type="text">
+                                    </div>
+                                    <!-- /ko -->
+
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

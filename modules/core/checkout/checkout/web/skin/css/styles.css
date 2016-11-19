@@ -1,0 +1,312 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+
+.checkout-address input.form-control, .start-checkout input.form-control {
+    border: medium none;
+    outline: 1px solid #ccc;
+}
+
+.checkout-address input.form-control:focus, .start-checkout input.form-control:focus {
+    outline: 2px solid #ccc !important;
+}
+
+.checkout-address select {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.start-checkout .page-header {
+    text-align: center;
+}
+
+.start-checkout button, .checkout-address button {
+    background: #9a1452 -moz-linear-gradient(center top, #bf2a6a 0px, #9a1452 100%) repeat scroll 0 center;
+    background: #9a1452 -webkit-linear-gradient(top, #bf2a6a 0, #9A1452 100%) repeat scroll 0 center;
+    background: #9a1452 -o-linear-gradient(top, #bf2a6a 0, #9A1452 100%) repeat scroll 0 center;
+    background: #9a1452 -ms-linear-gradient(top, #bf2a6a 0, #9A1452 100%) repeat scroll 0 center;
+    border: 0 none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 46px;
+    line-height: 14px;
+    min-width: 60px;
+    outline: 0 none;
+    padding: 14px 10px;
+    text-align: center;
+    vertical-align: baseline;
+    width: 100%;
+}
+
+.start-checkout .registr-btn {
+    font-weight: normal;
+    background: #ccc -moz-linear-gradient(center top, #ccc 0px, #ccc 100%) repeat scroll 0 center;
+    background: #9a1452 -webkit-linear-gradient(top, #ccc 0, #ccc 100%) repeat scroll 0 center;
+    background: #9a1452 -o-linear-gradient(top, #ccc 0, #ccc 100%) repeat scroll 0 center;
+    background: #9a1452 -ms-linear-gradient(top, #ccc 0, #ccc 100%) repeat scroll 0 center;
+}
+
+.start-checkout button:hover, .checkout-address button:hover {
+    background-color: #9A1452;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9A1452), color-stop(100% #9A1452));
+    background-image: -webkit-linear-gradient(top, #9A1452 0, #9A1452 100%);
+    background-image: -moz-linear-gradient(top, #9A1452 0, #9A1452 100%);
+    background-image: -ms-linear-gradient(top, #9A1452 0, #9A1452 100%);
+    background-image: -o-linear-gradient(top, #9A1452 0, #9A1452 100%);
+    background-image: linear-gradient(top, #9A1452 0, #9A1452 100%);
+}
+
+.footer-row {
+    margin-top: 15px;
+}
+
+.header-row {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.item-image {
+    margin-right: 25px;
+}
+
+.item-image, .item-description {
+    display: inline-block;
+}
+
+.cart-item-total, .cart-item-price, .cart-head-total, .cart-head-price {
+    text-align: right;
+}
+
+.pdp-old-price {
+    font-size: 14px;
+    text-decoration: line-through;
+    float: right;
+    font-weight: normal;
+}
+
+.cart-head-quantity, .cart-item-quantity {
+    text-align: center;
+}
+
+.item-description > .item-dscr-name {
+    font-weight: bold;
+}
+
+.cart-summary .total {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.cart-summary .subtotal {
+    font-size: 20px;
+}
+
+.cart-summary .shipping {
+    font-size: 18px;
+    border-bottom: solid grey 1px;
+}
+
+.cart-item-quantity {
+    text-align: right;
+}
+
+.cart-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.cart-header, .cart-item {
+    border-bottom: solid grey 1px;
+}
+
+.order-summary-container .header {
+    padding-bottom: 40px;
+}
+
+.order-summary-container .a-strong {
+    font-weight: bold;
+}
+
+.order-summary-container .a-red {
+    color: red;
+}
+
+.order-summary-container .num-orders {
+    font-weight: bold;
+}
+
+.order-summary-container .date-filter {
+    padding-bottom: 20px;
+}
+
+/*
+ * Order overview
+ */
+.order-summary-overview .header {
+    border: 1px solid #ccc;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    margin-bottom: 1px;
+    padding: 10px 10px;
+    background-color: #D1ECFD;
+}
+
+.order-summary-overview .header-cell {
+    padding-bottom: 8px;
+}
+
+.order-summary-overview .content {
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+}
+
+.order-summary-overview .content-cell {
+    line-height: 1.5;
+}
+
+.order-summary-overview .content-cell .product-image {
+    padding: 10px;
+}
+
+.order-summary-overview .content-cell.product-description {
+    padding-top: 0px;
+    padding-bottom: 15px;
+}
+
+.order-summary-overview .content > .row:first-child .hr {
+    border-top: none !important;
+}
+
+.order-summary-overview .content > .row .hr {
+    border-top: 1px solid #cccccc;
+}
+
+.order-summary-overview .no-orders {
+    font-weight: bold;
+}
+
+/*
+ * Order details
+ */
+.order-summary-detail .header {
+    padding-bottom: 40px;
+}
+
+.order-summary-detail .content {
+    margin-bottom: 20px;
+    padding: 10px 10px;
+}
+
+.order-summary-detail .content-panel {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 20px;
+    padding: 15px 15px;
+}
+
+.order-summary-detail .content-panel.order-personal-data {
+    background-color: #D1ECFD;
+    padding-bottom: 25px;
+}
+
+.order-summary-detail .content-cell {
+    line-height: 1.5;
+    padding-left: 10px;
+}
+
+.order-summary-detail .content-cell .product-image {
+    padding: 10px;
+}
+
+.order-summary-detail .content-cell.product-description {
+    padding-top: 0;
+    padding-bottom: 15px;
+}
+
+.order-summary-detail .grand-total-price {
+    padding-top: 15px;
+    font-weight: bold;
+}
+
+.order-summary-detail .order-created, .order-number {
+    font-weight: bold;
+}
+
+.order-summary-detail .net-total-price {
+    padding-top: 15px;
+}
+
+.order-summary-detail .content > .row:first-child .hr {
+    border-top: none !important;
+}
+
+.order-summary-detail .content > .row .hr {
+    border-top: 1px solid #cccccc;
+}
+
+.checkout-address ul.a-nostyle {
+    padding-left: 0;
+}
+
+.checkout-address ul.a-nostyle li {
+    list-style: none;
+    margin-bottom: 8px!important;
+}
+
+.gray {
+    color: #cccccc;
+}
+
+.attention.red {
+    color: red;
+}
+
+.checkout-preview .content-panel {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 998px) {
+    .payment-row {
+        margin-bottom: 15px;
+    }
+
+    .login-panel {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .order-summary-detail .content-cell.product-description {
+        padding-top: 20px;
+    }
+
+    .order-summary-overview .header-cell {
+        padding: 0;
+    }
+
+    .order-summary-overview .content-cell.product-description {
+        padding-top: 20px;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+
+    .order-summary-detail .order-number {
+        text-align: right;
+    }
+}

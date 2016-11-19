@@ -1,0 +1,136 @@
+<div>
+	
+	<!-- ko if: showNodeVM() -->
+	<h3 data-bind="text:nodeVM.displayLabel"></h3>
+
+
+		<!-- ko if: nodeVM.displayLabel -->
+		<table style="width: 100%">
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemTargetType"
+							   class="col-sm-3 control-label"
+							   data-i18n="app:modules.navigation.generalTabTargetObject">Type</label>
+						<div class="col-sm-9">
+							<select id="inputNavigationItemTargetType" class="selectpicker" title="auswählen"
+									data-bind="select: nodeVM.targetType, data: $root.nodeTypes">
+							</select>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<!-- ko if: nodeVM.targetType() == 'PRODUCT_LIST' -->
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemTargetObject"
+							class="col-sm-3 control-label"
+							data-i18n="app:modules.navigation.generalTabTargetObject">Target
+							Object</label>
+						<div class="col-sm-9">
+							<select id="inputNavigationItemTargetObject" class="selectpicker" title="auswählen"
+								data-bind="select: nodeVM.targetId, data: $root.productLists, event:{ change: nodeVM.changeLabel}">
+							</select>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<!-- /ko -->
+			<!-- ko if: nodeVM.targetType() == 'CMS' -->
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemTargetObject"
+							   class="col-sm-3 control-label"
+							   data-i18n="app:modules.navigation.generalTabTargetObject">Target
+							Object</label>
+						<div class="col-sm-9">
+							<select id="inputNavigationItemTargetObject" class="selectpicker" title="auswählen"
+									data-bind="select: nodeVM.targetId, data: $root.cmsPages, event:{ change: nodeVM.changeLabel}">
+							</select>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<!-- /ko -->
+			<!-- ko if: nodeVM.targetType() == 'LINK' -->
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemURL"
+							   class="col-sm-3 control-label"
+							   data-i18n="app:modules.navigation.generalTabURL">URL</label>
+						<div class="col-sm-9">
+							<div class="input-group">
+								<span class="input-group-addon"  data-bind="text: app.currentLang()"></span>
+								<input
+									data-bind="i18nValue: nodeVM.externalURL" class="form-control"
+									id="inputNavigationItemURL" placeholder="Enter url"
+									type="text" required>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<!-- /ko -->
+			<!-- ko if: nodeVM.targetType() != 'LINK' -->
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemUseTargetLabel"
+							class="col-sm-3 control-label"
+							data-i18n="app:modules.navigation.generalTabUseTargetLabel">Use
+							Target Label</label>
+						<div class="col-sm-9 switch-wrapper">
+							<input type="checkbox" data-bind="checked: nodeVM.useTargetLabel"
+								id="inputNavigationItemUseTargetLabel" />
+						</div>
+					</div>
+				</td>
+			</tr>
+			<!-- /ko -->
+			<!-- ko if: !nodeVM.useTargetLabel() ||  nodeVM.targetType() == 'LINK'-->
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemLabel"
+							class="col-sm-3 control-label"
+							data-i18n="app:modules.navigation.generalTabLabel">Label</label>
+						<div class="col-sm-9">
+							<div class="input-group">
+								<span class="input-group-addon"
+									data-bind="text: app.currentLang()"></span> <input
+									data-bind="i18nValue: nodeVM.label" class="form-control"
+									id="inputNavigationItemLabel" placeholder="Enter label"
+									type="text" required>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<!-- /ko -->
+			<tr>
+				<td>
+					<div class="form-group">
+						<label for="inputNavigationItemEnabled"
+							class="col-sm-3 control-label"
+							data-i18n="app:modules.navigation.generalTabEnabled">Enabled</label>
+						<div class="col-sm-9 switch-wrapper">
+							<input type="checkbox" data-bind="checked: nodeVM.enabled"
+								id="inputNavigationItemEnabled" />
+						</div>
+					</div>
+				</td>
+			</tr>
+
+
+
+
+	</table>
+	<!-- /ko -->
+	<!-- /ko -->
+</div>

@@ -1,0 +1,65 @@
+<div class="panel-body">
+    <form class="form-horizontal" role="form" id="attributeGroupBaseForm">
+        <div class="form-group">
+            <label for="inputAttributeGroupValue" class="col-sm-2 control-label" data-i18n="app:modules.attribute-group.baseTabLabel">Label</label>
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: attributeGroupVM.label" class="form-control" id="inputAttributeGroupValue" type="text" required>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="inputAttributeGroupCode" class="col-sm-2 control-label" data-i18n="app:modules.attribute-group.baseTabCode">Code</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="value: attributeGroupVM.code" class="form-control" id="inputAttributeGroupCode" placeholder="Enter code" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputAttributeGroupCode" class="col-sm-2 control-label" data-i18n="app:modules.attribute-group.baseTabPosition">Position</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="value: attributeGroupVM.position" class="form-control" id="inputAttributeGroupPosition" placeholder="Enter position" type="text" required>
+                </div>
+            </div>
+        </div>
+
+    <!--    <div class="form-group">
+            <label for="inputAttributeGroupCode" class="col-sm-2 control-label" data-i18n="app:modules.attribute-group.baseTabColumn">Column</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="value: attributeGroupVM.column" class="form-control" id="inputAttributeGroupColumn" placeholder="Enter column" type="text" required>
+                </div>
+            </div>
+        </div> -->
+
+
+       <!-- <div class="form-group">
+            <label for="inputAttributeGroupAttributes" class="col-sm-2 control-label" data-i18n="app:modules.attribute-group.baseTabAttributes">Attributes</label>
+            <div class="col-sm-9">
+                <div style="padding-top: 5px; padding-bottom: 10px; padding-left: 35px;">
+                    <a href="#" data-bind="click: $root.attributeGroupVM.addAttribute" class="btn">Attribut hinzuf&uuml;gen</a>
+                </div>
+            
+                <div class="container" data-bind="sortable: attributeGroupVM.attributes">
+                    <div class="item" style="padding: 5px;">
+                     	<div class="col-xs-4">
+                     	<span  class="form-control  form-control-small"
+                           data-bind="editable: id, editableOptions:{type:'select', showbuttons: false, options: $root.attributeGroupVM.attributeOptions,
+                            optionsText: 'text',
+                            optionsValue: 'id'}"></span>
+                        </div>
+                        <div style="display:inline;line-height:30px" data-bind="click: deleteAttribute">
+							<i class="glyphicon glyphicon-remove"></i>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </form>
+
+</div>

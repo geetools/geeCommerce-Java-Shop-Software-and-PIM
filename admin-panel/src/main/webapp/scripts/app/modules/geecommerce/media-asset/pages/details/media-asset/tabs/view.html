@@ -1,0 +1,16 @@
+<div>
+
+    <!-- ko if: tab.vm.isSImage() -->
+        <img class="img-responsive" data-bind="attr: { src: tab.vm.selectedFile().url}" >
+    <!-- /ko -->
+
+    <!-- ko if: tab.vm.isSDocument() -->
+        <object data-bind="attr: { data: tab.vm.selectedFile().previewDocumentUrl, type: tab.vm.selectedFile().previewDocumentMimeType }" width="100%" height="600px">
+            <embed data-bind="attr: { src: tab.vm.selectedFile().previewDocumentUrl, type: tab.vm.selectedFile().previewDocumentMimeType }" />
+        </object>
+    <!-- /ko -->
+
+
+</div>
+<!--
+tab.vm.mimeType-->

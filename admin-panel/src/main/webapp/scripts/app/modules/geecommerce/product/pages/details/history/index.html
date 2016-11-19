@@ -1,0 +1,56 @@
+<div class="col-md-12" class="view-product-history-details">
+
+		<div class="btn-recover-version pull-right">Diese Version wieder herstellen <button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-import"></span></button></div>
+
+		<div class="clear"></div>
+
+		<ul class="nav nav-tabs">
+			<li class="active" class="tab-prd-history-details-base"><a href="" data-target="#product-history-general" data-toggle="tab" data-i18n="app:modules.product.tabTitleGeneral">General</a></li>
+
+			<!-- ko if: $root.productVM().showDynamicAttributeTabs -->
+				<!-- ko foreach: { data: $root.productVM().tabs, as: 'tab' } -->
+						<!-- ko if: tab.show -->
+							<li><a href="" data-bind="i18nText: {value: tab.label, mode: 'any'}, attr: {'data-target': '#tab-content-history-' + tab.id(), 'id': 'tab-link-' + tab.id()}" data-toggle="tab">Tab</a></li>
+					<!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="product-history-general" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/history/tabs/base', activationData: $root.productVM().productId()}">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ko if: $root.productVM().showDynamicAttributeTabs -->
+				<!-- ko foreach: { data: $root.productVM().tabs, as: 'tab' } -->
+					<!-- ko if: tab.show -->
+						<div class="tab-pane" data-bind="attr: {'id': 'tab-content-history-' + tab.id()}, compose:{ model: 'modules/geecommerce/product/pages/details/history/tabs/dyn-attributes', activationData: { productId: $root.productVM().productId(), attributeTab: tab } }">
+							<div class="tab-loading-box jumbotron">
+								<div class="row">
+									<div class="col-md-2">
+										<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+									</div>
+									<div class="col-md-10">
+										<h1 data-i18n="app:common.loadingContentTitle"></h1>
+										<p data-i18n="app:common.loadingContentInfo"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
+			
+		</div>
+
+</div>

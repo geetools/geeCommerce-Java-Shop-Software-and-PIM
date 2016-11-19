@@ -1,0 +1,80 @@
+<div class="col-md-12" id="view-media-asset-details">
+
+<!--
+    <div class="btn-toolbar media-asset-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="padding-top: 5px; padding-bottom: 5px;">
+        <div class="btn-group" role="group" aria-label="First group" data-toggle="buttons">
+            <button type="button" class="btn btn-primary" role="button">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-primary" data-bind="attr: {'id' : 'dz-update-media-asset' + $root.tab.id }" role="button">
+                <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-primary" role="button">
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-primary" role="button">
+                <span class=" glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+-->
+
+    <div class=" media-asset-toolbar" role="toolbar"  style="padding-top: 5px; padding-bottom: 5px;">
+        <div >
+            <button type="button" class="ma-btn">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="ma-btn" data-bind="attr: {'id' : 'dz-update-media-asset' + $root.tab.id }">
+                <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
+            </button>
+            <a target="_blank" class="ma-btn"  data-bind="attr: {'href' : $root.tab.vm.selectedFile().url }">
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+            </a>
+            <button type="button" class="ma-btn" >
+                <span class=" glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs"><!--data-i18n="app:modules.coupon.tabTitleGeneral"-->
+        <li class="active"><a href="" data-bind="attr: {'id' : 'tab-media-asset-view-' + $root.tab.id, 'data-target': '#ma-view-' + $root.tab.id }" data-toggle="tab" >View</a></li>
+        <!-- ko if: $root.tab.vm.isEditable() -->
+            <li><a href="" data-bind="attr: {'id' : 'tab-media-asset-edit-' + $root.tab.id, 'data-target': '#ma-edit-' + $root.tab.id  }" data-toggle="tab" >Edit</a></li>
+        <!-- /ko -->
+        <!-- ko foreach: { data: $root.attributeTabs, as: 'tab' } -->
+            <!-- ko if: tab.show -->
+             <li><a href="" data-bind="i18nText: {value: tab.label, mode: 'any'}, attr: {'data-target': '#tab-content-' + tab.id(), 'id': 'tab-link-' + tab.id()}" data-toggle="tab">Tab</a></li>
+            <!-- /ko -->
+        <!-- /ko -->
+        <li><a href="" data-bind="attr: {'id' : 'tab-media-asset-version-' + $root.tab.id, 'data-target': '#ma-versions-' + $root.tab.id  }" data-toggle="tab" >Version</a></li>
+        <li><a href="" data-bind="attr: {'id' : 'tab-media-asset-urls-' + $root.tab.id, 'data-target': '#ma-urls-' + $root.tab.id  }" data-toggle="tab">Urls</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active"  data-bind="attr: {'id' : 'ma-view-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/view', activationData: $root.tab}"></div>
+        <!-- ko if: $root.tab.vm.isEditable() -->
+            <div class="tab-pane" data-bind="attr: {'id' : 'ma-edit-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/edit', activationData: $root.tab}">Conditions</div>
+        <!-- /ko -->
+        <!-- ko foreach: { data: $root.attributeTabs, as: 'tab' } -->
+            <!-- ko if: tab.show -->
+                <div class="tab-pane" data-bind="attr: {'id': 'tab-content-' + tab.id()}, compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/dyn-attributes',
+                            activationData: { vm: $root.tab, attributeTab: tab } }">
+                    <div class="tab-loading-box jumbotron">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                            </div>
+                            <div class="col-md-10">
+                                <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                                <p data-i18n="app:common.loadingContentInfo"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- /ko -->
+        <!-- /ko -->
+        <div class="tab-pane" data-bind="attr: {'id' : 'ma-versions-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/version', activationData: $root.tab}">Action</div>
+        <div class="tab-pane" data-bind="attr: {'id' : 'ma-urls-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/urls', activationData: $root.tab}">Codes</div>
+    </div>
+
+</div>

@@ -1,0 +1,69 @@
+/* Product view variants */
+
+.cms-product-variants {
+    margin-top: 13px;
+}
+
+.wd-variant-attribute {
+    margin-top: 10px;
+    margin-bottom: 3px;
+}
+
+.wd-variant-options>ul {
+    margin: -5px;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+}
+
+.wd-variant-options>ul>li {
+    cursor: pointer;
+    float: left;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    list-style: none;
+}
+
+.wd-variant-options>ul>li>a {
+    color: #333;
+    display: block;
+    background-color: #FFF;
+    border: 1px solid #CEC4BB;
+    margin: 5px;
+    white-space: nowrap;
+    padding: 0 5px;
+    height: 30px;
+    line-height: 28px;
+    min-width: 30px;
+    text-decoration: none;
+}
+
+.wd-variant-options>ul>li>a:active, .variant-options>ul>li>a:visited {
+    color: #333;
+}
+
+.wd-variant-options>ul>li>a:hover {
+    color: #333;
+    border-color: #222;
+    text-decoration: none;
+}
+
+.wd-variant-options>ul>li>a.selected {
+    border: solid 3px #222;
+    padding: 0 3px;
+    line-height: 24px;
+}
+
+.wd-variant-options>ul>li>a.disabled {
+    padding: 0 6px;
+    background-color: #EEE;
+    border: none;
+    color: #CCC;
+    cursor: default;
+    border: 1px solid #DDD;
+}
+
+span.wd-variant-selected-value {
+    font-weight: bold;
+}

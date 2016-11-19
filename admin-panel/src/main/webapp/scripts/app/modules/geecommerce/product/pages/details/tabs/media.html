@@ -1,0 +1,109 @@
+<div>
+
+	<div data-bind="foreach: { data: products, as: 'productVM' }">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+						  <div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon" data-i18n="app:common.articleNumber">Article-Number</span>
+								<input class="form-control input-large" type="text" data-bind="value: productVM.title()" readonly>
+							</div>
+						  </div>
+						</div>
+					</div>
+					
+					<!-- ko if: $root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin') -->
+					
+					<div class="panel-body">
+						<div data-bind="toolbar: {
+								targetId: 'product-media-assets-' + productVM.id,
+								i18n: 'app:modules.product.mediaAssetToolbarSaveMsg',
+								saveCallback: $root.saveData,
+								passthru: { productId: productVM.id } }"></div>
+					
+						<table class="tbl-media-assets" data-bind="attr: { id: 'product-media-assets-' + productVM.id }">
+							<tr>
+								<td colspan="7">
+									<form action="#" class="dropzone dropzone-media-assets dz-media" data-bind="attr: { 'data-productid' : productVM.id, 'id' : 'dz-new-' + productVM.id }">
+										<!-- span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span -->
+										<p class="dz-message" data-i18n="app:modules.product.imagesTabUploadHint">
+											Click here or drag and drop to add images
+										</p>
+									</form>
+								</td>
+							</tr>						
+						
+							<tbody data-bind="foreach: { data: productVM.media, as: 'mediaVM' }, attr: { 'data-productid' : productVM.id }" class="sortableMediaAssets">
+								<tr data-bind="attr: { 'data-id' : mediaVM.id }" height="50">
+									<!-- ko if: mediaVM.isImage() -->
+										<td style="width:60px"><a data-bind="attr: { href: mediaVM.webPath() }" target="_blank"><img data-bind="attr: { src: mediaVM.webThumbnailPath() }, css: { disabledImage: !mediaVM.enabled() }" vspace="5"/></a></td>
+									<!-- /ko -->
+									<!-- ko if: mediaVM.isVideo() -->
+										<td style="width:60px">
+											<a data-bind="attr: { href: mediaVM.webPath() }" target="_blank"><img src="/img/video-icon.png" width="50" vspace="5"/></a>
+										</td>
+									<!-- /ko -->
+									<td style="width:30px; align:center" data-bind__="html: $root.app.storeLabelOrIconXS(mediaVM.storeId)"></td>
+									<td style="width:40px"><a data-bind="attr: { href: mediaVM.webPath() }" target="_blank"><img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + mediaVM.fileExtension() + '.png'}, css: { disabledImage: !mediaVM.enabled() }" /></a></td>
+									<td style="width:100px">
+							           	<select class="selectpicker show-tick" multiple data-size="15" data-bind="select: mediaVM.mediaTypeIds, data: $root.mediaTypeOptions, selectOptions: {title: $root.app.i18n('app:modules.product.mediaTypeSelectTitle'), header: $root.app.i18n('app:modules.product.mediaTypeSelectTitle')}">
+							           	</select>
+									<td style="width:100px" data-bind="if: mediaVM.isVideo" align="center">
+										<form action="#" class="dropzone-image-preview" data-bind="attr: { 'data-id' : mediaVM.id, 'data-productid' : productVM.id, 'id' : 'dz-preview-img-' + mediaVM.id }">
+											<div class="dz-message">
+												<img data-bind="attr: { src: mediaVM.videoImagePreviewThumbnailPath }" />
+											</div>
+										</form>
+									</td>
+									<td>
+										<div class="input-group">
+											<span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+											<input data-bind="i18nValue: mediaVM.title" class="form-control" id="inputMediaDocTitle" type="text" required>
+										</div>
+									</td>
+			                        <td style="width:50px" class="actions" align="center">
+			                            <a href="javascript:void(0)" class="action" data-bind="click: $root.removeMediaAsset"><i class="fa fa-times"></i></a>
+			                        </td>
+								</tr>
+							</tbody>
+						
+						</table>
+
+
+
+
+					</div>
+					<div class="panel-footer">&nbsp;</div>
+					
+				<!-- /ko -->
+				
+				<!-- ko if: $root.gc.security.isInRole('product-viewer') -->
+					
+					<div class="panel-body">
+					
+						<table class="tbl-media-assets" data-bind="attr: { id: 'product-media-assets-' + productVM.id }">
+							<tbody data-bind="foreach: { data: productVM.media, as: 'mediaVM' }, attr: { 'data-productid' : productVM.id }" class="sortableMediaAssets">
+								<tr data-bind="attr: { 'data-id' : mediaVM.id }" height="300">
+									<!-- ko if: mediaVM.isImage() -->
+										<td style="width:300px; height:300px"><a data-bind="attr: { href: mediaVM.webPath() }" target="_blank"><img data-bind="attr: { src: mediaVM.webPath() }, css: { disabledImage: !mediaVM.enabled() }" vspace="5" width="300" border="0"/></a></td>
+									<!-- /ko -->
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+				<!-- /ko -->
+				
+				</div>
+				
+			</div>
+		</div>
+
+	</div>
+
+</div>

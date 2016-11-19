@@ -1,0 +1,92 @@
+    
+
+<div>
+
+	<!-- ko if: navTree.length == 0 -->
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="inputTitle" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabName">Name</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+							<input data-bind="i18nValue: navTree().label" class="form-control" id="inputTitle" placeholder="Enter name" type="text" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="inputKey" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabKey">Key</label>
+					<div class="col-sm-9">
+						<input id="inputKey" type="text"  data-bind="value: navTree().key" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- /ko -->
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="dd"
+				data-bind="template: {name:'nodeTemplate', data: navTree}"></div>
+			<div class="dd-item">
+				<div style="float: right; margin: 0 5px;">
+				<span data-bind="text: $root.addTopLevelNode"></span>
+				<a href="" data-bind="click: $root.addTopNode"
+						style="float: right; margin: 0 5px;"><i
+						class="fa fa-plus-square fa-15x cb-color"></i></a>
+				</div>
+			</div>
+		</div>
+		<script id='nodeTemplate' type='text/html'>
+			<!-- ko if: root != true -->
+            <div class="dd-handle" data-bind="click: $root.activateView, css: {'dd-item-disabled': !enabled(), 'dd-item-level': level() > 2}">
+               <span class="disclose" style="margin:0 5px;"><i class="fa fa-chevron-right fa-15x"></i></span>
+                <a href="#nav-details-content" data-bind="text: displayLabel"></a>
+                <a href="" data-bind="click: $root.removeNode, clickBubble: false, attr: {title: $root.removeNodeTooltip}" style="float:right;margin:0 5px;"><i class="fa fa-close fa-15x cb-color"></i></a><a href="" data-bind="click: $root.addNode, clickBubble: false, attr: {title: $root.addNodeTooltip}" style="float:right;margin:0 5px;"><i class="fa fa-plus-square fa-15x cb-color"></i></a>
+            </div>
+			<!-- /ko -->
+            <ol class="dd-list sortable ui-sortable" data-bind="foreach: { data: children, as: 'child' }">
+				<!-- ko if: child.children().length > 0 -->
+                <li 
+					class="dd-item mjs-nestedSortable-collapsed mjs-nestedSortable-branch" 
+					data-bind="template: {name:'nodeTemplate', data: child}, attr: { 'data-id': child.id, 'id': child.treeItemId}">
+				</li>	
+				<!-- /ko -->			
+				<!-- ko if: child.children().length == 0 -->
+                <li class="dd-item mjs-nestedSortable-leaf"
+					data-bind="template: {name:'nodeTemplate', data: child}, attr: { 'data-id': child.id, 'id': child.treeItemId}">
+                </li>
+				<!-- /ko -->
+            </ol>
+        </script>
+		<div class="col-md-8">
+			<div>
+				<form id="navigationBaseForm">
+					<div id="nav-details-content" data-bind="compose: activeView">
+						<div class="tab-loading-box jumbotron">
+							<div class="row">
+								<div class="col-md-2">
+									<h1>
+										<img src="/img/ajax-loader-m.gif" border="0" width="54"
+											height="55" />
+									</h1>
+								</div>
+								<div class="col-md-10">
+									<h1 data-i18n="app:common.loadingContentTitle"></h1>
+									<p data-i18n="app:common.loadingContentInfo"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

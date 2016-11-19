@@ -1,0 +1,1 @@
+Home template for project's home controller.

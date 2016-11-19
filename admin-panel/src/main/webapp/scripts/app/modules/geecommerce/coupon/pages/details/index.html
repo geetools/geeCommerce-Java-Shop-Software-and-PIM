@@ -1,0 +1,27 @@
+<div class="col-md-12 content-panel" id="view-coupon-details">
+
+    <div data-bind="toolbar: {
+			targetId: 'couponAllForm',
+			i18n: 'app:modules.coupon.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form class="form-horizontal" role="form" id="couponAllForm">
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="" id="tab-coupon-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleGeneral">Base</a></li>
+			<li><a href="" data-target="#condition" id="tab-coupon-details-conditions" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleConditions">Conditions</a></li>
+			<li><a href="" data-target="#action" id="tab-coupon-details-action" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleAction">Action</a></li>
+			<li><a href="" data-target="#codes" id="tab-coupon-details-codes" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleCodes">Codes</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/base', activationData: $root.couponId}"></div>
+			<div class="tab-pane" id="condition" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/condition', activationData: $root.couponId}">Conditions</div>
+			<div class="tab-pane" id="action" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/action', activationData: $root.couponId}">Action</div>
+			<div class="tab-pane" id="codes" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/codes', activationData: $root.couponId}">Codes</div>
+		</div>
+
+	</form>
+
+
+</div>

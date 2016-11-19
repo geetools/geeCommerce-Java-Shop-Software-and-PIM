@@ -1,0 +1,608 @@
+<div>
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Order</h4>
+            </td>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Customer</h4>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().orderNumber-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Order Number</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().orderNumber"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- ko if: orderVM().id2-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">ERP Order Number</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().id2"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- ko if: orderVM().orderStatus-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Order Status</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().orderStatus"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Datum</label>
+                    <div class="col-sm-9">
+                        <span data-bind="format: orderVM().createdOn, formatOptions: { type: 'date', to: 'DD.MM.YYYY HH:mm' }"></span>
+                    </div>
+                </div>
+                <!-- ko if: orderVM().archive-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Archive Id</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().archiveId"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </td>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().customer-->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Kundennummer</label>
+                        <div class="col-sm-9">
+                            <p data-bind="text: orderVM().customerNumber"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">ERP Kundennummer</label>
+                        <div class="col-sm-9">
+                            <p data-bind="text: orderVM().customerNumber"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">First Name</label>
+                        <div class="col-sm-9">
+                            <span data-bind="text: orderVM().customer.forename"></span>
+                        </div>
+                    </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Second Name</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().customer.surname"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().customer.email"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Language</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().customer.language"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </td>
+        </tr>
+        <tr>
+        	<td>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Customer note</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().note"></span>
+                    </div>
+                </div>
+        	</td>
+        	<td></td>
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Invoice Order Address</h4>
+            </td>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Delivery Order Address</h4>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().invoiceOrderAddress-->
+                    <!-- ko if: orderVM().invoiceOrderAddress.salutation-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Salutation</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.salutation"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.firstName-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">First Name</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.firstName"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.lastName-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Last Name</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.lastName"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.houseNumber-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">House Number</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.houseNumber"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.address1-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Street</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.address1"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.city-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">City</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.city"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.district-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">District</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.district"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.country-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Country</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.country"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.zip-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Zip</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.zip"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.phone-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Phone</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.phone"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.mobile-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Mobile</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.mobile"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.fax-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Fax</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.fax"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().invoiceOrderAddress.email-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().invoiceOrderAddress.email"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+
+                <!-- /ko -->
+            </td>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().deliveryOrderAddress-->
+                <!-- ko if: orderVM().deliveryOrderAddress.salutation-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Salutation</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.salutation"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.firstName-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.firstName"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.lastName-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.lastName"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.houseNumber-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">House Number</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.houseNumber"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.address1-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Street</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.address1"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.city-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">City</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.city"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.district-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">District</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.district"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.country-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Country</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.country"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.zip-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Zip</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.zip"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.phone-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Phone</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.phone"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.mobile-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Mobile</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.mobile"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.fax-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Fax</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.fax"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().deliveryOrderAddress.email-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().deliveryOrderAddress.email"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- /ko -->
+            </td>
+
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Discount&Gift</h4>
+            </td>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Company</h4>
+            </td >
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().discountCode-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Discount Code</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().discountCode"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().discountAmount-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Discount Amount</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().discountAmount"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().discountDescription-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Discount Description</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().discountDescription"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().giftDescription-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Gift Description</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().giftDescription"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </td>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().orderCompany-->
+                    <!-- ko if: orderVM().orderCompany.name-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Name (Firma)</label>
+                            <div class="col-sm-9">
+                                <p data-bind="text: orderVM().orderCompany.name"></p>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().orderCompany.no-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Identification Number (IÄŒO)</label>
+                            <div class="col-sm-9">
+                                <p data-bind="text: orderVM().orderCompany.no"></p>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().orderCompany.tax-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Tax Number (DIÄŒ)</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().orderCompany.tax"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: orderVM().orderCompany.icDph-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">IC DPH</label>
+                            <div class="col-sm-9">
+                                <span data-bind="text: orderVM().orderCompany.icDph"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+
+                <!-- /ko -->
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Payment</h4>
+            </td>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Shipping</h4>
+            </td >
+        </tr>
+
+        <tr>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().orderPayment-->
+                <!-- ko if: orderVM().orderPayment.paymentMethodCode-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">ZpÅ¯sob platby</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().orderPayment.paymentMethodLabel"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().orderPayment.transactionId-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Transaction Id</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().orderPayment.transactionId"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().orderPayment.paidAmount-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Paid Amount</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().orderPayment.paidAmount"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().orderPayment.authorizedAmount-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Authorized Amount</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().orderPayment.authorizedAmount"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().orderPayment.refundedAmount-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Refunded Amount</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().orderPayment.refundedAmount"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- /ko -->
+            </td>
+            <td style="width: 50%; vertical-align: top">
+                <!-- ko if: orderVM().orderShipment-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Shipping</label>
+	                <div class="col-sm-9">
+		                <!-- ko if: orderVM().orderShipment.carrierCode-->
+                        <!-- ko if: orderVM().orderShipment.shippingOptions == null || orderVM().orderShipment.shippingOptions.length == 0 -->
+                        <!-- ko if: orderVM().orderShipment.carrierCode == 'instore_pickup' || orderVM().orderShipment.carrierCode == 'osobne' -->
+								Shipping Option (<span data-bind="text: orderVM().orderShipment.optionName"></span>)
+							<!-- /ko -->
+							<!-- ko if: orderVM().orderShipment.carrierCode != 'instore_pickup' && orderVM().orderShipment.carrierCode != 'osobne'-->
+								Shipping Amount (
+                                    <!-- ko if: orderVM().calculationResult-->
+                                    <span data-bind="text: orderVM().calculationResult.gross_shipping_amount"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: !orderVM().calculationResult-->
+                                    <span data-bind="text: orderVM().orderShipment.deliveryPrice"></span>
+                                    <!-- /ko -->
+                                )
+							<!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: orderVM().orderShipment.shippingOptions-->
+                            <span data-bind="foreach: orderVM().orderShipment.shippingOptions">
+                                <span data-bind="text: name"></span>;
+                            </span>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().orderShipment.deliveryPrice-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Delivery Price</label>
+                    <div class="col-sm-9">
+                        <p data-bind="text: orderVM().orderShipment.deliveryPrice"></p>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: orderVM().orderShipment.postageAndPackingPrice-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Postage And Packing Price</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().orderShipment.postageAndPackingPrice"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+            </td >
+        </tr>
+
+        <tr>
+            <td style=" vertical-align: top; background-color: #d8d8d8" colspan="2">
+                <h4>Items</h4>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td style=" vertical-align: top" colspan="2">
+                <!-- ko if: orderVM().orderItems-->
+                <table style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Article Number</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach: orderVM().orderItems">
+                        <tr>
+                            <td data-bind="text: articleNumber"></td>
+                            <td data-bind="text: name"></td>
+                            <td data-bind="text: price"></td>
+                            <td data-bind="text: quantity"></td>
+                            <td data-bind="text: totalRowPrice"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- /ko -->
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8;">
+                <h4>History</h4>
+            </td>
+            <td style="width: 50%; vertical-align: top; background-color: #d8d8d8">
+                <h4>Totals</h4>
+            </td >
+        </tr>
+
+        <tr>
+            <td style="width: 50%; vertical-align: top;">
+                <!-- ko if: orderVM().orderStatusHistories-->
+                <table style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Order Status</th>
+                        <th>Operator</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach: orderVM().orderStatusHistories">
+                    <tr>
+                        <td data-bind="text: createdOn"></td>
+                        <td data-bind="text: orderStatus"></td>
+                        <!-- ko if: $data.operator-->
+                        <td data-bind="text: operator.username"></td>
+                        <!-- /ko -->
+                        <!-- ko ifnot: $data.operator-->
+                        <td></td>
+                        <!-- /ko -->
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- /ko -->
+            </td>
+            <td style="width: 50%; vertical-align: top;">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Total Amount</label>
+                    <div class="col-sm-9">
+                        <span data-bind="text: orderVM().totalAmount"></span>
+                    </div>
+                </div>
+            </td >
+        </tr>
+    </table>
+
+	
+</div>

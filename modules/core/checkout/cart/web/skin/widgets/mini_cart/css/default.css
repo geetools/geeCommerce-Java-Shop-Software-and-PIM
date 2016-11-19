@@ -1,0 +1,47 @@
+/* 
+ * Styles for Upsell Widget.
+ */
+a#popoverMiniCart + .popover  {
+    max-width: 750px;
+}
+
+.mini-cart-content table td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+.mini-cart-content .mc-total {
+    font-weight: bold;
+    border-top: solid #808080 1px;
+}
+
+.mini-cart-content .mc-total .mc-total-val{
+    text-align: right;
+}
+
+.mini-cart-content .mc-subtotal{
+    text-align: right;
+    font-weight: bold;
+    white-space: nowrap;
+}
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+
+
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 998px) {
+	
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+
+}

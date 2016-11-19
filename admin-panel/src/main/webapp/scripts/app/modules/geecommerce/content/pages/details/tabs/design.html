@@ -1,0 +1,214 @@
+<div>
+    <div id="cmsPanel" class="panel-body">
+
+        <form id="contentDesignForm">
+
+            <a class="cms-full-mode-switch fa fa-expand" data-bind="click: resizeCmsPanel"></a>
+
+            <!-- <a data-bind="click: getJson">JSON</a>-->
+
+
+            <div id="editor-menu" class="col-md-2">
+
+                <div class="bs-example">
+                    <div id="gridToolbox" class="panel-group" data-bind="foreach: { data: toolboxGroups, as: 'group'}">
+                        <div class="panel panel-default" data-bind="template: {name:'toolboxGroupTemplate', data: group}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="editor-content col-md-10">
+                <!--    <iframe id="editor-iframe" name="editor-iframe" data-bind="" src="/content/storefront" sandbox="allow-same-origin allow-scripts"  style="width:100%;height:900px;" scrolling="no" seamless="seamless" scrolling="no"></iframe>
+-->
+                <!-- 			<iframe src="" seamless="seamless" frameborder="0" id="editor-iframe" -->
+                <!-- 				style="width: 100%; height: 100%; overflow:visible; display:block"> </iframe> -->
+            </div>
+
+            <script id='toolboxGroupTemplate' type='text/html'>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       data-bind="i18nText: { value: group.label, mode: 'any' }, attr:{href: '#' + group.key}" style="user-select: none;-moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;">First level</a>
+                </h4>
+            </div>
+            <div data-bind="attr:{id:group.key}" class="panel-collapse in">
+                <div class="" data-bind="foreach: { data: group.items, as: 'item'}">
+                    <div data-bind="attr: { id: item.key }" class="editor-menu-widget col-md-6 gee-widget w-handle ui-draggable ui-draggable-handle" >
+                        <div >
+                            <i data-bind="attr: {class: item.icon}"></i>
+                            <span data-bind="i18nText: { value: item.label, mode: 'any' }"></span>
+                        </div><!--"i18nText: item.label"-->
+                    </div>
+                </div>
+            </div>
+        </script>
+
+            <div style="display: none;">
+                <div id="toolbox">
+                    <div class="w-element-controls">
+<!--                        <div class="w-move-outer">
+                            <div class="w-move"></div>
+                        </div>-->
+                        <div class="w-handle-outer">
+                            <div class="w-handle w-handle-new">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="w-option-outer">
+                            <div class="w-option fa fa-cog fa-2"></div>
+                        </div>
+                        <div class="w-delete-outer">
+                            <div class="w-delete fa fa-times" title="Delete"></div>
+                        </div>
+                        <!--          <div class="w-resize-l-outer">
+                                  <div class="w-resize w-resize-l"></div>
+                              </div>
+                              <div class="w-resize-r-outer">
+                                  <div class="w-resize w-resize-r"></div>
+                              </div>-->
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div id="content-spinner">
+        <img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/>
+    </div>
+
+    <div role="dialog" aria-hidden="true" class="parameters-modal modal fade" data-bind="modal: { show: contentVM.isShowOptions }">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close" data-bind="click: contentVM.cancelOptions">&times;</button>
+                    <!-- ko if:  contentVM.selectedNode().widget && contentVM.selectedTab()-->
+                        <!-- ko if:  contentVM.selectedTab().parentTab -->
+                            <h4 class="modal-title" data-bind="click:$root.contentVM.switchTabBack"><i class="fa fa-chevron-left" aria-hidden="true"></i><span data-bind="i18nText: { value: contentVM.selectedTab().label, mode: 'any' }"></span></h4>
+
+                        <!-- /ko -->
+
+                        <!-- ko if:  !contentVM.selectedTab().parentTab -->
+                            <h4 class="modal-title" ><span data-bind="i18nText: { value: contentVM.selectedTab().label, mode: 'any' }"></span></h4>
+
+                        <!-- /ko -->
+
+                     <!-- /ko -->
+
+                    <!-- ko if:  !contentVM.selectedTab()-->
+                        <h4 class="modal-title">Widget parameters</h4>
+                    <!-- /ko -->
+                </div>
+
+                <div class="modal-body row">
+
+                    <!-- ko if:  contentVM.selectedNode().widget && contentVM.selectedTab()-->
+                    <div class="widget-parameter-panel">
+                        <!-- ko foreach:  contentVM.selectedTab().items() -->
+
+                            <!-- ko if:  $data.TYPE == 'TAB'-->
+                                <div class="form-group col-xs-12">
+                                    <a class="" data-bind="click:$root.contentVM.switchTab"><span data-bind="i18nText: { value: $data.label, mode: 'any' }" class="col-sm-3 control-label"></span><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                </div>
+                            <!-- /ko -->
+
+                            <!-- ko if:  $data.TYPE == 'PARAMETER'-->
+                                <!-- ko if:  $data.parameter.option() && $data.parameter.type() == 'TEXT'-->
+                                    <div class="form-group col-xs-12">
+                                        <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+
+                                            <select class="form-control select2" data-bind="select: $data.value, data: $data.parameter.options"></select>
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+
+                                <!-- ko if:  !$data.parameter.option() && $data.parameter.type() == 'NUMBER' -->
+                                    <div class="form-group col-xs-12">
+                                        <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" data-bind="value: $data.value, attr:{min: $data.parameter.minValue, max: $data.parameter.maxValue, step: $data.parameter.step}">
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+
+                        <!-- ko if:  !$data.parameter.option() && $data.parameter.type() == 'TEXT' -->
+                        <div class="form-group col-xs-12">
+                            <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" data-bind="value: $data.value">
+                            </div>
+                        </div>
+                        <!-- /ko -->
+
+
+                        <!-- ko if: $data.parameter.type() == 'PRODUCT' -->
+                                    <div class="form-group col-xs-12">
+                                        <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+
+                                            <div class="product-selector" data-bind="productSelector: $data.value, pickerOptions: {format: 'id'}"></div>
+
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+
+                                <!-- ko if:  $data.parameter.type() == 'MEDIASSET' -->
+                                    <div class="form-group col-xs-12">
+                                        <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <div>
+                                                <div class="col-xs-4">
+                                                    <div data-bind="maViewer: $data.value"></div>
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div data-bind="maUploader: { value: $data.value, path: $root.contentVM.selectedNode().maSystemPath() }" class="dropzone dropzone-files dz-media dz-clickable">
+                                                        <p class="dz-message" data-i18n="app:modules.slide-show.fileTabUploadHint">Click here or drag and drop to add file</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+
+
+                                <!-- ko if:  !$data.parameter.option() && $data.parameter.type() == 'COLOR' -->
+                                    <div class="form-group col-xs-12">
+                                        <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <div data-bind="colorpicker: $data.value" class="input-group colorpicker-component">
+                                                <input type="text" data-bind="value: $data.value" class="form-control" /> <span class="input-group-addon"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+
+                                <!-- ko if:  !$data.parameter.option() && $data.parameter.type() == 'SLIDER' -->
+                                    <div class="form-group col-xs-12">
+                                        <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="slider form-control" data-bind="sliderValue: {value: $data.value, min:$data.parameter.minValue(), max: $data.parameter.maxValue(), step: $data.parameter.step(), tooltip: 'always'}"/>
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+                            <!-- /ko -->
+
+                        <!-- /ko -->
+                </div>
+                    <!-- /ko -->
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bind="click: contentVM.cancelOptions" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: contentVM.saveOptions">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

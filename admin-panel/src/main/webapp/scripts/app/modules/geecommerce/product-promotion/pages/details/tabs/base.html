@@ -1,0 +1,98 @@
+<div id="product-promotion-details-base" class="panel-body">
+    <div data-bind="toolbar: {
+			targetId: 'productPromotionAllForm',
+			i18n: 'app:modules.product-promotion.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+    <form class="form-horizontal" role="form" id="productPromotionAllForm">
+
+        <div class="form-group">
+            <label for="inputPrdPromotionKey" class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.baseTabKey">Key</label>
+            <div class="col-sm-9">
+                <input data-bind="value: productPromotionVM.key" class="form-control" id="inputPrdPromotionKey" type="text" required>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputNavigationItemTargetObject" class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.baseTabTargetObject">Target Object</label>
+            <div class="col-sm-9">
+                <select  id="inputNavigationItemTargetObject" class="selectpicker" title="auswählen" data-bind="select: productPromotionVM.targetId, data: productLists">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputNavigationItemUseTargetLabel" class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.baseTabUseTargetLabel">Use Target Label</label>
+            <div class="col-sm-9 switch-wrapper">
+                <input type="checkbox" data-bind="checked: productPromotionVM.useTargetLabel" id="inputNavigationItemUseTargetLabel"/>
+            </div>
+        </div>
+
+        <!-- ko ifnot: productPromotionVM.useTargetLabel() -->
+
+        <div class="form-group">
+            <label for="inputPrdPromotionLabel" class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.baseTabName">Label</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: productPromotionVM.label" class="form-control" id="inputPrdPromotionLabel" placeholder="Enter name" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- /ko -->
+
+
+        <div class="form-group">
+            <label for="inputPrdPromotionLimit" class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.baseTabLimit">Limit</label>
+            <div class="col-sm-9">
+                <input data-bind="value: productPromotionVM.limit" class="form-control" id="inputPrdPromotionLimit" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.enabled">Enabled</label>
+            <div class="col-sm-6 switch-wrapper">
+                <input type="checkbox" data-bind="ctxBool: productPromotionVM.enabled, switchOptions: {default: false}" />
+            </div>
+			<div class="col-sm-3" data-bind="contextInfo"></div>            
+        </div>
+    </form>
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label  class="col-sm-3 control-label" data-i18n="app:modules.product-promotion.generalTabTeaserImage">Teaser Image</label>
+            <div class="col-sm-9">
+                <!-- ko ifnot: productPromotionVM.isNew() -->
+                <table class="tbl-teaser" id="product-promotion-teaser">
+                    <tr>
+                        <td colspan="7">
+                            <form action="#" class="dropzone dropzone-teaser dz-media" data-bind="attr: { 'data-productpromotionid' : productPromotionVM.id, 'id' : 'dz-new-' + productPromotionVM.id }">
+                                <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+                                <p class="dz-message" data-i18n="app:modules.product-promotion.imagesTabUploadHint">
+                                    Click here or drag and drop to add images
+                                </p>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- ko if: productPromotionVM.showTeaser() -->
+                    <tr data-bind="attr: { 'data-id' : productPromotionVM.teaser().id }" height="50">
+                        <!-- ko if: productPromotionVM.teaser().isImage() -->
+                        <td style="width:60px"><a data-bind="attr: { href: productPromotionVM.teaser().webPath() }" target="_blank"><img data-bind="attr: { src: productPromotionVM.teaser().webThumbnailPath() }" vspace="5"/></a></td>
+                        <!-- /ko -->
+                        <td style="width:40px"><a data-bind="attr: { href: productPromotionVM.teaser().webPath() }" target="_blank"><img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + productPromotionVM.teaser().fileExtension() + '.png'}" /></a></td>
+                        <td style="width:50px" class="actions" align="center">
+                            <a href="javascript:void(0)" class="action" data-bind="click: $root.removeTeaser"><i class="fa fa-square-o"></i></a>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+
+                </table>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="col-md-12 content-panel" id="view-content-details">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a id="tab-content-details-base" data-target="#base" data-toggle="tab" data-i18n="app:modules.content.tabTitleGeneral">Base</a></li>
+
+            <!-- ko if: $root.contentId() != 'new' -->
+                <li ><a id="tab-content-details-design"  data-target="#design" data-toggle="tab"  data-i18n="app:modules.content.tabTitleDesign">Design</a></li>
+            <!-- /ko -->
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/content/pages/details/tabs/base', activationData: $root.contentId()}"></div>
+            <!-- ko if: $root.contentId() != 'new' -->
+                <div class="tab-pane" id="design" data-bind="compose:{ model: 'modules/geecommerce/content/pages/details/tabs/design', activationData: $root.contentId()}"></div>
+            <!-- /ko -->
+        </div>
+
+</div>

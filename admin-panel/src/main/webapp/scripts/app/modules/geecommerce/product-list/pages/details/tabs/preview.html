@@ -1,0 +1,61 @@
+<div id="product-list-details-preview">
+
+    <div data-bind="loader: { src: '/img/ajax-loader.gif', css: 'col-sm-11', hookCallbacksTo: productListVM, event: 'click:#fake-preview-btn'}"></div>
+    <span id="fake-preview-btn" style="display: none;">
+    <div id="column2">
+        <div id="column-2-padding">
+            <div id="#column-2-main-content">
+                <div id="product-list">
+                <!-- ko foreach: { data: products, as: 'row' } -->
+                    <div class="product-list-row-1">
+                        <div class="product-list-row-2">  <!-- -->
+                            <!-- ko foreach: { data: row, as: 'product' } -->
+                            <div class="product-list-item">
+                                <div class="product-list-item-padding">
+                                        <h2><a href=""><div data-bind="attrText: product, code: 'name', mode: 'any'">1111</div></a></h2>
+
+                                        <div class="img-box">
+
+                                            <img class="lazy categoryImage" data-bind="attr: { src: product.imgUrl}" style="display: inline;">
+
+                                        </div>
+
+                                        <div class="product-list-text">
+                                            <div data-bind="attrText: product, code: 'name', mode: 'any'">222</div>
+                                            <div data-bind="text: product.index"></div>
+                                        </div>
+
+                                        <div class="product-list-price-box">
+                                            <table class="list-descriptions" border="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="td-1">
+                                                        <div style="line-height: 150%">
+                                                            <small style="font-size:75%;color: #666666">Price:</small>
+                                                            <strong class="price"></strong>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="product-list-detail-btn-box">
+                                            <a href="/catalog/product/view/3944315113910100">
+                                                <img width="68" height="32" border="0" src="/img/btn-detail.png" alt="Detail"/>
+                                            </a>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <br class="clear">
+                        </div>
+                    </div>
+                <!-- /ko -->
+                </div>
+                <br class="clear">
+            </div>
+        </div>
+    </div>
+</div>
+
+

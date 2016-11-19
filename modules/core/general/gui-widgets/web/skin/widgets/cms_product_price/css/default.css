@@ -1,0 +1,25 @@
+.cms-product-price {
+
+}
+
+.cms-product-price .prd-retail-price.prd-old-price {
+    font-size: 14px;
+    display: block;
+    text-decoration: line-through;
+}
+
+.cms-product-price .prd-sale-price {
+    color: #DE2929;
+    font-size: 24px;
+    display: block;
+}
+
+.cms-product-price .tax-info {
+    display: block;
+}
+
+.cms-product-price .shipping-info {
+    color: #90B190;
+    margin-top: 15px;
+    display: block;
+}

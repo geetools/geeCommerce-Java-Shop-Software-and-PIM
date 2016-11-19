@@ -1,0 +1,165 @@
+<div>
+    <div class="form-group">
+        <label for="inputCouponActionType" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabCouponType">Coupon Type</label>
+        <div class="col-sm-3">
+            <select id="inputCouponActionType" class="form-control select2"
+                    data-bind="select: couponVM.couponAction.type, data: $root.couponVM.couponActionTypesOptions"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabPriceType">Price Type</label>
+        <div class="col-sm-3">
+            <select class="selectpicker show-tick" data-bind="select: couponVM.couponAction.priceTypeId, data: couponVM.priceTypeOptions, selectOptions: { size: 10 }">
+            </select>
+        </div>
+    </div>
+
+    <!-- ko if: couponVM.couponAction.type() !== 'RANGE_PERCENT_CART' && couponVM.couponAction.type() !== 'RANGE_FIXED_CART' -->
+
+    <div class="form-group">
+        <label for="inputCouponActionDiscountAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountAmount">Discount Amount</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.couponAction.discountAmount" class="form-control" id="inputCouponActionDiscountAmount" type="text" required>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: couponVM.couponAction.type() === 'RANGE_PERCENT_CART' || couponVM.couponAction.type() === 'RANGE_FIXED_CART'  -->
+
+    <div class="form-group">
+        <label for="inputCouponActionDiscountAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountAmount">Discount Amount</label>
+        <div class="col-sm-3">
+            <ul style="list-style-type: none;">
+                <div data-bind='template: {name:"rangeItem", foreach: couponVM.couponAction.rangeDiscountAmount}'>
+
+                </div>
+
+            </ul>
+            <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="add-coupon-icon"></span>
+        </div>
+    </div>
+
+
+    <!-- /ko -->
+    <script id='rangeItem' type='text/html'>
+    <li>
+        <label data-i18n="app:modules.coupon.actionTabRFrom">From</label>
+        <span><input data-bind="value: fromAmount" type="text" style="width: 100px;" required></span>
+        <label data-i18n="app:modules.coupon.actionTabRTo">To</label>
+        <span><input data-bind="value: toAmount" type="text" style="width: 100px;" required></span>
+        <label data-i18n="app:modules.coupon.actionTabRDiscount">Discount</label>
+        <span><input data-bind="value: discountAmount" type="text" style="width: 100px;"  required></span>
+        <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+			<i class="glyphicon glyphicon-remove"></i>
+		</span>
+    </li>
+    </script>
+
+    <!-- ko if: couponVM.couponAction.type() === 'BUY_X_GET_Y_FREE' || couponVM.couponAction.type() === 'SPEND_X_GET_Y_FREE' || couponVM.couponAction.type() === 'PERCENT_PRODUCT' || couponVM.couponAction.type() === 'FIXED_PRODUCT' -->
+    <div class="form-group">
+        <label for="inputCouponActionDiscountQtyStep" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountQtyStep">Discount Qty Step</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.couponAction.discountQtyStep" class="form-control" id="inputCouponActionDiscountQtyStep" type="text" required>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: couponVM.couponAction.type() !== 'RANGE_PERCENT_CART' && couponVM.couponAction.type() !== 'RANGE_FIXED_CART' -->
+    <div class="form-group">
+        <label for="inputCouponActionMaximumQtyApplyTo" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabMaximumQtyApplyTo">Maximum Qty Apply To</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.couponAction.maximumQtyApplyTo" class="form-control" id="inputCouponActionMaximumQtyApplyTo" type="text" required>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div class="form-group">
+        <label for="inputCouponActionFreeShipping" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFreeShipping">Free Shipping</label>
+        <div class="col-sm-3">
+            <input type="checkbox" data-bind="checked: couponVM.couponAction.freeShipping" id="inputCouponActionFreeShipping">
+        </div>
+    </div>
+
+    <!-- ko if: couponVM.couponAction.type() !== 'PERCENT_CART' && couponVM.couponAction.type() !== 'FIXED_CART' -->
+
+    <!-- ko if:  couponVM.couponAction && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
+    <div class="form-group">
+        <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFilter">Filter</label>
+        <div class="col-sm-9">
+            <div data-bind='template: {name:"filterNode", data: couponVM.couponAction.filter}'></div>
+
+            <script id='filterNode' type='text/html'>
+                    <!-- ko if: $data && $data.type() === 'BOOLEAN_OPERATION' -->
+                        <div style="display:inline" data-bind='template: {name:"filterNodeBoolean", data: $data}'></div>
+                    <!-- /ko -->
+                    <!-- ko if: $data && type() === 'FIlTER_ATTRIBUTE_OPERATION' -->
+                        <li style="display:inline" data-bind='template: {name:"filterNodeAttribute", data: $data}'> </li>
+                    <!-- /ko -->
+            </script>
+
+
+            <script id='filterNodeAttribute' type='text/html'>
+                <!-- ko if: attributeType() === 'PRODUCT' -->
+                    <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                          data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.productAttributesOptions,
+                    optionsText: 'label',
+                    optionsValue: 'value'}"></span>
+                <!-- /ko -->
+                <!-- ko if: attributeType() === 'CART_ITEM' -->
+                    <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                          data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.cartItemAttributesOptions,
+                    optionsText: 'label',
+                    optionsValue: 'value'}"></span>
+                <!-- /ko -->
+                <span style="display:inline;line-height:30px" class="form-control form-control-small"
+                      data-bind="editable: operator, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.couponFilterOperators,
+				optionsText: 'label',
+				optionsValue: 'value'}"></span>
+                <!-- ko if: inputType() === 'TEXT' || inputType() !== 'SELECT' && inputType() !== 'BOOLEAN'-->
+                <span style="display:inline;line-height:30px" data-bind="editable: value" class="form-control form-control-small"></span>
+                <!-- /ko -->
+                <!-- ko if: inputType() === 'SELECT' -->
+                <select style="display:inline;line-height:30px" class="selectpicker" title="auswählen" data-bind="select: value, data: options">
+                </select>
+                <!-- /ko -->
+                <!-- ko if: inputType() === 'BOOLEAN' -->
+                <div style="display:inline;line-height:30px" ><input type="checkbox" data-bind="checked: value"/></div>
+                <!-- /ko -->
+                <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+					<i class="glyphicon glyphicon-remove"></i>
+				</span><br>
+            </script>
+
+
+            <script id='filterNodeBoolean' type='text/html'>
+                if <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                         data-bind="editable: operation, editableOptions:{type:'select', showbuttons: false, options: $root.booleanFilterChoice,
+				optionsText: 'label',
+				optionsValue: 'value'}"></span> of these conditions are
+                <span style="display:inline" class="form-control  form-control-small"
+                      data-bind="editable: operationValue, editableOptions:{type:'select', showbuttons: false, options: $root.booleanValueFilterChoice,
+				optionsText: 'label',
+				optionsValue: 'value'}"></span>
+                <!-- ko if: parent() !== null -->
+                <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+					<i class="glyphicon glyphicon-remove"></i>
+				</span><br>
+                <!-- /ko -->
+                <ul style="list-style-type: none;">
+                    <div data-bind='template: {name:"filterNode", foreach: nodes}'>
+
+                    </div>
+					<div data-bind="editable: newNodeType, editableOptions:{type:'select', options: $root.nodeCreatingChoice,
+				optionsText: 'label', optionsValue: 'value', hidden: addNode,noHTML:'true'}">
+						<i class="glyphicon glyphicon-plus"></i>
+					</div>
+                </ul>
+
+            </script>
+
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+</div>

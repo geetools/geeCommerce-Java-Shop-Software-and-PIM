@@ -1,0 +1,471 @@
+<div>
+    <!-- ko if: productVM().isNew() && ($root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin')) -->
+
+    <div id="prd-create-form" class="tab-background-fancy">
+
+        <!-- ko if: productVM().isProgramme() -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="header-title" data-i18n="app:modules.product.newProgrammeTitle"></h3>
+                <p class="header-info" data-i18n="app:modules.product.newProgrammeSubtitle"></p>
+                <p class="header-info" data-i18n="app:modules.product.newProgrammeDesc"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAttrTabGroup" class="col-xs-1 control-label">&nbsp;</label>
+            <div class="col-xs-4">
+                <select class="selectpicker" data-live-search="true" data-size="15"
+                    data-bind="select: editVM.programme, data: $root.programmes, sort: true, selectOptions: {title: app.i18n('app:modules.product.newProgrammeSelectTitle'), header: app.i18n('app:modules.product.newProgrammeSelectTitle')}">
+                </select> <span data-bind="if: !editVM.programme()"> &nbsp;&nbsp;<a href="#/products" class="btn-nude" data-i18n="app:common.cancel">Cancel</a>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-1 control-label">&nbsp;</label>
+            <div class="col-xs-11" id="new-programme-buttons" data-bind="if: editVM.programme()">
+                <a id="save-new-programme-btn" class="btn btn-primary" data-bind="i18n: 'app:modules.product.saveNewProgramme'">Save programme</a> <a href="#/products" class="btn-nude" data-i18n="app:common.cancel">Cancel</a>
+            </div>
+            <div data-bind="loader: { src: '/img/ajax-loader.gif', css: 'col-sm-11', event: 'click:#save-new-programme-btn', toggle: '#new-programme-buttons', run: $root.createProduct }"></div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: productVM().isVariantMaster() -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="header-title" data-i18n="app:modules.product.newVariantMasterTitle"></h3>
+                <p class="header-info" data-i18n="app:modules.product.newVariantMasterSubtitle"></p>
+                <p class="header-info" data-i18n="app:modules.product.newVariantMasterDesc"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAttrTabGroup" class="col-xs-1 control-label">&nbsp;</label>
+            <div class="col-xs-11">
+                <select class="selectpicker" data-live-search="true" data-size="15"
+                    data-bind="select: editVM.productGroup, data: $root.productGroups, sort: true, selectOptions: {title: app.i18n('app:modules.product.newProductGroupSelectTitle'), header: app.i18n('app:modules.product.newProductGroupSelectTitle')}">
+                </select> <span data-bind="if: !editVM.productGroup()"> &nbsp;&nbsp;<a href="#/products" class="btn-nude" data-i18n="app:common.cancel">Cancel</a>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-1 control-label">&nbsp;</label>
+            <div class="col-xs-11" id="new-variant-master-buttons" data-bind="if: editVM.productGroup()">
+                <a id="save-new-variant-master-btn" class="btn btn-primary" data-i18n="app:modules.product.saveNewVariantMaster">Save variant master</a> &nbsp;&nbsp;<a href="#/products" class="btn-nude" data-i18n="app:common.cancel">Cancel</a>
+            </div>
+
+            <div data-bind="loader: { src: '/img/ajax-loader.gif', css: 'col-sm-11', event: 'click:#save-new-variant-master-btn', toggle: '#new-variant-master-buttons', run: $root.createProduct }"></div>
+        </div>
+        <!-- /ko -->
+
+
+        <!-- ko if: !productVM().isProgramme() && !productVM().isVariantMaster() -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="header-title" data-i18n="app:modules.product.newProductTitle"></h3>
+                <p class="header-info" data-i18n="app:modules.product.newProductSubtitle"></p>
+                <p class="header-info" data-i18n="app:modules.product.newProductDesc"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <select class="selectpicker" data-live-search="true" data-size="15"
+                    data-bind="select: editVM.productGroup, data: $root.productGroups, sort: true, selectOptions: {title: app.i18n('app:modules.product.newProductSelectTitle'), header: app.i18n('app:modules.product.newProductSelectTitle')}">
+                </select>
+            </div>
+        </div>
+        <div class="form-group" data-bind="if: editVM.productGroup">
+            <div class="col-xs-12" id="new-product-buttons">
+                <a id="save-new-product-btn" class="btn btn-primary" data-bind="click: createProduct" data-i18n="app:modules.product.saveNewProduct">Save product</a> <a href="javascript:void(0)" class="btn-nude" data-bind="click: cancelNewProduct"
+                    data-i18n="app:common.cancel">Cancel</a>
+            </div>
+            <div data-bind="loader: { src: '/img/ajax-loader.gif', css: 'col-sm-11', event: 'click:#save-new-product-btn', toggle: '#new-product-buttons', run: $root.createProduct }"></div>
+        </div>
+        <!-- /ko -->
+
+    </div>
+
+    <!-- /ko -->
+
+    <!-- ko if: !productVM().isNew() -->
+
+    <!-- ko if: !productVM().isCategorized() && !productVM().isDeleted() -->
+    <div data-bind="alertInfo: { title: 'app:modules.product.infoProductNotCategorizedTitle', body: 'app:modules.product.infoProductNotCategorizedBody' }"></div>
+    <!-- /ko -->
+
+    <!-- ko if: productVM().isDeleted() -->
+    <div data-bind="alertError: { title: 'app:modules.product.infoProductDeletedTitle', body: 'app:modules.product.infoProductDeletedBody', bodyArgs: {delete_note: productVM().data().deletedNote} }"></div>
+    <!-- /ko -->
+
+    <form id="productBaseForm" class="form-horizontal">
+
+        <div class="row">
+
+            <div id="product-base-header-left" class="col-xs-12 col-sm-7">
+
+                <!-- ko if: $root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin') -->
+
+                <!-- ko if: productVM().isProgramme() -->
+
+                <div class="form-group">
+                    <label for="inputAttrTabGroup" class="col-xs-12 col-sm-3 control-label" data-i18n="app:modules.product.baseTabProgramme">Programme</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <select class="selectpicker" title="auswählen" data-bind="select: editVM.programme, data: $root.programmes, sort: true">
+                        </select>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- ko if: !productVM().isProgramme() -->
+
+                <div class="form-group">
+                    <label for="inputAttrTabGroup" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabProuctGroup">Product Group</label>
+                    <div class="col-sm-5">
+                        <select class="selectpicker" title="auswählen" data-bind="select: editVM.productGroup, data: $root.productGroups, sort: true, selectOptions: { size: 22 }">
+                        </select>
+                    </div>
+                </div>
+
+                <!-- /ko -->
+
+                <div class="form-group">
+                    <label for="inputPrdArtNumber" class="col-sm-3 control-label" data-i18n="app:common.articleNumber">Article Number</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.articleNumber, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdArtNumber" type="text" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPrdName" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabName">Name</label>
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <span class="input-group-addon" data-bind="text: app.currentLang()"></span> <input data-bind="i18nValue: editVM.name" class="form-control" id="inputPrdName" placeholder="Name eingeben" type="text" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPrdName2" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabName2">Name2</label>
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <span class="input-group-addon" data-bind="text: app.currentLang()"></span> <input data-bind="i18nValue: editVM.name2" class="form-control" id="inputPrdName2" placeholder="Zusätzlichen Namen eingeben" type="text" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputBrand" class="col-sm-3 control-label" data-i18n="app:common.brand">Marke</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.brand, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdBrand" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrdManufacturer" class="col-sm-3 control-label" data-i18n="app:common.manufacturer">Hersteller</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.manufacturer, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdManufacturer" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrdSupplier" class="col-sm-3 control-label" data-i18n="app:common.supplier">Lieferant</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.supplier, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdSupplier" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrdEan" class="col-sm-3 control-label" data-i18n="app:common.ean">EAN</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.ean, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdEan" type="text" required>
+                    </div>
+                </div>
+
+                <div id="form-group-friendly-url" class="form-group">
+                    <label for="inputPrdFriendlyURL" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabFriendlyURL">Friendly URL</label>
+                    <div class="col-sm-5 pre-col-ctx-icon">
+                        <input data-bind="ctxValue: editVM.friendlyURL" class="form-control" id="inputPrdFriendlyURL" type="text">
+                        <div class="closest-existing-ctx-value" data-bind="ctxVisible: editVM.friendlyURL, ctxOptions: {scopes: ['any'], keepSelf: true}">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <span data-bind="ctxText: editVM.friendlyURL, ctxOptions: {scopes: ['any']}"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 col-ctx-icon">
+                        <a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-all-friendly-urls" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.friendlyURL, type: 'text', title: 'app:modules.product.baseTabFriendlyURL'}" aria-expanded="false"></span>
+                            <div class="friendly-url-status-icon">
+                                <span  class="friendly-url-warning" data-bind="visible: editVM.showFriendlyURLWarning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                                <span  class="friendly-url-success" data-bind="visible: editVM.showFriendlyURLSuccess"><i class="fa fa-check" aria-hidden="true"></i></span>
+                            </div>
+                    </div>
+                    <div class="col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-all-friendly-urls">
+                        <div data-bind="contextValues: {value: editVM.friendlyURL, title: 'app:modules.product.baseTabFriendlyURL'}"></div>
+                    </div>
+                </div>
+
+                <!-- /ko -->
+
+                <!-- ko if: $root.gc.security.isInRole('product-viewer') -->
+
+                <!-- ko if: productVM().isProgramme() -->
+
+                <div class="form-group">
+                    <label for="inputAttrTabGroup" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabProgramme">Programme</label>
+                    <div class="col-sm-5 read-only-text">
+                        <span class="" data-bind="i18nAttrOption: editVM.programme, code: 'programme'"></span>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- ko if: !productVM().isProgramme() -->
+
+                <div class="form-group">
+                    <label for="inputAttrTabGroup" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabProuctGroup">Product Group</label>
+                    <div class="col-sm-5 read-only-text">
+                        <span class="" data-bind="i18nAttrOption: editVM.productGroup, code: 'product_group'"></span>
+                    </div>
+                </div>
+
+                <!-- /ko -->
+
+                <div class="form-group">
+                    <label for="inputPrdArtNumber" class="col-sm-3 control-label" data-i18n="app:common.articleNumber">Article Number</label>
+                    <div class="col-sm-5 read-only-text">
+                        <span class="" data-bind="ctxText: editVM.articleNumber, ctxOptions: {scopes: ['global']}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPrdName" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabName">Name</label>
+                    <div class="col-sm-5 read-only-text">
+                        <span class="" data-bind="i18nText: editVM.name"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPrdName2" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabName2">Name2</label>
+                    <div class="col-sm-5 read-only-text">
+                        <span class="" data-bind="i18nText: editVM.name2"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputBrand" class="col-sm-3 control-label" data-i18n="app:common.brand">Marke</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.brand, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdBrand" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrdManufacturer" class="col-sm-3 control-label" data-i18n="app:common.manufacturer">Hersteller</label>
+                    <div class="col-sm-8">
+                        <input data-bind="ctxValue: editVM.supplier, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdManufacturer" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrdSupplier" class="col-sm-5 control-label" data-i18n="app:common.supplier">Lieferant</label>
+                    <div class="col-sm-8">
+                        <input data-bind="ctxValue: editVM.supplier, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdSupplier" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPrdEan" class="col-sm-3 control-label" data-i18n="app:common.ean">EAN</label>
+                    <div class="col-sm-5">
+                        <input data-bind="ctxValue: editVM.ean, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdEan" type="text" required>
+                    </div>
+                </div>
+
+                <!-- /ko -->
+
+            </div>
+            <div id="product-base-header-right" class="col-xs-12 col-sm-5">
+                <div class="col-xs-5">
+                    <img data-bind="attr: {src: editVM.mainImageURL}" />
+                </div>
+
+                <div class="col-xs-7">
+                    <!-- ko if: $root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin') -->
+                    <div style="float: right">
+                        <a data-bind="attr: { href: editVM.refreshURL }" target="_blank"><i class="fa fa-refresh fa-fw"></i></a>
+                    </div>
+                    <br /> <br />
+                    <!-- /ko -->
+
+                    <p data-bind="html: editVM.descriptionText"></p>
+                    <!--				
+				<p><span data-bind="i18n: 'app:modules.product.baseTabPreviewProductIn'"></span> <a data-bind="i18n: 'app:common.onlineShop', attr: { href: editVM.previewURL }" target="_blank">online-shop</a>.</p>
+-->
+                </div>
+            </div>
+
+        </div>
+
+        <div style="clear: both"></div>
+
+        <!-- ko if: productVM().isCategorized() && ($root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin')) -->
+        <div id="product-status-infobox" class="row">
+            <div class="col-xs-12 col-sm-7">
+                <div class="form-group product-status-desc product-status-row">
+                    <label class="col-xs-5 col-sm-3 control-label" data-i18n="app:modules.product.baseTabDescStatus">Description Status</label>
+                    <div class="col-xs-7 col-sm-5 control-field product-status-label">
+                        <span data-bind="html: editVM.descriptionStatusLabel"></span> <a href="javascript:void(0)" id="prd-desc-status-icon" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-desc-status-details" aria-expanded="false"><i
+                            class="fa fa-bullseye" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-5 col-sm-1 control-field">
+                        <i data-bind="css: editVM.descriptionStatusIcon"></i>
+                    </div>
+                    <div class="col-xs-7 col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-desc-status-details">
+                        <div data-bind="contextValues: {value: editVM.descriptionStatus, data: $root.descriptionStatuses, title: 'app:modules.product.baseTabDescStatus'}"></div>
+                    </div>
+                </div>
+                <div class="form-group product-status-images product-status-row">
+                    <label class="col-xs-5 col-sm-3 control-label" data-i18n="app:modules.product.baseTabImageStatus">Image Status</label>
+                    <div class="col-xs-7 col-sm-5 control-field product-status-label" data-bind="text: editVM.imageStatusLabel"></div>
+                    <div class="col-xs-5 col-sm-1 control-field">
+                        <i data-bind="css: editVM.imageStatusIcon"></i>
+                    </div>
+                    <div class="col-xs-7 col-sm-3" data-bind="contextInfo"></div>
+                </div>
+                <div class="form-group product-status-article product-status-row">
+                    <label class="col-xs-12 col-sm-3 control-label product-status-label" data-i18n="app:modules.product.baseTabStatus">Article Status</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <select class="selectpicker" data-bind="ctxSelect: editVM.articleStatus, data: $root.articleStatuses, selectOptions: {title: 'choose ...'}">
+                        </select><a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-status-details" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.articleStatus, type: 'select', title: 'app:modules.product.baseTabStatus', selectData: $root.articleStatuses}" aria-expanded="false"></span>
+                    </div>
+                    <div class="col-xs-5 col-sm-1 control-field">
+                        <i data-bind="css: editVM.articleStatusIcon"></i>
+                    </div>
+                    <div class="col-xs-7 col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-status-details">
+                        <div data-bind="contextValues: {value: editVM.articleStatus, data: $root.articleStatuses, title: 'app:modules.product.baseTabStatus'}"></div>
+                    </div>
+                </div>
+
+                <div class="form-group product-status-visible product-status-row">
+                    <label class="col-xs-12 col-sm-3 control-label product-status-label" data-i18n="app:modules.product.baseTabVisible">Visible</label>
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="switch-wrapper">
+                            <input type="checkbox" data-bind="ctxBool: editVM.visible, switchOptions: {default: false}" />
+                        </div>
+                        <a href="javascript:void(0)" id="prd-desc-status-icon" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-visible-details" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.visible, type: 'boolean', title: 'app:modules.product.baseTabVisible'}" aria-expanded="false"></span>
+                    </div>
+                    <div class="col-xs-5 col-sm-1 control-field">
+                        <i data-bind="css: editVM.visibleStatusIcon"></i>
+                    </div>
+                    <div class="col-xs-7 col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-visible-details">
+                        <div data-bind="contextValues: {value: editVM.visible, type: 'boolean', title: 'app:modules.product.baseTabVisible'}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 hidden-xs"></div>
+        </div>
+        <div style="clear: both"></div>
+        <div class="row">
+            <div class="col-sm-7">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabVisibleInProductList">Visible in Product List</label>
+
+                    <div class="col-sm-6">
+                        <div class="switch-wrapper">
+                            <input type="checkbox" data-bind="ctxBool: editVM.visibleInProductList, switchOptions: {default: true}" />
+                        </div>
+                        <a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-list-visible-details" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.visibleInProductList, type: 'boolean', title: 'app:modules.product.baseTabVisible'}" aria-expanded="false"></span>
+                    </div>
+
+                    <div class="col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-list-visible-details">
+                        <div data-bind="contextValues: {value: editVM.visibleInProductList, type: 'boolean', title: 'app:modules.product.baseTabVisibleInProductList'}"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabSaleable">Saleable</label>
+                    <div class="col-sm-6">
+                        <div class="switch-wrapper">
+                            <input type="checkbox" data-bind="ctxBool: editVM.saleable, switchOptions: {default: true}" />
+                        </div>
+                        <a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-saleable-details" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.saleable, type: 'boolean', title: 'app:modules.product.baseTabSaleable'}" aria-expanded="false"></span>
+                    </div>
+                    <div class="col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-saleable-details">
+                        <div data-bind="contextValues: {value: editVM.saleable, type: 'boolean', title: 'app:modules.product.baseTabSaleable'}"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabIncludeInFeeds">Include in Feeds</label>
+                    <div class="col-sm-6">
+                        <div class="switch-wrapper">
+                            <input type="checkbox" data-bind="ctxBool: editVM.includeInFeeds, switchOptions: {default: true}" />
+                        </div>
+                        <a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-feeds-details" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.includeInFeeds, type: 'boolean', title: 'app:modules.product.baseTabIncludeInFeeds'}" aria-expanded="false"></span>
+                    </div>
+                    <div class="col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-feeds-details">
+                        <div data-bind="contextValues: {value: editVM.includeInFeeds, type: 'boolean', title: 'app:modules.product.baseTabIncludeInFeeds'}"></div>
+                    </div>
+                </div>
+
+                <!-- ko if: productVM().isProgramme() -->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabSpecial">Is Special</label>
+                    <div class="col-sm-6">
+                        <div class="switch-wrapper">
+                            <input type="checkbox" data-bind="ctxBool: editVM.special, switchOptions: {default: false}" />
+                        </div>
+                        <a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-special" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.special, type: 'boolean', title: 'app:modules.product.baseTabSpecial'}" aria-expanded="false"></span>
+                    </div>
+                    <div class="col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-special">
+                        <div data-bind="contextValues: {value: editVM.special, type: 'boolean', title: 'app:modules.product.baseTabSpecial'}"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabSale">Is Sale</label>
+                    <div class="col-sm-6">
+                        <div class="switch-wrapper">
+                            <input type="checkbox" data-bind="ctxBool: editVM.sale, switchOptions: {default: false}" />
+                        </div>
+                        <a href="javascript:void(0)" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-sale" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a> <span
+                            data-bind="contextEditor: {value: editVM.sale, type: 'boolean', title: 'app:modules.product.baseTabSale'}" aria-expanded="false"></span>
+                    </div>
+                    <div class="col-sm-3" data-bind="contextInfo"></div>
+                    <div class="collapse col-xs-12" id="prd-sale">
+                        <div data-bind="contextValues: {value: editVM.sale, type: 'boolean', title: 'app:modules.product.baseTabSale'}"></div>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+            </div>
+        </div>
+
+        <!-- /ko -->
+
+        <div class="row">
+            <div class="col-sm-7">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:common.createdOn"></label>
+                    <div class="col-sm-9 form-text">
+                        <span data-bind="format: productVM().data().createdOn, formatOptions: { type: 'date' }"></span>, <span data-bind="if: productVM().data().createdBy"><span data-i18n="app:common.by"></span> <span
+                            data-bind="text: productVM().data().createdBy"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" data-i18n="app:common.modifiedOn"></label>
+                    <div class="col-sm-9 form-text">
+                        <span data-bind="format: productVM().data().modifiedOn, formatOptions: { type: 'date' }"></span></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+    <!-- /ko -->
+
+</div>

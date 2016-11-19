@@ -1,0 +1,5 @@
+group = 'com.scs'
+description = ''
+dependencies {
+  compile project(':scs:scs-modules:scs-module-catalog')
+}

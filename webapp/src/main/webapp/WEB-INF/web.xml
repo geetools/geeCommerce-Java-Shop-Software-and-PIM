@@ -1,0 +1,272 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<description>
+      geeCommerce Shop Software
+    </description>
+	<display-name>geeCommerce Shop Software</display-name>
+
+	<!-- <session-config> <cookie-config> <http-only>true</http-only> <secure>true</secure> 
+		</cookie-config> </session-config> -->
+
+	<context-param>
+		<param-name>URLRewriteFilter.Skip</param-name>
+		<param-value>/api/, /home/, /catalog/, /cart/, /checkout/, /customer/, /skin/, /js/, /images/p/, /c/media/</param-value>
+	</context-param>
+
+	<!-- Use default servlet for serving static content -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/skin/*</url-pattern>
+		<url-pattern>/js/*</url-pattern>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.ico</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>freemarker</servlet-name>
+		<servlet-class>com.geecommerce.core.template.freemarker.FreemarkerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>freemarker</servlet-name>
+		<url-pattern>*.ftl</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>CSRFGuard</filter-name>
+		<filter-class>com.geecommerce.core.web.filter.CsrfGuardFilter</filter-class>
+	</filter>
+
+	<filter>
+		<description>
+        	Wraps the request so that we can extract language, country and view information from the URL.
+        </description>
+		<display-name>CommerceBoard Application-Init Filter</display-name>
+		<filter-name>ApplicationInitFilter</filter-name>
+		<filter-class>com.geecommerce.core.web.filter.ApplicationInitFilter</filter-class>
+		<init-param>
+			<param-name>SkipFilters.UrlPatterns</param-name>
+			<param-value></param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>StaticAssetRouterFilter</filter-name>
+		<filter-class>com.geecommerce.core.web.filter.StaticAssetRouterFilter</filter-class>
+	</filter>
+
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>shiroConfigLocations</param-name>
+		<param-value>/WEB-INF/conf/shiro.ini</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+
+	<filter>
+		<description>
+        	Starts the CommerceBoard bootstrapper.
+        </description>
+		<display-name>CommerceBoard Bootstrap Filter</display-name>
+		<filter-name>BootstrapFilter</filter-name>
+		<filter-class>com.geecommerce.core.bootstrap.BootstrapFilter</filter-class>
+		<init-param>
+			<param-name>Application.Mode</param-name>
+			<param-value>test</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<description>
+        	Takes care of url-rewriting if it is configured.
+        </description>
+		<display-name>CommerceBoard URL-Rewrite Filter</display-name>
+		<filter-name>URLRewriteFilter</filter-name>
+		<filter-class>com.geecommerce.core.web.filter.UrlRewriteFilter</filter-class>
+	</filter>
+
+	<filter>
+		<description>
+        	Redirects a http request to https if necessary.
+        </description>
+		<display-name>CommerceBoard HTTPS Filter</display-name>
+		<filter-name>HttpsFilter</filter-name>
+		<filter-class>com.geecommerce.core.web.filter.HttpsFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>Guice Filter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CSRFGuard</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>ApplicationInitFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>StaticAssetRouterFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>BootstrapFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>URLRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>HttpsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>Guice Filter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Geemvc-Servlet</servlet-name>
+		<servlet-class>com.geemvc.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>view-prefix</param-name>
+			<param-value>/templates/pages</param-value>
+		</init-param>
+		<init-param>
+			<param-name>view-suffix</param-name>
+			<param-value>.ftl</param-value>
+		</init-param>
+		<init-param>
+			<param-name>supported-locales</param-name>
+			<param-value>en, de, de_DE, ru_RU:UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>default-character-encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>default-content-type</param-name>
+			<param-value>text/html</param-value>
+		</init-param>
+		<init-param>
+			<param-name>injector-provider</param-name>
+			<param-value>com.geecommerce.core.web.geemvc.inject.ModuleInjectorProvider</param-value>
+		</init-param>
+		<init-param>
+			<param-name>exclude-path-mapping</param-name>
+			<param-value>/api/**</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jax-rs-enabled</param-name>
+			<param-value>false</param-value>
+		</init-param>
+<!-- 		
+		<init-param>
+			<param-name>reflections-include-libs</param-name>
+			<param-value>ALL</param-value>
+		</init-param>
+ -->		
+		<init-param>
+			<param-name>reflections-exclude-libs</param-name>
+			<param-value>.*genson\-.+\.jar</param-value>
+		</init-param>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Geemvc-Servlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>com.geecommerce.core.bootstrap.BootstrapServletContextListener</listener-class>
+	</listener>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Owasp.CsrfGuard listeners. -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<context-param>
+		<param-name>Owasp.CsrfGuard.Config</param-name>
+		<param-value>/WEB-INF/conf/Owasp.CsrfGuard.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>Owasp.CsrfGuard.Config.Print</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.owasp.csrfguard.CsrfGuardServletContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.owasp.csrfguard.CsrfGuardHttpSessionListener</listener-class>
+	</listener>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- Error pages. -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error/404</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
+
+	<error-page>
+		<error-code>413</error-code>
+		<location>/error/413</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/other</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error/other</location>
+	</error-page>
+</web-app>

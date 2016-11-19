@@ -1,0 +1,86 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+
+.cart-header, .cart-item{
+    border-bottom: solid grey 1px;
+}
+
+.cart-header > div{
+    text-align: right;
+}
+
+.cart-header > div.name{
+    text-align: left;
+}
+
+.cart-summary .total {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.cart-summary .subtotal {
+    font-size: 20px;
+}
+
+.cart-summary .shipping {
+    font-size: 18px;
+    border-bottom: solid grey 1px;
+}
+
+.cart-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.cart-item > div {
+ /*   padding-left: 5px;
+    padding-right: 5px;*/
+}
+
+.cart-item-name > .item-image {
+    display : inline-block;
+    padding-right: 15px;
+}
+
+.cart-item-name > .item-description {
+    display : inline-block;
+    vertical-align: top;
+}
+
+.cart-item-quantity{
+    text-align: right;
+}
+
+.cart-item-quantity > input {
+    min-width: 50px;
+    text-align: center;
+}
+
+.cart-item-total {
+    text-align: right;
+}
+
+.cart-item-remove {
+    text-align: right;
+}
+
+.item-description > .item-dscr-name {
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 998px) {
+	
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+
+}

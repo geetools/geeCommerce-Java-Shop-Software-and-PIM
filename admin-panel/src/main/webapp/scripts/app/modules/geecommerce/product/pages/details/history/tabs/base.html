@@ -1,0 +1,196 @@
+<div>
+		<!-- ko if: productVM().isDeleted() -->
+			<div data-bind="alertError: { title: 'app:modules.product.infoProductDeletedTitle', body: 'app:modules.product.infoProductDeletedBody', bodyArgs: {delete_note: productVM().data().deletedNote} }"></div>
+		<!-- /ko -->
+	
+			<div id="product-base-header-left" class="col-md-7">
+
+		
+	        <!-- ko if: productVM().isProgramme() -->
+	
+				<div class="form-group">
+					<label for="inputAttrTabGroup" class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabProgramme">Programme</label>
+					<div class="col-sm-8 read-only-text">
+						<span class="" data-bind="i18nAttrOption: editVM.programme, code: 'programme'"></span>
+					</div>
+				</div>
+			<!-- /ko -->
+	
+			<!-- ko if: !productVM().isProgramme() -->
+	
+				<div class="form-group">
+					<label for="inputAttrTabGroup" class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabProuctGroup">Product Group</label>
+					<div class="col-sm-8 read-only-text">
+						<span class="" data-bind="i18nAttrOption: editVM.productGroup, code: 'product_group'"></span>
+					</div>
+				</div>
+	
+			<!-- /ko -->
+	
+			<div class="form-group">
+				<label for="inputPrdArtNumber" class="col-sm-4 control-label" data-i18n="app:common.articleNumber">Article Number</label>
+				<div class="col-sm-8 read-only-text">
+					<span class="" data-bind="ctxText: editVM.articleNumber, ctxOptions: {scopes: ['global']}"></span>				
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPrdName" class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabName">Name</label>
+				<div class="col-sm-8 read-only-text">
+					<span class="" data-bind="i18nText: editVM.name"></span>				
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputPrdName2" class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabName2">Name2</label>
+				<div class="col-sm-8 read-only-text">
+					<span class="" data-bind="i18nText: editVM.name2"></span>				
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="inputBrand" class="col-sm-4 control-label" data-i18n="app:common.brand">Marke</label>
+				<div class="col-sm-8">
+					<input data-bind="ctxValue: editVM.brand, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdBrand" type="text" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="inputPrdManufacturer" class="col-sm-4 control-label" data-i18n="app:common.manufacturer">Hersteller</label>
+				<div class="col-sm-8">
+					<input data-bind="ctxValue: editVM.supplier, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdManufacturer" type="text" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="inputPrdSupplier" class="col-sm-4 control-label" data-i18n="app:common.supplier">Lieferant</label>
+				<div class="col-sm-8">
+					<input data-bind="ctxValue: editVM.supplier, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdSupplier" type="text" required>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="inputPrdEan" class="col-sm-4 control-label" data-i18n="app:common.ean">EAN</label>
+				<div class="col-sm-8">
+					<input data-bind="ctxValue: editVM.ean, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdEan" type="text" required>
+				</div>
+			</div>
+			
+			
+			<!-- /ko -->
+			
+		</div>
+		<div id="product-base-header-right" class="col-md-5">
+			<div class="col-sm-5">
+				<img data-bind="attr: {src: editVM.mainImageURL}" />
+			</div>
+
+			<div class="col-sm-7">
+				<!-- ko if: $root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin') -->
+					<div style="float: right"><a data-bind="attr: { href: editVM.refreshURL }" target="_blank"><i class="fa fa-refresh fa-fw"></i></a></div>
+					<br/><br/>
+				<!-- /ko -->
+				
+				<p data-bind="html: editVM.descriptionText"></p>
+			</div>
+		</div>
+		
+		<div style="clear:both"></div>		
+		
+			<div id="product-status-infobox" class="col-sm-7">
+				<div class="form-group">
+					<label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabDescStatus">Description Status</label>
+					<div class="col-sm-4 control-field" data-bind="html: editVM.descriptionStatusLabel"></div>
+					<div class="col-sm-4 control-field"><i data-bind="css: editVM.descriptionStatusIcon"></i></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabImageStatus">Image Status</label>
+					<div class="col-sm-4 control-field" data-bind="text: editVM.imageStatusLabel"></div>
+					<div class="col-sm-4 control-field"><i data-bind="css: editVM.imageStatusIcon"></i></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabStatus">Article Status</label>
+					<div class="col-sm-4">
+			           	<select class="selectpicker" title="auswählen" data-bind="ctxSelect: editVM.articleStatus, data: $root.articleStatuses, ctxOptions: {scopes: ['STORE']}">
+			           	</select>
+					</div>
+					<div class="col-sm-4"><i data-bind="css: editVM.articleStatusIcon"></i></div>
+				</div>
+				<div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+					<label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabVisible">Visible</label>
+					<div class="col-sm-4 switch-wrapper">
+						<input type="checkbox" data-bind="ctxBool: editVM.visible, switchOptions: {default: false}" />
+					</div>
+					<div class="col-sm-4"><i data-bind="css: editVM.visibleStatusIcon"></i></div>
+				</div>
+			</div>
+			<div id="product-status-infobox" class="col-sm-5">
+			</div>
+<div class="row">			
+<div class="col-sm-7">
+			
+			<div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+				<label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabVisibleInProductList">Visible in Product List</label>
+				<div class="col-sm-8 switch-wrapper">
+					<input type="checkbox" data-bind="ctxBool: editVM.visibleInProductList, switchOptions: {default: true}" />
+				</div>
+			</div>
+            <div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+                <label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabSaleable">Saleable</label>
+                <div class="col-sm-8 switch-wrapper">
+                    <input type="checkbox" data-bind="ctxBool: editVM.saleable, switchOptions: {default: true}" />
+                </div>
+            </div>
+            <div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+                <label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabShowCartButton">Show Cart-Button</label>
+                <div class="col-sm-8 switch-wrapper">
+                    <input type="checkbox" data-bind="ctxBool: editVM.showCartButton, switchOptions: {default: true}" />
+                </div>
+            </div>
+            <div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+                <label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabIncludeInFeeds">Include in Feeds</label>
+                <div class="col-sm-8 switch-wrapper">
+                    <input type="checkbox" data-bind="ctxBool: editVM.includeInFeeds, switchOptions: {default: true}" />
+                </div>
+            </div>
+
+			<!-- ko if: productVM().isProgramme() -->
+	            <div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+	                <label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabSpecial">Is Special</label>
+	                <div class="col-sm-8 switch-wrapper">
+	                    <input type="checkbox" data-bind="ctxBool: editVM.special, switchOptions: {default: false}" />
+	                </div>
+	            </div>
+	            <div class="form-group" data-bind="css: { storeActive: app.isStoreSelected() }">
+	                <label class="col-sm-4 control-label" data-i18n="app:modules.product.baseTabSpecial">Is Sale</label>
+	                <div class="col-sm-8 switch-wrapper">
+	                    <input type="checkbox" data-bind="ctxBool: editVM.sale, switchOptions: {default: false}" />
+	                </div>
+	            </div>
+			<!-- /ko -->
+
+</div>
+</div>
+
+		<!-- /ko -->
+		
+<div class="row">			
+<div class="col-sm-7">
+            
+            <div class="form-group">
+                <label  class="col-sm-4 control-label" data-i18n="app:common.createdOn"></label>
+                <div class="col-sm-8 form-text">
+                	<span data-bind="format: productVM().data().createdOn, formatOptions: { type: 'date' }"></span>, <span data-bind="if: productVM().data().createdBy"><span data-i18n="app:common.by"></span> <span data-bind="text: productVM().data().createdBy"></span></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label" data-i18n="app:common.modifiedOn"></label>
+                <div class="col-sm-8 form-text">
+                	 <span data-bind="format: productVM().data().modifiedOn, formatOptions: { type: 'date' }"></span></span>
+                </div>
+            </div>
+
+</div>
+</div>
+            
+	<!-- /ko -->
+	
+</div>

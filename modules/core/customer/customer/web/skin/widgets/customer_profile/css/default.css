@@ -1,0 +1,111 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+.customer-profile-content {
+    height: 225px;
+    width: 226px;
+}
+
+.customer-profile-popover {
+    display: none;
+}
+
+.customer-profile-link {
+}
+
+.customer-profile-content .cp-action-btn button {
+    background: #9a1452 -moz-linear-gradient(center top , #bf2a6a 0px, #9a1452 100%) repeat scroll 0 center;
+    background-image: -webkit-linear-gradient(top,#bf2a6a  0,#9a1452 100%);
+    background-image: -moz-linear-gradient(top,#bf2a6a  0,#9A1452 100%);
+    background-image: -ms-linear-gradient(top,#bf2a6a  0,#9A1452 100%);
+    background-image: -o-linear-gradient(top,#bf2a6a  0,#9A1452 100%);
+    background-image: linear-gradient(top,#bf2a6a  0,#9A1452 100%);
+    border: 0 none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 46px;
+    line-height: 14px;
+    margin-bottom: 10px;
+    min-width: 60px;
+    outline: 0 none;
+    padding: 14px 10px;
+    text-align: center;
+    vertical-align: baseline;
+    width: 100%;
+}
+
+.customer-profile-content .cp-action-btn button:hover {
+    background-color: #9A1452;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#9A1452 ),color-stop(100% #9A1452));
+    background-image: -webkit-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: -moz-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: -ms-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: -o-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: linear-gradient(top,#9A1452  0,#9A1452 100%);
+}
+
+.customer-profile-content .cp-link .cp-link-item {
+    padding-bottom: 20px;
+}
+
+.customer-profile-content a:hover {
+    text-decoration: none;
+}
+
+.customer-profile-content .cp-link:first-child {
+    padding-top: 10px;
+}
+
+.cp-link-item .paragraph {
+    font-weight: bold;
+}
+
+.cp-link ul.a-nostyle {
+    padding-left: 0;
+    padding-bottom: 10px;
+    text-align: left!important;
+}
+
+.cp-link ul.a-nostyle li:first-child {
+    font-weight: bold;
+}
+
+.cp-link ul.a-nostyle li:not(:first-child) {
+    padding-left: 15px;
+}
+
+.cp-link ul.a-nostyle li {
+    list-style: none;
+    margin-bottom: 15px!important;
+}
+
+.customer-profile-title .cp-title {
+    line-height: 1.7;
+    white-space: nowrap;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.customer-profile-title .tooltip-inner {
+    width: 250px;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 998px) {
+	
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+
+}

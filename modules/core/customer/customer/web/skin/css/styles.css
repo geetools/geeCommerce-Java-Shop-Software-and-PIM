@@ -1,0 +1,194 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+div.centeredContainer {
+    margin: 0 auto;
+}
+
+.customer-account-container button {
+    background: #9a1452 -moz-linear-gradient(center top , #bf2a6a 0px, #9a1452 100%) repeat scroll 0 center;
+    background: #9a1452 -webkit-linear-gradient(top, #bf2a6a  0, #9A1452 100%) repeat scroll 0 center;
+    background: #9a1452 -o-linear-gradient(top,#bf2a6a  0,#9A1452 100%) repeat scroll 0 center;
+    background: #9a1452 -ms-linear-gradient(top,#bf2a6a  0,#9A1452 100%) repeat scroll 0 center;
+
+    border: 0 none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 46px;
+    line-height: 14px;
+    /*margin-bottom: 10px;*/
+    min-width: 60px;
+    outline: 0 none;
+    padding: 14px 10px;
+    text-align: center;
+    vertical-align: baseline;
+    width: 100%;
+}
+
+.customer-account-container a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+
+.customer-account-container .login-btn {
+}
+
+.customer-account-container .logout-btn {
+}
+
+.customer-account-container .registr-btn {
+    font-weight: normal;
+    background: #ccc -moz-linear-gradient(center top , #ccc 0px, #ccc 100%) repeat scroll 0 center;
+    background: #9a1452 -webkit-linear-gradient(top, #ccc  0, #ccc 100%) repeat scroll 0 center;
+    background: #9a1452 -o-linear-gradient(top,#ccc  0,#ccc 100%) repeat scroll 0 center;
+    background: #9a1452 -ms-linear-gradient(top,#ccc  0,#ccc 100%) repeat scroll 0 center;
+}
+
+.customer-account-container .registr-btn:hover {
+}
+
+
+.customer-account-container button:hover {
+    background-color: #9A1452;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#9A1452 ),color-stop(100% #9A1452));
+    background-image: -webkit-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: -moz-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: -ms-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: -o-linear-gradient(top,#9A1452  0,#9A1452 100%);
+    background-image: linear-gradient(top,#9A1452  0,#9A1452 100%);
+}
+
+.customer-account-container .header {
+    padding-bottom: 40px;
+}
+
+.customer-account-form select {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.customer-account-form select:focus {
+    border: 2px solid #ccc!important;
+}
+
+
+.customer-account-overview .menu-panel {
+    margin-bottom: 20px;
+}
+
+.customer-account-overview .overview-menu-item {
+    line-height: 24px;
+}
+
+.customer-account-overview .content-panel {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+}
+
+.customer-account-overview .panel-cell {
+    margin-bottom: 10px;
+}
+
+.form-inline .search-order-btn {
+    line-height: 10px;
+    height: 36px;
+}
+
+.form-inline .search-order-input {
+    width: 100%;
+}
+
+.customer-account-overview .view-order-btn {
+    line-height: 10px;
+    height: 36px;
+}
+
+.customer-account-overview ul.a-nostyle {
+    padding-left: 0;
+}
+
+.customer-account-overview ul.a-nostyle li {
+    list-style: none;
+    margin-bottom: 8px!important;
+}
+
+.customer-account-container input.form-control {
+    outline: 1px solid #ccc;
+    border: none;
+}
+
+.customer-account-container input.form-control:focus {
+    outline: 2px solid #ccc!important;
+}
+
+
+.customer-address-overview .content-panel {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+}
+
+.customer-address-overview .content-panel.default {
+    background-color: #D1ECFD;
+}
+
+.customer-address-overview ul.a-nostyle {
+    padding-left: 0;
+}
+
+.customer-address-overview ul.a-nostyle li {
+    list-style: none;
+    padding-left: 0!important;
+}
+
+.customer-address-overview .addr-modify-btn {
+    width: 100%;
+}
+
+.customer-address-overview .addr-set-default {
+    line-height: 2.2;
+}
+
+.customer-address-overview .addr-default-delivery, .addr-default-invoice {
+    color: red;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 998px) {
+
+    .customer-account-overview .search-order-input {
+        width: 165px;
+    }
+
+    .order-summary-overview .header-cell {
+        padding: 0;
+    }
+
+    .order-summary-overview .content-cell.product-description {
+        padding-top: 20px;
+    }
+
+    .customer-account-overview .panel-cell {
+        margin-bottom: 10px;
+        padding-left: 10px;
+    }
+
+
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+
+
+}

@@ -1,0 +1,26 @@
+{
+  "name": "bootstrap",
+  "version": "3.0.1-p7",
+  "main": [
+    "./dist/js/bootstrap.js",
+    "./dist/css/bootstrap.css",
+    "./dist/fonts/*"
+  ],
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.0"
+  },
+  "homepage": "https://github.com/jasny/bootstrap",
+  "_release": "3.0.1-p7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.1-p7",
+    "commit": "a977d5ce6a2ab6f77d9f57559fc3ae2b4ab77d37"
+  },
+  "_source": "git://github.com/jasny/bootstrap.git",
+  "_target": "~3.0.1-p7",
+  "_originalSource": "bootstrap-jasny",
+  "_direct": true
+}

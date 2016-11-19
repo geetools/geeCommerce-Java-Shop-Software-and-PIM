@@ -1,0 +1,7 @@
+group = 'com.scs'
+description = ''
+dependencies {
+  compile project(':scs:scs-modules:scs-module-catalog')
+  compile project(':scs:scs-modules:scs-module-customer')
+  compile project(':scs:scs-modules:scs-module-tax')
+}

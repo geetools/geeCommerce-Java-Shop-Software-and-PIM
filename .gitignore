@@ -1,0 +1,41 @@
+# Java
+*.class
+*.war
+*.ear
+**/WEB-INF/classes/
+**/WEB-INF/lib/
+bin/
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+**/target/
+
+# Gradle
+build/
+.gradle/
+
+# geeCommerce
+System.properties
+Merchant.properties
+projects/**/modules
+projects/**/log
+projects/**/cache
+*.deleted
+
+# Logs
+*.log
+*.iml
+.idea
+
+# Eclipse
+.eclipse
+.project
+.classpath
+.settings/
+
+# Vagrant
+.vagrant/
+Vagrantfile

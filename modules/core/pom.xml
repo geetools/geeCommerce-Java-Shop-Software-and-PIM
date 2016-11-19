@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.geetools.geecommerce</groupId>
+	<artifactId>geecommerce-core-modules</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+  
+	<parent>
+		<groupId>com.geetools.geecommerce</groupId>
+		<artifactId>geecommerce-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../../</relativePath>
+	</parent>
+
+	<modules>
+		<module>catalog/catalog</module>
+		<module>catalog/customer-review</module>
+		<module>catalog/inventory</module>
+		<module>catalog/price</module>
+		<module>catalog/wishlist</module>
+		<module>checkout/cart</module>
+		<module>checkout/calculation</module>
+		<module>checkout/checkout</module>
+		<module>checkout/coupon</module>
+		<module>customer/customer</module>
+		<module>general/antispam</module>
+		<module>general/gui-widgets</module>
+		<module>general/home</module>
+		<module>general/tax</module>
+		<module>general/unit-converter</module>
+		<module>general/vacancy</module>
+		<module>general/web-message</module>
+		<module>i18n/country</module>
+		<module>i18n/language</module>
+		<module>mailer/mailer</module>
+		<module>mailer/optivo-broadmail-mailer</module>
+		<module>marketing/analytics/google-analytics</module>
+		<module>marketing/newsletter/newsletter-subscription</module>
+		<module>marketing/sem/google-remarketing</module>
+		<module>media/media-assets</module>
+		<module>navigation/navigation</module>
+		<module>payment/payment-method/bank-transfer</module>
+		<module>payment/payment-method/cash-on-delivery</module>
+		<module>payment/payment-method/cash-payment</module>
+		<module>payment/payment-method/creditcard</module>
+		<module>payment/payment-method/invoice</module>
+		<module>search/search</module>
+		<module>shipping/provider/dhl</module>
+		<module>shipping/provider/fixedrate</module>
+		<module>shipping/provider/table-rate</module>
+		<module>shipping/shipping</module>
+		<module>shipping/shipping-additional-rates</module>
+		<module>social-media/facebook-like</module>
+		<module>store/store-finder</module>
+		<module>checkout/checkout-flow</module>
+	</modules>
+  
+	<dependencies>
+		<dependency>
+			<groupId>com.geetools.geemodule</groupId>
+			<artifactId>geemodule</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.geetools.geecommerce</groupId>
+			<artifactId>geecommerce-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
+  
+</project>

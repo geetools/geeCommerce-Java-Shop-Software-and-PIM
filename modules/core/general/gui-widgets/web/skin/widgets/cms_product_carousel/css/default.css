@@ -1,0 +1,252 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+
+.cms-product-carousel .prd-img-gallery {
+    float: right;
+}
+
+.cms-product-carousel #prd-img-thumbnails {
+    min-height: 80px;
+    margin: 0 auto;
+}
+
+.cms-product-carousel #prd-img-thumbnails li>img {
+    width: 80px;
+    height: 80px;
+    padding-right: 20px;
+}
+
+.cms-product-carousel .carousel-control.left {
+    background-image: none;
+}
+
+.cms-product-carousel .carousel-control.right {
+    background-image: none;
+}
+
+.cms-product-carousel .carousel {
+    margin-top: 20px;
+}
+.cms-product-carousel .item .thumb {
+    cursor: pointer;
+}
+.cms-product-carousel .item .thumb img {
+    margin: 2px;
+}
+.cms-product-carousel .item img {
+    width: 90%;
+}
+
+
+button.slick-prev.slick-arrow {
+    position: relative;
+    text-align: center;
+    padding: 3px;
+    margin: 20px 0px;
+    height: 1px;
+    width: 50px;
+    background: transparent;
+    border: 0;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    float: left;
+}
+
+button.slick-prev.slick-arrow:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 51%;
+    background: #a0a0a0;
+    -webkit-transform: skew(0deg, 20deg);
+    -moz-transform: skew(0deg, 20deg);
+    -ms-transform: skew(0deg, 20deg);
+    -o-transform: skew(0deg, 20deg);
+    transform: skew(0deg, 20deg);
+}
+button.slick-prev.slick-arrow:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    background: #a0a0a0;
+    -webkit-transform: skew(0deg, -20deg);
+    -moz-transform: skew(0deg, -20deg);
+    -ms-transform: skew(0deg, -20deg);
+    -o-transform: skew(0deg, -20deg);
+    transform: skew(0deg, -20deg);
+}
+
+button.slick-next.slick-arrow {
+    position: relative;
+    text-align: center;
+    padding: 3px;
+    margin: 20px 0px;
+    height: 1px;
+    width: 50px;
+    background: transparent;
+    border: 0;
+    float: left;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
+button.slick-next.slick-arrow:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 51%;
+    background: #a0a0a0;
+    -webkit-transform: skew(0deg, 20deg);
+    -moz-transform: skew(0deg, 20deg);
+    -ms-transform: skew(0deg, 20deg);
+    -o-transform: skew(0deg, 20deg);
+    transform: skew(0deg, 20deg);
+}
+button.slick-next.slick-arrow:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    background: #a0a0a0;
+    -webkit-transform: skew(0deg, -20deg);
+    -moz-transform: skew(0deg, -20deg);
+    -ms-transform: skew(0deg, -20deg);
+    -o-transform: skew(0deg, -20deg);
+    transform: skew(0deg, -20deg);
+}
+
+.cms-product-carousel #prd-img-thumbnails>div>ul {
+    float: left;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    margin-top: 15px;
+    padding: 0;
+    width:100%;
+}
+
+.cms-product-carousel #prd-img-thumbnails>div>ul>li {
+    width: 100px;
+}
+
+.cms-product-carousel .slick-list {
+    float: left;
+    width: 100%;
+}
+
+.cms-product-carousel .cat-hidden-xs {
+    display: none !important;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 768px) {
+/*@include media-breakpoint-only(md) {*/
+
+    .cms-product-carousel .cat-hidden-xs {
+        display: block !important;
+    }
+
+    .cms-product-carousel .cat-hidden-sd {
+        display: none !important;
+    }
+
+    .cms-product-carousel #prd-img-thumbnails {
+        float: left;
+        min-height: 390px;
+        margin: 0 auto;
+    }
+
+    button.slick-prev.slick-arrow {
+        float: none;
+        margin: 20px 3px;
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    button.slick-next.slick-arrow {
+        float: none;
+        margin: 20px 3px;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    .slick-list {
+        float: none;
+        width: auto;
+        height: 200px;
+    }
+
+    .slick-slide {
+        float: none;
+        width: 50px;
+    }
+
+    .cms-product-carousel #prd-extra-info-box {
+        width: 100%;
+        min-height: 200px;
+        background-color: #F2F9F9;
+        padding: 15px;
+        margin-top: 0;
+    }
+
+    .cms-product-carousel #prd-img-thumbnails li>img {
+        width: 60px;
+        height: 60px;
+        padding-right: 0px;
+        padding-bottom: 10px;
+    }
+
+    .cms-product-carousel #prd-img-thumbnails>div>ul {
+        width:60px;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+/*@include media-breakpoint-only(lg) {*/
+
+    .cms-product-carousel .cat-hidden-xs {
+        display: block !important;
+    }
+
+    .cms-product-carousel .cat-hidden-sd {
+        display: block !important;
+    }
+
+    .cms-product-carousel .cat-hidden-md {
+        display: block !important;
+    }
+
+    .cms-product-carousel .cat-hidden-lg {
+        display: none !important;
+    }
+
+}

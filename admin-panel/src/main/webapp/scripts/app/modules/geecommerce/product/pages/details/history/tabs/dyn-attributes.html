@@ -1,0 +1,18 @@
+<div>
+
+	<!-- ko foreach: { data: formAttributeValues, as: 'attrVal' } -->
+	
+		<!-- ko if: ($root.gc.security.isInRole('product-viewer') || $root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin')) && attrVal.hasValue -->	
+		
+			<div class="form-group">
+				<label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-5 control-label"></label>
+				<div class="read-only-text col-sm-3">
+					<span class="" data-bind="i18nAttr: attrVal"></span>
+				</div>
+			</div>
+		
+		<!-- /ko -->
+
+	<!-- /ko -->
+
+</div>

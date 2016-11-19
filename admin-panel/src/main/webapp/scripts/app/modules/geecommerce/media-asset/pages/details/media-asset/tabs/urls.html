@@ -1,0 +1,30 @@
+<div class="col-md-10" id="view-product-list-details">
+
+    <!-- ko if: tab.type == 'directory' -->
+        <form action="#" class="dropzone dropzone-files dz-media" data-bind="attr: { 'data-maid' : 'new-media-asset', 'id' : 'dz-new-media-asset' + $root.tab.id }">
+            <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+            <p class="dz-message" data-i18n="app:modules.media-asset.fileTabUploadHint">
+                Click here or drag and drop to add file
+            </p>
+        </form>
+        <!-- ko foreach: { data: $root.tab.vm.mediaAssets, as: 'mediaAsset' } -->
+            <div class="col-xs-4" >
+                <img class="img-responsive img-thumbnail" data-bind="attr: { src: mediaAsset.url}, click: mediaAsset.openMediaAsset" >
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: tab.type == 'media-asset' -->
+         <img class="img-responsive" data-bind="attr: { src: tab.vm.url}" alt="Chania">
+    <!-- /ko -->
+
+<!--
+        <ul class="nav nav-tabs">
+            <li class="active"><a id="tab-media-asset-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.media-asset.tabTitleGeneral">Base</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/base', activationData: $root.mediaAssetId}"></div>
+        </div>-->
+
+</div>

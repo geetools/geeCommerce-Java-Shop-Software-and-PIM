@@ -1,0 +1,163 @@
+
+.login-box .logo-wrapper, .home-loader-box .logo-wrapper {
+    width: 156px;
+}
+
+.login-box .logo-text-wrapper, .home-loader-box .logo-text-wrapper {
+    width: 55px;
+}
+
+.btn {
+	background: #ff7e39;
+	background-image: -webkit-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: -moz-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: -ms-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: -o-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: linear-gradient(to bottom, #ff7e39, #ff6422);
+	-webkit-border-radius: 3;
+	-moz-border-radius: 3;
+	border-radius: 3px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 11px;
+	padding: 7px 10px 7px 10px;
+	text-decoration: none;
+	border: 0;
+}
+
+.btn:hover, .btn:focus {
+	background: #ff6310;
+	background-image: -webkit-linear-gradient(top, #ff6310, #f84a00);
+	background-image: -moz-linear-gradient(top, #ff6310, #f84a00);
+	background-image: -ms-linear-gradient(top, #ff6310, #f84a00);
+	background-image: -o-linear-gradient(top, #ff6310, #f84a00);
+	background-image: linear-gradient(to bottom, #ff6310, #f84a00);
+	color: #ffffff !important;
+}
+
+.bootstrap-select .btn {
+	background: #fff;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0px;
+	font-family: Arial;
+	color: #777;
+	font-size: 11px;
+	padding: 5px 8px;
+	text-decoration: none;
+	border: 1px solid #DFDFDF;
+}
+
+.bootstrap-select .btn:hover, .bootstrap-select .btn:focus {
+	background: #fff;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0px;
+	font-family: Arial;
+	color: #777;
+	font-size: 11px;
+	padding: 5px 8px;
+	text-decoration: none;
+	border: 1px solid #DFDFDF;
+}
+
+.bootstrap-select .btn-default:hover, .bootstrap-select .btn-default:focus,
+	.bootstrap-select .btn-default:active, .bootstrap-select .btn-default.active,
+	.bootstrap-select .open .dropdown-toggle.btn-default {
+	background: #fff;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	background-image: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0px;
+	font-family: Arial;
+	color: #777 !important;
+	font-size: 11px;
+	padding: 5px 8px;
+	text-decoration: none;
+	border: 1px solid #DFDFDF;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: none;
+	transition: none;
+}
+
+.login-box .btn {
+	background: #F08EBD;
+	background-image: -webkit-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: -moz-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: -ms-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: -o-linear-gradient(top, #ff7e39, #ff6422);
+	background-image: linear-gradient(to bottom, #ff7e39, #ff6422);
+	-webkit-border-radius: 3;
+	-moz-border-radius: 3;
+	border-radius: 3px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 11px;
+	padding: 7px 10px 7px 10px;
+	text-decoration: none;
+	border: 0;
+}
+
+.login-box .btn:hover, .btn:focus {
+	background: #F08EBD;
+	background-image: -webkit-linear-gradient(top, #ff6310, #f84a00);
+	background-image: -moz-linear-gradient(top, #ff6310, #f84a00);
+	background-image: -ms-linear-gradient(top, #ff6310, #f84a00);
+	background-image: -o-linear-gradient(top, #ff6310, #f84a00);
+	background-image: linear-gradient(to bottom, #ff6310, #f84a00);
+	color: #FFFFFF;
+}
+
+.table>thead>tr>th:hover {
+    border-bottom: 3px solid #f84a00;
+}
+
+select:focus, input:focus, select:active, input:active, button:active, button:active {
+    outline-color: #ff6422 !important;
+    border-color: #ff6422 !important;
+}
+
+ul.nav-tabs>li.active>a, ul.sub-nav-tabs>li.active>a, .switch-button-label.on, a:hover, ul.sub-nav-tabs>li>a:hover, ul.nav-tabs>li>a:hover {
+    color: #ff6422 !important;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    background-color: #ff6310;
+    border-color: #ff6310;
+    color: #fff !important;
+}
+
+.pagination a, .pagination span, .pagination a:hover, .pagination span:hover, .pagination a:focus, .pagination span:focus {
+    color: #ff6310;
+}
+
+#product-status-infobox {
+    background-color: #EFEFEF;
+}
+
+.product-status-tick {
+    color: #1cab16;
+}
+
+#view-attribute-group-details span.form-control {
+    background-color: #ddd!important;
+    border: 0;
+    font-size: 13px;
+    padding-top: 9px;
+    padding-left: 10px;
+}

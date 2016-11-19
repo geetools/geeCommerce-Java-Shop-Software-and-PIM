@@ -1,0 +1,273 @@
+<div class="row" id="media-asset-main">
+    <div id="media-asset-directories" class="col-md-3">
+        <ul class="ma-directories" data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
+
+
+
+
+    </div>
+
+    <div id="media-asset-content" class="col-md-9">
+
+        <div class="col-sm-6 col-xs-12 pull-right" >
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-bind="value: $root.searchKeyword, valueUpdate: 'afterkeyup', i18nPlaceholder:'app:modules.product.placeholderSearch'"/>
+                        <span class="input-group-btn">
+							<button class="btn btn-primary" type="button" data-bind="click: $root.search"><i class="fa fa-search"></i></button>
+						</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+<!--        <div >
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="text" data-bind="value: $root.pager.searchKeyword, valueUpdate: 'afterkeyup', i18nPlaceholder:'app:modules.product.placeholderSearch'"/>
+                        <span class="input-group-btn">
+							<button class="btn btn-primary" type="button" data-bind="click: $root.pager.refresh"><i class="fa fa-search"></i></button>
+						</span>
+                    </div>
+                </div>
+            </form>
+        </div>-->
+
+        <ul class="nav nav-tabs col-xs-12">
+            <!-- ko foreach: { data: $root.tabs, as: 'tab' } -->
+                <li><a href="" data-bind="attr: {'data-target': '#tab-content-' + tab.id, 'id': 'tab-link-' + tab.id}" data-toggle="tab">
+                    <span data-bind="i18nText: {value: tab.label, mode: 'any'}">Tab</span>
+                    <span class="icon expand-icon glyphicon glyphicon-remove" data-bind="click: $root.closeTab"></span>
+                </a>
+
+                </li>
+            <!-- /ko -->
+        </ul>
+
+        <div class="tab-content">
+            <!-- ko foreach: { data: $root.tabs, as: 'tab' } -->
+                <!-- ko if: tab.type == 'directory' -->
+                    <div class="tab-pane" data-bind="attr: {'id': 'tab-content-' + tab.id}, compose:{ model: 'modules/geecommerce/media-asset/pages/details/directory/index', activationData: {tab: tab } }">
+                        <div class="tab-loading-box jumbotron">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                                </div>
+                                <div class="col-md-10">
+                                    <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                                    <p data-i18n="app:common.loadingContentInfo"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /ko -->
+
+                <!-- ko if: tab.type == 'search' -->
+                <div class="tab-pane" data-bind="attr: {'id': 'tab-content-' + tab.id}, compose:{ model: 'modules/geecommerce/media-asset/pages/details/search/index', activationData: {tab: tab } }">
+                    <div class="tab-loading-box jumbotron">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                            </div>
+                            <div class="col-md-10">
+                                <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                                <p data-i18n="app:common.loadingContentInfo"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+                <!-- ko if: tab.type == 'media-asset' -->
+                    <div class="tab-pane" data-bind="attr: {'id': 'tab-content-' + tab.id}, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/index', activationData: {tab: tab } }">
+                        <div class="tab-loading-box jumbotron">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                                </div>
+                                <div class="col-md-10">
+                                    <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                                    <p data-i18n="app:common.loadingContentInfo"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /ko -->
+
+            <!-- /ko -->
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script id="nodeTemplate" type="text/html">
+    <li class="ma-tree-node">
+        <!-- ko if: open() -->
+            <span class="icon expand-icon glyphicon glyphicon-minus" data-bind="click: hide"></span>
+        <!-- /ko -->
+        <!-- ko if: !open() -->
+            <span class="icon expand-icon glyphicon glyphicon-plus" data-bind="click: show"></span>
+        <!-- /ko -->
+        <span class="icon expand-icon glyphicon glyphicon-folder-open" data-bind="click: show"></span>
+
+        <span data-bind="i18nText: { value: name, mode: 'closest' }, click: openDirectory, contextMenu: menu"></span>
+
+        <!-- ko if: open() -->
+        <ul data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
+        <ul data-bind="template: { name: 'fileTemplate', foreach: mediaAssets }"></ul>
+        <!-- /ko -->
+        <!-- ko if: !open() -->
+
+        <!-- /ko -->
+
+    </li>
+</script>
+<script id="fileTemplate" type="text/html">
+    <li class="ma-tree-node">
+        <span class="icon expand-icon glyphicon glyphicon-file"></span>
+        <span data-bind="i18nText: { value: name, mode: 'closest' }, click: openMediaAsset, contextMenu: menu"></span>
+    </li>
+</script>
+
+
+<!--Modal dialogs-->
+
+<!--Modal Rename Directory-->
+
+    <div role="dialog" aria-hidden="true" class="modal fade" data-bind="modal: { show: isDirRenamePopupOpen }">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">&times;</button>
+                    <h4 class="modal-title">Rename directory</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputDirName" class="col-sm-2 control-label" data-i18n="app:modules.media-asset.baseTabName">Name</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                                <input data-bind="i18nValue: vmName" class="form-control" id="inputDirName" placeholder="Enter name" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: renameDir">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--Modal Rename MA-->
+
+<div role="dialog" aria-hidden="true" class="modal fade" data-bind="modal: { show: isMaRenamePopupOpen }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">&times;</button>
+                <h4 class="modal-title">Rename media asset</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputDirName" class="col-sm-2 control-label" data-i18n="app:modules.media-asset.baseTabName">Name</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                            <input data-bind="i18nValue: vmName" class="form-control" id="inputMaName" placeholder="Enter name" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: renameMa">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Create Dir-->
+
+<div role="dialog" aria-hidden="true" class="modal fade" data-bind="modal: { show: isDirCreatePopupOpen }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">&times;</button>
+                <h4 class="modal-title">Create directory</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputCreateDirName" class="col-sm-2 control-label" data-i18n="app:modules.media-asset.baseTabName">Name</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                            <input data-bind="i18nValue: vmName" class="form-control" id="inputCreateDirName" placeholder="Enter name" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: createDir">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Remove Dir-->
+
+<div role="dialog" aria-hidden="true" class="modal fade" data-bind="modal: { show: isDirRemovePopupOpen }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">&times;</button>
+                <h4 class="modal-title">Remove directory</h4>
+            </div>
+
+            <div class="modal-body">
+                Do you really want to remove directory and all content?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: removeDir">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Remove Ma-->
+
+<div role="dialog" aria-hidden="true" class="modal fade" data-bind="modal: { show: isMaRemovePopupOpen }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">&times;</button>
+                <h4 class="modal-title">Remove media asset</h4>
+            </div>
+
+            <div class="modal-body">
+                Do you really want to remove media asset?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: removeMa">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

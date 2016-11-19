@@ -1,0 +1,226 @@
+﻿﻿
+<div class="wrapper">
+
+    <!-- HEAD NAV -->
+    <div class="navbar navbar-default navbar-static-top navbar-main">
+        <div>
+            <div id="navbar-brand-and-lang">
+                <div id="navigation-brand" class="navbar-header menu-item">
+                    <a class="navbar-brand" href="index.html"><img data-bind="attr: { src: app.conf.logoURI }" height="25" /> <span data-bind="attr: { src: app.conf.logoText }"></span></a>
+                </div>
+                <form class="form-inline form-locale-switch menu-item" role="form">
+                    <div id="form-context-switch">
+                        <div class="form-group locale-switch">
+                            <i class="navbar-icon fa fa-bullseye" aria-hidden="true"></i> 
+                            <select class="selectpicker" data-size="15" data-bind="select: app.sess.activeContextId, data: contextOptions">
+                            </select>
+                            <div class="ctx-active-container">
+                                <i class="ctx-active-icon fa fa-exclamation-circle" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-inline form-locale-switch menu-item" role="form">
+                    <div id="form-locale-switch">
+                        <div class="form-group locale-switch">
+                            <i class="navbar-icon fa fa-globe" aria-hidden="true"></i> 
+                            <select class="selectpicker" data-size="15" data-bind="select: app.sess.selectedLanguage, data: languageOptions">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="navbar-session-user-info">
+
+                <div id="session-user-info" class="dropdown menu-item pull-right">
+                    <a href="javascript:void(0);" class="dropdown-toggle avatar pull-right" data-toggle="dropdown"> <span id="session-user-name" data-bind="text: $root.loggedUser"></span> <i class="fa fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="#settings" class="dropdown-menu-item"><i class="fa fa-gear dropdown-menu-icon"></i><span class="dropdown-menu-label" data-i18n="app:account.settingsTitle"></span></a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-menu-item" data-bind="click: $root.signout"><i class="fa fa-sign-out dropdown-menu-icon"></i><span class="dropdown-menu-label" data-i18n="app:account.logout"></span></a></li>
+                    </ul>
+                </div>
+                <div class="menu-item pull-right" id="session-timeout-info" data-bind="click: touchSession()">
+                    <a href="javascript:void(0)"> <span data-bind="i18n: 'app:common.remainingTime'"></span> <strong data-bind="text: $root.app.remainingTime"></strong>
+                    </a>
+                </div>
+                <div id="refresh-data-icon" class="menu-item pull-right">
+                    <a href="javascript:void(0);" data-bind="click: refreshPreloadedData()"> <span id="refresh-data-text" data-bind="i18n: 'app:common.refreshData'"></span> <i class="fa fa-refresh fa-fw"></i>
+                    </a>
+                </div>
+
+                <div id="save-data-container" class="dropdown menu-item pull-right" data-bind="if: $root.gc.app.showSaveIcon">
+                    <div id="save-data-processing-icon">
+                        <img src="/img/ajax-loader-topbar.gif" border="0" />
+                    </div>
+                    <a href="javascript:void(0);" class="save-data-icon dropdown-toggle pull-right" data-toggle="dropdown"><i class="fa fa-floppy-o"></i> </a> <a href="javascript:void(0);" class="save-data-active-container dropdown-toggle"
+                        data-toggle="dropdown"><i class="save-data-active-icon fa fa-bolt" aria-hidden="true"></i></a>
+
+                    <ul id="save-data-menu" class="dropdown-menu pull-right">
+                        <li><a href="javascript:void(0);" class="dropdown-menu-item" data-bind="click: $root.gc.app.saveData"><i class="fa fa-floppy-o dropdown-menu-icon"></i><span class="dropdown-menu-label" data-i18n="app:common.save"></span></a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-menu-item" data-bind="click: $root.gc.app.showSaveModal"><i class="fa fa-clone dropdown-menu-icon"></i><span class="dropdown-menu-label"
+                                data-i18n="app:common.saveAs"></span></a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-menu-item" data-bind="click: $root.gc.app.cancelSaveData"><i class="fa fa-close dropdown-menu-icon"></i><span class="dropdown-menu-label" data-i18n="app:common.cancel"></span></a></li>
+                    </ul>
+                </div>
+                
+            <div data-bind="navToolbar" class="pull-right"></div>
+                
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+        <div class="save-progress-bar progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    <!-- END: HEAD NAV -->
+
+    <!-- BODY -->
+    <div class="body">
+
+        <!-- SIDEBAR -->
+        <nav class="top-nav" role="navigation">
+            <div class="tabs">
+                <ul class="nav nav-tabs" data-bind="foreach: mainNavigation">
+                    <!-- ko if: $root.hasPermission($root.app.sessionGet('loggedUserPermissions'),$data.roles)  -->
+                    <li data-bind="css: {active:$data == $root.opened()}, click: function() {console.log('GROUP CHANGE');$root.opened($data);return true;}"><a href="javascript:void(0);" data-bind="i18n: $data.label" data-target="target"
+                        data-toggle="tab"></a></li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+
+            <div class="tab-content">
+                <div class="top-nav-tab-content" id="tab-products">
+                    <ul class="sub-nav-tabs" data-bind="foreach: routes">
+                        <!-- ko if: $root.hasPermission($root.app.sessionGet('loggedUserPermissions'),$data.roles)  -->
+                        <!-- ko if: $data.group == $root.opened().group  -->
+                        <li data-bind="css: {active:$data == $root.selected()}"><a data-bind="attr: {href:$data.hash}, click: function() {console.log('SELECTED CHANGE');$root.selected($data);return true;}"><i
+                                data-bind="attr: {class:$data.icon}"></i><span data-bind="i18n:$data.label"></span></a></li>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- END: SIDEBAR -->
+
+        <section class="content">
+            <div class="header col-md-12 header-line">
+                <div class="col-md-6">
+                    <!-- ko if: $root.app.showTitle()  -->
+                    <h3 class="header-title" data-bind="i18n: $root.app.pageTitle">Dashboard</h3>
+                    <p class="header-info" data-bind="i18n: $root.app.pageDescription">Overview and latest statistics</p>
+                    <!-- /ko -->
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="main-content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main-content" data-bind="router: { cacheViews:false }"></div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END: CONTENT -->
+
+        </section>
+    </div>
+
+    <div id="saveAsModal" role="dialog" aria-hidden="true" class="modal fade" data-bind="modal: { show: $root.gc.app.showSaveModal }">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close" data-bind="click: function() { $root.gc.app.showSaveModal(false) }">&times;</button>
+                    <h4 class="modal-title" data-bind="i18n: 'app:common.saveAs'">Save...</h4>
+                </div>
+                <div class="save-progress-bar progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <!-- ko foreach: { data: app.conf.availableContexts, as: 'ctx' } -->
+                        <!-- ko if: ctx.scope == 'global' -->
+                        <div class="row">
+                            <div class="col-xs-6 checkbox checkbox-success">
+                                <input type="checkbox" id="checkbox1" data-bind="value: true, checkedValue: true, checked: $root.app.saveContextModel()._global"> <label for="checkbox1" data-bind="text: ctx.name">Global</label>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: ctx.scope != 'global' -->
+                        <div class="row ctx-merchant">
+                            <div class="col-xs-8 checkbox checkbox-success">
+                                <input type="checkbox" data-bind="value: ctx.id, checkedValue: ctx.id, checked: $root.app.saveContextModel()._merchantIds, attr: {id: 'm-' + ctx.id}"> <label
+                                    data-bind="text: ctx.name, attr: {for: 'm-' + ctx.id}"></label>
+                            </div>
+                            <div class="col-xs-4 checkbox" data-bind="i18n: 'app:common.merchant'">Merchant</div>
+                        </div>
+
+                        <!-- ko foreach: { data: ctx.stores, as: 'store' } -->
+                        <div class="row ctx-store">
+                            <div class="col-xs-8 checkbox checkbox-success">
+                                <input type="checkbox" data-bind="value: store.id, checkedValue: store.id, checked: $root.app.saveContextModel()._storeIds, attr: {id: 's-' + store.id}"> <label
+                                    data-bind="text: store.name, attr: {for: 's-' + store.id}"></label>
+                            </div>
+                            <div class="col-xs-4 checkbox" data-bind="i18n: 'app:common.store'">Store</div>
+                        </div>
+
+                        <!-- ko foreach: { data: store.requestContexts, as: 'reqCtx' } -->
+                        <div class="row ctx-reqctx">
+                            <div class="col-xs-8 checkbox checkbox-success">
+                                <input type="checkbox" data-bind="value: reqCtx.id, checkedValue: reqCtx.id, checked: $root.app.saveContextModel()._requestContextIds, attr: {id: 'r-' + reqCtx.id}"> <label
+                                    data-bind="text: reqCtx.name, attr: {for: 'r-' + reqCtx.id}"></label>
+                            </div>
+                            <div class="col-xs-4 checkbox" data-bind="i18n: 'app:common.website'">Website</div>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <div class="row" id="save-button-row">
+                            <div class="col-xs-3" id="save-button-col">
+                                <a href="javascript:void(0);" class="btn" data-bind="click: $root.gc.app.saveData"><i class="fa fa-floppy-o dropdown-menu-icon"></i><span class="dropdown-menu-label" data-i18n="app:common.save"></span></a>
+                            </div>
+                            <div class="col-xs-9" id="save-make-copy-col">
+                                <div id="save-make-copy-container">
+                                    <label for="save-make-copy" data-bind="i18n: 'app:common.makeCopy'">Make copy</label>
+                                    <div class="switch-wrapper">
+                                        <input id="save-make-copy" type="checkbox" data-bind="bool: $root.app.saveMakeCopy, switchOptions: {default: false}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="flashMessage" role="dialog" class="modal fade" data-backdrop="false" data-bind="modal: { show: $root.gc.app.showFlashMessageModal }">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel" data-bind="text: $root.gc.app.flashMsg.title"></h4>
+                </div>
+                <div class="modal-body">
+                    <i aria-hidden="true" data-bind="attr: { class: $root.gc.app.flashMsg.class }"></i> <span data-bind="html: $root.gc.app.flashMsg.message"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: BODY -->
+
+</div>

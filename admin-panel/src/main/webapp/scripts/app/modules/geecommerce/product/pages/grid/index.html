@@ -1,0 +1,98 @@
+<div>
+	<!-- Search field -->
+    <div class="row">
+        <div class="col-md-3">
+	        <form>
+		        <div class="form-group">
+			        <div class="input-group">
+			        	<input class="form-control" type="text" data-bind="value: $root.pager.searchKeyword, valueUpdate: 'afterkeyup', i18nPlaceholder:'app:modules.product.placeholderSearch'"/>
+			        	<span class="input-group-btn">
+							<button class="btn btn-primary grid-search-btn" type="button" data-bind="click: $root.pager.refresh"><i class="fa fa-search"></i></button>
+						</span>
+		        	</div>
+	        	</div>
+        	</form>
+        </div>
+
+        <div class="col-md-3">
+	        <form>
+		        <div class="form-group">
+                    <div class="input-group">
+                        <select class="form-control select2 form-control-small"
+                             data-bind="options: $root.pager.limitOptions,
+                             optionsText: 'label',
+                             optionsValue: 'value',
+                             value: $root.pager.limit"></select>
+						<span class="input-group-btn">
+	                        <button class="btn btn-primary grid-refresh-btn" type="button" data-bind="click: $root.pager.refresh"><i class="fa fa-refresh"></i></button>
+    	                </span>
+                    </div>
+	        	</div>
+        	</form>
+        </div>
+        
+		<!-- ko if: $root.gc.security.isInRole('product-manager') || $root.gc.security.isInRole('admin') -->
+        
+        <div class="col-md-6 pull-right">
+            <a href="#/products/details/new:product" id="btn-new-product" class="btn btn-primary pull-right" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span data-i18n="app:modules.product.newProductButton">Create new product</span></a>
+			<a href="#/products/details/new:programme" id="btn-new-product-programme" class="btn btn-primary pull-right" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span data-i18n="app:modules.product.newProgrammeButton">Create new programme</span></a>        	
+			<a href="#/products/details/new:variant-master" id="btn-new-product-variant-master" class="btn btn-primary pull-right" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span data-i18n="app:modules.product.newVariantMasterButton">Create new variant master</span></a>        	
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <div class="row grid-table-container">
+        <div class="col-md-12">
+        	<center>
+            <table class="table table-striped table-hover">
+                <thead>
+					<!--  Sort fields -->            
+                	<tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+		                <th><div data-bind="click: $root.pager.sort, i18n: column.label, css: { pagerHideColHeader: column.name == '' }"></div></th>
+	                </tr>
+					<!--  Filter fields -->            
+                	<tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+                        <!-- ko if: column.name == 'group' -->
+                            <td class="td-product-grid-group td-filter"><select class="product-group form-control selectpicker show-tick form-control-small" style="display:inline-block; padding: 6px 6px; font-size: 10px"
+                                    data-bind="select: column.value, data: $root.groupOptions, sort: true, disable: $root.pager.searchKeyword"></select></td>
+                        <!-- /ko -->
+
+                        <!-- ko if: column.name != 'group' -->
+                            <!-- ko if: column.name != '' && column.selectOptions.length > 0 -->
+                                    <td class="td-filter"><select class="form-control select2 form-control-small form-select-filter" style="display:inline-block; padding: 6px 6px; font-size: 10px"
+                                         data-bind="options: column.selectOptions,
+                                         optionsText: 'label',
+                                         optionsValue: 'value',
+                                         value: column.value, disable: $root.pager.searchKeyword"></select></td>
+                            <!-- /ko -->
+
+                             <!-- ko if: column.name != '' && column.selectOptions.length == 0 -->
+                                    <td class="td-filter"><input type="text" class="form-control form-input-filter" data-bind="value: column.value, valueUpdate:'afterkeyup', disable: $root.pager.searchKeyword" /></td>
+                            <!-- /ko -->
+                             <!-- ko if: column.name == '' -->
+                            <td>&nbsp;</td>
+                            <!-- /ko -->
+                        <!-- /ko -->
+	                </tr>
+                </thead>
+<!--  Data -->
+<tbody data-bind="foreach: { data: pager.data, as: 'row' }"><tr>
+<td data-bind="attrText: row, code: 'manufacturer', scope: 'global'"></td>
+<td><a data-bind="i18n: 'app:modules.product.type' + row.type, attr: { href: '#/products/details/' + row.id }"></a></td>
+<td data-bind="text:  $root.group(row)"></td>
+<td><a data-bind="attrText: row, code: 'ean', scope: 'global', attr: { href: '#/products/details/' + row.id }"></a></td>
+<td><a data-bind="attrText: row, code: 'article_number', scope: 'global', attr: { href: '#/products/details/' + row.id }"></a></td>
+<td data-bind="attrText: row, code: 'brand', scope: 'global'"></td>
+<td data-bind="attrText: row, code: 'name', mode: 'closest'"></td>
+<td data-bind="attrText: row, code: 'supplier', scope: 'global'"></td>
+<td class="actions">&nbsp;</td></tr>
+</tbody>
+            </table>
+
+			<!--  Pagination -->            
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: pager.pages, as: 'page' }">
+                <li data-bind="click: $root.pager.page, css: { active: $root.pager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

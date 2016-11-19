@@ -1,0 +1,66 @@
+<div id="product-list-details-base">
+    <div class="form-group">
+        <label for="inputPrdListKey" class="col-sm-4 control-label" data-i18n="app:modules.product-list.baseTabKey">Key</label>
+        <div class="col-sm-3">
+            <input data-bind="value: productListVM.key" class="form-control" id="inputPrdListKey" type="text" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPrdListLabel" class="col-sm-4 control-label" data-i18n="app:modules.product-list.baseTabName">Label</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                <input data-bind="i18nValue: productListVM.label" class="form-control" id="inputPrdListLabel" placeholder="Enter name" type="text" required>
+            </div>
+        </div>
+    </div>
+
+    <!-- ko if: productListVM.showFriendlyUrl() -->
+    <div class="form-group">
+        <label for="inputPrdUrl" class="col-sm-4 control-label" data-i18n="app:modules.product-list.alternativeUrl">Friendly Url</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                <input data-bind="i18nValue: productListVM.rewriteUrl" class="form-control" id="inputPrdUrl" placeholder="Enter url" type="text" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label  class="col-sm-4 control-label"></label>
+        <div class="col-sm-3">
+            <input type="checkbox" data-bind="checked: productListVM.autogenerate" id="inputAutoGenerate"><label for="inputAutoGenerate" class="control-label" data-i18n="app:modules.product-list.autoGenerateAltUrl">Renew URL automatically</label>
+        </div>
+    </div>
+    <!-- /ko -->
+    
+    <!-- ko if: $root.filterRules.length > 0 -->
+    <div class="form-group">
+        <label for="inputPrdListFilterRules" class="col-sm-4 control-label" data-i18n="app:modules.product-list.baseTabFilterRule">Filter Rule</label>
+        <div class="col-sm-3">
+            <select id="inputPrdListFilterRules" class="form-control select2"
+                    data-bind="select: productListVM.filter, data: $root.filterRules"></select>
+        </div>
+    </div>
+    <!-- /ko -->
+     
+    <div class="form-group">
+        <label for="inputPrdListFilterAttributes" class="col-sm-4 control-label" data-i18n="app:modules.product-list.baseTabFilterAttributes">Filter</label>
+        <div class="col-sm-3">
+            <div class="container" data-bind="sortable: productListVM.filterAttributes">
+                <div class="item" style="padding: 5px;">
+                     <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                           data-bind="editable: id, editableOptions:{type:'select', showbuttons: false, options: $root.productListVM.productAttributes,
+                            optionsText: 'text',
+                            optionsValue: 'id'}"></span>
+                    <div style="display:inline;line-height:30px" data-bind="click: deleteFilterAttribute">
+							<i class="glyphicon glyphicon-remove"></i>
+						</div>
+                </div>
+            </div>
+            <div style="padding: 5px;">
+                <a href="#" data-bind="click: $root.productListVM.addFilterAttribute">Add</a>
+            </div>
+        </div>
+    </div>
+</div>

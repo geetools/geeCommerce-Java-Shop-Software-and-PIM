@@ -1,0 +1,144 @@
+
+<div class="panel-body">
+		<div class="col-sm-12  form-group">
+				<form action="#" class="dropzone dropzone-slides dz-media"
+					data-bind="attr: { 'data-slideshowid' : slideShowVM.id, 'id' : 'dz-new-' + slideShowVM.id }">
+<!--					<span class="dz-message-icon"
+						data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>-->
+					<p class="dz-message"
+						data-i18n="app:modules.slide-show.imagesTabUploadHint">Click
+						here or drag and drop to add images</p>
+				</form>
+		</div>
+
+	<table class="tbl-slides" id="slide-show-slides"
+		style="border-collapse: separate !important;">
+
+		<tbody
+			data-bind="foreach: { data: slideShowVM().slides, as: 'slideVM' }, attr: { 'data-slideshowid' : slideShowVM.id }"
+			class="sortableMediaAssets">
+			<tr data-bind="attr: { 'data-id' : slideVM.id }" class="tr-slide-row">
+				<td>
+					<div style="width:calc(100% - 12px);display:inline-block;margin:0;padding:0">
+					<div class="col-sm-4  form-group" style="border: 1px dotted grey">
+						<!-- ko if: slideVM.isImage() -->
+						<a data-bind="attr: { href: slideVM.webPath() }" target="_blank"><img class="img-responsive"
+							data-bind="attr: { src: slideVM.webThumbnailPath() }" vspace="5" /></a>
+						<!-- /ko -->
+	<!--					<div style="width: 30px; align: center" class="td-slow-row"
+							data-bind="html: $root.app.storeLabelOrIconXS(slideVM.storeId)"></div>-->
+						<div style="width: 40px">
+							<a data-bind="attr: { href: slideVM.webPath() }" target="_blank"><img
+								height="32"
+								data-bind="attr: {'src': '/img/doc-types/file_extension_' + slideVM.fileExtension() + '.png'}" /></a>
+						</div>
+					</div>
+					
+					<div class="col-sm-4  form-group">
+
+						<div class="col-sm-5 form-group">
+							<label class="control-label"
+								data-i18n="app:modules.slide-show.slidesTabType">Type</label>
+						</div>
+						<div class="col-sm-7 form-group">
+							<div style="width: 100%" class="input-group">
+								<select class="selectpicker show-tick" data-container="body"
+									data-bind="select: slideVM.slideType, data: $root.slideShowVM().slideTypeOptions, selectOptions: { size: 10 }">
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-5  form-group">
+							<label class="control-label"
+								data-i18n="app:modules.slide-show.slidesTabShowFrom">Show
+								From</label>
+						</div>
+						<div class="col-sm-7  form-group">
+							<div style="width: 100%" class="input-group">
+								<input
+									data-bind="datepicker: slideVM.showFrom, datepickerOptions: { format: 'dd.mm.yyyy' }"
+									class="form-control datepicker" type="text"> <span
+									class="input-group-addon"> <i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-5  form-group">
+							<label class="control-label"
+								data-i18n="app:modules.slide-show.slidesTabShowTo">Show
+								To</label>
+						</div>
+						<div class="col-sm-7  form-group">
+							<div style="width: 100%" class="input-group">
+								<input
+									data-bind="datepicker: slideVM.showTo, datepickerOptions: { format: 'dd.mm.yyyy' }"
+									class="form-control datepicker" type="text"> <span
+									class="input-group-addon"> <i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 form-group">
+						<!-- ko if: slideVM.slideType() === 'IMAGE_LINK'-->
+						<div class="col-sm-5 form-group">
+							<label class="control-label"
+								data-i18n="app:modules.slide-show.slidesTabLink">Link</label>
+						</div>
+
+						<div class="col-sm-7 form-group">
+							<div style="width: 100%" class="input-group">
+								<input data-bind="value: slideVM.link, disable: isFileLink"
+									class="form-control" id="inputSlideLink" type="text" required>
+							</div>
+						</div>
+						<div class="col-sm-12 form-group">
+							<form action="#" class="dropzone dropzone-files dz-media"
+								data-bind="attr: { 'data-slideid' : slideVM.id, 'id' : 'dz-new-' + slideVM.id }">
+<!--								<span class="dz-message-icon"
+									data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>-->
+								<p class="dz-message"
+									data-i18n="app:modules.slide-show.fileTabUploadHint">Or
+									click here or drag and drop to add file as a link</p>
+							</form>
+						</div>
+						<!-- /ko -->
+						<!-- ko if: slideVM.slideType() === 'PRODUCT'-->
+						<div class="col-sm-5 form-group">
+							<label class="control-label"
+								data-i18n="app:modules.slide-show.slidesTabArticle">Article</label>
+						</div>
+						<div class="col-sm-7  form-group">
+							<div style="width: 100%" class="input-group">
+								<input data-bind="value: slideVM.productArticle"
+									class="form-control" type="text" required>
+							</div>
+						</div>
+						<div class="col-sm-5 form-group">
+							<label class="control-label"
+								data-i18n="app:modules.slide-show.slidesTabPricePosition">Price
+								Position</label>
+						</div>
+						<div class="col-sm-7  form-group">
+							<div style="width: 100%" class="input-group">
+								<select class="selectpicker show-tick" data-container="body"
+									data-bind="select: slideVM.pricePosition, data: $root.slideShowVM().slidePositionOptions, selectOptions: { size: 10 }">
+								</select>
+							</div>
+						</div>
+						<!-- /ko -->
+					</div>
+					</div>
+					<div style="float:right;width:12px;margin:0;padding:0" class="form-group actions">
+						<a href="javascript:void(0)" class="action"
+							data-bind="click: $root.removeSlide"><i class="fa fa-times"></i></a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+
+
+
+</div>
+<!-- <div class="panel-footer">&nbsp;</div> -->

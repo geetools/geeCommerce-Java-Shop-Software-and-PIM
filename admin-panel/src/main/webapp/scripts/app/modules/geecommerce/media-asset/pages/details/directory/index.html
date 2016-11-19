@@ -1,0 +1,59 @@
+<div class="col-md-12" id="view-directory-details">
+        <form action="#" class="dropzone dropzone-files dz-media" data-bind="attr: { 'data-maid' : 'new-media-asset', 'id' : 'dz-new-media-asset' + $root.tab.id }">
+<!--            <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>-->
+            <p class="dz-message" data-i18n="app:modules.media-asset.fileTabUploadHint">
+                Click here or drag and drop to add file
+            </p>
+        </form>
+    <div class="row">
+        <!-- ko foreach: { data: $root.tab.vm.maPager.data, as: 'mediaAsset' } -->
+            <!-- ko if: mediaAsset.file -->
+                <div class="col-xs-1 col-sm-2 col-md-3 col-lg-2 ma-dir-preview">
+                    <div class="ma-img-square">
+                        <div class="ma-img-wrapper">
+                            <div class="ma-table">
+                                <div class="ma-cell">
+                                    <img src="" class="img img-responsive full-width" data-bind="attr: { src: mediaAsset.file().previewImageUrl}, click: mediaAsset.openMediaAsset"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ma-img-square-name">
+                            <span  data-bind="i18nText: { value: mediaAsset.name, mode: 'closest' }"></span>
+                        </div>
+                    </div>
+                </div>
+            <!-- /ko -->
+
+        <!-- /ko -->
+    </div>
+    <div class="row">
+        <div style="float: left;">
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: $root.tab.vm.maPager.pages, as: 'page' }">
+                <li data-bind="click: $root.tab.vm.maPager.page, css: { active: $root.tab.vm.maPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+        </div>
+
+        <div style="float: right; width: 100px;">
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <select  class="form-control select2 form-control-small" style="display: inline-block;"
+                                 data-bind="options: $root.tab.vm.maPager.limitOptions,
+                                                        optionsText: 'label',
+                                                        optionsValue: 'value',
+                                                        value: $root.tab.vm.maPager.limit"></select>
+
+                        <span class="input-group-btn">
+	                        <button class="btn btn-primary" type="button"><i class="fa fa-refresh"></i></button>
+                    	</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--    <div class="col-xs-4" >
+            <img class="img-responsive img-thumbnail" data-bind="attr: { src: mediaAsset.url}, click: mediaAsset.openMediaAsset" >
+        </div>-->
+
+</div>

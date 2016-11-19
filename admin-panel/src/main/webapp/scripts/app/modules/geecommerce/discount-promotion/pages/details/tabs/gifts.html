@@ -1,0 +1,69 @@
+
+<div class="panel-body">
+    <div data-bind="toolbar: {
+            targetId: 'discount-promotion-gifts',
+            i18n: 'app:modules.discount-promotion.giftsToolbarSaveMsg',
+            saveCallback: $root.saveData }"></div>
+
+    <table class="tbl-gifts" id="discount-promotion-gifts">
+        <tr>
+            <td colspan="7">
+                <form action="#" class="dropzone dropzone-gifts dz-media" data-bind="attr: { 'data-discountPromotionid' : discountPromotionVM.id, 'id' : 'dz-new-' + discountPromotionVM.id }">
+                    <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+                    <p class="dz-message" data-i18n="app:modules.discount-promotion.imagesTabUploadHint">
+                        Click here or drag and drop to add images
+                    </p>
+                </form>
+            </td>
+        </tr>
+
+        <tbody data-bind="foreach: { data: discountPromotionVM().gifts, as: 'giftVM' }, attr: { 'data-discountpromotionid' : discountPromotionVM.id }" class="sortableMediaAssets">
+        <tr data-bind="attr: { 'data-id' : giftVM.id }" class="tr-gift-row">
+            <!-- ko if: giftVM.isImage() -->
+            <td style="width:60px"><a data-bind="attr: { href: giftVM.webPath() }" target="_blank"><img data-bind="attr: { src: giftVM.webThumbnailPath() }" vspace="5"/></a></td>
+            <!-- /ko -->
+            <td style="width:30px; align:center" class="td-slow-row" data-bind="html: $root.app.storeLabelOrIconXS(giftVM.storeId)"></td>
+            <td style="width:40px"><a data-bind="attr: { href: giftVM.webPath() }" target="_blank"><img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + giftVM.fileExtension() + '.png'}" /></a></td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.giftsTabName">Name</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                                        <input data-bind="i18nValue: giftVM.name" class="form-control" id="inputDscPromotionGiftName" placeholder="Enter name" type="text" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.giftsTabDescription">Description</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                                        <input data-bind="i18nValue: giftVM.description" class="form-control" id="inputDscPromotionGiftDescription" placeholder="Enter name" type="text" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+            <td style="width:50px" class="actions" align="center">
+                <a href="javascript:void(0)" class="action" data-bind="click: $root.removeGift"><i class="fa fa-square-o"></i></a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+
+
+</div>
+<div class="panel-footer">&nbsp;</div>

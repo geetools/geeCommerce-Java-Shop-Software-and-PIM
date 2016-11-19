@@ -1,0 +1,85 @@
+<div>
+
+	<!-- Search field -->
+	<div class="row">
+		<div class="col-md-3">
+			<form>
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" type="text" name="attrQueryString"
+							value="" placeholder="Search for configurations ..." /> <span
+							class="input-group-btn">
+							<button class="btn btn-primary" type="button">
+								<i class="fa fa-search"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-2">
+			<div class="bs-example">
+				<div class="panel-group" id="accordion">
+					<div
+						data-bind="template: {name:'confMenuTemplate', data: confTree}"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-10" id="configuration-details">
+		<div
+				data-bind="toolbar: {
+			targetId: 'configurationBaseForm',
+			i18n: 'You have unsaved changes in your configuration.',
+			saveCallback: saveConf }"></div>
+			<div>
+				<form id="configurationBaseForm">
+					<div class="col-md-12" id="configuration-details">
+						<div data-bind="compose: activeView">
+							<div class="tab-loading-box jumbotron">
+								<div class="row">
+									<div class="col-md-2">
+										<h1>
+											<img src="/img/ajax-loader-m.gif" border="0" width="54"
+												height="55" />
+										</h1>
+									</div>
+									<div class="col-md-10">
+										<h1 data-i18n="app:common.loadingContentTitle"></h1>
+										<p data-i18n="app:common.loadingContentInfo"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script id='confMenuTemplate' type='text/html'>
+				<div class="panel-group">
+  					<div id="accordion" class="panel panel-default" data-bind="foreach: { data: children, as: 'child'}">
+   						<div class="panel-heading">
+      						<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion"
+									data-bind="text:child.displayLabel, attr:{href:child.idhash}">First level</a>
+							</h4>
+    					</div>
+    					<div data-bind="attr:{id:child.id}" class="panel-collapse collapse">
+      						<div class="panel-body" data-bind="foreach: { data: child.children, as: 'child2'}">
+        						<div class="panel-heading">
+          							<a href="javascript:void(0);" data-bind="text:child2.displayLabel, click:$root.loadConfiguration">Second level</a>
+        						</div>
+      						</div>
+    					</div>
+  					</div>
+				</div>
+				</script>
+
+	</div>
+
+</div>

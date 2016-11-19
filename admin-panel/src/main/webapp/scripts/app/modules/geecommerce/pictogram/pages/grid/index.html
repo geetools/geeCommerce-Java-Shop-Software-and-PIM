@@ -1,0 +1,67 @@
+<div class="text-center">
+    <form action="#" class="dropzone dropzone-files dz-media" data-bind="attr: { 'data-maid' : 'new-pictogram', 'id' : 'dz-new-pictogram' }">
+        <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+        <p class="dz-message" data-i18n="app:modules.pictogram.fileTabUploadHint">
+            Click here or drag and drop to add file
+        </p>
+    </form>
+
+	<!-- Refresh button -->
+    <div class="row">
+        <div class="col-md-3">
+	        <form>
+		        <div class="form-group">
+                    <span class="input-group ">
+                        <select class="form-control select2 form-control-small" style="display: inline-block;"
+                                data-bind="options: $root.pager.limitOptions,
+                                                        optionsText: 'label',
+                                                        optionsValue: 'value',
+                                                        value: $root.pager.limit"></select>
+						<span class="input-group-btn">
+                        	<button class="btn btn-primary" type="button"><i class="fa fa-refresh"></i></button>
+                    	</span>
+                    </span>
+	        	</div>
+        	</form>
+        </div>
+        <!--<a class="btn btn-primary" data-bind="text: 'New', attr: { href: '#/media-assets/details/new' }"></a>-->
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+					<!--  Sort fields -->            
+                	<tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+		                <th><div data-bind="click: $root.pager.sort,  i18n: column.label, css: { pagerHideColHeader: column.name == '' }"></div></th>
+	                </tr>
+					<!--  Filter fields -->            
+                	<tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+		                <td class="td-filter"><input type="text" class="form-control  form-input-filter" data-bind="value: column.value, valueUpdate:'afterkeyup', css: { pagerHideColHeader: column.name == '' }" /></td>
+	                </tr>
+                </thead>
+				<!--  Data -->            
+                <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
+                    <tr>
+                        <td class="text-left">
+                            <!-- ko if: row.pictogram.mimeType && row.pictogram.mimeType.startsWith('image/') -->
+                            <a data-bind="attr: { href: row.pictogram.url }" target="_blank">
+                                <img data-bind="attr: { src: row.pictogram.webThumbnailPath }" vspace="5"/>
+                            </a>
+                            <!-- /ko -->
+                        </td>
+                        <td class="text-left" style="width:40px"><a data-bind="attr: { href: row.pictogram.url }" target="_blank">
+                            <img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + (row.pictogram.url.substring(row.pictogram.url.lastIndexOf('.') + 1)) + '.png'}" /></a></td>
+                        <td class="text-left"><a data-bind="text: row.pictogram.name, attr: { href: '#/pictograms/details/' + row.id }"></a></td>
+                        <td class="text-left"><span data-bind="text : 'Size: ' + (row.pictogram.size / 1024).toFixed(2) + 'kb'" ></span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+			<!--  Pagination -->            
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: pager.pages, as: 'page' }">
+                <li data-bind="click: $root.pager.page, css: { active: $root.pager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

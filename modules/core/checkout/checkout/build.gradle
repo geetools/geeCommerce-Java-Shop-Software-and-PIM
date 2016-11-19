@@ -1,0 +1,10 @@
+group = 'com.scs'
+description = ''
+dependencies {
+  compile project(':scs:scs-modules:scs-module-cart')
+  compile project(':scs:scs-modules:scs-module-customer')
+  compile project(':scs:scs-modules:scs-module-inventory')
+  compile project(':scs:scs-modules:scs-module-catalog')
+  compile project(':scs:scs-modules:scs-module-calculation')
+  compile project(':scs:scs-modules:scs-module-shipping')
+}

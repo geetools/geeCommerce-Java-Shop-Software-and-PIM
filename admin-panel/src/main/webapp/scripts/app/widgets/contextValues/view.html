@@ -1,0 +1,20 @@
+<div>
+    <!-- ko if: ctxValues -->
+    <div class="ctx-values-box">
+        <div class="cvb-title" data-bind="i18n: title"></div>
+        <div class="cvb-rows">
+            <!-- ko foreach: { data: ctxValues, as: 'ctxVal' } -->
+            <div class="row">
+                <div class="cvb-scope-col col-xs-12 col-sm-5">
+                    <div class="cvb-scope-label" data-bind="text: ctxVal.scope"></div>
+                    <div class="cvb-scope-val" data-bind="text: ctxVal.name"></div>
+                </div>
+                <div class="cvb-val col-xs-12 col-sm-7">
+                    <span data-bind="text: ctxVal.value, css: { 'cvb-inherited': ctxVal.inherited }"></span>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

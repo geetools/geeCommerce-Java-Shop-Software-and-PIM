@@ -1,0 +1,75 @@
+<div>
+
+	<form id="attributeOptionsForm">
+
+	    <div class="row">
+	    
+	        <div class="col-md-12">
+	        <center>
+	            <table class="table table-striped table-hover">
+	                <thead>
+	                	<tr data-bind="foreach: gridHeaders">
+	                		<!-- ko if: $data.field != '' -->
+			                <th data-bind="click: $root.pager.sort, text: $data.label"></th>
+			                <!-- /ko -->
+			                 <!-- ko if: $data.field == '' -->
+			                <th style="margin:auto;text-align: center"><button class="btn btn-primary" type="button" data-bind="click: $root.addNewOptionRow"><i class="fa fa-plus"></i></button></th>
+			                <!-- /ko -->
+		                </tr>
+<!-- 	                	<tr data-bind="foreach: gridHeaders"> -->
+<!--                             ko if: $data.field != '' && $data.field == 'null'  -->
+<!--                             <td></td> -->
+<!--                             /ko -->
+<!-- 		                	 ko if: $data.field != '' && $data.field != 'null' -->
+<!-- 			                <td><input class="pagerFilter form-control" data-bind="event: { keyup: $root.pager.filter }, attr: { name: $data.field }" type="text" name="" value="" /></td> -->
+<!-- 			                /ko -->
+		                	
+<!-- 		                </tr> -->
+	                </thead>
+	                
+	                <tbody data-bind="foreach: { data: newAttributeOptions, as: 'newOption' }">
+	                    <tr>
+                            <td></td>
+	                        <td><input data-bind="i18nValue: newOption.label" class="form-control" type="text" required></td>
+	                        <td>
+								<a href="javascript:void(0)" data-title="Enter tags" data-type="select2" data-mode="popup"
+			                    	data-bind="editable: newOption.tags, editableOptions: { emptytext: 'keine', select2: { tags: $root.attributeOptionTags, separator: [',', ' '] } }" ></a>
+							</td>                        
+	                        <td><input data-bind="value: newOption.position" class="form-control" type="text" required></td>
+	                        <td class="actions">
+	                            <a href="javascript:void(0)" data-bind="click: $root.removeNewOptionRow"><i class="fa fa-times"></i></a>
+	                        </td>
+	                    </tr>
+	                </tbody>
+	                
+	                <tbody data-bind="foreach: { data: pager.data, as: 'attributeOptionVM' }" class="sortableAttributeOptions">
+	                    <tr data-bind="attr: {'data-id': attributeOptionVM.id}">
+                            <td><p data-bind="i18nTextDefault: attributeOptionVM.label"></p></td>
+	                        <td><input data-bind="i18nValue: attributeOptionVM.label, i18nAttr: { 'data-placeholder': attributeOptionVM.label }" class="form-control" type="text" required></td>
+	                        <td><input class="option-thumbnail-color" data-bind="value: attributeOptionVM.thumbnailColor, i18nAttr: { 'data-placeholder': attributeOptionVM.thumbnailColor }" class="form-control" type="text"></td>
+	                        <td>
+<!--	                        	<input class="option-thumbnail-style" data-bind="value: attributeOptionVM.thumbnailStyle, i18nAttr: { 'data-placeholder': attributeOptionVM.thumbnailStyle }" class="form-control" type="text">-->
+
+								<a href="javascript:void" data-title="Style eingeben" data-type="textarea" data-mode="popup"
+			                    	data-bind="editable: attributeOptionVM.thumbnailStyle, editableOptions: { emptytext: 'leer', display: function(value, sourceData) { $(this).text(value); } }" ></a>
+	                        </td>
+	                        <td>
+								<a href="javascript:void" data-title="Enter tags" data-type="select2" data-mode="popup"
+			                    	data-bind="editable: attributeOptionVM.tags, editableOptions: { emptytext: 'keine', select2: { tags: $root.attributeOptionTags, separator: [',', ' '] } }" ></a>
+							</td>
+	                        <td><input data-bind="value: attributeOptionVM.position" class="form-control" type="text" required></td>
+	                        <td class="actions">
+	                            <a href="javascript:void(0)" data-bind="click: $root.removeOption"><i class="fa fa-times"></i></a>
+	                        </td>
+	                    </tr>
+	                </tbody>
+	            </table>
+				<!--  Pagination -->            
+	            <ul class="pagination pagination-sm" data-bind="foreach: { data: pager.pages, as: 'page' }">
+	                <li data-bind="click: $root.pager.page, css: { active: $root.pager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+	            </ul>
+	            <center>
+	        </div>
+	    </div>
+	</form>
+</div>

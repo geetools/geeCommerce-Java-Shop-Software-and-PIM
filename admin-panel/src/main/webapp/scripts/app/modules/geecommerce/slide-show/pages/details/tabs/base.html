@@ -1,0 +1,53 @@
+<div class="panel-body">
+    <form class="form-horizontal" role="form" id="slideShowBaseForm">
+        <div class="form-group">
+            <label for="inputSlideShowName" class="col-sm-3 control-label" data-i18n="app:modules.slide-show.generalTabName">Name</label>
+            <div class="col-sm-6">
+                <input data-bind="value: slideShowVM.name" class="form-control" id="inputSlideShowName" placeholder="Enter name" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputSlideShowLabel" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabLabel">Label</label>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: slideShowVM.label" class="form-control" id="inputSlideShowLabel" placeholder="Enter label" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputSlideDateFrom" class="col-sm-3 control-label" data-i18n="app:modules.slide-show.generalTabDateFrom">Date From</label>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input data-bind="datepicker: slideShowVM.dateFrom, datepickerOptions: { format: 'dd.mm.yyyy' }" class="form-control datepicker" id="inputSlideDateFrom" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputSlideShowDateTo" class="col-sm-3 control-label" data-i18n="app:modules.slide-show.generalTabDateTo">Date To</label>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input data-bind="datepicker: slideShowVM.dateTo, datepickerOptions: { format: 'dd.mm.yyyy' }" class="form-control datepicker" id="inputSlideShowDateTo" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-i18n="app:modules.slide-show.enabled">Enabled</label>
+            <div class="col-sm-6 switch-wrapper">
+                <input type="checkbox" data-bind="ctxBool: slideShowVM.enabled, switchOptions: {default: false}" />
+            </div>
+			<div class="col-sm-3" data-bind="contextInfo"></div>            
+        </div>
+
+    </form>
+</div>

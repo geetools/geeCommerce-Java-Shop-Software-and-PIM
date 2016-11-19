@@ -1,0 +1,21 @@
+<div class="col-md-12 content-panel" id="view-discount-promotion-details">
+
+
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a id="tab-discount-promotion-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.discount-promotion.tabTitleGeneral">Base</a></li>
+            <!-- ko if: $root.discountPromotionId() != 'new' -->
+            <li><a href="" data-target="#gifts" id="tab-discount-promotion-details-gifts" data-toggle="tab" data-i18n="app:modules.discount-promotion.tabTitleGifts">Gifts</a></li>
+            <!-- /ko -->
+          </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/discount-promotion/pages/details/tabs/base', activationData: $root.discountPromotionId}"></div>
+            <!-- ko if: $root.discountPromotionId() != 'new' -->
+            <div class="tab-pane" id="gifts" data-bind="compose:{ model: 'modules/geecommerce/discount-promotion/pages/details/tabs/gifts', activationData: $root.discountPromotionId}">Gifts</div>
+            <!-- /ko -->
+         </div>
+
+    </form>
+
+</div>

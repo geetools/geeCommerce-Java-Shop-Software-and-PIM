@@ -1,0 +1,29 @@
+<div class="panel-body">
+    <div data-bind="toolbar: {
+			targetId: 'contextMessageBaseForm',
+			i18n: 'app:modules.context-message.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+    <form class="form-horizontal" role="form" id="contextMessageBaseForm">
+        <div class="form-group">
+            <label for="inputContextMessageTitle" class="col-sm-3 control-label" data-i18n="app:modules.context-message.generalTabKey">Key</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="value: contextMessageVM.key" class="form-control" id="inputContextMessageTitle" placeholder="Enter name" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputContextMessageValue" class="col-sm-3 control-label" data-i18n="app:modules.context-message.baseTabValue">Value</label>
+            <div class="col-sm-9 switch-wrapper">
+                <div id="inputContextMessageValue" data-bind="i18nEditor: {value: contextMessageVM.value}"></div>
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+</div>

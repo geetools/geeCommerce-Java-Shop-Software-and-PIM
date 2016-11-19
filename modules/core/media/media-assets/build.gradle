@@ -1,0 +1,6 @@
+group = 'com.scs'
+description = ''
+dependencies {
+    compile group: 'org.apache.tika', name: 'tika-core', version:'1.4'
+    compile group: 'org.apache.tika', name: 'tika-parsers', version:'1.4'
+}

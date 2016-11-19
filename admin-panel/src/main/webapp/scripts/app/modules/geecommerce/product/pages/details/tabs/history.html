@@ -1,0 +1,49 @@
+<div>
+
+    <div class="row grid-table-container">
+        <div class="col-md-12">
+        
+        
+        	<center>
+            <table class="table table-striped" style="border-collapse:collapse;">
+                <thead>
+                	<tr>
+	                	<th>&nbsp;</th>
+	                	<!-- ko foreach: { data: historyPager.columns, as: 'column' } -->
+		                <th><div data-bind="click: $root.historyPager.sort, i18n: column.label, css: { pagerHideColHeader: column.name == '' }"></div></th>
+		                <!-- /ko -->
+	                </tr>
+                </thead>
+<!--  Data -->
+<tbody data-bind="foreach: { data: historyPager.data, as: 'row' }">
+<tr data-toggle="collapse" data-bind="attr: { 'data-target': '#row-prd-history-details-' + row.historyId + '-' + row.version }" class="accordion-toggle collapsed">
+<td><button data-toggle="collapse" data-bind="attr: { 'data-target': '#row-prd-history-details-' + row.historyId + '-' + row.version }" class="accordion-toggle btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+<td data-bind="text: row.version"></td>
+<td data-bind="format: row.historyDate, formatOptions: { type: 'date', to: 'DD.MM.YYYY HH:mm' }"></td>
+<td data-bind="format: row.modifiedOn, formatOptions: { type: 'date', to: 'DD.MM.YYYY HH:mm' }"></td>
+<td data-bind="text: row.modifiedBy"></td>
+</tr>
+
+
+<tr>
+	<td colspan="5" class="td-prd-history-content">
+		<div class="accordian-body collapse" data-bind="attr: { 'id': 'row-prd-history-details-' + row.historyId + '-' + row.version }, compose:{ model: 'modules/geecommerce/product/pages/details/history/index', activationData: { id: row.historyId, version: row.version } }">
+		
+		
+		</div>
+	</td>
+</tr>
+</tbody>
+            </table>
+
+			<!--  Pagination -->            
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: historyPager.pages, as: 'page' }">
+                <li data-bind="click: $root.historyPager.page, css: { active: $root.historyPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+            
+
+
+            
+        </div>
+    </div>
+</div>

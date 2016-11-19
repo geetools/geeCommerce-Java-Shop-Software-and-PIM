@@ -1,0 +1,178 @@
+
+
+<span data-bind="html: attributeTab.executePreRenderCallback(formAttributeValues)"></span>
+
+    <!-- ko if: attributeTab.executeDisplayAttributesCallback(formAttributeValues) -->
+
+        <form data-bind="attr: { id: 'dynAttributeForm' + attributeTab.id() }">
+
+            <!-- ko foreach: { data: formAttributeValues, as: 'attrVal' } -->
+
+                <!-- ko if: $root.attributeTab.executeDisplayAttributeCallback($root.formAttributeValues, attrVal) -->
+
+                    <!-- ko if: attrVal.isEditable && $root.hasEditRights -->
+
+                        <!-- ko if: (attrVal.frontendInput == 'COMBOBOX') && attrVal.isMultiple && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+
+                                <div class="col-sm-3 switch-wrapper">
+
+
+                                    <div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
+                                        <div class="input-group qwe123">
+                                            <span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                                            <input class="form-control" data-bind="i18nJqAuto: { minLength: 3 }, jqAutoSource: attrVal.srcOptions, jqAutoQuery: attrVal.getOptions, jqAutoValue: attrVal.comboboxValue, jqAutoValueId: attrVal.comboboxValueId, jqAutoSourceLabel: 'label', jqAutoSourceInputValue: 'label', jqAutoSourceValue: 'id', disable: attrVal.isOptOut, event: {keypress: attrVal.addOptionKey13}" />
+                                            <span class="input-group-btn"><button class="btn btn-primary" type="button" data-bind="click: attrVal.addOption, disable: attrVal.isOptOut"><i class="fa fa-plus"></i></button></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="combo-box-wrapper">
+                                    <!-- ko foreach: { data: attrVal.comboboxValues, as: 'attrValOption' } -->
+                                        <div class="combo-box-option">
+                                            <span data-bind="text: attrValOption.text()">
+                                            </span>
+                                            <span class="combo-box-delete" data-bind="click: attrVal.removeOption.bind($data)"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    <!-- /ko -->
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-3 optout-group">
+                                    <span data-bind="if: attrVal.inputType == 'OPTOUT'"><input type="checkbox" value="true" data-bind="ctxChecked: attrVal.optOut, ctxOptions: {scopes: ['global']}, attr: {id : 'optout_' + attrVal.code}"/>&nbsp;&nbsp;&nbsp;<label data-bind="i18n: 'app:modules.product.optOut', attr: {for : 'optout_' + attrVal.code}">optout</label></span>
+                                </div>
+
+                            </div>
+                        <!-- /ko -->
+                        <!-- ko if: ((attrVal.isOption &&  attrVal.frontendInput != 'COMBOBOX') || attrVal.frontendInput == 'SELECT') && !_.isEmpty(attrVal.selectOptions()) && !attrVal.isMultiple && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-3">
+                                    <div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
+                                        <select class="selectpicker" title="auswählen" data-bind="select: attrVal.value, data: attrVal.selectOptions, sort: true, disable: attrVal.isOptOut">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 optout-group">
+                                    <span data-bind="if: attrVal.inputType == 'OPTOUT'"><input type="checkbox" value="true" data-bind="ctxChecked: attrVal.optOut, ctxOptions: {scopes: ['global']}, attr: {id : 'optout_' + attrVal.code}"/>&nbsp;&nbsp;&nbsp;<label data-bind="i18n: 'app:modules.product.optOut', attr: {for : 'optout_' + attrVal.code}">optout</label></span>
+                                </div>
+                            </div>
+                        <!-- /ko -->
+                        <!-- ko if: ((attrVal.isOption &&  attrVal.frontendInput != 'COMBOBOX') || attrVal.frontendInput == 'SELECT') && !_.isEmpty(attrVal.selectOptions()) && attrVal.isMultiple && attrVal.isShowField -->
+                        <div class="form-group">
+                            <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-3">
+                                <div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
+                                    <select class="selectpicker show-tick" multiple data-bind="select: attrVal.value, data: attrVal.selectOptions, sort: true, selectOptions: { size: 10 }, disable: attrVal.isOptOut">
+                                    </select>
+                                    <i class="fa fa-plus" style="margin-left:5px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 optout-group">
+                                <span data-bind="if: attrVal.inputType == 'OPTOUT'"><input type="checkbox" value="true" data-bind="ctxChecked: attrVal.optOut, ctxOptions: {scopes: ['global']}, attr: {id : 'optout_' + attrVal.code}"/>&nbsp;&nbsp;&nbsp;<label data-bind="i18n: 'app:modules.product.optOut', attr: {for : 'optout_' + attrVal.code}">optout</label></span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: attrVal.frontendInput == 'BOOLEAN' && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-73switch-wrapper">
+                                    <input type="checkbox" data-bind="globalBool: attrVal.value" />
+                                </div>
+                                <div class="col-sm-3 optout-group">
+                                </div>
+                            </div>
+                        <!-- /ko -->
+                        <!-- ko if: attrVal.frontendInput == 'COMBOBOX' && attrVal.isShowField && !attrVal.isMultiple -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-3 switch-wrapper">
+                                    <div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
+                                        <div class="input-group qwe123">
+                                            <span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                                            <input class="form-control" data-bind="i18nJqAuto: {  }, jqAutoSource: attrVal.suggestions, jqAutoQuery: attrVal.getSuggestions, jqAutoValue: attrVal.value, jqAutoSourceLabel: 'val', jqAutoSourceInputValue: 'val', jqAutoSourceValue: 'val', disable: attrVal.isOptOut" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 optout-group">
+                                    <span data-bind="if: attrVal.inputType == 'OPTOUT'"><input type="checkbox" value="true" data-bind="ctxChecked: attrVal.optOut, ctxOptions: {scopes: ['global']}, attr: {id : 'optout_' + attrVal.code}"/>&nbsp;&nbsp;&nbsp;<label data-bind="i18n: 'app:modules.product.optOut', attr: {for : 'optout_' + attrVal.code}">optout</label></span>
+                                </div>
+                            </div>
+                        <!-- /ko -->
+                        <!-- ko if: attrVal.frontendInput == 'RICHTEXT' && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-7 switch-wrapper">
+                                    <div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
+                                        <div data-bind="i18nEditor: {value: attrVal.value, id: 'inpAttr_' + attrVal.code, preBind: attrVal.unjsonDescriptionPanels, disabled: attrVal.isOptOut, enabled: attrVal.isEnabled, editable: attrVal.isEditable}, disable: attrVal.isOptOut"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 optout-group">
+                                    <span data-bind="if: attrVal.inputType == 'OPTOUT'"><input type="checkbox" value="true" data-bind="ctxChecked: attrVal.optOut, ctxOptions: {scopes: ['global']}, attr: {id : 'optout_' + attrVal.code}"/>&nbsp;&nbsp;&nbsp;<label data-bind="i18n: 'app:modules.product.optOut', attr: {for : 'optout_' + attrVal.code}">optout</label></span>
+                                </div>
+                            </div>
+                        <!-- /ko -->
+                        <!-- ko if: !attrVal.isOption && attrVal.frontendInput != 'BOOLEAN' && attrVal.frontendInput != 'RICHTEXT' && attrVal.frontendInput != 'COMBOBOX' && attrVal.frontendInput != 'SELECT' && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-3">
+                                    <div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
+                                        <!-- ko if: attrVal.isI18n -->
+                                            <div class="input-group">
+                                                <span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                                                <input data-bind="i18nValue: attrVal.value, disable: attrVal.isOptOut" class="form-control" type="text" required />
+                                            </div>
+                                        <!-- /ko -->
+                                        <!-- ko if: !attrVal.isI18n -->
+                                            <input class="form-control" type="text" data-bind="ctxValue: attrVal.value, disable: attrVal.isOptOut" />
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 optout-group">
+                                    <span data-bind="if: attrVal.inputType == 'OPTOUT'"><input type="checkbox" value="true" data-bind="ctxChecked: attrVal.optOut, ctxOptions: {scopes: ['global']}, attr: {id : 'optout_' + attrVal.code}"/>&nbsp;&nbsp;&nbsp;<label data-bind="i18n: 'app:modules.product.optOut', attr: {for : 'optout_' + attrVal.code}">optout</label></span>
+                                </div>
+                            </div>
+                        <!-- /ko -->
+
+                    <!-- /ko -->
+
+                    <!-- ko if: !$root.hasViewRights && !attrVal.isEditable && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-3">
+                                    <!-- ko if: attrVal.isI18n -->
+                                        <div class="input-group">
+                                            <span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                                            <input class="dynattr-readonly" data-bind="i18nValue: attrVal.value" class="form-control" type="text" readonly />
+                                        </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: !attrVal.isI18n -->
+                                        <input class="form-control dynattr-readonly" data-bind="ctxValue: attrVal.value, ctxOptions: {scopes: attrVal.scopes()}" readonly />
+                                    <!-- /ko -->
+                                </div>
+                                <div class="col-sm-3 optout-group">
+                                </div>
+                            </div>
+                    <!-- /ko -->
+
+                    <!-- ko if: $root.hasViewRights && attrVal.isShowField -->
+                            <div class="form-group">
+                                <label data-bind="i18nText: { value: attrVal.backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal.code}" class="col-sm-5 control-label"></label>
+                                <div class="read-only-text col-sm-3">
+                                        <span class="" data-bind="i18nAttr: attrVal"></span>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                    <!-- /ko -->
+
+                <!-- /ko -->
+
+            <!-- /ko -->
+
+        </form>
+
+    <!-- /ko -->
+
+<span data-bind="html: attributeTab.executePostRenderCallback(formAttributeValues)"></span>
+

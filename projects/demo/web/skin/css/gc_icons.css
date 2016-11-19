@@ -1,0 +1,264 @@
+.sprite {
+    background: url('http://i61.tinypic.com/i1e9s0.png');
+    background-image: url('../images/sprites/graphics-sprite.svg'), none;
+    background-size: 674px 467px;
+}
+
+.sprite-header {
+    background: url('http://i61.tinypic.com/i1e9s0.png');
+    background-image: url('../images/sprites/graphics-sprite.svg'), none;
+    background-size: 1300px 899px;
+}
+
+.icon-logo {
+    background: url('http://i61.tinypic.com/i1e9s0.png');
+    background-image: url('../images/sprites/graphics-sprite.svg'), none;
+    background-size: 341px 236px;
+    background-position: 0 0;
+    height: 40px;
+    width: 110px;
+}
+
+.icon-search {
+    background-size: 1300px 899px;
+    background-position: -575px -6px;
+    height: 40px;
+    width: 40px;
+    fill: #ffffff;
+    -webkit-filter: grayscale(100%) brightness(10);
+    filter: grayscale(100%) brightness(10);
+}
+
+.icon-right-arrow {
+    background-position: -484px -34px;
+    height: 19px;
+    width: 8px;
+}
+
+.icon-store-finder {
+    background-size: 880px 608px;
+    background-position: -418px 0px;
+    height: 34px;
+    width: 47px;
+}
+
+.icon-account {
+    background-size: 880px 608px;
+    background-position: -358px 0px;
+    height: 32px;
+    width: 28px;
+}
+
+.icon-wishlist {
+    background-position: -385px 0px;
+    height: 34px;
+    width: 30px;
+}
+
+.icon-cart {
+    background-position: -259px -18px;
+    height: 34px;
+    width: 40px;
+}
+
+.icon-telephone {
+    background-position: -413px 0px;
+    height: 24px;
+    width: 23px;
+}
+
+.icon-envelope {
+    background-position: -436px 0px;
+    height: 24px;
+    width: 24px;
+}
+
+.icon-facebook {
+    background-position: -502px -4px;
+    height: 19px;
+    width: 11px;
+}
+
+.icon-twitter {
+    background-position: -533px -5px;
+    height: 17px;
+    width: 17px;
+}
+
+.icon-pinterest {
+    background-position: -551px -4px;
+    height: 19px;
+    width: 14px;
+}
+
+.icon-googleplus {
+    background-position: -515px -6px;
+    height: 19px;
+    width: 11px;
+}
+
+.icon-mastercard {
+    background-position: -426px -60px;
+    height: 34px;
+    width: 50px;
+}
+
+.icon-visa {
+    background-position: -477px -60px;
+    height: 34px;
+    width: 50px;
+}
+
+.icon-paypal {
+    background-position: -528px -60px;
+    height: 34px;
+    width: 50px;
+}
+
+.icon-finance {
+    background-position: -426px -95px;
+    height: 34px;
+    width: 50px;
+}
+
+.icon-bar {
+    background-position: -476px -95px;
+    height: 34px;
+    width: 50px;
+}
+
+.icon-ddebit {
+    background-position: -579px -60px;
+    height: 34px;
+    width: 50px;
+}
+
+.icon-chevron {
+  position: relative;
+  top: 20px;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 10px;
+  height: 1px;
+  width: 50px;
+}
+
+.icon-chevron:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 51%;
+  background: #333;
+  -webkit-transform: skew(0deg, 20deg);
+  -moz-transform: skew(0deg, 20deg);
+  -ms-transform: skew(0deg, 20deg);
+  -o-transform: skew(0deg, 20deg);
+  transform: skew(0deg, 20deg);
+}
+.icon-chevron:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background: #333;
+  -webkit-transform: skew(0deg, -20deg);
+  -moz-transform: skew(0deg, -20deg);
+  -ms-transform: skew(0deg, -20deg);
+  -o-transform: skew(0deg, -20deg);
+  transform: skew(0deg, -20deg);
+}​
+
+.icon-chevron-left {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.icon-chevron-right {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.icon-chevron-up {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.icon-chevron-down {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+
+
+
+@media only screen and (min-width: 550px) {
+    .sprite-header {
+        background: url('http://i61.tinypic.com/i1e9s0.png');
+        background-image: url('../images/sprites/graphics-sprite.svg'), none;
+        background-size: 674px 467px;
+    }
+    .icon-search {
+        background-size: 1100px 760px;
+        background-position: -487px -5px;
+        height: 34px;
+        width: 34px;
+        fill: #ffffff;
+        -webkit-filter: grayscale(100%) brightness(10);
+        filter: grayscale(100%) brightness(10);
+    }
+    .icon-store-finder {
+        background-position: -321px 0px;
+        height: 34px;
+        width: 34px;
+        margin-top: 3px;
+    }
+    .icon-account {
+        background-position: -358px 0px;
+        height: 32px;
+        width: 28px;
+    }
+    .icon-wishlist {
+        background-position: -385px 0px;
+        height: 34px;
+        width: 30px;
+    }
+    .icon-cart {
+        background-position: -259px -18px;
+        height: 34px;
+        width: 40px;
+    }
+}
+
+@media only screen and (min-width: 998px) {
+    .icon-logo {
+        background-size: 674px 467px;
+        background-position: 0 0;
+        height: 74px;
+        width: 215px;
+    }
+    .icon-search {
+        background-size: 674px 467px;
+        background-position: -295px -1px;
+        height: 24px;
+        width: 24px;
+        fill: #000000;
+        -webkit-filter: grayscale(100%) brightness(1);
+        filter: grayscale(100%) brightness(1);
+    }
+}

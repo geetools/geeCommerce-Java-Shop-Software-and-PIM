@@ -1,0 +1,46 @@
+
+<div class="panel-body">
+    <div data-bind="toolbar: {
+            targetId: 'magazine-pages',
+            i18n: 'app:modules.magazine.pagesToolbarSaveMsg',
+            saveCallback: $root.saveData }"></div>
+
+    <table class="tbl-pages" id="magazine-pages" cellpadding="10" width="100%">
+        <tr>
+            <td colspan="5">
+                <form action="#" class="dropzone dropzone-pages dz-media" data-bind="attr: { 'data-magazineid' : magazineVM.id, 'id' : 'dz-new-' + magazineVM.id }">
+                    <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+                    <p class="dz-message" data-i18n="app:modules.magazine.imagesTabUploadHint">
+                        Click here or drag and drop to add images
+                    </p>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <table class="tbl-pages" id="magazine-pages" cellpadding="10">
+        <tbody data-bind="foreach: { data: magazineVM().pages, as: 'pageVM' }, attr: { 'data-magazineid' : magazineVM.id }" class="sortableMediaAssets">
+        <tr data-bind="attr: { 'data-id' : pageVM.id }" height="50">
+        	<td data-bind="text: position" style="font-size: 20px"></td>
+            <!-- ko if: pageVM.isImage() -->
+            <td style="width:60px"><a data-bind="attr: { href: pageVM.webPath() }" target="_blank"><img data-bind="attr: { src: pageVM.webThumbnailPath() }" vspace="5"/></a><br/><i data-bind="text: pageVM.name"></i></td>
+            <!-- /ko -->
+            <td style="width:40px"><a data-bind="attr: { href: pageVM.webPath() }" target="_blank"><img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + pageVM.fileExtension() + '.png'}" /></a></td>
+           <td>
+                <div class="input-group">
+                    <input type="radio" name="previewGroup" data-bind="checked: $root.preview, value: id" />&nbsp;<label data-i18n="app:modules.magazine.pagesTabUseAsPreview">Use as preview</label>
+                </div>
+            </td>
+            <td style="width:50px" class="actions" align="center">
+                <a href="javascript:void(0)" class="action" data-bind="click: $root.removePage"><i class="fa fa-square-o"></i></a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+
+
+</div>
+<div class="panel-footer">&nbsp;</div>

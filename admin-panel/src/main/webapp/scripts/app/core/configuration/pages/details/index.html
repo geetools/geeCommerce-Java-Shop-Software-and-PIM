@@ -1,0 +1,72 @@
+
+
+<div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel-group">
+				<div id="accordion" class="panel panel-default"
+					data-bind="foreach: { data: activeNode.children, as: 'child'}">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion"
+								data-bind="text:child.displayLabel, attr:{href:child.idhash}">First
+								level</a>
+						</h4>
+					</div>
+					<div data-bind="attr:{id:child.id}" class="panel-collapse collapse">
+						<div class="panel-body"
+							data-bind="foreach: { data: child.children, as: 'child2'}">
+							<div class="form-group panel-heading row"
+								style="display: block; line-height: 20px">
+								<div class="col-sm-3">
+									<label data-bind="text: child2.displayLabel"
+										class="control-label" style="display:block; width: 100%"></label>
+									<!-- ko if: child2.displayLabel2 -->
+									<label data-bind="text: child2.displayLabel2"
+										class="control-label" style="display:block; width:100%"></label>
+									<!-- /ko -->
+								</div>
+								<div class="col-sm-3 switch-wrapper">
+									<!--  ko if: child2.type == 'text' -->
+									<input data-bind="attr: { value: child2.placeholder }"
+										class="form-control" id="child2.id" type="text" required="">
+									<!-- /ko -->
+									<!--  ko if: child2.type == 'select' -->
+									<select class="form-control"
+										data-bind="options: child2.options">
+									</select>
+									<!-- /ko -->
+									<!--  ko if: child2.type == 'boolean' -->
+									<input type="checkbox" style="display: none;"><span
+										class="switch-button-label on">nein</span>
+									<div class="switch-button-background"
+										style="width: 38.2222px; height: 18.2222px;">
+										<div class="switch-button-button"
+											style="width: 28.2222px; height: 18.2222px; left: -1px;"></div>
+									</div>
+									<span class="switch-button-label off">ja</span>
+									<div style="clear: left;"></div>
+									<!-- /ko -->
+									<!-- ko if: child2.comment -->
+									<div style="margin-left: 9px"">
+										<i class="fa fa-caret-up"
+											style="width: 8px; vertical-align: top; margin-top: 3px; margin-left: -9px"></i>
+										<span data-bind="text: child2.comment" style=""></span>
+									</div>
+									<!-- /ko -->
+								</div>
+								<div class="col-sm-3">
+									<!--  ko if: child2.scope -->
+									<!-- /ko -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</div>

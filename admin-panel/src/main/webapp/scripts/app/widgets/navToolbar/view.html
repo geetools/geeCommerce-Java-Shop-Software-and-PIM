@@ -1,0 +1,29 @@
+<div class="nav-toobar-wrapper">
+    <!-- ko if: toolbar -->
+
+    <div class="nav-toobar-container">
+        <div class="nav-toobar-title" data-bind="text: toolbar().title"></div>
+        <div class="nav-toobar-items">
+            <!-- ko foreach: { data: toolbar().items, as: 'item' } -->
+            <div class="nav-toobar-item">
+                <!-- ko if: item.click -->
+                <div class="nav-toobar-icon">
+                    <a data-bind="click: item.click"> <i data-bind="attr: { class: item.icon }"></i> <span class="nav-toobar-label" data-bind="text: item.label"></span>
+                    </a>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: item.href -->
+                <div class="nav-toobar-icon">
+                    <a data-bind="attr: { href: item.href }" target="_blank">
+                        <i data-bind="attr: { class: item.icon }"></i>
+                        <span class="nav-toobar-label" data-bind="text: item.label"></span>                        
+                    </a>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <!-- /ko -->
+</div>

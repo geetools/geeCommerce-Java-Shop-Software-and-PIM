@@ -1,0 +1,215 @@
+<div class="content-panel" id="view-product-details">
+	<form class="form-horizontal" role="form">
+
+		<ul class="nav nav-tabs">
+			<li class="active" id="tab-prd-details-base"><a href="" data-target="#product-general" data-toggle="tab" data-i18n="app:modules.product.tabTitleGeneral">General</a></li>
+
+			<!-- ko if: $root.productVM().showDynamicAttributeTabs -->
+				<!-- ko foreach: { data: $root.productVM().tabs, as: 'tab' } -->
+						<!-- ko if: tab.show -->
+							<li><a href="" data-bind="i18nText: {value: tab.label, mode: 'any'}, attr: {'data-target': '#tab-content-' + tab.id(), 'id': 'tab-link-' + tab.id()}" data-toggle="tab">Tab</a></li>
+					<!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showPricesTab -->
+				<li><a href="" data-target="#prices" id="tab-prd-details-prices" data-toggle="tab" data-i18n="app:modules.product.tabTitlePrices">Prices</a></li>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showProgrammeTab -->
+				<li><a href="" data-target="#programme-mapping" id="tab-prd-details-programme-mapping" data-toggle="tab" data-i18n="app:modules.product.tabTitleProgrammeMapping">Programme</a></li>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showVariantsTab -->
+				<li><a href="" data-target="#variants" id="tab-prd-details-variants" data-toggle="tab" data-i18n="app:modules.product.tabTitleVariants">Variants</a></li>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showUpsellsTab -->
+				<li><a href="" data-target="#upsells" id="tab-prd-details-upsells" data-toggle="tab" data-i18n="app:modules.product.tabTitleUpsells">Upsells</a></li>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showMediaTab -->
+				<li><a href="" data-target="#media" id="tab-prd-details-media" data-toggle="tab" data-i18n="app:modules.product.tabTitleMedia">Media</a></li>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showDocumentsTab -->
+				<li><a href="" data-target="#documents" id="tab-prd-details-documents" data-toggle="tab" data-i18n="app:modules.product.tabTitleDocuments">Documents</a></li>
+			<!-- /ko -->
+
+<!-- 			
+				<li><a href="" data-target="#history" id="tab-prd-history" data-toggle="tab" data-i18n="app:modules.product.tabTitleHistory">History</a></li>
+ -->			
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="product-general" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/base', activationData: $root.productVM().productId()}">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- ko if: $root.productVM().showDynamicAttributeTabs -->
+				<!-- ko foreach: { data: $root.productVM().tabs, as: 'tab' } -->
+					<!-- ko if: tab.show -->
+						<div class="tab-pane tab-pane-dyn-attributes" data-bind="attr: {'id': 'tab-content-' + tab.id()}, compose:{ model: 'modules/geecommerce/product/pages/details/tabs/dyn-attributes', activationData: { productId: $root.productVM().productId(), attributeTab: tab } }">
+							<div class="tab-loading-box jumbotron">
+								<div class="row">
+									<div class="col-md-2">
+										<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+									</div>
+									<div class="col-md-10">
+										<h1 data-i18n="app:common.loadingContentTitle"></h1>
+										<p data-i18n="app:common.loadingContentInfo"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- /ko -->
+				<!-- /ko -->
+			<!-- /ko -->
+
+			<!-- ko if: $root.productVM().showPricesTab -->
+				<div class="tab-pane" id="prices" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/prices', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+
+			<!-- ko if: $root.productVM().showProgrammeTab -->
+				<div class="tab-pane" id="programme-mapping" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/programme-mapping', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showVariantsTab -->
+				<div class="tab-pane" id="variants" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/variants', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showUpsellsTab -->
+				<div class="tab-pane" id="upsells" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/upsells', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showMediaTab -->
+				<div class="tab-pane" id="media" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/media', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showDocumentsTab -->
+				<div class="tab-pane" id="documents" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/documents', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showStockTab -->
+			<div class="tab-pane" id="stock" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/stock', activationData: $root.productVM().productId()}">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showPictogramTab -->
+			<div class="tab-pane" id="pictogram" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/pictogram', activationData: $root.productVM().productId()}">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+			
+<!-- 			
+				<div class="tab-pane" id="history" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/history', activationData: $root.productVM().productId()}">
+					<div class="tab-loading-box jumbotron">
+						<div class="row">
+							<div class="col-md-2">
+								<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+							</div>
+							<div class="col-md-10">
+								<h1 data-i18n="app:common.loadingContentTitle"></h1>
+								<p data-i18n="app:common.loadingContentInfo"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+ -->			
+			
+		</div>
+
+	</form>
+
+</div>

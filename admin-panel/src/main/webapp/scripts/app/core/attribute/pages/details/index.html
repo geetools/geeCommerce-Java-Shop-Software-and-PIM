@@ -1,0 +1,33 @@
+<div class="col-md-12 content-panel" id="view-attribute-details">
+
+	<form class="form-horizontal" role="form" data-observe="true">
+
+		<ul class="nav nav-tabs">
+			<li id="tab-attribute-details-base" class="active"><a href="" data-target="#attr_base" data-toggle="tab"  data-i18n="app:modules.attribute.tabTitleGeneral">Base</a></li>
+			<!-- ko if: attributeVM.showOptionsTab() -->
+				<li id="tab-attribute-details-options"><a  href="" data-target="#attr_options" data-toggle="tab"  data-i18n="app:modules.attribute.tabTitleOptions">Options</a></li>
+			<!-- /ko -->
+			<!-- ko if: attributeVM.showProductListFilterTab() -->
+				<li id="tab-attribute-details-product-list-filter"><a href="" data-target="#attr_product_list_filter" data-toggle="tab">Product-list filter</a></li>
+			<!-- /ko -->
+			<!-- ko if: attributeVM.showInputConditionsTab() -->
+				<li id="tab-attribute-details-inputconditions"><a href="" data-target="#attr_input_conditions" data-toggle="tab" data-i18n="app:modules.attribute.tabTitleConditions">Eingabeoptionen</a></li>
+			<!-- /ko -->
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="attr_base" data-bind="compose:{ model: 'core/attribute/pages/details/tabs/base', activationData: attributeVM.id}"></div>
+			<!-- ko if: attributeVM.showOptionsTab() -->
+				<div class="tab-pane" id="attr_options" data-bind="compose:{ model: 'core/attribute/pages/details/tabs/options', activationData: attributeVM.id}"></div>
+			<!-- /ko -->
+			<!-- ko if: attributeVM.showProductListFilterTab() -->
+				<div class="tab-pane" id="attr_product_list_filter" data-bind="compose:{ model: 'core/attribute/pages/details/tabs/product_list_filter', activationData: attributeVM.id}"></div>
+			<!-- /ko -->
+			<!-- ko if: attributeVM.showInputConditionsTab() -->
+				<div class="tab-pane" id="attr_input_conditions" data-bind="compose:{ model: 'core/attribute/pages/details/tabs/input_conditions', activationData: attributeVM.id}"></div>
+			<!-- /ko -->
+		</div>
+
+	</form>
+
+</div>

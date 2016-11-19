@@ -1,0 +1,107 @@
+<div class="panel-body">
+    <div data-bind="toolbar: {
+			targetId: 'pictogramBaseForm',
+			i18n: 'app:modules.pictogram.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+    <form class="form-horizontal" role="form" id="pictogramBaseForm">
+
+        <div class="form-group">
+            <label  class="col-sm-3 control-label" data-i18n="app:modules.pictogram.baseTabPictogramImage">Pictogram Image</label>
+            <!-- ko if: pictogramVM.showPictogram() -->
+            <table class="tbl-slides" id="pictogram-slides">
+
+                <tr data-bind="attr: { 'data-id' : pictogramVM.pictogramMA().id }" class="tr-slide-row">
+                    <td style="width:60px">
+                        <!-- ko if: pictogramVM.pictogramMA().isImage() -->
+                        <a data-bind="attr: { href: pictogramVM.pictogramMA().webPath() }" target="_blank">
+                            <img data-bind="attr: { src: pictogramVM.pictogramMA().webThumbnailPath() }" vspace="5"/>
+                        </a>
+                        <!-- /ko -->
+                    </td>
+                    <td style="width:30px; align:center" class="td-slow-row" data-bind="html: $root.app.storeLabelOrIconXS(pictogramVM.pictogramMA().storeId)"></td>
+                </tr>
+            </table>
+            <!-- /ko -->
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputPictogramProductGroups" class="col-sm-3 control-label" data-i18n="app:modules.pictogram.baseTabProductGroups">Product Groups</label>
+            <div class="col-sm-6">
+                    <select id="inputPictogramProductGroups" multiple class="form-control select2"
+                        data-bind="select: pictogramVM.productGroups, data: pictogramVM.productGroupOptions, sort: true"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPictogramDimensionAttributes" class="col-sm-3 control-label" data-i18n="app:modules.pictogram.baseTabDimensionAttributes">Dimension Attributes</label>
+            <div class="col-sm-6">
+                <select id="inputPictogramDimensionAttributes" multiple class="form-control select2"
+                        data-bind="select: pictogramVM.dimensionAttributes, data: pictogramVM.dimensionAttributeOptions"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPictogramUnit" class="col-sm-3 control-label" data-i18n="app:modules.pictogram.baseTabUnit">Unit</label>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: pictogramVM.unit" class="form-control" id="inputPictogramUnit" placeholder="Enter unit" type="text" required>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label  class="col-sm-3 control-label" data-i18n="app:modules.pictogram.baseTabTemplateImage">Template Image</label>
+
+            <div style="clear: both;"></div>
+            <div class="col-sm-3 control-label" style="margin-top: 50px;" data-bind="foreach: pictogramVM.dimensionAttributesPos()">
+                <div style="border-width: 1px; padding: 5px; margin:5px; border-style: solid; margin-left: 100px;" data-bind="text: label, dragZone: { name: 'position', dragEnd: onDragEnd }"></div>
+            </div>
+
+            <div class="col-sm-9">
+                <table class="tbl-template" id="pictogram-template">
+                    <tr>
+                        <td colspan="7">
+                            <form action="#" class="dropzone dropzone-teaser dz-media" data-bind="attr: { 'data-pictogramid' : pictogramVM.id, 'id' : 'dz-new-' + pictogramVM.id }">
+                                <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+                                <p class="dz-message" data-i18n="app:modules.pictogram.imagesTabUploadHint">
+                                    Click here or drag and drop to add images
+                                </p>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- ko if: pictogramVM.showTemplate() -->
+                    <tr data-bind="attr: { 'data-id' : pictogramVM.templateMA().id }" height="50">
+                        <!-- ko if: pictogramVM.templateMA().isImage() -->
+                        <td style="width:60px">
+                            <div data-bind ="dropZone: { name: 'position', drop: onDrop }" style="position: relative;" id="templateWrapper">
+                                <!-- ko foreach: pictogramVM.dimensionAttributesPos() -->
+                                    <!-- ko if: $data.showOnImage() -->
+                                        <div style="padding: 5px; position: absolute; background-color: #ccc; opacity: 0.8;"
+                                            data-bind="html: $data.labelPreview, dragZone: { name: 'position', dragEnd: $data.onDragEnd },
+                                            style:{ top: $data.top, left: $data.left }"></div>
+                                    <!-- /ko -->
+                                <!-- /ko -->
+
+                                <img data-bind="attr: { src: pictogramVM.templateMA().webPath() }" vspace="5"/>
+                            </div>
+                        </td>
+                        <!-- /ko -->
+                      <!--  <td style="width:40px"><a data-bind="attr: { href: pictogramVM.templateMA().webPath() }" target="_blank">
+                            <img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + pictogramVM.templateMA().fileExtension() + '.png'}" /></a>
+                        </td>
+                        <td style="width:50px" class="actions" align="center">
+                        </td> -->
+                    </tr>
+                    <!-- /ko -->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

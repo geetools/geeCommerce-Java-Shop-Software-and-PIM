@@ -1,0 +1,9 @@
+<span data-i18n="app:account.languageTeaser"></span>
+<br/><br/>
+<div class="col-xs-2">
+<select class="form-control select2"
+		data-bind="options:app.conf.availableUserLanguages,
+		optionsText:'label',
+		optionsValue:'code',
+		value:app.sess.userLanguage"></select>
+</div>

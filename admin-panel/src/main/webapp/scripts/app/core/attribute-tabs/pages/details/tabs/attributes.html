@@ -1,0 +1,57 @@
+<div>
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="variantsTargetContainer">
+					<h3>Attribute</h3>
+	
+					<p>Diese Attribute sind bereits Tab <b data-bind="i18nText: { value: attributeTabVM.label, mode: 'any' }"></b> zugeordnet.</p>
+					
+					<ul data-bind="foreach: { data: attributeTabVM.attributes, as: 'attribute' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableAttributeOptions">
+						<li data-bind="attr: {'data-id': attribute.id}" class="droppable-list" unselectable="on">
+							<a href="javascript:void(0)" data-bind="click: $root.removeAttributeFromTab" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+							<div data-bind="i18nText: { value: attribute.backendLabel, mode: 'any' }"></div>
+							<div class="attribute-info-row">
+								<!-- ko if: attribute.code --><span data-bind="text: attribute.code"></span><!-- /ko -->
+								<!-- ko if: attribute.code2 -->&nbsp;(<span data-bind="text: attribute.code2"></span>)<!-- /ko -->
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="variantsSourceContainer">
+					<div class="row">
+						<div class="col-md-12">
+							<h3>Attribute suchen</h3>
+							<p>Suchen Sie nach Attribute, um sie per drag&drop zur Attributgruppe <span data-bind="i18nText: { value: attributeTabVM.label, mode: 'any' }"></span> hinzuzufügen.</p>
+							<input data-bind="value: query, valueUpdate:'afterkeyup'" class="form-control" type="text" placeholder="Attribut suchen ...">
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-12">
+							<ul data-bind="foreach: { data: $root.sourceAttributesPager.data, as: 'srcAttr' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
+									<span data-bind="i18nText: { value: srcAttr.backendLabel, mode: 'any' }"></span>
+									<div class="attribute-info-row">
+										<!-- ko if: srcAttr.code --><span data-bind="text: srcAttr.code"></span><!-- /ko -->
+										<!-- ko if: srcAttr.code2 -->&nbsp;(<span data-bind="text: srcAttr.code2"></span>)<!-- /ko -->
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<!--  Pagination -->            
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceAttributesPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourceAttributesPager.page, css: { active: $root.sourceAttributesPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+<div class="col-md-12 content-panel" id="view-product-list-details">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="javascript:void(0);" id="tab-slide-show-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.slide-show.tabTitleGeneral">Base</a></li>
+            <!-- ko if: $root.slideShowId() != 'new' -->
+            <li><a href="javascript:void(0);" data-target="#slides" id="tab-slide-show-details-slides" data-toggle="tab" data-i18n="app:modules.slide-show.tabTitleSlides">Slides</a></li>
+            <!-- /ko -->
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/slide-show/pages/details/tabs/base', activationData: $root.slideShowId}"></div>
+            <!-- ko if: $root.slideShowId() != 'new' -->
+            <div class="tab-pane" id="slides" data-bind="compose:{ model: 'modules/geecommerce/slide-show/pages/details/tabs/slides', activationData: $root.slideShowId}">Slides</div>
+            <!-- /ko -->
+        </div>
+
+</div>

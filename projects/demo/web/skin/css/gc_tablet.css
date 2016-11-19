@@ -1,0 +1,101 @@
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) {
+    .hidden-tablet {
+        display: none !important;
+    }
+    .container {
+        width: 100%;
+    }
+    .btn {
+        border: 0;
+    }
+    .btn:hover {
+        border: 0;
+    }
+    a {
+        color: #060605;
+    }
+    a:hover,
+    li>a:hover {
+        color: #49C0C0;
+        background-color: transparent;
+    }
+    a.active
+    li.active>a {
+        color: #9A1452;
+        font-weight: bold;
+    }
+    li.active>a>i {
+        background: none;
+    }
+    /* ------------------------------------------------------------------------------------------------------ */
+    /* Header                                                                                                 */
+    /* ------------------------------------------------------------------------------------------------------ */
+    
+    header a {
+        color: #060605;
+    }
+    header ul.navbar-nav small {
+        display: inline;
+    }
+    header {
+        background-color: transparent;
+        margin-bottom: 0;
+        border-bottom: transparent;
+    }
+    header #brand-bar-logo a {
+        padding: 5px 15px 0 15px;
+        float: left;
+        width: 260px;
+    }
+    header ul.navbar-nav small {
+        display: inline;
+        font-size: 11px;
+    }
+    header #top-nav-bar {
+		border-bottom: solid 1px #060605;    
+        margin-top: 15px;
+        height: 35px;
+    }
+    header #brand-bar .navbar-nav>li {
+        margin-left: 10px;
+        text-align: center;
+    }
+    header #top-nav-bar .navbar-nav>li {
+        font-size: 13px;
+        margin-right: 5px;
+    }
+    
+    header #brand-bar .navbar-nav {
+        float: right;
+    }
+    
+    header #top-nav-bar .navbar-nav>li>a {
+        padding: 7px 11px;
+    }
+    header #col-search input {
+	    height: 33px;
+	    border: solid 1px #aaa;
+	    background-color: #fafafa;
+	    -webkit-box-shadow: none;
+	    -moz-box-shadow: none;
+    	box-shadow: none;
+    	margin-top: -1px;
+    	border-radius: 0 0 0 8px;
+    }
+    header #col-search button {
+    	background-color: #f0f0f0;
+    	border: 1px solid #aaa;
+    	height: 33px;
+    	margin-top: -1px;
+    	margin-left: -1px;
+    	z-index: 10;
+    	color: #aaa;
+    }
+    header #col-search button:hover {
+        margin-left: -1px;
+        background-color: #f5f5f5;
+	    color: #888;
+    }
+}

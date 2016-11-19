@@ -1,0 +1,228 @@
+<div>
+
+	<div id="product-prices-tab" class="row">
+		<div class="col-md-12">
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+					  <div class="col-xs-8">
+						<div class="input-group">
+							<span class="input-group-addon" data-i18n="app:common.articleNumber">Article Number</span>
+							<input class="form-control input-large" type="text" data-bind="value: productVM.articleNumberLabel" readonly>
+						</div>
+					  </div>
+					  <div class="col-xs-4 pull-right">
+						<div class="panel-actions">
+							<button class="btn btn-primary" type="button" data-bind="click: $root.addPrice">
+								<i class="fa fa-plus"></i>
+								<span data-i18n="app:common.add"></span>
+							</button>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div class="panel-body">
+
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th data-i18n="app:modules.product.priceTabCurrency">Currency</th>
+								<th data-i18n="app:modules.product.priceTabPrice">Price</th>
+								<th data-i18n="app:modules.product.priceTabValidFrom">Von</th>
+								<th data-i18n="app:modules.product.priceTabValidTo">Bis</th>
+								<th data-i18n="app:modules.product.priceTabCountry">Country</th>
+								<th data-i18n="app:modules.product.priceTabCustomerGroup">Customer Group</th>
+								<th data-i18n="app:modules.product.priceTabPriceType">Price-Type</th>
+								<th></th>
+							</tr>
+						</thead>
+						
+						
+						
+						<tbody data-bind="foreach: pricesFor(productVM.id)">
+							<tr>
+								<td data-bind="text: $data.currency"></td>
+								<td><input class="form-control" name="amount" type="text" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" data-bind="currencyValue: $data.price" placeholder="Preis eingeben" /></td>
+								<td><span data-bind="ifnot: $data.validFrom">---</span><!-- ko if: $data.validFrom --><span data-bind="format: $data.validFrom, formatOptions: { type: 'date', to: 'DD.MM.YYYY' }"></span><!-- /ko --></td>
+								<td><span data-bind="ifnot: $data.validTo">---</span><!-- ko if: $data.validTo --><span data-bind="format: $data.validTo, formatOptions: { type: 'date', to: 'DD.MM.YYYY' }"></span><!-- /ko --></td>
+								<td><span data-bind="ifnot: $data.country">Alle</span><span data-bind="text: $data.country"></span></td>
+								<td><span data-bind="text: $parent.customerGroup($data.customerGroupId).label"></span></td>
+								<td><span data-bind="text: $parent.priceType($data.typeId).label"></span></td>
+								<td>
+									<div data-bind="attr: {id: 'action-price-container-' + $data.id()}">
+										<a title="Save" data-bind="click: $root.updatePrice, attr: {id: 'update-price-btn-' + $data.id()}" href="#"><i class="fa fa-save"></i></a>
+										<a data-bind="click: $root.removePrice, attr: {id: 'remove-price-btn-' + $data.id()}" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+									</div>
+									<div data-bind="loader: { src: '/img/ajax-loader-xs.gif', event: 'click:#update-price-btn-' + $data.id(), toggle: '#action-price-container-' + $data.id(), hookCallbacksTo: $data }"></div>
+									<div data-bind="loader: { src: '/img/ajax-loader-xs.gif', event: 'click:#remove-price-btn-' + $data.id(), toggle: '#action-price-container-' + $data.id(), hookCallbacksTo: $data }"></div>
+								</td>
+							</tr>
+						</tbody>
+						<tbody data-bind="foreach: newPrices">
+							<tr>
+								<td>
+									<select class="form-control select2"
+										data-bind="options: $root.app.conf.availableCurrencies,
+										optionsText: 'code',
+										optionsValue: 'code',
+										value: currency"></select>
+								</td>
+								<td><input type="text" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="form-control" data-bind="currencyValue: $data.price" placeholder="Preis eingeben" /></td>
+								<td width="120">
+									<div class="input-group">
+						                <input data-bind="datepicker: $data.validFrom, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" type="text">
+							            <span class="input-group-addon">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+								</td>
+								<td width="120">
+									<div class="input-group">
+						                <input data-bind="datepicker: $data.validTo, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" type="text">
+							            <span class="input-group-addon">
+							                <i class="fa fa-calendar"></i>
+							            </span>
+							        </div>
+								</td>
+								<td>
+									<select class="form-control select2" disabled="disabled"
+										data-bind="options: $root.app.conf.availableCountries,
+										optionsText: 'label',
+										optionsValue: 'code',
+										value: country"></select>
+								</td>
+								<td>
+									<select class="form-control select2" disabled="disabled"
+										data-bind="options: $root.customerGroups,
+										optionsText: 'label',
+										optionsValue: 'id',
+										value: customerGroupId"></select>
+								</td>
+								<td>
+									<select class="form-control select2"
+										data-bind="options: $root.priceTypes,
+										optionsText: 'label',
+										optionsValue: 'id',
+										value: typeId"></select>								
+								</td>
+								<td>
+									<div id="new-price-buttons">
+										<a id="new-price-save-btn" title="Save" data-bind="click: $root.saveNewPrice" href="#"><i class="fa fa-save"></i></a>
+										<a title="Cancel" data-bind="click: $root.cancelNewPrice" href="#"><i class="fa fa-times"></i></a>
+									</div>
+									<div data-bind="loader: { src: '/img/ajax-loader-xs.gif', event: 'click:#new-price-save-btn', toggle: '#new-price-buttons', hookCallbacksTo: $data, run: $root.runThis }"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-footer">&nbsp;</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<div data-bind="foreach: variants">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+						  <div class="col-xs-8">
+							<div class="input-group">
+								<span class="input-group-addon" data-i18n="app:common.articleNumber">Article Number</span>
+								<input class="form-control input-large" type="text" data-bind="attrValue: $data, code: 'article_number'" readonly>
+							</div>
+						  </div>
+						  <div class="col-xs-4 pull-right">
+							<div class="panel-actions">
+								<button class="btn btn-primary" type="button" data-bind="click: $root.addPrice">
+									<i class="fa fa-plus"></i>
+									<span data-i18n="app:common.add"></span>
+								</button>
+							</div>
+						  </div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th data-i18n="app:modules.product.priceTabCurrency">Currency</th>
+									<th data-i18n="app:modules.product.priceTabPrice">Price</th>
+									<th data-i18n="app:modules.product.priceTabCountry">Country</th>
+									<th data-i18n="app:modules.product.priceTabCustomerGroup">Customer Group</th>
+									<th data-i18n="app:modules.product.priceTabPriceType">Price-Type</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: $parent.pricesFor($data.id)">
+								<tr>
+									<td data-bind="text: $data.currency"></td>
+									<td><input type="text" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="form-control" name="amount" data-bind="currencyValue: $data.price" placeholder="Preis eingeben" /></td>
+									<td><span data-bind="ifnot: $data.country">Alle</span><span data-bind="text: $data.country"></span></td>
+									<td><span data-bind="text: $root.customerGroup($data.customerGroupId).label"></span></td>
+									<td><span data-bind="ifnot: $data.type">Standard</span><span data-bind="text: $data.type"></span></td>
+									<td>
+										<div data-bind="attr: {id: 'remove-price-container-' + $data.id()">
+											<a data-bind="click: $root.removePrice, attr: {id: 'remove-price-btn-' + $data.id()}" href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+										</div>
+										<div data-bind="loader: { src: '/img/ajax-loader-xs.gif', event: 'click:#remove-price-btn-' + $data.id(), toggle: '#remove-price-container-' + $data.id(), hookCallbacksTo: $data }"></div>
+									</td>
+								</tr>
+							</tbody>
+							<tbody data-bind="foreach: $root.newPrices">
+								<tr>
+									<td>
+										<select class="form-control select2"
+											data-bind="options: $root.app.conf.availableCurrencies,
+											optionsText: 'code',
+											optionsValue: 'code',
+											value: currency"></select>
+									</td>
+									<td><input type="text" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="form-control" data-bind="currencyValue: $data.price" placeholder="Preis eingeben" /></td>
+									<td>
+										<select class="form-control select2" disabled="disabled"
+											data-bind="options: $root.app.conf.availableCountries,
+											optionsText: 'label',
+											optionsValue: 'code',
+											value: country"></select>
+									</td>
+									<td>
+										<select class="form-control select2" disabled="disabled"
+											data-bind="options: $root.customerGroups,
+											optionsText: 'label',
+											optionsValue: 'id',
+											value: customerGroupId"></select>
+									</td>
+									<td>
+										<select class="form-control select2"
+											data-bind="options: $root.priceTypes,
+											optionsText: 'label',
+											optionsValue: 'id',
+											value: typeId"></select>								
+									</td>
+									<td>
+										<a title="Save" data-bind="click: $root.saveNewPrice" href="#"><i class="fa fa-save"></i></a>
+										<a title="Cancel" data-bind="click: $root.cancelNewPrice" href="#"><i class="fa fa-times"></i></a>
+									</td>
+								</tr>
+							</tbody>
+							
+						</table>
+
+					</div>
+					<div class="panel-footer">&nbsp;</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>

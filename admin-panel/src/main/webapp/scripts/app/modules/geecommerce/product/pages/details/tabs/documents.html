@@ -1,0 +1,68 @@
+<div>
+
+	<div data-bind="foreach: { data: products, as: 'productVM' }">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+						  <div class="col-xs-12">
+							<div class="input-group">
+								<span class="input-group-addon" data-i18n="app:common.articleNumber">Article-Number</span>
+								<input class="form-control input-large" type="text" data-bind="value: productVM.title()" readonly>
+							</div>
+						  </div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div data-bind="toolbar: {
+								targetId: 'product-media-documents-' + productVM.id,
+								i18n: 'app:modules.product.mediaAssetToolbarSaveMsg',
+								saveCallback: $root.saveData,
+								passthru: { productId: productVM.id } }"></div>
+					
+						<table class="tbl-media-documents" data-bind="attr: { id: 'product-media-documents-' + productVM.id }">
+							<tr>
+								<td colspan="5">
+									<form action="#" class="dropzone dropzone-media-documents dz-media" data-bind="attr: { 'data-productid' : productVM.id, 'id' : 'dz-new-' + productVM.id }">
+										<!-- span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span -->
+										<p class="dz-message" data-i18n="app:modules.product.imagesTabUploadHint">
+											Click here or drag and drop to add files
+										</p>
+									</form>
+								</td>
+							</tr>						
+						
+							<tbody data-bind="foreach: { data: productVM.media, as: 'mediaVM' }, attr: { 'data-productid' : productVM.id }" class="sortableMediaAssets">
+								<tr data-bind="attr: { 'data-id' : mediaVM.id }">
+									<td width="5%"><a data-bind="attr: { href: mediaVM.webPath() }" target="_blank"><img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + mediaVM.fileExtension() + '.png'}, css: { disabledImage: !mediaVM.enabled() }" /></a></td>
+									<td width="5%" align="center" data-bind__="html: $root.app.storeLabelOrIconXS(mediaVM.storeId)"></td>
+									<td width="35%"><a data-bind="text: mediaVM.filename, attr: { href: mediaVM.webPath() }, css: { disabledImage: !mediaVM.enabled() }" target="_blank"></a></td>
+									<td width="30%">
+							           	<select class="selectpicker" data-size="15" data-bind="select: mediaVM.mediaTypeIds, data: $root.mediaTypeOptions, selectOptions: {title: $root.app.i18n('app:modules.product.mediaTypeSelectTitle'), header: $root.app.i18n('app:modules.product.mediaTypeSelectTitle')}">
+							           	</select>
+									</td>
+									<td width="22%">
+										<div class="input-group">
+											<span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+											<input data-bind="i18nValue: mediaVM.title" class="form-control" id="inputMediaDocTitle" type="text" required>
+										</div>
+									</td>
+			                        <td width="3%" class="actions">
+			                            <a href="javascript:void(0)" class="action" data-bind="click: $root.removeMediaAsset"><i class="fa fa-times"></i></a>
+			                        </td>									
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<div class="panel-footer">&nbsp;</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>

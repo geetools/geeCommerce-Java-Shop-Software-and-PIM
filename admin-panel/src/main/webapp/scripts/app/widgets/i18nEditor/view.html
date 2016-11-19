@@ -1,0 +1,11 @@
+<div class="i18n-editor-widget">
+    <ul class="nav nav-tabs ctxobj-tabs" data-bind="foreach: getAvailableLanguages()">
+    	<li data-part="tab" data-bind="css: { 'active': $parent.active(code) }"><a data-bind="text: code, click: $parent.selectTab, attr: {'data-target': '#' + $parent.tabId($data), 'data-locale': code}" data-toggle="tab"></a></li>
+    </ul>
+    
+    <div class="tab-content" data-bind="foreach: {data: getAvailableLanguages(), afterRender: function(elements, item) { toggleTabContent(elements, item)}}">
+    	<div data-part="tabContent" data-bind="css: { 'active': $parent.active(code) }, attr: {id: $parent.tabId($data)}" class="tab-pane">
+    		<textarea name="i18n-editor" data-bind="disable: $parent.settings.disabled" class="form-control textarea" placeholder="Enter text" style="height: 200px"></textarea>
+    	</div>
+    </div>
+</div>

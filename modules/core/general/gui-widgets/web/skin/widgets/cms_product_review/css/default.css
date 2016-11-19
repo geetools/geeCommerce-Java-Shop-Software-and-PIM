@@ -1,0 +1,164 @@
+/* ------------------------------------------------------------------------------------------------------ */
+/* Mobile Devices, Default                                                                                */
+/* ------------------------------------------------------------------------------------------------------ */
+.cms-product-review {
+
+}
+
+.customer-review-link {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 20px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.tooltiptext {
+    display: none;
+}
+
+.customer-review-container input.form-control, textarea.form-control {
+    outline: 1px solid #ccc;
+    border: none;
+}
+
+.customer-review-container input.form-control:focus, textarea.form-control:focus {
+    outline: 2px solid #ccc !important;
+}
+
+.cms-product-review .stars-rating-percentage {
+    width: 200px;
+    background-color: #eee;
+}
+
+.cms-product-review .stars-rating-percentage-filled {
+    background-color: #FFCC66;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.cms-product-review .rateit .rateit-preset {
+    background: url(/js/vendor/jquery/plugins/rateit/star.gif) left -96px;
+}
+
+.cms-product-review .stars-rating-summary {
+    border-spacing: 5px;
+    border-collapse: initial;
+    margin-left: -5px;
+}
+
+.cms-product-review .review-summary-name2 {
+    display: block;
+}
+
+.cms-product-review .reviewHeadline {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 18px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.cms-product-review .reviewText {
+    padding-bottom: 10px;
+}
+
+.cms-product-review .reviewMarkHelpfulness {
+    font-size: 12px;
+}
+
+.cms-product-review .customerReview {
+    padding: 10px;
+}
+
+.cms-product-review .reviewHelpfulness {
+    padding-bottom: 5px;
+}
+
+.cms-product-review .reviewHeadline {
+    font-weight: bold;
+    vertical-align: top;
+    padding-top: 4px;
+}
+
+.cms-product-review .reviewEditActions {
+    padding-top: 5px;
+}
+
+.cms-product-review .reviewEditActions a {
+    margin: 5px;
+}
+
+.reviewMarkHelpfulnessHeader {
+    color: #808080;
+    font-weight: bold;
+}
+
+.reviewPagingWrapper {
+    width: 100%;
+    background-color: #EAF3FE;
+}
+
+.avg-customer-review {
+    padding-top: 15px;
+}
+
+.avg-customer-review > strong {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 20px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.avg-customer-review > span {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 19px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.reviewHelpfulness {
+    color: #999;
+    font-size: 12px;
+}
+
+div.pagingInfo {
+
+}
+
+div.pagingPages {
+    display: inline;
+    margin: 0;
+    position: relative;
+}
+
+div.pageNumber {
+    float: left;
+    padding-left: 10px;
+    position: relative;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Medium Devices, Desktops                                                                               */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 998px) {
+
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Large Desktops                                                                               		  */
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media only screen and (min-width: 1130px) {
+
+}

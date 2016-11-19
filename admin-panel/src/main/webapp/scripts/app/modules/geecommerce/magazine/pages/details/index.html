@@ -1,0 +1,17 @@
+<div class="col-md-10" id="view-magazine-details">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a id="tab-magazine-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.magazine.tabTitleGeneral">Base</a></li>
+            <!-- ko if: $root.magazineId() != 'new' -->
+            <li><a href="" data-target="#pages" id="tab-magazine-details-pages" data-toggle="tab" data-i18n="app:modules.magazine.tabTitlePages">Pages</a></li>
+            <!-- /ko -->
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/magazine/pages/details/tabs/base', activationData: $root.magazineId}"></div>
+            <!-- ko if: $root.magazineId() != 'new' -->
+            <div class="tab-pane" id="pages" data-bind="compose:{ model: 'modules/geecommerce/magazine/pages/details/tabs/pages', activationData: $root.magazineId}">Pages</div>
+            <!-- /ko -->
+        </div>
+
+</div>

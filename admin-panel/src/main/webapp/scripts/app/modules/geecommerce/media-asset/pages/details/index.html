@@ -1,0 +1,68 @@
+<div class="col-md-12" id="view-product-list-details">
+
+    <!-- ko if: tab.type == 'directory' -->
+        <form action="#" class="dropzone dropzone-files dz-media" data-bind="attr: { 'data-maid' : 'new-media-asset', 'id' : 'dz-new-media-asset' + $root.tab.id }">
+<!--            <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>-->
+            <p class="dz-message" data-i18n="app:modules.media-asset.fileTabUploadHint">
+                Click here or drag and drop to add file
+            </p>
+        </form>
+        <!-- ko foreach: { data: $root.tab.vm.mediaAssets, as: 'mediaAsset' } -->
+            <div class="col-xs-4" >
+                <img class="img-responsive img-thumbnail" data-bind="attr: { src: mediaAsset.url}, click: mediaAsset.openMediaAsset" >
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: tab.type == 'media-asset' -->
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="padding-top: 5px; padding-bottom: 5px;">
+        <div class="btn-group" role="group" aria-label="First group">
+            <button type="button" class="btn btn-secondary">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-secondary" data-bind="attr: {'id' : 'dz-update-media-asset' + $root.tab.id }">
+                <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-secondary">
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-secondary">
+                <span class=" glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            </button>
+        </div>
+<!--        <div class="btn-group" role="group" aria-label="Second group">
+            <button type="button" class="btn btn-secondary">5</button>
+            <button type="button" class="btn btn-secondary">6</button>
+            <button type="button" class="btn btn-secondary">7</button>
+        </div>
+        <div class="btn-group" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-secondary">8</button>
+        </div>-->
+    </div>
+
+        <ul class="nav nav-tabs"><!--data-i18n="app:modules.coupon.tabTitleGeneral"-->
+            <li class="active"><a href="" id="tab-coupon-details-base"data-target="#ma-view" data-toggle="tab" >View</a></li>
+            <li><a href="" data-target="#ma-edit" id="tab-coupon-details-codes" data-toggle="tab" >Edit</a></li>
+            <li><a href="" data-target="#ma-versions" id="tab-coupon-details-conditions" data-toggle="tab" >Version</a></li>
+            <li><a href="" data-target="#ma-urls" id="tab-coupon-details-action" data-toggle="tab">Urls</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="ma-view" data-bind="compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/media-asset/view', activationData: $root.tab}"></div>
+            <div class="tab-pane" id="ma-edit" data-bind="compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/media-asset/edit', activationData: $root.tab}">Conditions</div>
+            <div class="tab-pane" id="ma-versions" data-bind="compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/media-asset/version', activationData: $root.tab}">Action</div>
+            <div class="tab-pane" id="ma-urls" data-bind="compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/media-asset/urls', activationData: $root.tab}">Codes</div>
+        </div>
+    <!-- /ko -->
+
+<!--
+        <ul class="nav nav-tabs">
+            <li class="active"><a id="tab-media-asset-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.media-asset.tabTitleGeneral">Base</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/media-asset/pages/details/tabs/base', activationData: $root.mediaAssetId}"></div>
+        </div>-->
+
+</div>

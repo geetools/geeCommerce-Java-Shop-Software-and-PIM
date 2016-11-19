@@ -1,0 +1,59 @@
+<div class="panel-body">
+	<div
+		data-bind="toolbar: {
+			targetId: 'searchRewriteBaseForm',
+			i18n: 'app:modules.search-rewrite.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form class="form-horizontal" role="form" id="searchRewriteBaseForm">
+
+		<div class="form-group">
+			<label for="inputSearchRewriteTargetUri"
+				class="col-sm-3 control-label"
+				data-i18n="app:modules.search-rewrite.baseTabTargetUri">Target
+				URI</label>
+			<div class="col-sm-6">
+				<input data-bind="value: searchRewriteVM.targetUri"
+					class="form-control" id="inputSearchRewriteTargetUri"
+					placeholder="" type="text" required>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="inputKeywords" class="col-sm-3 control-label"
+				data-i18n="app:modules.search-rewrite.baseTabKeywords">Keywords</label>
+			<div class="col-sm-3">
+				<div class="row">
+
+
+				<div
+					data-bind='template: {name:"keywordItem", foreach: searchRewriteVM.keywords}'></div>
+	
+				<script id='keywordItem' type='text/html'>
+					<div class="row">
+						<div class="col-xs-10">
+							<input data-bind="value: $data.word" class="form-control" placeholder="" type="text">
+						</div>
+						<div style="display:inline;line-height:30px" data-bind="click: click: $data.del">
+							<i class="glyphicon glyphicon-remove"></i>
+						</div>
+					</div>
+				</script>
+				
+				<div style="padding: 5px;">
+						<a href="#" data-bind="click: searchRewriteVM.add">Add</a>
+					</div>
+<!-- 					<div class="col-xs-12"> -->
+<!-- 						<span data-bind="click: searchRewriteVM.add" -->
+<!-- 							class="add-coupon-icon"></span> -->
+<!-- 					</div> -->
+					<!-- 					<div data-bind="click: searchRewriteVM.add"> -->
+					<!-- 						<i class="glyphicon glyphicon-plus"></i> -->
+					<!-- 					</div> -->
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>

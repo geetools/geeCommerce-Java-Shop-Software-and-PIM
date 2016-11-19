@@ -1,0 +1,23 @@
+<div class="col-md-12 content-panel" id="view-attribute-group-details">
+
+        <ul class="nav nav-tabs">
+            <li id="tab-attribute-tabs-details-base" class="active"><a href="" data-target="#tab-base" data-toggle="tab" data-i18n="app:modules.attribute-group.tabTitleGeneral">Eigenschaften</a></li>
+            <li id="tab-attribute-tabs-details-mapping"><a href="" data-target="#tab-attributes" data-toggle="tab">Attribute</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-base" data-bind="compose:{ model: 'core/attribute-group/pages/details/tabs/base', activationData: $root.attributeGroupId}"></div>
+            <div class="tab-pane" id="tab-attributes" data-bind="compose:{ model: 'core/attribute-group/pages/details/tabs/attributes', activationData: $root.attributeGroupId}"></div>
+        </div>
+
+
+    <!--        <ul class="nav nav-tabs">
+                <li class="active"><a href="" id="tab-attribute-group-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.attribute-group.tabTitleGeneral">Base</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="base" data-bind="compose:{ model: 'core/attribute-group/pages/details/tabs/base', activationData: $root.attributeGroupId}"></div>
+            </div>
+-->
+
+</div>

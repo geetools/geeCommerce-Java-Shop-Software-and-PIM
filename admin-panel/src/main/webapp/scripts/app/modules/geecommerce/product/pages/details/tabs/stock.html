@@ -1,0 +1,24 @@
+<div>
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th data-i18n="app:common.articleNumber"></th>
+				<th data-i18n="app:modules.product.stockTabStock">Stock</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: inventoryItemsFor(productVM.id)">
+			<tr>
+				<td data-bind="ctxText: $parent.productVM.articleNumber"></td>
+				<td><input class="form-control" name="qty" data-bind="value: $data.qty" /></td>
+			</tr>
+		</tbody>
+		<tbody data-bind="foreach: variants">
+			<!-- ko foreach: $root.inventoryItemsFor($data.id) -->
+			<tr>
+				<td data-bind="attrText: $parent, code: 'article_number'"></td>
+				<td><input class="form-control" name="qty" data-bind="value: $data.qty" /></td>
+			</tr>
+			<!-- /ko -->
+		</tbody>
+	</table>
+</div>

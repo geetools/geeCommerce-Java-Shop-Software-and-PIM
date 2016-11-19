@@ -1,0 +1,45 @@
+<div class="col-md-12 content-panel" id="view-product-list-details">
+
+    <div data-bind="toolbar: {
+			targetId: 'productListAllForm',
+			i18n: 'app:modules.product-list.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+    <div class="form-horizontal" role="form" id="productListAllForm">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="" id="tab-product-list-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.product-list.tabTitleGeneral">Base</a></li>
+            <li><a href="" data-target="#query" id="tab-product-list-details-query" data-toggle="tab" data-i18n="app:modules.product-list.tabTitleQuery">Query</a></li>
+            <!-- ko foreach: { data: $root.tabs, as: 'tab' } -->
+                <!-- ko if: tab.show -->
+                    <li><a href="" data-bind="i18nText: {value: tab.label, mode: 'any'}, attr: {'data-target': '#tab-content-' + tab.id(), 'id': 'tab-link-' + tab.id()}" data-toggle="tab">Tab</a></li>
+                <!-- /ko -->
+            <!-- /ko -->
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/product-list/pages/details/tabs/base', activationData: $root.productListId}"></div>
+            <div class="tab-pane" id="query" data-bind="compose:{ model: 'modules/geecommerce/product-list/pages/details/tabs/query', activationData: $root.productListId}">Query</div>
+            <!-- ko foreach: { data: $root.tabs, as: 'tab' } -->
+                <!-- ko if: tab.show -->
+                    <div class="tab-pane" data-bind="attr: {'id': 'tab-content-' + tab.id()}, compose:{ model: 'modules/geecommerce/product-list/pages/details/tabs/dyn-attributes',
+                    activationData: { vm: $root.productListVM(), attributeTab: tab } }">
+                        <div class="tab-loading-box jumbotron">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                                </div>
+                                <div class="col-md-10">
+                                    <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                                    <p data-i18n="app:common.loadingContentInfo"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /ko -->
+            <!-- /ko -->
+        </div>
+
+    </div>
+
+</div>

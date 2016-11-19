@@ -1,0 +1,13 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+
+    <weaver>
+        <include within="com.geecommerce.*"/>
+    </weaver>
+
+    <aspects>
+<!--         <aspect name="com.geecommerce.core.interceptor.AspectMethodInterceptor"/> -->
+    </aspects>
+
+</aspectj>

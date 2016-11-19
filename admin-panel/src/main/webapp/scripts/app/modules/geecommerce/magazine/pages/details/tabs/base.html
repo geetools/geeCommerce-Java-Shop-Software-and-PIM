@@ -1,0 +1,121 @@
+<div class="panel-body">
+    <div data-bind="toolbar: {
+			targetId: 'magazineBaseForm',
+			i18n: 'app:modules.magazine.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+    <form class="form-horizontal" role="form" id="magazineBaseForm">
+        <div class="form-group">
+            <label for="inputMagazineTitle" class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabTitle">Name</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: magazineVM.title" class="form-control" id="inputMagazineTitle" placeholder="Enter name" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputMagazineTeaserText" class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabTeaserText">Name</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                    <input data-bind="i18nValue: magazineVM.teaserText" class="form-control" id="inputMagazineTeaserText" placeholder="Enter name" type="text" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputMagazineValidFrom" class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabValidFrom">Valid From</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="datepicker: magazineVM.validFrom, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputMagazineValidFrom" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputMagazineValidTo" class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabValidTo">Valid To</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="datepicker: magazineVM.validTo, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputMagazineValidTo" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputMagazineShowFrom" class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabShowFrom">Show From</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="datepicker: magazineVM.showFrom, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputMagazineShowFrom" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputMagazineShowTo" class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabShowTo">Show To</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input data-bind="datepicker: magazineVM.showTo, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputMagazineShowTo" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-i18n="app:modules.magazine.enabled">Enabled</label>
+            <div class="col-sm-6 switch-wrapper">
+                <input type="checkbox" data-bind="ctxBool: magazineVM.enabled, switchOptions: {default: false}" />
+            </div>
+            <div class="col-sm-3" data-bind="contextInfo"></div>
+        </div>
+
+
+    </form>
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label  class="col-sm-3 control-label" data-i18n="app:modules.magazine.generalTabTeaserImage">Teaser Image</label>
+            <div class="col-sm-9">
+                <!-- ko if: $root.magazineId() != 'new' -->
+                <table class="tbl-teaser" id="magazine-teaser">
+                    <tr>
+                        <td colspan="7">
+                            <form action="#" class="dropzone dropzone-teaser dz-media" data-bind="attr: { 'data-magazineid' : magazineVM.id, 'id' : 'dz-new-' + magazineVM.id }">
+                                <span class="dz-message-icon" data-bind="html: $root.app.activeStoreLabelOrIconS()"></span>
+                                <p class="dz-message" data-i18n="app:modules.magazine.imagesTabUploadHint">
+                                    Click here or drag and drop to add images
+                                </p>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- ko if: magazineVM.showTeaser() -->
+                    <tr data-bind="attr: { 'data-id' : magazineVM.teaser().id }" height="50">
+                        <!-- ko if: magazineVM.teaser().isImage() -->
+                        <td style="width:60px"><a data-bind="attr: { href: magazineVM.teaser().webPath() }" target="_blank"><img data-bind="attr: { src: magazineVM.teaser().webThumbnailPath() }" vspace="5"/></a></td>
+                        <!-- /ko -->
+                        <td style="width:40px"><a data-bind="attr: { href: magazineVM.teaser().webPath() }" target="_blank"><img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + magazineVM.teaser().fileExtension() + '.png'}" /></a></td>
+                        <td style="width:50px" class="actions" align="center">
+                            <a href="javascript:void(0)" class="action" data-bind="click: $root.removeTeaser"><i class="fa fa-square-o"></i></a>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                </table>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,105 @@
+<div class="panel-body">
+
+    <form class="form-horizontal" role="form" id="contentBaseForm">
+        <div class="col-md-10">
+
+            <div class="form-group">
+                <label for="inputType" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabType">Type</label>
+                <div class="col-sm-9">
+                    <select id="inputType" class="selectpicker"  data-bind="select: contentVM.type, data: [
+	           		{ id: 'PAGE', text: 'Page' },
+	           		{ id: 'PARTIAL', text: 'Partial' }]">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPageType" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabPageType">Page Type</label>
+                <div class="col-sm-9">
+                    <select id="inputPageType" class="selectpicker"  data-bind="select: contentVM.pageType, data: [
+	           		{ id: 'STATIC', text: 'Static' },
+	           		{ id: 'PRODUCT', text: 'Product' }]">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputTitle" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabName">Name</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                        <input data-bind="i18nValue: contentVM.name" class="form-control" id="inputTitle" placeholder="Enter name" type="text" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputDescription" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabDescription">Description</label>
+                <div class="col-sm-9 switch-wrapper">
+                    <div id="inputDescription" data-bind="i18nEditor: {value: contentVM.description}"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPreviewProduct" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabPreviewProduct">Preview Product</label>
+                <div class="col-sm-9 switch-wrapper">
+                    <div id="inputPreviewProduct" class="product-selector" data-bind="productSelector: contentVM.previewProduct, pickerOptions: {format: 'id'}"></div>
+                </div>
+            </div>
+
+            <!-- ko if: contentVM.selectMode() -->
+                <div class="form-group">
+                    <label for="inputExpertMode" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabExpertMode">Expert Mode</label>
+                    <div class="col-sm-9">
+                        <input type="checkbox" data-bind="checked: contentVM.expertMode" id="inputExpertMode">
+                    </div>
+                </div>
+            <!-- /ko -->
+
+        <!--    <div class="form-group">
+                <label for="inputKey" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabKey">Key</label>
+                <div class="col-sm-9">
+                    <input id="inputKey" type="text"  data-bind="value: contentVM.key" style="width: 100%;">
+                </div>
+            </div>-->
+
+            <div class="form-group">
+                <label for="inputContentLayout" class="col-sm-3 control-label" data-i18n="app:modules.content.baseContentLayout">Layout</label>
+                <div class="col-sm-3">
+                    <select id="inputContentLayout" class="form-control select2"
+                            data-bind="select: contentVM.layout, data: $root.contentLayoutChoice"></select>
+                </div>
+            </div>
+
+            <!-- ko if: contentVM.showFriendlyUrl() && ($root.gc.security.isInRole('admin')) -->
+            <div class="form-group">
+                <label for="inputPrdUrl" class="col-sm-3 control-label" data-i18n="app:modules.content.alternativeUrl">Friendly Url</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                        <input data-bind="i18nValue: contentVM.rewriteUrl" class="form-control" id="inputPrdUrl" placeholder="Enter url" type="text" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label  class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <input type="checkbox" data-bind="checked: contentVM.autogenerate" id="inputAutoGenerate"><label for="inputAutoGenerate" class="control-label" data-i18n="app:modules.content.autoGenerateAltUrl">Renew URL automatically</label>
+                </div>
+            </div>
+            <!-- /ko -->
+
+            <div class="form-group">
+                <label for="inputPreviewUrl" class="col-sm-3 control-label" data-i18n="app:modules.content.baseTabPreviewUrl">Preview</label>
+                <div class="col-sm-9">
+                    <a id="inputPreviewUrl" data-bind="i18n: 'app:common.onlineShop', attr: { href: contentVM.previewURL }" target="_blank">online-shop</a>
+                    Don't forget to save changes to see preview
+                </div>
+            </div>
+
+      </div>
+    </form>
+
+    <div id="target-div" style="display: none;"></div>
+</div>

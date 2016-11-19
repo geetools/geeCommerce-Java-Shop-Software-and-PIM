@@ -1,0 +1,44 @@
+# Home (root-folder) of geeCommerce.
+GC.Base.Path = /vagrant/geecommerce
+
+# Absolute path of webapp (parent of WEB-INF).
+Application.Webapp.Path = ${GC.Base.Path}/webapp/src/main/webapp
+
+# Absolute path where projects reside.
+Application.Projects.Path = ${GC.Base.Path}/projects
+
+# Application log path (not the merchant log path).
+Bootstrap.Logpath = ${Application.Projects.Path}/log
+
+# Global resources path.
+Application.Resources.Path = ${Application.Projects.Path}/resources
+
+# Global SSL certificates path.
+Application.Certs.Path = ${Application.Resources.Path}/certs
+
+# Relative path where templates reside (relative to webapp).
+Application.Template.Path = /WEB-INF/templates
+Application.Template.Suffix = .ftl
+
+# Guice modules to inject.
+Application.Inject.Modules = com.geecommerce.core.system.inject.SystemModule, com.geecommerce.core.system.inject.MongoModule
+
+# Ids for ID-Generator (https://github.com/coreyhulen/earnstone-id).
+# The combination of ids must be unique across all instances started!!!
+idgenerator.datacenter_id=1
+idgenerator.worker_id=1
+idgenerator.num_tries=20
+idgenerator.wait_until_retry=20
+
+elasticsearch.path=
+
+# Absolute path to ImageMagick home.
+imagemagick.path=/usr/bin
+
+# CommerceBoard system configuration.
+mongodb.name=scs_system_local
+mongodb.host=localhost
+mongodb.port=27017
+mongodb.user=scs_system_local
+mongodb.pass=scs_system_local
+

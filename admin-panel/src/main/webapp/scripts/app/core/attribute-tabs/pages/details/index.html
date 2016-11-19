@@ -1,0 +1,17 @@
+<div class="col-md-12 content-panel" id="view-attribute-tabs-details">
+
+	<form class="form-horizontal" role="form" data-observe="true">
+
+		<ul class="nav nav-tabs">
+			<li id="tab-attribute-tabs-details-base" class="active"><a href="" data-target="#tab-base" data-toggle="tab">Eigenschaften</a></li>
+			<li id="tab-attribute-tabs-details-mapping"><a href="" data-target="#tab-attributes" data-toggle="tab">Attribute</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab-base" data-bind="compose:{ model: 'core/attribute-tabs/pages/details/tabs/base', activationData: $root.attributeTabId}"></div>
+			<div class="tab-pane" id="tab-attributes" data-bind="compose:{ model: 'core/attribute-tabs/pages/details/tabs/attributes', activationData: $root.attributeTabId}"></div>
+		</div>
+
+	</form>
+
+</div>

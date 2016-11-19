@@ -1,0 +1,26 @@
+<assembly>
+	<id>geeCommerce</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>.</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+			<excludes>
+				<exclude>admin-panel</exclude>
+				<exclude>core</exclude>
+				<exclude>log</exclude>
+				<exclude>target</exclude>
+				<exclude>**/modules</exclude>
+				<exclude>**/conf</exclude>
+				<exclude>**/log</exclude>
+				<exclude>**/target</exclude>
+			</excludes>
+		</fileSet>
+	</fileSets>
+</assembly>

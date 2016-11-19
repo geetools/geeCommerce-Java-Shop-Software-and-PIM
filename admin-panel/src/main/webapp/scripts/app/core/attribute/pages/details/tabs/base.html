@@ -1,0 +1,334 @@
+<div>
+	<form id="attributeBaseForm">
+
+		<div class="form-group row">
+			<label for="inputAttrGroup" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAttributeGroup">Bereich</label>
+			<div class="col-sm-3">
+<!-- 
+			
+		           	<select class="selectpicker show-tick" multiple data-bind="select: attributeVM.linkedAttributeIds, data: productAttributes, selectOptions: { size: 15 }">
+		           	</select>
+ -->			
+	           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.targetObjectId, data: attributeTargetObjects">
+	           	</select>
+			</div>
+		</div>
+
+		<!-- ko if: attributeVM.isProductAttribute() -->
+			<div class="form-group row">
+				<label for="inputProductType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabProductType">Produkttypen</label>
+				<div class="col-sm-3">
+		           	<select class="selectpicker show-tick" multiple data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.productTypes, data: [
+		           		{ id: 'PHYSICAL', text: 'Produkt' },
+		           		{ id: 'VARIANT_MASTER', text: 'Variantenmaster' },
+		           		{ id: 'PROGRAMME', text: 'Programm' }
+		           	]">
+		           	</select>
+				</div>
+			</div>
+		<!-- /ko -->
+
+		<div class="form-group row">
+			<label for="inputScopes" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabScopes">Scopes</label>
+			<div class="col-sm-3">
+	           	<select class="selectpicker show-tick" multiple data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.scopes, data: [
+	           		{ id: 'global', text: 'Global' },
+	           		{ id: 'STORE', text: 'Store' }
+	           	]">
+	           	</select>
+			</div>
+		</div>
+		
+		<div class="form-group row">
+			<label for="inputAttrType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAttributeType">Typ</label>
+			<div class="col-sm-3">
+	           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.type, data: [
+	           		{ id: 'DEFAULT', text: 'Standard' }
+	           	]">
+	           	</select>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputAttrBackendLabel" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabNameBackend">Bezeichnung (Backend)</label>
+			<div class="col-sm-3">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: attributeVM.backendLabel" class="form-control" id="inputAttrBackendLabel" type="text" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputAttrFrontendLabel" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabNameFrontend">Bezeichnung (Shop)</label>
+			<div class="col-sm-3">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: attributeVM.frontendLabel" class="form-control" id="inputAttrFrontendLabel" type="text" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputAttrCode" class="col-sm-2 control-label">Code</label>
+			<div class="col-sm-3">
+				<input data-bind="value: attributeVM.code, enable: true" class="form-control" id="inputAttrCode" placeholder="Enter code" type="text" required>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputAttrCode2" class="col-sm-2 control-label">Code2</label>
+			<div class="col-sm-3">
+				<input data-bind="value: attributeVM.code2" class="form-control" id="inputAttrCode2" placeholder="Enter code" type="text" required>
+			</div>
+		</div>
+		
+<!-- 		
+			<div class="form-group row">
+				<label for="inputAttrLinkedAttributes" class="col-sm-2 control-label">Linked Attributes</label>
+				<div class="col-sm-3">
+		           	<select class="selectpicker show-tick" multiple data-bind="select: attributeVM.linkedAttributeIds, data: productAttributes, selectOptions: { size: 15 }">
+		           	</select>
+				</div>
+			</div>
+ -->		
+		
+		
+		
+		<!-- ko if: !attributeVM.isVirtual() -->
+		
+			<div class="form-group row">
+				<label for="inputAttrEditable" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabEditable">Editierbar</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.editable" />
+				</div>
+			</div>
+		
+			<div class="form-group row">
+				<label for="inputAttrFrontendInput" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabFrontendInput">Eingabetyp</label>
+				<div class="col-sm-3">
+		           	<select class="selectpicker" data-bind="select: attributeVM.frontendInput, enable: attributeVM.isNew, data: [
+		           		{ id: 'TEXT', text: 'Freitext' },
+		           		{ id: 'RICHTEXT', text: 'Richtext' },
+		           		{ id: 'COMBOBOX', text: 'Combobox' },
+		           		{ id: 'BOOLEAN', text: 'Ja/Nein-Schalter' },
+		           		{ id: 'SELECT', text: 'Werteliste' }
+		           	]">
+		           	</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="inputAttrFrontendOutput" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabFrontendOutput">Frontend Output</label>
+				<div class="col-sm-3">
+					<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.frontendOutput, data: [
+							{ id: 'TEXT', text: 'Freitext' },
+							{ id: 'LIST', text: 'List' }
+						]">
+					</select>
+				</div>
+			</div>
+
+
+			<div class="form-group row">
+				<label for="inputAttrBackendType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabBackendType">Backend-Typ</label>
+				<div class="col-sm-3">
+		           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.backendType, data: [
+		           		{ id: 'STRING', text: 'Text' },
+		           		{ id: 'INTEGER', text: 'Number' },
+		           		{ id: 'LONG', text: 'Large Number' },
+		           		{ id: 'DOUBLE', text: 'Decimal Number' },
+		           		{ id: 'BOOLEAN', text: 'Boolean' },
+		           		{ id: 'DATE', text: 'Date' },
+		           		{ id: 'FLOAT', text: 'Small Decimal Number' },
+		           		{ id: 'SHORT', text: 'Small Number' }
+		           	]">
+		           	</select>
+				</div>
+			</div>
+
+			<!-- ko if: attributeVM.backendType() == 'STRING' && attributeVM.frontendInput() == 'TEXT' -->
+				<div class="form-group row">
+					<label for="inputAttrValidationMinLength" class="col-sm-2 control-label">Minimum Allowed Length</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationMinLength" class="form-control" id="inputAttrValidationMinLength" placeholder="Enter minimum length" type="number">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+				<div class="form-group row">
+					<label for="inputAttrValidationMaxLength" class="col-sm-2 control-label">Maximum Allowed Length</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationMaxLength" class="form-control" id="inputAttrValidationMaxLength" placeholder="Enter maximum length" type="number">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+			<!-- /ko -->
+
+			<!-- ko if: (attributeVM.backendType() == 'INTEGER' || attributeVM.backendType() == 'LONG' || attributeVM.backendType() == 'DOUBLE' || attributeVM.backendType() == 'SHORT' || attributeVM.backendType() == 'FLOAT') && attributeVM.frontendInput() == 'TEXT' -->
+				<div class="form-group row">
+					<label for="inputAttrValidationMin" class="col-sm-2 control-label">Minimum Allowed Number</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationMin, enable: true" class="form-control" id="inputAttrValidationMin" placeholder="Enter minimum number" type="number">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+				<div class="form-group row">
+					<label for="inputAttrValidationMax" class="col-sm-2 control-label">Maximum Allowed Number</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationMax, enable: true" class="form-control" id="inputAttrValidationMax" placeholder="Enter maximum number" type="number">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+			<!-- /ko -->
+
+			<!-- ko if: attributeVM.backendType() == 'BOOLEAN' && attributeVM.frontendInput() == 'TEXT' -->
+			<div class="form-group row">
+				<label for="inputAttrValidationAssertTrue" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidationAssertTrue">Value must be true</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.validationAssertTrue" />
+				</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputAttrValidationAssertFalse" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidationAssertFalse">Value must be false</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.validationAssertFalse" />
+				</div>
+				<div class="col-sm-3" data-bind="contextInfo"></div>
+			</div>
+			<!-- /ko -->
+
+			<!-- ko if: attributeVM.backendType() == 'DATE' && attributeVM.frontendInput() == 'TEXT' -->
+			<div class="form-group row">
+				<label for="inputAttrValidationFuture" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidationFuture">Date must lie in the future</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.validationFuture" />
+				</div>
+				<div class="col-sm-3" data-bind="contextInfo"></div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputAttrValidationPast" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidationPast">Date must lie in the past</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.validationPast" />
+				</div>
+				<div class="col-sm-3" data-bind="contextInfo"></div>
+			</div>
+			<!-- /ko -->
+
+
+			<!-- ko if: attributeVM.frontendInput() == 'TEXT' -->
+				<div class="form-group row">
+					<label for="inputAttrValidationPattern" class="col-sm-2 control-label">Validate using regular expression</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationPattern, enable: true" class="form-control" id="inputAttrValidationPattern" placeholder="Enter pattern" type="text">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+				<div class="form-group row">
+					<label for="inputAttrValidationScript" class="col-sm-2 control-label">Validate using script</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationScript, enable: true" class="form-control" id="inputAttrValidationScript" placeholder="Enter script" type="text">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+				<div class="form-group row">
+					<label for="inputAttrValidationMessage" class="col-sm-2 control-label">Error message</label>
+					<div class="col-sm-3">
+						<input data-bind="ctxValue: attributeVM.validationMessage, enable: true" class="form-control" id="inputAttrValidationMessage" placeholder="Enter error message" type="text">
+					</div>
+					<div class="col-sm-3" data-bind="contextInfo"></div>
+				</div>
+			<!-- /ko -->
+			
+			<!-- ko if: attributeVM.isEditable() -->
+			<div class="form-group row">
+				<label for="inputAttrInputType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidation">Validierung</label>
+				<div class="col-sm-3">
+		           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.inputType, enable: attributeVM.editable, data: [
+			           	{ id: 'OPTOUT', text: 'Opt-out' },
+			           	{ id: 'MANDATORY', text: 'Pflicht' },
+			           	{ id: 'OPTIONAL', text: 'Freiwillig' }
+		           	]">
+		           	</select>
+				</div>
+			</div>
+			<!-- /ko -->
+
+			<div class="form-group row">
+				<label class="col-sm-2 control-label" data-i18n="app:modules.attribute.baseFrontendFormat">Frontend Format</label>
+				<div class="col-sm-3">
+					<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.frontendFormat,
+					data: [
+			           	{ id: 'CURRENCY', text: 'Currency' },
+			           	{ id: 'MEASUREMENT', text: 'Measurement' },
+			           	{ id: 'LOCALIZED_BOOLEAN', text: 'Localized boolean' }
+		           	]">
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="inputAttrProductDetails" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabShowInProductDetails">In Produktdetailseite anzeigen</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.showInProductDetails" />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="inputAttrI18n" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabI18n">Mehrsprachig</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.i18n" />
+				</div>
+			</div>
+			
+			<!-- ko if: attributeVM.isEditable() -->			
+		        <div class="form-group row">
+		            <label for="inputAttrMultipleValues" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAllowMultipleValues">Mehrfacheingabe möglich</label>
+		            <div class="col-sm-3 switch-wrapper">
+		                <input type="checkbox" data-bind="bool: attributeVM.allowMultipleValues" />
+		            </div>
+		        </div>
+			<!-- /ko -->
+
+<!--			<div class="form-group row">
+				<label for="inputAttrDminesion" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabDimensionAttribute">Dimension Attribute</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.dimensionAttribute" />
+				</div>
+			</div>-->
+
+			<div class="form-group row">
+				<label for="inputAttrProductListFilter" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabProductListFilter">Als Filter im Shop-Frontend</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.includeInProductListFilter" />
+				</div>
+			</div>
+            <div class="form-group row">
+                <label for="inputAttrProductListQuery" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabShowInProductListQuery"></label>
+                <div class="col-sm-3 switch-wrapper">
+                    <input type="checkbox" id="inputAttrProductListQuery" data-bind="bool: attributeVM.includeInProductListQuery" />
+                </div>
+            </div>
+			<div class="form-group row">
+				<label for="inputAttrSearchFilter" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabSearchFilter">Als Filter in der Erweiterten Suche</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.includeInSearchFilter" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputAttrSearchable" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabSearchable">Relevant für Freitext-Suche</label>
+				<div class="col-sm-3 switch-wrapper">
+					<input type="checkbox" data-bind="bool: attributeVM.searchable" />
+				</div>
+			</div>
+
+		<!-- /ko -->
+
+		<div class="form-group row">
+			<label for="inputAttrEnabled" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabEnabled">Aktiviert</label>
+			<div class="col-sm-3 switch-wrapper">
+				<input type="checkbox" data-bind="bool: attributeVM.enabled" />
+			</div>
+		</div>
+
+	</form>
+	
+</div>

@@ -1,0 +1,167 @@
+<div>
+    <div class="form-group">
+        <label for="inputCouponName" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabName">Name</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                <input data-bind="i18nValue: couponVM.name" class="form-control" id="inputCouponName" placeholder="Enter name" type="text" required>
+            </div>
+        </div>
+    </div>
+	
+	<!-- ko ifnot: couponVM.isNew() -->
+            <!-- ko if: couponVM.possibleGenerateAdditionalCodes() -->
+                    <div class="form-group">
+                        <label for="inputCouponGenerationAmountAdditional" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponsQuantity">Coupons Quantity</label>
+                        <div class="col-sm-3">
+                            <input data-bind="value: couponVM.generation.quantity" class="form-control" id="inputCouponGenerationAmountAdditional" placeholder="Enter Coupons Quantity" type="text" required>
+                            <div id="generate-additional-coupons-btn" class="btn btn-primary" data-bind="click: $root.generateAdditionalCodes, i18n: 'app:modules.coupon.generalTabGenerateAdditional'">Generate Additional Coupons</div>
+                        </div>
+                    </div>
+            <!-- /ko -->
+       <!-- /ko -->
+
+        <!-- ko if: couponVM.isNew() && !couponVM.auto()-->
+    <div class="form-group">
+        <label for="inputCouponGenerationAuto" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabUseAutoGeneration">Use Auto Generation</label>
+        <div class="col-sm-3">
+            <input type="checkbox" data-bind="checked: couponVM.generation.auto" id="inputCouponGenerationAuto">
+        </div>
+    </div>
+        <!-- ko if: !couponVM.generation.auto() -->
+        <div class="form-group">
+            <label for="inputCouponGenerationCode" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponCode">Coupon Code</label>
+            <div class="col-sm-3">
+                <input data-bind="value: couponVM.generation.code" class="form-control" id="inputCouponGenerationCode" placeholder="Enter Coupon Code" type="text" required>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: couponVM.generation.auto() -->
+        <div class="form-group">
+            <label for="inputCouponGenerationPattern" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponGenerationPattern">Coupon Generation Pattern</label>
+            <div class="col-sm-3">
+                <select id="inputCouponGenerationPattern" class="form-control select2"
+                        data-bind="options: couponCodePatterns,
+                    optionsText: 'label',
+                    optionsValue: 'value',
+                    value: couponVM.generation.pattern"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCodeGenerationRule">Code Generation Rule</label>
+            <div class="col-sm-3">
+                 <div data-bind="html: patternDescription"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputCouponGenerationAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponsQuantity">Coupons Quantity</label>
+            <div class="col-sm-3">
+                <input data-bind="value: couponVM.generation.quantity" class="form-control" id="inputCouponGenerationAmount" placeholder="Enter Coupons Quantity" type="text" required>
+            </div>
+        </div>
+
+        <!-- ko if: !couponVM.generation.isPattern() -->
+        <div class="form-group">
+            <label for="inputCouponGenerationLength" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponCodeLength">Coupon Code Length</label>
+            <div class="col-sm-3">
+                <input data-bind="value: couponVM.generation.length" class="form-control" id="inputCouponGenerationLength" placeholder="Coupon Code Length" type="text" required>
+            </div>
+        </div>
+        <!-- /ko -->
+        <div class="form-group">
+            <label for="inputCouponGenerationPrefix" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponCodePrefix">Coupon Code Prefix</label>
+            <div class="col-sm-3">
+                <input data-bind="value: couponVM.generation.prefix" class="form-control" id="inputCouponGenerationPrefix" placeholder="Enter Coupon Code Prefix" type="text" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputCouponGenerationPostfix" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponCodePostfix">Coupon Code Postfix</label>
+            <div class="col-sm-3">
+                <input data-bind="value: couponVM.generation.postfix" class="form-control" id="inputCouponGenerationPostfix" placeholder="Enter Coupon Code Postfix" type="text" required>
+            </div>
+        </div>
+        <!-- /ko -->
+
+    <!-- /ko -->
+
+    <div class="form-group">
+        <label for="inputCouponDescription" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabDescription">Description</label>
+        <div class="col-sm-9 switch-wrapper">
+            <div id="inputCouponDescription" data-bind="i18nEditor: {value: couponVM.description}"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputCouponErpCode" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabErpCode">Nachlassart</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.erpCode" class="form-control" id="inputCouponErpCode" placeholder="Nachlassart" type="text" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputCouponDateFrom" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabDateFrom">Date From</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input data-bind="datepicker: couponVM.fromDate, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputCouponDateFrom" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputCouponDateTo" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabDateTo">Date To</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input data-bind="datepicker: couponVM.toDate, datepickerOptions: { format: 'yyyy-mm-dd' }" class="form-control datepicker" id="inputCouponDateTo" type="text">
+	            <span class="input-group-addon">
+	                <i class="fa fa-calendar"></i>
+	            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputCouponUsesPerCoup" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabUsesPerCoupon">Uses per Coupon</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.usesPerCoupon" class="form-control" id="inputCouponUsesPerCoup" placeholder="Enter name" type="text" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputCouponUsesPerCustomer" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabUsesPerCustomer">Uses per Customer</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.usesPerCustomer" class="form-control" id="inputCouponUsesPerCustomer" placeholder="Enter name" type="text" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputValidAfterFirstUse" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalValidAfterFirstUsage">Valid After First Usage</label>
+        <div class="col-sm-3">
+            <input data-bind="value: couponVM.validAfterFirstUse" class="form-control" id="inputValidAfterFirstUse" placeholder="Enter " type="text" required>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+       <label for="inputCouponAuto" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabAuto">Auto</label>
+       <div class="col-sm-3">
+           <input type="checkbox" data-bind="checked: couponVM.auto, enable: couponVM.isNew()" id="inputCouponAuto">
+       </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.enabled">Enabled</label>
+        <div class="col-sm-6 switch-wrapper">
+            <input type="checkbox" data-bind="ctxBool: couponVM.enabled, switchOptions: {default: false}" />
+        </div>
+        <div class="col-sm-3" data-bind="contextInfo"></div>
+    </div>
+
+
+</div>

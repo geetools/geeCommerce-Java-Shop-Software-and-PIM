@@ -1,0 +1,108 @@
+<div>
+	<div data-bind="toolbar: {
+			targetId: 'attributeProductListFilerForm',
+			i18n: 'app:modules.attribute.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form id="attributeProductListFilerForm">
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label" data-i18n="app:modules.product.includeInProductListFilter">Include in product list filter</label>
+			<div class="col-sm-10 switch-wrapper">
+				<input type="checkbox" data-bind="bool: attributeVM.includeInProductListFilter" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAttrProductListFilterType" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterType">Filter type</label>
+			<div class="col-sm-10">
+	           	<select class="selectpicker" data-bind="select: attributeVM.productListFilterType, data: [ 
+	           		{ id: '', text: app.i18n('app:common.choose') },
+	           		{ id: 'DEFAULT', text: 'Standard' },
+	           		{ id: 'RANGE', text: 'Range' }
+	           	]">
+	           	</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="inputAttrProductListFilterType" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterIndexFields">Index fields</label>
+			<div class="col-sm-10">
+	           	<select class="selectpicker show-tick" multiple data-bind="select: attributeVM.productListFilterIndexFields, data: [ 
+	           		{ id: '', text: app.i18n('app:common.choose') },
+	           		{ id: 'NATIVE', text: 'Native' },
+	           		{ id: 'ATT_RAW', text: 'Raw' },
+	           		{ id: 'ATT_HASH', text: 'Hash' },
+	           		{ id: 'ATT_SLUG', text: 'Slug' }
+	           	]">
+	           	</select>
+			</div>
+		</div>
+
+		
+		
+		<div class="form-group">
+			<label for="inputAttrProductListFilterFormatLabel" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterFormatLabel">Format label</label>
+			<div class="col-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: attributeVM.productListFilterFormatLabel" class="form-control" id="inputAttrProductListFilterFormatLabel" type="text" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAttrProductListFilterFormatValue" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterFormatValue">Format value</label>
+			<div class="col-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: attributeVM.productListFilterFormatValue" class="form-control" id="inputAttrProductListFilterFormatValue" type="text" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAttrProductListFilterKeyAlias" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterKeyAlias">Parameter name</label>
+			<div class="col-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: attributeVM.productListFilterKeyAlias" class="form-control" id="inputAttrProductListFilterKeyAlias" type="text" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAttrProductListFilterParseValue" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterParseValue">Parse value</label>
+			<div class="col-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: attributeVM.productListFilterParseValue" class="form-control" id="inputAttrProductListFilterParseValue" type="text" required>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterMulti">Enable multiple selection</label>
+			<div class="col-sm-10 switch-wrapper">
+				<input type="checkbox" data-bind="bool: attributeVM.productListFilterMulti" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterInheritFromParent">Inherit values from parent product</label>
+			<div class="col-sm-10 switch-wrapper">
+				<input type="checkbox" data-bind="bool: attributeVM.productListFilterInheritFromParent" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterIncludeChildren">Include values from sub products</label>
+			<div class="col-sm-10 switch-wrapper">
+				<input type="checkbox" data-bind="bool: attributeVM.productListFilterIncludeChildren" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAttrProductListFilterPosition" class="col-sm-2 control-label" data-i18n="app:modules.product.productListFilterPosition">Position</label>
+			<div class="col-sm-10">
+				<div class="input-group">
+					<input data-bind="value: attributeVM.productListFilterPosition" class="form-control" id="inputAttrProductListFilterPosition" type="text" required>
+				</div>
+			</div>
+		</div>
+
+	</form>
+	
+</div>

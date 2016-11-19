@@ -1,0 +1,19 @@
+<div>
+
+	<div data-bind="toolbar: {
+			targetId: 'dynAttributeForm' + attributeTab.id(),
+			i18n: 'app:modules.product.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+
+<!--		<form data-bind="attr: { id: 'dynAttributeForm' + attributeTab.id() }">-->
+
+				<div data-bind=" compose:{ model: 'core/attribute-tabs/pages/tabs/dyn-attributes',
+			activationData: { formAttributeValues: $root.formAttributeValues, attributeTab: $root.attributeTab,
+			hasEditRights: $root.hasEditRights, hasViewRights: $root.hasViewRights } }"/>
+
+	<!--	</form>-->
+
+	</div>
+
+</div>

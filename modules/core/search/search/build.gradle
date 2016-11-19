@@ -1,0 +1,21 @@
+group = 'com.scs'
+description = ''
+dependencies {
+  compile project(':scs:scs-modules:scs-module-catalog')
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version:'0.90.3'
+    compile group: 'net.java.dev.jna', name: 'jna', version:'3.3.0'
+    compile group: 'com.vividsolutions', name: 'jts', version:'1.12'
+    compile group: 'org.apache.lucene', name: 'lucene-core', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-codecs', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-grouping', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-highlighter', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-join', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-memory', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-queries', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-sandbox', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-spatial', version:'4.4.0'
+    compile group: 'org.apache.lucene', name: 'lucene-suggest', version:'4.4.0'
+    compile group: 'com.spatial4j', name: 'spatial4j', version:'0.3'
+}

@@ -1,0 +1,64 @@
+<div>
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="variantsTargetContainer">
+					<h3>Produkte</h3>
+	
+					<p>Diese Produkte sind bereits Programm <b data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></b> zugeordnet.</p>
+					
+					<ul data-bind="foreach: { data: productVM().programmeProducts, as: 'prd' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableProgrammeProducts">
+						<li data-bind="attr: {'data-id': prd.id}" class="droppable-list" unselectable="on">
+                            <div class="col-xs-8">
+                                <span data-bind="attrText: prd, code: 'name', mode: 'closest'"></span>
+                                <div class="attribute-info-row">
+                                    <span data-bind="attrText: prd, code: 'article_number', mode: 'closest'"></span>
+                                    &nbsp;(<span data-bind="text: prd.id"></span>)
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="javascript:void(0)" data-bind="click: $root.removeProductFromProgramme" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+                                <a class="pull-right" target="_blank" data-bind=" attr: { href: '#/products/details/' + prd.id}"><i class="fa fa-pencil-times"></i></a>
+                                <br/>
+                            </div>
+                            <div class="clearfix"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="variantsSourceContainer">
+					<div class="row">
+						<div class="col-md-12">
+							<h3>Produkte suchen</h3>
+							<p>Suchen Sie nach Attribute, um sie per drag&drop zur Attributgruppe <span data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></span> hinzuzufügen.</p>
+							<input data-bind="value: query, valueUpdate:'afterkeyup'" class="form-control" type="text" placeholder="Produkt suchen ...">
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-12">
+							<ul data-bind="foreach: { data: $root.sourceProgrammeProductsPager.data, as: 'srcPrd' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
+									<span data-bind="attrText: srcPrd, code: 'name', mode: 'closest'"></span>
+									<div class="attribute-info-row">
+										<span data-bind="attrText: srcPrd, code: 'article_number', mode: 'closest'"></span>
+										&nbsp;(<span data-bind="text: srcPrd.id"></span>)
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<!--  Pagination -->            
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceProgrammeProductsPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourceProgrammeProductsPager.page, css: { active: $root.sourceProgrammeProductsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

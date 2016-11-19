@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn" name="BerCo Common" packages="">
+  <appenders>
+    <Routing name="Routing">
+      <Routes pattern="$${ctx:log.path}">
+        <Route>
+          <RollingFile name="CB-Unit-Test-Rolling-Log" fileName="${ctx:log.path}/unit-test.log"
+                       filePattern="${ctx:log.path}/cron-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+              <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+          </RollingFile>
+        </Route>
+      </Routes>
+    </Routing>
+  </appenders>
+  <loggers>
+	<logger name="com.sevon.common.cache" level="INFO"/>
+	<logger name="com.cb" level="INFO"/>
+	<logger name="com.geecommerce.service.inject" level="INFO"/>
+	<logger name="com.geecommerce.core.inject" level="INFO"/>
+	<logger name="com.geecommerce.core.reflect" level="INFO"/>
+	<logger name="com.geecommerce.core.threadlocal" level="INFO"/>
+	<logger name="com.geecommerce.core.interceptor" level="INFO"/>
+	
+	
+    <root level="INFO">
+      <appender-ref ref="Routing"/>
+    </root>
+  </loggers>
+</configuration>

@@ -1,0 +1,30 @@
+<div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">ERP Kundennummer</label>
+		<div class="col-sm-9">
+			<p data-bind="text: customerVM.id2"></p>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="inputCustForename" class="col-sm-3 control-label">Vorname</label>
+		<div class="col-sm-9">
+			<input data-bind="value: customerVM.forename" class="form-control" id="inputCustForename" placeholder="Vorname eingeben" type="text" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="inputCustSurname" class="col-sm-3 control-label">Nachname</label>
+		<div class="col-sm-9">
+			<input data-bind="value: customerVM.surname" class="form-control" id="inputCustSurname" placeholder="Nachname eingeben" type="text" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="inputCustEmail" class="col-sm-3 control-label">E-Mail</label>
+		<div class="col-sm-9">
+			<input data-bind="value: customerVM.email" class="form-control" id="inputCustEmail" placeholder="E-Mail eingeben" type="text" required>
+		</div>
+	</div>
+	
+</div>

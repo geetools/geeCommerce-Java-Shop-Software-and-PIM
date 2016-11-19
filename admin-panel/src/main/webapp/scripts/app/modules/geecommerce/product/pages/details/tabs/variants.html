@@ -1,0 +1,90 @@
+	<div>
+		<p style="z-index:10; position:fixed;" id="besideMouse"></p>	
+		<div class="row">
+			<div class="col-md-6">
+				<div class="variantsTargetContainer">
+					<h3 data-i18n="app:modules.product.variantsTabTargetTitle">Variants</h3>
+	
+					<p><span data-i18n="app:modules.product.variantsTabTargetDesc"></span> <b data-bind="globalText: productVM().articleNumber"></b></p>
+					<ul data-bind="foreach: { data: variantsVM.targetContainer, as: 'productVariant' }, dropZone: { name: 'variantsVM.sourceContainer', dragEnter: variantsVM.dragEnter, drop: variantsVM.dropFromSource }" class="target">
+						<li class="droppable-list" unselectable="on">
+							<div class="col-xs-8">
+								<span data-bind="i18nText: { value: productVariant.name, mode: 'closest' }"></span><br/>
+								<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: productVariant.productGroup"></span><br/>
+								<div class="attribute-info-row">
+									<span data-bind="globalText: productVariant.articleNumber"></span>
+								</div>
+								<div class="variant-option-pills">
+									<!-- ko foreach: { data: productVariant.variantOptions, as: 'variantOption' } -->
+										<div class="label label-info"><i class="fa fa-check variant-attribute-info-icon"></i><span data-bind="i18nText: { value: variantOption.value, mode: 'closest' }"></span><a href="#" data-bind="click: $root.unflagVariantOption, attr: { 'data-productId': productVariant.id }"><i class="fa fa-square-o-circle variant-attribute-delete-icon"></i></a></div>
+									<!-- /ko -->
+									<a data-bind="visible: productVariant.availableOptions().length > 0 && $root.variantsVM.showPlusButton, click: $root.variantsVM.toggleOptionsSelection" href="#" class="variant-attribute-add-icon" data-placement="bottom" data-toggle="tooltip" title="Varianteneigenschaft auswählen"><i class="fa fa-plus"></i></a>
+								</div>
+	
+								<!-- Selectable variant attribute values -->
+					            <div class="btn-group" data-bind="visible: productVariant.availableOptions().length > 0 && $root.variantsVM.showOptionsSelection">
+					                <button type="button" class="btn btn-link dropdown-toggle btn-options-selection" data-toggle="dropdown">
+					                    <span data-i18n="app:common.choose"></span> <span class="caret"></span>
+					                </button>
+					                <ul class="dropdown-menu" role="menu" data-bind="foreach: { data: productVariant.availableOptions, as: 'variantOption' }">
+					                    <li><a href="#" data-bind="html: variantOption.longValue, click: $root.flagOptionAsVariant, attr: { 'data-productId': productVariant.id }"></a></li>
+					                </ul>
+					            </div>
+				            </div>
+				            <div class="col-xs-4">
+								<a href="#" data-bind="click: $root.variantsVM.dropFromTarget" class="btn-cancel pull-right" data-placement="bottom" data-toggle="tooltip" data-original-title="Variante löschen"><i class="fa fa-times"></i></a>
+								<a data-bind="visible: productVariant.hasChanged(), click: $root.saveVariantOptions" href="#" class="btn-save pull-right" data-placement="bottom" data-toggle="tooltip" data-original-title="Speichern"><i class="fa fa-check"></i></a>
+								<a class="pull-right" target="_blank" data-bind="visible: !productVariant.hasChanged(), attr: { href: '#/products/details/' + productVariant.id}"><i class="fa fa-pencil-square"></i></a>
+					            <br/>
+					            <!-- Image -->
+								<span data-bind="if: productVariant.thumbnail"><img class="pull-right" data-bind="attr: {src: productVariant.thumbnail}" border="0" vspace="10"/></span>
+							</div>
+							<div class="clearfix"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="variantsSourceContainer">
+					<div class="row">
+						<div class="col-md-12">
+							<h3 data-i18n="app:modules.product.variantsTabSourceTitle">Search for variants</h3>
+							<p data-i18n="app:modules.product.variantsTabSourceDesc">Search for variants and assign them via drag&drop to the master product.</p>
+							<input data-bind="value: searchVM.articleNumber, valueUpdate:'afterkeyup', i18nPlaceholder: 'app:modules.product.placeholderSearchArticleNumber'" class="form-control" type="text" />
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-12">
+							<ul data-bind="foreach: { data: variantsVM.sourceContainer, as: 'productVariant' }, dropZone: { name: 'variantsVM.targetContainer', drop: variantsVM.dropFromTarget }" class="source">
+								<li data-bind="dragZone: { name: 'variantsVM.sourceContainer' }" class="droppable-list" unselectable="on">
+									<div class="col-xs-8">
+										<span data-bind="i18nText: { value: productVariant.name, mode: 'closest' }"></span><br/>
+										<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: productVariant.productGroup"></span>
+										<div class="attribute-info-row">
+											<span data-bind="globalText: productVariant.articleNumber"></span>
+											&nbsp;&nbsp;(<span data-bind="text: productVariant.id"></span>)<br/>
+											<!-- ko if: variantOptions().length > 0 -->
+											<i class="fa fa-check variant-options-exist"></i>&nbsp;&nbsp;(<span data-bind="text: variantOptions().length"></span>&nbsp;<span data-i18n="app:modules.product.linkedVariantOptions"></span>)
+											<!-- /ko -->
+											<!-- ko if: variantOptions().length == 0 && availableOptions().length > 0 -->
+											<i class="fa fa-bars variant-options-available"></i>&nbsp;&nbsp;(<span data-bind="text: availableOptions().length"></span>&nbsp;<span data-i18n="app:modules.product.availableVariantOptions"></span>)
+											<!-- /ko -->
+											<!-- ko if: variantOptions().length == 0 && availableOptions().length == 0 -->
+											<i class="fa fa-ban variant-options-none"></i>&nbsp;&nbsp;(<span data-i18n="app:modules.product.noVariantsAvailable"></span>)
+											<!-- /ko -->
+										</div>
+									</div>
+									<div class="col-xs-4">
+										<a class="pull-right" target="_blank" data-bind="attr: { href: '#/products/details/' + productVariant.id}"><i class="fa fa-pencil-square"></i></a><br/>
+										<span data-bind="if: productVariant.thumbnail"><img class="pull-right" data-bind="attr: {src: productVariant.thumbnail}" border="0" vspace="10" /></span>
+									</div>
+									<div class="clearfix"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

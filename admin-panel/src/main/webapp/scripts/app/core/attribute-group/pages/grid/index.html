@@ -1,0 +1,73 @@
+<div>
+<center>
+	<!-- Refresh button -->
+    <div class="row">
+        <div class="col-md-3">
+	        <form>
+		        <div class="form-group">
+                    <span class="input-group ">
+                        <select class="form-control select2 form-control-small" style="display: inline-block;"
+                                data-bind="options: $root.pager.limitOptions,
+                                                        optionsText: 'label',
+                                                        optionsValue: 'value',
+                                                        value: $root.pager.limit"></select>
+						<span class="input-group-btn">
+                        	<button class="btn btn-primary" type="button"><i class="fa fa-refresh"></i></button>
+                        </span>
+                    </span>
+	        	</div>
+        	</form>
+        </div>
+        <div class="col-md-6 pull-right">
+			<a href="#/attribute-groups/details/new" id="btn-new-attribute" class="btn btn-primary pull-right" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span data-i18n="app:modules.attribute-group.newAttributeGroupButton">Add new attribute group</span></a>
+        </div>
+    </div>
+
+    <div class="row grid-table-container">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <!--  Sort fields -->
+                    <tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+                        <th><div data-bind="click: $root.pager.sort, i18n: column.label, css: { pagerHideColHeader: column.name == '' }"></div></th>
+                    </tr>
+                    <!--  Filter fields -->
+                    <tr data-bind="foreach: { data: pager.columns, as: 'column' }">
+                        <!-- ko if: column.name != '' && column.selectOptions.length > 0 -->
+                        <td class="td-filter"><select class="form-control select2 form-control-small form-select-filter" style="display:inline-block; padding: 6px 6px; font-size: 11px"
+                                    data-bind="options: column.selectOptions,
+		                             optionsText: 'label',
+		                             optionsValue: 'value',
+		                             value: column.value, disable: $root.pager.searchKeyword"></select></td>
+                        <!-- /ko -->
+                        <!-- ko if: column.name != '' && column.selectOptions.length == 0 -->
+                        <td class="td-filter"><input type="text" class="form-control form-input-filter" data-bind="value: column.value, valueUpdate:'afterkeyup', disable: $root.pager.searchKeyword" /></td>
+                        <!-- /ko -->
+                        <!-- ko if: column.name == '' -->
+                        <td  class="td-filter"><div class="form-control form-input-filter"></div></td>
+                        <!-- /ko -->
+                    </tr>
+                </thead>
+				<!--  Data -->            
+                <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
+                    <tr>
+<!--                         <td><a data-bind="text: row.id, attr: { href: '#/attribute-groups/details/' + row.id }"></a></td> -->
+                        <td><a data-bind="text: row.code, attr: { href: '#/attribute-groups/details/' + row.id }"></a></td>
+                        <td data-bind="text: row.label"></td>
+                        <td data-bind="text: row.position"></td>
+<!--                         <td data-bind="text: row.column"></td> -->
+                        <td class="actions">
+                            <a href="javascript:void(0)" data-bind="click: $root.removeAttributeGroup"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+			<!--  Pagination -->            
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: pager.pages, as: 'page' }">
+                <li data-bind="click: $root.pager.page, css: { active: $root.pager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+</center>
+</div>

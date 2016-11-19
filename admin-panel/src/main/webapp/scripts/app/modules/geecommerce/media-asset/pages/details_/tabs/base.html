@@ -1,0 +1,38 @@
+<div class="panel-body">
+    <!--<div data-bind="toolbar: {-->
+			<!--targetId: 'mediaAssetBaseForm',-->
+			<!--i18n: 'app:modules.media-asset.toolbarSaveMsg',-->
+			<!--saveCallback: saveData }"></div>-->
+
+    <form class="form-horizontal" role="form" id="mediaAssetBaseForm">
+
+        <div>
+            <table class="tbl-slides" id="media-asset-slides">
+
+                <tr data-bind="attr: { 'data-id' : mediaAssetVM.id }" class="tr-slide-row">
+                    <td style="width:60px">
+                        <!-- ko if: mediaAssetVM.isImage() -->
+                        <a data-bind="attr: { href: mediaAssetVM.webPath() }" target="_blank">
+                            <img data-bind="attr: { src: mediaAssetVM.webThumbnailPath() }" vspace="5"/>
+                        </a>
+                        <!-- /ko -->
+                    </td>
+                    <td style="width:30px; align:center" class="td-slow-row" data-bind="html: $root.app.storeLabelOrIconXS(mediaAssetVM.storeId)"></td>
+                    <td style="width:40px"><a data-bind="attr: { href: mediaAssetVM.webPath() }" target="_blank">
+                        <img height="32" data-bind="attr: {'src': '/img/doc-types/file_extension_' + mediaAssetVM.fileExtension() + '.png'}" /></a></td>
+
+                </tr>
+                <tr class="tr-slide-row">
+                    <td>Size:&nbsp;<span data-bind="text : mediaAssetVM.size" ></span>kb</td>
+                </tr>
+                <!--<tr class="tr-slide-row">-->
+                    <!--<td>-->
+                        <!--RawMetadata:&nbsp;<span data-bind="text : mediaAssetVM.rawMetadata" ></span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            </table>
+        </div>
+
+
+    </form>
+</div>

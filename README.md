@@ -1,2 +1,2 @@
 # geecommerce
-geeCommerce Shop Software
+geeCommerce Java Shop Software

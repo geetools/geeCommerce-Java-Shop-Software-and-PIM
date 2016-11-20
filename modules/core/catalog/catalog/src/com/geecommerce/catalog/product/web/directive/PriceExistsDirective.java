@@ -24,38 +24,39 @@ public class PriceExistsDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-	if (log.isTraceEnabled()) {
-	    log.trace(params);
-	}
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
+        if (log.isTraceEnabled()) {
+            log.trace(params);
+        }
 
-	TemplateModel pProduct = (TemplateModel) params.get("product");
-	SimpleScalar pType = (SimpleScalar) params.get("type");
+        TemplateModel pProduct = (TemplateModel) params.get("product");
+        SimpleScalar pType = (SimpleScalar) params.get("type");
 
-	if (pProduct != null && pProduct instanceof BeanModel && pType != null) {
-	    Product product = null;
-	    String type = null;
+        if (pProduct != null && pProduct instanceof BeanModel && pType != null) {
+            Product product = null;
+            String type = null;
 
-	    Object beanModel = ((BeanModel) pProduct).getWrappedObject();
+            Object beanModel = ((BeanModel) pProduct).getWrappedObject();
 
-	    if (beanModel instanceof Product) {
-		product = (Product) beanModel;
-	    } else {
-		throw new IllegalArgumentException("The source-object must be of type Product");
-	    }
+            if (beanModel instanceof Product) {
+                product = (Product) beanModel;
+            } else {
+                throw new IllegalArgumentException("The source-object must be of type Product");
+            }
 
-	    if (pType != null)
-		type = pType.getAsString();
+            if (pType != null)
+                type = pType.getAsString();
 
-	    PriceResult result = product.getPrice();
+            PriceResult result = product.getPrice();
 
-	    if (result != null && type != null) {
-		Double price = result.getPrice(type);
+            if (result != null && type != null) {
+                Double price = result.getPrice(type);
 
-		if (price != null && price > 0 && body != null) {
-		    body.render(env.getOut());
-		}
-	    }
-	}
+                if (price != null && price > 0 && body != null) {
+                    body.render(env.getOut());
+                }
+            }
+        }
     }
 }

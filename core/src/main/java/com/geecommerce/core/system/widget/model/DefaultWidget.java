@@ -1,5 +1,9 @@
 package com.geecommerce.core.system.widget.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
@@ -9,10 +13,6 @@ import com.geecommerce.core.system.widget.repository.WidgetParameterTabs;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Model("widgets")
 public class DefaultWidget extends AbstractModel implements Widget {
@@ -123,10 +123,10 @@ public class DefaultWidget extends AbstractModel implements Widget {
 
     @Override
     public List<WidgetParameterTab> getTabs() {
-        if(tabs != null)
+        if (tabs != null)
             return tabs;
 
-        if(tabIds == null || tabIds.isEmpty())
+        if (tabIds == null || tabIds.isEmpty())
             tabs = null;
         else {
             tabs = widgetParameterTabs.findByIds(WidgetParameterTab.class, tabIds.toArray(new Id[tabIds.size()]));
@@ -136,9 +136,9 @@ public class DefaultWidget extends AbstractModel implements Widget {
 
     @Override
     public List<WidgetParameter> getParameters() {
-        if(parameters != null)
+        if (parameters != null)
             return parameters;
-        if(getTabs() == null || getTabs().isEmpty())
+        if (getTabs() == null || getTabs().isEmpty())
             return null;
 
         parameters = gatherParameters(getTabs().get(0));
@@ -168,19 +168,18 @@ public class DefaultWidget extends AbstractModel implements Widget {
         return this;
     }
 
-    protected List<WidgetParameter> gatherParameters(WidgetParameterTab tab){
+    protected List<WidgetParameter> gatherParameters(WidgetParameterTab tab) {
         List<WidgetParameter> params = new ArrayList<>();
-        if(tab != null){
-            for (WidgetParameterTabItem item: tab.getItems()){
-                if(item.getType().equals(WidgetParameterTabItemType.PARAMETER)){
+        if (tab != null) {
+            for (WidgetParameterTabItem item : tab.getItems()) {
+                if (item.getType().equals(WidgetParameterTabItemType.PARAMETER)) {
                     params.add((WidgetParameter) item.getItem());
-                } else if(item.getType().equals(WidgetParameterTabItemType.TAB)){
+                } else if (item.getType().equals(WidgetParameterTabItemType.TAB)) {
                     params.addAll(gatherParameters((WidgetParameterTab) item.getItem()));
                 }
             }
         }
         return params;
     }
-
 
 }

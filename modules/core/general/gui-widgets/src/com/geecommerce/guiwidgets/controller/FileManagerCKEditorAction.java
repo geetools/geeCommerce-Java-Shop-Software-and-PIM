@@ -1,16 +1,23 @@
 package com.geecommerce.guiwidgets.controller;
 
-import com.geecommerce.core.web.BaseActionBean;
-import com.geecommerce.mediaassets.model.MediaAsset;
-import com.geecommerce.mediaassets.service.MediaAssetService;
-import com.google.inject.Inject;
-import net.sourceforge.stripes.action.*;
-
-import javax.ws.rs.POST;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.HashMap;
+
+import javax.ws.rs.POST;
+
+import com.geecommerce.core.web.BaseActionBean;
+import com.geecommerce.mediaassets.model.MediaAsset;
+import com.geecommerce.mediaassets.service.MediaAssetService;
+import com.google.inject.Inject;
+
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.FileBean;
+import net.sourceforge.stripes.action.HandlesEvent;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.action.UrlBinding;
 
 @UrlBinding("/cms/files/{$event}")
 public class FileManagerCKEditorAction extends BaseActionBean {
@@ -22,7 +29,11 @@ public class FileManagerCKEditorAction extends BaseActionBean {
     private HashMap<String, String> imageMap;
     private String filename;
     private MediaAsset mediaAsset;
-    static final String[] EXTENSIONS = new String[]{"jpg", "png", "jpeg" // and other formats you need
+    static final String[] EXTENSIONS = new String[] { "jpg", "png", "jpeg" // and
+                                                                           // other
+                                                                           // formats
+                                                                           // you
+                                                                           // need
     };
     static final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
 

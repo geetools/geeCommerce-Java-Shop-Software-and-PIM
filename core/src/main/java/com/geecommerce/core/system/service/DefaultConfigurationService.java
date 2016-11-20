@@ -26,12 +26,13 @@ public class DefaultConfigurationService implements ConfigurationService {
     @Override
     public void storeProperty(String key, Object value, RequestContext reqCtx) {
         if (key == null || reqCtx == null)
-            throw new NullPointerException("Unable to insert ConfigurationProperty: [key=" + key + ", reqCtx=" + reqCtx + "]");
+            throw new NullPointerException(
+                "Unable to insert ConfigurationProperty: [key=" + key + ", reqCtx=" + reqCtx + "]");
 
         ConfigurationProperty cp = findProperty(key, reqCtx);
 
         if (cp == null) {
-            cp = app.getModel(ConfigurationProperty.class);
+            cp = app.model(ConfigurationProperty.class);
             cp.setKey(key).setValue(new ContextObject<>().addOrUpdateForRequestContext(reqCtx.getId(), value));
 
             configurations.add(cp);
@@ -51,12 +52,13 @@ public class DefaultConfigurationService implements ConfigurationService {
     @Override
     public void storeProperty(String key, Object value, Store store) {
         if (key == null || store == null)
-            throw new NullPointerException("Unable to insert ConfigurationProperty: [key=" + key + ", store=" + store + "]");
+            throw new NullPointerException(
+                "Unable to insert ConfigurationProperty: [key=" + key + ", store=" + store + "]");
 
         ConfigurationProperty cp = findProperty(key, store);
 
         if (cp == null) {
-            cp = app.getModel(ConfigurationProperty.class);
+            cp = app.model(ConfigurationProperty.class);
             cp.setKey(key).setValue(new ContextObject<>().addOrUpdateForStore(store.getId(), value));
 
             configurations.add(cp);
@@ -76,12 +78,13 @@ public class DefaultConfigurationService implements ConfigurationService {
     @Override
     public void storeProperty(String key, Object value, Merchant merchant) {
         if (key == null || merchant == null)
-            throw new NullPointerException("Unable to insert ConfigurationProperty: [key=" + key + ", merchant=" + merchant + "]");
+            throw new NullPointerException(
+                "Unable to insert ConfigurationProperty: [key=" + key + ", merchant=" + merchant + "]");
 
         ConfigurationProperty cp = findProperty(key, merchant);
 
         if (cp == null) {
-            cp = app.getModel(ConfigurationProperty.class);
+            cp = app.model(ConfigurationProperty.class);
             cp.setKey(key).setValue(new ContextObject<>().addOrUpdateForMerchant(merchant.getId(), value));
 
             configurations.add(cp);
@@ -101,12 +104,13 @@ public class DefaultConfigurationService implements ConfigurationService {
     @Override
     public void storeProperty(String key, Object value) {
         if (key == null || value == null)
-            throw new NullPointerException("Unable to insert ConfigurationProperty: [key=" + key + ", value=" + value + "]");
+            throw new NullPointerException(
+                "Unable to insert ConfigurationProperty: [key=" + key + ", value=" + value + "]");
 
         ConfigurationProperty cp = findGlobalProperty(key);
 
         if (cp == null) {
-            cp = app.getModel(ConfigurationProperty.class);
+            cp = app.model(ConfigurationProperty.class);
             cp.setKey(key).setValue(ContextObjects.global(value));
 
             configurations.add(cp);

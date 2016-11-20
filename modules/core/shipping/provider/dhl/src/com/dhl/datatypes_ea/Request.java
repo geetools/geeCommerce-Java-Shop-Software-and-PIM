@@ -19,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Request complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Request">
@@ -49,7 +50,7 @@ public class Request {
      * 
      */
     public ServiceHeader getServiceHeader() {
-	return serviceHeader;
+        return serviceHeader;
     }
 
     /**
@@ -60,7 +61,7 @@ public class Request {
      * 
      */
     public void setServiceHeader(ServiceHeader value) {
-	this.serviceHeader = value;
+        this.serviceHeader = value;
     }
 
 }

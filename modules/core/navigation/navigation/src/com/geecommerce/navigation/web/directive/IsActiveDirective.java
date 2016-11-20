@@ -25,7 +25,8 @@ import freemarker.template.utility.DeepUnwrap;
 @Directive("nav_is_active")
 public class IsActiveDirective implements TemplateDirectiveModel {
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pItem = (TemplateModel) params.get("item");
         SimpleScalar pVar = (SimpleScalar) params.get("var");
 
@@ -54,7 +55,8 @@ public class IsActiveDirective implements TemplateDirectiveModel {
 
             if (navItem instanceof String) {
                 for (NavigationItem navigationItem : navItems) {
-                    if ((navigationItem.getLabel() != null && Str.trimEqualsIgnoreCase((String) navItem, navigationItem.getLabel().str()))
+                    if ((navigationItem.getLabel() != null
+                        && Str.trimEqualsIgnoreCase((String) navItem, navigationItem.getLabel().str()))
                         || Str.trimEqualsIgnoreCase((String) navItem, navigationItem.getDisplayURI())) {
                         isActive = true;
                         break;

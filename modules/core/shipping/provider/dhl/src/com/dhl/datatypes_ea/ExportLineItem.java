@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ExportLineItem complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ExportLineItem">
@@ -40,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ExportLineItem", propOrder = { "lineNumber", "quantity", "quantityUnit", "description", "value", "isDomestic", "commodityCode" })
+@XmlType(name = "ExportLineItem", propOrder = { "lineNumber", "quantity", "quantityUnit", "description", "value",
+    "isDomestic", "commodityCode" })
 public class ExportLineItem {
 
     @XmlElement(name = "LineNumber")
@@ -63,7 +65,7 @@ public class ExportLineItem {
      * 
      */
     public int getLineNumber() {
-	return lineNumber;
+        return lineNumber;
     }
 
     /**
@@ -71,7 +73,7 @@ public class ExportLineItem {
      * 
      */
     public void setLineNumber(int value) {
-	this.lineNumber = value;
+        this.lineNumber = value;
     }
 
     /**
@@ -79,7 +81,7 @@ public class ExportLineItem {
      * 
      */
     public int getQuantity() {
-	return quantity;
+        return quantity;
     }
 
     /**
@@ -87,7 +89,7 @@ public class ExportLineItem {
      * 
      */
     public void setQuantity(int value) {
-	this.quantity = value;
+        this.quantity = value;
     }
 
     /**
@@ -97,7 +99,7 @@ public class ExportLineItem {
      * 
      */
     public String getQuantityUnit() {
-	return quantityUnit;
+        return quantityUnit;
     }
 
     /**
@@ -108,7 +110,7 @@ public class ExportLineItem {
      * 
      */
     public void setQuantityUnit(String value) {
-	this.quantityUnit = value;
+        this.quantityUnit = value;
     }
 
     /**
@@ -118,7 +120,7 @@ public class ExportLineItem {
      * 
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
@@ -129,7 +131,7 @@ public class ExportLineItem {
      * 
      */
     public void setDescription(String value) {
-	this.description = value;
+        this.description = value;
     }
 
     /**
@@ -137,7 +139,7 @@ public class ExportLineItem {
      * 
      */
     public float getValue() {
-	return value;
+        return value;
     }
 
     /**
@@ -145,7 +147,7 @@ public class ExportLineItem {
      * 
      */
     public void setValue(float value) {
-	this.value = value;
+        this.value = value;
     }
 
     /**
@@ -155,7 +157,7 @@ public class ExportLineItem {
      * 
      */
     public YesNo getIsDomestic() {
-	return isDomestic;
+        return isDomestic;
     }
 
     /**
@@ -166,7 +168,7 @@ public class ExportLineItem {
      * 
      */
     public void setIsDomestic(YesNo value) {
-	this.isDomestic = value;
+        this.isDomestic = value;
     }
 
     /**
@@ -176,7 +178,7 @@ public class ExportLineItem {
      * 
      */
     public String getCommodityCode() {
-	return commodityCode;
+        return commodityCode;
     }
 
     /**
@@ -187,7 +189,7 @@ public class ExportLineItem {
      * 
      */
     public void setCommodityCode(String value) {
-	this.commodityCode = value;
+        this.commodityCode = value;
     }
 
 }

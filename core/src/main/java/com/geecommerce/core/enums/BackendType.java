@@ -20,7 +20,8 @@ public enum BackendType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(BackendType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(BackendType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final BackendType fromId(int id) {
@@ -37,13 +38,15 @@ public enum BackendType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (BackendType backendType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(BackendType.class.getSimpleName()).append(".").append(backendType.name()).toString()), backendType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(BackendType.class.getSimpleName()).append(".")
+                .append(backendType.name()).toString()), backendType.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(BackendType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(BackendType.class.getSimpleName()).append(".label").toString());
     }
 }

@@ -24,7 +24,8 @@ public class DefaultRetailStoreService implements RetailStoreService {
     protected final RetailStoreCertificateInformations retailStoreCertificateInformationRepository;
 
     @Inject
-    public DefaultRetailStoreService(RetailStores retailStores, RetailStoreDistances retailStoreDistances, LocationService locationService,
+    public DefaultRetailStoreService(RetailStores retailStores, RetailStoreDistances retailStoreDistances,
+        LocationService locationService,
         RetailStoreCertificateInformations retailStoreCertificateInformationRepository) {
         this.retailStores = retailStores;
         this.retailStoreDistances = retailStoreDistances;
@@ -80,7 +81,8 @@ public class DefaultRetailStoreService implements RetailStoreService {
     }
 
     public List<RetailStore> getRetailStores() {
-        return retailStores.findAll(RetailStore.class).stream().filter(retailStore -> retailStore.getId2() != null).collect(Collectors.toList());
+        return retailStores.findAll(RetailStore.class).stream().filter(retailStore -> retailStore.getId2() != null)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -95,7 +97,8 @@ public class DefaultRetailStoreService implements RetailStoreService {
 
     @Override
     public RetailStoreCertificateInformation getCertificateInformation() {
-        return retailStoreCertificateInformationRepository.findOne(RetailStoreCertificateInformation.class, Collections.emptyMap());
+        return retailStoreCertificateInformationRepository.findOne(RetailStoreCertificateInformation.class,
+            Collections.emptyMap());
     }
 
     public List<RetailStore> getStoresHavingField(String fieldName) {
@@ -108,9 +111,13 @@ public class DefaultRetailStoreService implements RetailStoreService {
         if (location != null) {
             result = getRetailStores();
             result.forEach(retailStore -> retailStore.setDistance(locationService
-                .distance(new LocationService.Location(retailStore.attr(RetailStore.Column.LATITUDE).getDouble(), retailStore.attr(RetailStore.Column.LONGITUDE).getDouble()), location)));
+                .distance(new LocationService.Location(retailStore.attr(RetailStore.Column.LATITUDE).getDouble(),
+                    retailStore.attr(RetailStore.Column.LONGITUDE).getDouble()), location)));
 
-            result = result.stream().sorted((retailStore1, retailStore2) -> Double.valueOf(retailStore1.getDistance() - retailStore2.getDistance()).intValue()).collect(Collectors.toList());
+            result = result.stream()
+                .sorted((retailStore1, retailStore2) -> Double
+                    .valueOf(retailStore1.getDistance() - retailStore2.getDistance()).intValue())
+                .collect(Collectors.toList());
         } else {
             result = Collections.emptyList();
         }

@@ -73,8 +73,8 @@ public abstract class AbstractResource {
     }
 
     protected void appendHeaders() {
-        HttpServletRequest request = app.getServletRequest();
-        HttpServletResponse response = app.getServletResponse();
+        HttpServletRequest request = app.servletRequest();
+        HttpServletResponse response = app.servletResponse();
 
         HttpSession session = request.getSession(false);
 
@@ -83,8 +83,8 @@ public abstract class AbstractResource {
             long sessionTimesOutAt = session.getLastAccessedTime() + (session.getMaxInactiveInterval() * 1000);
             long sessionTimesOutIn = sessionTimesOutAt - currentTime;
 
-            response.setHeader("CB-Timeout-At", String.valueOf(sessionTimesOutAt));
-            response.setHeader("CB-Timeout-In", String.valueOf(sessionTimesOutIn));
+            response.setHeader("GC-Timeout-At", String.valueOf(sessionTimesOutAt));
+            response.setHeader("GC-Timeout-In", String.valueOf(sessionTimesOutIn));
         }
     }
 
@@ -246,12 +246,14 @@ public abstract class AbstractResource {
 
     protected QueryOptions queryOptions(Filter filter) {
         if (filter != null)
-            return queryOptions(filter.getFields(), filter.getAttributes(), filter.getSort(), filter.getOffset(), filter.getLimit(), filter.isNoCache());
+            return queryOptions(filter.getFields(), filter.getAttributes(), filter.getSort(), filter.getOffset(),
+                filter.getLimit(), filter.isNoCache());
         else
             return queryOptions(null, null, null, null, null, null);
     }
 
-    protected QueryOptions queryOptions(List<String> fields, List<String> attributes, List<String> sortBy, Long offset, Integer limit, Boolean noCache) {
+    protected QueryOptions queryOptions(List<String> fields, List<String> attributes, List<String> sortBy, Long offset,
+        Integer limit, Boolean noCache) {
         // List<Id> allowedScopes = getAllowedScopes();
         //
         // List<Id> allowedMerchants =
@@ -269,7 +271,8 @@ public abstract class AbstractResource {
             return null;
 
         else
-            return QueryOptions.builder().fetchFields(fields).fetchAttributes(attributes).sortBy(sortBy).fromOffset(offset).limitTo(limit).noCache(noCache).provideCount(true).build();
+            return QueryOptions.builder().fetchFields(fields).fetchAttributes(attributes).sortBy(sortBy)
+                .fromOffset(offset).limitTo(limit).noCache(noCache).provideCount(true).build();
 
         // .setLimitToMerchants(allowedMerchants)
         // .setLimitToStores(allowedStores)
@@ -289,7 +292,8 @@ public abstract class AbstractResource {
 
         if (subject.isAuthenticated()) {
 
-            ClientSession clientSession = new ClientSession(user.getUsername(), user.getForename() + " " + user.getSurname(), user.getScopeIds());
+            ClientSession clientSession = new ClientSession(user.getUsername(),
+                user.getForename() + " " + user.getSurname(), user.getScopeIds());
 
             System.out.println("CREATING SESSION ***** ClientSession: " + clientSession);
 

@@ -21,9 +21,9 @@ public interface TaxClass extends MultiContextModel {
     public TaxClass setLabel(ContextObject<String> label);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String TAX_CLASS_TYPE = "type";
-	public static final String LABEL = "label";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String TAX_CLASS_TYPE = "type";
+        public static final String LABEL = "label";
     }
 }

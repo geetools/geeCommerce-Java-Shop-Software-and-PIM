@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractRepository;
 import com.geecommerce.core.service.annotation.Repository;
 import com.geecommerce.core.service.api.Dao;
@@ -12,6 +11,7 @@ import com.geecommerce.core.system.model.RequestContext;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.price.dao.PriceDao;
 import com.geecommerce.price.model.Price;
+import com.google.inject.Inject;
 
 @Repository
 public class DefaultPrices extends AbstractRepository implements Prices {

@@ -24,14 +24,15 @@ import com.google.inject.Inject;
 public class DefaultNavigationHelper implements NavigationHelper {
     @Inject
     protected App app;
-    
+
     protected final NavigationService navigationService;
     protected final ProductLists productLists;
     protected final ProductNavigationIndexes productNavigationIndexes;
     protected final NavigationItems navigationItems;
 
     @Inject
-    public DefaultNavigationHelper(NavigationService navigationService, ProductLists productLists, ProductNavigationIndexes productNavigationIndexes, NavigationItems navigationItems) {
+    public DefaultNavigationHelper(NavigationService navigationService, ProductLists productLists,
+        ProductNavigationIndexes productNavigationIndexes, NavigationItems navigationItems) {
         this.navigationService = navigationService;
         this.productLists = productLists;
         this.productNavigationIndexes = productNavigationIndexes;
@@ -43,7 +44,7 @@ public class DefaultNavigationHelper implements NavigationHelper {
     }
 
     private NavigationItem populateNavigationNode(Map<String, Object> nodeMap) {
-        NavigationItem navigationItem = app.getModel(NavigationItem.class);
+        NavigationItem navigationItem = app.model(NavigationItem.class);
         navigationItem.fromMap(nodeMap);
 
         if (nodeMap.containsKey("children")) {
@@ -205,7 +206,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
 
         ProductList productList = findProductList(product);
 
-        // Attempt to find a navigation item match using the located product and product-list objects.
+        // Attempt to find a navigation item match using the located product and
+        // product-list objects.
         NavigationItem navItem = findNavigationItem(productList, product);
 
         if (navItem == null && product.isVariant() && product.getParentId() != null && product.getParent() != null) {
@@ -230,12 +232,14 @@ public class DefaultNavigationHelper implements NavigationHelper {
         NavigationItem rootNavItem = navigationService.findRootNavigationItem();
 
         // --------------------------------------------------------------------------------
-        // Attempt to find a unique navigation item by the target object product-list.
+        // Attempt to find a unique navigation item by the target object
+        // product-list.
         // --------------------------------------------------------------------------------
 
         if (productList != null) {
             if (rootNavItem != null) {
-                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productList.getId(), rootNavItem.getId());
+                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST,
+                    productList.getId(), rootNavItem.getId());
 
                 // No need to search further, we have found a unique entry.
                 if (navigationItems != null && navigationItems.size() == 1)
@@ -243,7 +247,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
             }
             // Attempt the same as above, but without root node.
             else {
-                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productList.getId());
+                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST,
+                    productList.getId());
 
                 // No need to search further, we have found a unique entry.
                 if (navigationItems != null && navigationItems.size() == 1)
@@ -251,10 +256,12 @@ public class DefaultNavigationHelper implements NavigationHelper {
             }
         }
 
-        // As there is a unique index on these 3 in the product navigation index collection, there can only be one.
+        // As there is a unique index on these 3 in the product navigation index
+        // collection, there can only be one.
         if (navigationItem == null && productList != null && product != null) {
             if (rootNavItem != null) {
-                List<ProductNavigationIndex> pniList = productNavigationIndexes.forValues(product, productList, rootNavItem.getId());
+                List<ProductNavigationIndex> pniList = productNavigationIndexes.forValues(product, productList,
+                    rootNavItem.getId());
                 if (pniList != null && pniList.size() > 0) {
                     ProductNavigationIndex pni = pniList.get(0);
                     Id navItemId = pni.getNavigationItemId();
@@ -276,7 +283,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
             }
         }
 
-        // If we could not find an exact match above and we have a result with more than 1 match,
+        // If we could not find an exact match above and we have a result with
+        // more than 1 match,
         // then we just take the first one.
         if (navigationItem == null && navigationItems != null && !navigationItems.isEmpty())
             navigationItem = navigationItems.get(0);
@@ -288,7 +296,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
         ProductList productList = null;
 
         // --------------------------------------------------------------------------------
-        // If the referrer method does not yield a result, we try finding an entry in the
+        // If the referrer method does not yield a result, we try finding an
+        // entry in the
         // product navigation index collection.
         // --------------------------------------------------------------------------------
 
@@ -296,7 +305,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
             NavigationItem rootNavItem = navigationService.findRootNavigationItem();
 
             if (rootNavItem != null) {
-                List<ProductNavigationIndex> pniList = productNavigationIndexes.forProduct(product, rootNavItem.getId());
+                List<ProductNavigationIndex> pniList = productNavigationIndexes.forProduct(product,
+                    rootNavItem.getId());
                 if (pniList != null && pniList.size() > 0) {
                     ProductNavigationIndex pni = pniList.get(0);
                     Id productListId = pni.getProductListId();
@@ -308,7 +318,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
         }
 
         // --------------------------------------------------------------------------------
-        // If product list is still null, we try the same as above, but without the
+        // If product list is still null, we try the same as above, but without
+        // the
         // root navigation item.
         // --------------------------------------------------------------------------------
 
@@ -326,7 +337,8 @@ public class DefaultNavigationHelper implements NavigationHelper {
         return productList;
     }
 
-    protected void flattenNavigationTree(NavigationItem navigationItem, List<NavigationItem> flattenNavigationItemsToList) {
+    protected void flattenNavigationTree(NavigationItem navigationItem,
+        List<NavigationItem> flattenNavigationItemsToList) {
         if (navigationItem == null)
             return;
 

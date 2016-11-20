@@ -3,9 +3,9 @@ package com.geecommerce.core.rest.jersey.resolver;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
+import com.geecommerce.core.util.Json;
 import com.google.inject.Singleton;
 import com.owlike.genson.Genson;
-import com.geecommerce.core.util.Json;
 
 @Provider
 @Singleton

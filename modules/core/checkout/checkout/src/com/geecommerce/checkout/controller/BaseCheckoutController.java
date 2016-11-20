@@ -63,16 +63,10 @@ public abstract class BaseCheckoutController extends BaseController {
     protected final CouponService couponService;
     protected final CountryService countryService;
 
-    public BaseCheckoutController(CheckoutService checkoutService,
-        CheckoutHelper checkoutHelper,
-        CustomerService customerService,
-        ShippingService shippingService,
-        PaymentService paymentService,
-        CalculationService calculationService,
-        CalculationHelper calculationHelper,
-        CartService cartService,
-        CouponService couponService,
-        CountryService countryService) {
+    public BaseCheckoutController(CheckoutService checkoutService, CheckoutHelper checkoutHelper,
+        CustomerService customerService, ShippingService shippingService, PaymentService paymentService,
+        CalculationService calculationService, CalculationHelper calculationHelper, CartService cartService,
+        CouponService couponService, CountryService countryService) {
         this.checkoutService = checkoutService;
         this.checkoutHelper = checkoutHelper;
         this.customerService = customerService;
@@ -134,7 +128,7 @@ public abstract class BaseCheckoutController extends BaseController {
         if (!isTheSameCoupon(cart, checkout)) {
             checkout.setCouponCode(getCart().getCouponCode());
             checkoutService.updateCheckout(checkout);
-            WebMessageService webMessage = app.getService(WebMessageService.class);
+            WebMessageService webMessage = app.service(WebMessageService.class);
             webMessage.storeInfo(app.message("Coupon in cart was changed during checkout"), "coupon");
             return false;
         }
@@ -178,7 +172,8 @@ public abstract class BaseCheckoutController extends BaseController {
 
         Map<String, String[]> requestParameters = getRequest().getParameterMap();
 
-        Map<String, Object> filteredRequestParameters = PaymentHelper.filterRequestParameters(paymentMethod.getFormFieldPrefix(), requestParameters);
+        Map<String, Object> filteredRequestParameters = PaymentHelper
+            .filterRequestParameters(paymentMethod.getFormFieldPrefix(), requestParameters);
 
         if (paymentMethod.isFormDataValid(filteredRequestParameters)) {
             Id orderId = app.nextId();
@@ -186,16 +181,18 @@ public abstract class BaseCheckoutController extends BaseController {
 
             if (customer == null) {
                 // Create new customer
-                customer = app.getModel(Customer.class).setId(app.nextId()).setCustomerNumber(app.nextIncrementId("customer_number")).setForename(getForm().getDelivery().getFirstName())
-                    .setSurname(getForm().getDelivery().getLastName())
-                    .setEmail(getForm().getEmail());
+                customer = app.model(Customer.class).setId(app.nextId())
+                    .setCustomerNumber(app.nextIncrementId("customer_number"))
+                    .setForename(getForm().getDelivery().getFirstName())
+                    .setSurname(getForm().getDelivery().getLastName()).setEmail(getForm().getEmail());
 
                 customer = customerService.createCustomer(customer);
             }
 
             // Convert cart to order
             Order order = checkoutHelper.convertCartToOrder(cart);
-            order.fromRequestContext(getRequestContext()).belongsTo(customer).fromCheckout(getCheckout()).setId(orderId);
+            order.fromRequestContext(getRequestContext()).belongsTo(customer).fromCheckout(getCheckout())
+                .setId(orderId);
 
             // Add address
             checkoutHelper.addAddressesToOrder(order, getForm());
@@ -205,8 +202,9 @@ public abstract class BaseCheckoutController extends BaseController {
             customerService.appendAddresses(customer, customerAddresses);
 
             // Add payment
-            OrderPayment orderPayment = app.getModel(OrderPayment.class);
-            orderPayment.setId(app.nextId()).setPaymentMethodCode(paymentMethod.getCode()).setCurrency(app.getBaseCurrency()).belongsTo(order);
+            OrderPayment orderPayment = app.model(OrderPayment.class);
+            orderPayment.setId(app.nextId()).setPaymentMethodCode(paymentMethod.getCode())
+                .setCurrency(app.getBaseCurrency()).belongsTo(order);
             order.setOrderPayment(orderPayment);
 
             // Add shipping (only shipping, option codes and shippingAmount)
@@ -270,7 +268,8 @@ public abstract class BaseCheckoutController extends BaseController {
 
             if (getForm().getPaymentMethodCode() != null && !getForm().getPaymentMethodCode().isEmpty()) {
                 checkout.setPaymentMethod(getForm().getPaymentMethodCode());
-                AbstractPaymentMethod paymentMethod = PaymentHelper.findPaymentMethodByCode(getForm().getPaymentMethodCode());
+                AbstractPaymentMethod paymentMethod = PaymentHelper
+                    .findPaymentMethodByCode(getForm().getPaymentMethodCode());
                 checkout.setPaymentRateAmount(paymentMethod.getRate());
                 checkoutService.updateCheckout(checkout);
             }
@@ -339,7 +338,8 @@ public abstract class BaseCheckoutController extends BaseController {
         if (address == null)
             return false;
 
-        if (address.getFirstName() == null || address.getLastName() == null || address.getZip() == null || address.getAddress1() == null || address.getCity() == null || address.getCountry() == null) {
+        if (address.getFirstName() == null || address.getLastName() == null || address.getZip() == null
+            || address.getAddress1() == null || address.getCity() == null || address.getCountry() == null) {
             return false;
         }
 
@@ -388,7 +388,8 @@ public abstract class BaseCheckoutController extends BaseController {
         Cart cart = getCart();
 
         CartAttributeCollection cartAttributeCollection = ((CouponData) cart).toCartAttributeCollection();
-        CouponCode code = couponService.maintainCouponCodesList(cart.getCouponCode(), cartAttributeCollection, cart.getUseAutoCoupon());
+        CouponCode code = couponService.maintainCouponCodesList(cart.getCouponCode(), cartAttributeCollection,
+            cart.getUseAutoCoupon());
         cart.setCouponCode(code);
         cartService.updateCart(cart);
         couponService.applyDiscount(calcCtx, cart.getCouponCode(), cartAttributeCollection);
@@ -398,7 +399,8 @@ public abstract class BaseCheckoutController extends BaseController {
 
         Cart cart = getCart();
         CartAttributeCollection cartAttributeCollection = ((CouponData) order).toCartAttributeCollection();
-        CouponCode code = couponService.maintainCouponCodesList(order.getCouponCode(), cartAttributeCollection, cart.getUseAutoCoupon());
+        CouponCode code = couponService.maintainCouponCodesList(order.getCouponCode(), cartAttributeCollection,
+            cart.getUseAutoCoupon());
         order.setCouponCode(code);
         couponService.applyDiscount(calcCtx, order.getCouponCode(), cartAttributeCollection);
     }
@@ -436,7 +438,8 @@ public abstract class BaseCheckoutController extends BaseController {
         if (cntr != null) {
             String[] keys = cntr.split(",");
             for (String key : keys)
-                countries.stream().filter(country -> country.getCode().equals(key)).forEach(country -> allowedCountries.put(key, country.getName().getStr()));
+                countries.stream().filter(country -> country.getCode().equals(key))
+                    .forEach(country -> allowedCountries.put(key, country.getName().getStr()));
         }
         return allowedCountries;
     }

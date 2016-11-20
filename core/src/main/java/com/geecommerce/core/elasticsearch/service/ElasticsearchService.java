@@ -14,9 +14,15 @@ import com.geecommerce.core.type.Id;
 
 public interface ElasticsearchService {
 
-    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams, Integer offset, Integer limit, String sort);
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders,
+        Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts,
+        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams, Integer offset, Integer limit,
+        String sort);
 
-    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams);
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders,
+        Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts,
+        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams);
 
-    public <T extends Model> SearchResult findItems(Class<T> modelClass, String query, SearchParams searchParams, List<Id> attributeTargetObjectIds);
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, String query, SearchParams searchParams,
+        List<Id> attributeTargetObjectIds);
 }

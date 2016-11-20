@@ -2,13 +2,13 @@ package com.geecommerce.calculation.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.calculation.CalculationType;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Cacheable
 @Model("calculation_scriptlets")

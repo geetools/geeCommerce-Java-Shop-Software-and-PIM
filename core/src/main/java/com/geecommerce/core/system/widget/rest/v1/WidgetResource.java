@@ -28,22 +28,23 @@ public class WidgetResource extends AbstractResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getWidgets(@FilterParam Filter filter) {
-        return ok(checked(service.get(Widget.class)));//WidgetHelper.locateWidgets()
+        return ok(checked(service.get(Widget.class)));// WidgetHelper.locateWidgets()
     }
 
     @GET
     @Path("{widget}/options/{parameter}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getOptions(@PathParam("widget") String widgetCode, @PathParam("parameter") Id parameterId, @FilterParam Filter filter) {
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getOptions(@PathParam("widget") String widgetCode, @PathParam("parameter") Id parameterId,
+        @FilterParam Filter filter) {
         WidgetController widgetController = WidgetHelper.findWidgetByCode(widgetCode);
         return ok(widgetController.getParameterOptions(parameterId));
     }
 
     @GET
     @Path("/groups")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getWidgetGroups(@FilterParam Filter filter) {
         return ok(checked(service.get(WidgetGroup.class)));
     }

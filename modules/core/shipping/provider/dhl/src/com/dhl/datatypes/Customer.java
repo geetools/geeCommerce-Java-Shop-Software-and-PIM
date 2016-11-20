@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Customer complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Customer">
@@ -50,7 +51,7 @@ public class Customer {
      * 
      */
     public String getCustomerID() {
-	return customerID;
+        return customerID;
     }
 
     /**
@@ -61,7 +62,7 @@ public class Customer {
      * 
      */
     public void setCustomerID(String value) {
-	this.customerID = value;
+        this.customerID = value;
     }
 
     /**
@@ -71,7 +72,7 @@ public class Customer {
      * 
      */
     public String getName() {
-	return name;
+        return name;
     }
 
     /**
@@ -82,7 +83,7 @@ public class Customer {
      * 
      */
     public void setName(String value) {
-	this.name = value;
+        this.name = value;
     }
 
 }

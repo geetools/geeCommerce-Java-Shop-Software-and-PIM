@@ -1,13 +1,9 @@
 package com.geecommerce.guiwidgets.model;
 
-import com.geecommerce.core.service.api.Model;
-import com.geecommerce.core.service.api.MultiContextModel;
-import com.geecommerce.core.type.Id;
-import com.geecommerce.guiwidgets.enums.ContentNodeType;
-import com.geecommerce.guiwidgets.enums.ContentType;
-
-import java.util.List;
 import java.util.Map;
+
+import com.geecommerce.core.service.api.Model;
+import com.geecommerce.guiwidgets.enums.ContentNodeType;
 
 public interface ContentNode extends Model {
 
@@ -39,21 +35,22 @@ public interface ContentNode extends Model {
 
     public ContentNode setNodeId(String nodeId);
 
-  /*  public String getType2();
-
-    public ContentNode setType2(String type2);
-
-
-
-    public String getCss();
-
-    public ContentNode setCss(String css);
-
-    public List<ContentNode> getNodes();
-
-    public ContentNode setNodes(List<ContentNode> nodes);
-
-*/
+    /*
+     * public String getType2();
+     * 
+     * public ContentNode setType2(String type2);
+     * 
+     * 
+     * 
+     * public String getCss();
+     * 
+     * public ContentNode setCss(String css);
+     * 
+     * public List<ContentNode> getNodes();
+     * 
+     * public ContentNode setNodes(List<ContentNode> nodes);
+     * 
+     */
 
     static final class Col {
         public static final String PARAMETER_VALUES = "param_values";
@@ -63,15 +60,15 @@ public interface ContentNode extends Model {
         public static final String TYPE = "type";
         public static final String KEY = "key";
         public static final String PREVIEW = "preview";
-/*
-
-	public static final String TYPE2 = "type2";
-
-
-
-	public static final String CSS = "css";
-	public static final String NODES = "nodes";
-	*/
+        /*
+         * 
+         * public static final String TYPE2 = "type2";
+         * 
+         * 
+         * 
+         * public static final String CSS = "css"; public static final String
+         * NODES = "nodes";
+         */
     }
 
 }

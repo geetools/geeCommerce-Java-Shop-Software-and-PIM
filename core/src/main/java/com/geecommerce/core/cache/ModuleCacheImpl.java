@@ -14,46 +14,46 @@ public class ModuleCacheImpl implements ModuleCache {
 
     @Override
     public Module putIfAbsent(String key, Module module) {
-	if (module == null)
-	    return null;
+        if (module == null)
+            return null;
 
-	return moduleCache.putIfAbsent(new ModuleCacheKeyWrapper<String>(key), module);
+        return moduleCache.putIfAbsent(new ModuleCacheKeyWrapper<String>(key), module);
     }
 
     @Override
     public Module get(String key) {
-	return moduleCache.get(new ModuleCacheKeyWrapper<String>(key));
+        return moduleCache.get(new ModuleCacheKeyWrapper<String>(key));
     }
 
     @Override
     public boolean containsKey(String key) {
-	return moduleCache.containsKey(new ModuleCacheKeyWrapper<String>(key));
+        return moduleCache.containsKey(new ModuleCacheKeyWrapper<String>(key));
     }
 
     @Override
     public void remove(String key) {
-	moduleCache.remove(new ModuleCacheKeyWrapper<String>(key));
+        moduleCache.remove(new ModuleCacheKeyWrapper<String>(key));
     }
 
     @Override
     public Set<String> keySet() {
-	Set<ModuleCacheKeyWrapper<String>> keys = moduleCache.keySet();
-	Set<String> keySet = Sets.newHashSet();
+        Set<ModuleCacheKeyWrapper<String>> keys = moduleCache.keySet();
+        Set<String> keySet = Sets.newHashSet();
 
-	for (ModuleCacheKeyWrapper<String> moduleCacheKeyWrapper : keys) {
-	    keySet.add(String.valueOf(moduleCacheKeyWrapper.getKey()));
-	}
+        for (ModuleCacheKeyWrapper<String> moduleCacheKeyWrapper : keys) {
+            keySet.add(String.valueOf(moduleCacheKeyWrapper.getKey()));
+        }
 
-	return keySet;
+        return keySet;
     }
 
     @Override
     public Collection<Module> getAll() {
-	return moduleCache.values();
+        return moduleCache.values();
     }
 
     @Override
     public int size() {
-	return moduleCache.size();
+        return moduleCache.size();
     }
 }

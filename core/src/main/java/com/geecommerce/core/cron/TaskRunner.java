@@ -59,14 +59,18 @@ public class TaskRunner {
                         scheduler.addJob(jobDetail, true);
                         scheduler.triggerJob(jobKey);
                     } catch (Throwable t) {
-                        System.out.println("Task " + taskAnnotation.name() + "@" + taskAnnotation.group() + " threw an error: " + t.getMessage());
+                        System.out.println("Task " + taskAnnotation.name() + "@" + taskAnnotation.group()
+                            + " threw an error: " + t.getMessage());
                         t.printStackTrace();
-                        log.error("Task " + taskAnnotation.name() + "@" + taskAnnotation.group() + " threw an error: " + t.getMessage(), t);
+                        log.error("Task " + taskAnnotation.name() + "@" + taskAnnotation.group() + " threw an error: "
+                            + t.getMessage(), t);
                     }
                 } else {
                     App app = App.get();
-                    boolean enabled = app.cpBool_("general/cron/" + clazz.getName() + "/enabled", taskAnnotation.enabled());
-                    String schedule = app.cpStr_("general/cron/" + clazz.getName() + "/schedule", taskAnnotation.schedule());
+                    boolean enabled = app.cpBool_("general/cron/" + clazz.getName() + "/enabled",
+                        taskAnnotation.enabled());
+                    String schedule = app.cpStr_("general/cron/" + clazz.getName() + "/schedule",
+                        taskAnnotation.schedule());
 
                     if (!enabled)
                         continue;
@@ -74,10 +78,13 @@ public class TaskRunner {
                     try {
                         Job job = (Job) taskable;
 
-                        log.info("Initializing task: [name=" + taskAnnotation.name() + ", group=" + taskAnnotation.group() + ", schedule=" + taskAnnotation.schedule() + ", transaction="
+                        log.info("Initializing task: [name=" + taskAnnotation.name() + ", group="
+                            + taskAnnotation.group() + ", schedule=" + taskAnnotation.schedule() + ", transaction="
                             + taskAnnotation.transaction() + "].");
 
-                        JobDetail jobDetail = newJob(job.getClass()).withIdentity(taskAnnotation.name(), taskAnnotation.group()).requestRecovery(taskAnnotation.recoverable()).build();
+                        JobDetail jobDetail = newJob(job.getClass())
+                            .withIdentity(taskAnnotation.name(), taskAnnotation.group())
+                            .requestRecovery(taskAnnotation.recoverable()).build();
 
                         CronScheduleBuilder csb = cronSchedule(schedule);
 
@@ -96,17 +103,21 @@ public class TaskRunner {
                             break;
                         }
 
-                        CronTrigger trigger = newTrigger().withIdentity(taskAnnotation.name() + " Trigger", taskAnnotation.group()).withSchedule(csb).withPriority(taskAnnotation.priority()).startNow()
-                            .build();
+                        CronTrigger trigger = newTrigger()
+                            .withIdentity(taskAnnotation.name() + " Trigger", taskAnnotation.group())
+                            .withSchedule(csb).withPriority(taskAnnotation.priority()).startNow().build();
 
                         scheduler.scheduleJob(jobDetail, trigger);
 
-                        log.info("Found job: " + taskable.getClass() + " [nextFireTime=" + trigger.getNextFireTime() + ", isShutdown=" + scheduler.isShutdown() + ", isInStandbyMode="
+                        log.info("Found job: " + taskable.getClass() + " [nextFireTime=" + trigger.getNextFireTime()
+                            + ", isShutdown=" + scheduler.isShutdown() + ", isInStandbyMode="
                             + scheduler.isInStandbyMode() + "].");
                     } catch (Throwable t) {
-                        System.out.println("Task " + taskAnnotation.name() + "@" + taskAnnotation.group() + " threw an error: " + t.getMessage());
+                        System.out.println("Task " + taskAnnotation.name() + "@" + taskAnnotation.group()
+                            + " threw an error: " + t.getMessage());
                         t.printStackTrace();
-                        log.error("Task " + taskAnnotation.name() + "@" + taskAnnotation.group() + " threw an error: " + t.getMessage(), t);
+                        log.error("Task " + taskAnnotation.name() + "@" + taskAnnotation.group() + " threw an error: "
+                            + t.getMessage(), t);
                     }
                 }
             }

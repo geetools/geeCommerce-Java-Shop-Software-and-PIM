@@ -24,9 +24,9 @@ public interface ViewedProduct extends Model, ProductIdSupport {
     public ViewedProduct viewedOn(Date viewedOn);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CUSTOMER_ID = "cust_id";
-	public static final String PRODUCT_ID = "prd_id";
-	public static final String VIEWED_ON = "vwd_on";
+        public static final String ID = "_id";
+        public static final String CUSTOMER_ID = "cust_id";
+        public static final String PRODUCT_ID = "prd_id";
+        public static final String VIEWED_ON = "vwd_on";
     }
 }

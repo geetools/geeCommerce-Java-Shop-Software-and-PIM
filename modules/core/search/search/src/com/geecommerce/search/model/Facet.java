@@ -11,39 +11,39 @@ public class Facet {
     private List<FacetEntry> entries = new ArrayList<>();
 
     public Facet(String code, String label, int position) {
-	this.code = code;
-	this.label = label;
-	this.position = position;
+        this.code = code;
+        this.label = label;
+        this.position = position;
     }
 
     public String getCode() {
-	return code;
+        return code;
     }
 
     public String getLabel() {
-	return label;
+        return label;
     }
 
     public int getPosition() {
-	return position;
+        return position;
     }
 
     public long getTotalCount() {
-	if (totalCount == 0 && entries.size() > 0) {
-	    for (FacetEntry entry : entries) {
-		totalCount += entry.getCount();
-	    }
-	}
+        if (totalCount == 0 && entries.size() > 0) {
+            for (FacetEntry entry : entries) {
+                totalCount += entry.getCount();
+            }
+        }
 
-	return totalCount;
+        return totalCount;
     }
 
     public Facet addEntry(String id, String label, int count) {
-	entries.add(new FacetEntry(id, label, count));
-	return this;
+        entries.add(new FacetEntry(id, label, count));
+        return this;
     }
 
     public List<FacetEntry> getEntries() {
-	return entries;
+        return entries;
     }
 }

@@ -6,10 +6,10 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 @XmlRootElement(name = "configuration")
 public interface ConfigurationProperty extends MultiContextModel {

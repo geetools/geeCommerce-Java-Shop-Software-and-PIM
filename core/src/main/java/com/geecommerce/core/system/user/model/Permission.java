@@ -34,11 +34,11 @@ public interface Permission extends Model {
     public Permission setRule(String rule);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String NAME = "name";
-	public static final String TYPE = "type";
-	public static final String ACTIONS = "actions";
-	public static final String RULE = "rule";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String NAME = "name";
+        public static final String TYPE = "type";
+        public static final String ACTIONS = "actions";
+        public static final String RULE = "rule";
     }
 }

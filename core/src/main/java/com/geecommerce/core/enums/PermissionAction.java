@@ -33,13 +33,15 @@ public enum PermissionAction implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (PermissionAction permissionAction : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(PermissionAction.class.getSimpleName()).append(".").append(permissionAction.name()).toString()), permissionAction.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(PermissionAction.class.getSimpleName())
+                .append(".").append(permissionAction.name()).toString()), permissionAction.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(PermissionAction.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(PermissionAction.class.getSimpleName()).append(".label").toString());
     }
 }

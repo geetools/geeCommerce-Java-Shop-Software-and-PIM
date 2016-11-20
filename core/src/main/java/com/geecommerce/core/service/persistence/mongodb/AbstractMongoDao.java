@@ -130,7 +130,7 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
             colName = colName + "_history";
 
         if (colName == null) {
-            Model m = app.getModel(modelClass);
+            Model m = app.model(modelClass);
 
             MethodHandle mh = Reflect.getMethodHandle(modelClass, "__name", true);
 
@@ -142,7 +142,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         }
 
         if (Str.isEmpty(colName))
-            throw new IllegalStateException("The model class '" + modelClass.getName() + "' must specify the collection name in the @Model annotation or in the __name() method.");
+            throw new IllegalStateException("The model class '" + modelClass.getName()
+                + "' must specify the collection name in the @Model annotation or in the __name() method.");
 
         return db(modelClass).getCollection(colName);
     }
@@ -204,7 +205,7 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                 Map<String, Object> map = new LinkedHashMap<>();
                 convertToMongoDBValues(doc, map);
 
-                modelObject = app.getModel(modelClass);
+                modelObject = app.model(modelClass);
 
                 notify(modelObject, Event.BEFORE_POPULATE);
 
@@ -497,7 +498,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                             // DBObject dbo = buildQueryFilter(modelClass,
                             // singleQueryFiler);
 
-                            cachePut(modelClass, singleQueryFiler, queryOptions.numSetFields() == 1 ? null : queryOptions, singleQueryCacheIds);
+                            cachePut(modelClass, singleQueryFiler,
+                                queryOptions.numSetFields() == 1 ? null : queryOptions, singleQueryCacheIds);
                         }
                     }
                 }
@@ -510,14 +512,17 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         return docs;
     }
 
-    private final <T extends Model> void addPartialObjectMarker(Class<T> modelClass, Model modelObject, QueryOptions queryOptions) {
+    private final <T extends Model> void addPartialObjectMarker(Class<T> modelClass, Model modelObject,
+        QueryOptions queryOptions) {
         if (queryOptions == null)
             return;
 
         List<String> attributesToInclude = queryOptions.attributesToInclude();
         List<String> attributesToExclude = queryOptions.attributesToExclude();
 
-        if ((attributesToInclude != null && !attributesToInclude.isEmpty()) || (attributesToExclude != null && !attributesToExclude.isEmpty()) || limitFieldsInQuery(modelClass, queryOptions)) {
+        if ((attributesToInclude != null && !attributesToInclude.isEmpty())
+            || (attributesToExclude != null && !attributesToExclude.isEmpty())
+            || limitFieldsInQuery(modelClass, queryOptions)) {
             Reflect.setField(modelObject, IS_PARTIAL_OBJECT_MARKER_FIELD, true);
         }
     }
@@ -535,7 +540,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         List<String> attributesToInclude = queryOptions.attributesToInclude();
         List<String> attributesToExclude = queryOptions.attributesToExclude();
 
-        if ((attributesToInclude == null || attributesToInclude.isEmpty()) && (attributesToExclude == null || attributesToExclude.isEmpty()))
+        if ((attributesToInclude == null || attributesToInclude.isEmpty())
+            && (attributesToExclude == null || attributesToExclude.isEmpty()))
             return;
 
         DBObject _attributesValues = (DBObject) doc.get(AttributeSupportColumn.ATTRIBUTES);
@@ -563,11 +569,13 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
             if (attrId != null) {
                 String attrCode = attributeIdCodeMap.get(attrId);
 
-                if (attributesToInclude != null && !attributesToInclude.isEmpty() && !attributesToInclude.contains(attrCode)) {
+                if (attributesToInclude != null && !attributesToInclude.isEmpty()
+                    && !attributesToInclude.contains(attrCode)) {
                     objectsToRemove.add(obj);
                 }
 
-                if ((attributesToInclude == null || attributesToInclude.isEmpty()) && (attributesToExclude != null && !attributesToExclude.isEmpty() && attributesToInclude.contains(attrCode))) {
+                if ((attributesToInclude == null || attributesToInclude.isEmpty()) && (attributesToExclude != null
+                    && !attributesToExclude.isEmpty() && attributesToInclude.contains(attrCode))) {
                     objectsToRemove.add(obj);
                 }
             }
@@ -644,13 +652,15 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     }
 
     @Override
-    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter, String... distinctField) {
+    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter,
+        String... distinctField) {
         return distinct(modelClass, filter, null, distinctField);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, String... distinctField) {
+    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, String... distinctField) {
         if (modelClass == null)
             throw new DaoException("Model class cannot be empty");
 
@@ -757,7 +767,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     }
 
     @Override
-    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         List<T> result = find(modelClass, filter, QueryOptions.builder(queryOptions).fetchIdsOnly(true).build());
 
         List<Id> ids = new ArrayList<>();
@@ -781,12 +792,14 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return findData(modelClass, filter, queryOptions, null);
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, DBCollection collection) {
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, DBCollection collection) {
         if (modelClass == null)
             throw new DaoException("Model class cannot be empty");
 
@@ -862,7 +875,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids,
+        QueryOptions queryOptions) {
         if (modelClass == null || ids == null || ids.length == 0)
             throw new DaoException("Not all parameters set [modelClass=" + modelClass + ", ids=" + ids + "]");
 
@@ -971,7 +985,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
 
             throw new RuntimeException(t);
         } finally {
-            if (bulkError || (isBulkModeEnabled && bulkProcessCount > 0 && (bulkProcessCount % bulkFlushInterval) == 0)) {
+            if (bulkError
+                || (isBulkModeEnabled && bulkProcessCount > 0 && (bulkProcessCount % bulkFlushInterval) == 0)) {
                 Mongo.resetBulkProcessingCount();
                 Mongo.resetBulkWriteOperation(clazz);
             }
@@ -1019,7 +1034,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
 
             // See if history archiving has been enabled per configuration.
             String interfaceName = Models.interfaceName(modelClass);
-            Boolean isHistoryConf = app.cpBool_(new StringBuilder(CONF_KEY_HISTORY_ENABLED_MODEL_PREFIX).append(interfaceName).append(CONF_KEY_HISTORY_ENABLED_MODEL_SUFFIX).toString());
+            Boolean isHistoryConf = app.cpBool_(new StringBuilder(CONF_KEY_HISTORY_ENABLED_MODEL_PREFIX)
+                .append(interfaceName).append(CONF_KEY_HISTORY_ENABLED_MODEL_SUFFIX).toString());
 
             // No configuration setting and annotation attribute is not set to
             // true.
@@ -1046,7 +1062,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi, String... updateFields) {
+    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi,
+        String... updateFields) {
         if (entity == null)
             throw new IllegalStateException("Cannot update null document");
 
@@ -1070,7 +1087,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         Map<String, Object> map = Models.toMap((Class<T>) clazz, entity);
         map.putAll(((Model) entity).toMap());
 
-        if ((filter == null || filter.isEmpty()) && map.get(GlobalColumn.ID) == null && !(filter instanceof EmptyFilter))
+        if ((filter == null || filter.isEmpty()) && map.get(GlobalColumn.ID) == null
+            && !(filter instanceof EmptyFilter))
             throw new IllegalStateException("Cannot update document with null id and query");
 
         boolean isOptimisticLockingEnabled = Annotations.isOptimisticLockingEnabled(clazz);
@@ -1092,7 +1110,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
             if (isOptimisticLockingEnabled && !isBulkModeEnabled) {
                 if (map.get(GlobalColumn.VERSION) == null) {
                     if (log.isWarnEnabled()) {
-                        log.warn("Updating object with optimistic concurrency enabled that has no version field: " + clazz.getSimpleName() + " - " + map);
+                        log.warn("Updating object with optimistic concurrency enabled that has no version field: "
+                            + clazz.getSimpleName() + " - " + map);
                     }
                 } else {
                     query.put(GlobalColumn.VERSION, map.get(GlobalColumn.VERSION));
@@ -1212,9 +1231,10 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                     // Optimistic concurrency error.
                     if (numUpdatedResults == 0 && vModel.getVersion() != ((Versionable) entity).getVersion()) {
                         throw new OptimisticLockException("Unable to update document of type '" + clazz.getSimpleName()
-                            + "' because the version number did not match - expected current version to be '" + ((Versionable) entity).getVersion()
-                            + "' and not '" + vModel.getVersion() + "'. The version number has most likely been updated by another process. Please check.\nOld: " + map + ".\nNew: "
-                            + ((Model) vModel).toMap() + ".");
+                            + "' because the version number did not match - expected current version to be '"
+                            + ((Versionable) entity).getVersion() + "' and not '" + vModel.getVersion()
+                            + "'. The version number has most likely been updated by another process. Please check.\nOld: "
+                            + map + ".\nNew: " + ((Model) vModel).toMap() + ".");
                     }
 
                     if (numUpdatedResults > 0 && vModel.getVersion() == ((Versionable) entity).getVersion()) {
@@ -1240,7 +1260,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
 
             throw new RuntimeException(t);
         } finally {
-            if (bulkError || (isBulkModeEnabled && bulkProcessCount > 0 && (bulkProcessCount % bulkFlushInterval) == 0)) {
+            if (bulkError
+                || (isBulkModeEnabled && bulkProcessCount > 0 && (bulkProcessCount % bulkFlushInterval) == 0)) {
                 Mongo.resetBulkProcessingCount();
                 Mongo.resetBulkWriteOperation(clazz);
             }
@@ -1344,7 +1365,7 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                 Map<String, Object> map = new LinkedHashMap<>();
                 convertToMongoDBValues(doc, map);
 
-                modelObject = app.getModel(modelClass);
+                modelObject = app.model(modelClass);
 
                 Models.populate(modelClass, modelObject, map);
                 modelObject.fromMap(map);
@@ -1375,7 +1396,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions) {
         Map<String, Object> inClause = new HashMap<>();
         inClause.put(QueryOperators.IN, versions);
 
@@ -1392,7 +1414,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         if (modelClass == null)
             throw new DaoException("Model class cannot be empty");
 
@@ -1528,7 +1551,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
             MultiContextModel mcm = (MultiContextModel) entity;
 
             // True if this is for global scope.
-            if ((mcm.getMerchantIds() == null || mcm.getMerchantIds().size() == 0) && (mcm.getStoreIds() == null || mcm.getStoreIds().size() == 0)
+            if ((mcm.getMerchantIds() == null || mcm.getMerchantIds().size() == 0)
+                && (mcm.getStoreIds() == null || mcm.getStoreIds().size() == 0)
                 && (mcm.getRequestContextIds() == null || mcm.getRequestContextIds().size() == 0)) {
                 return;
             }
@@ -1543,7 +1567,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         List<Id> merchantIds = multiCtxModel.getMerchantIds();
 
         // Is the object for global scope?
-        if ((reqCtxIds == null || reqCtxIds.size() == 0) && (storeIds == null || storeIds.size() == 0) && (merchantIds == null || merchantIds.size() == 0)) {
+        if ((reqCtxIds == null || reqCtxIds.size() == 0) && (storeIds == null || storeIds.size() == 0)
+            && (merchantIds == null || merchantIds.size() == 0)) {
             return true;
         }
 
@@ -1572,8 +1597,7 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                         if (storeNode != null)
                             throw new IllegalMultiContextException(
                                 "When storing a MultiContextModel object, make sure that each scope hierarchy only has one of merchant, store or request-context and not a combination of them. Found [reqCtxId="
-                                    + id
-                                    + ", storeId=" + storeId + "].");
+                                    + id + ", storeId=" + storeId + "].");
                     }
                 }
 
@@ -1585,8 +1609,7 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                         if (merchantNode != null)
                             throw new IllegalMultiContextException(
                                 "When storing a MultiContextModel object, make sure that each scope hierarchy only has one of merchant, store or request-context and not a combination of them. Found [reqCtxId="
-                                    + id
-                                    + ", merchantId=" + merchantId + "].");
+                                    + id + ", merchantId=" + merchantId + "].");
                     }
                 }
             }
@@ -1701,7 +1724,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
 
         List<ColumnInfo> columns = null;
 
-        if ((queryOptions.sortAsc() != null && queryOptions.sortAsc().size() > 0) || (queryOptions.sortDesc() != null && queryOptions.sortDesc().size() > 0)) {
+        if ((queryOptions.sortAsc() != null && queryOptions.sortAsc().size() > 0)
+            || (queryOptions.sortDesc() != null && queryOptions.sortDesc().size() > 0)) {
             columns = Annotations.getColumns(modelClass);
         }
 
@@ -1738,7 +1762,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
     /**
      * Build query filter from map.
      */
-    protected <T extends Model> DBObject buildQueryFilter(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    protected <T extends Model> DBObject buildQueryFilter(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         DBObject dbObject = new BasicDBObject();
 
         if (filter != null && filter.size() > 0) {
@@ -1759,12 +1784,14 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                     dbObject.put(Models.columnName(columns, key), between);
                 }
                 // TODO
-                else if ((value instanceof Collection || value.getClass().isArray()) && !key.equals(QueryOperators.IN) && !key.equals(QueryOperators.AND) && !key.equals(QueryOperators.OR)) {
+                else if ((value instanceof Collection || value.getClass().isArray()) && !key.equals(QueryOperators.IN)
+                    && !key.equals(QueryOperators.AND) && !key.equals(QueryOperators.OR)) {
                     dbObject.put(Models.columnName(columns, key), new BasicDBObject(QueryOperators.IN, value));
                 } else if (isProbableBoolean(key, filter.get(key))) {
                     dbObject.put(Models.columnName(columns, key), TypeConverter.asBoolean(filter.get(key)));
                 } else {
-                    processFilterPart(modelClass, key, Models.columnName(columns, key), filter.get(key), dbObject, queryOptions);
+                    processFilterPart(modelClass, key, Models.columnName(columns, key), filter.get(key), dbObject,
+                        queryOptions);
 
                     // dbObject.put(columnName(columns, key),
                     // processCommandIfExists(filter.get(key)));
@@ -1805,14 +1832,16 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         Map<Id, String> attributeIdCodeMap = c.get(ATTRIBUTE_MAPPING_KEY_NAME);
 
         if (attributeIdCodeMap == null) {
-            List<Map<String, Object>> attributeIdCodeList = findData(Attribute.class, null, QueryOptions.builder().fetchFields(GlobalColumn.ID, Attribute.Col.CODE).build(),
+            List<Map<String, Object>> attributeIdCodeList = findData(Attribute.class, null,
+                QueryOptions.builder().fetchFields(GlobalColumn.ID, Attribute.Col.CODE).build(),
                 collection(Attribute.class));
 
             if (attributeIdCodeList != null && !attributeIdCodeList.isEmpty()) {
                 attributeIdCodeMap = new LinkedHashMap<>();
 
                 for (Map<String, Object> map : attributeIdCodeList) {
-                    attributeIdCodeMap.put(TypeConverter.asId(map.get(GlobalColumn.ID)), TypeConverter.asString(map.get(Attribute.Col.CODE)));
+                    attributeIdCodeMap.put(TypeConverter.asId(map.get(GlobalColumn.ID)),
+                        TypeConverter.asString(map.get(Attribute.Col.CODE)));
                 }
 
                 c.put(ATTRIBUTE_MAPPING_KEY_NAME, attributeIdCodeMap);
@@ -1852,7 +1881,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         return false;
     }
 
-    public void processFilterPart(Class<? extends Model> modelClass, String originalKey, String columnName, Object value, DBObject query, QueryOptions queryOptions) {
+    public void processFilterPart(Class<? extends Model> modelClass, String originalKey, String columnName,
+        Object value, DBObject query, QueryOptions queryOptions) {
         Command cmd = null;
 
         if (value instanceof String || originalKey.startsWith("cb."))

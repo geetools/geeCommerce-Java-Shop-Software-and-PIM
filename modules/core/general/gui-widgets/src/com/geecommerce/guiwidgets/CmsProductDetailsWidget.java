@@ -31,7 +31,8 @@ public class CmsProductDetailsWidget extends AbstractWidgetController implements
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String mode = widgetCtx.getParam(PARAM_MODE);
         String productId = widgetCtx.getParam(PARAM_PRODUCT);
         if (!StringUtils.isBlank(productId)) {

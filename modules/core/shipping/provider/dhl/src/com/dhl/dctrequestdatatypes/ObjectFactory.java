@@ -13,21 +13,25 @@ import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 /**
- * This object contains factory methods for each Java content interface and Java element interface generated in the com.dhl.dctrequestdatatypes
- * package.
+ * This object contains factory methods for each Java content interface and Java
+ * element interface generated in the com.dhl.dctrequestdatatypes package.
  * <p>
- * An ObjectFactory allows you to programatically construct new instances of the Java representation for XML content. The Java representation of XML
- * content can consist of schema derived interfaces and classes representing the binding of schema type definitions, element declarations and model
- * groups. Factory methods for each of these are provided in this class.
+ * An ObjectFactory allows you to programatically construct new instances of the
+ * Java representation for XML content. The Java representation of XML content
+ * can consist of schema derived interfaces and classes representing the binding
+ * of schema type definitions, element declarations and model groups. Factory
+ * methods for each of these are provided in this class.
  * 
  */
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _DCTRequestDataTypes_QNAME = new QName("http://www.dhl.com/DCTRequestdatatypes", "DCTRequestDataTypes");
+    private final static QName _DCTRequestDataTypes_QNAME = new QName("http://www.dhl.com/DCTRequestdatatypes",
+        "DCTRequestDataTypes");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.dhl.dctrequestdatatypes
+     * Create a new ObjectFactory that can be used to create new instances of
+     * schema derived classes for package: com.dhl.dctrequestdatatypes
      * 
      */
     public ObjectFactory() {
@@ -38,7 +42,7 @@ public class ObjectFactory {
      * 
      */
     public BkgDetailsType createBkgDetailsType() {
-	return new BkgDetailsType();
+        return new BkgDetailsType();
     }
 
     /**
@@ -46,7 +50,7 @@ public class ObjectFactory {
      * 
      */
     public QtdShpType createQtdShpType() {
-	return new QtdShpType();
+        return new QtdShpType();
     }
 
     /**
@@ -54,7 +58,7 @@ public class ObjectFactory {
      * 
      */
     public PieceType createPieceType() {
-	return new PieceType();
+        return new PieceType();
     }
 
     /**
@@ -62,7 +66,7 @@ public class ObjectFactory {
      * 
      */
     public DCTDutiable createDCTDutiable() {
-	return new DCTDutiable();
+        return new DCTDutiable();
     }
 
     /**
@@ -70,7 +74,7 @@ public class ObjectFactory {
      * 
      */
     public DCTTo createDCTTo() {
-	return new DCTTo();
+        return new DCTTo();
     }
 
     /**
@@ -78,7 +82,7 @@ public class ObjectFactory {
      * 
      */
     public DCTFrom createDCTFrom() {
-	return new DCTFrom();
+        return new DCTFrom();
     }
 
     /**
@@ -86,7 +90,7 @@ public class ObjectFactory {
      * 
      */
     public QtdShpExChrgType createQtdShpExChrgType() {
-	return new QtdShpExChrgType();
+        return new QtdShpExChrgType();
     }
 
     /**
@@ -94,16 +98,17 @@ public class ObjectFactory {
      * 
      */
     public BkgDetailsType.Pieces createBkgDetailsTypePieces() {
-	return new BkgDetailsType.Pieces();
+        return new BkgDetailsType.Pieces();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object
+     * }{@code >}
      * 
      */
     @XmlElementDecl(namespace = "http://www.dhl.com/DCTRequestdatatypes", name = "DCTRequestDataTypes")
     public JAXBElement<Object> createDCTRequestDataTypes(Object value) {
-	return new JAXBElement<Object>(_DCTRequestDataTypes_QNAME, Object.class, null, value);
+        return new JAXBElement<Object>(_DCTRequestDataTypes_QNAME, Object.class, null, value);
     }
 
 }

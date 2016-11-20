@@ -1,13 +1,12 @@
 package com.geecommerce.customerReview.model;
 
-import com.geecommerce.catalog.product.model.Product;
-import com.geecommerce.core.service.api.Model;
-import com.geecommerce.core.system.model.RequestContext;
-import com.geecommerce.core.type.Id;
-import com.geecommerce.customer.model.Customer;
-
 import java.util.Date;
 import java.util.List;
+
+import com.geecommerce.catalog.product.model.Product;
+import com.geecommerce.core.service.api.Model;
+import com.geecommerce.core.type.Id;
+import com.geecommerce.customer.model.Customer;
 
 public interface CustomerReview extends Model {
     public Id getId();
@@ -73,18 +72,18 @@ public interface CustomerReview extends Model {
     public CustomerReview addAbuse(Abuse abuse);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
-	public static final String CUSTOMER_ID = "customer_id";
-	public static final String PRODUCT_ID = "product_id";
-	public static final String CREATED_ON = "cr_on";
-	public static final String MODIFIED_ON = "mod_on";
-	public static final String HEADLINE = "headline";
-	public static final String REVIEW = "review";
-	public static final String RATING = "rating";
-	public static final String THINK_HELPFUL = "helpful";
-	public static final String THINK_UNHELPFUL = "unhelpful";
-	public static final String PUBLISHED = "published";
-	public static final String ABUSES = "abuses";
+        public static final String ID = "_id";
+        public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
+        public static final String CUSTOMER_ID = "customer_id";
+        public static final String PRODUCT_ID = "product_id";
+        public static final String CREATED_ON = "cr_on";
+        public static final String MODIFIED_ON = "mod_on";
+        public static final String HEADLINE = "headline";
+        public static final String REVIEW = "review";
+        public static final String RATING = "rating";
+        public static final String THINK_HELPFUL = "helpful";
+        public static final String THINK_UNHELPFUL = "unhelpful";
+        public static final String PUBLISHED = "published";
+        public static final String ABUSES = "abuses";
     }
 }

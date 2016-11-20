@@ -31,7 +31,9 @@ public class DefaultViewedProductHelper implements ViewedProductHelper {
         viewedProductIds.add(0, productId);
 
         // Update the cookie.
-        app.cookieSet(VIEWED_PRODUCTS_KEY, Joiner.on('|').join(viewedProductIds.subList(0, viewedProductIds.size() > STORE_NUM_VIEWED_PRODUCTS ? STORE_NUM_VIEWED_PRODUCTS : viewedProductIds.size())));
+        app.cookieSet(VIEWED_PRODUCTS_KEY,
+            Joiner.on('|').join(viewedProductIds.subList(0, viewedProductIds.size() > STORE_NUM_VIEWED_PRODUCTS
+                ? STORE_NUM_VIEWED_PRODUCTS : viewedProductIds.size())));
     }
 
     @Override

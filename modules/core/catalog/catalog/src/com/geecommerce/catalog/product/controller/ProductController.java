@@ -63,7 +63,8 @@ public class ProductController extends BaseController {
     private static final Logger log = LogManager.getLogger(ProductController.class);
 
     @Inject
-    public ProductController(ProductService productService, ProductHelper productHelper, MediaAssetService mediaAssetService, ProductLists productLists,
+    public ProductController(ProductService productService, ProductHelper productHelper,
+        MediaAssetService mediaAssetService, ProductLists productLists,
         ProductNavigationIndexes productNavigationIndexes) {
         this.productService = productService;
         this.productHelper = productHelper;
@@ -85,12 +86,12 @@ public class ProductController extends BaseController {
     @Request("process-attr-bean-test")
     public Result createAttributeBeanTest(@Valid Product product) {
 
-        return Results.view("catalog/product/attr-bean-test-form")
-            .bind("product", product);
+        return Results.view("catalog/product/attr-bean-test-form").bind("product", product);
     }
 
     @Request("/view/{id}")
-    public Result view(@PathParam("id") Id id, @Context HttpServletRequest request, @Context HttpServletResponse response) {
+    public Result view(@PathParam("id") Id id, @Context HttpServletRequest request,
+        @Context HttpServletResponse response) {
 
         List<LinkedProductView> linkedProductViews = new ArrayList<>();
 
@@ -124,17 +125,14 @@ public class ProductController extends BaseController {
         if ((System.currentTimeMillis() - start) > 500)
             System.out.println("-- product-view time took: " + (System.currentTimeMillis() - start));
 
-        return Results.view("catalog/product/view")
-            .bind("product", product)
-            .bind("variantsAsMap", variantsAsMap)
-            .bind("variantsAsJSON", variantsAsJSON)
-            .bind("mediaAssetLinkViews", mediaAssetLinkViews)
-            .bind("currentProductList", currentProductList)
-            .bind("linkedProductViews", linkedProductViews);
+        return Results.view("catalog/product/view").bind("product", product).bind("variantsAsMap", variantsAsMap)
+            .bind("variantsAsJSON", variantsAsJSON).bind("mediaAssetLinkViews", mediaAssetLinkViews)
+            .bind("currentProductList", currentProductList).bind("linkedProductViews", linkedProductViews);
     }
 
     @Request(path = "/json/view/{id}", produces = MediaType.APPLICATION_JSON)
-    public Product viewJSON(@PathParam("id") Id id, @Context HttpServletRequest request, @Context HttpServletResponse response) {
+    public Product viewJSON(@PathParam("id") Id id, @Context HttpServletRequest request,
+        @Context HttpServletResponse response) {
 
         List<LinkedProductView> linkedProductViews = new ArrayList<>();
 
@@ -198,9 +196,10 @@ public class ProductController extends BaseController {
         if ((!isDeleted && isVisible) || isInternalRequest || previewHeaderExists || refreshHeaderExists)
             return true;
 
-        System.out.println("Product " + product.getId() + " / " + product.getArticleNumber() + " is not visible after evaluating parameters: [isDeleted=" + isDeleted + ", isVisible=" + isVisible
-            + ", isInternalRequest=" + isInternalRequest
-            + ", previewHeaderExists=" + previewHeaderExists + ", refreshHeaderExists=" + refreshHeaderExists + "].");
+        System.out.println("Product " + product.getId() + " / " + product.getArticleNumber()
+            + " is not visible after evaluating parameters: [isDeleted=" + isDeleted + ", isVisible=" + isVisible
+            + ", isInternalRequest=" + isInternalRequest + ", previewHeaderExists=" + previewHeaderExists
+            + ", refreshHeaderExists=" + refreshHeaderExists + "].");
 
         Long rootId = app.cpLong_(DEFAULT_ROOT_NAV_ID_KEY);
 
@@ -248,7 +247,8 @@ public class ProductController extends BaseController {
                 linkedProducts.add(productService.getProduct(linkedProductId));
             }
 
-            LinkedProductView linkedProductView = new LinkedProductView(productService.getProductLinkTypeFor(productLinksKey), linkedProducts);
+            LinkedProductView linkedProductView = new LinkedProductView(
+                productService.getProductLinkTypeFor(productLinksKey), linkedProducts);
             linkedProductViews.add(linkedProductView);
         }
     }
@@ -263,7 +263,8 @@ public class ProductController extends BaseController {
                 mediaAssetLinkView.setLabel(mediaAsset.getName().getStr());
 
                 if (mediaAsset.getSize() != null) {
-                    Double size = app.getService(DataAmountConverter.class).convert(Double.valueOf(mediaAsset.getSize()), DataAmountUnit.KILOBYTE);
+                    Double size = app.service(DataAmountConverter.class).convert(Double.valueOf(mediaAsset.getSize()),
+                        DataAmountUnit.KILOBYTE);
                     mediaAssetLinkView.setSize(size.longValue());
                 }
 
@@ -395,7 +396,8 @@ public class ProductController extends BaseController {
     }
 
     @Request("/fragment/{id}")
-    public Result fragment(@PathParam("id") Id id, @Context HttpServletRequest request, @Context HttpServletResponse response, @Param("frg") String frg) {
+    public Result fragment(@PathParam("id") Id id, @Context HttpServletRequest request,
+        @Context HttpServletResponse response, @Param("frg") String frg) {
         if (id == null || Str.isEmpty(frg))
             return null;
 

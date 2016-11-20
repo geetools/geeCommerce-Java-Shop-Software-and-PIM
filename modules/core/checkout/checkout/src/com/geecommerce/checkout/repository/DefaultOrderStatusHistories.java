@@ -18,7 +18,8 @@ public class DefaultOrderStatusHistories extends AbstractRepository implements O
     public List<OrderStatusHistory> thatBelongTo(Order order) {
         Map<String, Object> filter = new HashMap<>();
         filter.put(OrderStatusHistory.Column.ORDER_ID, order.getId());
-        List<OrderStatusHistory> orderStatusHistories = find(OrderStatusHistory.class, filter, QueryOptions.builder().sortBy(GlobalColumn.CREATED_ON).build());
+        List<OrderStatusHistory> orderStatusHistories = find(OrderStatusHistory.class, filter,
+            QueryOptions.builder().sortBy(GlobalColumn.CREATED_ON).build());
         return orderStatusHistories;
     }
 
@@ -27,7 +28,8 @@ public class DefaultOrderStatusHistories extends AbstractRepository implements O
         Map<String, Object> filter = new HashMap<>();
         filter.put(OrderStatusHistory.Column.ORDER_ID, order.getId());
         filter.put(OrderStatusHistory.Column.ORDER_STATUS, orderStatus.toId());
-        List<OrderStatusHistory> orderStatusHistories = find(OrderStatusHistory.class, filter, QueryOptions.builder().sortBy(GlobalColumn.CREATED_ON).build());
+        List<OrderStatusHistory> orderStatusHistories = find(OrderStatusHistory.class, filter,
+            QueryOptions.builder().sortBy(GlobalColumn.CREATED_ON).build());
         if (orderStatusHistories != null && !orderStatusHistories.isEmpty()) {
             return orderStatusHistories.get(0);
         }
@@ -38,7 +40,8 @@ public class DefaultOrderStatusHistories extends AbstractRepository implements O
     public OrderStatusHistory getLastStatusHistory(Order order) {
         Map<String, Object> filter = new HashMap<>();
         filter.put(OrderStatusHistory.Column.ORDER_ID, order.getId());
-        List<OrderStatusHistory> orderStatusHistories = find(OrderStatusHistory.class, filter, QueryOptions.builder().sortByDesc(GlobalColumn.MODIFIED_ON).build());
+        List<OrderStatusHistory> orderStatusHistories = find(OrderStatusHistory.class, filter,
+            QueryOptions.builder().sortByDesc(GlobalColumn.MODIFIED_ON).build());
         if (orderStatusHistories != null && !orderStatusHistories.isEmpty()) {
             return orderStatusHistories.get(0);
         }

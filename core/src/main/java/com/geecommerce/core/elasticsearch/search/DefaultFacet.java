@@ -74,7 +74,7 @@ public class DefaultFacet implements Facet {
 
     @Override
     public DefaultFacet addEntry(String id, String label, long count, long nonMultiCount) {
-        FacetEntry entry = app.getInjectable(FacetEntry.class).values(id, label, count, nonMultiCount);
+        FacetEntry entry = app.injectable(FacetEntry.class).values(id, label, count, nonMultiCount);
 
         entries.add(entry);
 
@@ -82,8 +82,10 @@ public class DefaultFacet implements Facet {
     }
 
     @Override
-    public DefaultFacet addRangeEntry(String id, String label, Double rangeFrom, Double rangeTo, long count, long nonMultiCount) {
-        FacetEntry entry = app.getInjectable(FacetEntry.class).values(id, label, rangeFrom, rangeTo, count, nonMultiCount);
+    public DefaultFacet addRangeEntry(String id, String label, Double rangeFrom, Double rangeTo, long count,
+        long nonMultiCount) {
+        FacetEntry entry = app.injectable(FacetEntry.class).values(id, label, rangeFrom, rangeTo, count,
+            nonMultiCount);
 
         entries.add(entry);
 
@@ -103,8 +105,10 @@ public class DefaultFacet implements Facet {
             Collections.sort(entries, new Comparator<FacetEntry>() {
                 @Override
                 public int compare(FacetEntry e1, FacetEntry e2) {
-                    double n1 = isRangeFacet ? (e1.getRangeFrom() == null ? 0 : e1.getRangeFrom()) : Double.parseDouble(e1.getLabel());
-                    double n2 = isRangeFacet ? (e2.getRangeFrom() == null ? 0 : e2.getRangeFrom()) : Double.parseDouble(e2.getLabel());
+                    double n1 = isRangeFacet ? (e1.getRangeFrom() == null ? 0 : e1.getRangeFrom())
+                        : Double.parseDouble(e1.getLabel());
+                    double n2 = isRangeFacet ? (e2.getRangeFrom() == null ? 0 : e2.getRangeFrom())
+                        : Double.parseDouble(e2.getLabel());
 
                     return (n1 < n2 ? -1 : (n1 > n2 ? 1 : 0));
                 }

@@ -29,11 +29,11 @@ public interface OrderShipmentOption extends Model {
     public Id getOrderShipmentId();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String ORDER_SHIPMENT_ID = "order_shipment_fk";
-	public static final String NAME = "name";
-	public static final String CARRIER = "carrier";
-	public static final String OPTION = "option";
-	public static final String AMOUNT = "amount";
+        public static final String ID = "_id";
+        public static final String ORDER_SHIPMENT_ID = "order_shipment_fk";
+        public static final String NAME = "name";
+        public static final String CARRIER = "carrier";
+        public static final String OPTION = "option";
+        public static final String AMOUNT = "amount";
     }
 }

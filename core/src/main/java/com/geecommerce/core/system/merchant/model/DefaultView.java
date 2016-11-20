@@ -62,7 +62,7 @@ public class DefaultView extends AbstractModel implements View {
         if (merchant == null)
             return null;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx == null)
             return null;
@@ -72,7 +72,8 @@ public class DefaultView extends AbstractModel implements View {
         if (s == null)
             return null;
 
-        return new StringBuilder(s.getTemplatesPath()).append(File.separatorChar).append(Char.UNDERSCORE).append(Filenames.ensureSafeName(getCode() != null ? getCode() : getName(), true)).toString();
+        return new StringBuilder(s.getTemplatesPath()).append(File.separatorChar).append(Char.UNDERSCORE)
+            .append(Filenames.ensureSafeName(getCode() != null ? getCode() : getName(), true)).toString();
     }
 
     @Override
@@ -80,7 +81,7 @@ public class DefaultView extends AbstractModel implements View {
         if (merchant == null)
             return null;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx == null)
             return null;
@@ -90,14 +91,16 @@ public class DefaultView extends AbstractModel implements View {
         if (s == null)
             return null;
 
-        return new StringBuilder(s.getResourcesPath()).append(File.separatorChar).append(Char.UNDERSCORE).append(Filenames.ensureSafeName(getCode() != null ? getCode() : getName(), true)).toString();
+        return new StringBuilder(s.getResourcesPath()).append(File.separatorChar).append(Char.UNDERSCORE)
+            .append(Filenames.ensureSafeName(getCode() != null ? getCode() : getName(), true)).toString();
     }
 
     @Override
     public final String getCertsPath() {
         String rp = getResourcesPath();
 
-        return rp == null ? null : new StringBuilder(getResourcesPath()).append(File.separatorChar).append("certs").toString();
+        return rp == null ? null
+            : new StringBuilder(getResourcesPath()).append(File.separatorChar).append("certs").toString();
     }
 
     @Override

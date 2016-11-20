@@ -35,7 +35,8 @@ public class DefaultOrderAddressDao extends DefaultMySqlDao implements OrderAddr
     @Override
     public OrderAddress getLastInvoiceAddress(Id customerId) {
         StringBuilder sql = new StringBuilder("SELECT a.* FROM");
-        sql.append(" sale_order o,").append(" sale_order_address a").append(" WHERE o.customer_fk=?").append(" AND a.`type`=2").append(" AND a.order_fk=o._id").append(" ORDER BY o.cr_on DESC")
+        sql.append(" sale_order o,").append(" sale_order_address a").append(" WHERE o.customer_fk=?")
+            .append(" AND a.`type`=2").append(" AND a.order_fk=o._id").append(" ORDER BY o.cr_on DESC")
             .append(" LIMIT 0,1");
 
         Connection conn = connection();
@@ -50,7 +51,7 @@ public class DefaultOrderAddressDao extends DefaultMySqlDao implements OrderAddr
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                OrderAddress address = app.getModel(OrderAddress.class);
+                OrderAddress address = app.model(OrderAddress.class);
 
                 address.setFirstName(rs.getString(OrderAddress.Column.FIRST_NAME));
                 address.setLastName(rs.getString(OrderAddress.Column.LAST_NAME));
@@ -77,7 +78,8 @@ public class DefaultOrderAddressDao extends DefaultMySqlDao implements OrderAddr
     @Override
     public OrderAddress getLastTransferredInvoiceAddress(Id customerId) {
         StringBuilder sql = new StringBuilder("SELECT a.* FROM");
-        sql.append(" sale_order o,").append(" sale_order_address a").append(" WHERE o.customer_fk=?").append(" AND o.transferred=1").append(" AND a.`type`=2").append(" AND a.order_fk=o._id")
+        sql.append(" sale_order o,").append(" sale_order_address a").append(" WHERE o.customer_fk=?")
+            .append(" AND o.transferred=1").append(" AND a.`type`=2").append(" AND a.order_fk=o._id")
             .append(" ORDER BY o.cr_on DESC").append(" LIMIT 0,1");
 
         Connection conn = connection();
@@ -92,7 +94,7 @@ public class DefaultOrderAddressDao extends DefaultMySqlDao implements OrderAddr
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                OrderAddress address = app.getModel(OrderAddress.class);
+                OrderAddress address = app.model(OrderAddress.class);
 
                 address.setOrderId(Id.valueOf(rs.getString(OrderAddress.Column.ORDER_ID)));
                 address.setFirstName(rs.getString(OrderAddress.Column.FIRST_NAME));

@@ -21,20 +21,26 @@ import com.owlike.genson.reflect.PropertyMutator;
 import com.owlike.genson.reflect.PropertyNameResolver;
 
 public class DefaultBeanDescriptorProvider extends BaseBeanDescriptorProvider {
-    public DefaultBeanDescriptorProvider(ContextualConverterFactory ctxConverterFactory, BeanPropertyFactory propertyFactory, BeanMutatorAccessorResolver mutatorAccessorResolver,
-        PropertyNameResolver nameResolver, boolean useGettersAndSetters,
-        boolean useFields, boolean favorEmptyCreators) {
-        super(ctxConverterFactory, propertyFactory, mutatorAccessorResolver, nameResolver, useGettersAndSetters, useFields, favorEmptyCreators);
+    public DefaultBeanDescriptorProvider(ContextualConverterFactory ctxConverterFactory,
+        BeanPropertyFactory propertyFactory, BeanMutatorAccessorResolver mutatorAccessorResolver,
+        PropertyNameResolver nameResolver, boolean useGettersAndSetters, boolean useFields,
+        boolean favorEmptyCreators) {
+        super(ctxConverterFactory, propertyFactory, mutatorAccessorResolver, nameResolver, useGettersAndSetters,
+            useFields, favorEmptyCreators);
     }
 
     @Override
-    protected <T> BeanDescriptor<T> create(Class<T> forClass, Type ofType, BeanCreator creator, List<PropertyAccessor> accessors, Map<String, PropertyMutator> mutators, Genson genson) {
-        return new DefaultBeanDescriptor<T>(forClass, getRawClass(ofType), accessors, mutators, creator, genson.failOnMissingProperty());
+    protected <T> BeanDescriptor<T> create(Class<T> forClass, Type ofType, BeanCreator creator,
+        List<PropertyAccessor> accessors, Map<String, PropertyMutator> mutators, Genson genson) {
+        return new DefaultBeanDescriptor<T>(forClass, getRawClass(ofType), accessors, mutators, creator,
+            genson.failOnMissingProperty());
     }
 
     @Override
-    public void provideBeanPropertyAccessors(Type ofType, Map<String, LinkedList<PropertyAccessor>> accessorsMap, Genson genson) {
-        for (Class<?> clazz = getImplementationClass(getRawClass(ofType)); clazz != null && !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
+    public void provideBeanPropertyAccessors(Type ofType, Map<String, LinkedList<PropertyAccessor>> accessorsMap,
+        Genson genson) {
+        for (Class<?> clazz = getImplementationClass(getRawClass(ofType)); clazz != null
+            && !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
             // first lookup for fields
             if (useFields)
                 provideFieldAccessors(clazz, accessorsMap, ofType, genson);
@@ -45,8 +51,10 @@ public class DefaultBeanDescriptorProvider extends BaseBeanDescriptorProvider {
     }
 
     @Override
-    public void provideBeanPropertyMutators(Type ofType, Map<String, LinkedList<PropertyMutator>> mutatorsMap, Genson genson) {
-        for (Class<?> clazz = getImplementationClass(getRawClass(ofType)); clazz != null && !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
+    public void provideBeanPropertyMutators(Type ofType, Map<String, LinkedList<PropertyMutator>> mutatorsMap,
+        Genson genson) {
+        for (Class<?> clazz = getImplementationClass(getRawClass(ofType)); clazz != null
+            && !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
             // first lookup for fields
             if (useFields)
                 provideFieldMutators(clazz, mutatorsMap, ofType, genson);

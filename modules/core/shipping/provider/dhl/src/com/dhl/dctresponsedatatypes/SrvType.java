@@ -9,6 +9,7 @@ package com.dhl.dctresponsedatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for SrvType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="SrvType">
@@ -55,7 +57,7 @@ public class SrvType {
      * 
      */
     public String getGlobalProductCode() {
-	return globalProductCode;
+        return globalProductCode;
     }
 
     /**
@@ -66,15 +68,17 @@ public class SrvType {
      * 
      */
     public void setGlobalProductCode(String value) {
-	this.globalProductCode = value;
+        this.globalProductCode = value;
     }
 
     /**
      * Gets the value of the mrkSrv property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the mrkSrv property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the mrkSrv property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -85,15 +89,16 @@ public class SrvType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link MrkSrvType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link MrkSrvType }
      * 
      * 
      */
     public List<MrkSrvType> getMrkSrv() {
-	if (mrkSrv == null) {
-	    mrkSrv = new ArrayList<MrkSrvType>();
-	}
-	return this.mrkSrv;
+        if (mrkSrv == null) {
+            mrkSrv = new ArrayList<MrkSrvType>();
+        }
+        return this.mrkSrv;
     }
 
     /**
@@ -103,7 +108,7 @@ public class SrvType {
      * 
      */
     public SBTPType getSBTP() {
-	return sbtp;
+        return sbtp;
     }
 
     /**
@@ -114,7 +119,7 @@ public class SrvType {
      * 
      */
     public void setSBTP(SBTPType value) {
-	this.sbtp = value;
+        this.sbtp = value;
     }
 
 }

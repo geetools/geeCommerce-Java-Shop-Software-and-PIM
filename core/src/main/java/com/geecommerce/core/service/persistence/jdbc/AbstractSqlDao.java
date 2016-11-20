@@ -79,7 +79,7 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
         String tblName = getTableName(modelClass);
 
         if (Str.isEmpty(tblName)) {
-            Model m = app.getModel(modelClass);
+            Model m = app.model(modelClass);
 
             MethodHandle mh = Reflect.getMethodHandle(modelClass, "__name", true);
 
@@ -94,7 +94,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
         }
 
         if (Str.isEmpty(tblName))
-            throw new IllegalStateException("The model class '" + modelClass.getName() + "' must specify the table name in the @Model annotation or in the __name() method.");
+            throw new IllegalStateException("The model class '" + modelClass.getName()
+                + "' must specify the table name in the @Model annotation or in the __name() method.");
 
         return tblName;
     }
@@ -130,7 +131,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
         try {
             // Build SQL
-            StringBuilder sql = new StringBuilder("SELECT * FROM `").append(tableName(modelClass)).append("` WHERE `_id`=?");
+            StringBuilder sql = new StringBuilder("SELECT * FROM `").append(tableName(modelClass))
+                .append("` WHERE `_id`=?");
 
             // System.out.println("FIND SQL: " + sql.toString());
 
@@ -162,7 +164,7 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                     map.put(metaData.getColumnLabel(j), new JDBCValue(res.getObject(j)));
                 }
 
-                modelObject = app.getModel(modelClass);
+                modelObject = app.model(modelClass);
 
                 notify(modelObject, Event.BEFORE_POPULATE);
 
@@ -329,7 +331,7 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                     map.put(metaData.getColumnLabel(j), new JDBCValue(res.getObject(j)));
                 }
 
-                T modelObject = app.getModel(modelClass);
+                T modelObject = app.model(modelClass);
 
                 notify(modelObject, Event.BEFORE_POPULATE);
 
@@ -387,11 +389,13 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         throw new RuntimeException("Operation not supported");
     }
 
-    protected <T extends Model> void buildQueryFilter(Class<T> modelClass, Map<String, Object> filter, StringBuilder sql, List<Object> whereValues) {
+    protected <T extends Model> void buildQueryFilter(Class<T> modelClass, Map<String, Object> filter,
+        StringBuilder sql, List<Object> whereValues) {
         if (filter != null && filter.size() > 0) {
             sql.append(" WHERE ");
 
@@ -417,7 +421,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                         String operator = ((Map<String, Object>) val).keySet().iterator().next();
 
                         if (COMPARISON_QUERY_OPERATORS.containsKey(operator.trim())) {
-                            sql.append("`").append(column).append("` ").append(COMPARISON_QUERY_OPERATORS.get(operator)).append(" ?");
+                            sql.append("`").append(column).append("` ").append(COMPARISON_QUERY_OPERATORS.get(operator))
+                                .append(" ?");
                         }
                     } else if (val instanceof Collection<?> || val.getClass().isArray()) {
                         int len = val.getClass().isArray() ? ((Object[]) val).length : ((Collection<?>) val).size();
@@ -467,7 +472,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
             try {
                 // Build SQL
-                StringBuilder sql = new StringBuilder("SELECT COUNT(*) AS total FROM `").append(tableName(modelClass)).append("`");
+                StringBuilder sql = new StringBuilder("SELECT COUNT(*) AS total FROM `").append(tableName(modelClass))
+                    .append("`");
 
                 List<Object> whereValues = new ArrayList<>();
 
@@ -602,7 +608,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
                 ColumnInfo columnInfo = Models.columnInfo(columnInfos, key);
 
-                if ((GlobalColumn.CREATED_ON.equals(key) || GlobalColumn.MODIFIED_ON.equals(key)) && map.get(key) == null) {
+                if ((GlobalColumn.CREATED_ON.equals(key) || GlobalColumn.MODIFIED_ON.equals(key))
+                    && map.get(key) == null) {
                     values.put(new ColumnKey(key, columnInfo), new Timestamp(DateTimes.newDate().getTime()));
                 } else {
                     values.put(new ColumnKey(key, columnInfo), convertObject(map.get(key), columnInfo));
@@ -691,8 +698,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
                     boolean isJson = false;
 
-                    if (!(genericType != null && !genericType.isEmpty() &&
-                        (String.class.isAssignableFrom(genericType.get(0))
+                    if (!(genericType != null && !genericType.isEmpty()
+                        && (String.class.isAssignableFrom(genericType.get(0))
                             || char.class.isAssignableFrom(genericType.get(0))
                             || char[].class.isAssignableFrom(genericType.get(0))
                             || BigInteger.class.isAssignableFrom(genericType.get(0))
@@ -790,7 +797,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
             throw new RuntimeException(t);
         } finally {
-            if (batchError || (isBatchModeEnabled && batchProcessCount > 0 && (batchProcessCount % batchFlushInterval) == 0)) {
+            if (batchError
+                || (isBatchModeEnabled && batchProcessCount > 0 && (batchProcessCount % batchFlushInterval) == 0)) {
                 JDBC.resetBatchProcessingCount();
 
                 if (JDBC.isBatchRenewPreparedStatementOnFlushEnabled()) {
@@ -856,7 +864,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
         if (arrayType == Object.class && values.length == 0) {
             sqlArray = conn.createArrayOf("text", values);
-        } else if (String.class.isAssignableFrom(arrayType) || char.class.isAssignableFrom(arrayType) || char[].class.isAssignableFrom(arrayType)) {
+        } else if (String.class.isAssignableFrom(arrayType) || char.class.isAssignableFrom(arrayType)
+            || char[].class.isAssignableFrom(arrayType)) {
             System.out.println("text!");
             sqlArray = conn.createArrayOf("text", values);
         } else if (BigInteger.class.isAssignableFrom(arrayType) || Long.class.isAssignableFrom(arrayType)) {
@@ -937,7 +946,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi, String... updateFields) {
+    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi,
+        String... updateFields) {
         throw new RuntimeException("Operation not supported. Use update(entity) instead.");
     }
 
@@ -999,7 +1009,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
             Set<String> columnNames = map.keySet();
 
             if (columnNames == null || columnNames.size() == 0) {
-                throw new DaoException("No columns found to update in entity '" + modelClass + "'. The entity must either return a valid map or have fields marked with the @Column annotation.");
+                throw new DaoException("No columns found to update in entity '" + modelClass
+                    + "'. The entity must either return a valid map or have fields marked with the @Column annotation.");
             }
 
             if (map.get(GlobalColumn.ID) == null) {
@@ -1148,7 +1159,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
             throw new RuntimeException(t);
         } finally {
-            if (batchError || (isBatchModeEnabled && batchProcessCount > 0 && (batchProcessCount % batchFlushInterval) == 0)) {
+            if (batchError
+                || (isBatchModeEnabled && batchProcessCount > 0 && (batchProcessCount % batchFlushInterval) == 0)) {
                 JDBC.resetBatchProcessingCount();
 
                 if (JDBC.isBatchRenewPreparedStatementOnFlushEnabled()) {
@@ -1203,8 +1215,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
             Set<String> columnNames = map.keySet();
 
             if (columnNames == null || columnNames.size() == 0) {
-                throw new DaoException(
-                    "No columns found to update in entity '" + entity.getClass() + "'. The entity must either return a valid map or have fields marked with the @Column annotation.");
+                throw new DaoException("No columns found to update in entity '" + entity.getClass()
+                    + "'. The entity must either return a valid map or have fields marked with the @Column annotation.");
             }
 
             if (map.get(GlobalColumn.ID) == null) {
@@ -1212,7 +1224,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
             }
 
             // Build SQL
-            StringBuilder sql = new StringBuilder("DELETE FROM `").append(tableName(entity.getClass())).append("` WHERE `").append(GlobalColumn.ID).append("`=?");
+            StringBuilder sql = new StringBuilder("DELETE FROM `").append(tableName(entity.getClass()))
+                .append("` WHERE `").append(GlobalColumn.ID).append("`=?");
 
             query = sql.toString();
 
@@ -1292,7 +1305,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
             throw new RuntimeException(t);
         } finally {
-            if (batchError || (isBatchModeEnabled && batchProcessCount > 0 && (batchProcessCount % batchFlushInterval) == 0)) {
+            if (batchError
+                || (isBatchModeEnabled && batchProcessCount > 0 && (batchProcessCount % batchFlushInterval) == 0)) {
                 JDBC.resetBatchProcessingCount();
 
                 if (JDBC.isBatchRenewPreparedStatementOnFlushEnabled()) {
@@ -1404,12 +1418,14 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter, String... distinctField) {
+    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter,
+        String... distinctField) {
         throw new RuntimeException("Operation not supported");
     }
 
     @Override
-    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, String... distinctField) {
+    public <T extends Model> List<Object> distinct(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, String... distinctField) {
         throw new RuntimeException("Operation not supported");
     }
 
@@ -1424,12 +1440,14 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         throw new RuntimeException("Operation not supported");
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, DBCollection collection) {
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, DBCollection collection) {
         throw new RuntimeException("Operation not supported");
     }
 
@@ -1508,7 +1526,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
                     // See if a precision exists for the column.
                     int precision = rsmd.getPrecision(i);
-                    if (precision != 0 && !"DATE".equals(columnType) && !"DATETIME".equals(columnType) && !"TIMESTAMP".equals(columnType)) {
+                    if (precision != 0 && !"DATE".equals(columnType) && !"DATETIME".equals(columnType)
+                        && !"TIMESTAMP".equals(columnType)) {
                         StringBuilder precisionPart = new StringBuilder("(").append(precision);
 
                         int scale = rsmd.getScale(i);
@@ -1636,7 +1655,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids,
+        QueryOptions queryOptions) {
         throw new RuntimeException("Operation not supported");
     }
 
@@ -1646,13 +1666,15 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
         List<ColumnInfo> columns = null;
 
-        if ((queryOptions.sortAsc() != null && queryOptions.sortAsc().size() > 0) || (queryOptions.sortDesc() != null && queryOptions.sortDesc().size() > 0)) {
+        if ((queryOptions.sortAsc() != null && queryOptions.sortAsc().size() > 0)
+            || (queryOptions.sortDesc() != null && queryOptions.sortDesc().size() > 0)) {
             columns = Annotations.getColumns(modelClass);
         }
 
         boolean firstField = true;
 
-        if ((queryOptions.sortAsc() != null && queryOptions.sortAsc().size() > 0) || queryOptions.sortDesc() != null && queryOptions.sortDesc().size() > 0)
+        if ((queryOptions.sortAsc() != null && queryOptions.sortAsc().size() > 0)
+            || queryOptions.sortDesc() != null && queryOptions.sortDesc().size() > 0)
             sql.append(" order by ");
 
         // ----------------------------------------
@@ -1728,7 +1750,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions) {
         throw new RuntimeException("Operation not supported");
     }
 
@@ -1738,7 +1761,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         throw new RuntimeException("Operation not supported");
     }
 

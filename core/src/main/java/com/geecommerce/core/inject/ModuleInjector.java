@@ -30,9 +30,9 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 /**
  * Takes care of initializing the Google Guice injector
  * com.google.inject.Injector with a list of modules defined in
- * System.properties (key
- * 'inject.modules'). Objects created by the Guice injector may use the Guice
- * annotations for injecting objects such as services and DAOs. <br/>
+ * System.properties (key 'inject.modules'). Objects created by the Guice
+ * injector may use the Guice annotations for injecting objects such as services
+ * and DAOs. <br/>
  * <br/>
  * For example:
  * <p>
@@ -85,10 +85,11 @@ public final class ModuleInjector {
      */
     public static final Injector get() {
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx == null)
-            throw new IllegalStateException("The ModuleInjector depends on the ApplicationContext object which has not been initialized yet");
+            throw new IllegalStateException(
+                "The ModuleInjector depends on the ApplicationContext object which has not been initialized yet");
 
         RequestContext reqCtx = appCtx.getRequestContext();
 
@@ -146,17 +147,20 @@ public final class ModuleInjector {
                         if (foundClass == null)
                             continue;
 
-                        if (!isSystemClass(foundClass) && (ResourceConfig.isRootResourceClass(foundClass) || ResourceConfig.isProviderClass(foundClass))) {
+                        if (!isSystemClass(foundClass) && (ResourceConfig.isRootResourceClass(foundClass)
+                            || ResourceConfig.isProviderClass(foundClass))) {
                             bind(foundClass);
                         }
                     }
                 }
 
-                serve("/api/*").with(GuiceContainer.class, ImmutableMap.of(JSONConfiguration.FEATURE_POJO_MAPPING, "true"));
+                serve("/api/*").with(GuiceContainer.class,
+                    ImmutableMap.of(JSONConfiguration.FEATURE_POJO_MAPPING, "true"));
             }
 
             protected boolean isSystemClass(Class<?> foundClass) {
-                return foundClass.getName().startsWith("com.owlike.genson") || foundClass.getName().startsWith("com.sun.jersey");
+                return foundClass.getName().startsWith("com.owlike.genson")
+                    || foundClass.getName().startsWith("com.sun.jersey");
             }
         });
 

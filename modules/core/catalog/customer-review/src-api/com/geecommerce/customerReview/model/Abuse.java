@@ -25,7 +25,6 @@ public interface Abuse extends Model {
 
     public Abuse setReviewId(Id reviewId);
 
-
     static final class Col {
         public static final String ID = "_id";
         public static final String HEADLINE = "headline";

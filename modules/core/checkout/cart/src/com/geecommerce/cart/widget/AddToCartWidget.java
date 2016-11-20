@@ -16,17 +16,18 @@ public class AddToCartWidget extends AbstractWidgetController implements WidgetC
     private final String PARAM_PICKUP_ZIP = "pickup_zip";
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
-	String productIdParam = widgetCtx.getParam(PARAM_PRODUCT_ID);
-	String pickupStore = widgetCtx.getParam(PARAM_PICKUP_STORE);
-	String pickupZip = widgetCtx.getParam(PARAM_PICKUP_ZIP);
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
+        String productIdParam = widgetCtx.getParam(PARAM_PRODUCT_ID);
+        String pickupStore = widgetCtx.getParam(PARAM_PICKUP_STORE);
+        String pickupZip = widgetCtx.getParam(PARAM_PICKUP_ZIP);
 
-	if (productIdParam != null && !productIdParam.isEmpty()) {
-	    widgetCtx.setParam("productId", productIdParam);
-	    widgetCtx.setParam("pickupStore", pickupStore);
-	    widgetCtx.setParam("pickupZip", pickupZip);
-	}
+        if (productIdParam != null && !productIdParam.isEmpty()) {
+            widgetCtx.setParam("productId", productIdParam);
+            widgetCtx.setParam("pickupStore", pickupStore);
+            widgetCtx.setParam("pickupZip", pickupZip);
+        }
 
-	widgetCtx.render("cart/add_to_cart");
+        widgetCtx.render("cart/add_to_cart");
     }
 }

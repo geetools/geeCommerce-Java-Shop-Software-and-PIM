@@ -13,12 +13,12 @@ public class TaskClassLoadHelper implements ClassLoadHelper {
     protected CascadingClassLoadHelper cascadeClassLoadHelper;
 
     public TaskClassLoadHelper() {
-        App.get().getModuleLoader();
+        App.get().moduleLoader();
     }
 
     @Override
     public void initialize() {
-        geemoduleClassLoader = App.get().getModuleLoader().getPublicClassLoader();
+        geemoduleClassLoader = App.get().moduleLoader().getPublicClassLoader();
 
         // Initialize a fall back ClassLoadHelper.
         cascadeClassLoadHelper = new CascadingClassLoadHelper();

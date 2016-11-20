@@ -10,6 +10,7 @@ package com.dhl.dctresponsedatatypes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +23,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for QtdShpType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdShpType">
@@ -225,10 +227,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "QtdShpType", propOrder = { "globalProductCode", "localProductCode", "productShortName", "localProductName", "networkTypeCode", "pOfferedCustAgreement", "transInd", "pickupDate", "pickupCutoffTime", "bookingTime", "currencyCode",
-	"exchangeRate", "weightCharge", "weightChargeTax", "weightChargeTaxRate", "totalTransitDays", "pickupPostalLocAddDays", "deliveryPostalLocAddDays", "pickupNonDHLCourierCode", "deliveryNonDHLCourierCode", "deliveryCheckpointReturn",
-	"deliveryDate", "deliveryTime", "deliveryTimeGMTOffset", "dimensionalWeight", "weightUnit", "pickupDayOfWeekNum", "destinationDayOfWeekNum", "qtdShpExChrg", "pricingDate", "shippingCharge", "totalTaxAmount", "qtdSInAdCur",
-	"weightChargeTaxDet" })
+@XmlType(name = "QtdShpType", propOrder = { "globalProductCode", "localProductCode", "productShortName",
+    "localProductName", "networkTypeCode", "pOfferedCustAgreement", "transInd", "pickupDate", "pickupCutoffTime",
+    "bookingTime", "currencyCode", "exchangeRate", "weightCharge", "weightChargeTax", "weightChargeTaxRate",
+    "totalTransitDays", "pickupPostalLocAddDays", "deliveryPostalLocAddDays", "pickupNonDHLCourierCode",
+    "deliveryNonDHLCourierCode", "deliveryCheckpointReturn", "deliveryDate", "deliveryTime",
+    "deliveryTimeGMTOffset", "dimensionalWeight", "weightUnit", "pickupDayOfWeekNum", "destinationDayOfWeekNum",
+    "qtdShpExChrg", "pricingDate", "shippingCharge", "totalTaxAmount", "qtdSInAdCur", "weightChargeTaxDet" })
 public class QtdShpType {
 
     @XmlElement(name = "GlobalProductCode")
@@ -306,7 +311,7 @@ public class QtdShpType {
      * 
      */
     public String getGlobalProductCode() {
-	return globalProductCode;
+        return globalProductCode;
     }
 
     /**
@@ -317,7 +322,7 @@ public class QtdShpType {
      * 
      */
     public void setGlobalProductCode(String value) {
-	this.globalProductCode = value;
+        this.globalProductCode = value;
     }
 
     /**
@@ -327,7 +332,7 @@ public class QtdShpType {
      * 
      */
     public String getLocalProductCode() {
-	return localProductCode;
+        return localProductCode;
     }
 
     /**
@@ -338,7 +343,7 @@ public class QtdShpType {
      * 
      */
     public void setLocalProductCode(String value) {
-	this.localProductCode = value;
+        this.localProductCode = value;
     }
 
     /**
@@ -348,7 +353,7 @@ public class QtdShpType {
      * 
      */
     public String getProductShortName() {
-	return productShortName;
+        return productShortName;
     }
 
     /**
@@ -359,7 +364,7 @@ public class QtdShpType {
      * 
      */
     public void setProductShortName(String value) {
-	this.productShortName = value;
+        this.productShortName = value;
     }
 
     /**
@@ -369,7 +374,7 @@ public class QtdShpType {
      * 
      */
     public String getLocalProductName() {
-	return localProductName;
+        return localProductName;
     }
 
     /**
@@ -380,7 +385,7 @@ public class QtdShpType {
      * 
      */
     public void setLocalProductName(String value) {
-	this.localProductName = value;
+        this.localProductName = value;
     }
 
     /**
@@ -390,7 +395,7 @@ public class QtdShpType {
      * 
      */
     public String getNetworkTypeCode() {
-	return networkTypeCode;
+        return networkTypeCode;
     }
 
     /**
@@ -401,7 +406,7 @@ public class QtdShpType {
      * 
      */
     public void setNetworkTypeCode(String value) {
-	this.networkTypeCode = value;
+        this.networkTypeCode = value;
     }
 
     /**
@@ -411,7 +416,7 @@ public class QtdShpType {
      * 
      */
     public String getPOfferedCustAgreement() {
-	return pOfferedCustAgreement;
+        return pOfferedCustAgreement;
     }
 
     /**
@@ -422,7 +427,7 @@ public class QtdShpType {
      * 
      */
     public void setPOfferedCustAgreement(String value) {
-	this.pOfferedCustAgreement = value;
+        this.pOfferedCustAgreement = value;
     }
 
     /**
@@ -432,7 +437,7 @@ public class QtdShpType {
      * 
      */
     public String getTransInd() {
-	return transInd;
+        return transInd;
     }
 
     /**
@@ -443,7 +448,7 @@ public class QtdShpType {
      * 
      */
     public void setTransInd(String value) {
-	this.transInd = value;
+        this.transInd = value;
     }
 
     /**
@@ -453,7 +458,7 @@ public class QtdShpType {
      * 
      */
     public XMLGregorianCalendar getPickupDate() {
-	return pickupDate;
+        return pickupDate;
     }
 
     /**
@@ -464,7 +469,7 @@ public class QtdShpType {
      * 
      */
     public void setPickupDate(XMLGregorianCalendar value) {
-	this.pickupDate = value;
+        this.pickupDate = value;
     }
 
     /**
@@ -474,7 +479,7 @@ public class QtdShpType {
      * 
      */
     public Duration getPickupCutoffTime() {
-	return pickupCutoffTime;
+        return pickupCutoffTime;
     }
 
     /**
@@ -485,7 +490,7 @@ public class QtdShpType {
      * 
      */
     public void setPickupCutoffTime(Duration value) {
-	this.pickupCutoffTime = value;
+        this.pickupCutoffTime = value;
     }
 
     /**
@@ -495,7 +500,7 @@ public class QtdShpType {
      * 
      */
     public Duration getBookingTime() {
-	return bookingTime;
+        return bookingTime;
     }
 
     /**
@@ -506,7 +511,7 @@ public class QtdShpType {
      * 
      */
     public void setBookingTime(Duration value) {
-	this.bookingTime = value;
+        this.bookingTime = value;
     }
 
     /**
@@ -516,7 +521,7 @@ public class QtdShpType {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -527,7 +532,7 @@ public class QtdShpType {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -537,7 +542,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getExchangeRate() {
-	return exchangeRate;
+        return exchangeRate;
     }
 
     /**
@@ -548,7 +553,7 @@ public class QtdShpType {
      * 
      */
     public void setExchangeRate(BigDecimal value) {
-	this.exchangeRate = value;
+        this.exchangeRate = value;
     }
 
     /**
@@ -558,7 +563,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getWeightCharge() {
-	return weightCharge;
+        return weightCharge;
     }
 
     /**
@@ -569,7 +574,7 @@ public class QtdShpType {
      * 
      */
     public void setWeightCharge(BigDecimal value) {
-	this.weightCharge = value;
+        this.weightCharge = value;
     }
 
     /**
@@ -579,7 +584,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getWeightChargeTax() {
-	return weightChargeTax;
+        return weightChargeTax;
     }
 
     /**
@@ -590,7 +595,7 @@ public class QtdShpType {
      * 
      */
     public void setWeightChargeTax(BigDecimal value) {
-	this.weightChargeTax = value;
+        this.weightChargeTax = value;
     }
 
     /**
@@ -600,7 +605,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getWeightChargeTaxRate() {
-	return weightChargeTaxRate;
+        return weightChargeTaxRate;
     }
 
     /**
@@ -611,7 +616,7 @@ public class QtdShpType {
      * 
      */
     public void setWeightChargeTaxRate(BigDecimal value) {
-	this.weightChargeTaxRate = value;
+        this.weightChargeTaxRate = value;
     }
 
     /**
@@ -621,7 +626,7 @@ public class QtdShpType {
      * 
      */
     public Integer getTotalTransitDays() {
-	return totalTransitDays;
+        return totalTransitDays;
     }
 
     /**
@@ -632,7 +637,7 @@ public class QtdShpType {
      * 
      */
     public void setTotalTransitDays(Integer value) {
-	this.totalTransitDays = value;
+        this.totalTransitDays = value;
     }
 
     /**
@@ -642,7 +647,7 @@ public class QtdShpType {
      * 
      */
     public Integer getPickupPostalLocAddDays() {
-	return pickupPostalLocAddDays;
+        return pickupPostalLocAddDays;
     }
 
     /**
@@ -653,7 +658,7 @@ public class QtdShpType {
      * 
      */
     public void setPickupPostalLocAddDays(Integer value) {
-	this.pickupPostalLocAddDays = value;
+        this.pickupPostalLocAddDays = value;
     }
 
     /**
@@ -663,7 +668,7 @@ public class QtdShpType {
      * 
      */
     public Integer getDeliveryPostalLocAddDays() {
-	return deliveryPostalLocAddDays;
+        return deliveryPostalLocAddDays;
     }
 
     /**
@@ -674,7 +679,7 @@ public class QtdShpType {
      * 
      */
     public void setDeliveryPostalLocAddDays(Integer value) {
-	this.deliveryPostalLocAddDays = value;
+        this.deliveryPostalLocAddDays = value;
     }
 
     /**
@@ -684,7 +689,7 @@ public class QtdShpType {
      * 
      */
     public String getPickupNonDHLCourierCode() {
-	return pickupNonDHLCourierCode;
+        return pickupNonDHLCourierCode;
     }
 
     /**
@@ -695,7 +700,7 @@ public class QtdShpType {
      * 
      */
     public void setPickupNonDHLCourierCode(String value) {
-	this.pickupNonDHLCourierCode = value;
+        this.pickupNonDHLCourierCode = value;
     }
 
     /**
@@ -705,7 +710,7 @@ public class QtdShpType {
      * 
      */
     public String getDeliveryNonDHLCourierCode() {
-	return deliveryNonDHLCourierCode;
+        return deliveryNonDHLCourierCode;
     }
 
     /**
@@ -716,7 +721,7 @@ public class QtdShpType {
      * 
      */
     public void setDeliveryNonDHLCourierCode(String value) {
-	this.deliveryNonDHLCourierCode = value;
+        this.deliveryNonDHLCourierCode = value;
     }
 
     /**
@@ -726,7 +731,7 @@ public class QtdShpType {
      * 
      */
     public Duration getDeliveryCheckpointReturn() {
-	return deliveryCheckpointReturn;
+        return deliveryCheckpointReturn;
     }
 
     /**
@@ -737,7 +742,7 @@ public class QtdShpType {
      * 
      */
     public void setDeliveryCheckpointReturn(Duration value) {
-	this.deliveryCheckpointReturn = value;
+        this.deliveryCheckpointReturn = value;
     }
 
     /**
@@ -747,7 +752,7 @@ public class QtdShpType {
      * 
      */
     public XMLGregorianCalendar getDeliveryDate() {
-	return deliveryDate;
+        return deliveryDate;
     }
 
     /**
@@ -758,7 +763,7 @@ public class QtdShpType {
      * 
      */
     public void setDeliveryDate(XMLGregorianCalendar value) {
-	this.deliveryDate = value;
+        this.deliveryDate = value;
     }
 
     /**
@@ -768,7 +773,7 @@ public class QtdShpType {
      * 
      */
     public Duration getDeliveryTime() {
-	return deliveryTime;
+        return deliveryTime;
     }
 
     /**
@@ -779,7 +784,7 @@ public class QtdShpType {
      * 
      */
     public void setDeliveryTime(Duration value) {
-	this.deliveryTime = value;
+        this.deliveryTime = value;
     }
 
     /**
@@ -789,7 +794,7 @@ public class QtdShpType {
      * 
      */
     public String getDeliveryTimeGMTOffset() {
-	return deliveryTimeGMTOffset;
+        return deliveryTimeGMTOffset;
     }
 
     /**
@@ -800,7 +805,7 @@ public class QtdShpType {
      * 
      */
     public void setDeliveryTimeGMTOffset(String value) {
-	this.deliveryTimeGMTOffset = value;
+        this.deliveryTimeGMTOffset = value;
     }
 
     /**
@@ -810,7 +815,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getDimensionalWeight() {
-	return dimensionalWeight;
+        return dimensionalWeight;
     }
 
     /**
@@ -821,7 +826,7 @@ public class QtdShpType {
      * 
      */
     public void setDimensionalWeight(BigDecimal value) {
-	this.dimensionalWeight = value;
+        this.dimensionalWeight = value;
     }
 
     /**
@@ -831,7 +836,7 @@ public class QtdShpType {
      * 
      */
     public String getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -842,7 +847,7 @@ public class QtdShpType {
      * 
      */
     public void setWeightUnit(String value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
     /**
@@ -852,7 +857,7 @@ public class QtdShpType {
      * 
      */
     public String getPickupDayOfWeekNum() {
-	return pickupDayOfWeekNum;
+        return pickupDayOfWeekNum;
     }
 
     /**
@@ -863,7 +868,7 @@ public class QtdShpType {
      * 
      */
     public void setPickupDayOfWeekNum(String value) {
-	this.pickupDayOfWeekNum = value;
+        this.pickupDayOfWeekNum = value;
     }
 
     /**
@@ -873,7 +878,7 @@ public class QtdShpType {
      * 
      */
     public String getDestinationDayOfWeekNum() {
-	return destinationDayOfWeekNum;
+        return destinationDayOfWeekNum;
     }
 
     /**
@@ -884,15 +889,17 @@ public class QtdShpType {
      * 
      */
     public void setDestinationDayOfWeekNum(String value) {
-	this.destinationDayOfWeekNum = value;
+        this.destinationDayOfWeekNum = value;
     }
 
     /**
      * Gets the value of the qtdShpExChrg property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qtdShpExChrg property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the qtdShpExChrg property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -903,15 +910,16 @@ public class QtdShpType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link QtdShpExChrgType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link QtdShpExChrgType }
      * 
      * 
      */
     public List<QtdShpExChrgType> getQtdShpExChrg() {
-	if (qtdShpExChrg == null) {
-	    qtdShpExChrg = new ArrayList<QtdShpExChrgType>();
-	}
-	return this.qtdShpExChrg;
+        if (qtdShpExChrg == null) {
+            qtdShpExChrg = new ArrayList<QtdShpExChrgType>();
+        }
+        return this.qtdShpExChrg;
     }
 
     /**
@@ -921,7 +929,7 @@ public class QtdShpType {
      * 
      */
     public XMLGregorianCalendar getPricingDate() {
-	return pricingDate;
+        return pricingDate;
     }
 
     /**
@@ -932,7 +940,7 @@ public class QtdShpType {
      * 
      */
     public void setPricingDate(XMLGregorianCalendar value) {
-	this.pricingDate = value;
+        this.pricingDate = value;
     }
 
     /**
@@ -942,7 +950,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getShippingCharge() {
-	return shippingCharge;
+        return shippingCharge;
     }
 
     /**
@@ -953,7 +961,7 @@ public class QtdShpType {
      * 
      */
     public void setShippingCharge(BigDecimal value) {
-	this.shippingCharge = value;
+        this.shippingCharge = value;
     }
 
     /**
@@ -963,7 +971,7 @@ public class QtdShpType {
      * 
      */
     public BigDecimal getTotalTaxAmount() {
-	return totalTaxAmount;
+        return totalTaxAmount;
     }
 
     /**
@@ -974,15 +982,17 @@ public class QtdShpType {
      * 
      */
     public void setTotalTaxAmount(BigDecimal value) {
-	this.totalTaxAmount = value;
+        this.totalTaxAmount = value;
     }
 
     /**
      * Gets the value of the qtdSInAdCur property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qtdSInAdCur property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the qtdSInAdCur property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -993,23 +1003,26 @@ public class QtdShpType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link QtdSInAdCurType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link QtdSInAdCurType }
      * 
      * 
      */
     public List<QtdSInAdCurType> getQtdSInAdCur() {
-	if (qtdSInAdCur == null) {
-	    qtdSInAdCur = new ArrayList<QtdSInAdCurType>();
-	}
-	return this.qtdSInAdCur;
+        if (qtdSInAdCur == null) {
+            qtdSInAdCur = new ArrayList<QtdSInAdCurType>();
+        }
+        return this.qtdSInAdCur;
     }
 
     /**
      * Gets the value of the weightChargeTaxDet property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the weightChargeTaxDet property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the weightChargeTaxDet property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -1020,15 +1033,16 @@ public class QtdShpType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link WeightChargeTaxDetType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link WeightChargeTaxDetType }
      * 
      * 
      */
     public List<WeightChargeTaxDetType> getWeightChargeTaxDet() {
-	if (weightChargeTaxDet == null) {
-	    weightChargeTaxDet = new ArrayList<WeightChargeTaxDetType>();
-	}
-	return this.weightChargeTaxDet;
+        if (weightChargeTaxDet == null) {
+            weightChargeTaxDet = new ArrayList<WeightChargeTaxDetType>();
+        }
+        return this.weightChargeTaxDet;
     }
 
 }

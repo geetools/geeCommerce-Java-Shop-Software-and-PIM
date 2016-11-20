@@ -54,7 +54,8 @@ public class CacheDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         App app = App.get();
 
         SimpleScalar pKey = (SimpleScalar) params.get("key");
@@ -104,7 +105,8 @@ public class CacheDirective implements TemplateDirectiveModel {
 
             String queryString = normalize(app.getOriginalQueryString());
 
-            String cacheKey = new StringBuilder(key).append(Char.AT).append(path).append(Str.isEmpty(queryString) ? Str.EMPTY : Str.QUESTION_MARK + queryString).toString();
+            String cacheKey = new StringBuilder(key).append(Char.AT).append(path)
+                .append(Str.isEmpty(queryString) ? Str.EMPTY : Str.QUESTION_MARK + queryString).toString();
 
             // System.out.println("Using cacheKey: " + cacheKey + " --- " +
             // app.getOriginalQueryString());
@@ -142,7 +144,7 @@ public class CacheDirective implements TemplateDirectiveModel {
         if (!isContentCacheEnabled)
             return false;
 
-        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) App.get().getServletRequest();
+        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) App.get().servletRequest();
 
         Map<String, ?> paramMap = request.getUncheckedParameterMap();
 

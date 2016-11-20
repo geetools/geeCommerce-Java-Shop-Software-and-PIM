@@ -1,11 +1,10 @@
 package com.geecommerce.mediaassets.helper;
 
+import java.io.InputStream;
+
 import com.geecommerce.core.type.Id;
-import com.geecommerce.mediaassets.model.MediaAsset;
 import com.geecommerce.mediaassets.model.MediaAssetFile;
 import com.mongodb.gridfs.GridFSDBFile;
-
-import java.io.InputStream;
 
 public interface MediaAssetHelper {
 

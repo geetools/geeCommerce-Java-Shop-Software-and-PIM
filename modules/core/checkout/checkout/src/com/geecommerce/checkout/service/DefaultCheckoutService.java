@@ -51,9 +51,11 @@ public class DefaultCheckoutService implements CheckoutService {
     protected final OrderShipmentItems orderShipmentItems;
 
     @Inject
-    public DefaultCheckoutService(Checkouts checkouts, Orders orders, OrderItems orderItems, OrderAddresses orderAddresses, OrderPayments orderPayments, OrderPaymentEvents orderPaymentEvents,
-        OrderShipments orderShipments,
-        OrderShipmentItems orderShipmentItems, Stocks stocks, ShippingService shippingService, CalculationService calculationService, CalculationHelper calculationHelper) {
+    public DefaultCheckoutService(Checkouts checkouts, Orders orders, OrderItems orderItems,
+        OrderAddresses orderAddresses, OrderPayments orderPayments, OrderPaymentEvents orderPaymentEvents,
+        OrderShipments orderShipments, OrderShipmentItems orderShipmentItems, Stocks stocks,
+        ShippingService shippingService, CalculationService calculationService,
+        CalculationHelper calculationHelper) {
         this.checkouts = checkouts;
         this.orders = orders;
         this.orderItems = orderItems;
@@ -151,7 +153,7 @@ public class DefaultCheckoutService implements CheckoutService {
                 for (OrderItem orderItem : savedOrder.getOrderItems()) {
 
                     // TODO: fix this crazy stuff
-                    OrderShipmentItem orderShipmentItem = app.getModel(OrderShipmentItem.class);
+                    OrderShipmentItem orderShipmentItem = app.model(OrderShipmentItem.class);
                     orderShipmentItem.setId(app.nextId());
                     orderShipmentItem.setOrderItemId(orderItem.getId());
                     orderShipmentItem.belongsTo(savedOrder.getOrderShipment());

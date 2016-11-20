@@ -17,7 +17,7 @@ public class ClasspathHelper {
     public static URL getCoreJar() {
         boolean isLocalMode = Boolean.getBoolean("cp.localmode");
 
-        ServletContext servletContext = App.get().getServletContext();
+        ServletContext servletContext = App.get().servletContext();
 
         if (servletContext == null && !isLocalMode)
             return null;

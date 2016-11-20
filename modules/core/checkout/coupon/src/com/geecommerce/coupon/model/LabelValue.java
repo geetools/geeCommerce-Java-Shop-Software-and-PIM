@@ -1,7 +1,6 @@
 package com.geecommerce.coupon.model;
 
 import com.geecommerce.core.enums.FrontendInput;
-import com.geecommerce.core.enums.InputType;
 import com.geecommerce.core.type.Id;
 
 public class LabelValue {
@@ -13,43 +12,43 @@ public class LabelValue {
     private FrontendInput frontendInput = null;
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public void setId(Id id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getLabel() {
-	return label;
+        return label;
     }
 
     public void setLabel(String label) {
-	this.label = label;
+        this.label = label;
     }
 
     public Object getValue() {
-	return value;
+        return value;
     }
 
     public void setValue(Object value) {
-	this.value = value;
+        this.value = value;
     }
 
     public Boolean getHasOptions() {
-	return hasOptions;
+        return hasOptions;
     }
 
     public void setHasOptions(Boolean hasOptions) {
-	this.hasOptions = hasOptions;
+        this.hasOptions = hasOptions;
     }
 
     public FrontendInput getFrontendInput() {
-	return frontendInput;
+        return frontendInput;
     }
 
     public void setFrontendInput(FrontendInput frontendInput) {
-	this.frontendInput = frontendInput;
+        this.frontendInput = frontendInput;
     }
 
 }

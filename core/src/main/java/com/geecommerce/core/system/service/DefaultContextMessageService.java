@@ -34,7 +34,7 @@ public class DefaultContextMessageService implements ContextMessageService {
         ContextMessage cm = findMessage(key, reqCtx);
 
         if (cm == null) {
-            cm = app.getModel(ContextMessage.class);
+            cm = app.model(ContextMessage.class);
             cm.setRequestContextId(reqCtx.getId());
             cm.setKey(key).setValue(message);
 
@@ -55,7 +55,7 @@ public class DefaultContextMessageService implements ContextMessageService {
         ContextMessage cm = findMessage(key, store);
 
         if (cm == null) {
-            cm = app.getModel(ContextMessage.class);
+            cm = app.model(ContextMessage.class);
             cm.setStoreId(store.getId());
             cm.setKey(key).setValue(message);
 
@@ -71,12 +71,13 @@ public class DefaultContextMessageService implements ContextMessageService {
     @Override
     public ContextMessage storeMessage(String key, ContextObject<String> message, Merchant merchant) {
         if (key == null || merchant == null)
-            throw new NullPointerException("Unable to insert ContextMessage: [key=" + key + ", merchant=" + merchant + "]");
+            throw new NullPointerException(
+                "Unable to insert ContextMessage: [key=" + key + ", merchant=" + merchant + "]");
 
         ContextMessage cm = findMessage(key, merchant);
 
         if (cm == null) {
-            cm = app.getModel(ContextMessage.class);
+            cm = app.model(ContextMessage.class);
             cm.setMerchantId(merchant.getId());
             cm.setKey(key).setValue(message);
 
@@ -92,12 +93,13 @@ public class DefaultContextMessageService implements ContextMessageService {
     @Override
     public ContextMessage storeMessage(String key, ContextObject<String> message) {
         if (key == null || message == null)
-            throw new NullPointerException("Unable to insert ContextMessage: [key=" + key + ", message=" + message + "]");
+            throw new NullPointerException(
+                "Unable to insert ContextMessage: [key=" + key + ", message=" + message + "]");
 
         ContextMessage cm = findGlobalMessage(key);
 
         if (cm == null) {
-            cm = app.getModel(ContextMessage.class);
+            cm = app.model(ContextMessage.class);
             cm.setKey(key).setValue(message);
 
             ctxMessages.add(cm);

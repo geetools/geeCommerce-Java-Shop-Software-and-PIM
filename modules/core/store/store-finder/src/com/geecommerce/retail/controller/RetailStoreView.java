@@ -1,13 +1,8 @@
 package com.geecommerce.retail.controller;
 
-import com.geecommerce.core.service.AbstractMultiContextModel;
-import com.geecommerce.core.service.annotation.Cacheable;
-import com.geecommerce.core.service.annotation.Model;
-import com.geecommerce.core.service.api.MultiContextModel;
-import com.geecommerce.core.type.Id;
-
-import java.io.Serializable;
 import java.util.List;
+
+import com.geecommerce.core.type.Id;
 
 public class RetailStoreView {
     private Id id = null;
@@ -32,162 +27,162 @@ public class RetailStoreView {
     private String distance = null;
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public void setId(Id id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getId2() {
-	return id2;
+        return id2;
     }
 
     public void setId2(String id2) {
-	this.id2 = id2;
+        this.id2 = id2;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getTelephoneShipping() {
-	return telephoneShipping;
+        return telephoneShipping;
     }
 
     public void setTelephoneShipping(String telephoneShipping) {
-	this.telephoneShipping = telephoneShipping;
+        this.telephoneShipping = telephoneShipping;
     }
 
     public String getTelephoneFinancing() {
-	return telephoneFinancing;
+        return telephoneFinancing;
     }
 
     public void setTelephoneFinancing(String telephoneFinancing) {
-	this.telephoneFinancing = telephoneFinancing;
+        this.telephoneFinancing = telephoneFinancing;
     }
 
     public String getMapImage() {
-	return mapImage;
+        return mapImage;
     }
 
     public void setMapImage(String mapImage) {
-	this.mapImage = mapImage;
+        this.mapImage = mapImage;
     }
 
     public String getDirections() {
-	return directions;
+        return directions;
     }
 
     public void setDirections(String directions) {
-	this.directions = directions;
+        this.directions = directions;
     }
 
     public String getRestaurantMenu() {
-	return restaurantMenu;
+        return restaurantMenu;
     }
 
     public void setRestaurantMenu(String restaurantMenu) {
-	this.restaurantMenu = restaurantMenu;
+        this.restaurantMenu = restaurantMenu;
     }
 
     public String getGeoLocation() {
-	return geoLocation;
+        return geoLocation;
     }
 
     public void setGeoLocation(String geoLocation) {
-	this.geoLocation = geoLocation;
+        this.geoLocation = geoLocation;
     }
 
     public String getTitle() {
-	return title;
+        return title;
     }
 
     public void setTitle(String title) {
-	this.title = title;
+        this.title = title;
     }
 
     public List<String> getAddressLines() {
-	return addressLines;
+        return addressLines;
     }
 
     public void setAddressLines(List<String> addressLines) {
-	this.addressLines = addressLines;
+        this.addressLines = addressLines;
     }
 
     public String getOpeningHours() {
-	return openingHours;
+        return openingHours;
     }
 
     public void setOpeningHours(String openingHours) {
-	this.openingHours = openingHours;
+        this.openingHours = openingHours;
     }
 
     public String getSpecialOpeningTimes() {
-	return specialOpeningTimes;
+        return specialOpeningTimes;
     }
 
     public void setSpecialOpeningTimes(String specialOpeningTimes) {
-	this.specialOpeningTimes = specialOpeningTimes;
+        this.specialOpeningTimes = specialOpeningTimes;
     }
 
     public String getTelephone() {
-	return telephone;
+        return telephone;
     }
 
     public void setTelephone(String telephone) {
-	this.telephone = telephone;
+        this.telephone = telephone;
     }
 
     public String getFax() {
-	return fax;
+        return fax;
     }
 
     public void setFax(String fax) {
-	this.fax = fax;
+        this.fax = fax;
     }
 
     public String getEmail() {
-	return email;
+        return email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     public String getRetailStoreMainImageUrl() {
-	return retailStoreMainImageUrl;
+        return retailStoreMainImageUrl;
     }
 
     public void setRetailStoreMainImageUrl(String retailStoreMainImageUrl) {
-	this.retailStoreMainImageUrl = retailStoreMainImageUrl;
+        this.retailStoreMainImageUrl = retailStoreMainImageUrl;
     }
 
     public String getRetailStoreMainImageUrlThumb() {
-	return retailStoreMainImageUrlThumb;
+        return retailStoreMainImageUrlThumb;
     }
 
     public void setRetailStoreMainImageUrlThumb(String retailStoreMainImageUrlThumb) {
-	this.retailStoreMainImageUrlThumb = retailStoreMainImageUrlThumb;
+        this.retailStoreMainImageUrlThumb = retailStoreMainImageUrlThumb;
     }
 
     public String getDistance() {
-	return distance;
+        return distance;
     }
 
     public void setDistance(String distance) {
-	this.distance = distance;
+        this.distance = distance;
     }
 
     public String getMainImageUrl() {
-	return mainImageUrl;
+        return mainImageUrl;
     }
 
     public void setMainImageUrl(String mainImageUrl) {
-	this.mainImageUrl = mainImageUrl;
+        this.mainImageUrl = mainImageUrl;
     }
 }

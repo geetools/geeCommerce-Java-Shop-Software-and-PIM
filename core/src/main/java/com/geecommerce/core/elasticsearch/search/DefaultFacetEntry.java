@@ -15,76 +15,77 @@ public class DefaultFacetEntry implements FacetEntry, Comparable<FacetEntry> {
 
     @Override
     public FacetEntry values(String id, String label, long count, long nonMultiCount) {
-	this.id = id;
-	this.label = label;
-	this.count = count;
-	this.nonMultiCount = nonMultiCount;
+        this.id = id;
+        this.label = label;
+        this.count = count;
+        this.nonMultiCount = nonMultiCount;
 
-	return this;
+        return this;
     }
 
     @Override
-    public FacetEntry values(String id, String label, Double rangeFrom, Double rangeTo, long count, long nonMultiCount) {
-	this.id = id;
-	this.label = label;
-	this.rangeFrom = rangeFrom;
-	this.rangeTo = rangeTo;
-	this.count = count;
-	this.nonMultiCount = nonMultiCount;
+    public FacetEntry values(String id, String label, Double rangeFrom, Double rangeTo, long count,
+        long nonMultiCount) {
+        this.id = id;
+        this.label = label;
+        this.rangeFrom = rangeFrom;
+        this.rangeTo = rangeTo;
+        this.count = count;
+        this.nonMultiCount = nonMultiCount;
 
-	return this;
+        return this;
     }
 
     @Override
     public String getId() {
-	return id;
+        return id;
     }
 
     @Override
     public String getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public DefaultFacetEntry setLabel(String label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public Double getRangeFrom() {
-	return rangeFrom;
+        return rangeFrom;
     }
 
     @Override
     public Double getRangeTo() {
-	return rangeTo;
+        return rangeTo;
     }
 
     @Override
     public long getCount() {
-	return count;
+        return count;
     }
 
     @Override
     public long getNonMultiCount() {
-	return nonMultiCount;
+        return nonMultiCount;
     }
 
     @Override
     public int compareTo(FacetEntry entry) {
-	if (entry.getLabel() == null && this.getLabel() == null) {
-	    return 0;
-	}
+        if (entry.getLabel() == null && this.getLabel() == null) {
+            return 0;
+        }
 
-	if (this.getLabel() == null) {
-	    return 1;
-	}
+        if (this.getLabel() == null) {
+            return 1;
+        }
 
-	if (entry.getLabel() == null) {
-	    return -1;
-	}
+        if (entry.getLabel() == null) {
+            return -1;
+        }
 
-	return this.getLabel().compareTo(entry.getLabel());
+        return this.getLabel().compareTo(entry.getLabel());
     }
 }

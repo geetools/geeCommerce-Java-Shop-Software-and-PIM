@@ -16,7 +16,7 @@ public class Tasks {
     public static final List<Taskable> find() {
         List<Taskable> tasks = new ArrayList<>();
 
-        ModuleLoader loader = App.get().getModuleLoader();
+        ModuleLoader loader = App.get().moduleLoader();
 
         Class<Taskable>[] foundClasses = (Class<Taskable>[]) loader.findAllTypesAnnotatedWith(Task.class, false);
 

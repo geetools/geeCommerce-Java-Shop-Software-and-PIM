@@ -107,7 +107,7 @@ public class FreemarkerHelper {
                     // if (!app.isDevPrintErrorMessages())
                     conf.setTemplateExceptionHandler((TemplateExceptionHandler) new FreemarkerExceptionHandler());
 
-                    ApplicationContext appCtx = App.get().getApplicationContext();
+                    ApplicationContext appCtx = App.get().context();
 
                     if (appCtx != null) {
                         RequestContext reqCtx = appCtx.getRequestContext();
@@ -169,7 +169,8 @@ public class FreemarkerHelper {
                         loaders.add(webappTemplateLoader);
                     }
 
-                    FreemarkerMultiTemplateLoader allTemplateLoaders = new FreemarkerMultiTemplateLoader(loaders.toArray(new TemplateLoader[loaders.size()]));
+                    FreemarkerMultiTemplateLoader allTemplateLoaders = new FreemarkerMultiTemplateLoader(
+                        loaders.toArray(new TemplateLoader[loaders.size()]));
 
                     conf.setTemplateLoader(allTemplateLoaders);
 
@@ -187,14 +188,16 @@ public class FreemarkerHelper {
     }
 
     @SuppressWarnings("unchecked")
-    protected static void registerWidgets(Configuration conf, ServletContext servletContext) throws ServletException, IOException {
+    protected static void registerWidgets(Configuration conf, ServletContext servletContext)
+        throws ServletException, IOException {
         // ---------------------------------------------------------------
         // Locate widgets, wrap them in a freemarker directive
         // and add them to the freemarker conf as a shared variable.
         // ---------------------------------------------------------------
 
-        ModuleLoader loader = App.get().getModuleLoader();
-        Class<WidgetController>[] foundClasses = (Class<WidgetController>[]) loader.findAllTypesAnnotatedWith(Widget.class, false);
+        ModuleLoader loader = App.get().moduleLoader();
+        Class<WidgetController>[] foundClasses = (Class<WidgetController>[]) loader
+            .findAllTypesAnnotatedWith(Widget.class, false);
 
         if (foundClasses != null && foundClasses.length > 0) {
             for (Class<WidgetController> foundClass : foundClasses) {
@@ -227,13 +230,15 @@ public class FreemarkerHelper {
     }
 
     @SuppressWarnings("unchecked")
-    protected static void registerDirectives(Configuration conf, ServletContext servletContext) throws ServletException, IOException {
+    protected static void registerDirectives(Configuration conf, ServletContext servletContext)
+        throws ServletException, IOException {
         // ---------------------------------------------------------------
         // Locate directives and add them to the freemarker conf.
         // ---------------------------------------------------------------
 
-        ModuleLoader loader = App.get().getModuleLoader();
-        Class<WidgetController>[] foundClasses = (Class<WidgetController>[]) loader.findAllTypesAnnotatedWith(Directive.class, false);
+        ModuleLoader loader = App.get().moduleLoader();
+        Class<WidgetController>[] foundClasses = (Class<WidgetController>[]) loader
+            .findAllTypesAnnotatedWith(Directive.class, false);
 
         if (foundClasses != null && foundClasses.length > 0) {
             for (Class<WidgetController> foundClass : foundClasses) {
@@ -262,11 +267,13 @@ public class FreemarkerHelper {
         }
     }
 
-    public static TemplateModel createModel(ObjectWrapper wrapper, ServletContext servletContext, final HttpServletRequest request, final HttpServletResponse response) throws TemplateModelException {
+    public static TemplateModel createModel(ObjectWrapper wrapper, ServletContext servletContext,
+        final HttpServletRequest request, final HttpServletResponse response) throws TemplateModelException {
         AllHttpScopesHashModel params = new AllHttpScopesHashModel(wrapper, servletContext, request);
 
         // Create hash model wrapper for servlet context (the application)
-        ServletContextHashModel servletContextModel = (ServletContextHashModel) servletContext.getAttribute(ATTR_APPLICATION_MODEL);
+        ServletContextHashModel servletContextModel = (ServletContextHashModel) servletContext
+            .getAttribute(ATTR_APPLICATION_MODEL);
 
         if (servletContextModel == null) {
             servletContextModel = new ServletContextHashModel(new RequestServlet(), wrapper);
@@ -309,7 +316,8 @@ public class FreemarkerHelper {
         params.putUnlistedModel(KEY_REQUEST_PRIVATE, requestModel);
 
         // Create hash model wrapper for request parameters
-        HttpRequestParametersHashModel requestParametersModel = (HttpRequestParametersHashModel) request.getAttribute(ATTR_REQUEST_PARAMETERS_MODEL);
+        HttpRequestParametersHashModel requestParametersModel = (HttpRequestParametersHashModel) request
+            .getAttribute(ATTR_REQUEST_PARAMETERS_MODEL);
         params.putUnlistedModel(KEY_REQUEST_PARAMETERS, requestParametersModel);
 
         return params;

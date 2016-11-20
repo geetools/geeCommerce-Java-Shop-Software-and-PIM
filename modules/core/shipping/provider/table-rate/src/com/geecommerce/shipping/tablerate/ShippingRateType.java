@@ -15,7 +15,8 @@ public enum ShippingRateType {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ShippingRateType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(ShippingRateType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static ShippingRateType fromId(int id) {
@@ -43,6 +44,7 @@ public enum ShippingRateType {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ShippingRateType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(ShippingRateType.class.getSimpleName()).append(".label").toString());
     }
 }

@@ -7,10 +7,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.cache.Cache;
 import com.geecommerce.core.cache.CacheManager;
 import com.geecommerce.core.rest.AbstractResource;
+import com.google.inject.Inject;
 
 @Path("/v1/caches")
 public class CacheResource extends AbstractResource {
@@ -18,18 +18,18 @@ public class CacheResource extends AbstractResource {
 
     @Inject
     protected CacheResource(CacheManager cacheManager) {
-	this.cacheManager = cacheManager;
+        this.cacheManager = cacheManager;
     }
 
     @POST
     @Path("clear/{cacheName}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response clearCache(@PathParam("cacheName") String cacheName) {
-	Cache<String, ?> cache = cacheManager.getCache(cacheName);
+        Cache<String, ?> cache = cacheManager.getCache(cacheName);
 
-	if (cache != null)
-	    cache.emptyCache();
+        if (cache != null)
+            cache.emptyCache();
 
-	return ok();
+        return ok();
     }
 }

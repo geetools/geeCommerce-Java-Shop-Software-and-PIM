@@ -9,19 +9,19 @@ public abstract class AbstractBootstrap {
     private HttpServletResponse response = null;
 
     public HttpServletRequest getRequest() {
-	return request;
+        return request;
     }
 
     protected void setRequest(final HttpServletRequest request) {
-	this.request = request;
+        this.request = request;
     }
 
     public HttpServletResponse getResponse() {
-	return response;
+        return response;
     }
 
     protected void setResponse(final HttpServletResponse response) {
-	this.response = response;
+        this.response = response;
     }
 
     public abstract void init();

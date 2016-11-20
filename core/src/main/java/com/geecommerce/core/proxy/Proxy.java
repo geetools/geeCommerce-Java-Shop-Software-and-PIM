@@ -11,7 +11,7 @@ public class Proxy {
         ProxyPath pp = new ProxyPath(modelPath);
 
         App app = App.get();
-        ModuleLoader loader = app.getModuleLoader();
+        ModuleLoader loader = app.moduleLoader();
 
         Model m = null;
 
@@ -32,7 +32,7 @@ public class Proxy {
         ProxyPath pp = new ProxyPath(modelPath);
 
         App app = App.get();
-        ModuleLoader loader = app.getModuleLoader();
+        ModuleLoader loader = app.moduleLoader();
 
         Model m = null;
 

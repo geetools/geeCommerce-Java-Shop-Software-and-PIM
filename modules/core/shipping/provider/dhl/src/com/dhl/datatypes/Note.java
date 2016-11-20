@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Note complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Note">
@@ -54,7 +56,7 @@ public class Note {
      * 
      */
     public String getActionNote() {
-	return actionNote;
+        return actionNote;
     }
 
     /**
@@ -65,15 +67,17 @@ public class Note {
      * 
      */
     public void setActionNote(String value) {
-	this.actionNote = value;
+        this.actionNote = value;
     }
 
     /**
      * Gets the value of the condition property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the condition property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the condition property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -84,15 +88,16 @@ public class Note {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link Condition }
+     * Objects of the following type(s) are allowed in the list {@link Condition
+     * }
      * 
      * 
      */
     public List<Condition> getCondition() {
-	if (condition == null) {
-	    condition = new ArrayList<Condition>();
-	}
-	return this.condition;
+        if (condition == null) {
+            condition = new ArrayList<Condition>();
+        }
+        return this.condition;
     }
 
 }

@@ -75,17 +75,10 @@ public class CartController extends BaseController {
     // protected List<String> errors = new ArrayList<>();
 
     @Inject
-    public CartController(CartService cartService,
-        CartHelper cartHelper,
-        ProductService productService,
-        ProductHelper productHelper,
-        ShippingService shippingService,
-        CalculationService calculationService,
-        CouponService couponService,
-        CalculationHelper calculationHelper,
-        RetailStoreService retailStoreService,
-        RetailStoreInventoryService retailStoreInventoryService,
-        CatalogMediaHelper catalogMediaHelper,
+    public CartController(CartService cartService, CartHelper cartHelper, ProductService productService,
+        ProductHelper productHelper, ShippingService shippingService, CalculationService calculationService,
+        CouponService couponService, CalculationHelper calculationHelper, RetailStoreService retailStoreService,
+        RetailStoreInventoryService retailStoreInventoryService, CatalogMediaHelper catalogMediaHelper,
         CheckoutFlowHelper checkoutFlowHelper) {
         this.cartService = cartService;
         this.cartHelper = cartHelper;
@@ -151,7 +144,8 @@ public class CartController extends BaseController {
             if (!cartItemsToRemove.isEmpty()) {
 
                 System.out.println(
-                    "Removing " + cartItemsToRemove.size() + " out of " + cartItems.size() + " cart items. Items (" + ") may either have caused an error, haven been deleted or are not visible.");
+                    "Removing " + cartItemsToRemove.size() + " out of " + cartItems.size() + " cart items. Items ("
+                        + ") may either have caused an error, haven been deleted or are not visible.");
                 cartItems.removeAll(cartItemsToRemove);
                 cart.clearTotals();
                 cartService.updateCart(cart);
@@ -160,11 +154,8 @@ public class CartController extends BaseController {
             variantsAsJSON = Json.toJson(variantsAsMap).replace("\\\"", "\\\\\"");
         }
 
-        return view("cart/view")
-            .bind("cart", cart)
-            .bind("variantsAsJSON", variantsAsJSON)
-            .bind("variantsAsMap", variantsAsMap)
-            .bind("checkoutAction", getCheckoutAction());
+        return view("cart/view").bind("cart", cart).bind("variantsAsJSON", variantsAsJSON)
+            .bind("variantsAsMap", variantsAsMap).bind("checkoutAction", getCheckoutAction());
     }
 
     @Request(value = "add", method = HttpMethod.POST)
@@ -187,7 +178,8 @@ public class CartController extends BaseController {
     @Request("remove")
     public Result remove(@Param("productId") Id productId) {
         Cart cart = cartHelper.getCart(true);
-        Optional<CartItem> forDelete = cart.getCartItems().stream().filter(i -> i.getProductId().equals(productId)).findFirst();
+        Optional<CartItem> forDelete = cart.getCartItems().stream().filter(i -> i.getProductId().equals(productId))
+            .findFirst();
 
         if (forDelete.isPresent()) {
             cart.getCartItems().remove(forDelete.get());
@@ -199,9 +191,11 @@ public class CartController extends BaseController {
     }
 
     @Request("edit")
-    public Result edit(@Param("productId") Id productId, @Param("variantId") Id variantId, @Param("quantity") Integer quantity) {
+    public Result edit(@Param("productId") Id productId, @Param("variantId") Id variantId,
+        @Param("quantity") Integer quantity) {
         Cart cart = cartHelper.getCart(true);
-        Optional<CartItem> forEdit = cart.getCartItems().stream().filter(i -> i.getProductId().equals(productId)).findFirst();
+        Optional<CartItem> forEdit = cart.getCartItems().stream().filter(i -> i.getProductId().equals(productId))
+            .findFirst();
 
         if (forEdit.isPresent()) {
             CartItem cartItem = forEdit.get();
@@ -258,7 +252,8 @@ public class CartController extends BaseController {
     public Result setAutoCoupon(@Param("selectedAutoCoupon") String selectedAutoCoupon) {
         if (selectedAutoCoupon != null) {
             CouponCode couponCode = couponService.getCouponCode(selectedAutoCoupon);
-            if (couponCode != null && couponCode.getCoupon() != null && couponCode.getCoupon().getAuto() != null && couponCode.getCoupon().getAuto()) {
+            if (couponCode != null && couponCode.getCoupon() != null && couponCode.getCoupon().getAuto() != null
+                && couponCode.getCoupon().getAuto()) {
                 Cart cart = cartHelper.getCart(true);
                 cart.setUseAutoCoupon(true);
                 cart.setCouponCode(couponCode);
@@ -306,7 +301,8 @@ public class CartController extends BaseController {
         CheckoutFlowStep firstFlowStep = checkoutFlowHelper.getFirstActiveFlowStep();
 
         if (firstFlowStep != null) {
-            System.out.println("CartController::getCheckoutAction() first active flow step = " + checkoutFlowHelper.getOriginalURI(firstFlowStep));
+            System.out.println("CartController::getCheckoutAction() first active flow step = "
+                + checkoutFlowHelper.getOriginalURI(firstFlowStep));
             return checkoutFlowHelper.getOriginalURI(firstFlowStep);
         } else {
             String checkoutFlowURL = app.cpStr_(Key.CHECKOUT_FLOW);

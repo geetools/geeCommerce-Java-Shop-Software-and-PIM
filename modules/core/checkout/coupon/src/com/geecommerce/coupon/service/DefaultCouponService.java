@@ -94,8 +94,10 @@ public class DefaultCouponService implements CouponService {
     }
 
     @Inject
-    public DefaultCouponService(Coupons coupons, CouponCodes couponCodes, CouponFilterAttributes couponFilterAttributes, CouponScriplets couponScriplets, FilterService filterService,
-        CouponHelper couponHelper, CouponCodePatterns couponCodePatterns, CustomerService customerService, ProductService productService, PriceTypes priceTypes) {
+    public DefaultCouponService(Coupons coupons, CouponCodes couponCodes, CouponFilterAttributes couponFilterAttributes,
+        CouponScriplets couponScriplets, FilterService filterService, CouponHelper couponHelper,
+        CouponCodePatterns couponCodePatterns, CustomerService customerService, ProductService productService,
+        PriceTypes priceTypes) {
         this.coupons = coupons;
         this.couponCodes = couponCodes;
         this.couponFilterAttributes = couponFilterAttributes;
@@ -124,7 +126,8 @@ public class DefaultCouponService implements CouponService {
     }
 
     @Override
-    public Boolean isCouponApplicableToCart(CouponCode couponCode, CartAttributeCollection cartAttributeCollection, boolean checkConditions) {
+    public Boolean isCouponApplicableToCart(CouponCode couponCode, CartAttributeCollection cartAttributeCollection,
+        boolean checkConditions) {
 
         // if path condition
         if (checkConditions) {
@@ -149,18 +152,23 @@ public class DefaultCouponService implements CouponService {
             return false;
 
         if (!(coupon.getUsesPerCoupon() == null || coupon.getUsesPerCoupon() == 0)) {
-            if (couponCode.getCouponUsages() != null && couponCode.getCouponUsages().size() >= coupon.getUsesPerCoupon())
+            if (couponCode.getCouponUsages() != null
+                && couponCode.getCouponUsages().size() >= coupon.getUsesPerCoupon())
                 return false;
         }
 
         if (!(coupon.getUsesPerCustomer() == null || coupon.getUsesPerCustomer() == 0) && app.isCustomerLoggedIn()) {
-            if (couponUsedByCustomer(couponCode, ((Customer) app.getLoggedInCustomer()).getId()) >= coupon.getUsesPerCustomer())
+            if (couponUsedByCustomer(couponCode, ((Customer) app.getLoggedInCustomer()).getId()) >= coupon
+                .getUsesPerCustomer())
                 return false;
         }
 
-        if (coupon.getCouponAction().getType().equals(CouponActionType.PERCENT_CART) || coupon.getCouponAction().getType().equals(CouponActionType.FIXED_CART)
-            || coupon.getCouponAction().getType().equals(CouponActionType.RANGE_PERCENT_CART) && coupon.getCouponAction().getFilter() == null
-            || coupon.getCouponAction().getType().equals(CouponActionType.RANGE_FIXED_CART) && coupon.getCouponAction().getFilter() == null) {
+        if (coupon.getCouponAction().getType().equals(CouponActionType.PERCENT_CART)
+            || coupon.getCouponAction().getType().equals(CouponActionType.FIXED_CART)
+            || coupon.getCouponAction().getType().equals(CouponActionType.RANGE_PERCENT_CART)
+                && coupon.getCouponAction().getFilter() == null
+            || coupon.getCouponAction().getType().equals(CouponActionType.RANGE_FIXED_CART)
+                && coupon.getCouponAction().getFilter() == null) {
             List<Id> priceTypeIds = new ArrayList<>();
             if (coupon.getPriceTypeIds() != null) {
                 priceTypeIds.addAll(coupon.getPriceTypeIds());
@@ -188,7 +196,8 @@ public class DefaultCouponService implements CouponService {
             List<Id> customerGroupIds = customerService.getCustomerGroupIds();
             if (customerGroupIds == null || customerGroupIds.size() == 0)
                 return false;
-            Set<Id> intersection = Sets.intersection(Sets.newHashSet(couponCustomerGroupIds), Sets.newHashSet(customerGroupIds));
+            Set<Id> intersection = Sets.intersection(Sets.newHashSet(couponCustomerGroupIds),
+                Sets.newHashSet(customerGroupIds));
             if (intersection == null || intersection.size() == 0)
                 return false;
         }
@@ -231,7 +240,7 @@ public class DefaultCouponService implements CouponService {
             }
 
             for (String key : dynAttributesValues.keySet()) {
-                AttributeValue attributeValue = app.getModel(AttributeValue.class);
+                AttributeValue attributeValue = app.model(AttributeValue.class);
                 ContextObject<Object> val = new ContextObject<>();
                 val.addGlobal(dynAttributesValues.get(key));
                 attributeValue.setValue(val);
@@ -274,7 +283,7 @@ public class DefaultCouponService implements CouponService {
             }
 
             for (String key : dynAttributesValues.keySet()) {
-                AttributeValue attributeValue = app.getModel(AttributeValue.class);
+                AttributeValue attributeValue = app.model(AttributeValue.class);
                 ContextObject<Object> val = new ContextObject<>();
                 val.addGlobal(dynAttributesValues.get(key));
                 attributeValue.setValue(val);
@@ -319,7 +328,7 @@ public class DefaultCouponService implements CouponService {
             }
 
             for (String key : dynAttributesValues.keySet()) {
-                AttributeValue attributeValue = app.getModel(AttributeValue.class);
+                AttributeValue attributeValue = app.model(AttributeValue.class);
                 ContextObject<Object> val = new ContextObject<>();
                 val.addGlobal(dynAttributesValues.get(key));
                 attributeValue.setValue(val);
@@ -362,7 +371,7 @@ public class DefaultCouponService implements CouponService {
             }
 
             for (String key : dynAttributesValues.keySet()) {
-                AttributeValue attributeValue = app.getModel(AttributeValue.class);
+                AttributeValue attributeValue = app.model(AttributeValue.class);
                 ContextObject<Object> val = new ContextObject<>();
                 val.addGlobal(dynAttributesValues.get(key));
                 attributeValue.setValue(val);
@@ -405,7 +414,7 @@ public class DefaultCouponService implements CouponService {
             }
 
             for (String key : dynAttributesValues.keySet()) {
-                AttributeValue attributeValue = app.getModel(AttributeValue.class);
+                AttributeValue attributeValue = app.model(AttributeValue.class);
                 ContextObject<Object> val = new ContextObject<>();
                 val.addGlobal(dynAttributesValues.get(key));
                 attributeValue.setValue(val);
@@ -426,9 +435,11 @@ public class DefaultCouponService implements CouponService {
     }
 
     @Override
-    public CouponCode maintainCouponCodesList(CouponCode cartCoupon, CartAttributeCollection cartAttributeCollection, boolean useAutoCoupon) {
+    public CouponCode maintainCouponCodesList(CouponCode cartCoupon, CartAttributeCollection cartAttributeCollection,
+        boolean useAutoCoupon) {
         if (cartCoupon != null && isCouponApplicableToCart(cartCoupon, cartAttributeCollection, true)) {
-            if (cartCoupon.getCoupon().getAuto() == null || !cartCoupon.getCoupon().getAuto() || cartCoupon.getCoupon().getAuto() && useAutoCoupon)
+            if (cartCoupon.getCoupon().getAuto() == null || !cartCoupon.getCoupon().getAuto()
+                || cartCoupon.getCoupon().getAuto() && useAutoCoupon)
                 return cartCoupon;
         }
 
@@ -458,7 +469,8 @@ public class DefaultCouponService implements CouponService {
     }
 
     @Override
-    public void applyDiscount(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection) {
+    public void applyDiscount(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection) {
         List<CouponProcessor> couponProcessors = getCouponProcessors();
         if (couponCode == null)
             return;
@@ -577,12 +589,14 @@ public class DefaultCouponService implements CouponService {
     @Override
     public CouponCode generateCode(Coupon coupon, String email, Integer duration) {
         if (coupon.getCouponCodeGeneration().getAuto() != null && coupon.getCouponCodeGeneration().getAuto()) {
-            CouponCodePattern pattern = couponCodePatterns.findById(CouponCodePattern.class, coupon.getCouponCodeGeneration().getPattern());
-            List<String> codes = couponHelper.generateCodes(coupon.getCouponCodeGeneration().getPrefix(), coupon.getCouponCodeGeneration().getPostfix(), pattern,
+            CouponCodePattern pattern = couponCodePatterns.findById(CouponCodePattern.class,
+                coupon.getCouponCodeGeneration().getPattern());
+            List<String> codes = couponHelper.generateCodes(coupon.getCouponCodeGeneration().getPrefix(),
+                coupon.getCouponCodeGeneration().getPostfix(), pattern,
                 coupon.getCouponCodeGeneration().getLength(), 1);
 
             if (codes != null && codes.size() == 1) {
-                CouponCode cc = app.getModel(CouponCode.class);
+                CouponCode cc = app.model(CouponCode.class);
                 cc.belongsTo(coupon);
                 cc.setCode(codes.get(0));
                 cc.setEmail(email);

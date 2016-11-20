@@ -18,8 +18,8 @@ public interface ControlPanel extends MultiContextModel {
     public ControlPanel setEnabled(boolean enabled);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String LABEL = "label";
-	public static final String ENABLED = "enabled";
+        public static final String ID = "_id";
+        public static final String LABEL = "label";
+        public static final String ENABLED = "enabled";
     }
 }

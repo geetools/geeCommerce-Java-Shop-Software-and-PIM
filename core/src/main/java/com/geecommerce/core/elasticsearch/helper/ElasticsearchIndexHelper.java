@@ -1,13 +1,13 @@
 package com.geecommerce.core.elasticsearch.helper;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.type.Id;
-
-import java.util.Map;
-import java.util.Set;
 
 public interface ElasticsearchIndexHelper {
 

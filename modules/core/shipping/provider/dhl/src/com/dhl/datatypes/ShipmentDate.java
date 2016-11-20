@@ -18,7 +18,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for ShipmentDate complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ShipmentDate">
@@ -51,7 +52,7 @@ public class ShipmentDate {
      * 
      */
     public XMLGregorianCalendar getShipmentDateFrom() {
-	return shipmentDateFrom;
+        return shipmentDateFrom;
     }
 
     /**
@@ -62,7 +63,7 @@ public class ShipmentDate {
      * 
      */
     public void setShipmentDateFrom(XMLGregorianCalendar value) {
-	this.shipmentDateFrom = value;
+        this.shipmentDateFrom = value;
     }
 
     /**
@@ -72,7 +73,7 @@ public class ShipmentDate {
      * 
      */
     public XMLGregorianCalendar getShipmentDateTo() {
-	return shipmentDateTo;
+        return shipmentDateTo;
     }
 
     /**
@@ -83,7 +84,7 @@ public class ShipmentDate {
      * 
      */
     public void setShipmentDateTo(XMLGregorianCalendar value) {
-	this.shipmentDateTo = value;
+        this.shipmentDateTo = value;
     }
 
 }

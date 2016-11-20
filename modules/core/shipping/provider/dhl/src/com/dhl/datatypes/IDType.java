@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for IDType.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -36,11 +37,11 @@ public enum IDType {
     SSN, EIN, DUNS;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static IDType fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

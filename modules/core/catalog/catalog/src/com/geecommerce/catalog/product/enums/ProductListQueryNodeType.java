@@ -20,7 +20,8 @@ public enum ProductListQueryNodeType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ProductListQueryNodeType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(ProductListQueryNodeType.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 
     public static final ProductListQueryNodeType fromId(int id) {
@@ -36,7 +37,10 @@ public enum ProductListQueryNodeType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (ProductListQueryNodeType productListQueryNodeType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(ProductListQueryNodeType.class.getSimpleName()).append(".").append(productListQueryNodeType.name()).toString()),
+            hrMap.put(
+                App.get()
+                    .message(new StringBuilder("enum.").append(ProductListQueryNodeType.class.getSimpleName())
+                        .append(".").append(productListQueryNodeType.name()).toString()),
                 productListQueryNodeType.id);
         }
 
@@ -44,6 +48,7 @@ public enum ProductListQueryNodeType implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ProductListQueryNodeType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(ProductListQueryNodeType.class.getSimpleName())
+            .append(".label").toString());
     }
 }

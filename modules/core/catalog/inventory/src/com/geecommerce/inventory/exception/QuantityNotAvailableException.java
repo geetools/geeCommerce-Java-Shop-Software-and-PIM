@@ -6,19 +6,20 @@ public class QuantityNotAvailableException extends Exception {
     public QuantityNotAvailableException() {
     }
 
-    public QuantityNotAvailableException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-	super(message, cause, enableSuppression, writableStackTrace);
+    public QuantityNotAvailableException(String message, Throwable cause, boolean enableSuppression,
+        boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     public QuantityNotAvailableException(String message, Throwable cause) {
-	super(message, cause);
+        super(message, cause);
     }
 
     public QuantityNotAvailableException(String message) {
-	super(message);
+        super(message);
     }
 
     public QuantityNotAvailableException(Throwable cause) {
-	super(cause);
+        super(cause);
     }
 }

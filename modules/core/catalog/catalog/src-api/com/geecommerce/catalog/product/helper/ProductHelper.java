@@ -18,7 +18,8 @@ public interface ProductHelper extends Helper {
 
     public void completeProducts(List<Product> products, List<UrlRewrite> urlRewrites);
 
-    public <T extends ProductIdObject> Id[] filterCompletedProductIds(List<T> productReferenceObjects, Id[] allProductIds);
+    public <T extends ProductIdObject> Id[] filterCompletedProductIds(List<T> productReferenceObjects,
+        Id[] allProductIds);
 
     public <T extends ProductIdObject> Map<Id, List<T>> toProductIdListMap(List<T> objectsWithProductId);
 
@@ -36,5 +37,6 @@ public interface ProductHelper extends Helper {
 
     public AttributeOption getImageStatus(Product product);
 
-    public boolean isAttributeAvailableForProduct(Attribute attr, List<AttributeInputCondition> inputConditions, Product product);
+    public boolean isAttributeAvailableForProduct(Attribute attr, List<AttributeInputCondition> inputConditions,
+        Product product);
 }

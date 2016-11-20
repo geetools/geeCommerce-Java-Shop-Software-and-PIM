@@ -8,6 +8,7 @@
 package com.dhl.datatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Shipment complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Shipment">
@@ -50,8 +52,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Shipment", propOrder = { "weight", "weightUnit", "pieces", "doorTo", "airwarBillNumber", "accountType", "productType", "globalProductType", "localProductType", "commodity", "declaredValue", "declaredCurrency", "insuredValue",
-	"insuredCurrency", "dimensionalUnit", "dimensionalWeight" })
+@XmlType(name = "Shipment", propOrder = { "weight", "weightUnit", "pieces", "doorTo", "airwarBillNumber", "accountType",
+    "productType", "globalProductType", "localProductType", "commodity", "declaredValue", "declaredCurrency",
+    "insuredValue", "insuredCurrency", "dimensionalUnit", "dimensionalWeight" })
 public class Shipment {
 
     @XmlElement(name = "Weight", required = true)
@@ -94,7 +97,7 @@ public class Shipment {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -105,7 +108,7 @@ public class Shipment {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -115,7 +118,7 @@ public class Shipment {
      * 
      */
     public WeightUnit getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -126,7 +129,7 @@ public class Shipment {
      * 
      */
     public void setWeightUnit(WeightUnit value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
     /**
@@ -136,7 +139,7 @@ public class Shipment {
      * 
      */
     public Pieces getPieces() {
-	return pieces;
+        return pieces;
     }
 
     /**
@@ -147,7 +150,7 @@ public class Shipment {
      * 
      */
     public void setPieces(Pieces value) {
-	this.pieces = value;
+        this.pieces = value;
     }
 
     /**
@@ -157,7 +160,7 @@ public class Shipment {
      * 
      */
     public DoorTo getDoorTo() {
-	return doorTo;
+        return doorTo;
     }
 
     /**
@@ -168,7 +171,7 @@ public class Shipment {
      * 
      */
     public void setDoorTo(DoorTo value) {
-	this.doorTo = value;
+        this.doorTo = value;
     }
 
     /**
@@ -178,7 +181,7 @@ public class Shipment {
      * 
      */
     public String getAirwarBillNumber() {
-	return airwarBillNumber;
+        return airwarBillNumber;
     }
 
     /**
@@ -189,7 +192,7 @@ public class Shipment {
      * 
      */
     public void setAirwarBillNumber(String value) {
-	this.airwarBillNumber = value;
+        this.airwarBillNumber = value;
     }
 
     /**
@@ -199,7 +202,7 @@ public class Shipment {
      * 
      */
     public AccountType getAccountType() {
-	return accountType;
+        return accountType;
     }
 
     /**
@@ -210,7 +213,7 @@ public class Shipment {
      * 
      */
     public void setAccountType(AccountType value) {
-	this.accountType = value;
+        this.accountType = value;
     }
 
     /**
@@ -220,7 +223,7 @@ public class Shipment {
      * 
      */
     public String getProductType() {
-	return productType;
+        return productType;
     }
 
     /**
@@ -231,7 +234,7 @@ public class Shipment {
      * 
      */
     public void setProductType(String value) {
-	this.productType = value;
+        this.productType = value;
     }
 
     /**
@@ -241,7 +244,7 @@ public class Shipment {
      * 
      */
     public String getGlobalProductType() {
-	return globalProductType;
+        return globalProductType;
     }
 
     /**
@@ -252,7 +255,7 @@ public class Shipment {
      * 
      */
     public void setGlobalProductType(String value) {
-	this.globalProductType = value;
+        this.globalProductType = value;
     }
 
     /**
@@ -262,7 +265,7 @@ public class Shipment {
      * 
      */
     public String getLocalProductType() {
-	return localProductType;
+        return localProductType;
     }
 
     /**
@@ -273,7 +276,7 @@ public class Shipment {
      * 
      */
     public void setLocalProductType(String value) {
-	this.localProductType = value;
+        this.localProductType = value;
     }
 
     /**
@@ -283,7 +286,7 @@ public class Shipment {
      * 
      */
     public Commodity getCommodity() {
-	return commodity;
+        return commodity;
     }
 
     /**
@@ -294,7 +297,7 @@ public class Shipment {
      * 
      */
     public void setCommodity(Commodity value) {
-	this.commodity = value;
+        this.commodity = value;
     }
 
     /**
@@ -304,7 +307,7 @@ public class Shipment {
      * 
      */
     public Float getDeclaredValue() {
-	return declaredValue;
+        return declaredValue;
     }
 
     /**
@@ -315,7 +318,7 @@ public class Shipment {
      * 
      */
     public void setDeclaredValue(Float value) {
-	this.declaredValue = value;
+        this.declaredValue = value;
     }
 
     /**
@@ -325,7 +328,7 @@ public class Shipment {
      * 
      */
     public String getDeclaredCurrency() {
-	return declaredCurrency;
+        return declaredCurrency;
     }
 
     /**
@@ -336,7 +339,7 @@ public class Shipment {
      * 
      */
     public void setDeclaredCurrency(String value) {
-	this.declaredCurrency = value;
+        this.declaredCurrency = value;
     }
 
     /**
@@ -346,7 +349,7 @@ public class Shipment {
      * 
      */
     public Float getInsuredValue() {
-	return insuredValue;
+        return insuredValue;
     }
 
     /**
@@ -357,7 +360,7 @@ public class Shipment {
      * 
      */
     public void setInsuredValue(Float value) {
-	this.insuredValue = value;
+        this.insuredValue = value;
     }
 
     /**
@@ -367,7 +370,7 @@ public class Shipment {
      * 
      */
     public String getInsuredCurrency() {
-	return insuredCurrency;
+        return insuredCurrency;
     }
 
     /**
@@ -378,7 +381,7 @@ public class Shipment {
      * 
      */
     public void setInsuredCurrency(String value) {
-	this.insuredCurrency = value;
+        this.insuredCurrency = value;
     }
 
     /**
@@ -388,7 +391,7 @@ public class Shipment {
      * 
      */
     public WeightUnit getDimensionalUnit() {
-	return dimensionalUnit;
+        return dimensionalUnit;
     }
 
     /**
@@ -399,7 +402,7 @@ public class Shipment {
      * 
      */
     public void setDimensionalUnit(WeightUnit value) {
-	this.dimensionalUnit = value;
+        this.dimensionalUnit = value;
     }
 
     /**
@@ -409,7 +412,7 @@ public class Shipment {
      * 
      */
     public BigDecimal getDimensionalWeight() {
-	return dimensionalWeight;
+        return dimensionalWeight;
     }
 
     /**
@@ -420,7 +423,7 @@ public class Shipment {
      * 
      */
     public void setDimensionalWeight(BigDecimal value) {
-	this.dimensionalWeight = value;
+        this.dimensionalWeight = value;
     }
 
 }

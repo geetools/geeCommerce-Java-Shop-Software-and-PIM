@@ -3,8 +3,6 @@ package com.geecommerce.search.model;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.repository.ProductLists;
@@ -17,6 +15,8 @@ import com.geecommerce.core.system.model.UrlRewrite;
 import com.geecommerce.core.system.repository.UrlRewrites;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
 
 @Model("search_keywords")
 public class DefaultAutocompleteMapping extends AbstractMultiContextModel implements AutocompleteMapping {
@@ -45,212 +45,213 @@ public class DefaultAutocompleteMapping extends AbstractMultiContextModel implem
 
     @Inject
     public DefaultAutocompleteMapping(UrlRewrites urlRewrites, ProductLists productLists, Products products) {
-	this.urlRewrites = urlRewrites;
-	this.productLists = productLists;
-	this.products = products;
+        this.urlRewrites = urlRewrites;
+        this.productLists = productLists;
+        this.products = products;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public AutocompleteMapping setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getKeyword() {
-	return keyword;
+        return keyword;
     }
 
     @Override
     public AutocompleteMapping setKeyword(String keyword) {
-	this.keyword = keyword;
-	return this;
+        this.keyword = keyword;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabels() {
-	return label;
+        return label;
     }
 
     @Override
     public String getLabel() {
-	return label.getStr();
+        return label.getStr();
     }
 
     @Override
     public AutocompleteMapping setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
+        if (map == null)
+            return;
 
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.keyword = str_(map.get(Column.KEYWORD));
-	this.label = ctxObj_(map.get(Column.LABEL));
+        this.id = id_(map.get(Column.ID));
+        this.keyword = str_(map.get(Column.KEYWORD));
+        this.label = ctxObj_(map.get(Column.LABEL));
 
-	if (map.get(Column.TARGET_OBJECT_ID) != null)
-	    this.targetObjectId = id_(map.get(Column.TARGET_OBJECT_ID));
+        if (map.get(Column.TARGET_OBJECT_ID) != null)
+            this.targetObjectId = id_(map.get(Column.TARGET_OBJECT_ID));
 
-	if (map.get(Column.TARGET_OBJECT_TYPE) != null)
-	    this.targetObjectType = ObjectType.fromId(int_(map.get(Column.TARGET_OBJECT_TYPE)));
+        if (map.get(Column.TARGET_OBJECT_TYPE) != null)
+            this.targetObjectType = ObjectType.fromId(int_(map.get(Column.TARGET_OBJECT_TYPE)));
 
-	if (map.get(Column.TARGET_OBJECT_LABEL) != null)
-	    this.useTargetObjectLabel = bool_(map.get(Column.TARGET_OBJECT_LABEL));
+        if (map.get(Column.TARGET_OBJECT_LABEL) != null)
+            this.useTargetObjectLabel = bool_(map.get(Column.TARGET_OBJECT_LABEL));
 
-	if (map.get(Column.EXTERNAL_URL) != null)
-	    this.externalURL = ctxObj_(map.get(Column.EXTERNAL_URL));
+        if (map.get(Column.EXTERNAL_URL) != null)
+            this.externalURL = ctxObj_(map.get(Column.EXTERNAL_URL));
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(Column.ID, getId());
-	map.put(Column.KEYWORD, getKeyword());
-	map.put(Column.LABEL, getLabels());
+        map.put(Column.ID, getId());
+        map.put(Column.KEYWORD, getKeyword());
+        map.put(Column.LABEL, getLabels());
 
-	if (getTargetObjectId() != null)
-	    map.put(Column.TARGET_OBJECT_ID, getTargetObjectId());
+        if (getTargetObjectId() != null)
+            map.put(Column.TARGET_OBJECT_ID, getTargetObjectId());
 
-	if (getTargetObjectType() != null)
-	    map.put(Column.TARGET_OBJECT_TYPE, getTargetObjectType().toId());
+        if (getTargetObjectType() != null)
+            map.put(Column.TARGET_OBJECT_TYPE, getTargetObjectType().toId());
 
-	if (this.useTargetObjectLabel != null)
-	    map.put(Column.TARGET_OBJECT_LABEL, this.useTargetObjectLabel);
+        if (this.useTargetObjectLabel != null)
+            map.put(Column.TARGET_OBJECT_LABEL, this.useTargetObjectLabel);
 
-	if (getExternalURL() != null)
-	    map.put(Column.EXTERNAL_URL, getExternalURL());
+        if (getExternalURL() != null)
+            map.put(Column.EXTERNAL_URL, getExternalURL());
 
-	return map;
+        return map;
     }
 
     @Override
     public Id getTargetObjectId() {
-	return targetObjectId;
+        return targetObjectId;
     }
 
     @Override
     public AutocompleteMapping setTargetObjectId(Id targetObjectId) {
-	this.targetObjectId = targetObjectId;
-	return this;
+        this.targetObjectId = targetObjectId;
+        return this;
     }
 
     @Override
     public ObjectType getTargetObjectType() {
-	return targetObjectType;
+        return targetObjectType;
     }
 
     @Override
     public AutocompleteMapping setTargetObjectType(ObjectType targetObjectType) {
-	this.targetObjectType = targetObjectType;
-	return this;
+        this.targetObjectType = targetObjectType;
+        return this;
     }
 
     @Override
     public boolean isUseTargetObjectLabel() {
-	return useTargetObjectLabel == null ? false : useTargetObjectLabel;
+        return useTargetObjectLabel == null ? false : useTargetObjectLabel;
     }
 
     @Override
     public AutocompleteMapping setUseTargetObjectLabel(Boolean useTargetObjectLabel) {
-	this.useTargetObjectLabel = useTargetObjectLabel;
-	return this;
+        this.useTargetObjectLabel = useTargetObjectLabel;
+        return this;
     }
 
     @Override
     public ContextObject<String> getExternalURL() {
-	return externalURL;
+        return externalURL;
     }
 
     @Override
     public AutocompleteMapping setExternalURL(ContextObject<String> externalURL) {
-	this.externalURL = externalURL;
-	return this;
+        this.externalURL = externalURL;
+        return this;
     }
 
     protected TargetSupport getTargetObject() {
-	if (targetObject == null) {
-	    Object obj = null;
+        if (targetObject == null) {
+            Object obj = null;
 
-	    switch (targetObjectType) {
-	    case PRODUCT_LIST:
-		obj = (ProductList) productLists.findById(ProductList.class, targetObjectId);
-		break;
-	    case PRODUCT:
-		obj = (Product) products.findById(Product.class, targetObjectId);
-		break;
-	    default:
-		throw new RuntimeException("TargetObjectType '" + targetObjectType.name() + "' not supported yet.");
-	    }
+            switch (targetObjectType) {
+            case PRODUCT_LIST:
+                obj = (ProductList) productLists.findById(ProductList.class, targetObjectId);
+                break;
+            case PRODUCT:
+                obj = (Product) products.findById(Product.class, targetObjectId);
+                break;
+            default:
+                throw new RuntimeException("TargetObjectType '" + targetObjectType.name() + "' not supported yet.");
+            }
 
-	    targetObject = (TargetSupport) obj;
-	}
+            targetObject = (TargetSupport) obj;
+        }
 
-	return targetObject;
+        return targetObject;
     }
 
     @Override
     public String getDisplayLabel() {
-	TargetSupport tarObject = getTargetObject();
-	return tarObject != null ? (tarObject.getLabel() != null ? tarObject.getLabel().getVal() : null) : null;
+        TargetSupport tarObject = getTargetObject();
+        return tarObject != null ? (tarObject.getLabel() != null ? tarObject.getLabel().getVal() : null) : null;
     }
 
     @Override
     public String getDisplayURI() {
-	if (displayURI == null) {
-	    if (hasExternalURL()) {
-		displayURI = externalURL.getStr();
-	    } else {
-		UrlRewrite urlRewrite = urlRewrites.forTargetObject(targetObjectId, targetObjectType);
+        if (displayURI == null) {
+            if (hasExternalURL()) {
+                displayURI = externalURL.getStr();
+            } else {
+                UrlRewrite urlRewrite = urlRewrites.forTargetObject(targetObjectId, targetObjectType);
 
-		if (urlRewrite != null)
-		    displayURI = urlRewrite.getRequestURI().getClosestValue();
-	    }
+                if (urlRewrite != null)
+                    displayURI = urlRewrite.getRequestURI().getClosestValue();
+            }
 
-	}
+        }
 
-	return displayURI;
+        return displayURI;
     }
 
     @Override
     public boolean isForProductList() {
-	return targetObjectType != null && targetObjectType.equals(ObjectType.PRODUCT_LIST);
+        return targetObjectType != null && targetObjectType.equals(ObjectType.PRODUCT_LIST);
     }
 
     @Override
     public boolean isForProduct() {
-	return targetObjectType != null && targetObjectType.equals(ObjectType.PRODUCT);
+        return targetObjectType != null && targetObjectType.equals(ObjectType.PRODUCT);
     }
 
     @Override
     public boolean isForCMS() {
-	return targetObjectType != null && targetObjectType.equals(ObjectType.CMS);
+        return targetObjectType != null && targetObjectType.equals(ObjectType.CMS);
     }
 
     @Override
     public boolean hasExternalURL() {
-	return !isForProductList() && !isForProduct() && !isForCMS() && externalURL != null && externalURL.getStr() != null;
+        return !isForProductList() && !isForProduct() && !isForCMS() && externalURL != null
+            && externalURL.getStr() != null;
     }
 
     @Override
     public List<String> getDividedKeyword() {
-	return dividedKeyword;
+        return dividedKeyword;
     }
 
     @Override
     public AutocompleteMapping setDividedKeyword(List<String> dividedKeyword) {
-	this.dividedKeyword = dividedKeyword;
-	return this;
+        this.dividedKeyword = dividedKeyword;
+        return this;
     }
 }

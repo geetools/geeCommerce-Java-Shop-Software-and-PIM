@@ -1,8 +1,8 @@
 package com.geecommerce.shipping.converter;
 
-import com.geecommerce.shipping.model.ShippingPackage;
-
 import java.util.List;
+
+import com.geecommerce.shipping.model.ShippingPackage;
 
 public interface ShippingPackageConverter {
     public List<ShippingPackage> toShippingPackages();

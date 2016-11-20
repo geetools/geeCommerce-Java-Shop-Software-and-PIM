@@ -19,7 +19,8 @@ public enum PaymentStatus {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(PaymentStatus.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(PaymentStatus.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final PaymentStatus fromId(int id) {
@@ -36,13 +37,15 @@ public enum PaymentStatus {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (PaymentStatus paymentStatus : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(PaymentStatus.class.getSimpleName()).append(".").append(paymentStatus.name()).toString()), paymentStatus.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(PaymentStatus.class.getSimpleName())
+                .append(".").append(paymentStatus.name()).toString()), paymentStatus.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(PaymentStatus.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(PaymentStatus.class.getSimpleName()).append(".label").toString());
     }
 }

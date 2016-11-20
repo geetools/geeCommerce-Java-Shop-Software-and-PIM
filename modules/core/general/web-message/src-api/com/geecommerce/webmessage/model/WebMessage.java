@@ -17,8 +17,8 @@ public interface WebMessage extends Model {
     public String getStatus();
 
     static final class Column {
-	public static final String MODULE = "module";
-	public static final String STATUS = "status";
-	public static final String MESSAGE = "message";
+        public static final String MODULE = "module";
+        public static final String STATUS = "status";
+        public static final String MESSAGE = "message";
     }
 }

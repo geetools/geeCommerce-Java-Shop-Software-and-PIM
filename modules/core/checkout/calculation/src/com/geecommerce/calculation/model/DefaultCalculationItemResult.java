@@ -8,7 +8,8 @@ import java.util.Map;
 import com.geecommerce.core.service.annotation.Injectable;
 
 @Injectable
-public class DefaultCalculationItemResult extends LinkedHashMap<String, Object> implements CalculationItemResult, Map<String, Object> {
+public class DefaultCalculationItemResult extends LinkedHashMap<String, Object>
+    implements CalculationItemResult, Map<String, Object> {
     private static final long serialVersionUID = -4554179472658772285L;
 
     private Map<String, CalculationSubItemResult> subItemResults = new LinkedHashMap<>();

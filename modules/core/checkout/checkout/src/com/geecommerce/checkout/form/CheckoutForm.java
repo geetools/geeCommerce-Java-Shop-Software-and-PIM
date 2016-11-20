@@ -4,24 +4,22 @@ import com.geecommerce.core.web.annotation.Field;
 import com.geecommerce.core.web.annotation.Form;
 import com.geemvc.validation.annotation.Check;
 
-import javax.validation.Valid;
-
 @Form
 public class CheckoutForm {
 
     private AddressForm delivery = null;
 
-    @Check(required = true, param = {"form.invoice.firstName"}, maxLength = 30)
-    @Check(required = true, param = {"form.invoice.lastName"}, maxLength = 30)
-    @Check(required = true, param = {"form.invoice.address1"}, maxLength = 64)
-    @Check(required = true, param = {"form.invoice.houseNumber"}, maxLength = 30)
-    @Check(required = true, param = {"form.invoice.zip"}, maxLength = 7)
-    @Check(required = true, param = {"form.invoice.houseNumber"}, maxLength = 7)
-    @Check(required = true, param = {"form.invoice.phone"}, maxLength = 30)
-    @Check(required = true, param = {"form.invoice.city"}, maxLength = 30)
+    @Check(required = true, param = { "form.invoice.firstName" }, maxLength = 30)
+    @Check(required = true, param = { "form.invoice.lastName" }, maxLength = 30)
+    @Check(required = true, param = { "form.invoice.address1" }, maxLength = 64)
+    @Check(required = true, param = { "form.invoice.houseNumber" }, maxLength = 30)
+    @Check(required = true, param = { "form.invoice.zip" }, maxLength = 7)
+    @Check(required = true, param = { "form.invoice.houseNumber" }, maxLength = 7)
+    @Check(required = true, param = { "form.invoice.phone" }, maxLength = 30)
+    @Check(required = true, param = { "form.invoice.city" }, maxLength = 30)
     private AddressForm invoice = null;
 
-    @Check(required = true, param = {"form.email"}, maxLength = 64)
+    @Check(required = true, param = { "form.email" }, maxLength = 64)
     private String email = null;
 
     private String paymentMethodCode = null;
@@ -34,7 +32,7 @@ public class CheckoutForm {
     private String note = null;
     private String store = null;
 
-    @Check(required = true, param = {"form.agreeToTerms"})
+    @Check(required = true, param = { "form.agreeToTerms" })
     private boolean agreeToTerms = false;
 
     public Boolean getCustomInvoice() {
@@ -129,7 +127,8 @@ public class CheckoutForm {
 
     @Override
     public String toString() {
-        return "CheckoutForm{" + "delivery=" + delivery + ", invoice=" + invoice + ", email='" + email + '\'' + ", paymentMethodCode='" + paymentMethodCode + '\'' + ", carrierCode='" + carrierCode + '\'' + ", isCustomInvoice=" + isCustomInvoice
-                + '}';
+        return "CheckoutForm{" + "delivery=" + delivery + ", invoice=" + invoice + ", email='" + email + '\''
+            + ", paymentMethodCode='" + paymentMethodCode + '\'' + ", carrierCode='" + carrierCode + '\''
+            + ", isCustomInvoice=" + isCustomInvoice + '}';
     }
 }

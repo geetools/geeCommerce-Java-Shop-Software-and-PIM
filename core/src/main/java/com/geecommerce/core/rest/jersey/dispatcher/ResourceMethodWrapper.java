@@ -19,9 +19,9 @@ public class ResourceMethodWrapper extends AbstractResourceMethod {
     private final AbstractResourceMethod abstractResourceMethod;
 
     public ResourceMethodWrapper(AbstractResourceMethod abstractResourceMethod) {
-        super(abstractResourceMethod.getResource(), abstractResourceMethod.getMethod(), abstractResourceMethod.getReturnType(), abstractResourceMethod.getGenericReturnType(),
-            abstractResourceMethod.getHttpMethod(), abstractResourceMethod
-                .getAnnotations());
+        super(abstractResourceMethod.getResource(), abstractResourceMethod.getMethod(),
+            abstractResourceMethod.getReturnType(), abstractResourceMethod.getGenericReturnType(),
+            abstractResourceMethod.getHttpMethod(), abstractResourceMethod.getAnnotations());
         this.abstractResourceMethod = abstractResourceMethod;
     }
 
@@ -66,7 +66,7 @@ public class ResourceMethodWrapper extends AbstractResourceMethod {
         Class returnType = abstractResourceMethod.getReturnType();
 
         if (returnType.isInterface() && Model.class.isAssignableFrom(returnType)) {
-            Model m = App.get().getModel(returnType);
+            Model m = App.get().model(returnType);
 
             return m != null ? m.getClass() : returnType;
         } else {
@@ -76,7 +76,8 @@ public class ResourceMethodWrapper extends AbstractResourceMethod {
 
     @Override
     public Type getGenericReturnType() {
-        return Model.class.isAssignableFrom(abstractResourceMethod.getReturnType()) ? null : abstractResourceMethod.getGenericReturnType();
+        return Model.class.isAssignableFrom(abstractResourceMethod.getReturnType()) ? null
+            : abstractResourceMethod.getGenericReturnType();
     }
 
     @Override

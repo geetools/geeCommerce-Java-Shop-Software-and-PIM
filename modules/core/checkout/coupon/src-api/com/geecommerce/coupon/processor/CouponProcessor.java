@@ -6,7 +6,9 @@ import com.geecommerce.coupon.model.CouponCode;
 
 public interface CouponProcessor {
 
-    public boolean canBeProcessed(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection);
+    public boolean canBeProcessed(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection);
 
-    public void process(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection);
+    public void process(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection);
 }

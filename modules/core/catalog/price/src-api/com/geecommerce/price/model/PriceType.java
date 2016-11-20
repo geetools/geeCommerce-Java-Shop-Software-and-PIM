@@ -34,12 +34,12 @@ public interface PriceType extends MultiContextModel {
     public void setEnabled(boolean enabled);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String ID2 = "id2";
-	public static final String CODE = "code";
-	public static final String ERP_CODE = "erp_code";
-	public static final String LABEL = "label";
-	public static final String PRIORITY = "pri";
-	public static final String ENABLED = "enabled";
+        public static final String ID = "_id";
+        public static final String ID2 = "id2";
+        public static final String CODE = "code";
+        public static final String ERP_CODE = "erp_code";
+        public static final String LABEL = "label";
+        public static final String PRIORITY = "pri";
+        public static final String ENABLED = "enabled";
     }
 }

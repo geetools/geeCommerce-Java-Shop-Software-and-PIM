@@ -58,7 +58,6 @@ public class DefaultAttributeGroupMapping extends AbstractModel implements Attri
         return this;
     }
 
-
     @Override
     public void fromMap(Map<String, Object> map) {
         if (map == null)

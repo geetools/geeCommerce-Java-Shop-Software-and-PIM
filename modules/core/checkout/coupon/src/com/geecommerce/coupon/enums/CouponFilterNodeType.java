@@ -20,7 +20,8 @@ public enum CouponFilterNodeType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponFilterNodeType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponFilterNodeType.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 
     public static final CouponFilterNodeType fromId(int id) {
@@ -37,7 +38,10 @@ public enum CouponFilterNodeType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (CouponFilterNodeType couponFilterNodeType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(CouponFilterNodeType.class.getSimpleName()).append(".").append(couponFilterNodeType.name()).toString()),
+            hrMap.put(
+                App.get()
+                    .message(new StringBuilder("enum.").append(CouponFilterNodeType.class.getSimpleName())
+                        .append(".").append(couponFilterNodeType.name()).toString()),
                 couponFilterNodeType.id);
         }
 
@@ -45,6 +49,7 @@ public enum CouponFilterNodeType implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponFilterNodeType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponFilterNodeType.class.getSimpleName())
+            .append(".label").toString());
     }
 }

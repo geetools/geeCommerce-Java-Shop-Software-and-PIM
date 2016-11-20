@@ -17,37 +17,37 @@ public class DefaultProductHelper implements ProductHelper {
 
     @Inject
     public DefaultProductHelper(Products products, Prices prices) {
-	this.products = products;
-	this.prices = prices;
+        this.products = products;
+        this.prices = prices;
     }
 
     @Override
     public List<Id> getProductIds() {
-	return products.noneDeletedIdsForContext();
+        return products.noneDeletedIdsForContext();
     }
 
     @Override
     public List<Id> getAllProductIds() {
-	return products.allIdsForContext();
+        return products.allIdsForContext();
     }
 
     @Override
     public Map<String, Id> allArticleNumbers() {
-	return products.allArticleNumbers();
+        return products.allArticleNumbers();
     }
 
     @Override
     public Product getProduct(Id productId) {
-	return products.findById(Product.class, productId);
+        return products.findById(Product.class, productId);
     }
 
     @Override
     public Product findProductByArticleNumber(String articleNumber) {
-	return products.havingArticleNumber(articleNumber);
+        return products.havingArticleNumber(articleNumber);
     }
 
     @Override
     public void update(Product product) {
-	products.update(product);
+        products.update(product);
     }
 }

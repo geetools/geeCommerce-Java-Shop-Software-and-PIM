@@ -39,7 +39,7 @@ public class TestController extends BaseController {
             flowService.deleteCheckoutFlow(checkoutFlow);
         }
 
-        CheckoutFlow threePageFlow = app.getModel(CheckoutFlow.class);
+        CheckoutFlow threePageFlow = app.model(CheckoutFlow.class);
         threePageFlow.setName("3-page");
         threePageFlow.setDescription("3-page checkout");
         threePageFlow.setEnabled(true);
@@ -49,21 +49,21 @@ public class TestController extends BaseController {
 
         List<CheckoutFlowStep> steps = new LinkedList<>();
 
-        CheckoutFlowStep step1 = app.getModel(CheckoutFlowStep.class);
+        CheckoutFlowStep step1 = app.model(CheckoutFlowStep.class);
         step1.setId(Id.newId());
         step1.setName("address");
         step1.setUri("/address");
         step1.belongsTo(threePageFlow);
         steps.add(step1);
 
-        CheckoutFlowStep step2 = app.getModel(CheckoutFlowStep.class);
+        CheckoutFlowStep step2 = app.model(CheckoutFlowStep.class);
         step2.setId(Id.newId());
         step2.setName("payment");
         step2.setUri("/payment");
         step2.belongsTo(threePageFlow);
         steps.add(step2);
 
-        CheckoutFlowStep step3 = app.getModel(CheckoutFlowStep.class);
+        CheckoutFlowStep step3 = app.model(CheckoutFlowStep.class);
         step3.setId(Id.newId());
         step3.setName("preview");
         step3.setUri("/checkout");
@@ -74,7 +74,7 @@ public class TestController extends BaseController {
         CheckoutFlow flowActiveSaved = flowService.createCheckoutFlow(threePageFlow);
 
         // 2 page flow
-        CheckoutFlow twoPageFlow = app.getModel(CheckoutFlow.class);
+        CheckoutFlow twoPageFlow = app.model(CheckoutFlow.class);
         twoPageFlow.setName("2-page");
         twoPageFlow.setDescription("2-page checkout");
         twoPageFlow.setEnabled(true);
@@ -84,14 +84,14 @@ public class TestController extends BaseController {
 
         steps = new LinkedList<>();
 
-        step1 = app.getModel(CheckoutFlowStep.class);
+        step1 = app.model(CheckoutFlowStep.class);
         step1.setId(Id.newId());
         step1.setName("address");
         step1.setUri("/address");
         step1.belongsTo(twoPageFlow);
         steps.add(step1);
 
-        step2 = app.getModel(CheckoutFlowStep.class);
+        step2 = app.model(CheckoutFlowStep.class);
         step2.setId(Id.newId());
         step2.setName("preview");
         step2.setUri("/checkout");
@@ -102,7 +102,7 @@ public class TestController extends BaseController {
         CheckoutFlow twoPageFlowSaved = flowService.createCheckoutFlow(twoPageFlow);
 
         // 1 page flow
-        CheckoutFlow onePageFlow = app.getModel(CheckoutFlow.class);
+        CheckoutFlow onePageFlow = app.model(CheckoutFlow.class);
         onePageFlow.setName("1-page");
         onePageFlow.setDescription("1-page checkout");
         onePageFlow.setEnabled(true);
@@ -112,7 +112,7 @@ public class TestController extends BaseController {
 
         steps = new LinkedList<>();
 
-        step1 = app.getModel(CheckoutFlowStep.class);
+        step1 = app.model(CheckoutFlowStep.class);
         step1.setId(Id.newId());
         step1.setName("preview");
         step1.setUri("/checkout");
@@ -122,9 +122,8 @@ public class TestController extends BaseController {
         onePageFlow.setSteps(steps);
         CheckoutFlow onePageFlowSaved = flowService.createCheckoutFlow(onePageFlow);
 
-        return Results.stream("text/plain", "Three Page Flow: " + flowActiveSaved.toString()
-            + "  Two Page Flow: " + twoPageFlowSaved.toString()
-            + " One Page Flow: " + onePageFlowSaved.toString());
+        return Results.stream("text/plain", "Three Page Flow: " + flowActiveSaved.toString() + "  Two Page Flow: "
+            + twoPageFlowSaved.toString() + " One Page Flow: " + onePageFlowSaved.toString());
     }
 
     @Request("/update/{id}")
@@ -139,12 +138,14 @@ public class TestController extends BaseController {
 
     @Request("/getEnabled")
     public Result test_enabled() {
-        return Results.stream("text/plain", flowService.getFlowEnabled() != null ? flowService.getFlowEnabled().toString() : "null");
+        return Results.stream("text/plain",
+            flowService.getFlowEnabled() != null ? flowService.getFlowEnabled().toString() : "null");
     }
 
     @Request("/getActive")
     public Result test_active() {
-        return Results.stream("text/plain", flowService.getFlowActive() != null ? flowService.getFlowActive().toString() : "null");
+        return Results.stream("text/plain",
+            flowService.getFlowActive() != null ? flowService.getFlowActive().toString() : "null");
     }
 
     @Request("/get/{name}")

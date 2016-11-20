@@ -1,13 +1,12 @@
 package com.geecommerce.checkout.flow.model;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Model
 public class DefaultCheckoutFlowStep extends AbstractModel implements CheckoutFlowStep {
@@ -99,7 +98,6 @@ public class DefaultCheckoutFlowStep extends AbstractModel implements CheckoutFl
         return m;
     }
 
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -125,11 +123,9 @@ public class DefaultCheckoutFlowStep extends AbstractModel implements CheckoutFl
         return true;
     }
 
-
     @Override
     public String toString() {
-        return "CheckoutFlowStep [id=" + id + ", name=" + name + ", uri=" + uri +"]";
+        return "CheckoutFlowStep [id=" + id + ", name=" + name + ", uri=" + uri + "]";
     }
-
 
 }

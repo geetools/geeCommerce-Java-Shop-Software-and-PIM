@@ -23,12 +23,12 @@ public class DefaultNewsSubscriberService implements NewsSubscriberService {
     @Override
     public void subscribe(String email, String source, Id sourceId) {
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         NewsSubscriber newsSubscriber = newsSubscribers.thatBelongTo(email, appCtx.getStore());
         if (newsSubscriber == null) {
-            newsSubscriber = app.getModel(NewsSubscriber.class).setEmail(email).setSource(source).setSourceId(sourceId).addTo(appCtx.getMerchant()).addTo(appCtx.getStore())
-                .addTo(appCtx.getRequestContext());
+            newsSubscriber = app.model(NewsSubscriber.class).setEmail(email).setSource(source).setSourceId(sourceId)
+                .addTo(appCtx.getMerchant()).addTo(appCtx.getStore()).addTo(appCtx.getRequestContext());
         }
         newsSubscriber.setSubscribed(true);
 
@@ -41,12 +41,12 @@ public class DefaultNewsSubscriberService implements NewsSubscriberService {
 
     @Override
     public void unsubscribe(String email, String source, Id sourceId) {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         NewsSubscriber newsSubscriber = newsSubscribers.thatBelongTo(email, appCtx.getStore());
         if (newsSubscriber == null) {
-            newsSubscriber = app.getModel(NewsSubscriber.class).setEmail(email).setSource(source).setSourceId(sourceId).addTo(appCtx.getMerchant()).addTo(appCtx.getStore())
-                .addTo(appCtx.getRequestContext());
+            newsSubscriber = app.model(NewsSubscriber.class).setEmail(email).setSource(source).setSourceId(sourceId)
+                .addTo(appCtx.getMerchant()).addTo(appCtx.getStore()).addTo(appCtx.getRequestContext());
         }
         newsSubscriber.setSubscribed(false);
         if (newsSubscriber.getId() == null) {

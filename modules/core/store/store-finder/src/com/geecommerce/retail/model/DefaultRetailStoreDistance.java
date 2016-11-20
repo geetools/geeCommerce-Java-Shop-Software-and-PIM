@@ -2,10 +2,10 @@ package com.geecommerce.retail.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Model("retail_store_distances")
 public class DefaultRetailStoreDistance extends AbstractMultiContextModel implements RetailStoreDistance {
@@ -18,82 +18,82 @@ public class DefaultRetailStoreDistance extends AbstractMultiContextModel implem
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public RetailStoreDistance setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getFromZip() {
-	return fromZip;
+        return fromZip;
     }
 
     @Override
     public RetailStoreDistance setFromZip(String fromZip) {
-	this.fromZip = fromZip;
-	return this;
+        this.fromZip = fromZip;
+        return this;
     }
 
     @Override
     public String getFromCity() {
-	return fromCity;
+        return fromCity;
     }
 
     @Override
     public RetailStoreDistance setFromCity(String fromCity) {
-	this.fromCity = fromCity;
-	return this;
+        this.fromCity = fromCity;
+        return this;
     }
 
     @Override
     public Id getToRetailStore() {
-	return toRetailStore;
+        return toRetailStore;
     }
 
     @Override
     public RetailStoreDistance setToRetailStore(Id toRetailStore) {
-	this.toRetailStore = toRetailStore;
-	return this;
+        this.toRetailStore = toRetailStore;
+        return this;
     }
 
     @Override
     public Integer getDistance() {
-	return distance;
+        return distance;
     }
 
     @Override
     public RetailStoreDistance setDistance(Integer distance) {
-	this.distance = distance;
-	return this;
+        this.distance = distance;
+        return this;
     }
 
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
+        if (map == null)
+            return;
 
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.fromZip = str_(map.get(Column.FROM_ZIP));
-	this.fromCity = str_(map.get(Column.FROM_CITY));
-	this.toRetailStore = id_(map.get(Column.TO_RETAIL_STORE));
-	this.distance = int_(map.get(Column.DISTANCE));
+        this.id = id_(map.get(Column.ID));
+        this.fromZip = str_(map.get(Column.FROM_ZIP));
+        this.fromCity = str_(map.get(Column.FROM_CITY));
+        this.toRetailStore = id_(map.get(Column.TO_RETAIL_STORE));
+        this.distance = int_(map.get(Column.DISTANCE));
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(Column.ID, getId());
-	map.put(Column.FROM_ZIP, getFromZip());
-	map.put(Column.FROM_CITY, getFromCity());
-	map.put(Column.TO_RETAIL_STORE, getToRetailStore());
-	map.put(Column.DISTANCE, getDistance());
+        map.put(Column.ID, getId());
+        map.put(Column.FROM_ZIP, getFromZip());
+        map.put(Column.FROM_CITY, getFromCity());
+        map.put(Column.TO_RETAIL_STORE, getToRetailStore());
+        map.put(Column.DISTANCE, getDistance());
 
-	return map;
+        return map;
     }
 }

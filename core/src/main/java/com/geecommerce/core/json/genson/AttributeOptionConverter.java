@@ -27,7 +27,7 @@ public class AttributeOptionConverter implements Converter<AttributeOption> {
     @SuppressWarnings("unchecked")
     @Override
     public AttributeOption deserialize(ObjectReader reader, Context ctx) throws IOException {
-        AttributeOption ao = App.get().getModel(AttributeOption.class);
+        AttributeOption ao = App.get().model(AttributeOption.class);
 
         ContextObjectConverter ctxObjConverter = new ContextObjectConverter();
 

@@ -11,7 +11,7 @@ import com.geecommerce.core.type.Id;
 
 public interface RepositorySupport {
     public void dao(Dao dao);
-    
+
     public <T extends Model> T findById(Class<T> modelClass, Id id);
 
     public <T extends Model> T findById(Class<T> modelClass, Id id, QueryOptions queryOptions);
@@ -38,41 +38,51 @@ public interface RepositorySupport {
 
     public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 
     public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass);
 
     public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 
     public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids);
 
-    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids, QueryOptions queryOptions);
+    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids,
+        QueryOptions queryOptions);
 
     public <T extends Model> List<?> distinct(Class<T> modelClass, String... distinctField);
 
     public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter, String... distinctField);
 
-    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, String... distinctField);
+    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, String... distinctField);
 
     public <T extends MultiContextModel> T multiContextFindOne(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter, String distinctFieldName);
+    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter,
+        String distinctFieldName);
 
-    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter, String distinctFieldName, QueryOptions queryOptions);
+    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter,
+        String distinctFieldName, QueryOptions queryOptions);
 
     public <T extends MultiContextModel> T simpleContextFindOne(Class<T> modelClass, Map<String, Object> filter);
 
     public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 
-    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass, Map<String, Object> filter);
+    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
+        Map<String, Object> filter);
 
-    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
+        Map<String, Object> filter, QueryOptions queryOptions);
 
-    public <T extends MultiContextModel> List<T> contextFind(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends MultiContextModel> List<T> contextFind(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 
     public <T extends Model> T findOne(Class<T> modelClass, Map<String, Object> filter);
 
@@ -92,7 +102,8 @@ public interface RepositorySupport {
 
     public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi);
 
-    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi, String... updateFields);
+    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi,
+        String... updateFields);
 
     public <T extends Model> void updateAll(List<T> entities);
 
@@ -110,13 +121,16 @@ public interface RepositorySupport {
 
     public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions);
 
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions);
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions);
 
     public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 
-    public void appendAttributeCondition(AttributeTargetObject targetObject, String attributeCode, Object value, Map<String, Object> query);
+    public void appendAttributeCondition(AttributeTargetObject targetObject, String attributeCode, Object value,
+        Map<String, Object> query);
 
     public <T extends Model> void clearCaches(Class<T> modelClass);
 }

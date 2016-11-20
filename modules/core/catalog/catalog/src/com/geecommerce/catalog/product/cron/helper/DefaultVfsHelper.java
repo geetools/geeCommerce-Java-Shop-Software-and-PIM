@@ -80,7 +80,8 @@ public class DefaultVfsHelper implements VfsHelper {
             throw new NullPointerException("tmpFile cannot be null");
 
         if (!tmpFile.exists())
-            throw new FileNotFoundException("Unable to save file '" + tmpFile.getAbsolutePath() + "' to target location as it does not exist");
+            throw new FileNotFoundException(
+                "Unable to save file '" + tmpFile.getAbsolutePath() + "' to target location as it does not exist");
 
         FileObject tmpFO = null;
         FileObject targetDirFO = null;
@@ -105,11 +106,13 @@ public class DefaultVfsHelper implements VfsHelper {
 
                 targetFileFO.copyFrom(tmpFO, Selectors.SELECT_SELF);
             } else {
-                throw new FileSystemException("Attempt to create target dir '" + targetDirFO.getURL().toString() + "' failed");
+                throw new FileSystemException(
+                    "Attempt to create target dir '" + targetDirFO.getURL().toString() + "' failed");
             }
 
             if (targetDirFO == null || !targetDirFO.exists())
-                throw new FileSystemException("Tmp file '" + tmpFO.getURL() + "' could not be copied to target locaton '" + targetFileFO.getURL() + "'");
+                throw new FileSystemException("Tmp file '" + tmpFO.getURL()
+                    + "' could not be copied to target locaton '" + targetFileFO.getURL() + "'");
         } finally {
             close(tmpFO);
             close(targetDirFO);

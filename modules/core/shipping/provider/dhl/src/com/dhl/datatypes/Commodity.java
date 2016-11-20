@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Commodity complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Commodity">
@@ -50,7 +51,7 @@ public class Commodity {
      * 
      */
     public String getCommodityCode() {
-	return commodityCode;
+        return commodityCode;
     }
 
     /**
@@ -61,7 +62,7 @@ public class Commodity {
      * 
      */
     public void setCommodityCode(String value) {
-	this.commodityCode = value;
+        this.commodityCode = value;
     }
 
     /**
@@ -71,7 +72,7 @@ public class Commodity {
      * 
      */
     public String getCommodityName() {
-	return commodityName;
+        return commodityName;
     }
 
     /**
@@ -82,7 +83,7 @@ public class Commodity {
      * 
      */
     public void setCommodityName(String value) {
-	this.commodityName = value;
+        this.commodityName = value;
     }
 
 }

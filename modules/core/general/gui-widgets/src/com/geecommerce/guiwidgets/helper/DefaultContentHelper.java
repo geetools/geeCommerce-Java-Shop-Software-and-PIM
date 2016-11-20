@@ -10,7 +10,8 @@ import com.geecommerce.core.web.api.WidgetContext;
 @Helper
 public class DefaultContentHelper implements ContentHelper {
 
-    public static List<String> MARGIN_STYLES = Arrays.asList(new String[] { "css_margin_top", "css_margin_bottom", "css_margin_left", "css_margin_right" });
+    public static List<String> MARGIN_STYLES = Arrays
+        .asList(new String[] { "css_margin_top", "css_margin_bottom", "css_margin_left", "css_margin_right" });
 
     public static List<String> FONT_STYLES = Arrays.asList(new String[] { "css_font_size", "css_color" });
 
@@ -18,8 +19,8 @@ public class DefaultContentHelper implements ContentHelper {
 
     public static List<String> DIMENSION_STYLES = Arrays.asList(new String[] { "css_height", "css_width" });
 
-    protected static List<String> PIXEL_POSTFIX = Arrays
-        .asList(new String[] { "css_font_size", "css_height", "css_width", "css_margin_top", "css_margin_bottom", "css_margin_left", "css_margin_right" });
+    protected static List<String> PIXEL_POSTFIX = Arrays.asList(new String[] { "css_font_size", "css_height",
+        "css_width", "css_margin_top", "css_margin_bottom", "css_margin_left", "css_margin_right" });
 
     @Override
     public String generateStyle(WidgetContext widgetContext, List<String> styles) {

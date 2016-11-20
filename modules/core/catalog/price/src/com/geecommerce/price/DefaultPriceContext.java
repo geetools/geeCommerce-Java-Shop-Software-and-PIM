@@ -13,45 +13,45 @@ public class DefaultPriceContext implements PriceContext {
 
     @Override
     public Id getCustomerId() {
-	return customerId;
+        return customerId;
     }
 
     @Override
     public PriceContext forCustomer(Id customerId) {
-	this.customerId = customerId;
-	return this;
+        this.customerId = customerId;
+        return this;
     }
 
     @Override
     public Id getCustomerGroupId() {
-	return customerGroupId;
+        return customerGroupId;
     }
 
     @Override
     public PriceContext inCustomerGroup(Id customerGroupId) {
-	this.customerGroupId = customerGroupId;
-	return this;
+        this.customerGroupId = customerGroupId;
+        return this;
     }
 
     @Override
     public Id getRequestContextId() {
-	return requestContextId;
+        return requestContextId;
     }
 
     @Override
     public PriceContext inRequestContext(Id requestContextId) {
-	this.requestContextId = requestContextId;
-	return this;
+        this.requestContextId = requestContextId;
+        return this;
     }
 
     @Override
     public Integer getQuantity() {
-	return quantity;
+        return quantity;
     }
 
     @Override
     public PriceContext forQuantity(Integer quantity) {
-	this.quantity = quantity;
-	return this;
+        this.quantity = quantity;
+        return this;
     }
 }

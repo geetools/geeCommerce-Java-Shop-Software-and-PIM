@@ -9,11 +9,13 @@ package com.dhl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import com.dhl.dctresponsedatatypes.BkgDetailsType;
 import com.dhl.dctresponsedatatypes.NoteType;
 import com.dhl.dctresponsedatatypes.SrvType;
@@ -23,7 +25,8 @@ import com.dhl.dctresponsedatatypes.SrvType;
  * Java class for anonymous complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -125,7 +128,7 @@ public class DCTResponse {
      * 
      */
     public DCTResponse.GetQuoteResponse getGetQuoteResponse() {
-	return getQuoteResponse;
+        return getQuoteResponse;
     }
 
     /**
@@ -136,7 +139,7 @@ public class DCTResponse {
      * 
      */
     public void setGetQuoteResponse(DCTResponse.GetQuoteResponse value) {
-	this.getQuoteResponse = value;
+        this.getQuoteResponse = value;
     }
 
     /**
@@ -146,7 +149,7 @@ public class DCTResponse {
      * 
      */
     public DCTResponse.GetCapabilityResponse getGetCapabilityResponse() {
-	return getCapabilityResponse;
+        return getCapabilityResponse;
     }
 
     /**
@@ -157,7 +160,7 @@ public class DCTResponse {
      * 
      */
     public void setGetCapabilityResponse(DCTResponse.GetCapabilityResponse value) {
-	this.getCapabilityResponse = value;
+        this.getCapabilityResponse = value;
     }
 
     /**
@@ -165,7 +168,8 @@ public class DCTResponse {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -208,220 +212,235 @@ public class DCTResponse {
     @XmlType(name = "", propOrder = { "response", "bkgDetails", "srvs", "note" })
     public static class GetCapabilityResponse {
 
-	@XmlElement(name = "Response", required = true)
-	protected DCTResponse.GetCapabilityResponse.Response response;
-	@XmlElement(name = "BkgDetails")
-	protected List<BkgDetailsType> bkgDetails;
-	@XmlElement(name = "Srvs")
-	protected DCTResponse.GetCapabilityResponse.Srvs srvs;
-	@XmlElement(name = "Note")
-	protected List<NoteType> note;
+        @XmlElement(name = "Response", required = true)
+        protected DCTResponse.GetCapabilityResponse.Response response;
+        @XmlElement(name = "BkgDetails")
+        protected List<BkgDetailsType> bkgDetails;
+        @XmlElement(name = "Srvs")
+        protected DCTResponse.GetCapabilityResponse.Srvs srvs;
+        @XmlElement(name = "Note")
+        protected List<NoteType> note;
 
-	/**
-	 * Gets the value of the response property.
-	 * 
-	 * @return possible object is {@link DCTResponse.GetCapabilityResponse.Response }
-	 * 
-	 */
-	public DCTResponse.GetCapabilityResponse.Response getResponse() {
-	    return response;
-	}
+        /**
+         * Gets the value of the response property.
+         * 
+         * @return possible object is
+         *         {@link DCTResponse.GetCapabilityResponse.Response }
+         * 
+         */
+        public DCTResponse.GetCapabilityResponse.Response getResponse() {
+            return response;
+        }
 
-	/**
-	 * Sets the value of the response property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTResponse.GetCapabilityResponse.Response }
-	 * 
-	 */
-	public void setResponse(DCTResponse.GetCapabilityResponse.Response value) {
-	    this.response = value;
-	}
+        /**
+         * Sets the value of the response property.
+         * 
+         * @param value
+         *            allowed object is
+         *            {@link DCTResponse.GetCapabilityResponse.Response }
+         * 
+         */
+        public void setResponse(DCTResponse.GetCapabilityResponse.Response value) {
+            this.response = value;
+        }
 
-	/**
-	 * Gets the value of the bkgDetails property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the bkgDetails property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getBkgDetails().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link BkgDetailsType }
-	 * 
-	 * 
-	 */
-	public List<BkgDetailsType> getBkgDetails() {
-	    if (bkgDetails == null) {
-		bkgDetails = new ArrayList<BkgDetailsType>();
-	    }
-	    return this.bkgDetails;
-	}
+        /**
+         * Gets the value of the bkgDetails property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the bkgDetails property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getBkgDetails().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link BkgDetailsType }
+         * 
+         * 
+         */
+        public List<BkgDetailsType> getBkgDetails() {
+            if (bkgDetails == null) {
+                bkgDetails = new ArrayList<BkgDetailsType>();
+            }
+            return this.bkgDetails;
+        }
 
-	/**
-	 * Gets the value of the srvs property.
-	 * 
-	 * @return possible object is {@link DCTResponse.GetCapabilityResponse.Srvs }
-	 * 
-	 */
-	public DCTResponse.GetCapabilityResponse.Srvs getSrvs() {
-	    return srvs;
-	}
+        /**
+         * Gets the value of the srvs property.
+         * 
+         * @return possible object is
+         *         {@link DCTResponse.GetCapabilityResponse.Srvs }
+         * 
+         */
+        public DCTResponse.GetCapabilityResponse.Srvs getSrvs() {
+            return srvs;
+        }
 
-	/**
-	 * Sets the value of the srvs property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTResponse.GetCapabilityResponse.Srvs }
-	 * 
-	 */
-	public void setSrvs(DCTResponse.GetCapabilityResponse.Srvs value) {
-	    this.srvs = value;
-	}
+        /**
+         * Sets the value of the srvs property.
+         * 
+         * @param value
+         *            allowed object is
+         *            {@link DCTResponse.GetCapabilityResponse.Srvs }
+         * 
+         */
+        public void setSrvs(DCTResponse.GetCapabilityResponse.Srvs value) {
+            this.srvs = value;
+        }
 
-	/**
-	 * Gets the value of the note property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the note property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getNote().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link NoteType }
-	 * 
-	 * 
-	 */
-	public List<NoteType> getNote() {
-	    if (note == null) {
-		note = new ArrayList<NoteType>();
-	    }
-	    return this.note;
-	}
+        /**
+         * Gets the value of the note property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the note property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getNote().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link NoteType }
+         * 
+         * 
+         */
+        public List<NoteType> getNote() {
+            if (note == null) {
+                note = new ArrayList<NoteType>();
+            }
+            return this.note;
+        }
 
-	/**
-	 * Generic response header
-	 * 
-	 * <p>
-	 * Java class for anonymous complex type.
-	 * 
-	 * <p>
-	 * The following schema fragment specifies the expected content contained within this class.
-	 * 
-	 * <pre>
-	 * &lt;complexType>
-	 *   &lt;complexContent>
-	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-	 *       &lt;sequence>
-	 *         &lt;element name="ServiceHeader" type="{http://www.dhl.com}ServiceHeader"/>
-	 *       &lt;/sequence>
-	 *     &lt;/restriction>
-	 *   &lt;/complexContent>
-	 * &lt;/complexType>
-	 * </pre>
-	 * 
-	 * 
-	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "serviceHeader" })
-	public static class Response {
+        /**
+         * Generic response header
+         * 
+         * <p>
+         * Java class for anonymous complex type.
+         * 
+         * <p>
+         * The following schema fragment specifies the expected content
+         * contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="ServiceHeader" type="{http://www.dhl.com}ServiceHeader"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = { "serviceHeader" })
+        public static class Response {
 
-	    @XmlElement(name = "ServiceHeader", required = true)
-	    protected ServiceHeader serviceHeader;
+            @XmlElement(name = "ServiceHeader", required = true)
+            protected ServiceHeader serviceHeader;
 
-	    /**
-	     * Gets the value of the serviceHeader property.
-	     * 
-	     * @return possible object is {@link ServiceHeader }
-	     * 
-	     */
-	    public ServiceHeader getServiceHeader() {
-		return serviceHeader;
-	    }
+            /**
+             * Gets the value of the serviceHeader property.
+             * 
+             * @return possible object is {@link ServiceHeader }
+             * 
+             */
+            public ServiceHeader getServiceHeader() {
+                return serviceHeader;
+            }
 
-	    /**
-	     * Sets the value of the serviceHeader property.
-	     * 
-	     * @param value
-	     *            allowed object is {@link ServiceHeader }
-	     * 
-	     */
-	    public void setServiceHeader(ServiceHeader value) {
-		this.serviceHeader = value;
-	    }
+            /**
+             * Sets the value of the serviceHeader property.
+             * 
+             * @param value
+             *            allowed object is {@link ServiceHeader }
+             * 
+             */
+            public void setServiceHeader(ServiceHeader value) {
+                this.serviceHeader = value;
+            }
 
-	}
+        }
 
-	/**
-	 * <p>
-	 * Java class for anonymous complex type.
-	 * 
-	 * <p>
-	 * The following schema fragment specifies the expected content contained within this class.
-	 * 
-	 * <pre>
-	 * &lt;complexType>
-	 *   &lt;complexContent>
-	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-	 *       &lt;sequence>
-	 *         &lt;element name="Srv" type="{http://www.dhl.com/DCTResponsedatatypes}SrvType" maxOccurs="unbounded" minOccurs="0"/>
-	 *       &lt;/sequence>
-	 *     &lt;/restriction>
-	 *   &lt;/complexContent>
-	 * &lt;/complexType>
-	 * </pre>
-	 * 
-	 * 
-	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "srv" })
-	public static class Srvs {
+        /**
+         * <p>
+         * Java class for anonymous complex type.
+         * 
+         * <p>
+         * The following schema fragment specifies the expected content
+         * contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="Srv" type="{http://www.dhl.com/DCTResponsedatatypes}SrvType" maxOccurs="unbounded" minOccurs="0"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = { "srv" })
+        public static class Srvs {
 
-	    @XmlElement(name = "Srv")
-	    protected List<SrvType> srv;
+            @XmlElement(name = "Srv")
+            protected List<SrvType> srv;
 
-	    /**
-	     * Gets the value of the srv property.
-	     * 
-	     * <p>
-	     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-	     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the srv property.
-	     * 
-	     * <p>
-	     * For example, to add a new item, do as follows:
-	     * 
-	     * <pre>
-	     * getSrv().add(newItem);
-	     * </pre>
-	     * 
-	     * 
-	     * <p>
-	     * Objects of the following type(s) are allowed in the list {@link SrvType }
-	     * 
-	     * 
-	     */
-	    public List<SrvType> getSrv() {
-		if (srv == null) {
-		    srv = new ArrayList<SrvType>();
-		}
-		return this.srv;
-	    }
+            /**
+             * Gets the value of the srv property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list, not a
+             * snapshot. Therefore any modification you make to the returned
+             * list will be present inside the JAXB object. This is why there is
+             * not a <CODE>set</CODE> method for the srv property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * 
+             * <pre>
+             * getSrv().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link SrvType }
+             * 
+             * 
+             */
+            public List<SrvType> getSrv() {
+                if (srv == null) {
+                    srv = new ArrayList<SrvType>();
+                }
+                return this.srv;
+            }
 
-	}
+        }
 
     }
 
@@ -430,7 +449,8 @@ public class DCTResponse {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -473,220 +493,234 @@ public class DCTResponse {
     @XmlType(name = "", propOrder = { "response", "bkgDetails", "srvs", "note" })
     public static class GetQuoteResponse {
 
-	@XmlElement(name = "Response", required = true)
-	protected DCTResponse.GetQuoteResponse.Response response;
-	@XmlElement(name = "BkgDetails")
-	protected List<BkgDetailsType> bkgDetails;
-	@XmlElement(name = "Srvs")
-	protected DCTResponse.GetQuoteResponse.Srvs srvs;
-	@XmlElement(name = "Note")
-	protected List<NoteType> note;
+        @XmlElement(name = "Response", required = true)
+        protected DCTResponse.GetQuoteResponse.Response response;
+        @XmlElement(name = "BkgDetails")
+        protected List<BkgDetailsType> bkgDetails;
+        @XmlElement(name = "Srvs")
+        protected DCTResponse.GetQuoteResponse.Srvs srvs;
+        @XmlElement(name = "Note")
+        protected List<NoteType> note;
 
-	/**
-	 * Gets the value of the response property.
-	 * 
-	 * @return possible object is {@link DCTResponse.GetQuoteResponse.Response }
-	 * 
-	 */
-	public DCTResponse.GetQuoteResponse.Response getResponse() {
-	    return response;
-	}
+        /**
+         * Gets the value of the response property.
+         * 
+         * @return possible object is
+         *         {@link DCTResponse.GetQuoteResponse.Response }
+         * 
+         */
+        public DCTResponse.GetQuoteResponse.Response getResponse() {
+            return response;
+        }
 
-	/**
-	 * Sets the value of the response property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTResponse.GetQuoteResponse.Response }
-	 * 
-	 */
-	public void setResponse(DCTResponse.GetQuoteResponse.Response value) {
-	    this.response = value;
-	}
+        /**
+         * Sets the value of the response property.
+         * 
+         * @param value
+         *            allowed object is
+         *            {@link DCTResponse.GetQuoteResponse.Response }
+         * 
+         */
+        public void setResponse(DCTResponse.GetQuoteResponse.Response value) {
+            this.response = value;
+        }
 
-	/**
-	 * Gets the value of the bkgDetails property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the bkgDetails property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getBkgDetails().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link BkgDetailsType }
-	 * 
-	 * 
-	 */
-	public List<BkgDetailsType> getBkgDetails() {
-	    if (bkgDetails == null) {
-		bkgDetails = new ArrayList<BkgDetailsType>();
-	    }
-	    return this.bkgDetails;
-	}
+        /**
+         * Gets the value of the bkgDetails property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the bkgDetails property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getBkgDetails().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link BkgDetailsType }
+         * 
+         * 
+         */
+        public List<BkgDetailsType> getBkgDetails() {
+            if (bkgDetails == null) {
+                bkgDetails = new ArrayList<BkgDetailsType>();
+            }
+            return this.bkgDetails;
+        }
 
-	/**
-	 * Gets the value of the srvs property.
-	 * 
-	 * @return possible object is {@link DCTResponse.GetQuoteResponse.Srvs }
-	 * 
-	 */
-	public DCTResponse.GetQuoteResponse.Srvs getSrvs() {
-	    return srvs;
-	}
+        /**
+         * Gets the value of the srvs property.
+         * 
+         * @return possible object is {@link DCTResponse.GetQuoteResponse.Srvs }
+         * 
+         */
+        public DCTResponse.GetQuoteResponse.Srvs getSrvs() {
+            return srvs;
+        }
 
-	/**
-	 * Sets the value of the srvs property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTResponse.GetQuoteResponse.Srvs }
-	 * 
-	 */
-	public void setSrvs(DCTResponse.GetQuoteResponse.Srvs value) {
-	    this.srvs = value;
-	}
+        /**
+         * Sets the value of the srvs property.
+         * 
+         * @param value
+         *            allowed object is
+         *            {@link DCTResponse.GetQuoteResponse.Srvs }
+         * 
+         */
+        public void setSrvs(DCTResponse.GetQuoteResponse.Srvs value) {
+            this.srvs = value;
+        }
 
-	/**
-	 * Gets the value of the note property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the note property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getNote().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link NoteType }
-	 * 
-	 * 
-	 */
-	public List<NoteType> getNote() {
-	    if (note == null) {
-		note = new ArrayList<NoteType>();
-	    }
-	    return this.note;
-	}
+        /**
+         * Gets the value of the note property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the note property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getNote().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link NoteType }
+         * 
+         * 
+         */
+        public List<NoteType> getNote() {
+            if (note == null) {
+                note = new ArrayList<NoteType>();
+            }
+            return this.note;
+        }
 
-	/**
-	 * Generic response header
-	 * 
-	 * <p>
-	 * Java class for anonymous complex type.
-	 * 
-	 * <p>
-	 * The following schema fragment specifies the expected content contained within this class.
-	 * 
-	 * <pre>
-	 * &lt;complexType>
-	 *   &lt;complexContent>
-	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-	 *       &lt;sequence>
-	 *         &lt;element name="ServiceHeader" type="{http://www.dhl.com}ServiceHeader"/>
-	 *       &lt;/sequence>
-	 *     &lt;/restriction>
-	 *   &lt;/complexContent>
-	 * &lt;/complexType>
-	 * </pre>
-	 * 
-	 * 
-	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "serviceHeader" })
-	public static class Response {
+        /**
+         * Generic response header
+         * 
+         * <p>
+         * Java class for anonymous complex type.
+         * 
+         * <p>
+         * The following schema fragment specifies the expected content
+         * contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="ServiceHeader" type="{http://www.dhl.com}ServiceHeader"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = { "serviceHeader" })
+        public static class Response {
 
-	    @XmlElement(name = "ServiceHeader", required = true)
-	    protected ServiceHeader serviceHeader;
+            @XmlElement(name = "ServiceHeader", required = true)
+            protected ServiceHeader serviceHeader;
 
-	    /**
-	     * Gets the value of the serviceHeader property.
-	     * 
-	     * @return possible object is {@link ServiceHeader }
-	     * 
-	     */
-	    public ServiceHeader getServiceHeader() {
-		return serviceHeader;
-	    }
+            /**
+             * Gets the value of the serviceHeader property.
+             * 
+             * @return possible object is {@link ServiceHeader }
+             * 
+             */
+            public ServiceHeader getServiceHeader() {
+                return serviceHeader;
+            }
 
-	    /**
-	     * Sets the value of the serviceHeader property.
-	     * 
-	     * @param value
-	     *            allowed object is {@link ServiceHeader }
-	     * 
-	     */
-	    public void setServiceHeader(ServiceHeader value) {
-		this.serviceHeader = value;
-	    }
+            /**
+             * Sets the value of the serviceHeader property.
+             * 
+             * @param value
+             *            allowed object is {@link ServiceHeader }
+             * 
+             */
+            public void setServiceHeader(ServiceHeader value) {
+                this.serviceHeader = value;
+            }
 
-	}
+        }
 
-	/**
-	 * <p>
-	 * Java class for anonymous complex type.
-	 * 
-	 * <p>
-	 * The following schema fragment specifies the expected content contained within this class.
-	 * 
-	 * <pre>
-	 * &lt;complexType>
-	 *   &lt;complexContent>
-	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-	 *       &lt;sequence>
-	 *         &lt;element name="Srv" type="{http://www.dhl.com/DCTResponsedatatypes}SrvType" maxOccurs="unbounded" minOccurs="0"/>
-	 *       &lt;/sequence>
-	 *     &lt;/restriction>
-	 *   &lt;/complexContent>
-	 * &lt;/complexType>
-	 * </pre>
-	 * 
-	 * 
-	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "srv" })
-	public static class Srvs {
+        /**
+         * <p>
+         * Java class for anonymous complex type.
+         * 
+         * <p>
+         * The following schema fragment specifies the expected content
+         * contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="Srv" type="{http://www.dhl.com/DCTResponsedatatypes}SrvType" maxOccurs="unbounded" minOccurs="0"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = { "srv" })
+        public static class Srvs {
 
-	    @XmlElement(name = "Srv")
-	    protected List<SrvType> srv;
+            @XmlElement(name = "Srv")
+            protected List<SrvType> srv;
 
-	    /**
-	     * Gets the value of the srv property.
-	     * 
-	     * <p>
-	     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-	     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the srv property.
-	     * 
-	     * <p>
-	     * For example, to add a new item, do as follows:
-	     * 
-	     * <pre>
-	     * getSrv().add(newItem);
-	     * </pre>
-	     * 
-	     * 
-	     * <p>
-	     * Objects of the following type(s) are allowed in the list {@link SrvType }
-	     * 
-	     * 
-	     */
-	    public List<SrvType> getSrv() {
-		if (srv == null) {
-		    srv = new ArrayList<SrvType>();
-		}
-		return this.srv;
-	    }
+            /**
+             * Gets the value of the srv property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list, not a
+             * snapshot. Therefore any modification you make to the returned
+             * list will be present inside the JAXB object. This is why there is
+             * not a <CODE>set</CODE> method for the srv property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * 
+             * <pre>
+             * getSrv().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link SrvType }
+             * 
+             * 
+             */
+            public List<SrvType> getSrv() {
+                if (srv == null) {
+                    srv = new ArrayList<SrvType>();
+                }
+                return this.srv;
+            }
 
-	}
+        }
 
     }
 

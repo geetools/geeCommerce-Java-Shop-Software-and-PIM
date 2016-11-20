@@ -6,7 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks a method as being interceptable. Classes wishing to intercept a method annotated with this annotation must be marked with the
+ * Marks a method as being interceptable. Classes wishing to intercept a method
+ * annotated with this annotation must be marked with the
  * {@link com.geecommerce.core.interceptor.annotation.Intercept} annotation.
  * 
  * @see com.geecommerce.core.interceptor.AspectMethodInterceptor

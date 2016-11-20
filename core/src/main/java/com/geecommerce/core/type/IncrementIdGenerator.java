@@ -25,8 +25,8 @@ import com.geecommerce.core.util.IO;
  * 1) Prefix. 2) Date-Format (e.g. "yy" for just the year). 3) Sequence-Number.
  * 
  * Without further configuration, this would result in something like: 1141. If
- * we were to configure a hyphen as the id separator character, it would
- * look like this: 1-14-1.
+ * we were to configure a hyphen as the id separator character, it would look
+ * like this: 1-14-1.
  * 
  * Configuration-Options:
  * 
@@ -37,13 +37,12 @@ import com.geecommerce.core.util.IO;
  * system/increment_number/%s/decorator. We can optionally define a decorator
  * for doing even more fancy stuff. The class must implement the
  * IncrementIdDecorator interface. 4) system/increment_number/%s/date_format. If
- * we want to split the id into different years and/or months, we can
- * specify a date-pattern. 5) system/increment_number/%s/type. The final number
- * can be converted into a particular java-type. Can be either String,
- * Long, Integer or Id. Default is String. 6)
- * system/increment_number/%s/start_at. What should the sequence-number start
- * at? If we did not want it to
- * start at 1, we could specify 10000001 for example.
+ * we want to split the id into different years and/or months, we can specify a
+ * date-pattern. 5) system/increment_number/%s/type. The final number can be
+ * converted into a particular java-type. Can be either String, Long, Integer or
+ * Id. Default is String. 6) system/increment_number/%s/start_at. What should
+ * the sequence-number start at? If we did not want it to start at 1, we could
+ * specify 10000001 for example.
  */
 public enum IncrementIdGenerator {
     GET;
@@ -71,7 +70,7 @@ public enum IncrementIdGenerator {
     public final <T> T nextId(String name) {
         App app = App.get();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Store store = appCtx.getStore();
 
         if (name == null || store == null || store.getId() == null)
@@ -205,7 +204,8 @@ public enum IncrementIdGenerator {
                 // Rollback transaction.
                 rollback(conn);
 
-                throw new RuntimeException("IncrementId could not be generated for [name=" + name + ", storeId=" + store.getId() + "]", t);
+                throw new RuntimeException(
+                    "IncrementId could not be generated for [name=" + name + ", storeId=" + store.getId() + "]", t);
             }
         }
 

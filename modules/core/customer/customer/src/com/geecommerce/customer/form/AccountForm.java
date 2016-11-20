@@ -8,49 +8,50 @@ public class AccountForm {
     /* Form fields for creating account */
 
     @Required
-    @On({"/customer/account/add"})
+    @On({ "/customer/account/add" })
     private String forename = null;
 
     @Required
-    @On({"/customer/account/add"})
+    @On({ "/customer/account/add" })
     private String surname = null;
 
     @Required
-    @On({"/customer/account/add"})
+    @On({ "/customer/account/add" })
     private String email = null;
 
-    @Check(required = true, minLength = 8, on = {"/customer/account/add", "/forgot-password-save"})
+    @Check(required = true, minLength = 8, on = { "/customer/account/add", "/forgot-password-save" })
     private String password1 = null;
 
-    @Check(required = true, is = "js: accountForm.password1 == accountForm.password2", on = {"/customer/account/add", "/forgot-password-save"})
+    @Check(required = true, is = "js: accountForm.password1 == accountForm.password2", on = { "/customer/account/add",
+        "/forgot-password-save" })
     private String password2 = null;
 
     private String username = null;
 
     @Required
-    @On({"/process-login"})
+    @On({ "/process-login" })
     private String password = null;
 
     private String title = null;
 
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String phoneCode = null;
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String phone = null;
 
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String salutation = null;
 
     private String invoiceAddrFirm = null;
     private String invoiceAddrUst = null;
 
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String invoiceAddrStreet = null;
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String invoiceAddrHouseNum = null;
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String invoiceAddrZipCode = null;
-    @Check(required = true, on = {"/customer/account/add", "/customer/account/process-edit"})
+    @Check(required = true, on = { "/customer/account/add", "/customer/account/process-edit" })
     private String invoiceAddrCity;
 
     private String shippingAddrStreet = null;

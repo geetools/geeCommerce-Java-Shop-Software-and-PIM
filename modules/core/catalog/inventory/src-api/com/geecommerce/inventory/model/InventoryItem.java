@@ -27,10 +27,10 @@ public interface InventoryItem extends Model {
     public InventoryItem setAllowBackorder(boolean allowBackorder);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String PRODUCT_ID = "prd_id";
-	public static final String STORE_ID = "store_id";
-	public static final String QTY = "qty";
-	public static final String ALLOW_BACKORDER = "backorder";
+        public static final String ID = "_id";
+        public static final String PRODUCT_ID = "prd_id";
+        public static final String STORE_ID = "store_id";
+        public static final String QTY = "qty";
+        public static final String ALLOW_BACKORDER = "backorder";
     }
 }

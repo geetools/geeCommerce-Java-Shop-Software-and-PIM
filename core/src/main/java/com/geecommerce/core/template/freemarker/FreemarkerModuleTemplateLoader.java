@@ -86,13 +86,15 @@ public class FreemarkerModuleTemplateLoader implements TemplateLoader {
         if (moduleTemplateFile.exists()) {
             if (!moduleTemplateFile.isFile()) {
                 if (log.isWarnEnabled()) {
-                    log.warn("The located module template '" + moduleTemplateFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                    log.warn("The located module template '" + moduleTemplateFile.getAbsolutePath()
+                        + "' does not appear to be a regular file.");
                 }
             }
 
             if (!moduleTemplateFile.canRead()) {
                 if (log.isWarnEnabled()) {
-                    log.warn("The located module template '" + moduleTemplateFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                    log.warn("The located module template '" + moduleTemplateFile.getAbsolutePath()
+                        + "' does not have the necessary read permission.");
                 }
 
             }
@@ -111,7 +113,8 @@ public class FreemarkerModuleTemplateLoader implements TemplateLoader {
         String templatesPath = SystemConfig.GET.val(SystemConfig.APPLICATION_TEMPLATE_PATH);
 
         if (templatesPath == null) {
-            throw new IllegalStateException("The System.properties configuration element 'Application.Template.Path' cannot be null");
+            throw new IllegalStateException(
+                "The System.properties configuration element 'Application.Template.Path' cannot be null");
         }
 
         templatesPath = templatesPath.trim();
@@ -128,7 +131,8 @@ public class FreemarkerModuleTemplateLoader implements TemplateLoader {
     @Override
     public final long getLastModified(final Object templateSource) {
         if (!(templateSource instanceof File))
-            throw new IllegalArgumentException("the parameter templateSource is of type '" + templateSource.getClass().getName() + "', java.io.File expected.");
+            throw new IllegalArgumentException("the parameter templateSource is of type '"
+                + templateSource.getClass().getName() + "', java.io.File expected.");
 
         return new Long(((File) templateSource).lastModified());
     }
@@ -136,7 +140,8 @@ public class FreemarkerModuleTemplateLoader implements TemplateLoader {
     @Override
     public final Reader getReader(final Object templateSource, final String encoding) throws IOException {
         if (!(templateSource instanceof File))
-            throw new IllegalArgumentException("the parameter templateSource is of type '" + templateSource.getClass().getName() + "', java.io.File expected.");
+            throw new IllegalArgumentException("the parameter templateSource is of type '"
+                + templateSource.getClass().getName() + "', java.io.File expected.");
 
         return new InputStreamReader(new FileInputStream((File) templateSource), encoding);
     }

@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Shipper complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Shipper">
@@ -68,7 +70,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Shipper", propOrder = { "shipperID", "companyName", "registeredAccount", "addressLine", "city", "division", "divisionCode", "postalCode", "countryCode", "countryName", "federalTaxId", "stateTaxId", "contact" })
+@XmlType(name = "Shipper", propOrder = { "shipperID", "companyName", "registeredAccount", "addressLine", "city",
+    "division", "divisionCode", "postalCode", "countryCode", "countryName", "federalTaxId", "stateTaxId",
+    "contact" })
 public class Shipper {
 
     @XmlElement(name = "ShipperID", required = true)
@@ -105,7 +109,7 @@ public class Shipper {
      * 
      */
     public String getShipperID() {
-	return shipperID;
+        return shipperID;
     }
 
     /**
@@ -116,7 +120,7 @@ public class Shipper {
      * 
      */
     public void setShipperID(String value) {
-	this.shipperID = value;
+        this.shipperID = value;
     }
 
     /**
@@ -126,7 +130,7 @@ public class Shipper {
      * 
      */
     public String getCompanyName() {
-	return companyName;
+        return companyName;
     }
 
     /**
@@ -137,7 +141,7 @@ public class Shipper {
      * 
      */
     public void setCompanyName(String value) {
-	this.companyName = value;
+        this.companyName = value;
     }
 
     /**
@@ -145,7 +149,7 @@ public class Shipper {
      * 
      */
     public long getRegisteredAccount() {
-	return registeredAccount;
+        return registeredAccount;
     }
 
     /**
@@ -153,15 +157,17 @@ public class Shipper {
      * 
      */
     public void setRegisteredAccount(long value) {
-	this.registeredAccount = value;
+        this.registeredAccount = value;
     }
 
     /**
      * Gets the value of the addressLine property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the addressLine property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the addressLine property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -177,10 +183,10 @@ public class Shipper {
      * 
      */
     public List<String> getAddressLine() {
-	if (addressLine == null) {
-	    addressLine = new ArrayList<String>();
-	}
-	return this.addressLine;
+        if (addressLine == null) {
+            addressLine = new ArrayList<String>();
+        }
+        return this.addressLine;
     }
 
     /**
@@ -190,7 +196,7 @@ public class Shipper {
      * 
      */
     public String getCity() {
-	return city;
+        return city;
     }
 
     /**
@@ -201,7 +207,7 @@ public class Shipper {
      * 
      */
     public void setCity(String value) {
-	this.city = value;
+        this.city = value;
     }
 
     /**
@@ -211,7 +217,7 @@ public class Shipper {
      * 
      */
     public String getDivision() {
-	return division;
+        return division;
     }
 
     /**
@@ -222,7 +228,7 @@ public class Shipper {
      * 
      */
     public void setDivision(String value) {
-	this.division = value;
+        this.division = value;
     }
 
     /**
@@ -232,7 +238,7 @@ public class Shipper {
      * 
      */
     public String getDivisionCode() {
-	return divisionCode;
+        return divisionCode;
     }
 
     /**
@@ -243,7 +249,7 @@ public class Shipper {
      * 
      */
     public void setDivisionCode(String value) {
-	this.divisionCode = value;
+        this.divisionCode = value;
     }
 
     /**
@@ -253,7 +259,7 @@ public class Shipper {
      * 
      */
     public String getPostalCode() {
-	return postalCode;
+        return postalCode;
     }
 
     /**
@@ -264,7 +270,7 @@ public class Shipper {
      * 
      */
     public void setPostalCode(String value) {
-	this.postalCode = value;
+        this.postalCode = value;
     }
 
     /**
@@ -274,7 +280,7 @@ public class Shipper {
      * 
      */
     public String getCountryCode() {
-	return countryCode;
+        return countryCode;
     }
 
     /**
@@ -285,7 +291,7 @@ public class Shipper {
      * 
      */
     public void setCountryCode(String value) {
-	this.countryCode = value;
+        this.countryCode = value;
     }
 
     /**
@@ -295,7 +301,7 @@ public class Shipper {
      * 
      */
     public String getCountryName() {
-	return countryName;
+        return countryName;
     }
 
     /**
@@ -306,7 +312,7 @@ public class Shipper {
      * 
      */
     public void setCountryName(String value) {
-	this.countryName = value;
+        this.countryName = value;
     }
 
     /**
@@ -316,7 +322,7 @@ public class Shipper {
      * 
      */
     public String getFederalTaxId() {
-	return federalTaxId;
+        return federalTaxId;
     }
 
     /**
@@ -327,7 +333,7 @@ public class Shipper {
      * 
      */
     public void setFederalTaxId(String value) {
-	this.federalTaxId = value;
+        this.federalTaxId = value;
     }
 
     /**
@@ -337,7 +343,7 @@ public class Shipper {
      * 
      */
     public String getStateTaxId() {
-	return stateTaxId;
+        return stateTaxId;
     }
 
     /**
@@ -348,7 +354,7 @@ public class Shipper {
      * 
      */
     public void setStateTaxId(String value) {
-	this.stateTaxId = value;
+        this.stateTaxId = value;
     }
 
     /**
@@ -358,7 +364,7 @@ public class Shipper {
      * 
      */
     public Contact getContact() {
-	return contact;
+        return contact;
     }
 
     /**
@@ -369,7 +375,7 @@ public class Shipper {
      * 
      */
     public void setContact(Contact value) {
-	this.contact = value;
+        this.contact = value;
     }
 
 }

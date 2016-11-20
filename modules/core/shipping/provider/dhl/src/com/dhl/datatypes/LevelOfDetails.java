@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for LevelOfDetails.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -35,11 +36,11 @@ public enum LevelOfDetails {
     LAST_CHECK_POINT_ONLY, ALL_CHECK_POINTS;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static LevelOfDetails fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

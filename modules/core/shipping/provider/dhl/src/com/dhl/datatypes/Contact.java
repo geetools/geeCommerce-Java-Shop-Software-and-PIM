@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Contact complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Contact">
@@ -62,7 +63,7 @@ public class Contact {
      * 
      */
     public String getPersonName() {
-	return personName;
+        return personName;
     }
 
     /**
@@ -73,7 +74,7 @@ public class Contact {
      * 
      */
     public void setPersonName(String value) {
-	this.personName = value;
+        this.personName = value;
     }
 
     /**
@@ -83,7 +84,7 @@ public class Contact {
      * 
      */
     public String getPhoneNumber() {
-	return phoneNumber;
+        return phoneNumber;
     }
 
     /**
@@ -94,7 +95,7 @@ public class Contact {
      * 
      */
     public void setPhoneNumber(String value) {
-	this.phoneNumber = value;
+        this.phoneNumber = value;
     }
 
     /**
@@ -104,7 +105,7 @@ public class Contact {
      * 
      */
     public String getPhoneExtension() {
-	return phoneExtension;
+        return phoneExtension;
     }
 
     /**
@@ -115,7 +116,7 @@ public class Contact {
      * 
      */
     public void setPhoneExtension(String value) {
-	this.phoneExtension = value;
+        this.phoneExtension = value;
     }
 
     /**
@@ -125,7 +126,7 @@ public class Contact {
      * 
      */
     public String getFaxNumber() {
-	return faxNumber;
+        return faxNumber;
     }
 
     /**
@@ -136,7 +137,7 @@ public class Contact {
      * 
      */
     public void setFaxNumber(String value) {
-	this.faxNumber = value;
+        this.faxNumber = value;
     }
 
     /**
@@ -146,7 +147,7 @@ public class Contact {
      * 
      */
     public String getTelex() {
-	return telex;
+        return telex;
     }
 
     /**
@@ -157,7 +158,7 @@ public class Contact {
      * 
      */
     public void setTelex(String value) {
-	this.telex = value;
+        this.telex = value;
     }
 
     /**
@@ -167,7 +168,7 @@ public class Contact {
      * 
      */
     public Email getEmail() {
-	return email;
+        return email;
     }
 
     /**
@@ -178,7 +179,7 @@ public class Contact {
      * 
      */
     public void setEmail(Email value) {
-	this.email = value;
+        this.email = value;
     }
 
 }

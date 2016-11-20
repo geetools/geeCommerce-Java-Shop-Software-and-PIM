@@ -124,7 +124,8 @@ public class DefaultCouponFilterNode extends AbstractMultiContextModel implement
         if (type == null)
             return false;
 
-        if (type.equals(CouponFilterNodeType.BOOLEAN_OPERATION) || type.equals(CouponFilterNodeType.FOUND) || type.equals(CouponFilterNodeType.NOT_FOUND)) {
+        if (type.equals(CouponFilterNodeType.BOOLEAN_OPERATION) || type.equals(CouponFilterNodeType.FOUND)
+            || type.equals(CouponFilterNodeType.NOT_FOUND)) {
             if (operation == null || operation.isEmpty())
                 return false;
             if (nodes == null || nodes.size() == 0)
@@ -180,7 +181,7 @@ public class DefaultCouponFilterNode extends AbstractMultiContextModel implement
         if (nodes != null) {
             this.nodes = new ArrayList<>();
             for (Map<String, Object> node : nodes) {
-                CouponFilterNode n = app.getModel(CouponFilterNode.class);
+                CouponFilterNode n = app.model(CouponFilterNode.class);
                 n.fromMap(node);
                 this.nodes.add(n);
             }

@@ -2,12 +2,12 @@ package com.geecommerce.core.service;
 
 import java.util.List;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.service.api.MultiContextModel;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface ChildSupport<T> extends MultiContextModel {
     public enum Lookup {
-	NONE, FIRST, ANY;
+        NONE, FIRST, ANY;
     }
 
     @JsonIgnore

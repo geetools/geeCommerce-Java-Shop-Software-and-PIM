@@ -10,18 +10,21 @@ import com.geecommerce.coupon.model.CouponCode;
 
 public class DefaultPercentCartCouponProcessor extends BaseCouponProcessor implements CouponProcessor {
     @Override
-    public boolean canBeProcessed(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection) {
-	if (nullCheck(couponCode) && couponCode.getCoupon().getCouponAction().getType().equals(CouponActionType.PERCENT_CART))
-	    return true;
-	return false;
+    public boolean canBeProcessed(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection) {
+        if (nullCheck(couponCode)
+            && couponCode.getCoupon().getCouponAction().getType().equals(CouponActionType.PERCENT_CART))
+            return true;
+        return false;
     }
 
     @Override
-    public void process(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection) {
-	Coupon coupon = couponCode.getCoupon();
-	CouponAction couponAction = coupon.getCouponAction();
+    public void process(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection) {
+        Coupon coupon = couponCode.getCoupon();
+        CouponAction couponAction = coupon.getCouponAction();
 
-	calcCtx.addParameter(ParamKey.CART_DISCOUNT_RATE, couponAction.getDiscountAmount());
-	setDiscountPrices(calcCtx, cartAttributeCollection, couponAction);
+        calcCtx.addParameter(ParamKey.CART_DISCOUNT_RATE, couponAction.getDiscountAmount());
+        setDiscountPrices(calcCtx, cartAttributeCollection, couponAction);
     }
 }

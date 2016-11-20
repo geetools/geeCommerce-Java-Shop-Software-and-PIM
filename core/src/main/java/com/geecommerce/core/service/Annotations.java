@@ -62,7 +62,8 @@ public class Annotations {
 
                         if (column != null) {
                             String columnName = Str.isEmpty(column.value()) ? column.name() : column.value();
-                            colInfos.add(new ColumnInfo(columnName, field.getType(), field.getGenericType(), fieldName, column.autoPopulate()));
+                            colInfos.add(new ColumnInfo(columnName, field.getType(), field.getGenericType(), fieldName,
+                                column.autoPopulate()));
                         }
                     }
                     // else {
@@ -102,10 +103,10 @@ public class Annotations {
         } else {
             List<String> contexts = Arrays.asList(m.context().split(","));
             if (contexts.contains(MERCHANT_CONTEXT)) {
-                collectionName = collectionName + "_" + App.get().getApplicationContext().getMerchant().getId();
+                collectionName = collectionName + "_" + App.get().context().getMerchant().getId();
             }
             if (contexts.contains(STORE_CONTEXT)) {
-                collectionName = collectionName + "_" + App.get().getApplicationContext().getStore().getId();
+                collectionName = collectionName + "_" + App.get().context().getStore().getId();
             }
             return collectionName;
         }
@@ -142,7 +143,8 @@ public class Annotations {
                         Field f = GlobalColumn.class.getField(columnFieldConstant);
                         f.setAccessible(true);
                         dbColName = (String) f.get(o);
-                    } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+                    } catch (ClassNotFoundException | NoSuchFieldException | SecurityException
+                        | IllegalArgumentException | IllegalAccessException e) {
                     }
 
                 } else {
@@ -152,7 +154,8 @@ public class Annotations {
                             Field f = c.getField(columnFieldConstant);
                             f.setAccessible(true);
                             dbColName = (String) f.get(o);
-                        } catch (NoSuchFieldException | SecurityException | InstantiationException | IllegalAccessException e) {
+                        } catch (NoSuchFieldException | SecurityException | InstantiationException
+                            | IllegalAccessException e) {
                         }
                     }
                 }
@@ -237,27 +240,27 @@ public class Annotations {
          * 
          * Cacheable c = (Cacheable) cache.get(key);
          * 
-         * if (c == null) {
-         * c = modelClass.getAnnotation(Cacheable.class);
+         * if (c == null) { c = modelClass.getAnnotation(Cacheable.class);
          * 
          * Cacheable cachedAnno = (Cacheable) cache.putIfAbsent(key, c);
          * 
-         * if (cachedAnno != null)
-         * c = cachedAnno;
-         * }
+         * if (cachedAnno != null) c = cachedAnno; }
          * 
          * return c;
          */
     }
 
-    private static final <T extends Model, R extends Annotation> R getAnnotation(Class<T> modelClass, Class<R> annotationClass) {
+    private static final <T extends Model, R extends Annotation> R getAnnotation(Class<T> modelClass,
+        Class<R> annotationClass) {
         return getAnnotation(modelClass, annotationClass, true);
     }
 
-    private static final <T extends Model, R extends Annotation> R getAnnotation(Class<T> modelClass, Class<R> annotationClass, boolean throwErrorIfNotExists) {
+    private static final <T extends Model, R extends Annotation> R getAnnotation(Class<T> modelClass,
+        Class<R> annotationClass, boolean throwErrorIfNotExists) {
         modelClass = implClass(modelClass);
 
-        String key = new StringBuilder(modelClass.getName()).append("@" + annotationClass.getCanonicalName()).toString();
+        String key = new StringBuilder(modelClass.getName()).append("@" + annotationClass.getCanonicalName())
+            .toString();
 
         R m = (R) cache.get(key);
 
@@ -270,20 +273,22 @@ public class Annotations {
         }
 
         if (m == null && throwErrorIfNotExists)
-            throw new IllegalStateException("The @" + annotationClass.getCanonicalName() + " annotation could not be found in class: " + modelClass.getName());
+            throw new IllegalStateException("The @" + annotationClass.getCanonicalName()
+                + " annotation could not be found in class: " + modelClass.getName());
 
         return m;
 
     }
 
-    private static final <T extends Model> com.geecommerce.core.service.annotation.Model getModelAnnotation(Class<T> modelClass) {
+    private static final <T extends Model> com.geecommerce.core.service.annotation.Model getModelAnnotation(
+        Class<T> modelClass) {
         return getAnnotation(modelClass, com.geecommerce.core.service.annotation.Model.class);
     }
 
     @SuppressWarnings("unchecked")
     private static <T extends Model> Class<T> implClass(Class<T> modelClass) {
         if (modelClass.isInterface()) {
-            Model modelObject = App.get().getModel(modelClass);
+            Model modelObject = App.get().model(modelClass);
             modelClass = (Class<T>) modelObject.getClass();
         }
 

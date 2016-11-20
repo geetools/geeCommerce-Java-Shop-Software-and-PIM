@@ -14,60 +14,60 @@ public class DefaultShippingOption implements ShippingOption {
     private ShippingPackage shippingPackage;
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public Double getRate() {
-	return rate;
+        return rate;
     }
 
     public void setRate(Double rate) {
-	this.rate = rate;
+        this.rate = rate;
     }
 
     public String getCarrierCode() {
-	return carrierCode;
+        return carrierCode;
     }
 
     public void setCarrierCode(String carrierCode) {
-	this.carrierCode = carrierCode;
+        this.carrierCode = carrierCode;
     }
 
     public String getOptionCode() {
-	return optionCode;
+        return optionCode;
     }
 
     public void setOptionCode(String optionCode) {
-	this.optionCode = optionCode;
+        this.optionCode = optionCode;
     }
 
     public String getGroup() {
-	return group;
+        return group;
     }
 
     public void setGroup(String group) {
-	this.group = group;
+        this.group = group;
     }
 
     @Override
     public ShippingPackage getShippingPackage() {
-	return shippingPackage;
+        return shippingPackage;
     }
 
     @Override
     public void setShippingPackage(ShippingPackage shippingPackage) {
-	this.shippingPackage = shippingPackage;
+        this.shippingPackage = shippingPackage;
     }
 }

@@ -8,11 +8,11 @@ public class ModelMethodDispatchProvider implements ResourceMethodDispatchProvid
     private final ResourceMethodDispatchProvider wrappedProvider;
 
     ModelMethodDispatchProvider(ResourceMethodDispatchProvider wrappedProvider) {
-	this.wrappedProvider = wrappedProvider;
+        this.wrappedProvider = wrappedProvider;
     }
 
     @Override
     public RequestDispatcher create(AbstractResourceMethod arm) {
-	return new ModelRequestDispatcher(wrappedProvider.create(new ResourceMethodWrapper(arm)));
+        return new ModelRequestDispatcher(wrappedProvider.create(new ResourceMethodWrapper(arm)));
     }
 }

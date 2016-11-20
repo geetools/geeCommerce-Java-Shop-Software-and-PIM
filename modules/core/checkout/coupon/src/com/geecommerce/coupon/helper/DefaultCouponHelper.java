@@ -38,7 +38,8 @@ public class DefaultCouponHelper implements CouponHelper {
         this.priceTypes = priceTypes;
     }
 
-    public List<String> generateCodes(String prefix, String postfix, CouponCodePattern pattern, Integer length, Integer quantity) {
+    public List<String> generateCodes(String prefix, String postfix, CouponCodePattern pattern, Integer length,
+        Integer quantity) {
         // List<String> codes = new ArrayList<>();
         HashSet<String> codes = new HashSet<>();
         int count = 0;
@@ -96,7 +97,7 @@ public class DefaultCouponHelper implements CouponHelper {
 
         Product product = productService.getProduct(productId);
         PriceResult priceResult = product.getPrice();
-        PricingContext defaultPricingCtx = app.getPojo(PricingContext.class);
+        PricingContext defaultPricingCtx = app.pojo(PricingContext.class);
         Map<String, Double> validPrices = priceResult.getValidPrices(defaultPricingCtx);
 
         for (Id priceTypeId : priceTypeIds) {

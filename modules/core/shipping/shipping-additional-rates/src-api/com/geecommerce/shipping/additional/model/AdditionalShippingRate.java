@@ -28,11 +28,11 @@ public interface AdditionalShippingRate extends MultiContextModel {
     public AdditionalShippingRate setDescription(ContextObject<String> label);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String RATE = "rate";
-	public static final String LABEL = "label";
-	public static final String DESCRIPTION = "descr";
-	public static final String CARRIER = "carrier";
-	public static final String GROUP = "group";
+        public static final String ID = "_id";
+        public static final String RATE = "rate";
+        public static final String LABEL = "label";
+        public static final String DESCRIPTION = "descr";
+        public static final String CARRIER = "carrier";
+        public static final String GROUP = "group";
     }
 }

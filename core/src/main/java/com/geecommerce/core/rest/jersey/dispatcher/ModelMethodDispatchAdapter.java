@@ -11,6 +11,6 @@ import com.sun.jersey.spi.container.ResourceMethodDispatchProvider;
 public class ModelMethodDispatchAdapter implements ResourceMethodDispatchAdapter {
     @Override
     public ResourceMethodDispatchProvider adapt(ResourceMethodDispatchProvider provider) {
-	return new ModelMethodDispatchProvider(provider);
+        return new ModelMethodDispatchProvider(provider);
     }
 }

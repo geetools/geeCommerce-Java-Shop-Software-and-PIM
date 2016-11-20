@@ -2,12 +2,12 @@ package com.geecommerce.shipping.additional.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Cacheable
 @Model("add_shipping_rates")
@@ -28,98 +28,98 @@ public class DefaultAdditionalShippingRate extends AbstractMultiContextModel imp
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public AdditionalShippingRate setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Double getRate() {
-	return rate;
+        return rate;
     }
 
     @Override
     public AdditionalShippingRate setRate(Double rate) {
-	this.rate = rate;
-	return this;
+        this.rate = rate;
+        return this;
     }
 
     @Override
     public String getGroup() {
-	return group;
+        return group;
     }
 
     @Override
     public AdditionalShippingRate setGroup(String group) {
-	this.group = group;
-	return this;
+        this.group = group;
+        return this;
     }
 
     @Override
     public String getCarrier() {
-	return carrier;
+        return carrier;
     }
 
     @Override
     public AdditionalShippingRate setCarrier(String carrier) {
-	this.carrier = carrier;
-	return this;
+        this.carrier = carrier;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public AdditionalShippingRate setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public ContextObject<String> getDescription() {
-	return description;
+        return description;
     }
 
     @Override
     public AdditionalShippingRate setDescription(ContextObject<String> description) {
-	this.description = description;
-	return this;
+        this.description = description;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.carrier = str_(map.get(Column.CARRIER));
-	this.group = str_(map.get(Column.GROUP));
-	this.rate = double_(map.get(Column.RATE));
-	this.label = ctxObj_(map.get(Column.LABEL));
-	this.description = ctxObj_(map.get(Column.DESCRIPTION));
+        this.id = id_(map.get(Column.ID));
+        this.carrier = str_(map.get(Column.CARRIER));
+        this.group = str_(map.get(Column.GROUP));
+        this.rate = double_(map.get(Column.RATE));
+        this.label = ctxObj_(map.get(Column.LABEL));
+        this.description = ctxObj_(map.get(Column.DESCRIPTION));
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(Column.ID, getId());
+        map.put(Column.ID, getId());
 
-	if (getCarrier() != null)
-	    map.put(Column.CARRIER, getCarrier());
+        if (getCarrier() != null)
+            map.put(Column.CARRIER, getCarrier());
 
-	if (getGroup() != null)
-	    map.put(Column.GROUP, getGroup());
+        if (getGroup() != null)
+            map.put(Column.GROUP, getGroup());
 
-	map.put(Column.RATE, getRate());
-	map.put(Column.LABEL, getLabel());
-	map.put(Column.DESCRIPTION, getDescription());
+        map.put(Column.RATE, getRate());
+        map.put(Column.LABEL, getLabel());
+        map.put(Column.DESCRIPTION, getDescription());
 
-	return map;
+        return map;
     }
 }

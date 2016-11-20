@@ -16,25 +16,25 @@ public class Label implements Serializable {
     }
 
     public Label(Id id, ContextObject<String> label) {
-	this.id = id;
-	this.label = label;
+        this.id = id;
+        this.label = label;
     }
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public Label setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     public Label setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 }

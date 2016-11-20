@@ -1,5 +1,16 @@
 package com.geecommerce.guiwidgets.service;
 
+import static org.rendersnake.HtmlAttributesFactory.class_;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.commons.lang.StringUtils;
+import org.rendersnake.HtmlCanvas;
+import org.unbescape.html.HtmlEscape;
+
 import com.geecommerce.core.service.annotation.Service;
 import com.geecommerce.core.system.widget.helper.WidgetHelper;
 import com.geecommerce.guiwidgets.enums.ContentNodeType;
@@ -12,16 +23,6 @@ import com.geecommerce.guiwidgets.model.ContentNode;
 import com.geecommerce.guiwidgets.model.StructureNode;
 import com.geecommerce.guiwidgets.repository.Contents;
 import com.google.inject.Inject;
-import org.apache.commons.lang.StringUtils;
-import org.rendersnake.HtmlCanvas;
-import org.unbescape.html.HtmlEscape;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.rendersnake.HtmlAttributesFactory.class_;
 
 @Service
 public class DefaultContentService implements ContentService {
@@ -36,7 +37,7 @@ public class DefaultContentService implements ContentService {
 
     protected String wrapPageTemplate(Content content, String template) {
         return "<#import \"${t_layout}/" + content.getLayout().getPath() + "\" as layout>\n" + // ${t_layout}
-                "\n" + "<@layout.onecolumn><div class=\"home-container\">" + template + "</div></@layout.onecolumn>";
+            "\n" + "<@layout.onecolumn><div class=\"home-container\">" + template + "</div></@layout.onecolumn>";
     }
 
     @Override
@@ -95,7 +96,8 @@ public class DefaultContentService implements ContentService {
             html.div(class_(structureNode.getCss()));
             if (!StringUtils.isBlank(structureNode.getNodeId())) {
                 if (content.getContentNodes() != null) {
-                    Optional<ContentNode> node = content.getContentNodes().stream().filter(n -> n.getNodeId().equals(structureNode.getNodeId())).findFirst();
+                    Optional<ContentNode> node = content.getContentNodes().stream()
+                        .filter(n -> n.getNodeId().equals(structureNode.getNodeId())).findFirst();
                     if (node.isPresent()) {
                         generateNode(node.get(), html);
                     }
@@ -108,10 +110,12 @@ public class DefaultContentService implements ContentService {
     protected void generateNode(ContentNode contentNode, HtmlCanvas html) throws IOException {
 
         if (contentNode.getType().equals(ContentNodeType.TEXT)) {
-            html/*.div(class_(contentNode.getCss()))*/.write(HtmlEscape.unescapeHtml(contentNode.getContent()), false)/*._div()*/;
+            html/* .div(class_(contentNode.getCss())) */.write(HtmlEscape.unescapeHtml(contentNode.getContent()),
+                false)/* ._div() */;
         }
 
-        if (contentNode.getType().equals(ContentNodeType.WIDGET) && contentNode.getWidget() != null && !contentNode.getWidget().isEmpty()) {
+        if (contentNode.getType().equals(ContentNodeType.WIDGET) && contentNode.getWidget() != null
+            && !contentNode.getWidget().isEmpty()) {
             generateWidgetNode(contentNode, html);
         }
 

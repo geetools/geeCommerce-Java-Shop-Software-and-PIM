@@ -28,21 +28,21 @@ public class PermissionResource extends AbstractResource {
 
     @Inject
     public PermissionResource(UserService userService, RestService service) {
-	this.userService = userService;
-	this.service = service;
+        this.userService = userService;
+        this.service = service;
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getPermissions(@FilterParam Filter filter) {
-	return ok(service.get(Permission.class, filter.getParams(), queryOptions(filter)));
+        return ok(service.get(Permission.class, filter.getParams(), queryOptions(filter)));
     }
 
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Permission getPermission(@PathParam("id") Id id) {
-	return checked(service.get(Permission.class, id));
+        return checked(service.get(Permission.class, id));
     }
 
     @PUT
@@ -50,32 +50,32 @@ public class PermissionResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updatePermission(@PathParam("id") String id, Update update) {
-	if (id != null) {
-	    Permission q = checked(service.get(Permission.class, new Id(id)));
-	    q.set(update.getFields());
-	    service.update(q);
-	}
+        if (id != null) {
+            Permission q = checked(service.get(Permission.class, new Id(id)));
+            q.set(update.getFields());
+            service.update(q);
+        }
     }
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createPermission(Update update) {
-	Permission q = app.getModel(Permission.class);
-	q.set(update.getFields());
-	q = service.create(q);
-	return created(q);
+        Permission q = app.model(Permission.class);
+        q.set(update.getFields());
+        q = service.create(q);
+        return created(q);
     }
 
     @DELETE
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void removePermission(@PathParam("id") Id id) {
-	if (id != null) {
-	    Permission q = checked(service.get(Permission.class, id));
-	    if (q != null) {
-		service.remove(q);
-	    }
-	}
+        if (id != null) {
+            Permission q = checked(service.get(Permission.class, id));
+            if (q != null) {
+                service.remove(q);
+            }
+        }
     }
 }

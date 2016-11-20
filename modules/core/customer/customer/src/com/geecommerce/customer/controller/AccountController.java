@@ -60,7 +60,8 @@ public class AccountController extends BaseController {
     public static final String CUSTOMER_FORGOTTEN_PASSWORD_SAVE = "customer:forgotten-password:save";
 
     @Inject
-    public AccountController(CustomerService customerService, MailerService mailerService, CompositeMessageResolver messageResolver) {
+    public AccountController(CustomerService customerService, MailerService mailerService,
+        CompositeMessageResolver messageResolver) {
         this.customerService = customerService;
         this.mailerService = mailerService;
         this.messageResolver = messageResolver;
@@ -86,8 +87,7 @@ public class AccountController extends BaseController {
         if (isCustomerLoggedIn())
             return redirect("/customer/account/overview/");
 
-        return view("customer/account/login_form")
-            .bind("customerLoggedIn", isCustomerLoggedIn())
+        return view("customer/account/login_form").bind("customerLoggedIn", isCustomerLoggedIn())
             .bind("loggedInCustomer", getLoggedInCustomer());
     }
 
@@ -98,7 +98,8 @@ public class AccountController extends BaseController {
 
         if (account != null) {
             try {
-                if (Passwords.authenticate(accountForm.getPassword(), account.getPassword(), getSalt(account.getSalt()))) {
+                if (Passwords.authenticate(accountForm.getPassword(), account.getPassword(),
+                    getSalt(account.getSalt()))) {
                     Customer customer = customerService.getCustomer(account.getCustomerId());
 
                     if (customer != null) {
@@ -133,11 +134,11 @@ public class AccountController extends BaseController {
     }
 
     @Request(value = "/add", method = HttpMethod.POST)
-    public Result createAccount(@Valid AccountForm accountForm, Bindings bindings, Errors errors, RequestContext requestContext) {
+    public Result createAccount(@Valid AccountForm accountForm, Bindings bindings, Errors errors,
+        RequestContext requestContext) {
 
         if (bindings.hasErrors())
-            return Results.view("customer/account/new_form")
-                .bind(bindings.typedValues());
+            return Results.view("customer/account/new_form").bind(bindings.typedValues());
 
         Customer savedCustomer = null;
         Account savedAccount = null;
@@ -149,7 +150,7 @@ public class AccountController extends BaseController {
                 accountForm.setUsername(accountForm.getEmail());
 
             if (!customerService.accountExists(accountForm.getUsername())) {
-                Customer customer = app.getModel(Customer.class);
+                Customer customer = app.model(Customer.class);
                 customer.setId(app.nextId());
                 customer.setCustomerNumber(app.nextIncrementId("customer_number"));
                 customer.setForename(accountForm.getForename());
@@ -167,29 +168,27 @@ public class AccountController extends BaseController {
 
                 if (savedCustomer != null && savedCustomer.getId() != null) {
 
-                    Address invoiceAddress = app.getModel(Address.class);
+                    Address invoiceAddress = app.model(Address.class);
                     invoiceAddress.belongsTo(customer).setCompany(accountForm.getInvoiceAddrFirm())
                         .setAddressLines(accountForm.getInvoiceAddrStreet())
                         .setHouseNumber(accountForm.getInvoiceAddrHouseNum())
-                        .setZip(accountForm.getInvoiceAddrZipCode())
-                        .setCity(accountForm.getInvoiceAddrCity())
+                        .setZip(accountForm.getInvoiceAddrZipCode()).setCity(accountForm.getInvoiceAddrCity())
                         .markAsDefaultInvoiceAddress();
                     savedInvoiceAddress = customerService.createAddress(invoiceAddress);
 
-                    Address shippingAddress = app.getModel(Address.class);
+                    Address shippingAddress = app.model(Address.class);
                     shippingAddress.belongsTo(customer).setAddressLines(accountForm.getShippingAddrStreet())
                         .setHouseNumber(accountForm.getShippingAddrHouseNum())
-                        .setZip(accountForm.getShippingAddrZipCode())
-                        .setCity(accountForm.getShippingAddrCity())
+                        .setZip(accountForm.getShippingAddrZipCode()).setCity(accountForm.getShippingAddrCity())
                         .markAsDefaultDeliveryAddress();
                     savedShippingAddress = customerService.createAddress(shippingAddress);
 
                     byte[] randomSalt = Passwords.getRandomSalt();
 
-                    Account account = app.getModel(Account.class);
+                    Account account = app.model(Account.class);
                     account.belongsTo(savedCustomer).setUsername(accountForm.getUsername())
-                        .setPassword(encryptPassword(accountForm.getPassword1(), randomSalt))
-                        .setSalt(randomSalt).enableAccount();
+                        .setPassword(encryptPassword(accountForm.getPassword1(), randomSalt)).setSalt(randomSalt)
+                        .enableAccount();
 
                     savedAccount = customerService.createAccount(account);
 
@@ -209,7 +208,8 @@ public class AccountController extends BaseController {
         } catch (Throwable t) {
             t.printStackTrace();
 
-            LOG.error("An error occured when trying to create a new account: savedCustomer=" + savedCustomer + ", savedAccount=" + savedAccount);
+            LOG.error("An error occured when trying to create a new account: savedCustomer=" + savedCustomer
+                + ", savedAccount=" + savedAccount);
 
             LOG.throwing(t);
 
@@ -244,8 +244,7 @@ public class AccountController extends BaseController {
 
         AccountForm form = new AccountForm();
         populateForm(form);
-        return view("customer/account/edit_form")
-            .bind("accountForm", form);
+        return view("customer/account/edit_form").bind("accountForm", form);
     }
 
     @Request(value = "/process-edit", method = HttpMethod.POST)
@@ -254,8 +253,7 @@ public class AccountController extends BaseController {
         Account account = null;
 
         if (bindings.hasErrors())
-            return Results.view("customer/account/edit_form")
-                .bind(bindings.typedValues());
+            return Results.view("customer/account/edit_form").bind(bindings.typedValues());
 
         if (accountForm.getPassword1() != null && !accountForm.getPassword1().equals(accountForm.getPassword2())) {
             errors.add("account.error.passwordNotEqual");
@@ -266,12 +264,9 @@ public class AccountController extends BaseController {
             loggedInCustomer = getLoggedInCustomer();
             account = customerService.getAccountFor(loggedInCustomer);
 
-            loggedInCustomer.setForename(accountForm.getForename())
-                .setSurname(accountForm.getSurname())
-                .setSalutation(accountForm.getSalutation())
-                .setDegree(accountForm.getTitle())
-                .setPhone(accountForm.getPhone())
-                .setPhoneCode(accountForm.getPhoneCode())
+            loggedInCustomer.setForename(accountForm.getForename()).setSurname(accountForm.getSurname())
+                .setSalutation(accountForm.getSalutation()).setDegree(accountForm.getTitle())
+                .setPhone(accountForm.getPhone()).setPhoneCode(accountForm.getPhoneCode())
                 .setCustomerNumber(accountForm.getCustomerNumber());
 
             loggedInCustomer.setCompany(accountForm.getInvoiceAddrFirm());
@@ -282,16 +277,13 @@ public class AccountController extends BaseController {
             if (addresses != null && !addresses.isEmpty()) {
                 for (Address address : addresses) {
                     if (address.isDefaultInvoiceAddress()) {
-                        address.belongsTo(loggedInCustomer)
-                            .setCompany(accountForm.getInvoiceAddrFirm())
+                        address.belongsTo(loggedInCustomer).setCompany(accountForm.getInvoiceAddrFirm())
                             .setAddressLines(accountForm.getInvoiceAddrStreet())
                             .setHouseNumber(accountForm.getInvoiceAddrHouseNum())
-                            .setZip(accountForm.getInvoiceAddrZipCode())
-                            .setCity(accountForm.getInvoiceAddrCity());
+                            .setZip(accountForm.getInvoiceAddrZipCode()).setCity(accountForm.getInvoiceAddrCity());
                         customerService.updateAddress(address);
                     } else if (address.isDefaultDeliveryAddress()) {
-                        address.belongsTo(loggedInCustomer)
-                            .setAddressLines(accountForm.getShippingAddrStreet())
+                        address.belongsTo(loggedInCustomer).setAddressLines(accountForm.getShippingAddrStreet())
                             .setHouseNumber(accountForm.getShippingAddrHouseNum())
                             .setZip(accountForm.getShippingAddrZipCode())
                             .setCity(accountForm.getShippingAddrCity());
@@ -307,7 +299,8 @@ public class AccountController extends BaseController {
 
             account.belongsTo(loggedInCustomer).setUsername(accountForm.getUsername()).enableAccount();
             if (accountForm.getPassword1() != null && accountForm.getPassword1().equals(accountForm.getPassword2())) {
-                if (StringUtils.isNotBlank(accountForm.getPassword1()) && StringUtils.isNotBlank(accountForm.getPassword2())) {
+                if (StringUtils.isNotBlank(accountForm.getPassword1())
+                    && StringUtils.isNotBlank(accountForm.getPassword2())) {
                     account.setPassword(encryptPassword(accountForm.getPassword1(), randomSalt));
                     account.setSalt(randomSalt);
                 }
@@ -319,7 +312,8 @@ public class AccountController extends BaseController {
         } catch (Throwable t) {
             t.printStackTrace();
 
-            LOG.error("An error occured when trying to update an account: customer=" + loggedInCustomer + ", account=" + account);
+            LOG.error("An error occured when trying to update an account: customer=" + loggedInCustomer + ", account="
+                + account);
             LOG.throwing(t);
 
             errors.add("account.error.updateError");
@@ -355,9 +349,8 @@ public class AccountController extends BaseController {
         AccountForm form = new AccountForm();
         populateForm(form);
 
-        return view("customer/account/orders_overview")
-            .bind("accountForm", form)
-            .bind("orderFilterDate", orderFilterDate);
+        return view("customer/account/orders_overview").bind("accountForm", form).bind("orderFilterDate",
+            orderFilterDate);
     }
 
     @Request("order-details")
@@ -442,18 +435,17 @@ public class AccountController extends BaseController {
             customerService.updateAccount(account);
 
             account = customerService.getAccountFor(username);
-            if (account != null && account.getCustomerId() != null && account.getForgotPasswordToken() != null && account.getForgotPasswordOn() != null) {
+            if (account != null && account.getCustomerId() != null && account.getForgotPasswordToken() != null
+                && account.getForgotPasswordOn() != null) {
                 Customer customer = customerService.getCustomer(account.getCustomerId());
 
                 if (customer != null && customer.getEmail() != null) {
-                    String tokenToSend = new StringBuilder()
-                        .append(account.getId())
-                        .append(":")
-                        .append(account.getForgotPasswordOn().getTime())
-                        .append(":").append(account.getForgotPasswordToken()).toString();
+                    String tokenToSend = new StringBuilder().append(account.getId()).append(":")
+                        .append(account.getForgotPasswordOn().getTime()).append(":")
+                        .append(account.getForgotPasswordToken()).toString();
 
-                    String link = new StringBuilder(getSecureBasePath()).append("/customer/account/forgot-password-reset/?fpToken=")
-                        .append(tokenToSend).toString();
+                    String link = new StringBuilder(getSecureBasePath())
+                        .append("/customer/account/forgot-password-reset/?fpToken=").append(tokenToSend).toString();
 
                     Map<String, Object> templateParams = new HashMap<>();
                     templateParams.put("link", link);
@@ -535,7 +527,8 @@ public class AccountController extends BaseController {
                         try {
                             randomSalt = Passwords.getRandomSalt();
 
-                            account.setPassword(encryptPassword(accountForm.getPassword1(), randomSalt)).setSalt(randomSalt).removeForgotPasswordToken();
+                            account.setPassword(encryptPassword(accountForm.getPassword1(), randomSalt))
+                                .setSalt(randomSalt).removeForgotPasswordToken();
 
                             customerService.updateAccount(account);
 
@@ -589,7 +582,8 @@ public class AccountController extends BaseController {
         return view("customer/account/header_login_container");
     }
 
-    private byte[] encryptPassword(String password, byte[] randomSalt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private byte[] encryptPassword(String password, byte[] randomSalt)
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (password == null || randomSalt == null || randomSalt.length == 0)
             throw new NullPointerException("Password and/or random salt cannot be null");
 

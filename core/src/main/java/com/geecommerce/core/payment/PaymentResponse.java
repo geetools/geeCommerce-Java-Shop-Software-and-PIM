@@ -11,55 +11,56 @@ public class PaymentResponse {
     private Map<String, String> custom = null;
 
     public PaymentResponse() {
-	custom = new HashMap<>();
+        custom = new HashMap<>();
     }
 
-    public PaymentResponse(PaymentEventResponse paymentEventResponse, Double amount, String url, String transactionId, Map<String, String> custom) {
-	super();
-	this.paymentEventResponse = paymentEventResponse;
-	this.amount = amount;
-	this.url = url;
-	this.transactionId = transactionId;
-	this.custom = custom;
+    public PaymentResponse(PaymentEventResponse paymentEventResponse, Double amount, String url, String transactionId,
+        Map<String, String> custom) {
+        super();
+        this.paymentEventResponse = paymentEventResponse;
+        this.amount = amount;
+        this.url = url;
+        this.transactionId = transactionId;
+        this.custom = custom;
     }
 
     public PaymentEventResponse getPaymentEventResponse() {
-	return paymentEventResponse;
+        return paymentEventResponse;
     }
 
     public void setPaymentEventResponse(PaymentEventResponse paymentEventResponse) {
-	this.paymentEventResponse = paymentEventResponse;
+        this.paymentEventResponse = paymentEventResponse;
     }
 
     public Double getAmount() {
-	return amount;
+        return amount;
     }
 
     public void setAmount(Double amount) {
-	this.amount = amount;
+        this.amount = amount;
     }
 
     public String getUrl() {
-	return url;
+        return url;
     }
 
     public void setUrl(String url) {
-	this.url = url;
+        this.url = url;
     }
 
     public String getTransactionId() {
-	return transactionId;
+        return transactionId;
     }
 
     public void setTransactionId(String transactionId) {
-	this.transactionId = transactionId;
+        this.transactionId = transactionId;
     }
 
     public Map<String, String> getCustom() {
-	return custom;
+        return custom;
     }
 
     public void setCustom(Map<String, String> custom) {
-	this.custom = custom;
+        this.custom = custom;
     }
 }

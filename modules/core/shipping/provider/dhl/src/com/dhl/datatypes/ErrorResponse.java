@@ -19,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ErrorResponse complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ErrorResponse">
@@ -52,7 +53,7 @@ public class ErrorResponse {
      * 
      */
     public ServiceHeader getServiceHeader() {
-	return serviceHeader;
+        return serviceHeader;
     }
 
     /**
@@ -63,7 +64,7 @@ public class ErrorResponse {
      * 
      */
     public void setServiceHeader(ServiceHeader value) {
-	this.serviceHeader = value;
+        this.serviceHeader = value;
     }
 
     /**
@@ -73,7 +74,7 @@ public class ErrorResponse {
      * 
      */
     public Status getStatus() {
-	return status;
+        return status;
     }
 
     /**
@@ -84,7 +85,7 @@ public class ErrorResponse {
      * 
      */
     public void setStatus(Status value) {
-	this.status = value;
+        this.status = value;
     }
 
 }

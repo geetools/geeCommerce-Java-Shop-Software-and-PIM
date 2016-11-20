@@ -15,43 +15,43 @@ public class DefaultShippingRateService implements ShippingRateService {
 
     @Inject
     public DefaultShippingRateService(ShippingRates shippingRates) {
-	this.shippingRates = shippingRates;
+        this.shippingRates = shippingRates;
     }
 
     private ShippingRate findShippingRate(List<ShippingRate> rates, Double value) {
-	ShippingRate rate = null;
-	for (ShippingRate rt : rates) {
-	    if (rt.getLowerBound() <= value) {
-		if (rate == null || rate.getLowerBound() < rt.getLowerBound()) {
-		    rate = rt;
-		}
-	    }
-	}
-	return rate;
+        ShippingRate rate = null;
+        for (ShippingRate rt : rates) {
+            if (rt.getLowerBound() <= value) {
+                if (rate == null || rate.getLowerBound() < rt.getLowerBound()) {
+                    rate = rt;
+                }
+            }
+        }
+        return rate;
     }
 
-    
     @Override
-    public ShippingRate findShippingRateFor(ShippingType shippingType, ShippingRateType type, String countryCode, String stateCode, String zipCode, Double value) {
-	ShippingRate shippingRate = null;
-	List<ShippingRate> shippingRateList = null;
+    public ShippingRate findShippingRateFor(ShippingType shippingType, ShippingRateType type, String countryCode,
+        String stateCode, String zipCode, Double value) {
+        ShippingRate shippingRate = null;
+        List<ShippingRate> shippingRateList = null;
 
-	if (zipCode != null) {
-	    shippingRateList = shippingRates.forZip(shippingType, type, countryCode, zipCode);
-	}
+        if (zipCode != null) {
+            shippingRateList = shippingRates.forZip(shippingType, type, countryCode, zipCode);
+        }
 
-	if ((shippingRateList == null || shippingRateList.size() == 0) && stateCode != null) {
-	    shippingRateList = shippingRates.forState(shippingType, type, countryCode, stateCode);
-	}
+        if ((shippingRateList == null || shippingRateList.size() == 0) && stateCode != null) {
+            shippingRateList = shippingRates.forState(shippingType, type, countryCode, stateCode);
+        }
 
-	if ((shippingRateList == null || shippingRateList.size() == 0) && countryCode != null) {
-	    shippingRateList = shippingRates.forCountry(shippingType, type, countryCode);
-	}
+        if ((shippingRateList == null || shippingRateList.size() == 0) && countryCode != null) {
+            shippingRateList = shippingRates.forCountry(shippingType, type, countryCode);
+        }
 
-	if (shippingRateList == null || shippingRateList.size() == 0)
-	    return null;
+        if (shippingRateList == null || shippingRateList.size() == 0)
+            return null;
 
-	return findShippingRate(shippingRateList, value);
+        return findShippingRate(shippingRateList, value);
     }
 
 }

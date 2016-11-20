@@ -1,16 +1,16 @@
 package com.geecommerce.checkout.helper;
 
+import java.util.List;
+
 import com.geecommerce.calculation.model.CalculationResult;
 import com.geecommerce.cart.model.Cart;
 import com.geecommerce.checkout.form.AddressForm;
 import com.geecommerce.checkout.form.CheckoutForm;
 import com.geecommerce.checkout.model.Checkout;
 import com.geecommerce.checkout.model.Order;
-import com.geecommerce.core.payment.PaymentResponse;
 import com.geecommerce.core.service.api.Helper;
 import com.geecommerce.customer.model.Address;
 import com.geecommerce.shipping.service.ShippingService;
-import java.util.List;
 
 public interface CheckoutHelper extends Helper {
     public Order convertCartToOrder(Cart cart) throws Exception;
@@ -19,7 +19,8 @@ public interface CheckoutHelper extends Helper {
 
     public void addAddressesToCheckout(Checkout checkout, CheckoutForm form);
 
-    public void addShippingToCheckout(Checkout checkout, Cart cart, CheckoutForm form, ShippingService shippingService, Double totalAmount);
+    public void addShippingToCheckout(Checkout checkout, Cart cart, CheckoutForm form, ShippingService shippingService,
+        Double totalAmount);
 
     public void addTotals(Order order, CalculationResult totals);
 

@@ -14,7 +14,8 @@ import freemarker.template.TemplateModel;
 public class SessionDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         App.get().sessionInit();
     }
 }

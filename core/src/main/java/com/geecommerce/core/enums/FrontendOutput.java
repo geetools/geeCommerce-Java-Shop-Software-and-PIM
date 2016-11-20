@@ -33,13 +33,15 @@ public enum FrontendOutput implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (FrontendOutput frontendOutput : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(FrontendOutput.class.getSimpleName()).append(".").append(frontendOutput.name()).toString()), frontendOutput.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(FrontendOutput.class.getSimpleName())
+                .append(".").append(frontendOutput.name()).toString()), frontendOutput.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(FrontendOutput.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(FrontendOutput.class.getSimpleName()).append(".label").toString());
     }
 }

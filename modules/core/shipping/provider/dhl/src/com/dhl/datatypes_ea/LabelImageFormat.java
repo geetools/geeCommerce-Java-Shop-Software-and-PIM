@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for LabelImageFormat.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -42,20 +43,20 @@ public enum LabelImageFormat {
     private final String value;
 
     LabelImageFormat(String v) {
-	value = v;
+        value = v;
     }
 
     public String value() {
-	return value;
+        return value;
     }
 
     public static LabelImageFormat fromValue(String v) {
-	for (LabelImageFormat c : LabelImageFormat.values()) {
-	    if (c.value.equals(v)) {
-		return c;
-	    }
-	}
-	throw new IllegalArgumentException(v);
+        for (LabelImageFormat c : LabelImageFormat.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
     }
 
 }

@@ -46,15 +46,15 @@ public interface ShippingRate extends MultiContextModel {
     public ShippingRate setDescription(ContextObject<String> label);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String COUNTRY = "country";
-	public static final String STATE = "state";
-	public static final String ZIP = "zip";
-	public static final String RATE = "rate";
-	public static final String LABEL = "label";
-	public static final String DESCRIPTION = "descr";
-	public static final String RATE_TYPE = "type";
-	public static final String LOWER_BOUND = "l_bound";
-	public static final String SHIPPING_TYPE = "s_type";
+        public static final String ID = "_id";
+        public static final String COUNTRY = "country";
+        public static final String STATE = "state";
+        public static final String ZIP = "zip";
+        public static final String RATE = "rate";
+        public static final String LABEL = "label";
+        public static final String DESCRIPTION = "descr";
+        public static final String RATE_TYPE = "type";
+        public static final String LOWER_BOUND = "l_bound";
+        public static final String SHIPPING_TYPE = "s_type";
     }
 }

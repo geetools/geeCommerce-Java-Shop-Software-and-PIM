@@ -19,7 +19,8 @@ public class CustomerProfileWidget extends AbstractWidgetController implements W
     private final String LOGGED_IN_CUSTOMER_LOGIN = "customerLogin";
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
 
         boolean loggedIn = app.isCustomerLoggedIn();
         widgetCtx.setParam(IS_LOGGED_IN, loggedIn);

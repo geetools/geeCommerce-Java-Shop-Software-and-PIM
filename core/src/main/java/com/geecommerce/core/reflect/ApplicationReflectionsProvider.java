@@ -23,7 +23,7 @@ public class ApplicationReflectionsProvider extends DefaultReflectionsProvider {
         URL coreJar = ClasspathHelper.getCoreJar();
         urls.add(coreJar);
 
-        ModuleLoader loader = App.get().getModuleLoader();
+        ModuleLoader loader = App.get().moduleLoader();
 
         if (loader != null) {
             URL[] moduleClassPath = loader.getPublicClasspath();
@@ -33,7 +33,7 @@ public class ApplicationReflectionsProvider extends DefaultReflectionsProvider {
             }
         }
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null) {
             Merchant merchant = appCtx.getMerchant();
@@ -57,7 +57,7 @@ public class ApplicationReflectionsProvider extends DefaultReflectionsProvider {
     protected Set<ClassLoader> appendClassLoaders() {
         Set<ClassLoader> classLoaders = new HashSet<>();
 
-        ModuleLoader loader = App.get().getModuleLoader();
+        ModuleLoader loader = App.get().moduleLoader();
 
         if (loader != null) {
             classLoaders.add(new ApplicationContextClassLoader(loader.getPublicClassLoader()));
@@ -67,8 +67,7 @@ public class ApplicationReflectionsProvider extends DefaultReflectionsProvider {
              * loader.getModuleClassLoaders();
              * 
              * for (ClassLoader classLoader : moduleClassLoaders) {
-             * classLoaders.add(classLoader);
-             * }
+             * classLoaders.add(classLoader); }
              */
         }
 
@@ -77,6 +76,6 @@ public class ApplicationReflectionsProvider extends DefaultReflectionsProvider {
 
     @Override
     protected ServletContext servletContext() {
-        return App.get().getServletContext();
+        return App.get().servletContext();
     }
 }

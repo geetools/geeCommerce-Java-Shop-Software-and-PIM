@@ -96,7 +96,8 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).findIds(modelClass, filter, queryOptions);
     }
 
@@ -111,7 +112,8 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).findData(modelClass, filter, queryOptions);
     }
 
@@ -121,7 +123,8 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).findDataByIds(modelClass, ids, queryOptions);
     }
 
@@ -131,12 +134,14 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter, String... distinctField) {
+    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter,
+        String... distinctField) {
         return repositorySupport(modelClass).distinct(modelClass, filter, distinctField);
     }
 
     @Override
-    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, String... distinctField) {
+    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, String... distinctField) {
         return repositorySupport(modelClass).distinct(modelClass, filter, queryOptions, distinctField);
     }
 
@@ -145,12 +150,14 @@ public abstract class AbstractRepository implements Repository {
         return repositorySupport(modelClass).multiContextFindOne(modelClass, filter);
     }
 
-    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter, String distinctFieldName) {
+    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter,
+        String distinctFieldName) {
         return repositorySupport(modelClass).multiContextFind(modelClass, filter, distinctFieldName);
     }
 
     @Override
-    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter, String distinctFieldName, QueryOptions queryOptions) {
+    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter,
+        String distinctFieldName, QueryOptions queryOptions) {
         return repositorySupport(modelClass).multiContextFind(modelClass, filter, distinctFieldName, queryOptions);
     }
 
@@ -165,21 +172,25 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).simpleContextFind(modelClass, filter, queryOptions);
     }
 
     @Override
-    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass, Map<String, Object> filter) {
+    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
+        Map<String, Object> filter) {
         return repositorySupport(modelClass).simpleContextFindIdsOnly(modelClass, filter);
     }
 
     @Override
-    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
+        Map<String, Object> filter, QueryOptions queryOptions) {
         return repositorySupport(modelClass).findIds(modelClass, filter, queryOptions);
     }
 
-    public <T extends MultiContextModel> List<T> contextFind(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends MultiContextModel> List<T> contextFind(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).contextFind(modelClass, filter, queryOptions);
     }
 
@@ -229,7 +240,8 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi, String... updateFields) {
+    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi,
+        String... updateFields) {
         repositorySupport(entity.getClass()).update(entity, filter, upsert, multi, updateFields);
     }
 
@@ -274,7 +286,8 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).findSnapshots(modelClass, id, versions, queryOptions);
     }
 
@@ -284,12 +297,14 @@ public abstract class AbstractRepository implements Repository {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return repositorySupport(modelClass).findSnapshots(modelClass, filter, queryOptions);
     }
 
     @Override
-    public <T extends Model> void appendAttributeCondition(Class<T> modelClass, AttributeTargetObject targetObject, String attributeCode, Object value, Map<String, Object> query) {
+    public <T extends Model> void appendAttributeCondition(Class<T> modelClass, AttributeTargetObject targetObject,
+        String attributeCode, Object value, Map<String, Object> query) {
         repositorySupport(modelClass).appendAttributeCondition(targetObject, attributeCode, value, query);
     }
 

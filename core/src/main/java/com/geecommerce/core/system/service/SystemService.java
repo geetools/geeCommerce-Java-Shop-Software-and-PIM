@@ -19,9 +19,11 @@ public interface SystemService extends Service {
 
     public List<RequestContext> getRequestContextsForScopes(List<Id> scopeIds);
 
-    public RequestContext findRequestContext(Merchant merchant, Store store, String language, String country, View view);
+    public RequestContext findRequestContext(Merchant merchant, Store store, String language, String country,
+        View view);
 
-    public List<RequestContext> findRequestContexts(Merchant merchant, Store store, String language, String country, View view);
+    public List<RequestContext> findRequestContexts(Merchant merchant, Store store, String language, String country,
+        View view);
 
     public List<RequestContext> findRequestContextsForHost(String host);
 

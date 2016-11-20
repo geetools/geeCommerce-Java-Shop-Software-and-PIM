@@ -6,20 +6,20 @@ public enum ContactRole {
     private int id;
 
     private ContactRole(int id) {
-	this.id = id;
+        this.id = id;
     }
 
     public final int toId() {
-	return this.id;
+        return this.id;
     }
 
     public static final ContactRole fromId(int id) {
-	for (ContactRole contactRole : values()) {
-	    if (contactRole.toId() == id) {
-		return contactRole;
-	    }
-	}
+        for (ContactRole contactRole : values()) {
+            if (contactRole.toId() == id) {
+                return contactRole;
+            }
+        }
 
-	return null;
+        return null;
     }
 }

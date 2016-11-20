@@ -161,8 +161,7 @@ public class DefaultConfigurations extends AbstractRepository implements Configu
     /**
      * Find configuration properties closest to the current context
      * (search-order: RequestContext, Store, Merchant, Global-Scope) that match
-     * the
-     * regular-expression.
+     * the regular-expression.
      */
     @Override
     public List<ConfigurationProperty> havingKeysLike(String regex) {

@@ -1,5 +1,14 @@
 package com.geecommerce.core.elasticsearch;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.geecommerce.core.Str;
 import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
 import com.geecommerce.core.elasticsearch.helper.ElasticsearchIndexHelper;
@@ -7,14 +16,6 @@ import com.geecommerce.core.service.Annotations;
 import com.geecommerce.core.service.api.GlobalColumn;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public abstract class SearchIndexer {
 
@@ -36,7 +37,8 @@ public abstract class SearchIndexer {
         Long merchantId = (Long) indexerContext.get(GlobalColumn.MERCHANT_ID);
         Long storeId = (Long) indexerContext.get(GlobalColumn.STORE_ID);
 
-        log.info("Using index for [indexerId=" + indexerId + ", merchantId=" + merchantId + ", storeId=" + storeId + "].");
+        log.info("Using index for [indexerId=" + indexerId + ", merchantId=" + merchantId + ", storeId=" + storeId
+            + "].");
 
         String indexName = Annotations.getCollectionName(modelClass);
         String name = Annotations.getIndexedCollectionName(modelClass);
@@ -46,8 +48,10 @@ public abstract class SearchIndexer {
 
         // Alias name which points to the actual index.
         String aliasName = elasticsearchHelper.indexName(merchantId.longValue(), storeId.longValue(), indexName);
-        // The index itself. Every index has a unique name with a timestamp suffix.
-        String newIndexName = elasticsearchHelper.indexName(merchantId.longValue(), storeId.longValue(), indexName) + Str.UNDERSCORE + dateTimeFormat.format(new Date());
+        // The index itself. Every index has a unique name with a timestamp
+        // suffix.
+        String newIndexName = elasticsearchHelper.indexName(merchantId.longValue(), storeId.longValue(), indexName)
+            + Str.UNDERSCORE + dateTimeFormat.format(new Date());
 
         log.info("IndexAliases (1): " + elasticsearchHelper.getIndexAliases());
 
@@ -62,7 +66,8 @@ public abstract class SearchIndexer {
             // First we create a new index for the current indexing process.
             elasticsearchHelper.createNewIndex(newIndexName);
 
-            // Disable date detection for now as this causes serious problems when elasticsearch gets it wrong.
+            // Disable date detection for now as this causes serious problems
+            // when elasticsearch gets it wrong.
             elasticsearchHelper.disableDateDetection(newIndexName, name);
 
             int totalCount = 0;
@@ -77,7 +82,8 @@ public abstract class SearchIndexer {
 
                     // Here we flush the index periodically to free up memory.
                     if ((totalCount % 100) == 0) {
-                        log.info("Total processed: " + totalCount + ", 100 products took: " + (System.currentTimeMillis() - start100) + "ms.");
+                        log.info("Total processed: " + totalCount + ", 100 products took: "
+                            + (System.currentTimeMillis() - start100) + "ms.");
                         start100 = System.currentTimeMillis();
 
                         elasticsearchHelper.flushIndex(newIndexName);
@@ -90,18 +96,22 @@ public abstract class SearchIndexer {
                 }
             }
 
-            // Final flush to make sure that all products make it to the new index.
+            // Final flush to make sure that all products make it to the new
+            // index.
             elasticsearchHelper.flushIndex(newIndexName);
 
-            // Before processing to the next stage, we wait for the green status.
+            // Before processing to the next stage, we wait for the green
+            // status.
             elasticsearchHelper.waitForGreenStatus(newIndexName);
 
             log.info("IndexAliases (2): " + elasticsearchHelper.getIndexAliases());
 
-            // Here we activate the new index by moving the alias-name from the previous index to this one.
+            // Here we activate the new index by moving the alias-name from the
+            // previous index to this one.
             elasticsearchHelper.activateIndex(newIndexName, aliasName);
 
-            // Wait again to make sure that our final log ouput has the latest data.
+            // Wait again to make sure that our final log ouput has the latest
+            // data.
             elasticsearchHelper.waitForGreenStatus(newIndexName);
 
             Map<String, Set<String>> indexAliases = elasticsearchHelper.getIndexAliases();

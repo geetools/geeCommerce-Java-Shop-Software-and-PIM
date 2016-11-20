@@ -2,11 +2,11 @@ package com.geecommerce.core.system.model;
 
 import java.util.List;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface UrlRewrite extends MultiContextModel {
     public Id getId();

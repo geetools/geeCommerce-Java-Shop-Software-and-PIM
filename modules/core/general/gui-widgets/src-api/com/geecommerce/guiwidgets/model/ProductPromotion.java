@@ -1,13 +1,11 @@
 package com.geecommerce.guiwidgets.model;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.enums.ObjectType;
-import com.geecommerce.core.service.AttributeSupport;
-import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAsset;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface ProductPromotion extends MultiContextModel {
 
@@ -63,15 +61,15 @@ public interface ProductPromotion extends MultiContextModel {
     public ProductPromotion setEnabled(ContextObject<Boolean> enabled);
 
     static final class Col {
-	public static final String ID = "_id";
+        public static final String ID = "_id";
 
-	public static final String KEY = "key";
-	public static final String LABEL = "label";
-	public static final String LIMIT = "limit";
-	public static final String TARGET_OBJECT_ID = "tar_obj";
-	public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
-	public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
-	public static final String TEASER_IMAGE = "teaser_image";
-	public static final String ENABLED = "enabled";
+        public static final String KEY = "key";
+        public static final String LABEL = "label";
+        public static final String LIMIT = "limit";
+        public static final String TARGET_OBJECT_ID = "tar_obj";
+        public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
+        public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
+        public static final String TEASER_IMAGE = "teaser_image";
+        public static final String ENABLED = "enabled";
     }
 }

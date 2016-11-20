@@ -251,7 +251,7 @@ public class DefaultOrderItem extends AbstractModel implements OrderItem, Calcul
 
     @Override
     public ShippingItem toShippingItem() {
-        ShippingItem shippingItem = app.getModel(ShippingItem.class);
+        ShippingItem shippingItem = app.model(ShippingItem.class);
 
         shippingItem.setQuantity(getQuantity());
         shippingItem.setDepth(null/* TODO */);
@@ -265,9 +265,10 @@ public class DefaultOrderItem extends AbstractModel implements OrderItem, Calcul
 
     @Override
     public String toString() {
-        return "DefaultOrderItem [id=" + id + ", orderId=" + orderId + ", product=" + product + ", productId=" + productId + ", name=" + name + ", articleNumber=" + articleNumber + ", price=" + price
-            + ", priceTypeId=" + priceTypeId
-            + ", discountAmount=" + discountAmount + ", taxRate=" + taxRate + ", quantity=" + quantity + ", totalRowPrice=" + totalRowPrice + ", products=" + products + ", priceTypes=" + priceTypes
-            + ", priceType=" + priceType + "]";
+        return "DefaultOrderItem [id=" + id + ", orderId=" + orderId + ", product=" + product + ", productId="
+            + productId + ", name=" + name + ", articleNumber=" + articleNumber + ", price=" + price
+            + ", priceTypeId=" + priceTypeId + ", discountAmount=" + discountAmount + ", taxRate=" + taxRate
+            + ", quantity=" + quantity + ", totalRowPrice=" + totalRowPrice + ", products=" + products
+            + ", priceTypes=" + priceTypes + ", priceType=" + priceType + "]";
     }
 }

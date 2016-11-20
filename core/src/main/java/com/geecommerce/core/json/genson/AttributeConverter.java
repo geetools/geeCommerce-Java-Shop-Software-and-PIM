@@ -91,7 +91,7 @@ public class AttributeConverter implements Converter<Attribute> {
     @SuppressWarnings("unchecked")
     @Override
     public Attribute deserialize(ObjectReader reader, Context ctx) throws IOException {
-        Attribute attr = App.get().getModel(Attribute.class);
+        Attribute attr = App.get().model(Attribute.class);
 
         ContextObjectConverter ctxObjConverter = new ContextObjectConverter();
 
@@ -487,7 +487,8 @@ public class AttributeConverter implements Converter<Attribute> {
 
             List<FilterIndexField> indexFields = attr.getProductListFilterIndexFields();
 
-            if (!ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_INDEX_FIELDS) && indexFields != null && indexFields.size() > 0) {
+            if (!ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_INDEX_FIELDS) && indexFields != null
+                && indexFields.size() > 0) {
                 writer.writeName(KEY_PRODUCT_LIST_FILTER_INDEX_FIELDS);
                 writer.beginArray();
 
@@ -498,22 +499,26 @@ public class AttributeConverter implements Converter<Attribute> {
                 writer.endArray();
             }
 
-            if (attr.getProductListFilterKeyAlias() != null && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_KEY_ALIAS)) {
+            if (attr.getProductListFilterKeyAlias() != null
+                && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_KEY_ALIAS)) {
                 writer.writeName(KEY_PRODUCT_LIST_FILTER_KEY_ALIAS);
                 ctxObjConverter.serialize(attr.getProductListFilterKeyAlias(), writer, ctx);
             }
 
-            if (attr.getProductListFilterFormatLabel() != null && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_FORMAT_LABEL)) {
+            if (attr.getProductListFilterFormatLabel() != null
+                && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_FORMAT_LABEL)) {
                 writer.writeName(KEY_PRODUCT_LIST_FILTER_FORMAT_LABEL);
                 ctxObjConverter.serialize(attr.getProductListFilterFormatLabel(), writer, ctx);
             }
 
-            if (attr.getProductListFilterFormatValue() != null && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_FORMAT_VALUE)) {
+            if (attr.getProductListFilterFormatValue() != null
+                && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_FORMAT_VALUE)) {
                 writer.writeName(KEY_PRODUCT_LIST_FILTER_FORMAT_VALUE);
                 ctxObjConverter.serialize(attr.getProductListFilterFormatValue(), writer, ctx);
             }
 
-            if (attr.getProductListFilterParseValue() != null && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_PARSE_VALUE)) {
+            if (attr.getProductListFilterParseValue() != null
+                && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_PARSE_VALUE)) {
                 writer.writeName(KEY_PRODUCT_LIST_FILTER_PARSE_VALUE);
                 ctxObjConverter.serialize(attr.getProductListFilterParseValue(), writer, ctx);
             }

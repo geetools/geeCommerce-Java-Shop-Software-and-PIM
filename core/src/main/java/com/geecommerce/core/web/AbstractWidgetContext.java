@@ -34,17 +34,17 @@ public abstract class AbstractWidgetContext implements WidgetContext {
     }
 
     public RequestContext getRequestContext() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         return appCtx.getRequestContext();
     }
 
     public Store getStore() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         return appCtx.getStore();
     }
 
     public Merchant getMerchant() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         return appCtx.getMerchant();
     }
 

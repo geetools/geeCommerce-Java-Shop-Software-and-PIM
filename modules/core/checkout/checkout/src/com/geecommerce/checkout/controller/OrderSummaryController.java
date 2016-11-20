@@ -47,8 +47,7 @@ public class OrderSummaryController extends BaseController {
 
     @Request("/orders")
     public Result ordersView(@Param("orderFilterDate") String orderFilterDate, @Param("view") String view) {
-        return view("order_summary/orders")
-                .bind("orders", findOrders(orderFilterDate, view));
+        return view("order_summary/orders").bind("orders", findOrders(orderFilterDate, view));
     }
 
     @Request("/overview")
@@ -56,10 +55,9 @@ public class OrderSummaryController extends BaseController {
         if (!isCustomerLoggedIn())
             return redirect("/customer/account/login");
 
-        return view("order_summary/overview")
-                .bind("orders", findOrders(orderFilterDate, null))
-                .bind("orderCreatedDates", getOrderCreatedDates(orderFilterDate))
-                .bind("orderFilterDate", orderFilterDate);
+        return view("order_summary/overview").bind("orders", findOrders(orderFilterDate, null))
+            .bind("orderCreatedDates", getOrderCreatedDates(orderFilterDate))
+            .bind("orderFilterDate", orderFilterDate);
     }
 
     @Request("/detail/{id}")
@@ -90,7 +88,8 @@ public class OrderSummaryController extends BaseController {
         for (int i = 0; i < 5; i++)
             dates.put(String.valueOf(currentYear - i), "");
 
-        dates.keySet().stream().filter(key -> key.equals(orderFilterDate)).forEach(key -> dates.replace(key, "selected"));
+        dates.keySet().stream().filter(key -> key.equals(orderFilterDate))
+            .forEach(key -> dates.replace(key, "selected"));
         return dates;
     }
 
@@ -136,7 +135,8 @@ public class OrderSummaryController extends BaseController {
                 filter.put(GlobalColumn.CREATED_ON, f);
             }
 
-            return checkoutService.getOrders(filter, QueryOptions.builder().sortByDesc(GlobalColumn.CREATED_ON).build());
+            return checkoutService.getOrders(filter,
+                QueryOptions.builder().sortByDesc(GlobalColumn.CREATED_ON).build());
         }
 
         return new ArrayList<>();

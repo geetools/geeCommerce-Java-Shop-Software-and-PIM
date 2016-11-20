@@ -136,7 +136,8 @@ public class DefaultCatalogMedia extends AbstractRepository implements CatalogMe
         inClause2.put(QueryOperators.IN, mimeTypes);
         filter.put(Col.MIME_TYPE, inClause2);
 
-        return simpleContextFind(CatalogMediaAsset.class, filter, QueryOptions.builder().singleQueryField(Col.PRODUCT_ID).build());
+        return simpleContextFind(CatalogMediaAsset.class, filter,
+            QueryOptions.builder().singleQueryField(Col.PRODUCT_ID).build());
     }
 
     @Override

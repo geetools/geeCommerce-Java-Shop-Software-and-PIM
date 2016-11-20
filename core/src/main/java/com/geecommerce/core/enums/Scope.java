@@ -33,7 +33,8 @@ public enum Scope implements ModelEnum {
         Map<String, Integer> hrMap = new LinkedHashMap<>();
 
         for (Scope scope : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(Scope.class.getSimpleName()).append(".").append(scope.name()).toString()), scope.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(Scope.class.getSimpleName()).append(".")
+                .append(scope.name()).toString()), scope.id);
         }
 
         return hrMap;

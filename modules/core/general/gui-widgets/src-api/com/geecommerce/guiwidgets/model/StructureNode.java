@@ -1,10 +1,8 @@
 package com.geecommerce.guiwidgets.model;
 
-import com.geecommerce.core.service.api.Model;
-import com.geecommerce.guiwidgets.enums.ContentNodeType;
-
 import java.util.List;
-import java.util.Map;
+
+import com.geecommerce.core.service.api.Model;
 
 public interface StructureNode extends Model {
     public String getCss();

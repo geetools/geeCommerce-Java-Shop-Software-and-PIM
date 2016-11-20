@@ -55,14 +55,14 @@ public interface AutocompleteMapping extends MultiContextModel {
     public AutocompleteMapping setDividedKeyword(List<String> dividedKeyword);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String KEYWORD = "keyword";
-	public static final String DIVIDED_KEYWORD = "divided_keyword";
-	public static final String LABEL = "label";
-	public static final String TARGET_OBJECT_ID = "tar_obj";
-	public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
-	public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
-	public static final String EXTERNAL_URL = "ext_url";
+        public static final String ID = "_id";
+        public static final String KEYWORD = "keyword";
+        public static final String DIVIDED_KEYWORD = "divided_keyword";
+        public static final String LABEL = "label";
+        public static final String TARGET_OBJECT_ID = "tar_obj";
+        public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
+        public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
+        public static final String EXTERNAL_URL = "ext_url";
     }
 
 }

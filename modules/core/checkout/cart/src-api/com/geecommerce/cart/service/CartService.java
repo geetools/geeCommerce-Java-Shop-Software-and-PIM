@@ -16,7 +16,8 @@ public interface CartService extends Service {
 
     public Boolean isRetailStoreExist(String storeId);
 
-    public void updatePickupAvailability(Cart cart, CartItem cartItem, String pickupStore, String zipCode, boolean isDeliveryCart);
+    public void updatePickupAvailability(Cart cart, CartItem cartItem, String pickupStore, String zipCode,
+        boolean isDeliveryCart);
 
     public void updateDeliveryAvailability(CartItem cartItem, String zipCode);
 }

@@ -28,66 +28,66 @@ public class ContextValue implements Serializable {
     private Object value = null;
 
     public PermissionAction getAction() {
-	return action;
+        return action;
     }
 
     public void setAction(PermissionAction action) {
-	this.action = action;
+        this.action = action;
     }
 
     public int getHashCode() {
-	return hashCode;
+        return hashCode;
     }
 
     public void setHashCode(int hashCode) {
-	this.hashCode = hashCode;
+        this.hashCode = hashCode;
     }
 
     public Id getMerchantId() {
-	return merchantId;
+        return merchantId;
     }
 
     public void setMerchantId(Id merchantId) {
-	this.merchantId = merchantId;
+        this.merchantId = merchantId;
     }
 
     public Id getStoreId() {
-	return storeId;
+        return storeId;
     }
 
     public void setStoreId(Id storeId) {
-	this.storeId = storeId;
+        this.storeId = storeId;
     }
 
     public String getCountry() {
-	return country;
+        return country;
     }
 
     public void setCountry(String country) {
-	this.country = country;
+        this.country = country;
     }
 
     public String getLanguage() {
-	return language;
+        return language;
     }
 
     public void setLanguage(String language) {
-	this.language = language;
+        this.language = language;
     }
 
     public Id getViewId() {
-	return viewId;
+        return viewId;
     }
 
     public void setViewId(Id viewId) {
-	this.viewId = viewId;
+        this.viewId = viewId;
     }
 
     public Object getValue() {
-	return value;
+        return value;
     }
 
     public void setValue(Object value) {
-	this.value = value;
+        this.value = value;
     }
 }

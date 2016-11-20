@@ -121,7 +121,7 @@ public class DefaultCalculationContext implements CalculationContext {
         CalculationItemResult itemResult = itemResults.get(productId);
 
         if (itemResult == null) {
-            itemResult = app.getInjectable(CalculationItemResult.class);
+            itemResult = app.injectable(CalculationItemResult.class);
             itemResults.put(productId, itemResult);
         }
 
@@ -135,7 +135,7 @@ public class DefaultCalculationContext implements CalculationContext {
         CalculationItemResult itemResult = itemResults.get(productId);
 
         if (itemResult == null) {
-            itemResult = app.getInjectable(CalculationItemResult.class);
+            itemResult = app.injectable(CalculationItemResult.class);
             itemResults.put(productId, itemResult);
         }
 

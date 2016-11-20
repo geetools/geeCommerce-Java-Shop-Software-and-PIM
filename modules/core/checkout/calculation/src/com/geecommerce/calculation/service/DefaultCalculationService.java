@@ -46,7 +46,8 @@ public class DefaultCalculationService implements CalculationService {
     }
 
     @Inject
-    public DefaultCalculationService(CalculationScriptlets calculationScriptlets, CalculationRules calculationRules, CalculationHelper calculationHelper) {
+    public DefaultCalculationService(CalculationScriptlets calculationScriptlets, CalculationRules calculationRules,
+        CalculationHelper calculationHelper) {
         this.calculationScriptlets = calculationScriptlets;
         this.calculationRules = calculationRules;
         this.calculationHelper = calculationHelper;
@@ -65,12 +66,17 @@ public class DefaultCalculationService implements CalculationService {
                 // groovyEngine.execute(scriptlet.getBody(), ctx);
                 Groovy.eval(scriptlet.getBody(), CONTEXT_KEY, ctx, groovyImports, GCL);
             } catch (Exception e) {
-                throw new Exception("Error in groovy-calculation-script '"
-                    + (calculationStep.getScriptlet() != null ? calculationStep.getScriptlet().getCode() : calculationStep.getId() + " (" + calculationStep.getSortOrder() + ")") + "'", e);
+                throw new Exception(
+                    "Error in groovy-calculation-script '"
+                        + (calculationStep.getScriptlet() != null ? calculationStep.getScriptlet().getCode()
+                            : calculationStep.getId() + " (" + calculationStep.getSortOrder() + ")")
+                        + "'",
+                    e);
             }
         }
 
-        return app.getInjectable(CalculationResult.class).setItemResults(ctx.getItemResults()).setResults(ctx.getResults());
+        return app.injectable(CalculationResult.class).setItemResults(ctx.getItemResults())
+            .setResults(ctx.getResults());
     }
 
     // --------------------------------------------------------------

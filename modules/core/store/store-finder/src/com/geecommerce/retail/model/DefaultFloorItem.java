@@ -1,13 +1,17 @@
 package com.geecommerce.retail.model;
 
-import com.google.common.collect.Maps;
-import com.geecommerce.core.service.AbstractAttributeSupport;
-import com.geecommerce.core.service.annotation.Model;
-import com.geecommerce.core.type.Id;
+import static com.geecommerce.retail.model.FloorItem.Col.DESCRIPTION;
+import static com.geecommerce.retail.model.FloorItem.Col.ID;
+import static com.geecommerce.retail.model.FloorItem.Col.IMAGE_URI;
+import static com.geecommerce.retail.model.FloorItem.Col.NAME;
+import static com.geecommerce.retail.model.FloorItem.Col.NUMBER;
 
 import java.util.Map;
 
-import static com.geecommerce.retail.model.FloorItem.Col.*;
+import com.geecommerce.core.service.AbstractAttributeSupport;
+import com.geecommerce.core.service.annotation.Model;
+import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Model
 public class DefaultFloorItem extends AbstractAttributeSupport implements FloorItem {
@@ -18,69 +22,69 @@ public class DefaultFloorItem extends AbstractAttributeSupport implements FloorI
     private String imageUri;
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public FloorItem setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public Integer getNumber() {
-	return number;
+        return number;
     }
 
     public void setNumber(Integer number) {
-	this.number = number;
+        this.number = number;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public String getImageUri() {
-	return imageUri;
+        return imageUri;
     }
 
     public void setImageUri(String imageUri) {
-	this.imageUri = imageUri;
+        this.imageUri = imageUri;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map != null) {
-	    super.fromMap(map);
+        if (map != null) {
+            super.fromMap(map);
 
-	    this.id = id_(map.get(ID));
-	    this.name = str_(map.get(NAME));
-	    this.description = str_(map.get(DESCRIPTION));
-	    this.number = int_(map.get(NUMBER));
-	    this.imageUri = str_(map.get(IMAGE_URI));
-	}
+            this.id = id_(map.get(ID));
+            this.name = str_(map.get(NAME));
+            this.description = str_(map.get(DESCRIPTION));
+            this.number = int_(map.get(NUMBER));
+            this.imageUri = str_(map.get(IMAGE_URI));
+        }
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(ID, getId());
-	map.put(NAME, getName());
-	map.put(DESCRIPTION, getDescription());
-	map.put(NUMBER, getNumber());
-	map.put(IMAGE_URI, getImageUri());
+        map.put(ID, getId());
+        map.put(NAME, getName());
+        map.put(DESCRIPTION, getDescription());
+        map.put(NUMBER, getNumber());
+        map.put(IMAGE_URI, getImageUri());
 
-	return map;
+        return map;
     }
 }

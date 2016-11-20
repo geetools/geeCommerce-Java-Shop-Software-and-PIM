@@ -64,7 +64,8 @@ import com.sun.xml.txw2.annotation.XmlAttribute;
 @XmlRootElement(name = "product")
 @XmlAccessorType(XmlAccessType.NONE)
 public class DefaultProduct extends AbstractAttributeSupport
-    implements Product, ParentSupport<Product>, ChildSupport<Product>, AttributeSupport, TargetSupport, PageSupport, DataSupport, SearchIndexSupport, CopySupport<Product> {
+    implements Product, ParentSupport<Product>, ChildSupport<Product>, AttributeSupport, TargetSupport, PageSupport,
+    DataSupport, SearchIndexSupport, CopySupport<Product> {
     private static final long serialVersionUID = -756836049391579472L;
 
     @Column(Col.ID)
@@ -198,11 +199,13 @@ public class DefaultProduct extends AbstractAttributeSupport
     protected Map<String, PriceResult> priceResultMap = new HashMap<>();
 
     public DefaultProduct() {
-        this(i(Products.class), i(PriceService.class), i(Stocks.class), i(CatalogMedia.class), i(UrlRewrites.class), i(ProductConnectionIndexes.class), i(ElasticsearchProductHelper.class));
+        this(i(Products.class), i(PriceService.class), i(Stocks.class), i(CatalogMedia.class), i(UrlRewrites.class),
+            i(ProductConnectionIndexes.class), i(ElasticsearchProductHelper.class));
     }
 
     @Inject
-    public DefaultProduct(Products products, PriceService priceService, Stocks stocks, CatalogMedia catalogMedia, UrlRewrites urlRewrites, ProductConnectionIndexes productConnectionIndexes,
+    public DefaultProduct(Products products, PriceService priceService, Stocks stocks, CatalogMedia catalogMedia,
+        UrlRewrites urlRewrites, ProductConnectionIndexes productConnectionIndexes,
         ElasticsearchProductHelper elasticsearchProductHelper) {
         this.products = products;
         this.priceService = priceService;
@@ -530,7 +533,7 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (!isVisible)
             return isVisible;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         // Check article status.
         AttributeValue statusArticle = getAttribute("status_article");
@@ -547,7 +550,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             }
         }
 
-        String articleStatus = statusArticle == null || attrOption == null ? "approval_required" : attrOption.getLabel().getGlobalValue();
+        String articleStatus = statusArticle == null || attrOption == null ? "approval_required"
+            : attrOption.getLabel().getGlobalValue();
         isVisible = isVisible && "approved".equals(articleStatus);
 
         return isVisible;
@@ -761,11 +765,13 @@ public class DefaultProduct extends AbstractAttributeSupport
             throw new NullPointerException("Attribute or optionId cannot be null");
 
         if (isVariantMaster())
-            throw new IllegalStateException("A variant holder cannot have variant-attributes. This product is the holder of " + variantProductIds.size() + " variant products. Adding attribute="
-                + attribute.getCode() + ", optionId=" + optionId
-                + " failed.");
+            throw new IllegalStateException(
+                "A variant holder cannot have variant-attributes. This product is the holder of "
+                    + variantProductIds.size() + " variant products. Adding attribute=" + attribute.getCode()
+                    + ", optionId=" + optionId + " failed.");
 
-        super.addAttribute(app.getModel(AttributeValue.class).forAttribute(attribute).addOptionId(optionId).addProperty(PROP_KEY_VARIANT, true));
+        super.addAttribute(app.model(AttributeValue.class).forAttribute(attribute).addOptionId(optionId)
+            .addProperty(PROP_KEY_VARIANT, true));
 
         return this;
     }
@@ -776,11 +782,13 @@ public class DefaultProduct extends AbstractAttributeSupport
             throw new NullPointerException("AttributeCode or optionId cannot be null");
 
         if (isVariantMaster())
-            throw new IllegalStateException("A variant holder cannot have variant-attributes. This product is the holder of " + variantProductIds.size() + " variant products. Adding attributeCode="
-                + attributeCode + ", optionId=" + optionId
-                + " failed.");
+            throw new IllegalStateException(
+                "A variant holder cannot have variant-attributes. This product is the holder of "
+                    + variantProductIds.size() + " variant products. Adding attributeCode=" + attributeCode
+                    + ", optionId=" + optionId + " failed.");
 
-        super.addAttribute(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).addOptionId(optionId).addProperty(PROP_KEY_VARIANT, true));
+        super.addAttribute(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode)
+            .addOptionId(optionId).addProperty(PROP_KEY_VARIANT, true));
 
         return this;
     }
@@ -942,7 +950,8 @@ public class DefaultProduct extends AbstractAttributeSupport
         // if (defaultCurrency == null)
         String baseCurrency = app.getBaseCurrency();
 
-        String key = new StringBuilder(PriceResult.class.getSimpleName()).append(Char.UNDERSCORE).append(baseCurrency).toString();
+        String key = new StringBuilder(PriceResult.class.getSimpleName()).append(Char.UNDERSCORE).append(baseCurrency)
+            .toString();
 
         PriceResult pr = threadGet(this, key);
 
@@ -974,7 +983,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             PriceResult pr = null;
 
             if (childProductIds != null && childProductIds.size() > 0) {
-                pr = priceService.getPriceFor(getId(), currencyCode, childProductIds.toArray(new Id[childProductIds.size()]));
+                pr = priceService.getPriceFor(getId(), currencyCode,
+                    childProductIds.toArray(new Id[childProductIds.size()]));
             } else {
                 pr = priceService.getPriceFor(getId(), currencyCode);
             }
@@ -1009,13 +1019,14 @@ public class DefaultProduct extends AbstractAttributeSupport
         // System.out.println("++++++ isAllowBackorder TIME: " +
         // (System.currentTimeMillis() - start));
 
-        return stockData == null || (isAllowBackorder && stockData.get("allow_backorder") == null ? false : (Boolean) stockData.get("allow_backorder"));
+        return stockData == null || (isAllowBackorder && stockData.get("allow_backorder") == null ? false
+            : (Boolean) stockData.get("allow_backorder"));
     }
 
     @JsonIgnore
     @Override
     public Map<String, Object> getStockData() {
-        return stocks.getStockData(getId(), app.getApplicationContext().getStore());
+        return stocks.getStockData(getId(), app.context().getStore());
     }
 
     @JsonIgnore
@@ -1084,7 +1095,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public List<Map<String, Object>> getAssemblyInstructions() {
-        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, MediaType.PRODUCT_ASSEMBLY_INSTRUCTIONS);
+        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class,
+            CatalogMediaType.Col.KEY, MediaType.PRODUCT_ASSEMBLY_INSTRUCTIONS);
 
         return getMediaAssetsMaps(catalogMediaType, getDocuments());
     }
@@ -1092,7 +1104,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public List<Map<String, Object>> getProductInstructions() {
-        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, MediaType.PRODUCT_INSTRUCTIONS);
+        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class,
+            CatalogMediaType.Col.KEY, MediaType.PRODUCT_INSTRUCTIONS);
 
         return getMediaAssetsMaps(catalogMediaType, getDocuments());
     }
@@ -1100,19 +1113,22 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public List<Map<String, Object>> getModelList() {
-        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, MediaType.PRODUCT_MODEL_LIST);
+        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class,
+            CatalogMediaType.Col.KEY, MediaType.PRODUCT_MODEL_LIST);
 
         return getMediaAssetsMaps(catalogMediaType, getDocuments());
     }
 
     @JsonIgnore
-    private List<Map<String, Object>> getMediaAssetsMaps(CatalogMediaType catalogMediaType, List<CatalogMediaAsset> mediaAssets) {
+    private List<Map<String, Object>> getMediaAssetsMaps(CatalogMediaType catalogMediaType,
+        List<CatalogMediaAsset> mediaAssets) {
         List<Map<String, Object>> imageMaps = new ArrayList<>();
 
         for (CatalogMediaAsset productImage : mediaAssets) {
             Map<String, Object> imageMap = new HashMap<>();
 
-            if (productImage.isEnabled() && catalogMediaType != null && productImage.getMediaTypeIds() != null && productImage.getMediaTypeIds().contains(catalogMediaType.getId())) {
+            if (productImage.isEnabled() && catalogMediaType != null && productImage.getMediaTypeIds() != null
+                && productImage.getMediaTypeIds().contains(catalogMediaType.getId())) {
                 if (productImage.getWebPath() == null || "".equals(productImage.getWebPath().trim()))
                     continue;
 
@@ -1135,7 +1151,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public List<Map<String, Object>> getImagesMaps() {
-        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, MediaType.PRODUCT_GALLERY_IMAGE);
+        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class,
+            CatalogMediaType.Col.KEY, MediaType.PRODUCT_GALLERY_IMAGE);
 
         return getMediaAssetsMaps(catalogMediaType, getImages());
     }
@@ -1143,7 +1160,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public List<Map<String, Object>> getSurfaceImagesMaps() {
-        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, MediaType.PRODUCT_GALLERY_SURFACE);
+        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class,
+            CatalogMediaType.Col.KEY, MediaType.PRODUCT_GALLERY_SURFACE);
 
         return getMediaAssetsMaps(catalogMediaType, getImages());
     }
@@ -1151,7 +1169,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public List<Map<String, Object>> getVideoImagesMaps() {
-        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, MediaType.PRODUCT_GALLERY_VIDEO);
+        CatalogMediaType catalogMediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class,
+            CatalogMediaType.Col.KEY, MediaType.PRODUCT_GALLERY_VIDEO);
 
         return getMediaAssetsMaps(catalogMediaType, getVideos());
     }
@@ -1267,7 +1286,9 @@ public class DefaultProduct extends AbstractAttributeSupport
         List<Product> upsells = getUpsells();
 
         for (Product p : upsells) {
-            if ((p.isValidForSelling() || p.hasVariantsValidForSelling() || (p.isProgramme() && !p.hasProgrammeProducts()) || p.hasProgrammeProductsValidForSelling()) && p.isVisible()) {
+            if ((p.isValidForSelling() || p.hasVariantsValidForSelling()
+                || (p.isProgramme() && !p.hasProgrammeProducts()) || p.hasProgrammeProductsValidForSelling())
+                && p.isVisible()) {
                 hasValidUpsells = true;
                 break;
             }
@@ -1280,7 +1301,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public List<Product> getUpsells() {
         if (hasUpsells()) {
-            upsellProducts = products.findByIds(Product.class, upsellProductIds.toArray(new Id[upsellProductIds.size()]));
+            upsellProducts = products.findByIds(Product.class,
+                upsellProductIds.toArray(new Id[upsellProductIds.size()]));
         }
 
         return upsellProducts;
@@ -1296,7 +1318,9 @@ public class DefaultProduct extends AbstractAttributeSupport
             validUpsellProducts = new ArrayList<>();
 
             for (Product p : upsells) {
-                if ((p.isValidForSelling() || p.hasVariantsValidForSelling() || (p.isProgramme() && !p.hasProgrammeProducts()) || p.hasProgrammeProductsValidForSelling()) && p.isVisible()) {
+                if ((p.isValidForSelling() || p.hasVariantsValidForSelling()
+                    || (p.isProgramme() && !p.hasProgrammeProducts()) || p.hasProgrammeProductsValidForSelling())
+                    && p.isVisible()) {
                     validUpsellProducts.add(p);
                 }
             }
@@ -1376,7 +1400,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public List<Product> getCrossSells() {
         if (hasCrossSells()) {
-            crossSellProducts = products.findByIds(Product.class, crossSellProductIds.toArray(new Id[crossSellProductIds.size()]));
+            crossSellProducts = products.findByIds(Product.class,
+                crossSellProductIds.toArray(new Id[crossSellProductIds.size()]));
         }
 
         return crossSellProducts;
@@ -1424,7 +1449,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public List<Product> getBundleProducts() {
         if (bundleProductIds != null && bundleProductIds.size() > 0) {
-            bundleProducts = products.findByIds(Product.class, bundleProductIds.toArray(new Id[bundleProductIds.size()]));
+            bundleProducts = products.findByIds(Product.class,
+                bundleProductIds.toArray(new Id[bundleProductIds.size()]));
         }
 
         return bundleProducts;
@@ -1584,7 +1610,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public List<Product> getProgrammeProducts() {
         if (programmeProductIds != null && programmeProductIds.size() > 0) {
-            programmeProducts = products.findByIds(Product.class, programmeProductIds.toArray(new Id[programmeProductIds.size()]));
+            programmeProducts = products.findByIds(Product.class,
+                programmeProductIds.toArray(new Id[programmeProductIds.size()]));
         }
 
         return programmeProducts;
@@ -1742,7 +1769,7 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public ContextObject<String> getLabel() {
         if (hasAttribute("name") || hasAttribute("name2")) {
-            ApplicationContext appCtx = app.getApplicationContext();
+            ApplicationContext appCtx = app.context();
 
             AttributeValue nameAV = attr("name");
             AttributeValue name2AV = attr("name2");
@@ -1776,7 +1803,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             if (variantProductIds != null && variantProductIds.size() > 0) {
                 productIds.addAll(variantProductIds);
             } else if (isProgramme() && programmeProductIds != null && programmeProductIds.size() > 0) {
-                List<Map<String, Object>> programmeProducts = products.findDataByIds(Product.class, programmeProductIds.toArray(new Id[programmeProductIds.size()]),
+                List<Map<String, Object>> programmeProducts = products.findDataByIds(Product.class,
+                    programmeProductIds.toArray(new Id[programmeProductIds.size()]),
                     QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : programmeProducts) {
@@ -1818,7 +1846,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             if (variantProductIds != null && variantProductIds.size() > 0) {
                 productIds.addAll(variantProductIds);
             } else if (isProgramme() && programmeProductIds != null && programmeProductIds.size() > 0) {
-                List<Map<String, Object>> programmeProducts = products.findDataByIds(Product.class, programmeProductIds.toArray(new Id[programmeProductIds.size()]),
+                List<Map<String, Object>> programmeProducts = products.findDataByIds(Product.class,
+                    programmeProductIds.toArray(new Id[programmeProductIds.size()]),
                     QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : programmeProducts) {
@@ -1842,7 +1871,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             if (!productIds.isEmpty()) {
                 HashSet<Id> sellableProductIds = new HashSet<>();
 
-                List<Product> childProducts = products.findByIds(Product.class, productIds.toArray(new Id[productIds.size()]));
+                List<Product> childProducts = products.findByIds(Product.class,
+                    productIds.toArray(new Id[productIds.size()]));
 
                 for (Product p : childProducts) {
                     if (p.isValidForSelling())
@@ -1873,7 +1903,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             if (variantProductIds != null && variantProductIds.size() > 0) {
                 productIds.addAll(variantProductIds);
             } else if (isProgramme() && programmeProductIds != null && programmeProductIds.size() > 0) {
-                List<Map<String, Object>> programmeProducts = products.findDataByIds(Product.class, programmeProductIds.toArray(new Id[programmeProductIds.size()]),
+                List<Map<String, Object>> programmeProducts = products.findDataByIds(Product.class,
+                    programmeProductIds.toArray(new Id[programmeProductIds.size()]),
                     QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : programmeProducts) {
@@ -1893,7 +1924,8 @@ public class DefaultProduct extends AbstractAttributeSupport
                     }
                 }
             } else if (isBundle() && bundleProductIds != null && bundleProductIds.size() > 0) {
-                List<Map<String, Object>> bundleProducts = products.findDataByIds(Product.class, bundleProductIds.toArray(new Id[bundleProductIds.size()]),
+                List<Map<String, Object>> bundleProducts = products.findDataByIds(Product.class,
+                    bundleProductIds.toArray(new Id[bundleProductIds.size()]),
                     QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : bundleProducts) {
@@ -2101,9 +2133,11 @@ public class DefaultProduct extends AbstractAttributeSupport
         AttributeValue metaDescription = getAttribute("meta_description");
         AttributeValue description = getAttribute("description");
 
-        if (metaDescription != null && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(metaDescription.getValue()))) {
+        if (metaDescription != null
+            && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(metaDescription.getValue()))) {
             return metaDescription.getValue();
-        } else if (description != null && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(description.getValue()))) {
+        } else if (description != null
+            && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(description.getValue()))) {
             return description.getValue();
         } else {
             return null;

@@ -1,11 +1,14 @@
 package com.geecommerce.retail.model;
 
+import static com.geecommerce.retail.model.GeoInfo.Col.ID;
+import static com.geecommerce.retail.model.GeoInfo.Col.LATITUDE;
+import static com.geecommerce.retail.model.GeoInfo.Col.LONGITUDE;
+import static com.geecommerce.retail.model.GeoInfo.Col.ZIP;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import static com.geecommerce.retail.model.GeoInfo.Col.*;
 
 @Model("zip_to_coordinates")
 public class DefaultGeoInfo extends AbstractModel implements GeoInfo {
@@ -22,34 +25,34 @@ public class DefaultGeoInfo extends AbstractModel implements GeoInfo {
     private Double longitude;
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public void setId(Id id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getZip() {
-	return zip;
+        return zip;
     }
 
     public void setZip(String zip) {
-	this.zip = zip;
+        this.zip = zip;
     }
 
     public Double getLatitude() {
-	return latitude;
+        return latitude;
     }
 
     public void setLatitude(Double latitude) {
-	this.latitude = latitude;
+        this.latitude = latitude;
     }
 
     public Double getLongitude() {
-	return longitude;
+        return longitude;
     }
 
     public void setLongitude(Double longitude) {
-	this.longitude = longitude;
+        this.longitude = longitude;
     }
 }

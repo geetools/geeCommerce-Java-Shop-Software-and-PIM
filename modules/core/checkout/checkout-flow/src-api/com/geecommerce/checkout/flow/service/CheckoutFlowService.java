@@ -1,10 +1,10 @@
 package com.geecommerce.checkout.flow.service;
 
+import java.util.List;
+
 import com.geecommerce.checkout.flow.model.CheckoutFlow;
 import com.geecommerce.core.service.api.Service;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
 
 public interface CheckoutFlowService extends Service {
 

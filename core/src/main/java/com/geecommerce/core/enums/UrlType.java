@@ -81,7 +81,8 @@ public enum UrlType implements ModelEnum {
         Map<String, Integer> hrMap = new LinkedHashMap<>();
 
         for (UrlType urlType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(UrlType.class.getSimpleName()).append(".").append(urlType.name()).toString()), urlType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(UrlType.class.getSimpleName()).append(".")
+                .append(urlType.name()).toString()), urlType.id);
         }
 
         return hrMap;

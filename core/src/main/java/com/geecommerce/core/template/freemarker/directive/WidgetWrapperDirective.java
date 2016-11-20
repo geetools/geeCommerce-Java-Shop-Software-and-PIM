@@ -30,11 +30,12 @@ public class WidgetWrapperDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         App app = App.get();
-        HttpServletRequest request = app.getServletRequest();
-        HttpServletResponse response = app.getServletResponse();
-        ServletContext servletContext = app.getServletContext();
+        HttpServletRequest request = app.servletRequest();
+        HttpServletResponse response = app.servletResponse();
+        ServletContext servletContext = app.servletContext();
         WidgetController widgetController = ModuleInjector.get().getInstance(controllerClass);
         FreemarkerWidgetContext widgetCtx = new FreemarkerWidgetContext();
         app.injectMembers(widgetCtx);
@@ -48,8 +49,10 @@ public class WidgetWrapperDirective implements TemplateDirectiveModel {
                 m = mcl.getModule();
             }
 
-            ((FreemarkerWidgetContext) widgetCtx).init(m, env, params, loopVars, body, app.getServletRequest(), app.getServletResponse(), servletContext);
-            ((FreemarkerWidgetContext) widgetCtx).setParam(FreemarkerConstant.FREEMARKER_TEMPLATE_SELF_VAR, widgetController);
+            ((FreemarkerWidgetContext) widgetCtx).init(m, env, params, loopVars, body, app.servletRequest(),
+                app.servletResponse(), servletContext);
+            ((FreemarkerWidgetContext) widgetCtx).setParam(FreemarkerConstant.FREEMARKER_TEMPLATE_SELF_VAR,
+                widgetController);
 
             widgetController.execute(widgetCtx, request, response, servletContext);
 

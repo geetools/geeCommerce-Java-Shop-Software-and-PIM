@@ -12,24 +12,24 @@ public enum JAXBContextFactory {
     private static final Map<String, JAXBContext> instances = new ConcurrentHashMap<String, JAXBContext>();
 
     public JAXBContext getJaxBContext(final String contextPath) throws JAXBException {
-	JAXBContext context = instances.get(contextPath);
+        JAXBContext context = instances.get(contextPath);
 
-	if (context == null) {
-	    context = JAXBContext.newInstance(contextPath);
-	    instances.put(contextPath, context);
-	}
+        if (context == null) {
+            context = JAXBContext.newInstance(contextPath);
+            instances.put(contextPath, context);
+        }
 
-	return context;
+        return context;
     }
 
     public JAXBContext getJaxBContext(final Class<?> contextPath) throws JAXBException {
-	JAXBContext context = instances.get(contextPath.getName());
+        JAXBContext context = instances.get(contextPath.getName());
 
-	if (context == null) {
-	    context = JAXBContext.newInstance(contextPath);
-	    instances.put(contextPath.getName(), context);
-	}
+        if (context == null) {
+            context = JAXBContext.newInstance(contextPath);
+            instances.put(contextPath.getName(), context);
+        }
 
-	return context;
+        return context;
     }
 }

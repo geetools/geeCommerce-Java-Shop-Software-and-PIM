@@ -43,7 +43,8 @@ public class RefreshProductNavigationIndex implements Taskable, Job {
     protected final ProductLists productLists;
 
     @Inject
-    public RefreshProductNavigationIndex(ProductNavigationIndexes productNavigationIndexes, NavigationService navigationService, ProductListService productListService, ProductLists productLists) {
+    public RefreshProductNavigationIndex(ProductNavigationIndexes productNavigationIndexes,
+        NavigationService navigationService, ProductListService productListService, ProductLists productLists) {
         this.productNavigationIndexes = productNavigationIndexes;
         this.navigationService = navigationService;
         this.productListService = productListService;
@@ -82,8 +83,10 @@ public class RefreshProductNavigationIndex implements Taskable, Job {
             // Reset all the updated flags back to 0.
             // That way we know which documents to delete after the bulk
             // upserts.
-            ProductNavigationIndex pniUpdFlag = app.getModel(ProductNavigationIndex.class).setUpdateFlag(0);
-            productNavigationIndexes.update(pniUpdFlag, MongoQueries.newFilter(ProductNavigationIndex.Col.UPDATE_FLAG, 1), false, true, ProductNavigationIndex.Col.UPDATE_FLAG);
+            ProductNavigationIndex pniUpdFlag = app.model(ProductNavigationIndex.class).setUpdateFlag(0);
+            productNavigationIndexes.update(pniUpdFlag,
+                MongoQueries.newFilter(ProductNavigationIndex.Col.UPDATE_FLAG, 1), false, true,
+                ProductNavigationIndex.Col.UPDATE_FLAG);
 
             Mongo.enableBulkMode();
 
@@ -100,10 +103,12 @@ public class RefreshProductNavigationIndex implements Taskable, Job {
                     queryMap = Json.fromJson(productList.getQuery(), HashMap.class);
                 }
 
-                Map<Id, Boolean> productIdMap = productListService.getProductIdsAndVisibility(queryNode, queryMap, new HashMap<String, Set<Object>>(), new SearchParams());
+                Map<Id, Boolean> productIdMap = productListService.getProductIdsAndVisibility(queryNode, queryMap,
+                    new HashMap<String, Set<Object>>(), new SearchParams());
 
                 if (productIdMap != null && productIdMap.size() > 0) {
-                    List<NavigationItem> currentNavItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productList.getId(),
+                    List<NavigationItem> currentNavItems = navigationService.getNavigationItemsByTargetObject(
+                        ObjectType.PRODUCT_LIST, productList.getId(),
                         rootNavItem == null ? null : rootNavItem.getId());
 
                     if (currentNavItems != null && !currentNavItems.isEmpty()) {
@@ -116,11 +121,16 @@ public class RefreshProductNavigationIndex implements Taskable, Job {
                                 parentNavigationItem = navigationItem.getParent();
 
                             for (Id productId : productIds) {
-                                ProductNavigationIndex pni = app.getModel(ProductNavigationIndex.class).setProductId(productId).setProductListId(productList.getId())
+                                ProductNavigationIndex pni = app.model(ProductNavigationIndex.class)
+                                    .setProductId(productId).setProductListId(productList.getId())
                                     .setNavigationItemId(navigationItem.getId())
-                                    .setNavigationItemRootId(navigationItem.getRootId()).setNavigationLevel(navigationItem.getLevel()).setNavigationPosition(navigationItem.getPosition())
-                                    .setParentNavigationLevel(parentNavigationItem == null ? 0 : parentNavigationItem.getLevel())
-                                    .setParentNavigationPosition(parentNavigationItem == null ? 0 : parentNavigationItem.getPosition())
+                                    .setNavigationItemRootId(navigationItem.getRootId())
+                                    .setNavigationLevel(navigationItem.getLevel())
+                                    .setNavigationPosition(navigationItem.getPosition())
+                                    .setParentNavigationLevel(
+                                        parentNavigationItem == null ? 0 : parentNavigationItem.getLevel())
+                                    .setParentNavigationPosition(
+                                        parentNavigationItem == null ? 0 : parentNavigationItem.getPosition())
                                     .setVisible(productIdMap.get(productId)).setUpdateFlag(1);
 
                                 Map<String, Object> query = new HashMap<>();
@@ -140,7 +150,8 @@ public class RefreshProductNavigationIndex implements Taskable, Job {
 
             // Remove all documents where the update flag was not set to 1,
             // which indicates that they are no longer needed.
-            productNavigationIndexes.remove(ProductNavigationIndex.class, MongoQueries.newFilter(ProductNavigationIndex.Col.UPDATE_FLAG, 0));
+            productNavigationIndexes.remove(ProductNavigationIndex.class,
+                MongoQueries.newFilter(ProductNavigationIndex.Col.UPDATE_FLAG, 0));
         }
 
         Environment.enableMessageBus();

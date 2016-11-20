@@ -1,16 +1,15 @@
 package com.geecommerce.retail.controller;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.util.Json;
 import com.geecommerce.core.web.BaseActionBean;
 import com.geecommerce.retail.model.RetailStore;
-import com.geecommerce.retail.service.LocationService;
 import com.geecommerce.retail.service.RetailStoreService;
-import net.sourceforge.stripes.action.*;
+import com.google.inject.Inject;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.action.UrlBinding;
 
 /**
  *
@@ -23,20 +22,20 @@ public class RetailStoreSearchAction extends BaseActionBean {
 
     @Inject
     public RetailStoreSearchAction(RetailStoreService retailStoreService) {
-	this.retailStoreService = retailStoreService;
+        this.retailStoreService = retailStoreService;
     }
 
     @DefaultHandler
     public Resolution findBranch() {
-	RetailStore store = retailStoreService.findClosestByZipCode(zip);
-	return new StreamingResolution("json", store == null ? "{}" : Json.toJson(store));
+        RetailStore store = retailStoreService.findClosestByZipCode(zip);
+        return new StreamingResolution("json", store == null ? "{}" : Json.toJson(store));
     }
 
     public String getZip() {
-	return zip;
+        return zip;
     }
 
     public void setZip(String zip) {
-	this.zip = zip;
+        this.zip = zip;
     }
 }

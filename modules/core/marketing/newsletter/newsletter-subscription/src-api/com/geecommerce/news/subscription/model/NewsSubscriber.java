@@ -50,10 +50,10 @@ public interface NewsSubscriber extends Model {
     public boolean isIn(RequestContext requestContext);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String EMAIL = "email";
-	public static final String SUBSCRIBED = "subscribed";
-	public static final String SOURCE = "src";
-	public static final String SOURCE_ID = "src_id";
+        public static final String ID = "_id";
+        public static final String EMAIL = "email";
+        public static final String SUBSCRIBED = "subscribed";
+        public static final String SOURCE = "src";
+        public static final String SOURCE_ID = "src_id";
     }
 }

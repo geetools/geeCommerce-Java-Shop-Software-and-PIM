@@ -19,7 +19,8 @@ public enum ContentType {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ContentType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(ContentType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final ContentType fromId(int id) {
@@ -36,13 +37,15 @@ public enum ContentType {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (ContentType contentType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(ContentType.class.getSimpleName()).append(".").append(contentType.name()).toString()), contentType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(ContentType.class.getSimpleName()).append(".")
+                .append(contentType.name()).toString()), contentType.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ContentType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(ContentType.class.getSimpleName()).append(".label").toString());
     }
 }

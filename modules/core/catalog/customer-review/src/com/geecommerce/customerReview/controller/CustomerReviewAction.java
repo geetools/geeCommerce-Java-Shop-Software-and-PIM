@@ -60,7 +60,8 @@ public class CustomerReviewAction extends BasePagingActionBean {
     List<CustomerReview> reviews = null;
 
     @Inject
-    public CustomerReviewAction(CustomerReviewService customerReviewService, ProductService productService, CustomerService customerService) {
+    public CustomerReviewAction(CustomerReviewService customerReviewService, ProductService productService,
+        CustomerService customerService) {
         this.customerReviewService = customerReviewService;
         this.productService = productService;
         this.customerService = customerService;
@@ -220,7 +221,7 @@ public class CustomerReviewAction extends BasePagingActionBean {
             return redirect("/review/customer/" + ((Customer) getLoggedInCustomer()).getId());
         }
 
-        CustomerReview customerReview = app.getModel(CustomerReview.class);
+        CustomerReview customerReview = app.model(CustomerReview.class);
         customerReview.setProductId(getId());
         customerReview.setRating(getRating());
         customerReview.setHeadline(getHeadline());
@@ -291,7 +292,7 @@ public class CustomerReviewAction extends BasePagingActionBean {
             return new ErrorResolution(404);
         product = productService.getProduct(review.getProductId());
 
-        Abuse abuse = app.getModel(Abuse.class);
+        Abuse abuse = app.model(Abuse.class);
         abuse.setId(app.nextId());
         abuse.setHeadline(abuseHeadline);
         abuse.setText(abuseText);
@@ -402,7 +403,8 @@ public class CustomerReviewAction extends BasePagingActionBean {
     }
 
     public List<CustomerReview> getCustomerReviews(Boolean published) {
-        return customerReviewService.customerReviews(getId(), published, QueryOptions.builder().sortByDesc(getOrderColumn()).build());
+        return customerReviewService.customerReviews(getId(), published,
+            QueryOptions.builder().sortByDesc(getOrderColumn()).build());
     }
 
     public boolean getCanEdit() {

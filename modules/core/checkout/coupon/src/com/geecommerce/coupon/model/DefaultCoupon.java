@@ -327,19 +327,19 @@ public class DefaultCoupon extends AbstractMultiContextModel implements Coupon {
 
         Map<String, Object> couponConditionMap = map_(map.get(Col.CONDITION));
         if (couponConditionMap != null && couponConditionMap.size() > 0) {
-            this.couponCondition = app.getModel(CouponFilterNode.class);
+            this.couponCondition = app.model(CouponFilterNode.class);
             this.couponCondition.fromMap(couponConditionMap);
         }
 
         Map<String, Object> couponActionMap = map_(map.get(Col.ACTION));
         if (couponActionMap != null && couponActionMap.size() > 0) {
-            this.couponAction = app.getModel(CouponAction.class);
+            this.couponAction = app.model(CouponAction.class);
             this.couponAction.fromMap(couponActionMap);
         }
 
         Map<String, Object> codegeneratorMap = map_(map.get(Col.CODE_GENERATOR));
         if (codegeneratorMap != null && codegeneratorMap.size() > 0) {
-            this.codeGeneration = app.getModel(CouponCodeGeneration.class);
+            this.codeGeneration = app.model(CouponCodeGeneration.class);
             this.codeGeneration.fromMap(codegeneratorMap);
         }
 

@@ -9,6 +9,7 @@ package com.dhl.dctresponsedatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ProdType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ProdType">
@@ -69,8 +71,10 @@ public class ProdType {
      * Gets the value of the vldSrvComb property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the vldSrvComb property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the vldSrvComb property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -81,15 +85,16 @@ public class ProdType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link ProdType.VldSrvComb }
+     * Objects of the following type(s) are allowed in the list
+     * {@link ProdType.VldSrvComb }
      * 
      * 
      */
     public List<ProdType.VldSrvComb> getVldSrvComb() {
-	if (vldSrvComb == null) {
-	    vldSrvComb = new ArrayList<ProdType.VldSrvComb>();
-	}
-	return this.vldSrvComb;
+        if (vldSrvComb == null) {
+            vldSrvComb = new ArrayList<ProdType.VldSrvComb>();
+        }
+        return this.vldSrvComb;
     }
 
     /**
@@ -97,7 +102,8 @@ public class ProdType {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -130,168 +136,179 @@ public class ProdType {
     @XmlType(name = "", propOrder = { "specialServiceType", "localServiceType", "combRSrv" })
     public static class VldSrvComb {
 
-	@XmlElement(name = "SpecialServiceType")
-	protected String specialServiceType;
-	@XmlElement(name = "LocalServiceType")
-	protected List<String> localServiceType;
-	@XmlElement(name = "CombRSrv")
-	protected List<ProdType.VldSrvComb.CombRSrv> combRSrv;
+        @XmlElement(name = "SpecialServiceType")
+        protected String specialServiceType;
+        @XmlElement(name = "LocalServiceType")
+        protected List<String> localServiceType;
+        @XmlElement(name = "CombRSrv")
+        protected List<ProdType.VldSrvComb.CombRSrv> combRSrv;
 
-	/**
-	 * Gets the value of the specialServiceType property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getSpecialServiceType() {
-	    return specialServiceType;
-	}
+        /**
+         * Gets the value of the specialServiceType property.
+         * 
+         * @return possible object is {@link String }
+         * 
+         */
+        public String getSpecialServiceType() {
+            return specialServiceType;
+        }
 
-	/**
-	 * Sets the value of the specialServiceType property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setSpecialServiceType(String value) {
-	    this.specialServiceType = value;
-	}
+        /**
+         * Sets the value of the specialServiceType property.
+         * 
+         * @param value
+         *            allowed object is {@link String }
+         * 
+         */
+        public void setSpecialServiceType(String value) {
+            this.specialServiceType = value;
+        }
 
-	/**
-	 * Gets the value of the localServiceType property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the localServiceType property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getLocalServiceType().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link String }
-	 * 
-	 * 
-	 */
-	public List<String> getLocalServiceType() {
-	    if (localServiceType == null) {
-		localServiceType = new ArrayList<String>();
-	    }
-	    return this.localServiceType;
-	}
+        /**
+         * Gets the value of the localServiceType property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the localServiceType property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getLocalServiceType().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link String }
+         * 
+         * 
+         */
+        public List<String> getLocalServiceType() {
+            if (localServiceType == null) {
+                localServiceType = new ArrayList<String>();
+            }
+            return this.localServiceType;
+        }
 
-	/**
-	 * Gets the value of the combRSrv property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the combRSrv property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getCombRSrv().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link ProdType.VldSrvComb.CombRSrv }
-	 * 
-	 * 
-	 */
-	public List<ProdType.VldSrvComb.CombRSrv> getCombRSrv() {
-	    if (combRSrv == null) {
-		combRSrv = new ArrayList<ProdType.VldSrvComb.CombRSrv>();
-	    }
-	    return this.combRSrv;
-	}
+        /**
+         * Gets the value of the combRSrv property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the combRSrv property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getCombRSrv().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link ProdType.VldSrvComb.CombRSrv }
+         * 
+         * 
+         */
+        public List<ProdType.VldSrvComb.CombRSrv> getCombRSrv() {
+            if (combRSrv == null) {
+                combRSrv = new ArrayList<ProdType.VldSrvComb.CombRSrv>();
+            }
+            return this.combRSrv;
+        }
 
-	/**
-	 * <p>
-	 * Java class for anonymous complex type.
-	 * 
-	 * <p>
-	 * The following schema fragment specifies the expected content contained within this class.
-	 * 
-	 * <pre>
-	 * &lt;complexType>
-	 *   &lt;complexContent>
-	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-	 *       &lt;sequence>
-	 *         &lt;element name="RestrictedSpecialServiceType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
-	 *         &lt;element name="RestrictedLocalServiceType" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
-	 *       &lt;/sequence>
-	 *     &lt;/restriction>
-	 *   &lt;/complexContent>
-	 * &lt;/complexType>
-	 * </pre>
-	 * 
-	 * 
-	 */
-	@XmlAccessorType(XmlAccessType.FIELD)
-	@XmlType(name = "", propOrder = { "restrictedSpecialServiceType", "restrictedLocalServiceType" })
-	public static class CombRSrv {
+        /**
+         * <p>
+         * Java class for anonymous complex type.
+         * 
+         * <p>
+         * The following schema fragment specifies the expected content
+         * contained within this class.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;complexContent>
+         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *       &lt;sequence>
+         *         &lt;element name="RestrictedSpecialServiceType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+         *         &lt;element name="RestrictedLocalServiceType" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+         *       &lt;/sequence>
+         *     &lt;/restriction>
+         *   &lt;/complexContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = { "restrictedSpecialServiceType", "restrictedLocalServiceType" })
+        public static class CombRSrv {
 
-	    @XmlElement(name = "RestrictedSpecialServiceType")
-	    protected String restrictedSpecialServiceType;
-	    @XmlElement(name = "RestrictedLocalServiceType")
-	    protected List<String> restrictedLocalServiceType;
+            @XmlElement(name = "RestrictedSpecialServiceType")
+            protected String restrictedSpecialServiceType;
+            @XmlElement(name = "RestrictedLocalServiceType")
+            protected List<String> restrictedLocalServiceType;
 
-	    /**
-	     * Gets the value of the restrictedSpecialServiceType property.
-	     * 
-	     * @return possible object is {@link String }
-	     * 
-	     */
-	    public String getRestrictedSpecialServiceType() {
-		return restrictedSpecialServiceType;
-	    }
+            /**
+             * Gets the value of the restrictedSpecialServiceType property.
+             * 
+             * @return possible object is {@link String }
+             * 
+             */
+            public String getRestrictedSpecialServiceType() {
+                return restrictedSpecialServiceType;
+            }
 
-	    /**
-	     * Sets the value of the restrictedSpecialServiceType property.
-	     * 
-	     * @param value
-	     *            allowed object is {@link String }
-	     * 
-	     */
-	    public void setRestrictedSpecialServiceType(String value) {
-		this.restrictedSpecialServiceType = value;
-	    }
+            /**
+             * Sets the value of the restrictedSpecialServiceType property.
+             * 
+             * @param value
+             *            allowed object is {@link String }
+             * 
+             */
+            public void setRestrictedSpecialServiceType(String value) {
+                this.restrictedSpecialServiceType = value;
+            }
 
-	    /**
-	     * Gets the value of the restrictedLocalServiceType property.
-	     * 
-	     * <p>
-	     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list
-	     * will be present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the restrictedLocalServiceType property.
-	     * 
-	     * <p>
-	     * For example, to add a new item, do as follows:
-	     * 
-	     * <pre>
-	     * getRestrictedLocalServiceType().add(newItem);
-	     * </pre>
-	     * 
-	     * 
-	     * <p>
-	     * Objects of the following type(s) are allowed in the list {@link String }
-	     * 
-	     * 
-	     */
-	    public List<String> getRestrictedLocalServiceType() {
-		if (restrictedLocalServiceType == null) {
-		    restrictedLocalServiceType = new ArrayList<String>();
-		}
-		return this.restrictedLocalServiceType;
-	    }
+            /**
+             * Gets the value of the restrictedLocalServiceType property.
+             * 
+             * <p>
+             * This accessor method returns a reference to the live list, not a
+             * snapshot. Therefore any modification you make to the returned
+             * list will be present inside the JAXB object. This is why there is
+             * not a <CODE>set</CODE> method for the restrictedLocalServiceType
+             * property.
+             * 
+             * <p>
+             * For example, to add a new item, do as follows:
+             * 
+             * <pre>
+             * getRestrictedLocalServiceType().add(newItem);
+             * </pre>
+             * 
+             * 
+             * <p>
+             * Objects of the following type(s) are allowed in the list
+             * {@link String }
+             * 
+             * 
+             */
+            public List<String> getRestrictedLocalServiceType() {
+                if (restrictedLocalServiceType == null) {
+                    restrictedLocalServiceType = new ArrayList<String>();
+                }
+                return this.restrictedLocalServiceType;
+            }
 
-	}
+        }
 
     }
 

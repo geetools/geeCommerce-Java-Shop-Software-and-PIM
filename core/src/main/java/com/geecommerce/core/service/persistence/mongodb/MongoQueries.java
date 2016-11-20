@@ -53,7 +53,7 @@ public class MongoQueries {
 
     public static void addMerchantFilter(Map<String, Object> targetFilter, Merchant merchant) {
         if (merchant == null) {
-            ApplicationContext appCtx = App.get().getApplicationContext();
+            ApplicationContext appCtx = App.get().context();
             merchant = appCtx.getMerchant();
         }
 
@@ -71,7 +71,7 @@ public class MongoQueries {
 
     public static void addStoreFilter(Map<String, Object> targetFilter, Store store) {
         if (store == null) {
-            ApplicationContext appCtx = App.get().getApplicationContext();
+            ApplicationContext appCtx = App.get().context();
             store = appCtx.getStore();
         }
 
@@ -89,7 +89,7 @@ public class MongoQueries {
 
     public static void addRequestContextFilter(Map<String, Object> targetFilter, RequestContext reqCtx) {
         if (reqCtx == null) {
-            ApplicationContext appCtx = App.get().getApplicationContext();
+            ApplicationContext appCtx = App.get().context();
             reqCtx = appCtx.getRequestContext();
         }
 

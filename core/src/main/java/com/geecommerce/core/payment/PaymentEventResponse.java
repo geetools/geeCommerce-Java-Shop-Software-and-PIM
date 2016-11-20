@@ -12,61 +12,62 @@ public class PaymentEventResponse {
 
     }
 
-    public PaymentEventResponse(PaymentStatus paymentStatus, PaymentStatus expectedPaymentStatus, String successMessage, String errorMessage, String responseText, String requestText) {
-	super();
-	this.paymentStatus = paymentStatus;
-	this.expectedPaymentStatus = expectedPaymentStatus;
-	this.successMessage = successMessage;
-	this.errorMessage = errorMessage;
-	this.responseText = responseText;
-	this.requestText = requestText;
+    public PaymentEventResponse(PaymentStatus paymentStatus, PaymentStatus expectedPaymentStatus, String successMessage,
+        String errorMessage, String responseText, String requestText) {
+        super();
+        this.paymentStatus = paymentStatus;
+        this.expectedPaymentStatus = expectedPaymentStatus;
+        this.successMessage = successMessage;
+        this.errorMessage = errorMessage;
+        this.responseText = responseText;
+        this.requestText = requestText;
     }
 
     public String getRequestText() {
-	return requestText;
+        return requestText;
     }
 
     public void setRequestText(String requestText) {
-	this.requestText = requestText;
+        this.requestText = requestText;
     }
 
     public PaymentStatus getPaymentStatus() {
-	return paymentStatus;
+        return paymentStatus;
     }
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
-	this.paymentStatus = paymentStatus;
+        this.paymentStatus = paymentStatus;
     }
 
     public PaymentStatus getExpectedPaymentStatus() {
-	return expectedPaymentStatus;
+        return expectedPaymentStatus;
     }
 
     public void setExpectedPaymentStatus(PaymentStatus expectedPaymentStatus) {
-	this.expectedPaymentStatus = expectedPaymentStatus;
+        this.expectedPaymentStatus = expectedPaymentStatus;
     }
 
     public String getSuccessMessage() {
-	return successMessage;
+        return successMessage;
     }
 
     public void setSuccessMessage(String successMessage) {
-	this.successMessage = successMessage;
+        this.successMessage = successMessage;
     }
 
     public String getErrorMessage() {
-	return errorMessage;
+        return errorMessage;
     }
 
     public void setErrorMessage(String errorMessage) {
-	this.errorMessage = errorMessage;
+        this.errorMessage = errorMessage;
     }
 
     public String getResponseText() {
-	return responseText;
+        return responseText;
     }
 
     public void setResponseText(String responseText) {
-	this.responseText = responseText;
+        this.responseText = responseText;
     }
 }

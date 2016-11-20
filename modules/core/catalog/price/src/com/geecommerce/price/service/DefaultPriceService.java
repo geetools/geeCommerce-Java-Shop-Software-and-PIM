@@ -53,7 +53,8 @@ public class DefaultPriceService implements PriceService {
     @Override
     public PriceResult getPriceFor(Id productId, String currencyCode, Id... childProductIds) {
         if (productId == null || currencyCode == null)
-            throw new IllegalArgumentException("The parameters productId and currencyCode cannot be null when getting prices.");
+            throw new IllegalArgumentException(
+                "The parameters productId and currencyCode cannot be null when getting prices.");
 
         List<Price> productPrices = prices.belongingToProduct(productId, currencyCode);
         List<Price> childProductPrices = null;
@@ -61,7 +62,7 @@ public class DefaultPriceService implements PriceService {
         if (childProductIds != null && childProductIds.length > 0)
             childProductPrices = prices.belongingToProducts(childProductIds);
 
-        PriceResult priceResult = app.getPojo(PriceResult.class).init(productPrices, childProductPrices);
+        PriceResult priceResult = app.pojo(PriceResult.class).init(productPrices, childProductPrices);
 
         return priceResult;
     }
@@ -89,7 +90,8 @@ public class DefaultPriceService implements PriceService {
         // start));
 
         // Fetch the prices for all the collected productIds.
-        List<Price> allProductPrices = prices.belongingToProducts(allProductIds.toArray(new Id[allProductIds.size()]), currencyCode);
+        List<Price> allProductPrices = prices.belongingToProducts(allProductIds.toArray(new Id[allProductIds.size()]),
+            currencyCode);
 
         // System.out.println(" pppp#2: " + (System.currentTimeMillis() -
         // start));
@@ -103,7 +105,8 @@ public class DefaultPriceService implements PriceService {
 
         for (Id parentProductId : parentProductIds) {
             priceResults.put(parentProductId,
-                app.getPojo(PriceResult.class).init(priceHelper.filterPrices(allProductPrices, parentProductId), priceHelper.filterPrices(allProductPrices, productIdMap.get(parentProductId))));
+                app.pojo(PriceResult.class).init(priceHelper.filterPrices(allProductPrices, parentProductId),
+                    priceHelper.filterPrices(allProductPrices, productIdMap.get(parentProductId))));
         }
 
         // System.out.println(" pppp#end: " + (System.currentTimeMillis() -

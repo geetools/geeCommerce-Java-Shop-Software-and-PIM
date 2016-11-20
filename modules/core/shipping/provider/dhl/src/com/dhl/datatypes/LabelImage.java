@@ -19,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for LabelImage complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="LabelImage">
@@ -52,7 +53,7 @@ public class LabelImage {
      * 
      */
     public OutputFormat getOutputFormat() {
-	return outputFormat;
+        return outputFormat;
     }
 
     /**
@@ -63,7 +64,7 @@ public class LabelImage {
      * 
      */
     public void setOutputFormat(OutputFormat value) {
-	this.outputFormat = value;
+        this.outputFormat = value;
     }
 
     /**
@@ -72,7 +73,7 @@ public class LabelImage {
      * @return possible object is byte[]
      */
     public byte[] getOutputImage() {
-	return outputImage;
+        return outputImage;
     }
 
     /**
@@ -82,7 +83,7 @@ public class LabelImage {
      *            allowed object is byte[]
      */
     public void setOutputImage(byte[] value) {
-	this.outputImage = value;
+        this.outputImage = value;
     }
 
 }

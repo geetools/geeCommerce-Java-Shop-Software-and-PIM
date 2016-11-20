@@ -84,7 +84,7 @@ public class SlideShowResource extends AbstractResource {
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createSlideShow(Update update) {
-        WebSlideShow slideShow = app.getModel(WebSlideShow.class);
+        WebSlideShow slideShow = app.model(WebSlideShow.class);
         slideShow.set(update.getFields());
         slideShow = service.create(slideShow);
         return created(slideShow);
@@ -116,7 +116,8 @@ public class SlideShowResource extends AbstractResource {
     @POST
     @Path("{id}/slides")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response newSlide(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    public Response newSlide(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         Slide slide = null;
 
         if (id != null) {
@@ -124,7 +125,7 @@ public class SlideShowResource extends AbstractResource {
             FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
             MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());
 
-            slide = app.getModel(Slide.class);
+            slide = app.model(Slide.class);
             slide.setMediaAsset(newMediaAsset);
             slide.setPosition(99);
             slide.setId(app.nextId());
@@ -179,7 +180,8 @@ public class SlideShowResource extends AbstractResource {
 
             service.update(slideShow);
         } else {
-            throwBadRequest("SlideShowId and slideId cannot be null in requestURI. Expecting: slide-shows/{id}/slides/{slideId}");
+            throwBadRequest(
+                "SlideShowId and slideId cannot be null in requestURI. Expecting: slide-shows/{id}/slides/{slideId}");
         }
     }
 
@@ -191,7 +193,8 @@ public class SlideShowResource extends AbstractResource {
 
         if (updates != null && updates.size() > 0) {
             for (Update update : updates) {
-                if (update != null && update.getId() != null && update.getFields() != null && update.getFields().size() > 0) {
+                if (update != null && update.getId() != null && update.getFields() != null
+                    && update.getFields().size() > 0) {
                     for (Slide slide : slideShow.getSlides()) {
                         if (slide.getId().equals(update.getId())) {
                             slide.set(update.getFields());
@@ -206,7 +209,8 @@ public class SlideShowResource extends AbstractResource {
     @POST
     @Path("{id}/slides/{slideId}/files")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response newFile(@PathParam("id") Id id, @PathParam("slideId") Id slideId, @FormDataParam("file") InputStream uploadedInputStream,
+    public Response newFile(@PathParam("id") Id id, @PathParam("slideId") Id slideId,
+        @FormDataParam("file") InputStream uploadedInputStream,
         @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         Slide slide = null;
 
@@ -223,7 +227,8 @@ public class SlideShowResource extends AbstractResource {
             slide.setLink(null);
             service.update(slideShow);
         } else {
-            throwBadRequest("SlideShowId and slideId cannot be null in requestURI. Expecting: slide-shows/{id}/slides/{slideId}/files");
+            throwBadRequest(
+                "SlideShowId and slideId cannot be null in requestURI. Expecting: slide-shows/{id}/slides/{slideId}/files");
         }
 
         if (slide == null || slide.getId() == null) {

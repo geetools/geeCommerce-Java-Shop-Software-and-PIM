@@ -44,7 +44,8 @@ public class DefaultAttributes extends AbstractRepository implements Attributes 
             filter.put(Attribute.Col.TARGET_OBJECT_ID, targetObject.getId());
         }
 
-        return app.isAPIRequest() ? find(Attribute.class, filter, queryOptions) : multiContextFind(Attribute.class, filter, Attribute.Col.CODE, queryOptions);
+        return app.isAPIRequest() ? find(Attribute.class, filter, queryOptions)
+            : multiContextFind(Attribute.class, filter, Attribute.Col.CODE, queryOptions);
     }
 
     @Override
@@ -53,7 +54,8 @@ public class DefaultAttributes extends AbstractRepository implements Attributes 
     }
 
     @Override
-    public List<Attribute> thatAreMandatory(AttributeTargetObject targetObject, QueryOptions queryOptions, boolean includeOptOutAttributes) {
+    public List<Attribute> thatAreMandatory(AttributeTargetObject targetObject, QueryOptions queryOptions,
+        boolean includeOptOutAttributes) {
         Map<String, Object> filter = new LinkedHashMap<String, Object>();
         filter.put(Attribute.Col.ENABLED, true);
 
@@ -79,7 +81,8 @@ public class DefaultAttributes extends AbstractRepository implements Attributes 
     }
 
     @Override
-    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, boolean includeOptOutAttributes) {
+    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject,
+        boolean includeOptOutAttributes) {
         return thatAreMandatoryAndEditable(targetObject, null, includeOptOutAttributes);
     }
 
@@ -89,7 +92,8 @@ public class DefaultAttributes extends AbstractRepository implements Attributes 
     }
 
     @Override
-    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, QueryOptions queryOptions, boolean includeOptOutAttributes) {
+    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, QueryOptions queryOptions,
+        boolean includeOptOutAttributes) {
         Map<String, Object> filter = new LinkedHashMap<String, Object>();
         filter.put(Attribute.Col.ENABLED, true);
         filter.put(Attribute.Col.EDITABLE, true);

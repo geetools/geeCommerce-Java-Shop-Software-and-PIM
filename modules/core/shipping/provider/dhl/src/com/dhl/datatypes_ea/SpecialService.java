@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for SpecialService complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="SpecialService">
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SpecialService", propOrder = { "specialServiceType", "communicationType", "chargeValue", "currencyCode" })
+@XmlType(name = "SpecialService", propOrder = { "specialServiceType", "communicationType", "chargeValue",
+    "currencyCode" })
 public class SpecialService {
 
     @XmlElement(name = "SpecialServiceType", required = true)
@@ -56,7 +58,7 @@ public class SpecialService {
      * 
      */
     public String getSpecialServiceType() {
-	return specialServiceType;
+        return specialServiceType;
     }
 
     /**
@@ -67,7 +69,7 @@ public class SpecialService {
      * 
      */
     public void setSpecialServiceType(String value) {
-	this.specialServiceType = value;
+        this.specialServiceType = value;
     }
 
     /**
@@ -77,7 +79,7 @@ public class SpecialService {
      * 
      */
     public CommunicationType getCommunicationType() {
-	return communicationType;
+        return communicationType;
     }
 
     /**
@@ -88,7 +90,7 @@ public class SpecialService {
      * 
      */
     public void setCommunicationType(CommunicationType value) {
-	this.communicationType = value;
+        this.communicationType = value;
     }
 
     /**
@@ -98,7 +100,7 @@ public class SpecialService {
      * 
      */
     public String getChargeValue() {
-	return chargeValue;
+        return chargeValue;
     }
 
     /**
@@ -109,7 +111,7 @@ public class SpecialService {
      * 
      */
     public void setChargeValue(String value) {
-	this.chargeValue = value;
+        this.chargeValue = value;
     }
 
     /**
@@ -119,7 +121,7 @@ public class SpecialService {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -130,7 +132,7 @@ public class SpecialService {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
 }

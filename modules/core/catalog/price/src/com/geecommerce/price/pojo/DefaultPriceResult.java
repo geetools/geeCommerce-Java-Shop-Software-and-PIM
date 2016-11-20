@@ -47,7 +47,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
         private final Id customerId;
         private Set<Id> customerGroupIds;
 
-        public PriceKey(String type, Integer forQty, PricingContext pricingCtx, Id storeId, Id customerId, Set<Id> customerGroupIds) {
+        public PriceKey(String type, Integer forQty, PricingContext pricingCtx, Id storeId, Id customerId,
+            Set<Id> customerGroupIds) {
             this.type = type;
             this.forQty = forQty;
             this.pricingCtx = pricingCtx;
@@ -149,7 +150,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             priceList.addAll(uniquePrices);
 
             Collections.sort(priceList,
-                (Price p1, Price p2) -> p1.getPriceType().getPriority() == p2.getPriceType().getPriority() ? 0 : p1.getPriceType().getPriority() > p2.getPriceType().getPriority() ? 1 : -1);
+                (Price p1, Price p2) -> p1.getPriceType().getPriority() == p2.getPriceType().getPriority() ? 0
+                    : p1.getPriceType().getPriority() > p2.getPriceType().getPriority() ? 1 : -1);
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -162,7 +164,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             Set<Id> customerGroupIds = new HashSet<>();
             customerGroupIds.add(price.getCustomerGroupId());
 
-            PriceKey priceKey = new PriceKey(price.getTypeId().str(), price.getQtyFrom(), null, price.getStoreId(), price.getCustomerId(), customerGroupIds);
+            PriceKey priceKey = new PriceKey(price.getTypeId().str(), price.getQtyFrom(), null, price.getStoreId(),
+                price.getCustomerId(), customerGroupIds);
 
             Price p = priceMap.get(priceKey);
 
@@ -182,7 +185,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
 
             if (currentValidFrom != null) {
                 boolean isCurrentDateFromValid = isDateFromValid(currentValidFrom);
-                boolean isCurrentDateToValid = isDateToValid(currentValidTo) || (isCurrentDateFromValid && currentValidTo == null);
+                boolean isCurrentDateToValid = isDateToValid(currentValidTo)
+                    || (isCurrentDateFromValid && currentValidTo == null);
 
                 if (!isCurrentDateFromValid || !isCurrentDateToValid)
                     continue;
@@ -200,7 +204,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                         priceMap.put(priceKey, price);
                         continue;
                     } else if (currentValidSinceDays == previousValidSinceDays) {
-                        if (price.getCreatedOn() != null && p.getCreatedOn() != null && price.getCreatedOn().after(p.getCreatedOn())) {
+                        if (price.getCreatedOn() != null && p.getCreatedOn() != null
+                            && price.getCreatedOn().after(p.getCreatedOn())) {
                             priceMap.put(priceKey, price);
                             continue;
                         }
@@ -209,7 +214,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             }
             // If the same type of date exists, then choose the newer one.
             else if (p != null && currentValidFrom == null && previousValidFrom == null) {
-                if (price.getCreatedOn() != null && p.getCreatedOn() != null && price.getCreatedOn().after(p.getCreatedOn())) {
+                if (price.getCreatedOn() != null && p.getCreatedOn() != null
+                    && price.getCreatedOn().after(p.getCreatedOn())) {
                     priceMap.put(priceKey, price);
                     continue;
                 }
@@ -237,7 +243,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
     protected PriceResult initChildPrices(List<Price> childPrices) {
         if (childPrices != null && childPrices.size() > 0) {
             Collections.sort(childPrices,
-                (Price p1, Price p2) -> p1.getPriceType().getPriority() == p2.getPriceType().getPriority() ? 0 : p1.getPriceType().getPriority() > p2.getPriceType().getPriority() ? 1 : -1);
+                (Price p1, Price p2) -> p1.getPriceType().getPriority() == p2.getPriceType().getPriority() ? 0
+                    : p1.getPriceType().getPriority() > p2.getPriceType().getPriority() ? 1 : -1);
 
             if (childPriceLists == null)
                 childPriceLists = new LinkedHashMap<Id, List<Price>>();
@@ -588,14 +595,15 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
     public Map<String, Double> getLowestValidPrices(Integer forQty, PricingContext pricingCtx) {
         Price lowestFinalPrice = getLowestFinalPriceFor(forQty);
 
-        return lowestFinalPrice == null ? null : getValidPrices(forQty, childPriceLists.get(lowestFinalPrice.getProductId()), pricingCtx);
+        return lowestFinalPrice == null ? null
+            : getValidPrices(forQty, childPriceLists.get(lowestFinalPrice.getProductId()), pricingCtx);
     }
 
     protected Price findPrice(String type, Integer forQty, List<Price> priceList, PricingContext pricingCtx) {
         if (type == null || forQty == null || priceList == null)
             return null;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
         Id storeId = reqCtx.getStoreId();
 
@@ -658,7 +666,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             // --------------------------------------------------------------------------------
 
             // See if there is a tier price for the given quantity.
-            if (forQty != null && p.getQtyFrom() != null && p.getQtyFrom() > 0 && forQty >= p.getQtyFrom() && (tierQtyDiff == null || (forQty - p.getQtyFrom()) <= tierQtyDiff)) {
+            if (forQty != null && p.getQtyFrom() != null && p.getQtyFrom() > 0 && forQty >= p.getQtyFrom()
+                && (tierQtyDiff == null || (forQty - p.getQtyFrom()) <= tierQtyDiff)) {
                 tierQtyDiff = forQty - p.getQtyFrom();
 
                 // Is there a customer-specific tier price?
@@ -671,14 +680,16 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                     }
                 }
                 // Is there a customer-group-specific tier price?
-                else if (p.getCustomerGroupId() != null && p.getCustomerGroupId().longValue() != 0 && customerGroupIds != null && customerGroupIds.contains(p.getCustomerGroupId())) {
+                else if (p.getCustomerGroupId() != null && p.getCustomerGroupId().longValue() != 0
+                    && customerGroupIds != null && customerGroupIds.contains(p.getCustomerGroupId())) {
                     // Are there different prices for various contexts?
                     if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
                         tierPriceForCustomerGroupAndStore = p;
                     } else if (p.getStoreId() == null) {
                         tierPriceForCustomerGroup = p;
                     }
-                } else if (p.getCustomerId() == null && (p.getCustomerGroupId() == null || p.getCustomerGroupId().longValue() == 0)) {
+                } else if (p.getCustomerId() == null
+                    && (p.getCustomerGroupId() == null || p.getCustomerGroupId().longValue() == 0)) {
                     // Are there different prices for various contexts?
                     if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
                         tierPriceForReqCtx = p;
@@ -704,14 +715,16 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                     }
                 }
                 // Is there a customer-group-specific price?
-                else if (p.getCustomerGroupId() != null && p.getCustomerGroupId().longValue() != 0 && customerGroupIds != null && customerGroupIds.contains(p.getCustomerGroupId())) {
+                else if (p.getCustomerGroupId() != null && p.getCustomerGroupId().longValue() != 0
+                    && customerGroupIds != null && customerGroupIds.contains(p.getCustomerGroupId())) {
                     // Are there different prices for various contexts?
                     if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
                         priceForCustomerGroupAndStore = p;
                     } else if (p.getStoreId() == null) {
                         priceForCustomerGroup = p;
                     }
-                } else if (p.getCustomerId() == null && (p.getCustomerGroupId() == null || p.getCustomerGroupId().longValue() == 0)) {
+                } else if (p.getCustomerId() == null
+                    && (p.getCustomerGroupId() == null || p.getCustomerGroupId().longValue() == 0)) {
                     // Are there different prices for various contexts?
                     if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
                         priceForStore = p;

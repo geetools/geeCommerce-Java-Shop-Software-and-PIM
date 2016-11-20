@@ -5,15 +5,15 @@ public class MailerServiceException extends Exception {
     }
 
     public MailerServiceException(String message) {
-	super(message);
+        super(message);
     }
 
     public MailerServiceException(String message, Throwable cause) {
-	super(message, cause);
+        super(message, cause);
     }
 
     public MailerServiceException(Throwable cause) {
-	super(cause);
+        super(cause);
     }
 
 }

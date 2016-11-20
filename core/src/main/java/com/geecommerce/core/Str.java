@@ -55,51 +55,51 @@ public class Str {
     public static final String NUL = String.valueOf(Char.NUL);
 
     public static boolean isEmpty(String s) {
-	if (s == null)
-	    return true;
+        if (s == null)
+            return true;
 
-	return EMPTY.equals(s.trim());
+        return EMPTY.equals(s.trim());
     }
 
     public static boolean trimEquals(String s1, String s2) {
-	if (s1 == s2)
-	    return true;
+        if (s1 == s2)
+            return true;
 
-	if (s1 == null && s2 == null)
-	    return true;
+        if (s1 == null && s2 == null)
+            return true;
 
-	if ((s1 != null && s2 == null) || (s1 == null && s2 != null))
-	    return false;
+        if ((s1 != null && s2 == null) || (s1 == null && s2 != null))
+            return false;
 
-	return s1.trim().equals(s2.trim());
+        return s1.trim().equals(s2.trim());
     }
 
     public static boolean trimEqualsIgnoreCase(String s1, String s2) {
-	if (s1 == s2)
-	    return true;
+        if (s1 == s2)
+            return true;
 
-	if (s1 == null && s2 == null)
-	    return true;
+        if (s1 == null && s2 == null)
+            return true;
 
-	if ((s1 != null && s2 == null) || (s1 == null && s2 != null))
-	    return false;
+        if ((s1 != null && s2 == null) || (s1 == null && s2 != null))
+            return false;
 
-	return s1.trim().equalsIgnoreCase(s2.trim());
+        return s1.trim().equalsIgnoreCase(s2.trim());
     }
 
     public static boolean trimNormalizedEqualsIgnoreCase(String s1, String s2) {
-	if (s1 == s2)
-	    return true;
+        if (s1 == s2)
+            return true;
 
-	if (s1 == null && s2 == null)
-	    return true;
+        if (s1 == null && s2 == null)
+            return true;
 
-	if ((s1 != null && s2 == null) || (s1 == null && s2 != null))
-	    return false;
+        if ((s1 != null && s2 == null) || (s1 == null && s2 != null))
+            return false;
 
-	String t1 = Strings.transliterate(s1.trim().replace(Str.DOUBLE_SPACE, Str.SPACE));
-	String t2 = Strings.transliterate(s2.trim().replace(Str.DOUBLE_SPACE, Str.SPACE));
+        String t1 = Strings.transliterate(s1.trim().replace(Str.DOUBLE_SPACE, Str.SPACE));
+        String t2 = Strings.transliterate(s2.trim().replace(Str.DOUBLE_SPACE, Str.SPACE));
 
-	return t1.equalsIgnoreCase(t2);
+        return t1.equalsIgnoreCase(t2);
     }
 }

@@ -15,9 +15,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import au.com.bytecode.opencsv.CSVWriter;
-
-import com.google.inject.Inject;
 import com.geecommerce.core.rest.AbstractResource;
 import com.geecommerce.core.rest.jersey.inject.FilterParam;
 import com.geecommerce.core.rest.pojo.Filter;
@@ -26,6 +23,9 @@ import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.customer.model.Customer;
 import com.geecommerce.customer.model.CustomerGroup;
+import com.google.inject.Inject;
+
+import au.com.bytecode.opencsv.CSVWriter;
 
 @Path("/v1/customers")
 public class CustomerResource extends AbstractResource {
@@ -33,20 +33,20 @@ public class CustomerResource extends AbstractResource {
 
     @Inject
     public CustomerResource(RestService service) {
-	this.service = service;
+        this.service = service;
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getCustomers(@FilterParam Filter filter) {
-	return ok(service.get(Customer.class, filter.getParams(), queryOptions(filter)));
+        return ok(service.get(Customer.class, filter.getParams(), queryOptions(filter)));
     }
 
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Customer getCustomer(@PathParam("id") Id id) {
-	return checked(service.get(Customer.class, id));
+        return checked(service.get(Customer.class, id));
     }
 
     @PUT
@@ -54,40 +54,41 @@ public class CustomerResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateCustomer(@PathParam("id") Id id, Update update) {
-	if (id != null) {
-	    Customer c = checked(service.get(Customer.class, id));
-	    c.set(update.getFields());
+        if (id != null) {
+            Customer c = checked(service.get(Customer.class, id));
+            c.set(update.getFields());
 
-	    service.update(c);
-	}
+            service.update(c);
+        }
     }
 
     @GET
     @Path("groups")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getCustomerGroups(@FilterParam Filter filter) {
-	return ok(checked(service.get(CustomerGroup.class, filter.getParams(), queryOptions(filter))));
+        return ok(checked(service.get(CustomerGroup.class, filter.getParams(), queryOptions(filter))));
     }
 
     @GET
     @Path("export/emails")
     // @Produces("text/plain")
-    public Response getCustomerExportEmails(@FilterParam Filter filter, @Context HttpServletResponse response) throws IOException {
-	response.setContentType("text/csv");
-	response.setHeader("Content-Disposition", "attachment; filename=\"customer-emails.csv\"");
-	PrintWriter printWriter = response.getWriter();
-	CSVWriter writer = new CSVWriter(printWriter, ';');
-	writer.writeNext(new String[] { "E-mail" });
+    public Response getCustomerExportEmails(@FilterParam Filter filter, @Context HttpServletResponse response)
+        throws IOException {
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"customer-emails.csv\"");
+        PrintWriter printWriter = response.getWriter();
+        CSVWriter writer = new CSVWriter(printWriter, ';');
+        writer.writeNext(new String[] { "E-mail" });
 
-	List<Customer> customers = service.get(Customer.class);
-	for (Customer customer : customers) {
-	    if (customer.getEmail() != null && !customer.getEmail().isEmpty()) {
-		writer.writeNext(new String[] { customer.getEmail() });
-	    }
-	}
-	writer.flush();
-	writer.close();
+        List<Customer> customers = service.get(Customer.class);
+        for (Customer customer : customers) {
+            if (customer.getEmail() != null && !customer.getEmail().isEmpty()) {
+                writer.writeNext(new String[] { customer.getEmail() });
+            }
+        }
+        writer.flush();
+        writer.close();
 
-	return Response.ok().build();
+        return Response.ok().build();
     }
 }

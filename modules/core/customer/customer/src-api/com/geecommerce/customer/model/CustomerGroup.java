@@ -26,10 +26,10 @@ public interface CustomerGroup extends Model {
     public void setEnabled(boolean enabled);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String LABEL = "label";
-	public static final String POSITION = "pos";
-	public static final String ENABLED = "enabled";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String LABEL = "label";
+        public static final String POSITION = "pos";
+        public static final String ENABLED = "enabled";
     }
 }

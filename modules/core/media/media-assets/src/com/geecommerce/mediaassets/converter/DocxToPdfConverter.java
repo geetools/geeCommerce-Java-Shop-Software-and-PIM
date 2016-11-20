@@ -1,15 +1,17 @@
 package com.geecommerce.mediaassets.converter;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
-
-import java.io.*;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class DocxToPdfConverter implements DocumentConverter {
     @Override
     public boolean canConvert(String mimeType) {
-        if(mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+        if (mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
             return true;
         return false;
     }

@@ -1,13 +1,12 @@
 package com.geecommerce.core.system.widget.model;
 
+import java.util.List;
+import java.util.Map;
 
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.widget.enums.WidgetType;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
-import java.util.Map;
 
 public interface Widget extends Model {
 
@@ -56,9 +55,8 @@ public interface Widget extends Model {
         public static final String TABS = "tabs";
         public static final String TYPE = "type";
         public static final String CONFIGURATION = "config";
-        public static final String CONTENT ="content";
+        public static final String CONTENT = "content";
     }
 }
-
 
 // tabs

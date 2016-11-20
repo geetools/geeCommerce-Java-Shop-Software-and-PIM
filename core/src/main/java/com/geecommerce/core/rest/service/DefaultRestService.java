@@ -55,7 +55,8 @@ public class DefaultRestService implements RestService {
     }
 
     @Override
-    public <T extends Model> List<Id> getIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Id> getIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return restRepository.findIds(modelClass, filter, queryOptions);
     }
 
@@ -105,7 +106,8 @@ public class DefaultRestService implements RestService {
     }
 
     @Override
-    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions) {
+    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions) {
         return restRepository.findSnapshots(modelClass, id, versions, queryOptions);
     }
 
@@ -115,7 +117,8 @@ public class DefaultRestService implements RestService {
     }
 
     @Override
-    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return restRepository.findSnapshots(modelClass, filter, queryOptions);
     }
 }

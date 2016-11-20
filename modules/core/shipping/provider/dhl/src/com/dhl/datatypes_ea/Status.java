@@ -9,6 +9,7 @@ package com.dhl.datatypes_ea;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Status complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Status">
@@ -54,7 +56,7 @@ public class Status {
      * 
      */
     public String getActionStatus() {
-	return actionStatus;
+        return actionStatus;
     }
 
     /**
@@ -65,15 +67,17 @@ public class Status {
      * 
      */
     public void setActionStatus(String value) {
-	this.actionStatus = value;
+        this.actionStatus = value;
     }
 
     /**
      * Gets the value of the condition property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the condition property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the condition property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -84,15 +88,16 @@ public class Status {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link Condition }
+     * Objects of the following type(s) are allowed in the list {@link Condition
+     * }
      * 
      * 
      */
     public List<Condition> getCondition() {
-	if (condition == null) {
-	    condition = new ArrayList<Condition>();
-	}
-	return this.condition;
+        if (condition == null) {
+            condition = new ArrayList<Condition>();
+        }
+        return this.condition;
     }
 
 }

@@ -30,11 +30,11 @@ public class BaseController {
     protected App app;
 
     public HttpServletRequest getRequest() {
-        return app.getServletRequest();
+        return app.servletRequest();
     }
 
     public HttpServletResponse getResponse() {
-        return app.getServletResponse();
+        return app.servletResponse();
     }
 
     public String getOriginalURI() {
@@ -74,11 +74,11 @@ public class BaseController {
 
     protected Result view(String path, String cacheFor) {
         app.setViewPath(path);
-        app.setActionURI(app.getServletRequest().getRequestURI());
+        app.setActionURI(app.servletRequest().getRequestURI());
 
         if (cacheFor != null) {
             // Set cache header for caching server.
-            app.getServletResponse().setHeader("X-CB-Cache-Page", cacheFor);
+            app.servletResponse().setHeader("X-CB-Cache-Page", cacheFor);
         }
 
         return Results.view(path);
@@ -90,7 +90,7 @@ public class BaseController {
         }
 
         if (!Str.isEmpty(path) && !Str.SLASH.equals(path.trim())) {
-            UrlRewrite urlRewrite = app.getRepository(UrlRewrites.class).forTargetURI(path);
+            UrlRewrite urlRewrite = app.repository(UrlRewrites.class).forTargetURI(path);
 
             if (urlRewrite != null) {
                 String requestPath = ContextObjects.findCurrentLanguage(urlRewrite.getRequestURI());
@@ -114,11 +114,11 @@ public class BaseController {
     }
 
     protected RequestContext getRequestContext() {
-        return app.getApplicationContext().getRequestContext();
+        return app.context().getRequestContext();
     }
 
     protected Store getStore() {
-        return app.getApplicationContext().getStore();
+        return app.context().getStore();
     }
 
     public String getSecureBasePath() {
@@ -145,7 +145,7 @@ public class BaseController {
      * Renew session after login etc. to prevent session hijacking.
      */
     protected void renewSession() {
-        HttpSession session = app.getServletRequest().getSession(false);
+        HttpSession session = app.servletRequest().getSession(false);
 
         if (session != null && session.getAttributeNames() != null) {
             Map<String, Object> tmp = new HashMap<>();

@@ -41,7 +41,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
     }
 
     @SuppressWarnings("unchecked")
-    protected Class<? extends RepositorySupport> locateRepositorySupportType(String persistenceName, Class<? extends Model> modelClass) {
+    protected Class<? extends RepositorySupport> locateRepositorySupportType(String persistenceName,
+        Class<? extends Model> modelClass) {
         Set<Class<?>> repositorySupportTypes = persistenceTypes();
         Class<? extends RepositorySupport> repositorySupportType = null;
 
@@ -114,7 +115,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
         if (persistenceAnnotation == null)
             return null;
 
-        return !Str.isEmpty(persistenceAnnotation.value()) ? persistenceAnnotation.value() : persistenceAnnotation.name();
+        return !Str.isEmpty(persistenceAnnotation.value()) ? persistenceAnnotation.value()
+            : persistenceAnnotation.name();
     }
 
     protected boolean isCoreClass(Class<? extends Model> modelClass) {
@@ -200,11 +202,14 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
     }
 
     protected RepositorySupport repositorySupport(String persistenceName, Dao dao, Class<? extends Model> modelClass) {
-        Class<? extends RepositorySupport> repositorySupportType = locateRepositorySupportType(persistenceName, modelClass);
+        Class<? extends RepositorySupport> repositorySupportType = locateRepositorySupportType(persistenceName,
+            modelClass);
 
         if (repositorySupportType == null)
-            throw new IllegalStateException("Unable to find a RepositorySupport class for the persistance name '" + persistenceName
-                + "'. Make sure that your RepositorySupport is annotated with @RepositorySupport and @Persistence(\"" + persistenceName + "\").");
+            throw new IllegalStateException(
+                "Unable to find a RepositorySupport class for the persistance name '" + persistenceName
+                    + "'. Make sure that your RepositorySupport is annotated with @RepositorySupport and @Persistence(\""
+                    + persistenceName + "\").");
 
         RepositorySupport repositorySupport = SystemInjector.get().getInstance(repositorySupportType);
 
@@ -219,7 +224,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
 
         if (daoType == null)
             throw new IllegalStateException("Unable to find a Dao class for the persistance name '" + persistenceName
-                + "'. Make sure that your Dao is annotated with @Dao and @Persistence(\"" + persistenceName + "\").");
+                + "'. Make sure that your Dao is annotated with @Dao and @Persistence(\"" + persistenceName
+                + "\").");
 
         return SystemInjector.get().getInstance(daoType);
     }
@@ -237,7 +243,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
                 String systemPersistenceName = systemPersistenceName();
 
                 if (Str.isEmpty(systemPersistenceName))
-                    throw new IllegalStateException("You must provide a system persistence configuration in System.properties");
+                    throw new IllegalStateException(
+                        "You must provide a system persistence configuration in System.properties");
 
                 RepositorySupport newRepositorySupport = repositorySupport(systemPersistenceName, dao, modelClass);
 
@@ -249,7 +256,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
                 String merchantPersistenceName = merchantPersistenceName(modelClass);
 
                 if (Str.isEmpty(merchantPersistenceName))
-                    throw new IllegalStateException("You must provide a merchant persistence configuration in Merchant.properties");
+                    throw new IllegalStateException(
+                        "You must provide a merchant persistence configuration in Merchant.properties");
 
                 RepositorySupport newRepositorySupport = repositorySupport(merchantPersistenceName, dao, modelClass);
 
@@ -277,7 +285,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
                 String systemConnectionName = systemPersistenceName();
 
                 if (Str.isEmpty(systemConnectionName))
-                    throw new IllegalStateException("You must provide a system database configuration in System.properties");
+                    throw new IllegalStateException(
+                        "You must provide a system database configuration in System.properties");
 
                 Dao newDao = dao(systemConnectionName, modelClass);
 
@@ -289,7 +298,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
                 String merchantPersistenceName = merchantPersistenceName(modelClass);
 
                 if (Str.isEmpty(merchantPersistenceName))
-                    throw new IllegalStateException("You must provide a merchant persistence configuration in Merchant.properties");
+                    throw new IllegalStateException(
+                        "You must provide a merchant persistence configuration in Merchant.properties");
 
                 Dao newDao = dao(merchantPersistenceName, modelClass);
 

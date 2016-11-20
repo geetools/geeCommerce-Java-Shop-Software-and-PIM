@@ -35,7 +35,7 @@ public class SessionValue implements Serializable {
     private Object _readResolve() {
         Class<? extends Model> modelInterface = (Class<? extends Model>) Reflect.getInterface(modelClass);
 
-        Model instance = App.get().getModel(modelInterface);
+        Model instance = App.get().model(modelInterface);
 
         Models.populate(instance.getClass(), instance, map);
 

@@ -28,8 +28,8 @@ public class ApplicationContextActionResolver extends NameBasedActionResolver {
 
     /**
      * We override the init method, as we do not want to initialize the action
-     * beans yet. We have no valid ApplicationContext at this point in order
-     * to do this on a per store basis.
+     * beans yet. We have no valid ApplicationContext at this point in order to
+     * do this on a per store basis.
      */
     public void init(Configuration configuration) throws Exception {
         this.configuration = configuration;
@@ -46,7 +46,8 @@ public class ApplicationContextActionResolver extends NameBasedActionResolver {
             foundClasses = findClasses();
 
             if (foundClasses != null) {
-                Set<Class<? extends ActionBean>> cachedFoundClasses = (Set<Class<? extends ActionBean>>) cache.putIfAbsent(CACHE_KEY, foundClasses);
+                Set<Class<? extends ActionBean>> cachedFoundClasses = (Set<Class<? extends ActionBean>>) cache
+                    .putIfAbsent(CACHE_KEY, foundClasses);
 
                 if (cachedFoundClasses != null)
                     foundClasses = cachedFoundClasses;
@@ -67,7 +68,7 @@ public class ApplicationContextActionResolver extends NameBasedActionResolver {
         Set<Class<? extends ActionBean>> actionBeans = null;
 
         try {
-            ApplicationContext appCtx = App.get().getApplicationContext();
+            ApplicationContext appCtx = App.get().context();
 
             if (appCtx != null) {
                 Reflections reflections = Reflect.getReflections();
@@ -95,7 +96,8 @@ public class ApplicationContextActionResolver extends NameBasedActionResolver {
         for (Class<?> clazz : actionClasses) {
             try {
                 ClassLoader classLoader = new ApplicationContextClassLoader(clazz.getClassLoader());
-                Class<? extends ActionBean> customClass = (Class<? extends ActionBean>) classLoader.loadClass(clazz.getName());
+                Class<? extends ActionBean> customClass = (Class<? extends ActionBean>) classLoader
+                    .loadClass(clazz.getName());
 
                 checkedClasses.add(customClass);
             } catch (ClassNotFoundException e) {

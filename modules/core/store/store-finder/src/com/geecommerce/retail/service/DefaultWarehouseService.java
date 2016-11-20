@@ -30,7 +30,8 @@ public class DefaultWarehouseService implements WarehouseService {
 
     public List<RetailStore> findByNumber(List<String> storeNumbers) {
         List<RetailStore> result = new LinkedList<>();
-        storeNumbers.stream().forEach(storeNumber -> result.addAll(retailStores.find(RetailStore.class, "id2", storeNumber)));
+        storeNumbers.stream()
+            .forEach(storeNumber -> result.addAll(retailStores.find(RetailStore.class, "id2", storeNumber)));
         return result;
     }
 

@@ -35,7 +35,7 @@ public class DefaultMediaAssetDirectory extends AbstractAttributeSupport impleme
     private Id parentId = null;
 
     public DefaultMediaAssetDirectory() {
-        this.mediaAssetDirectories = app.getRepository(MediaAssetDirectories.class);
+        this.mediaAssetDirectories = app.repository(MediaAssetDirectories.class);
     }
 
     @Inject

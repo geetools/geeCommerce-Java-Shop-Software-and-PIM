@@ -29,10 +29,10 @@ public interface CalculationScriptlet extends Model {
     public boolean isValid();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String TYPE = "type";
-	public static final String CODE = "code";
-	public static final String LABEL = "label";
-	public static final String BODY = "body";
+        public static final String ID = "_id";
+        public static final String TYPE = "type";
+        public static final String CODE = "code";
+        public static final String LABEL = "label";
+        public static final String BODY = "body";
     }
 }

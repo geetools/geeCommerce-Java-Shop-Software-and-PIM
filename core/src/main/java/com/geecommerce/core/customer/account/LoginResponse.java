@@ -16,41 +16,41 @@ public class LoginResponse {
     }
 
     private LoginResponse(boolean loginSuccessful, Id internalCustomerId) {
-	this.loginSuccessful = loginSuccessful;
-	this.internalCustomerId = internalCustomerId;
+        this.loginSuccessful = loginSuccessful;
+        this.internalCustomerId = internalCustomerId;
     }
 
     private LoginResponse(boolean loginSuccessful, String externalIdKey, String externalIdValue) {
-	this.loginSuccessful = loginSuccessful;
-	this.externalIdKey = externalIdKey;
-	this.externalIdValue = externalIdValue;
+        this.loginSuccessful = loginSuccessful;
+        this.externalIdKey = externalIdKey;
+        this.externalIdValue = externalIdValue;
     }
 
     public static LoginResponse loginSucceeded(Id internalCustomerId) {
-	return new LoginResponse(true, internalCustomerId);
+        return new LoginResponse(true, internalCustomerId);
     }
 
     public static LoginResponse loginSucceeded(String externalIdKey, String externalIdValue) {
-	return new LoginResponse(true, externalIdKey, externalIdValue);
+        return new LoginResponse(true, externalIdKey, externalIdValue);
     }
 
     public static LoginResponse loginFailed() {
-	return new LoginResponse();
+        return new LoginResponse();
     }
 
     public boolean isLoginSuccessful() {
-	return loginSuccessful;
+        return loginSuccessful;
     }
 
     public String getExternalIdKey() {
-	return externalIdKey;
+        return externalIdKey;
     }
 
     public String getExternalIdValue() {
-	return externalIdValue;
+        return externalIdValue;
     }
 
     public Id getInternalCustomerId() {
-	return internalCustomerId;
+        return internalCustomerId;
     }
 }

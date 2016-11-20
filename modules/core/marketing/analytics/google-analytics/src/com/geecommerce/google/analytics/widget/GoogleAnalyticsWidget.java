@@ -18,7 +18,8 @@ public class GoogleAnalyticsWidget extends AbstractWidgetController implements W
     private static final String VIEW = "google/analytics/view";
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String accountId = app.cpStr_(CONF_KEY_GOOGLE_ANALYTICS_ACCOUNT_ID);
         String domain = app.cpStr_(CONF_KEY_GOOGLE_ANALYTICS_DOMAIN);
 

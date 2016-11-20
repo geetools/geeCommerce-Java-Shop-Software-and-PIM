@@ -12,9 +12,10 @@ import net.sourceforge.stripes.exception.DefaultExceptionHandler;
 
 public class ExceptionHandler extends DefaultExceptionHandler {
     @Override
-    protected Resolution handle(FileUploadLimitExceededException exception, HttpServletRequest request, HttpServletResponse response) throws FileUploadLimitExceededException {
-	String referrer = Requests.getReferrerURI(request);
+    protected Resolution handle(FileUploadLimitExceededException exception, HttpServletRequest request,
+        HttpServletResponse response) throws FileUploadLimitExceededException {
+        String referrer = Requests.getReferrerURI(request);
 
-	return new RedirectResolution(referrer);
+        return new RedirectResolution(referrer);
     }
 }

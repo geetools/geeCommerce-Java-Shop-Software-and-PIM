@@ -22,27 +22,29 @@ import com.geecommerce.core.service.api.Model;
 public class ModelListMessageBodyReader implements MessageBodyReader<List<Model>> {
     @Override
     public boolean isReadable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-	if (!MediaType.APPLICATION_JSON_TYPE.equals(mediaType))
-	    return false;
+        if (!MediaType.APPLICATION_JSON_TYPE.equals(mediaType))
+            return false;
 
-	if (!Collection.class.isAssignableFrom(type))
-	    return false;
+        if (!Collection.class.isAssignableFrom(type))
+            return false;
 
-	ParameterizedType pType = ((ParameterizedType) genericType);
-	Type[] actualTypArgs = pType.getActualTypeArguments();
+        ParameterizedType pType = ((ParameterizedType) genericType);
+        Type[] actualTypArgs = pType.getActualTypeArguments();
 
-	if (actualTypArgs == null || actualTypArgs.length != 1)
-	    return false;
+        if (actualTypArgs == null || actualTypArgs.length != 1)
+            return false;
 
-	if (!Model.class.isAssignableFrom((Class<?>) actualTypArgs[0]))
-	    return false;
+        if (!Model.class.isAssignableFrom((Class<?>) actualTypArgs[0]))
+            return false;
 
-	return true;
+        return true;
     }
 
     @Override
-    public List<Model> readFrom(Class<List<Model>> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
+    public List<Model> readFrom(Class<List<Model>> type, Type genericType, Annotation[] annotations,
+        MediaType mediaType, MultivaluedMap<String, String> httpHeaders, InputStream entityStream)
+        throws IOException, WebApplicationException {
 
-	return null;
+        return null;
     }
 }

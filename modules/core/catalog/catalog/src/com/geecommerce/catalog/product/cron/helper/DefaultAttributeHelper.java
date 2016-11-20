@@ -23,11 +23,13 @@ public class DefaultAttributeHelper implements AttributeHelper {
 
     @Override
     public List<Attribute> getProductAttributes() {
-        return attributes.thatBelongTo(attributeService.getAttributeTargetObject(Product.class), QueryOptions.builder().sortBy("code").build());
+        return attributes.thatBelongTo(attributeService.getAttributeTargetObject(Product.class),
+            QueryOptions.builder().sortBy("code").build());
     }
 
     @Override
     public List<Attribute> getMandatoryProductAttributes() {
-        return attributes.thatAreMandatoryAndEditable(attributeService.getAttributeTargetObject(Product.class), QueryOptions.builder().sortBy("code").build());
+        return attributes.thatAreMandatoryAndEditable(attributeService.getAttributeTargetObject(Product.class),
+            QueryOptions.builder().sortBy("code").build());
     }
 }

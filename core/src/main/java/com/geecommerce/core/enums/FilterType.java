@@ -33,13 +33,15 @@ public enum FilterType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (FilterType filterType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(FilterType.class.getSimpleName()).append(".").append(filterType.name()).toString()), filterType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(FilterType.class.getSimpleName()).append(".")
+                .append(filterType.name()).toString()), filterType.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(FilterType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(FilterType.class.getSimpleName()).append(".label").toString());
     }
 }

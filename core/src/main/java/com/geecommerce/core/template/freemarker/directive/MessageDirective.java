@@ -23,7 +23,8 @@ import freemarker.template.TemplateModel;
 public class MessageDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         SimpleScalar pVar = (SimpleScalar) params.get("var");
         SimpleScalar pLang = (SimpleScalar) params.get("lang");
         TemplateBooleanModel pEditable = (TemplateBooleanModel) params.get("editable");
@@ -100,7 +101,8 @@ public class MessageDirective implements TemplateDirectiveModel {
         }
 
         if (message != null) {
-            ContextMessage contextMessage = app.contextMessage(message, language, message2, language2, message3, language3);
+            ContextMessage contextMessage = app.contextMessage(message, language, message2, language2, message3,
+                language3);
             String ctxMsg = contextMessage.getMessage();
 
             if (ctxMsg != null) {
@@ -145,9 +147,10 @@ public class MessageDirective implements TemplateDirectiveModel {
                 if (isEditable && editHeaderExists && editAllowed) {
                     // Simply writes the result to the template.
                     env.getOut().write(
-                        new StringBuilder("<div contenteditable=\"true\" class=\"cb-editable\" id=\"cb-editable-").append(contextMessage.getId()).append("\" data-id=\"").append(contextMessage.getId())
-                            .append("\" data-modified=\"0\">")
-                            .append(ctxMsg).append("</div>").toString());
+                        new StringBuilder("<div contenteditable=\"true\" class=\"cb-editable\" id=\"cb-editable-")
+                            .append(contextMessage.getId()).append("\" data-id=\"")
+                            .append(contextMessage.getId()).append("\" data-modified=\"0\">").append(ctxMsg)
+                            .append("</div>").toString());
                 } else {
                     // Simply writes the result to the template.
                     env.getOut().write(ctxMsg);

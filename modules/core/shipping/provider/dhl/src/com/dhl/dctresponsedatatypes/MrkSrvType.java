@@ -9,6 +9,7 @@ package com.dhl.dctresponsedatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for MrkSrvType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="MrkSrvType">
@@ -65,8 +67,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "MrkSrvType", propOrder = { "localProductCode", "localServiceType", "productShortName", "globalServiceName", "localProductName", "localServiceTypeName", "productDesc", "serviceDesc", "networkTypeCode", "pOfferedCustAgreement",
-	"sOfferedCustAgreement", "transInd", "chargeCodeType", "mrkSrvInd" })
+@XmlType(name = "MrkSrvType", propOrder = { "localProductCode", "localServiceType", "productShortName",
+    "globalServiceName", "localProductName", "localServiceTypeName", "productDesc", "serviceDesc",
+    "networkTypeCode", "pOfferedCustAgreement", "sOfferedCustAgreement", "transInd", "chargeCodeType",
+    "mrkSrvInd" })
 public class MrkSrvType {
 
     @XmlElement(name = "LocalProductCode")
@@ -105,7 +109,7 @@ public class MrkSrvType {
      * 
      */
     public String getLocalProductCode() {
-	return localProductCode;
+        return localProductCode;
     }
 
     /**
@@ -116,7 +120,7 @@ public class MrkSrvType {
      * 
      */
     public void setLocalProductCode(String value) {
-	this.localProductCode = value;
+        this.localProductCode = value;
     }
 
     /**
@@ -126,7 +130,7 @@ public class MrkSrvType {
      * 
      */
     public String getLocalServiceType() {
-	return localServiceType;
+        return localServiceType;
     }
 
     /**
@@ -137,7 +141,7 @@ public class MrkSrvType {
      * 
      */
     public void setLocalServiceType(String value) {
-	this.localServiceType = value;
+        this.localServiceType = value;
     }
 
     /**
@@ -147,7 +151,7 @@ public class MrkSrvType {
      * 
      */
     public String getProductShortName() {
-	return productShortName;
+        return productShortName;
     }
 
     /**
@@ -158,7 +162,7 @@ public class MrkSrvType {
      * 
      */
     public void setProductShortName(String value) {
-	this.productShortName = value;
+        this.productShortName = value;
     }
 
     /**
@@ -168,7 +172,7 @@ public class MrkSrvType {
      * 
      */
     public String getGlobalServiceName() {
-	return globalServiceName;
+        return globalServiceName;
     }
 
     /**
@@ -179,7 +183,7 @@ public class MrkSrvType {
      * 
      */
     public void setGlobalServiceName(String value) {
-	this.globalServiceName = value;
+        this.globalServiceName = value;
     }
 
     /**
@@ -189,7 +193,7 @@ public class MrkSrvType {
      * 
      */
     public String getLocalProductName() {
-	return localProductName;
+        return localProductName;
     }
 
     /**
@@ -200,7 +204,7 @@ public class MrkSrvType {
      * 
      */
     public void setLocalProductName(String value) {
-	this.localProductName = value;
+        this.localProductName = value;
     }
 
     /**
@@ -210,7 +214,7 @@ public class MrkSrvType {
      * 
      */
     public String getLocalServiceTypeName() {
-	return localServiceTypeName;
+        return localServiceTypeName;
     }
 
     /**
@@ -221,7 +225,7 @@ public class MrkSrvType {
      * 
      */
     public void setLocalServiceTypeName(String value) {
-	this.localServiceTypeName = value;
+        this.localServiceTypeName = value;
     }
 
     /**
@@ -231,7 +235,7 @@ public class MrkSrvType {
      * 
      */
     public String getProductDesc() {
-	return productDesc;
+        return productDesc;
     }
 
     /**
@@ -242,7 +246,7 @@ public class MrkSrvType {
      * 
      */
     public void setProductDesc(String value) {
-	this.productDesc = value;
+        this.productDesc = value;
     }
 
     /**
@@ -252,7 +256,7 @@ public class MrkSrvType {
      * 
      */
     public String getServiceDesc() {
-	return serviceDesc;
+        return serviceDesc;
     }
 
     /**
@@ -263,7 +267,7 @@ public class MrkSrvType {
      * 
      */
     public void setServiceDesc(String value) {
-	this.serviceDesc = value;
+        this.serviceDesc = value;
     }
 
     /**
@@ -273,7 +277,7 @@ public class MrkSrvType {
      * 
      */
     public String getNetworkTypeCode() {
-	return networkTypeCode;
+        return networkTypeCode;
     }
 
     /**
@@ -284,7 +288,7 @@ public class MrkSrvType {
      * 
      */
     public void setNetworkTypeCode(String value) {
-	this.networkTypeCode = value;
+        this.networkTypeCode = value;
     }
 
     /**
@@ -294,7 +298,7 @@ public class MrkSrvType {
      * 
      */
     public String getPOfferedCustAgreement() {
-	return pOfferedCustAgreement;
+        return pOfferedCustAgreement;
     }
 
     /**
@@ -305,7 +309,7 @@ public class MrkSrvType {
      * 
      */
     public void setPOfferedCustAgreement(String value) {
-	this.pOfferedCustAgreement = value;
+        this.pOfferedCustAgreement = value;
     }
 
     /**
@@ -315,7 +319,7 @@ public class MrkSrvType {
      * 
      */
     public String getSOfferedCustAgreement() {
-	return sOfferedCustAgreement;
+        return sOfferedCustAgreement;
     }
 
     /**
@@ -326,7 +330,7 @@ public class MrkSrvType {
      * 
      */
     public void setSOfferedCustAgreement(String value) {
-	this.sOfferedCustAgreement = value;
+        this.sOfferedCustAgreement = value;
     }
 
     /**
@@ -336,7 +340,7 @@ public class MrkSrvType {
      * 
      */
     public String getTransInd() {
-	return transInd;
+        return transInd;
     }
 
     /**
@@ -347,15 +351,17 @@ public class MrkSrvType {
      * 
      */
     public void setTransInd(String value) {
-	this.transInd = value;
+        this.transInd = value;
     }
 
     /**
      * Gets the value of the chargeCodeType property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the chargeCodeType property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the chargeCodeType property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -371,10 +377,10 @@ public class MrkSrvType {
      * 
      */
     public List<String> getChargeCodeType() {
-	if (chargeCodeType == null) {
-	    chargeCodeType = new ArrayList<String>();
-	}
-	return this.chargeCodeType;
+        if (chargeCodeType == null) {
+            chargeCodeType = new ArrayList<String>();
+        }
+        return this.chargeCodeType;
     }
 
     /**
@@ -384,7 +390,7 @@ public class MrkSrvType {
      * 
      */
     public String getMrkSrvInd() {
-	return mrkSrvInd;
+        return mrkSrvInd;
     }
 
     /**
@@ -395,7 +401,7 @@ public class MrkSrvType {
      * 
      */
     public void setMrkSrvInd(String value) {
-	this.mrkSrvInd = value;
+        this.mrkSrvInd = value;
     }
 
 }

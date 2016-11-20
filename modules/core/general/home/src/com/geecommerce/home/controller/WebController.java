@@ -38,9 +38,10 @@ public class WebController extends BaseController {
         return Results.view("web/js-settings");
     }
 
-    @Request(path = "/slice/{module}/{slice:.*}", produces = { MediaType.TEXT_HTML, MediaType.TEXT_PLAIN, MediaType.TEXT_XML, MediaType.APPLICATION_JSON })
+    @Request(path = "/slice/{module}/{slice:.*}", produces = { MediaType.TEXT_HTML, MediaType.TEXT_PLAIN,
+        MediaType.TEXT_XML, MediaType.APPLICATION_JSON })
     public Result slice(@PathParam("module") String module, @PathParam("slice") String slice) {
-        ModuleLoader ml = app.getModuleLoader();
+        ModuleLoader ml = app.moduleLoader();
         Template t = null;
 
         app.setViewPath(slice);
@@ -49,7 +50,8 @@ public class WebController extends BaseController {
         String templateSuffix = SystemConfig.GET.val(SystemConfig.APPLICATION_TEMPLATE_SUFFIX);
 
         if (templateSuffix == null) {
-            throw new IllegalStateException("The System.properties configuration element 'Application.Template.Suffix' cannot be null");
+            throw new IllegalStateException(
+                "The System.properties configuration element 'Application.Template.Suffix' cannot be null");
         }
 
         templateSuffix = templateSuffix.trim();
@@ -68,13 +70,15 @@ public class WebController extends BaseController {
 
                         if (f.exists()) {
                             app.setTargetModule(m);
-                            return Results.view(new StringBuilder(getSlicesPath()).append(Char.SLASH).append(slice).append(templateSuffix).toString());
+                            return Results.view(new StringBuilder(getSlicesPath()).append(Char.SLASH).append(slice)
+                                .append(templateSuffix).toString());
                         }
                     } catch (Throwable th) {
                         th.printStackTrace();
 
                         if (app.isDevPrintErrorMessages()) {
-                            System.out.println("An error occured while rendering template: " + (t == null ? slice : t.getName()));
+                            System.out.println(
+                                "An error occured while rendering template: " + (t == null ? slice : t.getName()));
                             th.printStackTrace();
                         }
 

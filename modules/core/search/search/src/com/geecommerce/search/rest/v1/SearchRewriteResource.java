@@ -27,20 +27,20 @@ public class SearchRewriteResource extends AbstractResource {
 
     @Inject
     public SearchRewriteResource(RestService service) {
-	this.service = service;
+        this.service = service;
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getSearchRewrites(@FilterParam Filter filter) {
-	return ok(service.get(SearchRewrite.class, filter.getParams(), queryOptions(filter)));
+        return ok(service.get(SearchRewrite.class, filter.getParams(), queryOptions(filter)));
     }
 
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public SearchRewrite getSearchRewrite(@PathParam("id") Id id) {
-	return checked(service.get(SearchRewrite.class, id));
+        return checked(service.get(SearchRewrite.class, id));
     }
 
     @PUT
@@ -48,40 +48,40 @@ public class SearchRewriteResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateSearchRewrite(@PathParam("id") Id id, Update update) {
-	if (id != null) {
-	    SearchRewrite s = checked(service.get(SearchRewrite.class, id));
-	    s.set(update.getFields());
-	    if (s.getKeywords() != null)
-		s.getKeywords().stream().forEach(k -> k.toLowerCase().trim());
+        if (id != null) {
+            SearchRewrite s = checked(service.get(SearchRewrite.class, id));
+            s.set(update.getFields());
+            if (s.getKeywords() != null)
+                s.getKeywords().stream().forEach(k -> k.toLowerCase().trim());
 
-	    service.update(s);
-	}
+            service.update(s);
+        }
     }
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createSearchRewrite(Update update) {
-	SearchRewrite s = app.getModel(SearchRewrite.class);
-	s.set(update.getFields());
-	if (s.getKeywords() != null)
-	    s.getKeywords().stream().forEach(k -> k.toLowerCase().trim());
+        SearchRewrite s = app.model(SearchRewrite.class);
+        s.set(update.getFields());
+        if (s.getKeywords() != null)
+            s.getKeywords().stream().forEach(k -> k.toLowerCase().trim());
 
-	s = service.create(s);
+        s = service.create(s);
 
-	return created(s);
+        return created(s);
     }
 
     @DELETE
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void removeSearchRewrite(@PathParam("id") Id id) {
-	if (id != null) {
-	    SearchRewrite s = checked(service.get(SearchRewrite.class, id));
+        if (id != null) {
+            SearchRewrite s = checked(service.get(SearchRewrite.class, id));
 
-	    if (s != null) {
-		service.remove(s);
-	    }
-	}
+            if (s != null) {
+                service.remove(s);
+            }
+        }
     }
 }

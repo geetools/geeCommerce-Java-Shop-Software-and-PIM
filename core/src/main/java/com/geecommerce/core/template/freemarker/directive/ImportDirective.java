@@ -43,7 +43,8 @@ public class ImportDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         SimpleScalar uriScalar = (SimpleScalar) params.get("uri");
         SimpleScalar paramsScalar = (SimpleScalar) params.get("params");
 
@@ -55,7 +56,8 @@ public class ImportDirective implements TemplateDirectiveModel {
         String uri = uriScalar.getAsString().trim();
 
         if (!uri.startsWith("/")) {
-            throw new IllegalArgumentException("The URI must start with a slash (/) and must not be an absolute path (http://). Only relative paths allowed");
+            throw new IllegalArgumentException(
+                "The URI must start with a slash (/) and must not be an absolute path (http://). Only relative paths allowed");
         }
 
         boolean isUseRequestDispatcher = true;
@@ -110,8 +112,8 @@ public class ImportDirective implements TemplateDirectiveModel {
         // Build complete URL and write to output
         // ---------------------------------------------------------
 
-        HttpServletRequest request = app.getServletRequest();
-        HttpServletResponse response = app.getServletResponse();
+        HttpServletRequest request = app.servletRequest();
+        HttpServletResponse response = app.servletResponse();
 
         try {
             // ------------------------------------------------
@@ -120,10 +122,11 @@ public class ImportDirective implements TemplateDirectiveModel {
             if (isUseRequestDispatcher) {
                 String relativeURL = new StringBuilder(uri).append(queryString == null ? "" : queryString).toString();
 
-                ServletContext sc = app.getServletContext();
+                ServletContext sc = app.servletContext();
                 ImportRequestWrapper requestWrapper = new ImportRequestWrapper(request, uri);
                 requestWrapper.getParameterMap().putAll(parameterMap);
-                sc.getRequestDispatcher(relativeURL).include(requestWrapper, new ImportResponseWrapper(response, env.getOut()));
+                sc.getRequestDispatcher(relativeURL).include(requestWrapper,
+                    new ImportResponseWrapper(response, env.getOut()));
             }
             // ------------------------------------------------
             // Get content using URLConnection
@@ -141,7 +144,7 @@ public class ImportDirective implements TemplateDirectiveModel {
     }
 
     private void addHeaders(HttpGet httpget) {
-        HttpServletRequest request = App.get().getServletRequest();
+        HttpServletRequest request = App.get().servletRequest();
 
         httpget.setHeader("Host", Requests.getHost(request));
         httpget.setHeader("User-Agent", USER_AGENT);

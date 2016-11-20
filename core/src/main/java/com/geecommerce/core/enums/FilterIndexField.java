@@ -33,13 +33,15 @@ public enum FilterIndexField implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (FilterIndexField filterIndexField : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(FilterIndexField.class.getSimpleName()).append(".").append(filterIndexField.name()).toString()), filterIndexField.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(FilterIndexField.class.getSimpleName())
+                .append(".").append(filterIndexField.name()).toString()), filterIndexField.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(FilterIndexField.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(FilterIndexField.class.getSimpleName()).append(".label").toString());
     }
 }

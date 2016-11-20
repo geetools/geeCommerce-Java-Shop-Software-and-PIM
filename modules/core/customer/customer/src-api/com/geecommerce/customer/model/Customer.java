@@ -101,22 +101,22 @@ public interface Customer extends Model {
     public Customer setCompanyTaxIdNumber(String companyTaxIdNumber);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String ID2 = "id2";
-	public static final String CUSTOMER_NUMBER = "cust_no";
-	public static final String CUSTOMER_GROUP_IDS = "cust_grp_ids";
-	public static final String SALUTATION = "sal";
-	public static final String DEGREE = "degree";
-	public static final String FORENAME = "forename";
-	public static final String SURNAME = "surname";
-	public static final String EMAIL = "email";
-	public static final String PHONE = "phone";
-	public static final String PHONE_CODE = "phone_code";
-	public static final String MOBILE = "mobile";
-	public static final String FAX = "fax";
-	public static final String LANGUAGE = "lang";
-	public static final String NEWSLETTER_ENABLED = "newsletter_enabled";
-	public static final String COMPANY = "company";
-	public static final String COMPANY_TAX_IDENTIFICATION_NUMBER = "company_tax_ids_number";
+        public static final String ID = "_id";
+        public static final String ID2 = "id2";
+        public static final String CUSTOMER_NUMBER = "cust_no";
+        public static final String CUSTOMER_GROUP_IDS = "cust_grp_ids";
+        public static final String SALUTATION = "sal";
+        public static final String DEGREE = "degree";
+        public static final String FORENAME = "forename";
+        public static final String SURNAME = "surname";
+        public static final String EMAIL = "email";
+        public static final String PHONE = "phone";
+        public static final String PHONE_CODE = "phone_code";
+        public static final String MOBILE = "mobile";
+        public static final String FAX = "fax";
+        public static final String LANGUAGE = "lang";
+        public static final String NEWSLETTER_ENABLED = "newsletter_enabled";
+        public static final String COMPANY = "company";
+        public static final String COMPANY_TAX_IDENTIFICATION_NUMBER = "company_tax_ids_number";
     }
 }

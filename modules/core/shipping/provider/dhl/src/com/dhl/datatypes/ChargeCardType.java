@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ChargeCardType.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -39,11 +40,11 @@ public enum ChargeCardType {
     AM, DC, DI, MC, VI;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static ChargeCardType fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

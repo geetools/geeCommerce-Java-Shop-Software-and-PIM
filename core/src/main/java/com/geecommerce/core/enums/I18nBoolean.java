@@ -114,7 +114,7 @@ public enum I18nBoolean {
     }
 
     public String i18n() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null) {
             return i18n(appCtx.getLanguage());

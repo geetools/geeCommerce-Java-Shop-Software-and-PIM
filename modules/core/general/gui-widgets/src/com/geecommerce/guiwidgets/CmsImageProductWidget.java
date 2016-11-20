@@ -27,14 +27,16 @@ public class CmsImageProductWidget extends AbstractWidgetController implements W
     private final Products products;
 
     @Inject
-    public CmsImageProductWidget(MediaAssetService mediaAssetService, ProductService productService, Products products) {
+    public CmsImageProductWidget(MediaAssetService mediaAssetService, ProductService productService,
+        Products products) {
         this.mediaAssetService = mediaAssetService;
         this.productService = productService;
         this.products = products;
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String imageId = widgetCtx.getParam(PARAM_IMAGE);
         String productId = widgetCtx.getParam(PARAM_PRODUCT);
         if (!StringUtils.isBlank(productId)) {

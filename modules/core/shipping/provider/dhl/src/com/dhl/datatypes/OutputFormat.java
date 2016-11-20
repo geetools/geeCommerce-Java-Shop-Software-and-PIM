@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for OutputFormat.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -40,20 +41,20 @@ public enum OutputFormat {
     private final String value;
 
     OutputFormat(String v) {
-	value = v;
+        value = v;
     }
 
     public String value() {
-	return value;
+        return value;
     }
 
     public static OutputFormat fromValue(String v) {
-	for (OutputFormat c : OutputFormat.values()) {
-	    if (c.value.equals(v)) {
-		return c;
-	    }
-	}
-	throw new IllegalArgumentException(v);
+        for (OutputFormat c : OutputFormat.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
     }
 
 }

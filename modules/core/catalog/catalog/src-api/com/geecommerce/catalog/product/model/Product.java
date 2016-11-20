@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.catalog.product.ProductStatus;
+import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
 import com.geecommerce.core.enums.ProductType;
 import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.DataSupport;
@@ -18,6 +17,7 @@ import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.price.pojo.PriceResult;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface Product extends AttributeSupport, TargetSupport, PageSupport, DataSupport, SearchIndexSupport {
     public Id getId();
@@ -345,31 +345,31 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     public Set<Id> getAllConnectedProductIds(boolean useIndex);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String ID2 = "id2";
-	public static final String EAN = "ean";
-	public static final String TYPE = "type";
-	public static final String GROUP = "group";
-	public static final String STATUS = "status";
-	public static final String SALEABLE = "saleable";
-	public static final String VISIBLE = "visible";
-	public static final String VISIBLE_FROM = "visible_from";
-	public static final String VISIBLE_TO = "visible_to";
-	public static final String VISIBLE_IN_PRODUCT_LIST = "pl_visible";
-	public static final String INCLUDE_IN_FEEDS = "feeds_inc";
-	public static final String SPECIAL = "special";
-	public static final String SALE = "sale";
-	public static final String SHOW_CART_BUTTON = "cart_btn";
-	public static final String DELETED = "del";
-	public static final String DELETED_NOTE = "del_note";
-	public static final String LAST_SOLD = "last_sold";
-	public static final String PARENT_ID = "parent_id";
-	public static final String VARIANTS = "variants";
-	public static final String UPSELL_PRODUCTS = "upsells";
-	public static final String CROSS_SELL_PRODUCTS = "cross_sells";
-	public static final String BUNDLE_PRODUCTS = "bundle_products";
-	public static final String PROGRAMME_PRODUCTS = "prog_products";
-	public static final String PRODUCT_LINKS = "prd_links";
-	public static final String ASSETS = "assets";
+        public static final String ID = "_id";
+        public static final String ID2 = "id2";
+        public static final String EAN = "ean";
+        public static final String TYPE = "type";
+        public static final String GROUP = "group";
+        public static final String STATUS = "status";
+        public static final String SALEABLE = "saleable";
+        public static final String VISIBLE = "visible";
+        public static final String VISIBLE_FROM = "visible_from";
+        public static final String VISIBLE_TO = "visible_to";
+        public static final String VISIBLE_IN_PRODUCT_LIST = "pl_visible";
+        public static final String INCLUDE_IN_FEEDS = "feeds_inc";
+        public static final String SPECIAL = "special";
+        public static final String SALE = "sale";
+        public static final String SHOW_CART_BUTTON = "cart_btn";
+        public static final String DELETED = "del";
+        public static final String DELETED_NOTE = "del_note";
+        public static final String LAST_SOLD = "last_sold";
+        public static final String PARENT_ID = "parent_id";
+        public static final String VARIANTS = "variants";
+        public static final String UPSELL_PRODUCTS = "upsells";
+        public static final String CROSS_SELL_PRODUCTS = "cross_sells";
+        public static final String BUNDLE_PRODUCTS = "bundle_products";
+        public static final String PROGRAMME_PRODUCTS = "prog_products";
+        public static final String PRODUCT_LINKS = "prd_links";
+        public static final String ASSETS = "assets";
     }
 }

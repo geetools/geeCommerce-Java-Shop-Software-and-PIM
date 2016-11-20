@@ -1,12 +1,12 @@
 package com.geecommerce.core.system.merchant.model;
 
-import com.geecommerce.core.service.api.Model;
-import com.geecommerce.core.system.model.RequestContext;
-import com.geecommerce.core.type.Id;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import com.geecommerce.core.service.api.Model;
+import com.geecommerce.core.system.model.RequestContext;
+import com.geecommerce.core.type.Id;
 
 public interface Merchant extends Model {
     public Id getId();

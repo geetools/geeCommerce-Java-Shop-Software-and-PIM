@@ -116,7 +116,7 @@ public class Reflect {
         Reflections reflections = (Reflections) cache.get(REFLECTIONS_CACHE_KEY);
 
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (reflections == null && appCtx == null)
             return getSystemReflections();
@@ -158,7 +158,8 @@ public class Reflect {
         if (reflectionsProvider == null) {
             reflectionsProvider = new ApplicationReflectionsProvider();
 
-            ReflectionsProvider cachedReflectionsProvider = (ReflectionsProvider) cache.putIfAbsent(REFLECTIONS_PROVIDER_CACHE_KEY, reflectionsProvider);
+            ReflectionsProvider cachedReflectionsProvider = (ReflectionsProvider) cache
+                .putIfAbsent(REFLECTIONS_PROVIDER_CACHE_KEY, reflectionsProvider);
 
             if (cachedReflectionsProvider != null)
                 reflectionsProvider = cachedReflectionsProvider;
@@ -168,12 +169,14 @@ public class Reflect {
     }
 
     public static final ReflectionsProvider getSystemReflectionsProvider() {
-        ReflectionsProvider reflectionsProvider = (ReflectionsProvider) cache.get(SYSTEM_REFLECTIONS_PROVIDER_CACHE_KEY);
+        ReflectionsProvider reflectionsProvider = (ReflectionsProvider) cache
+            .get(SYSTEM_REFLECTIONS_PROVIDER_CACHE_KEY);
 
         if (reflectionsProvider == null) {
             reflectionsProvider = new ApplicationReflectionsProvider();
 
-            ReflectionsProvider cachedReflectionsProvider = (ReflectionsProvider) cache.putIfAbsent(SYSTEM_REFLECTIONS_PROVIDER_CACHE_KEY, reflectionsProvider);
+            ReflectionsProvider cachedReflectionsProvider = (ReflectionsProvider) cache
+                .putIfAbsent(SYSTEM_REFLECTIONS_PROVIDER_CACHE_KEY, reflectionsProvider);
 
             if (cachedReflectionsProvider != null)
                 reflectionsProvider = cachedReflectionsProvider;
@@ -227,19 +230,19 @@ public class Reflect {
 
     public static boolean isSetter(Method method) {
         return method != null && Modifier.isPublic(method.getModifiers()) && !Modifier.isStatic(method.getModifiers())
-            && (method.getReturnType().equals(void.class) || method.getReturnType().isAssignableFrom(method.getDeclaringClass()))
-            && method.getParameterTypes().length == 1 && method.getName().length() > 3 && method.getName().matches(REGEX_IS_SETTER);
+            && (method.getReturnType().equals(void.class)
+                || method.getReturnType().isAssignableFrom(method.getDeclaringClass()))
+            && method.getParameterTypes().length == 1 && method.getName().length() > 3
+            && method.getName().matches(REGEX_IS_SETTER);
     }
 
     public static boolean isGetter(Method method) {
-        return method != null
-            && Modifier.isPublic(method.getModifiers())
-            && !Modifier.isStatic(method.getModifiers())
-            && !method.getReturnType().equals(void.class)
-            && method.getParameterTypes().length == 0
-            && ((boolean.class.equals(method.getReturnType()) && method.getName().length() > 2 && method.getName().matches(REGEX_IS_BOOLEAN_GETTER))
-                || (!boolean.class.equals(method.getReturnType()) && method.getName().length() > 3 && method
-                    .getName().matches(REGEX_IS_GETTER)));
+        return method != null && Modifier.isPublic(method.getModifiers()) && !Modifier.isStatic(method.getModifiers())
+            && !method.getReturnType().equals(void.class) && method.getParameterTypes().length == 0
+            && ((boolean.class.equals(method.getReturnType()) && method.getName().length() > 2
+                && method.getName().matches(REGEX_IS_BOOLEAN_GETTER))
+                || (!boolean.class.equals(method.getReturnType()) && method.getName().length() > 3
+                    && method.getName().matches(REGEX_IS_GETTER)));
     }
 
     public static String toGetter(Field field) {
@@ -249,9 +252,11 @@ public class Reflect {
         String getterName = null;
 
         if (type.isPrimitive() && type == boolean.class) {
-            getterName = new StringBuilder(METHOD_IS_PREFIX).append(name.substring(0, 1).toUpperCase()).append(name.substring(1)).toString();
+            getterName = new StringBuilder(METHOD_IS_PREFIX).append(name.substring(0, 1).toUpperCase())
+                .append(name.substring(1)).toString();
         } else {
-            getterName = new StringBuilder(METHOD_GET_PREFIX).append(name.substring(0, 1).toUpperCase()).append(name.substring(1)).toString();
+            getterName = new StringBuilder(METHOD_GET_PREFIX).append(name.substring(0, 1).toUpperCase())
+                .append(name.substring(1)).toString();
         }
 
         return getterName;
@@ -260,14 +265,18 @@ public class Reflect {
     public static String toSetter(Field field) {
         String name = field.getName();
 
-        return new StringBuilder(METHOD_SET_PREFIX).append(name.substring(0, 1).toUpperCase()).append(name.substring(1)).toString();
+        return new StringBuilder(METHOD_SET_PREFIX).append(name.substring(0, 1).toUpperCase()).append(name.substring(1))
+            .toString();
     }
 
     public static <T extends Model> MethodHandle getGetter(Class<T> clazz, String propertyName) {
         if (clazz == null || propertyName == null)
-            throw new NullPointerException("The parameters 'clazz' and 'propertyName' cannot be null when looking for getter method [clazz=" + clazz + ", propertyName=" + propertyName + "]");
+            throw new NullPointerException(
+                "The parameters 'clazz' and 'propertyName' cannot be null when looking for getter method [clazz="
+                    + clazz + ", propertyName=" + propertyName + "]");
 
-        String key = new StringBuilder(GETTER_METHOD_CACHE_KEY_PREFIX).append(clazz.getName()).append(Char.DOT).append(propertyName).toString();
+        String key = new StringBuilder(GETTER_METHOD_CACHE_KEY_PREFIX).append(clazz.getName()).append(Char.DOT)
+            .append(propertyName).toString();
 
         MethodHandle mh = (MethodHandle) cache.get(key);
 
@@ -316,7 +325,8 @@ public class Reflect {
                     mh = mh.asType(mh.type().changeParameterType(0, Object.class).changeReturnType(Object.class));
                 }
             } catch (Throwable t) {
-                throw new RuntimeException("An error occured while invoking getter '" + getterName + "' for [class=" + clazz + ", propertyName=" + propertyName + "]", t);
+                throw new RuntimeException("An error occured while invoking getter '" + getterName + "' for [class="
+                    + clazz + ", propertyName=" + propertyName + "]", t);
             }
 
             MethodHandle cachedMethodHandle = (MethodHandle) cache.putIfAbsent(key, mh);
@@ -334,9 +344,11 @@ public class Reflect {
 
     public static <T extends Model> MethodHandle getMethodHandle(Class<T> clazz, String methodName, boolean declared) {
         if (clazz == null || methodName == null)
-            throw new NullPointerException("The parameters 'clazz' and 'methodName' cannot be null [class=" + clazz + ", methodName=" + methodName + "]");
+            throw new NullPointerException("The parameters 'clazz' and 'methodName' cannot be null [class=" + clazz
+                + ", methodName=" + methodName + "]");
 
-        String key = new StringBuilder(METHOD_HANDLE_CACHE_KEY_PREFIX).append(clazz.getName()).append(Char.DOT).append(methodName).append(Char.QUESTION_MARK).append(declared).toString();
+        String key = new StringBuilder(METHOD_HANDLE_CACHE_KEY_PREFIX).append(clazz.getName()).append(Char.DOT)
+            .append(methodName).append(Char.QUESTION_MARK).append(declared).toString();
 
         MethodHandle mh = (MethodHandle) cache.get(key);
 
@@ -363,7 +375,8 @@ public class Reflect {
                     mh = mh.asType(mh.type().changeParameterType(0, Object.class).changeReturnType(Object.class));
                 }
             } catch (Throwable t) {
-                throw new RuntimeException("An error occured while getting method-handle for [class=" + clazz + ", methodName=" + methodName + "]", t);
+                throw new RuntimeException("An error occured while getting method-handle for [class=" + clazz
+                    + ", methodName=" + methodName + "]", t);
             }
 
             MethodHandle cachedMethodHandle = (MethodHandle) cache.putIfAbsent(key, mh);
@@ -377,9 +390,12 @@ public class Reflect {
 
     public static <T extends Model> MethodHandle getSetter(Class<T> clazz, String propertyName) {
         if (clazz == null || propertyName == null)
-            throw new NullPointerException("The parameters 'clazz' and 'propertyName' cannot be null when looking for setter method [clazz=" + clazz + ", propertyName=" + propertyName + "]");
+            throw new NullPointerException(
+                "The parameters 'clazz' and 'propertyName' cannot be null when looking for setter method [clazz="
+                    + clazz + ", propertyName=" + propertyName + "]");
 
-        String key = new StringBuilder(SETTER_METHOD_CACHE_KEY_PREFIX).append(clazz.getName()).append('.').append(propertyName).toString();
+        String key = new StringBuilder(SETTER_METHOD_CACHE_KEY_PREFIX).append(clazz.getName()).append('.')
+            .append(propertyName).toString();
 
         MethodHandle mh = (MethodHandle) cache.get(key);
 
@@ -422,12 +438,15 @@ public class Reflect {
                 }
 
                 if (mh == null) {
-                    throw new NoSuchMethodException("Method '" + setterName + "' not found for [class=" + clazz + ", propertyName=" + propertyName + "]");
+                    throw new NoSuchMethodException("Method '" + setterName + "' not found for [class=" + clazz
+                        + ", propertyName=" + propertyName + "]");
                 } else {
-                    mh = mh.asType(mh.type().changeParameterType(0, Object.class).changeParameterType(1, Object.class).changeReturnType(Object.class));
+                    mh = mh.asType(mh.type().changeParameterType(0, Object.class).changeParameterType(1, Object.class)
+                        .changeReturnType(Object.class));
                 }
             } catch (Throwable t) {
-                throw new RuntimeException("An error occured while invoking setter '" + setterName + "' for [class=" + clazz + ", propertyName=" + propertyName + "]", t);
+                throw new RuntimeException("An error occured while invoking setter '" + setterName + "' for [class="
+                    + clazz + ", propertyName=" + propertyName + "]", t);
             }
 
             MethodHandle cachedMethodHandle = (MethodHandle) cache.putIfAbsent(key, mh);
@@ -455,10 +474,12 @@ public class Reflect {
         return value;
     }
 
-    public static <T extends Model> void invokeSetter(Class<T> clazz, Object instance, String propertyName, Object value) {
+    public static <T extends Model> void invokeSetter(Class<T> clazz, Object instance, String propertyName,
+        Object value) {
         if (clazz == null || instance == null || propertyName == null)
             throw new NullPointerException(
-                "The parameters 'clazz', 'instance' and 'propertyName' cannot be null when invoking setter [clazz=" + clazz + ", instance=" + instance + ", propertyName=" + propertyName + "]");
+                "The parameters 'clazz', 'instance' and 'propertyName' cannot be null when invoking setter [clazz="
+                    + clazz + ", instance=" + instance + ", propertyName=" + propertyName + "]");
 
         MethodHandle mh = null;
 
@@ -481,7 +502,9 @@ public class Reflect {
 
     public static void setField(Object instance, String propertyName, Object value) {
         if (instance == null || propertyName == null)
-            throw new NullPointerException("The parameters 'instance' and 'propertyName' cannot be null when when setting field [instance=" + instance + ", propertyName=" + propertyName + "]");
+            throw new NullPointerException(
+                "The parameters 'instance' and 'propertyName' cannot be null when when setting field [instance="
+                    + instance + ", propertyName=" + propertyName + "]");
 
         Class<?> clazz = null;
 
@@ -504,8 +527,8 @@ public class Reflect {
                 }
             }
         } catch (Throwable t) {
-            throw new RuntimeException(
-                "An error occured while setting field '" + propertyName + "' for [class=" + clazz + ", instance=" + instance + ", propertyName=" + propertyName + ", value=" + value + "]", t);
+            throw new RuntimeException("An error occured while setting field '" + propertyName + "' for [class=" + clazz
+                + ", instance=" + instance + ", propertyName=" + propertyName + ", value=" + value + "]", t);
         }
     }
 
@@ -537,7 +560,9 @@ public class Reflect {
 
     public static Object getFieldValue(Object instance, String propertyName) {
         if (instance == null || propertyName == null)
-            throw new NullPointerException("The parameters 'instance' and 'propertyName' cannot be null when when getting field [instance=" + instance + ", propertyName=" + propertyName + "]");
+            throw new NullPointerException(
+                "The parameters 'instance' and 'propertyName' cannot be null when when getting field [instance="
+                    + instance + ", propertyName=" + propertyName + "]");
 
         Object value = null;
         Class<?> clazz = null;
@@ -561,7 +586,8 @@ public class Reflect {
                 }
             }
         } catch (Throwable t) {
-            throw new RuntimeException("An error occured while getting field value '" + propertyName + "' for [class=" + clazz + ", instance=" + instance + ", propertyName=" + propertyName + "]", t);
+            throw new RuntimeException("An error occured while getting field value '" + propertyName + "' for [class="
+                + clazz + ", instance=" + instance + ", propertyName=" + propertyName + "]", t);
         }
 
         return value;
@@ -602,10 +628,12 @@ public class Reflect {
     }
 
     @SuppressWarnings("unchecked")
-    public static final <T extends Model> Map<String, Field> getFields(Class<T> clazz, boolean writeableBeanPropertiesOnly) {
+    public static final <T extends Model> Map<String, Field> getFields(Class<T> clazz,
+        boolean writeableBeanPropertiesOnly) {
         clazz = implClass(clazz);
 
-        String key = new StringBuilder(ALL_FIELDS_PREFIX).append(clazz.getName()).append(Char.SLASH).append(String.valueOf(writeableBeanPropertiesOnly)).toString();
+        String key = new StringBuilder(ALL_FIELDS_PREFIX).append(clazz.getName()).append(Char.SLASH)
+            .append(String.valueOf(writeableBeanPropertiesOnly)).toString();
 
         Map<String, Field> allFields = (Map<String, Field>) cache.get(key);
 
@@ -616,7 +644,8 @@ public class Reflect {
 
             for (Field field : fields) {
                 if (writeableBeanPropertiesOnly) {
-                    if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers()) && !isSeReHe(field.getType())) {
+                    if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())
+                        && !isSeReHe(field.getType())) {
                         allFields.put(field.getName(), field);
                     }
                 } else {
@@ -626,12 +655,14 @@ public class Reflect {
 
             Class<?> currentClass = clazz;
             Class<?> superClass = null;
-            while ((superClass = currentClass.getSuperclass()) != null && !currentClass.getSuperclass().equals(Object.class)) {
+            while ((superClass = currentClass.getSuperclass()) != null
+                && !currentClass.getSuperclass().equals(Object.class)) {
                 fields = superClass.getDeclaredFields();
 
                 for (Field field : fields) {
                     if (writeableBeanPropertiesOnly) {
-                        if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers()) && !isSeReHe(field.getType())) {
+                        if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())
+                            && !isSeReHe(field.getType())) {
                             allFields.put(field.getName(), field);
                         }
                     } else {
@@ -663,18 +694,21 @@ public class Reflect {
             Field[] fields = clazz.getDeclaredFields();
 
             for (Field field : fields) {
-                if (!Modifier.isStatic(field.getModifiers()) && Modifier.isTransient(field.getModifiers()) && isSeReHe(field.getType())) {
+                if (!Modifier.isStatic(field.getModifiers()) && Modifier.isTransient(field.getModifiers())
+                    && isSeReHe(field.getType())) {
                     transientServiceFields.put(field.getName(), field);
                 }
             }
 
             Class<?> currentClass = clazz;
             Class<?> superClass = null;
-            while ((superClass = currentClass.getSuperclass()) != null && !currentClass.getSuperclass().equals(Object.class)) {
+            while ((superClass = currentClass.getSuperclass()) != null
+                && !currentClass.getSuperclass().equals(Object.class)) {
                 fields = superClass.getDeclaredFields();
 
                 for (Field field : fields) {
-                    if (!Modifier.isStatic(field.getModifiers()) && Modifier.isTransient(field.getModifiers()) && isSeReHe(field.getType())) {
+                    if (!Modifier.isStatic(field.getModifiers()) && Modifier.isTransient(field.getModifiers())
+                        && isSeReHe(field.getType())) {
                         transientServiceFields.put(field.getName(), field);
                     }
                 }
@@ -682,7 +716,8 @@ public class Reflect {
                 currentClass = superClass;
             }
 
-            Map<String, Field> cachedTransientServiceFields = (Map<String, Field>) cache.putIfAbsent(key, transientServiceFields);
+            Map<String, Field> cachedTransientServiceFields = (Map<String, Field>) cache.putIfAbsent(key,
+                transientServiceFields);
 
             if (cachedTransientServiceFields != null)
                 transientServiceFields = cachedTransientServiceFields;
@@ -692,8 +727,10 @@ public class Reflect {
     }
 
     @SuppressWarnings("unchecked")
-    public static final Set<Class<?>> getTypesAnnotatedWith(final Class<? extends Annotation> annotation, boolean honorInherited) {
-        String key = new StringBuilder(TYPES_ANNOTATED_WITH_PREFIX).append(annotation.getName()).append(Char.SLASH).append(String.valueOf(honorInherited)).toString();
+    public static final Set<Class<?>> getTypesAnnotatedWith(final Class<? extends Annotation> annotation,
+        boolean honorInherited) {
+        String key = new StringBuilder(TYPES_ANNOTATED_WITH_PREFIX).append(annotation.getName()).append(Char.SLASH)
+            .append(String.valueOf(honorInherited)).toString();
 
         Set<Class<?>> annotatedTypes = (Set<Class<?>>) cache.get(key);
 
@@ -709,8 +746,10 @@ public class Reflect {
     }
 
     @SuppressWarnings("unchecked")
-    public static final Set<Class<?>> getSystemTypesAnnotatedWith(final Class<? extends Annotation> annotation, boolean honorInherited) {
-        String key = new StringBuilder(SYSTEM_TYPES_ANNOTATED_WITH_PREFIX).append(annotation.getName()).append(Char.SLASH).append(String.valueOf(honorInherited)).toString();
+    public static final Set<Class<?>> getSystemTypesAnnotatedWith(final Class<? extends Annotation> annotation,
+        boolean honorInherited) {
+        String key = new StringBuilder(SYSTEM_TYPES_ANNOTATED_WITH_PREFIX).append(annotation.getName())
+            .append(Char.SLASH).append(String.valueOf(honorInherited)).toString();
 
         Set<Class<?>> annotatedTypes = (Set<Class<?>>) cache.get(key);
 
@@ -730,7 +769,8 @@ public class Reflect {
         if (annotatedClass == null || annotationClass == null)
             throw new NullPointerException();
 
-        String key = new StringBuilder(DECLARED_ANNOTATION_PREFIX).append(annotationClass.getName()).append(Char.AT).append(annotatedClass.getName()).toString();
+        String key = new StringBuilder(DECLARED_ANNOTATION_PREFIX).append(annotationClass.getName()).append(Char.AT)
+            .append(annotatedClass.getName()).toString();
 
         Annotation declaredAnnotation = (Annotation) cache.get(key);
 
@@ -810,13 +850,14 @@ public class Reflect {
     }
 
     @SuppressWarnings({ "unchecked", "hiding" })
-    public static <A extends Annotation> A getDeclaredAnnotation(Method method, Class<?> fromClass, Class<A> annotationClass) {
+    public static <A extends Annotation> A getDeclaredAnnotation(Method method, Class<?> fromClass,
+        Class<A> annotationClass) {
         if (method == null || annotationClass == null)
             return null;
 
-        String key = new StringBuilder(DECLARED_ANNOTATION_PREFIX).append(fromClass == null ? method.getDeclaringClass().getName() : fromClass.getName()).append(Char.DOT).append(method.getName())
-            .append(Char.AT).append(annotationClass.getName())
-            .toString();
+        String key = new StringBuilder(DECLARED_ANNOTATION_PREFIX)
+            .append(fromClass == null ? method.getDeclaringClass().getName() : fromClass.getName()).append(Char.DOT)
+            .append(method.getName()).append(Char.AT).append(annotationClass.getName()).toString();
 
         Annotation declaredAnnotation = (Annotation) cache.get(key);
 
@@ -831,7 +872,8 @@ public class Reflect {
                     // Make sure that we are using the same ClassLoader as the
                     // declaring class for the annotation type
                     // we are looking for.
-                    annoClass = (Class<A>) method.getDeclaringClass().getClassLoader().loadClass(annotationClass.getName());
+                    annoClass = (Class<A>) method.getDeclaringClass().getClassLoader()
+                        .loadClass(annotationClass.getName());
                 } catch (ClassNotFoundException e) {
                 }
 
@@ -903,7 +945,8 @@ public class Reflect {
         return getDeclaredAnnotation(method, null, annotationClass) != null;
     }
 
-    public static boolean isAnnotationPresent(Method method, Class<?> fromClass, Class<? extends Annotation> annotationClass) {
+    public static boolean isAnnotationPresent(Method method, Class<?> fromClass,
+        Class<? extends Annotation> annotationClass) {
         if (method == null || annotationClass == null)
             return false;
 
@@ -911,7 +954,8 @@ public class Reflect {
     }
 
     public static final boolean isSeReHe(Class<?> clazz) {
-        return clazz != null && (Service.class.isAssignableFrom(clazz) || Repository.class.isAssignableFrom(clazz) || Helper.class.isAssignableFrom(clazz));
+        return clazz != null && (Service.class.isAssignableFrom(clazz) || Repository.class.isAssignableFrom(clazz)
+            || Helper.class.isAssignableFrom(clazz));
     }
 
     public static List<Class<?>> getGenericType(Type genericType) {
@@ -951,9 +995,9 @@ public class Reflect {
     }
 
     // Exclude global interfaces.
-    protected static List<Class<?>> interfaceBlackList = Lists.newArrayList(Model.class, MultiContextModel.class, IdSupport.class, ProductIdSupport.class, Versionable.class, Serializable.class,
-        AttributeSupport.class, ParentSupport.class,
-        ChildSupport.class, PageSupport.class, TargetSupport.class);
+    protected static List<Class<?>> interfaceBlackList = Lists.newArrayList(Model.class, MultiContextModel.class,
+        IdSupport.class, ProductIdSupport.class, Versionable.class, Serializable.class, AttributeSupport.class,
+        ParentSupport.class, ChildSupport.class, PageSupport.class, TargetSupport.class);
 
     public static Class<?> unwrap(Class<?> clazz) {
         boolean isEnhanced = clazz.getName().contains("EnhancerByGuice");
@@ -1043,12 +1087,9 @@ public class Reflect {
         if (clazz == null)
             return null;
 
-        if (!Dao.class.isAssignableFrom(clazz)
-            && !Helper.class.isAssignableFrom(clazz)
-            && !Model.class.isAssignableFrom(clazz)
-            && !Pojo.class.isAssignableFrom(clazz)
-            && !Repository.class.isAssignableFrom(clazz)
-            && !Service.class.isAssignableFrom(clazz)) {
+        if (!Dao.class.isAssignableFrom(clazz) && !Helper.class.isAssignableFrom(clazz)
+            && !Model.class.isAssignableFrom(clazz) && !Pojo.class.isAssignableFrom(clazz)
+            && !Repository.class.isAssignableFrom(clazz) && !Service.class.isAssignableFrom(clazz)) {
             return null;
         }
 
@@ -1117,9 +1158,9 @@ public class Reflect {
             foundInterfaces = new LinkedHashSet<Class<?>>();
 
             // We only want the interface of specific types here.
-            if (!Dao.class.isAssignableFrom(clazz) && !Helper.class.isAssignableFrom(clazz) && !Model.class.isAssignableFrom(clazz) && !Pojo.class.isAssignableFrom(clazz)
-                && !Repository.class.isAssignableFrom(clazz)
-                && !Service.class.isAssignableFrom(clazz)) {
+            if (!Dao.class.isAssignableFrom(clazz) && !Helper.class.isAssignableFrom(clazz)
+                && !Model.class.isAssignableFrom(clazz) && !Pojo.class.isAssignableFrom(clazz)
+                && !Repository.class.isAssignableFrom(clazz) && !Service.class.isAssignableFrom(clazz)) {
                 return foundInterfaces;
             }
 
@@ -1154,9 +1195,9 @@ public class Reflect {
                     if (isCoreClass(interf))
                         continue;
 
-                    if (Dao.class.isAssignableFrom(interf) || Helper.class.isAssignableFrom(interf) || Model.class.isAssignableFrom(interf) || Pojo.class.isAssignableFrom(interf)
-                        || Repository.class.isAssignableFrom(interf)
-                        || Service.class.isAssignableFrom(interf)) {
+                    if (Dao.class.isAssignableFrom(interf) || Helper.class.isAssignableFrom(interf)
+                        || Model.class.isAssignableFrom(interf) || Pojo.class.isAssignableFrom(interf)
+                        || Repository.class.isAssignableFrom(interf) || Service.class.isAssignableFrom(interf)) {
                         foundInterfaces.add(interf);
                     }
                 }
@@ -1226,7 +1267,7 @@ public class Reflect {
 
     public static ClassLoader getMerchantClassLoader() throws MalformedURLException {
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx != null) {
             Merchant m = appCtx.getMerchant();
@@ -1253,7 +1294,7 @@ public class Reflect {
     private static <T extends Model> Class<T> implClass(Class<T> modelClass) {
         if (modelClass.isInterface()) {
             App app = App.get();
-            Model modelObject = app.getModel(modelClass);
+            Model modelObject = app.model(modelClass);
             modelClass = (Class<T>) modelObject.getClass();
         }
 

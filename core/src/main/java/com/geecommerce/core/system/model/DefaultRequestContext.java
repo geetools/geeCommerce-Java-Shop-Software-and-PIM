@@ -31,7 +31,8 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
         super();
     }
 
-    public DefaultRequestContext(Id id, Id merchantId, Id storeId, String language, String country, Id viewId, String urlPrefix, UrlType urlType, Integer sortIndex) {
+    public DefaultRequestContext(Id id, Id merchantId, Id storeId, String language, String country, Id viewId,
+        String urlPrefix, UrlType urlType, Integer sortIndex) {
         super();
         this.id = id;
         this.merchantId = merchantId;
@@ -195,7 +196,8 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
 
     @Override
     public String toString() {
-        return "DefaultRequestContext [id=" + id + ", merchantId=" + merchantId + ", storeId=" + storeId + ", language=" + language + ", country=" + country + ", viewId=" + viewId + ", urlPrefix="
-                + urlPrefix + ", urlType=" + urlType + "]";
+        return "DefaultRequestContext [id=" + id + ", merchantId=" + merchantId + ", storeId=" + storeId + ", language="
+            + language + ", country=" + country + ", viewId=" + viewId + ", urlPrefix=" + urlPrefix + ", urlType="
+            + urlType + "]";
     }
 }

@@ -13,23 +13,24 @@ import freemarker.template.TemplateModel;
 public class WaitDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-	try {
-	    SimpleNumber pFor = (SimpleNumber) params.get("for");
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
+        try {
+            SimpleNumber pFor = (SimpleNumber) params.get("for");
 
-	    Number forMillis = null;
+            Number forMillis = null;
 
-	    if (pFor != null) {
-		forMillis = pFor.getAsNumber();
+            if (pFor != null) {
+                forMillis = pFor.getAsNumber();
 
-		try {
-		    Thread.sleep(forMillis.longValue());
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
-		}
-	    }
-	} catch (Throwable t) {
-	    t.printStackTrace();
-	}
+                try {
+                    Thread.sleep(forMillis.longValue());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 }

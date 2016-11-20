@@ -74,7 +74,7 @@ public class DefaultStructureNode extends AbstractModel implements StructureNode
         if (nodesList != null) {
             this.nodes = new ArrayList<>();
             for (Map<String, Object> node : nodesList) {
-                StructureNode n = app.getModel(StructureNode.class);
+                StructureNode n = app.model(StructureNode.class);
                 n.fromMap(node);
                 this.nodes.add(n);
             }

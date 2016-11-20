@@ -46,84 +46,85 @@ public class DefaultAttributeInputCondition extends AbstractModel implements Att
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public AttributeInputCondition setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getWhenAttributeId() {
-	return whenAttributeId;
+        return whenAttributeId;
     }
 
     @Override
     public AttributeInputCondition setWhenAttributeId(Id whenAttributeId) {
-	this.whenAttributeId = whenAttributeId;
-	return this;
+        this.whenAttributeId = whenAttributeId;
+        return this;
     }
 
     @Override
     public List<Id> getHasOptionIds() {
-	return hasOptionIds;
+        return hasOptionIds;
     }
 
     @Override
     public AttributeInputCondition setHasOptionIds(List<Id> hasOptionIds) {
-	this.hasOptionIds = hasOptionIds;
-	return this;
+        this.hasOptionIds = hasOptionIds;
+        return this;
     }
 
     @Override
     public Id getShowAttributeId() {
-	return showAttributeId;
+        return showAttributeId;
     }
 
     @Override
     public AttributeInputCondition setShowAttributeId(Id showAttributeId) {
-	this.showAttributeId = showAttributeId;
-	return this;
+        this.showAttributeId = showAttributeId;
+        return this;
     }
 
     @Override
     public String getShowOptionsHavingTag() {
-	return showOptionsHavingTag;
+        return showOptionsHavingTag;
     }
 
     @Override
     public AttributeInputCondition setShowOptionsHavingTag(String showOptionsHavingTag) {
-	this.showOptionsHavingTag = showOptionsHavingTag;
-	return this;
+        this.showOptionsHavingTag = showOptionsHavingTag;
+        return this;
     }
 
     @Override
     public Set<ProductType> getApplyToProductTypes() {
-	return applyToProductTypes;
+        return applyToProductTypes;
     }
 
     @Override
     public AttributeInputCondition setApplyToProductTypes(Set<ProductType> applyToProductTypes) {
-	this.applyToProductTypes = applyToProductTypes;
-	return this;
+        this.applyToProductTypes = applyToProductTypes;
+        return this;
     }
 
     @Override
     public AttributeInputCondition addApplyToProductTypes(ProductType... productTypes) {
-	if (this.applyToProductTypes == null) {
-	    this.applyToProductTypes = new HashSet<ProductType>();
-	}
+        if (this.applyToProductTypes == null) {
+            this.applyToProductTypes = new HashSet<ProductType>();
+        }
 
-	this.applyToProductTypes.addAll(Arrays.asList(productTypes));
+        this.applyToProductTypes.addAll(Arrays.asList(productTypes));
 
-	return this;
+        return this;
     }
 
     @Override
     public String toString() {
-	return "DefaultAttributeInputCondition [id=" + id + ", whenAttributeId=" + whenAttributeId + ", hasOptionIds=" + hasOptionIds + ", showAttributeId=" + showAttributeId + ", showOptionsHavingTag=" + showOptionsHavingTag
-		+ ", applyToProductTypes=" + applyToProductTypes + "]";
+        return "DefaultAttributeInputCondition [id=" + id + ", whenAttributeId=" + whenAttributeId + ", hasOptionIds="
+            + hasOptionIds + ", showAttributeId=" + showAttributeId + ", showOptionsHavingTag="
+            + showOptionsHavingTag + ", applyToProductTypes=" + applyToProductTypes + "]";
     }
 }

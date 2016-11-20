@@ -129,18 +129,21 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
         if (builders != null && !builders.isEmpty())
             filterBuilders.addAll(builders);
 
-        FilterBuilder andFilterBuilder = FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+        FilterBuilder andFilterBuilder = FilterBuilders
+            .andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
 
         return QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), andFilterBuilder);
     }
 
     @Override
-    public Map<String, FilterValue> toQueryMap(Map<String, Object> navFilterParts, Map<String, Attribute> filterAttributes) {
+    public Map<String, FilterValue> toQueryMap(Map<String, Object> navFilterParts,
+        Map<String, Attribute> filterAttributes) {
         return toQueryMap(navFilterParts, null, filterAttributes);
     }
 
     @Override
-    public Map<String, FilterValue> toQueryMap(Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, Map<String, Attribute> filterAttributes) {
+    public Map<String, FilterValue> toQueryMap(Map<String, Object> navFilterParts,
+        Map<String, Set<Object>> uriFilterParts, Map<String, Attribute> filterAttributes) {
         // if (navFilterParts == null || navFilterParts.size() == 0)
         // throw new
         // IllegalArgumentException("The navigation filter parts are required in
@@ -187,7 +190,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
 
                     for (Object v : uriValue) {
                         if (indexFields != null && indexFields.contains(FilterIndexField.NATIVE)) {
-                            if (filterType != null && filterType.equals(FilterType.RANGE) && valuePattern != null && valuePattern.getStr() != null) {
+                            if (filterType != null && filterType.equals(FilterType.RANGE) && valuePattern != null
+                                && valuePattern.getStr() != null) {
                                 Pattern p = Regex.compile(valuePattern.getStr(), null);
                                 Matcher m = p.matcher(String.valueOf(v));
 
@@ -207,7 +211,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                             if (filterAttribute.getFrontendInput() == FrontendInput.BOOLEAN) {
                                 filterValue.add(I18nBoolean.fromObject(v).booleanValue());
                             } else {
-                                filterValue.add(new StringBuilder(Str.UNDERSCORE_2X).append(String.valueOf(v)).append(Str.UNDERSCORE_2X).toString());
+                                filterValue.add(new StringBuilder(Str.UNDERSCORE_2X).append(String.valueOf(v))
+                                    .append(Str.UNDERSCORE_2X).toString());
                             }
                         }
                     }
@@ -216,9 +221,11 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                         queryMap.put(key, filterValue);
                     } else {
                         if (filterAttribute.getFrontendInput() == FrontendInput.BOOLEAN) {
-                            queryMap.put(new StringBuilder(ATT_PREFIX).append(key).append(RAW_PART).append(app.getApplicationContext().getLanguage()).toString(), filterValue);
+                            queryMap.put(new StringBuilder(ATT_PREFIX).append(key).append(RAW_PART)
+                                .append(app.context().getLanguage()).toString(), filterValue);
                         } else {
-                            queryMap.put(new StringBuilder(ATT_PREFIX).append(key).append(SLUG_PART).append(app.getApplicationContext().getLanguage()).toString(), filterValue);
+                            queryMap.put(new StringBuilder(ATT_PREFIX).append(key).append(SLUG_PART)
+                                .append(app.context().getLanguage()).toString(), filterValue);
                         }
                     }
                 }
@@ -229,7 +236,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
     }
 
     @Override
-    public List<Facet> retrieveFacets(SearchResponse responseAll, Map<FieldKey, FieldValue> fieldIndex, Map<FieldKey, FacetCount> facetCountIndex, Map<String, Attribute> filterAttributes) {
+    public List<Facet> retrieveFacets(SearchResponse responseAll, Map<FieldKey, FieldValue> fieldIndex,
+        Map<FieldKey, FacetCount> facetCountIndex, Map<String, Attribute> filterAttributes) {
         List<Facet> facets = new ArrayList<>();
 
         Facets allFacets = responseAll.getFacets();
@@ -246,7 +254,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                 continue;
             // TODO: change name to getFilterPosition, need refactoring for
             // Attribute admin
-            Facet resultFacet = app.getInjectable(Facet.class).values(facet.getName(), filterAttribute.getFrontendLabel().getStr(), filterAttribute.getProductListFilterPosition());
+            Facet resultFacet = app.injectable(Facet.class).values(facet.getName(),
+                filterAttribute.getFrontendLabel().getStr(), filterAttribute.getProductListFilterPosition());
 
             if (facet instanceof RangeFacet) {
                 RangeFacet rangeFacet = (RangeFacet) facet;
@@ -255,7 +264,9 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
 
                 if (entries != null && entries.size() > 0) {
                     for (RangeFacet.Entry entry : entries) {
-                        FieldKey fieldKey = new FieldKey(rangeFacet.getName(), new StringBuilder(entry.getFromAsString()).append(Char.MINUS).append(entry.getToAsString()).toString());
+                        FieldKey fieldKey = new FieldKey(rangeFacet.getName(),
+                            new StringBuilder(entry.getFromAsString()).append(Char.MINUS)
+                                .append(entry.getToAsString()).toString());
 
                         FacetCount facetCount = facetCountIndex.get(fieldKey);
 
@@ -278,13 +289,16 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                             try {
                                 label = String.format(labelFormat.getStr(), entry.getFrom(), entry.getTo());
                             } catch (Throwable t) {
-                                label = new StringBuilder(entry.getFromAsString()).append(Char.MINUS).append(entry.getToAsString()).toString();
+                                label = new StringBuilder(entry.getFromAsString()).append(Char.MINUS)
+                                    .append(entry.getToAsString()).toString();
                             }
                         } else {
-                            label = new StringBuilder(entry.getFromAsString()).append(Char.MINUS).append(entry.getToAsString()).toString();
+                            label = new StringBuilder(entry.getFromAsString()).append(Char.MINUS)
+                                .append(entry.getToAsString()).toString();
                         }
 
-                        resultFacet.addRangeEntry(new StringBuilder(from).append(Char.MINUS).append(to).toString(), label, entry.getFrom(), INFINITY.equalsIgnoreCase(to) ? null : entry.getTo(), count,
+                        resultFacet.addRangeEntry(new StringBuilder(from).append(Char.MINUS).append(to).toString(),
+                            label, entry.getFrom(), INFINITY.equalsIgnoreCase(to) ? null : entry.getTo(), count,
                             nonMultiCount);
                     }
 
@@ -396,9 +410,9 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
             if (attrCode != null) {
                 FilterType filterType = attr.getProductListFilterType();
                 if (filterType == FilterType.RANGE) {
-                    facets.add(FacetBuilders.rangeFacet(attrCode).addRange(0, 50).addRange(51, 100).addRange(101, 150).addRange(151, 200).addRange(201, 500).addRange(501, 1000).addRange(1001, 1500)
-                        .addRange(1501, 2000).addRange(2001, 5000)
-                        .addUnboundedTo(5001).field(attrCode));
+                    facets.add(FacetBuilders.rangeFacet(attrCode).addRange(0, 50).addRange(51, 100).addRange(101, 150)
+                        .addRange(151, 200).addRange(201, 500).addRange(501, 1000).addRange(1001, 1500)
+                        .addRange(1501, 2000).addRange(2001, 5000).addUnboundedTo(5001).field(attrCode));
                 } else {
                     facets.add(FacetBuilders.termsFacet(attrCode).fields(attrCode));
                 }
@@ -409,7 +423,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
     }
 
     @Override
-    public Map<FieldKey, FacetCount> toFlatFacetCountIndex(SearchResponse response, SearchResponse responseNonMulti, SearchResponse responseAll) {
+    public Map<FieldKey, FacetCount> toFlatFacetCountIndex(SearchResponse response, SearchResponse responseNonMulti,
+        SearchResponse responseAll) {
         Map<FieldKey, FacetCount> facetCountIndex = new HashMap<>();
 
         Facets facets = response.getFacets();
@@ -434,7 +449,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                         long count = 0;
 
                         for (RangeFacet.Entry nonMultiEntry : nonMultiRangeFacet) {
-                            if (nonMultiEntry.getFrom() == allEntry.getFrom() && nonMultiEntry.getTo() == allEntry.getTo()) {
+                            if (nonMultiEntry.getFrom() == allEntry.getFrom()
+                                && nonMultiEntry.getTo() == allEntry.getTo()) {
                                 nonMultiCount = nonMultiEntry.getCount();
                                 break;
                             }
@@ -446,7 +462,10 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                             }
                         }
 
-                        facetCountIndex.put(new FieldKey(allFacet.getName(), new StringBuilder(allEntry.getFromAsString()).append("-").append(allEntry.getToAsString()).toString()),
+                        facetCountIndex.put(
+                            new FieldKey(allFacet.getName(),
+                                new StringBuilder(allEntry.getFromAsString()).append("-")
+                                    .append(allEntry.getToAsString()).toString()),
                             new FacetCount((int) count, (int) nonMultiCount, (int) allCount));
                     }
                 }
@@ -475,7 +494,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
                             }
                         }
 
-                        facetCountIndex.put(new FieldKey(allFacet.getName(), allEntry.getTerm().string()), new FacetCount(count, nonMultiCount, allCount));
+                        facetCountIndex.put(new FieldKey(allFacet.getName(), allEntry.getTerm().string()),
+                            new FacetCount(count, nonMultiCount, allCount));
                     }
                 }
 
@@ -486,7 +506,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
     }
 
     @Override
-    public Map<FieldKey, FieldValue> toFlatFieldIndex(SearchResponse r, SearchResponse responseAll, Map<String, Attribute> filterAttributes) {
+    public Map<FieldKey, FieldValue> toFlatFieldIndex(SearchResponse r, SearchResponse responseAll,
+        Map<String, Attribute> filterAttributes) {
         Map<FieldKey, FieldValue> fieldValues = new HashMap<>();
 
         SearchHits esHits = responseAll.getHits();
@@ -522,14 +543,16 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
 
                             String hashValue = (String) hashValues.get(i);
 
-                            fieldValues.put(new FieldKey(key, (String) slugValues.get(i)), new FieldValue(rawValue, slugValue, hashValue, isOption == null ? false : isOption.booleanValue()));
+                            fieldValues.put(new FieldKey(key, (String) slugValues.get(i)), new FieldValue(rawValue,
+                                slugValue, hashValue, isOption == null ? false : isOption.booleanValue()));
                         }
                     } else {
                         String slugValue = (String) value;
                         Object rawValue = source.get(rawkey);
                         String hashValue = (String) source.get(hashkey);
 
-                        fieldValues.put(new FieldKey(key, (String) slugValue), new FieldValue(rawValue, slugValue, hashValue, isOption == null ? false : isOption.booleanValue()));
+                        fieldValues.put(new FieldKey(key, (String) slugValue), new FieldValue(rawValue, slugValue,
+                            hashValue, isOption == null ? false : isOption.booleanValue()));
                     }
                 } else if (!key.startsWith(ATT_PREFIX)) {
                     Attribute attr = filterAttributes.get(key);
@@ -545,10 +568,12 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
 
                                 for (int i = 0; i < values.size(); i++) {
                                     Object rawValue = values.get(i);
-                                    fieldValues.put(new FieldKey(key, String.valueOf(rawValue)), new FieldValue(rawValue, null, null, false));
+                                    fieldValues.put(new FieldKey(key, String.valueOf(rawValue)),
+                                        new FieldValue(rawValue, null, null, false));
                                 }
                             } else {
-                                fieldValues.put(new FieldKey(key, String.valueOf(value)), new FieldValue(value, null, null, false));
+                                fieldValues.put(new FieldKey(key, String.valueOf(value)),
+                                    new FieldValue(value, null, null, false));
                             }
                         }
                     }
@@ -574,7 +599,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
 
             if (sourceValue != null && sourceValue instanceof String && facetEntryId.equals(sourceValue)) {
                 documentIds.add(searchHit.getId());
-            } else if (sourceValue != null && sourceValue instanceof List<?> && ((List<?>) sourceValue).contains(facetEntryId)) {
+            } else if (sourceValue != null && sourceValue instanceof List<?>
+                && ((List<?>) sourceValue).contains(facetEntryId)) {
                 documentIds.add(searchHit.getId());
             }
         }
@@ -598,7 +624,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
             if (sourceValue != null && sourceValue instanceof String && value.equals(sourceValue)) {
                 isInSearchResult = true;
                 break;
-            } else if (sourceValue != null && sourceValue instanceof List<?> && ((List<?>) sourceValue).contains(value)) {
+            } else if (sourceValue != null && sourceValue instanceof List<?>
+                && ((List<?>) sourceValue).contains(value)) {
                 isInSearchResult = true;
                 break;
             }
@@ -637,7 +664,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
             for (String key : keys) {
                 Attribute attr = filterAttributes.get(key);
 
-                if (attr.getProductListFilterKeyAlias() != null && attr.getProductListFilterKeyAlias().getStr() != null) {
+                if (attr.getProductListFilterKeyAlias() != null
+                    && attr.getProductListFilterKeyAlias().getStr() != null) {
                     attributeAliasIndex.put(attr.getProductListFilterKeyAlias().getStr(), attr.getCode());
                 }
             }
@@ -676,7 +704,8 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
     }
 
     private String toRawKey(Map<String, String> keyParts) {
-        StringBuilder key = new StringBuilder(ATT_PREFIX).append(keyParts.get(FIELD_KEY_ATTRIBUTE_CODE)).append(RAW_SUFFIX);
+        StringBuilder key = new StringBuilder(ATT_PREFIX).append(keyParts.get(FIELD_KEY_ATTRIBUTE_CODE))
+            .append(RAW_SUFFIX);
 
         String language = keyParts.get(FIELD_KEY_LANGUAGE);
         if (language != null) {
@@ -692,11 +721,13 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
     }
 
     private String toHashKey(Map<String, String> keyParts) {
-        return new StringBuilder(ATT_PREFIX).append(keyParts.get(FIELD_KEY_ATTRIBUTE_CODE)).append(HASH_SUFFIX).toString();
+        return new StringBuilder(ATT_PREFIX).append(keyParts.get(FIELD_KEY_ATTRIBUTE_CODE)).append(HASH_SUFFIX)
+            .toString();
     }
 
     private String toIsOptionKey(Map<String, String> keyParts) {
-        return new StringBuilder(ATT_PREFIX).append(keyParts.get(FIELD_KEY_ATTRIBUTE_CODE)).append(IS_OPTION_SUFFIX).toString();
+        return new StringBuilder(ATT_PREFIX).append(keyParts.get(FIELD_KEY_ATTRIBUTE_CODE)).append(IS_OPTION_SUFFIX)
+            .toString();
     }
 
     protected static Map<String, String> extractKeyParts(String key) {
@@ -752,7 +783,7 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
         }
 
         if (appendLanguage) {
-            slugAttrCode.append(Char.UNDERSCORE).append(app.getApplicationContext().getLanguage());
+            slugAttrCode.append(Char.UNDERSCORE).append(app.context().getLanguage());
         }
 
         return slugAttrCode.toString();
@@ -769,7 +800,7 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
         }
 
         if (appendLanguage) {
-            rawAttrCode.append(Char.UNDERSCORE).append(app.getApplicationContext().getLanguage());
+            rawAttrCode.append(Char.UNDERSCORE).append(app.context().getLanguage());
         }
 
         return rawAttrCode.toString();

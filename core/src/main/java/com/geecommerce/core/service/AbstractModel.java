@@ -166,7 +166,7 @@ public abstract class AbstractModel implements Model {
     }
 
     protected String threadCacheKey(IdSupport idObject, String key) {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
 
         StringBuilder cacheKey = new StringBuilder(THREAD_KEY_PREFIX);
@@ -187,7 +187,8 @@ public abstract class AbstractModel implements Model {
             }
         }
 
-        cacheKey.append(idObject.getClass().getSimpleName()).append(Char.AT).append(idObject.getId()).append(Char.COLON).append(key);
+        cacheKey.append(idObject.getClass().getSimpleName()).append(Char.AT).append(idObject.getId()).append(Char.COLON)
+            .append(key);
 
         return cacheKey.toString();
     }
@@ -547,8 +548,8 @@ public abstract class AbstractModel implements Model {
 
     /**
      * This method is called automatically by the JVM during deserialization. As
-     * the injected objects, which have been marked as transient, will not
-     * be recovered after deserialization, we do it manually here. In order for
+     * the injected objects, which have been marked as transient, will not be
+     * recovered after deserialization, we do it manually here. In order for
      * this to work it is very important for the model-constructor to invoke
      * super(), as this ensures that the transient fields are remembered, ready
      * for re-injecting after deserialization.

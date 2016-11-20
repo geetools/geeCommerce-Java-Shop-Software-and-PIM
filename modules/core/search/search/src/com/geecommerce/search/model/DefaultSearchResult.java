@@ -14,34 +14,34 @@ public class DefaultSearchResult implements SearchResult {
 
     @Override
     public SearchResult addDocumentId(Object documentId) {
-	documentIds.add(documentId);
-	return this;
+        documentIds.add(documentId);
+        return this;
     }
 
     @Override
     public List<Object> getDocumentIds() {
-	return documentIds;
+        return documentIds;
     }
 
     @Override
     public List<Facet> getFacets() {
-	return facets;
+        return facets;
     }
 
     @Override
     public SearchResult setFacets(List<Facet> facets) {
-	this.facets = facets;
-	return this;
+        this.facets = facets;
+        return this;
     }
 
     @Override
     public SearchResult setTotalNumResults(long totalNumResults) {
-	this.totalNumResults = totalNumResults;
-	return this;
+        this.totalNumResults = totalNumResults;
+        return this;
     }
 
     @Override
     public long getTotalNumResults() {
-	return totalNumResults;
+        return totalNumResults;
     }
 }

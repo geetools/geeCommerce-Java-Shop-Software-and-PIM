@@ -11,7 +11,7 @@ public class RequestServlet extends HttpServlet {
 
     public RequestServlet() {
         try {
-            servletConfig = new RequestServletConfig(App.get().getServletContext());
+            servletConfig = new RequestServletConfig(App.get().servletContext());
             init(servletConfig);
         } catch (ServletException e) {
             throw new RuntimeException(e.getMessage(), e);

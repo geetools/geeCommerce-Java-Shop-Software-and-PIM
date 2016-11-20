@@ -23,7 +23,8 @@ public interface RestService extends Service {
 
     public <T extends Model> List<Id> getIds(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends Model> List<Id> getIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends Model> List<Id> getIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 
     public <T extends Model> T create(T model);
 
@@ -43,9 +44,11 @@ public interface RestService extends Service {
 
     public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Id id, Integer[] versions);
 
-    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions);
+    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions);
 
     public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Map<String, Object> filter);
 
-    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions);
+    public <T extends Model> List<T> getSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions);
 }

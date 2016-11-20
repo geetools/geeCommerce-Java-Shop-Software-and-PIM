@@ -45,7 +45,9 @@ public class GeoDbLocations extends AbstractRepository implements Locations {
             Map<String, Object> filter = new HashMap<>();
             filter.put(GeoCoordinate.Column.ID, locationId.intValue());
             List<GeoCoordinate> coordinates = sqlDao.find(GeoCoordinate.class, filter);
-            location = coordinates != null && !coordinates.isEmpty() ? new LocationService.Location(coordinates.get(0).getLatitude(), coordinates.get(0).getLongitude()) : null;
+            location = coordinates != null && !coordinates.isEmpty()
+                ? new LocationService.Location(coordinates.get(0).getLatitude(), coordinates.get(0).getLongitude())
+                : null;
         }
         return location;
     }

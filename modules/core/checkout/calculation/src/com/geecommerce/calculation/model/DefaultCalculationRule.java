@@ -98,7 +98,7 @@ public class DefaultCalculationRule extends AbstractMultiContextModel implements
 
         if (calcSteps != null && !calcSteps.isEmpty()) {
             for (Map m : calcSteps) {
-                CalculationStep calcStep = app.getModel(CalculationStep.class);
+                CalculationStep calcStep = app.model(CalculationStep.class);
                 calcStep.fromMap(m);
 
                 this.calculationSteps.add(calcStep);

@@ -23,7 +23,7 @@ public class Environment {
     public static final void init() {
         AppHelper.systemInit();
 
-        SystemService service = App.get().getSystemService(SystemService.class);
+        SystemService service = App.get().systemService(SystemService.class);
 
         // Attempt to find a matching request-context by its URL-prefix.
         String urlPrefix = System.getProperty("reqctx.urlprefix");
@@ -81,7 +81,7 @@ public class Environment {
         // Make sure that the application has been initialized properly.
         // ----------------------------------------------------------------------------
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx == null)
             throw new IllegalStateException("ApplicationContext is null after it should have been initialized.");
@@ -95,12 +95,14 @@ public class Environment {
         Store store = appCtx.getStore();
         View view = appCtx.getView();
 
-        System.out.println("Initialized environment with merchant=" + merchant.getCompanyName() + " (" + merchant.getId() + "),  store=" + store.getName() + " (" + store.getId() + "),  view="
-            + (view == null ? null : view.getName()) + " ("
-            + (view == null ? null : view.getId()) + ", language=" + reqCtx.getLanguage() + ", country=" + reqCtx.getCountry() + ").");
-        log.debug("Initialized environment with merchant=" + merchant.getCompanyName() + " (" + merchant.getId() + "),  store=" + store.getName() + " (" + store.getId() + "),  view="
-            + (view == null ? null : view.getName()) + " ("
-            + (view == null ? null : view.getId()) + ", language=" + reqCtx.getLanguage() + ", country=" + reqCtx.getCountry() + ").");
+        System.out.println("Initialized environment with merchant=" + merchant.getCompanyName() + " ("
+            + merchant.getId() + "),  store=" + store.getName() + " (" + store.getId() + "),  view="
+            + (view == null ? null : view.getName()) + " (" + (view == null ? null : view.getId()) + ", language="
+            + reqCtx.getLanguage() + ", country=" + reqCtx.getCountry() + ").");
+        log.debug("Initialized environment with merchant=" + merchant.getCompanyName() + " (" + merchant.getId()
+            + "),  store=" + store.getName() + " (" + store.getId() + "),  view="
+            + (view == null ? null : view.getName()) + " (" + (view == null ? null : view.getId()) + ", language="
+            + reqCtx.getLanguage() + ", country=" + reqCtx.getCountry() + ").");
     }
 
     public static void enableMessageBus() {

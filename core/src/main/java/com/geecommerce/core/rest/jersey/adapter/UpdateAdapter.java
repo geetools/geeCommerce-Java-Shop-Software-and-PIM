@@ -15,7 +15,8 @@ import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.service.annotation.Profile;
 
 /**
- * XmlAdapter for converting XML to an Update object and vice-versa. The following XML-example is valid for deserialization:
+ * XmlAdapter for converting XML to an Update object and vice-versa. The
+ * following XML-example is valid for deserialization:
  * 
  * Update the forename and surname of a user: <code>
  *   <update>
@@ -29,64 +30,64 @@ import com.geecommerce.core.service.annotation.Profile;
 @Profile
 public class UpdateAdapter extends XmlAdapter<UpdateAdapter.MappableBean, Update.UpdateMap> {
     public static class MappableBean {
-	@XmlElement(name = "field")
-	public List<Field> fields = new ArrayList<Field>();
+        @XmlElement(name = "field")
+        public List<Field> fields = new ArrayList<Field>();
 
-	@Override
-	public String toString() {
-	    return "MappableBean [fields=" + fields + "]";
-	}
+        @Override
+        public String toString() {
+            return "MappableBean [fields=" + fields + "]";
+        }
 
     }
 
     public static class Field {
-	@XmlAttribute(name = "name")
-	public String name;
+        @XmlAttribute(name = "name")
+        public String name;
 
-	@XmlValue
-	public String value;
+        @XmlValue
+        public String value;
 
-	@Override
-	public String toString() {
-	    return "Field [name=" + name + ", value=" + value + "]";
-	}
+        @Override
+        public String toString() {
+            return "Field [name=" + name + ", value=" + value + "]";
+        }
     }
 
     @Override
     public UpdateAdapter.MappableBean marshal(Update.UpdateMap updateMap) throws Exception {
-	UpdateAdapter.MappableBean bean = new UpdateAdapter.MappableBean();
+        UpdateAdapter.MappableBean bean = new UpdateAdapter.MappableBean();
 
-	if (updateMap != null && updateMap.size() > 0) {
-	    Set<String> keys = updateMap.keySet();
+        if (updateMap != null && updateMap.size() > 0) {
+            Set<String> keys = updateMap.keySet();
 
-	    for (String key : keys) {
-		Field f = new Field();
-		f.name = key;
-		f.value = String.valueOf(updateMap.get(key));
+            for (String key : keys) {
+                Field f = new Field();
+                f.name = key;
+                f.value = String.valueOf(updateMap.get(key));
 
-		if (f.name != null && f.value != null) {
-		    bean.fields.add(f);
-		}
-	    }
-	}
+                if (f.name != null && f.value != null) {
+                    bean.fields.add(f);
+                }
+            }
+        }
 
-	return bean;
+        return bean;
     }
 
     @Override
     public Update.UpdateMap unmarshal(UpdateAdapter.MappableBean updateBean) throws Exception {
-	Map<String, Object> fields = new HashMap<>();
+        Map<String, Object> fields = new HashMap<>();
 
-	if (updateBean != null) {
-	    if (updateBean.fields.size() > 0) {
-		for (Field field : updateBean.fields) {
-		    if (field.name != null && field.value != null) {
-			fields.put(field.name, field.value);
-		    }
-		}
-	    }
-	}
+        if (updateBean != null) {
+            if (updateBean.fields.size() > 0) {
+                for (Field field : updateBean.fields) {
+                    if (field.name != null && field.value != null) {
+                        fields.put(field.name, field.value);
+                    }
+                }
+            }
+        }
 
-	return new Update.UpdateMap(fields);
+        return new Update.UpdateMap(fields);
     }
 }

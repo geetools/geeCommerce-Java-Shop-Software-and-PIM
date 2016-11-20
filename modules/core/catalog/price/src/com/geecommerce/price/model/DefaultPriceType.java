@@ -41,82 +41,83 @@ public class DefaultPriceType extends AbstractMultiContextModel implements Price
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public PriceType setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getId2() {
-	return id2;
+        return id2;
     }
 
     @Override
     public PriceType setId2(String id2) {
-	this.id2 = id2;
-	return this;
+        this.id2 = id2;
+        return this;
     }
 
     @Override
     public String getCode() {
-	return code;
+        return code;
     }
 
     @Override
     public PriceType setCode(String code) {
-	this.code = code;
-	return this;
+        this.code = code;
+        return this;
     }
 
     @Override
     public String getErpCode() {
-	return erpCode;
+        return erpCode;
     }
 
     @Override
     public PriceType setErpCode(String erpCode) {
-	this.erpCode = erpCode;
-	return this;
+        this.erpCode = erpCode;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public PriceType setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public int getPriority() {
-	return priority;
+        return priority;
     }
 
     @Override
     public PriceType setPriority(int priority) {
-	this.priority = priority;
-	return this;
+        this.priority = priority;
+        return this;
     }
 
     @Override
     public boolean isEnabled() {
-	return enabled;
+        return enabled;
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-	this.enabled = enabled;
+        this.enabled = enabled;
     }
 
     @Override
     public String toString() {
-	return "DefaultPriceType [id=" + id + ", id2=" + id2 + ", code=" + code + ", erpCode=" + erpCode + ", label=" + label + ", priority=" + priority + ", enabled=" + enabled + "]";
+        return "DefaultPriceType [id=" + id + ", id2=" + id2 + ", code=" + code + ", erpCode=" + erpCode + ", label="
+            + label + ", priority=" + priority + ", enabled=" + enabled + "]";
     }
 }

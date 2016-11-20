@@ -4,7 +4,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.inject.Inject;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.service.ProductService;
 import com.geecommerce.core.type.Id;
@@ -12,6 +11,7 @@ import com.geecommerce.core.web.annotation.Widget;
 import com.geecommerce.core.web.api.AbstractWidgetController;
 import com.geecommerce.core.web.api.WidgetContext;
 import com.geecommerce.core.web.api.WidgetController;
+import com.google.inject.Inject;
 
 @Widget(name = "cross_sell")
 public class CrossSellsWidget extends AbstractWidgetController implements WidgetController {
@@ -20,21 +20,22 @@ public class CrossSellsWidget extends AbstractWidgetController implements Widget
 
     @Inject
     public CrossSellsWidget(ProductService productService) {
-	this.productService = productService;
+        this.productService = productService;
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
-	String productIdString = widgetCtx.getParam(PARAM_NAME);
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
+        String productIdString = widgetCtx.getParam(PARAM_NAME);
 
-	if (productIdString != null) {
-	    Product product = productService.getProduct(new Id(productIdString));
+        if (productIdString != null) {
+            Product product = productService.getProduct(new Id(productIdString));
 
-	    if (product != null && product.hasCrossSells()) {
-		widgetCtx.setParam("crossSellProducts", product.getCrossSells());
-	    }
-	}
+            if (product != null && product.hasCrossSells()) {
+                widgetCtx.setParam("crossSellProducts", product.getCrossSells());
+            }
+        }
 
-	widgetCtx.render("cross_sell/cross_sell");
+        widgetCtx.render("cross_sell/cross_sell");
     }
 }

@@ -32,200 +32,200 @@ public class DefaultWishList extends AbstractModel implements WishList {
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public WishList setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getRequestContextId() {
-	return requestContextId;
+        return requestContextId;
     }
 
     @Override
     public WishList fromRequestContext(RequestContext requestContext) {
-	if (requestContext == null || requestContext.getId() == null)
-	    throw new IllegalStateException("RequestContext cannot be null");
+        if (requestContext == null || requestContext.getId() == null)
+            throw new IllegalStateException("RequestContext cannot be null");
 
-	this.requestContextId = requestContext.getId();
-	return this;
+        this.requestContextId = requestContext.getId();
+        return this;
     }
 
     @Override
     public Id getCustomerId() {
-	return customerId;
+        return customerId;
     }
 
     @Override
     public WishList belongsTo(Customer customer) {
-	if (customer == null || customer.getId() == null)
-	    throw new IllegalStateException("Customer cannot be null");
+        if (customer == null || customer.getId() == null)
+            throw new IllegalStateException("Customer cannot be null");
 
-	this.customerId = customer.getId();
-	return this;
+        this.customerId = customer.getId();
+        return this;
     }
 
     @Override
     public Date getCreatedOn() {
-	return createdOn;
+        return createdOn;
     }
 
     @Override
     public Date getModifiedOn() {
-	return modifiedOn;
+        return modifiedOn;
     }
 
     @Override
     public List<WishListItem> getWishListItems() {
-	if (wishListItems == null)
-	    wishListItems = new ArrayList<>();
-	return wishListItems;
+        if (wishListItems == null)
+            wishListItems = new ArrayList<>();
+        return wishListItems;
     }
 
     @Override
     public WishList addProduct(Product product) {
-	if (product == null || product.getId() == null)
-	    return this;
+        if (product == null || product.getId() == null)
+            return this;
 
-	WishListItem wishListItem = findItem(product.getId());
+        WishListItem wishListItem = findItem(product.getId());
 
-	if (wishListItem == null) {
-	    wishListItem = app.getModel(WishListItem.class).setProduct(product);
-	    wishListItem.setType(WishListItemType.PRODUCT);
-	    wishListItem.setId(app.nextId());
-	    wishListItem.setCreatedOn(DateTimes.newDate());
+        if (wishListItem == null) {
+            wishListItem = app.model(WishListItem.class).setProduct(product);
+            wishListItem.setType(WishListItemType.PRODUCT);
+            wishListItem.setId(app.nextId());
+            wishListItem.setCreatedOn(DateTimes.newDate());
 
-	    wishListItems.add(wishListItem);
-	}
+            wishListItems.add(wishListItem);
+        }
 
-	return this;
+        return this;
     }
 
     @Override
     public WishList addIdea(String idea) {
-	WishListItem wishListItem = app.getModel(WishListItem.class);
-	wishListItem.setType(WishListItemType.IDEA);
-	wishListItem.setIdea(idea);
-	wishListItem.setId(app.nextId());
-	wishListItems.add(wishListItem);
-	wishListItem.setCreatedOn(DateTimes.newDate());
-	return this;
+        WishListItem wishListItem = app.model(WishListItem.class);
+        wishListItem.setType(WishListItemType.IDEA);
+        wishListItem.setIdea(idea);
+        wishListItem.setId(app.nextId());
+        wishListItems.add(wishListItem);
+        wishListItem.setCreatedOn(DateTimes.newDate());
+        return this;
     }
 
     @Override
     public WishList removeWishListItem(Id wishListItemId) {
-	if (wishListItemId == null)
-	    return this;
+        if (wishListItemId == null)
+            return this;
 
-	List<WishListItem> wishListItems = getWishListItems();
+        List<WishListItem> wishListItems = getWishListItems();
 
-	if (wishListItems != null && wishListItems.size() > 0) {
-	    for (int i = 0; i < wishListItems.size(); i++) {
-		if (wishListItemId.equals(wishListItems.get(i).getId())) {
-		    wishListItems.remove(i);
-		    clearItems = true;
-		}
-	    }
-	}
+        if (wishListItems != null && wishListItems.size() > 0) {
+            for (int i = 0; i < wishListItems.size(); i++) {
+                if (wishListItemId.equals(wishListItems.get(i).getId())) {
+                    wishListItems.remove(i);
+                    clearItems = true;
+                }
+            }
+        }
 
-	return this;
+        return this;
     }
 
     protected WishListItem findItem(Id productId) {
-	for (WishListItem item : wishListItems) {
-	    if (item.getType().equals(WishListItemType.PRODUCT) && item.getProductId().equals(productId)) {
-		return item;
-	    }
-	}
+        for (WishListItem item : wishListItems) {
+            if (item.getType().equals(WishListItemType.PRODUCT) && item.getProductId().equals(productId)) {
+                return item;
+            }
+        }
 
-	return null;
+        return null;
     }
 
     @Override
     public Boolean getDefault() {
-	return isDefault;
+        return isDefault;
     }
 
     @Override
     public WishList setDefault(Boolean isDefault) {
-	this.isDefault = isDefault;
-	return this;
+        this.isDefault = isDefault;
+        return this;
     }
 
     @Override
     public WishListAccessType getAccessType() {
-	return accessType;
+        return accessType;
     }
 
     @Override
     public WishList setAccessType(WishListAccessType accessType) {
-	this.accessType = accessType;
-	return this;
+        this.accessType = accessType;
+        return this;
     }
 
     @Override
     public String getName() {
-	return name;
+        return name;
     }
 
     @Override
     public WishList setName(String name) {
-	this.name = name;
-	return this;
+        this.name = name;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	this.id = id_(map.get(Column.ID));
-	this.requestContextId = id_(map.get(Column.REQUEST_CONTEXT_ID));
-	this.customerId = id_(map.get(Column.CUSTOMER_ID));
-	this.isDefault = bool_(map.get(Column.DEFAULT));
-	this.name = str_(map.get(Column.NAME));
-	this.accessType = WishListAccessType.valueOf(str_(map.get(Column.ACCESS_TYPE)));
+        this.id = id_(map.get(Column.ID));
+        this.requestContextId = id_(map.get(Column.REQUEST_CONTEXT_ID));
+        this.customerId = id_(map.get(Column.CUSTOMER_ID));
+        this.isDefault = bool_(map.get(Column.DEFAULT));
+        this.name = str_(map.get(Column.NAME));
+        this.accessType = WishListAccessType.valueOf(str_(map.get(Column.ACCESS_TYPE)));
 
-	List<Map<String, Object>> items = list_(map.get(Column.WISHLIST_ITEMS));
+        List<Map<String, Object>> items = list_(map.get(Column.WISHLIST_ITEMS));
 
-	if (items != null && items.size() > 0) {
-	    for (Map<String, Object> item : items) {
-		WishListItem wishListItem = app.getModel(WishListItem.class);
-		wishListItem.fromMap(item);
-		this.wishListItems.add(wishListItem);
-	    }
-	}
+        if (items != null && items.size() > 0) {
+            for (Map<String, Object> item : items) {
+                WishListItem wishListItem = app.model(WishListItem.class);
+                wishListItem.fromMap(item);
+                this.wishListItems.add(wishListItem);
+            }
+        }
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> m = new LinkedHashMap<>();
-	m.put(Column.ID, getId());
-	m.put(Column.REQUEST_CONTEXT_ID, getRequestContextId());
+        Map<String, Object> m = new LinkedHashMap<>();
+        m.put(Column.ID, getId());
+        m.put(Column.REQUEST_CONTEXT_ID, getRequestContextId());
 
-	if (getCustomerId() != null) {
-	    m.put(Column.CUSTOMER_ID, getCustomerId());
-	}
+        if (getCustomerId() != null) {
+            m.put(Column.CUSTOMER_ID, getCustomerId());
+        }
 
-	m.put(Column.DEFAULT, getDefault());
-	m.put(Column.NAME, getName());
-	m.put(Column.ACCESS_TYPE, getAccessType().toString());
+        m.put(Column.DEFAULT, getDefault());
+        m.put(Column.NAME, getName());
+        m.put(Column.ACCESS_TYPE, getAccessType().toString());
 
-	if (!wishListItems.isEmpty()) {
-	    List<Map<String, Object>> l = new ArrayList<>();
+        if (!wishListItems.isEmpty()) {
+            List<Map<String, Object>> l = new ArrayList<>();
 
-	    for (WishListItem wishListItem : wishListItems) {
-		l.add(wishListItem.toMap());
-	    }
+            for (WishListItem wishListItem : wishListItems) {
+                l.add(wishListItem.toMap());
+            }
 
-	    m.put(Column.WISHLIST_ITEMS, l);
-	} else if (clearItems) {
-	    m.put(Column.WISHLIST_ITEMS, Lists.newArrayList());
-	    clearItems = false;
-	}
+            m.put(Column.WISHLIST_ITEMS, l);
+        } else if (clearItems) {
+            m.put(Column.WISHLIST_ITEMS, Lists.newArrayList());
+            clearItems = false;
+        }
 
-	return m;
+        return m;
     }
 
 }

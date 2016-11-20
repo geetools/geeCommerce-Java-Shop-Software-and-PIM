@@ -4,13 +4,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.service.api.GlobalColumn;
 import com.geecommerce.core.type.Id;
+import com.google.inject.Inject;
 
 @Cacheable
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -66,7 +66,8 @@ public class DefaultCurrency extends AbstractModel implements Currency {
 
     @Override
     public String toString() {
-        return "DefaultCurrency [id=" + id + ", code=" + code + ", name=" + name + ", symbol=" + symbol + ", country=" + country + "]";
+        return "DefaultCurrency [id=" + id + ", code=" + code + ", name=" + name + ", symbol=" + symbol + ", country="
+            + country + "]";
     }
 
 }

@@ -1,126 +1,130 @@
-define(['jquery', 'gc/gc'], function ($, gc) {
+define([ 'jquery', 'gc/gc' ], function($, gc) {
 
     return {
-        getImages: function(productId) {
-			var self = this;
+        getImages : function(productId) {
+            var self = this;
 
-			console.log('----------------------------->>> ', productId);
-			
-			var deferred = new $.Deferred();
-			var promise = deferred.promise();
-
-			promise.success = promise.done;
-			promise.error = promise.fail;
-			promise.complete = promise.done;
-
-			gc.rest.get({
-				url : '/api/v1/web/products/' + productId + '/media-assets',
-				filter: {mimeType: 'image/*'},
-				success : function(data, status, xhr) {
-					if (self._onload) {
-						self._onload(data, status, xhr);
-					}
-
-					deferred.resolve(data, status, xhr);
-				},
-				error : function(jqXHR, status, error) {
-					if (self._onerror) {
-						self._onerror(jqXHR, status, error);
-					}
-
-					deferred.reject(jqXHR, status, error);
-				},
-				complete : function(data, status, xhr) {
-					if (self._oncomplete) {
-						self._oncomplete(data, status, xhr);
-					}
-
-					deferred.resolve(data, status, xhr);
-				}
-			});
-
-			return promise;
-        },
-        getEnabledViewImages: function(productId) {
-			var self = this;
-
-			var deferred = new $.Deferred();
-			var promise = deferred.promise();
-
-			promise.success = promise.done;
-			promise.error = promise.fail;
-			promise.complete = promise.done;
-			
             console.log('----------------------------->>> ', productId);
-			
-			gc.rest.get({
-				url : '/api/v1/web/products/' + productId + '/media-assets',
-				filter: {mimeType: 'image/*', enabled: true },
-				fields: ['productId', 'path', 'webDetailPath', 'webThumbnailPath', 'webZoomPath', 'productMainImage', 'productGalleryImage', 'mimeType', 'position' ],
-				success : function(data, status, xhr) {
-					if (self._onload) {
-						self._onload(data, status, xhr);
-					}
 
-					deferred.resolve(data, status, xhr);
-				},
-				error : function(jqXHR, status, error) {
-					if (self._onerror) {
-						self._onerror(jqXHR, status, error);
-					}
+            var deferred = new $.Deferred();
+            var promise = deferred.promise();
 
-					deferred.reject(jqXHR, status, error);
-				},
-				complete : function(data, status, xhr) {
-					if (self._oncomplete) {
-						self._oncomplete(data, status, xhr);
-					}
+            promise.success = promise.done;
+            promise.error = promise.fail;
+            promise.complete = promise.done;
 
-					deferred.resolve(data, status, xhr);
-				}
-			});
+            gc.rest.get({
+                url : '/api/v1/web/products/' + productId + '/media-assets',
+                filter : {
+                    mimeType : 'image/*'
+                },
+                success : function(data, status, xhr) {
+                    if (self._onload) {
+                        self._onload(data, status, xhr);
+                    }
 
-			return promise;
+                    deferred.resolve(data, status, xhr);
+                },
+                error : function(jqXHR, status, error) {
+                    if (self._onerror) {
+                        self._onerror(jqXHR, status, error);
+                    }
+
+                    deferred.reject(jqXHR, status, error);
+                },
+                complete : function(data, status, xhr) {
+                    if (self._oncomplete) {
+                        self._oncomplete(data, status, xhr);
+                    }
+
+                    deferred.resolve(data, status, xhr);
+                }
+            });
+
+            return promise;
         },
-        getVariants: function(productId) {
-			var self = this;
+        getEnabledViewImages : function(productId) {
+            var self = this;
 
-			var deferred = new $.Deferred();
-			var promise = deferred.promise();
+            var deferred = new $.Deferred();
+            var promise = deferred.promise();
 
-			promise.success = promise.done;
-			promise.error = promise.fail;
-			promise.complete = promise.done;
+            promise.success = promise.done;
+            promise.error = promise.fail;
+            promise.complete = promise.done;
 
-			gc.rest.get({
-				url : '/api/v1/web/products/' + productId + '/variants',
-				success : function(data, status, xhr) {
-					if (self._onload) {
-						self._onload(data, status, xhr);
-					}
+            console.log('----------------------------->>> ', productId);
 
-					deferred.resolve(data, status, xhr);
-				},
-				error : function(jqXHR, status, error) {
-					if (self._onerror) {
-						self._onerror(jqXHR, status, error);
-					}
+            gc.rest.get({
+                url : '/api/v1/web/products/' + productId + '/media-assets',
+                filter : {
+                    mimeType : 'image/*',
+                    enabled : true
+                },
+                fields : [ 'productId', 'path', 'webDetailPath', 'webThumbnailPath', 'webZoomPath', 'productMainImage', 'productGalleryImage', 'mimeType', 'position' ],
+                success : function(data, status, xhr) {
+                    if (self._onload) {
+                        self._onload(data, status, xhr);
+                    }
 
-					deferred.reject(jqXHR, status, error);
-				},
-				complete : function(data, status, xhr) {
-					if (self._oncomplete) {
-						self._oncomplete(data, status, xhr);
-					}
+                    deferred.resolve(data, status, xhr);
+                },
+                error : function(jqXHR, status, error) {
+                    if (self._onerror) {
+                        self._onerror(jqXHR, status, error);
+                    }
 
-					deferred.resolve(data, status, xhr);
-				}
-			});
+                    deferred.reject(jqXHR, status, error);
+                },
+                complete : function(data, status, xhr) {
+                    if (self._oncomplete) {
+                        self._oncomplete(data, status, xhr);
+                    }
 
-			return promise;
+                    deferred.resolve(data, status, xhr);
+                }
+            });
+
+            return promise;
+        },
+        getVariants : function(productId) {
+            var self = this;
+
+            var deferred = new $.Deferred();
+            var promise = deferred.promise();
+
+            promise.success = promise.done;
+            promise.error = promise.fail;
+            promise.complete = promise.done;
+
+            gc.rest.get({
+                url : '/api/v1/web/products/' + productId + '/variants',
+                success : function(data, status, xhr) {
+                    if (self._onload) {
+                        self._onload(data, status, xhr);
+                    }
+
+                    deferred.resolve(data, status, xhr);
+                },
+                error : function(jqXHR, status, error) {
+                    if (self._onerror) {
+                        self._onerror(jqXHR, status, error);
+                    }
+
+                    deferred.reject(jqXHR, status, error);
+                },
+                complete : function(data, status, xhr) {
+                    if (self._oncomplete) {
+                        self._oncomplete(data, status, xhr);
+                    }
+
+                    deferred.resolve(data, status, xhr);
+                }
+            });
+
+            return promise;
         }
-        
 
-	};
+    };
 
 });

@@ -32,12 +32,12 @@ public interface TaxRate extends MultiContextModel {
     public TaxRate setLabel(ContextObject<String> label);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String COUNTRY = "country";
-	public static final String STATE = "state";
-	public static final String ZIP = "zip";
-	public static final String PRODUCT_TAX_CLASS_CODE = "prd_tax_class";
-	public static final String RATE = "rate";
-	public static final String LABEL = "label";
+        public static final String ID = "_id";
+        public static final String COUNTRY = "country";
+        public static final String STATE = "state";
+        public static final String ZIP = "zip";
+        public static final String PRODUCT_TAX_CLASS_CODE = "prd_tax_class";
+        public static final String RATE = "rate";
+        public static final String LABEL = "label";
     }
 }

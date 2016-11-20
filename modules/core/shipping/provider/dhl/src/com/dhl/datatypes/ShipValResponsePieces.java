@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ShipValResponsePieces complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ShipValResponsePieces">
@@ -48,8 +50,10 @@ public class ShipValResponsePieces {
      * Gets the value of the piece property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the piece property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the piece property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -60,15 +64,16 @@ public class ShipValResponsePieces {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link ShipValResponsePiece }
+     * Objects of the following type(s) are allowed in the list
+     * {@link ShipValResponsePiece }
      * 
      * 
      */
     public List<ShipValResponsePiece> getPiece() {
-	if (piece == null) {
-	    piece = new ArrayList<ShipValResponsePiece>();
-	}
-	return this.piece;
+        if (piece == null) {
+            piece = new ArrayList<ShipValResponsePiece>();
+        }
+        return this.piece;
     }
 
 }

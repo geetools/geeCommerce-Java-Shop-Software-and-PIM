@@ -45,7 +45,8 @@ public class SearchAction extends BasePagingActionBean {
     private FilterForm filterForm = null;
 
     @Inject
-    public SearchAction(SearchService searchService, SearchHelper searchHelper, ProductService productService, SearchRewriteService searchRewriteService, ElasticsearchHelper elasticsearchHelper) {
+    public SearchAction(SearchService searchService, SearchHelper searchHelper, ProductService productService,
+        SearchRewriteService searchRewriteService, ElasticsearchHelper elasticsearchHelper) {
         this.searchService = searchService;
         this.searchHelper = searchHelper;
         this.productService = productService;
@@ -62,11 +63,12 @@ public class SearchAction extends BasePagingActionBean {
         if (k != null) {
             String newUri = searchRewriteService.findUrl(k);
             if (newUri == null) {
-                searchResult = searchService.query(new SearchQuery(k, activeFilters, getOffset(), getNumResultsPerPage(), getFilterForm().getSort(), getFilterForm().getPriceFrom(),
-                    getFilterForm().getPriceTo(), getFilterForm().isShowEvent(),
-                    getFilterForm().isShowSale()));
+                searchResult = searchService.query(new SearchQuery(k, activeFilters, getOffset(),
+                    getNumResultsPerPage(), getFilterForm().getSort(), getFilterForm().getPriceFrom(),
+                    getFilterForm().getPriceTo(), getFilterForm().isShowEvent(), getFilterForm().isShowSale()));
 
-                if (searchResult != null && searchResult.getDocumentIds() != null && searchResult.getDocumentIds().size() > 0) {
+                if (searchResult != null && searchResult.getDocumentIds() != null
+                    && searchResult.getDocumentIds().size() > 0) {
                     Id[] productIds = elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray());
                     products = productService.getProducts(productIds);
                     products = orderByProductIds(products, productIds);
@@ -78,7 +80,7 @@ public class SearchAction extends BasePagingActionBean {
                         String articleNumber = p.getArticleNumber();
 
                         if (Str.trimEquals(k, articleNumber)) {
-                            return redirect(app.getHelper(TargetSupportHelper.class).findURI(p));
+                            return redirect(app.helper(TargetSupportHelper.class).findURI(p));
                         }
                     }
                 }
@@ -110,15 +112,18 @@ public class SearchAction extends BasePagingActionBean {
                 }
 
             }
-            searchResult = searchService.autocomplete(new SearchQuery(searchPhrase + "*", 0, 10 - autocompleteMappingSize));
-            if (searchResult != null && searchResult.getDocumentIds() != null && searchResult.getDocumentIds().size() > 0) {
-                products = productService.getProducts(false, elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray()));
+            searchResult = searchService
+                .autocomplete(new SearchQuery(searchPhrase + "*", 0, 10 - autocompleteMappingSize));
+            if (searchResult != null && searchResult.getDocumentIds() != null
+                && searchResult.getDocumentIds().size() > 0) {
+                products = productService.getProducts(false,
+                    elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray()));
                 for (Product product : products) {
                     HashMap<String, String> resultProduct = new HashMap<>();
                     resultProduct.put("id", product.getId().str());
                     resultProduct.put("value", product.attr("name2").getStr() + " " + product.attr("name").getStr());
                     resultProduct.put("label", product.attr("name2").getStr() + " " + product.attr("name").getStr());
-                    resultProduct.put("uri", app.getHelper(TargetSupportHelper.class).findURI(product));
+                    resultProduct.put("uri", app.helper(TargetSupportHelper.class).findURI(product));
                     resultList.add(resultProduct);
                 }
             }
@@ -171,7 +176,8 @@ public class SearchAction extends BasePagingActionBean {
 
     @Override
     public String getPagingURI() {
-        return new StringBuilder("/catalog/search/").append(getContext().getEventName()).append("/").append(k).append("/").toString();
+        return new StringBuilder("/catalog/search/").append(getContext().getEventName()).append("/").append(k)
+            .append("/").toString();
     }
 
     public FilterForm getFilterForm() {

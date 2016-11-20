@@ -25,12 +25,13 @@ public class DefaultShippingService implements ShippingService {
     @SuppressWarnings("unchecked")
     protected List<AbstractShippingCalculationMethod> locateShippingCalculationMethods() {
         List<AbstractShippingCalculationMethod> shippingCalculationMethods = new ArrayList<>();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx != null) {
             ModuleLoader loader = Geemodule.createModuleLoader(appCtx.getMerchant().getModulesPath());
 
-            Class<AbstractShippingCalculationMethod>[] types = (Class<AbstractShippingCalculationMethod>[]) loader.findAllTypesAnnotatedWith(ShippingCalculationMethod.class, false);
+            Class<AbstractShippingCalculationMethod>[] types = (Class<AbstractShippingCalculationMethod>[]) loader
+                .findAllTypesAnnotatedWith(ShippingCalculationMethod.class, false);
 
             for (Class<AbstractShippingCalculationMethod> type : types) {
 
@@ -121,7 +122,7 @@ public class DefaultShippingService implements ShippingService {
         final String defaultCountry = app.cpStr_("shipping/default/destination_country");
         final String defaultState = app.cpStr_("shipping/default/destination_state");
         final String defaultZip = app.cpStr_("shipping/default/destination_zip");
-        ShippingAddress shippingAddress = app.getModel(ShippingAddress.class);
+        ShippingAddress shippingAddress = app.model(ShippingAddress.class);
         shippingAddress.setCountry(defaultCountry);
         shippingAddress.setState(defaultState);
         shippingAddress.setZip(defaultZip);

@@ -27,13 +27,13 @@ public class DefaultMediaAssetDirectoryService implements MediaAssetDirectorySer
         if (directory == null) {
             String parentPath = getParentPath(path);
             if (StringUtils.isBlank(parentPath)) {
-                MediaAssetDirectory mediaAssetDirectory = app.getModel(MediaAssetDirectory.class);
+                MediaAssetDirectory mediaAssetDirectory = app.model(MediaAssetDirectory.class);
                 mediaAssetDirectory.setName(new ContextObject<>(path));
                 mediaAssetDirectory.setKey(path);
                 return mediaAssetDirectories.add(mediaAssetDirectory);
             } else {
                 MediaAssetDirectory parent = createOrGetSystem(parentPath);
-                MediaAssetDirectory mediaAssetDirectory = app.getModel(MediaAssetDirectory.class);
+                MediaAssetDirectory mediaAssetDirectory = app.model(MediaAssetDirectory.class);
                 mediaAssetDirectory.setName(new ContextObject<>(getKey(path)));
                 mediaAssetDirectory.setKey(path);
                 mediaAssetDirectory.setParentId(parent.getId());
@@ -46,8 +46,7 @@ public class DefaultMediaAssetDirectoryService implements MediaAssetDirectorySer
     private String getParentPath(String path) {
         boolean endsWithSlash = path.endsWith("/");
         if (path.contains("/")) {
-            return path.substring(0, path.lastIndexOf("/",
-                endsWithSlash ? path.length() - 2 : path.length() - 1));
+            return path.substring(0, path.lastIndexOf("/", endsWithSlash ? path.length() - 2 : path.length() - 1));
         } else {
             return null;
         }

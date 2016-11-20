@@ -9,6 +9,7 @@ package com.dhl.datatypes_ea;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for ShipmentDetails complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ShipmentDetails">
@@ -51,7 +53,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ShipmentDetails", propOrder = { "numberOfPieces", "currencyCode", "pieces", "packageType", "weight", "dimensionUnit", "weightUnit", "globalProductCode", "localProductCode", "doorTo", "date", "contents", "isDutiable", "insuredAmount" })
+@XmlType(name = "ShipmentDetails", propOrder = { "numberOfPieces", "currencyCode", "pieces", "packageType", "weight",
+    "dimensionUnit", "weightUnit", "globalProductCode", "localProductCode", "doorTo", "date", "contents",
+    "isDutiable", "insuredAmount" })
 public class ShipmentDetails {
 
     @XmlElement(name = "NumberOfPieces", required = true)
@@ -91,7 +95,7 @@ public class ShipmentDetails {
      * 
      */
     public BigInteger getNumberOfPieces() {
-	return numberOfPieces;
+        return numberOfPieces;
     }
 
     /**
@@ -102,7 +106,7 @@ public class ShipmentDetails {
      * 
      */
     public void setNumberOfPieces(BigInteger value) {
-	this.numberOfPieces = value;
+        this.numberOfPieces = value;
     }
 
     /**
@@ -112,7 +116,7 @@ public class ShipmentDetails {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -123,7 +127,7 @@ public class ShipmentDetails {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -133,7 +137,7 @@ public class ShipmentDetails {
      * 
      */
     public Pieces getPieces() {
-	return pieces;
+        return pieces;
     }
 
     /**
@@ -144,7 +148,7 @@ public class ShipmentDetails {
      * 
      */
     public void setPieces(Pieces value) {
-	this.pieces = value;
+        this.pieces = value;
     }
 
     /**
@@ -154,7 +158,7 @@ public class ShipmentDetails {
      * 
      */
     public PackageType getPackageType() {
-	return packageType;
+        return packageType;
     }
 
     /**
@@ -165,7 +169,7 @@ public class ShipmentDetails {
      * 
      */
     public void setPackageType(PackageType value) {
-	this.packageType = value;
+        this.packageType = value;
     }
 
     /**
@@ -175,7 +179,7 @@ public class ShipmentDetails {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -186,7 +190,7 @@ public class ShipmentDetails {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -196,7 +200,7 @@ public class ShipmentDetails {
      * 
      */
     public DimensionalUnit getDimensionUnit() {
-	return dimensionUnit;
+        return dimensionUnit;
     }
 
     /**
@@ -207,7 +211,7 @@ public class ShipmentDetails {
      * 
      */
     public void setDimensionUnit(DimensionalUnit value) {
-	this.dimensionUnit = value;
+        this.dimensionUnit = value;
     }
 
     /**
@@ -217,7 +221,7 @@ public class ShipmentDetails {
      * 
      */
     public WeightUnit getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -228,7 +232,7 @@ public class ShipmentDetails {
      * 
      */
     public void setWeightUnit(WeightUnit value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
     /**
@@ -238,7 +242,7 @@ public class ShipmentDetails {
      * 
      */
     public String getGlobalProductCode() {
-	return globalProductCode;
+        return globalProductCode;
     }
 
     /**
@@ -249,7 +253,7 @@ public class ShipmentDetails {
      * 
      */
     public void setGlobalProductCode(String value) {
-	this.globalProductCode = value;
+        this.globalProductCode = value;
     }
 
     /**
@@ -259,7 +263,7 @@ public class ShipmentDetails {
      * 
      */
     public String getLocalProductCode() {
-	return localProductCode;
+        return localProductCode;
     }
 
     /**
@@ -270,7 +274,7 @@ public class ShipmentDetails {
      * 
      */
     public void setLocalProductCode(String value) {
-	this.localProductCode = value;
+        this.localProductCode = value;
     }
 
     /**
@@ -280,7 +284,7 @@ public class ShipmentDetails {
      * 
      */
     public DoorTo getDoorTo() {
-	return doorTo;
+        return doorTo;
     }
 
     /**
@@ -291,7 +295,7 @@ public class ShipmentDetails {
      * 
      */
     public void setDoorTo(DoorTo value) {
-	this.doorTo = value;
+        this.doorTo = value;
     }
 
     /**
@@ -301,7 +305,7 @@ public class ShipmentDetails {
      * 
      */
     public XMLGregorianCalendar getDate() {
-	return date;
+        return date;
     }
 
     /**
@@ -312,7 +316,7 @@ public class ShipmentDetails {
      * 
      */
     public void setDate(XMLGregorianCalendar value) {
-	this.date = value;
+        this.date = value;
     }
 
     /**
@@ -322,7 +326,7 @@ public class ShipmentDetails {
      * 
      */
     public String getContents() {
-	return contents;
+        return contents;
     }
 
     /**
@@ -333,7 +337,7 @@ public class ShipmentDetails {
      * 
      */
     public void setContents(String value) {
-	this.contents = value;
+        this.contents = value;
     }
 
     /**
@@ -343,7 +347,7 @@ public class ShipmentDetails {
      * 
      */
     public YesNo getIsDutiable() {
-	return isDutiable;
+        return isDutiable;
     }
 
     /**
@@ -354,7 +358,7 @@ public class ShipmentDetails {
      * 
      */
     public void setIsDutiable(YesNo value) {
-	this.isDutiable = value;
+        this.isDutiable = value;
     }
 
     /**
@@ -364,7 +368,7 @@ public class ShipmentDetails {
      * 
      */
     public String getInsuredAmount() {
-	return insuredAmount;
+        return insuredAmount;
     }
 
     /**
@@ -375,7 +379,7 @@ public class ShipmentDetails {
      * 
      */
     public void setInsuredAmount(String value) {
-	this.insuredAmount = value;
+        this.insuredAmount = value;
     }
 
 }

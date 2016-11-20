@@ -32,39 +32,39 @@ public class DefaultControlPanel extends AbstractMultiContextModel implements Co
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public ControlPanel setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public ControlPanel setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public boolean isEnabled() {
-	return enabled;
+        return enabled;
     }
 
     @Override
     public ControlPanel setEnabled(boolean enabled) {
-	this.enabled = enabled;
-	return this;
+        this.enabled = enabled;
+        return this;
     }
 
     @Override
     public String toString() {
-	return "DefaultControlPanel [id=" + id + ", label=" + label + ", enabled=" + enabled + "]";
+        return "DefaultControlPanel [id=" + id + ", label=" + label + ", enabled=" + enabled + "]";
     }
 }

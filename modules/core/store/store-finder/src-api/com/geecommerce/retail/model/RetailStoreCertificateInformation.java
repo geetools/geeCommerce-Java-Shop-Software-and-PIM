@@ -13,8 +13,8 @@ public interface RetailStoreCertificateInformation extends MultiContextModel {
     void setText(String text);
 
     final class Col {
-	public static final String ID = "_id";
-	public static final String TEXT = "text";
+        public static final String ID = "_id";
+        public static final String TEXT = "text";
     }
 
 }

@@ -39,63 +39,78 @@ public class DefaultPriceMySqlDao extends DefaultMySqlDao implements PriceDao {
 
     @Override
     public Map<String, Object> getPriceData(Id productId, Id requestCtxId) {
-        StringBuilder sql = new StringBuilder()
-            .append(" select\n")
-            .append(" /* price */ \n")
+        StringBuilder sql = new StringBuilder().append(" select\n").append(" /* price */ \n")
             .append(" ifnull(tbl_context_variant_price.price, ifnull(tbl_base_variant_price.price, ifnull(tbl_context_price.price, tbl_base_price.price))) as price,\n")
             .append(" -- special-price-start\n")
             .append(" ifnull(if(tbl_context_variant_price.special_price is not null \n")
             .append(" and tbl_context_variant_price.special_price_from is not null \n")
             .append(
                 " and now() between tbl_context_variant_price.special_price_from and if(tbl_context_variant_price.special_price_to is null or tbl_context_variant_price.special_price_to='0000-00-00 00:00:00', now(), tbl_context_variant_price.special_price_to),\n")
-            .append(" tbl_context_variant_price.special_price, null),\n")
-            .append(" -- special-price-base-variant\n")
+            .append(" tbl_context_variant_price.special_price, null),\n").append(" -- special-price-base-variant\n")
             .append(" ifnull(if(tbl_base_variant_price.special_price is not null \n")
             .append(" and tbl_base_variant_price.special_price_from is not null \n")
             .append(
                 " and now() between tbl_base_variant_price.special_price_from and if(tbl_base_variant_price.special_price_to is null or tbl_base_variant_price.special_price_to='0000-00-00 00:00:00', now(), tbl_base_variant_price.special_price_to),\n")
-            .append(" tbl_base_variant_price.special_price, null),\n").append(" -- special-price-context\n").append(" ifnull(if(tbl_context_price.special_price is not null \n")
+            .append(" tbl_base_variant_price.special_price, null),\n").append(" -- special-price-context\n")
+            .append(" ifnull(if(tbl_context_price.special_price is not null \n")
             .append(" and tbl_context_price.special_price_from is not null \n")
             .append(
                 " and now() between tbl_context_price.special_price_from and if(tbl_context_price.special_price_to is null or tbl_context_price.special_price_to='0000-00-00 00:00:00', now(), tbl_context_price.special_price_to),\n")
-            .append(" tbl_context_price.special_price, null),\n").append(" -- special-price-base\n").append(" if(tbl_base_price.special_price is not null \n")
+            .append(" tbl_context_price.special_price, null),\n").append(" -- special-price-base\n")
+            .append(" if(tbl_base_price.special_price is not null \n")
             .append(" and tbl_base_price.special_price_from is not null \n")
             .append(
                 " and now() between tbl_base_price.special_price_from and if(tbl_base_price.special_price_to is null or tbl_base_price.special_price_to='0000-00-00 00:00:00', now(), tbl_base_price.special_price_to),\n")
-            .append(" tbl_base_price.special_price, null)\n").append(" ))) as special_price,\n").append(" -- special-price-end\n").append(" \n").append(" -- price\n")
+            .append(" tbl_base_price.special_price, null)\n").append(" ))) as special_price,\n")
+            .append(" -- special-price-end\n").append(" \n").append(" -- price\n")
             .append(" tbl_base_price.price as base_price,\n")
-            .append(" tbl_base_variant_price.price as base_variant_price,\n").append(" tbl_context_price.price as base_context_price,\n")
+            .append(" tbl_base_variant_price.price as base_variant_price,\n")
+            .append(" tbl_context_price.price as base_context_price,\n")
             .append(" tbl_context_variant_price.price as base_context_variant_price,\n").append(" \n")
-            .append(" -- special_price\n").append(" tbl_base_price.special_price as base_special_price,\n").append(" tbl_base_variant_price.special_price as base_variant_special_price,\n")
-            .append(" tbl_context_price.special_price as base_context_special_price,\n").append(" tbl_context_variant_price.special_price as base_context_variant_special_price,\n").append(" \n")
-            .append(" -- special_price_from\n")
-            .append(" tbl_base_price.special_price_from as base_special_price_from,\n").append(" tbl_base_variant_price.special_price_from as base_variant_special_price_from,\n")
-            .append(" tbl_context_price.special_price_from as base_context_special_price_from,\n").append(" tbl_context_variant_price.special_price_from as base_context_variant_special_price_from,\n")
-            .append(" \n")
-            .append(" -- special_price_to\n").append(" tbl_base_price.special_price_to as base_special_price_to,\n")
+            .append(" -- special_price\n").append(" tbl_base_price.special_price as base_special_price,\n")
+            .append(" tbl_base_variant_price.special_price as base_variant_special_price,\n")
+            .append(" tbl_context_price.special_price as base_context_special_price,\n")
+            .append(" tbl_context_variant_price.special_price as base_context_variant_special_price,\n")
+            .append(" \n").append(" -- special_price_from\n")
+            .append(" tbl_base_price.special_price_from as base_special_price_from,\n")
+            .append(" tbl_base_variant_price.special_price_from as base_variant_special_price_from,\n")
+            .append(" tbl_context_price.special_price_from as base_context_special_price_from,\n")
+            .append(" tbl_context_variant_price.special_price_from as base_context_variant_special_price_from,\n")
+            .append(" \n").append(" -- special_price_to\n")
+            .append(" tbl_base_price.special_price_to as base_special_price_to,\n")
             .append(" tbl_base_variant_price.special_price_to as base_variant_special_price_to,\n")
-            .append(" tbl_context_price.special_price_to as base_context_special_price_to,\n").append(" tbl_context_variant_price.special_price_to as base_context_variant_special_price_to\n")
-            .append(" \n").append(" from\n").append(" (\n")
-            .append("   select * from ").append(TABLE_NAME).append("\n").append("   where product_id = ?\n") // productId
-            .append("   and variant_id is null\n").append("   and req_ctx_id is null\n").append("   limit 0,1\n").append(" ) as tbl_base_price\n");
+            .append(" tbl_context_price.special_price_to as base_context_special_price_to,\n")
+            .append(" tbl_context_variant_price.special_price_to as base_context_variant_special_price_to\n")
+            .append(" \n").append(" from\n").append(" (\n").append("   select * from ").append(TABLE_NAME)
+            .append("\n").append("   where product_id = ?\n") // productId
+            .append("   and variant_id is null\n").append("   and req_ctx_id is null\n").append("   limit 0,1\n")
+            .append(" ) as tbl_base_price\n");
 
-        sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n").append("   where product_id = -1\n") // productId
+        sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n")
+            .append("   where product_id = -1\n") // productId
             .append("   and variant_id = -1\n") // variantId
-            .append("   and req_ctx_id = -1\n").append("   limit 0,1\n").append(" ) as tbl_base_variant_price\n").append(" on tbl_base_price.product_id=tbl_base_variant_price.product_id\n");
+            .append("   and req_ctx_id = -1\n").append("   limit 0,1\n").append(" ) as tbl_base_variant_price\n")
+            .append(" on tbl_base_price.product_id=tbl_base_variant_price.product_id\n");
 
         if (requestCtxId != null) {
-            sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n").append("   where product_id = ?\n") // productId
+            sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n")
+                .append("   where product_id = ?\n") // productId
                 .append("   and variant_id is null\n").append("   and req_ctx_id = ?\n") // reqCtx
-                .append("   limit 0,1\n").append(" ) as tbl_context_price\n").append(" on tbl_base_price.product_id=tbl_context_price.product_id\n");
+                .append("   limit 0,1\n").append(" ) as tbl_context_price\n")
+                .append(" on tbl_base_price.product_id=tbl_context_price.product_id\n");
         } else {
-            sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n").append("   where product_id = -1\n") // productId
+            sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n")
+                .append("   where product_id = -1\n") // productId
                 .append("   and variant_id = -1\n").append("   and req_ctx_id = -1\n") // reqCtx
-                .append("   limit 0,1\n").append(" ) as tbl_context_price\n").append(" on tbl_base_price.product_id=tbl_context_price.product_id\n");
+                .append("   limit 0,1\n").append(" ) as tbl_context_price\n")
+                .append(" on tbl_base_price.product_id=tbl_context_price.product_id\n");
         }
-        sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n").append("   where product_id = -1\n") // productId
+        sql.append(" left join\n").append(" (\n").append("   select * from ").append(TABLE_NAME).append("\n")
+            .append("   where product_id = -1\n") // productId
             .append("   and variant_id = -1\n") // variantId
             .append("   and req_ctx_id = -1\n") // reqCtx
-            .append("   limit 0,1\n").append(" ) as tbl_context_variant_price\n").append(" on tbl_base_price.product_id=tbl_context_variant_price.product_id\n");
+            .append("   limit 0,1\n").append(" ) as tbl_context_variant_price\n")
+            .append(" on tbl_base_price.product_id=tbl_context_variant_price.product_id\n");
 
         Connection conn = connection();
         PreparedStatement pstmt = null;

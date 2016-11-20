@@ -53,7 +53,8 @@ public class SMTPMailer implements Mailer {
     protected static final Logger log = LogManager.getLogger(SMTPMailer.class);
 
     @Override
-    public void sendStreams(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey, Map<String, InputStream> attachments, Map<String, InputStream> inlineImages) {
+    public void sendStreams(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey,
+        Map<String, InputStream> attachments, Map<String, InputStream> inlineImages) {
         Map<String, byte[]> isAttachments = new LinkedHashMap<>();
 
         // set attachments
@@ -102,7 +103,8 @@ public class SMTPMailer implements Mailer {
     }
 
     @Override
-    public void send(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey, Map<String, byte[]> attachments, Map<String, byte[]> inlineImages) {
+    public void send(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey,
+        Map<String, byte[]> attachments, Map<String, byte[]> inlineImages) {
         Map<String, DataHandler> dhAttachments = new LinkedHashMap<>();
 
         // set attachments
@@ -179,7 +181,8 @@ public class SMTPMailer implements Mailer {
     }
 
     @Override
-    public void send(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey, List<URL> attachments, List<URL> inlineImages) {
+    public void send(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey,
+        List<URL> attachments, List<URL> inlineImages) {
         Map<String, DataHandler> dhAttachments = new LinkedHashMap<>();
 
         // set attachments
@@ -203,7 +206,8 @@ public class SMTPMailer implements Mailer {
         sendMail(subject, bodyHtml, bodyText, to, smtpConfigKey, dhAttachments, dhInlineImages);
     }
 
-    protected void sendMail(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey, Map<String, DataHandler> attachments, Map<String, DataHandler> inlineImages) {
+    protected void sendMail(String subject, String bodyHtml, String bodyText, String to, String smtpConfigKey,
+        Map<String, DataHandler> attachments, Map<String, DataHandler> inlineImages) {
         String protocol = null;
         String host = null;
         int port = -1;
@@ -404,9 +408,10 @@ public class SMTPMailer implements Mailer {
                 log.trace("SMTP mail #" + message.getMessageID() + " sent: " + message.getSubject());
             }
         } catch (Throwable t) {
-            System.out.println("An error occured attempting to send mail [subject=" + subject + ", to=" + to + ", smtpConfigKey=" + smtpConfigKey + ", protocol=" + protocol + ", host=" + host
-                + ", port=" + port + ", from=" + from + ", isAuth="
-                + isAuth + ", username=" + username + ", encryption=" + encryption + ", isDebug=" + isDebug + "]");
+            System.out.println("An error occured attempting to send mail [subject=" + subject + ", to=" + to
+                + ", smtpConfigKey=" + smtpConfigKey + ", protocol=" + protocol + ", host=" + host + ", port="
+                + port + ", from=" + from + ", isAuth=" + isAuth + ", username=" + username + ", encryption="
+                + encryption + ", isDebug=" + isDebug + "]");
 
             log.error(t.getMessage(), t);
             t.printStackTrace();

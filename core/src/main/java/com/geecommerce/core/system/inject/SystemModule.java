@@ -174,8 +174,10 @@ public class SystemModule extends AbstractModule {
         super.bind(RestService.class).to(DefaultRestService.class).in(Singleton.class);
 
         // Interceptors
-        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Transactional.class), new TransactionInterceptor());
-        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Interceptable.class), new GuiceMethodInterceptor());
+        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Transactional.class),
+            new TransactionInterceptor());
+        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Interceptable.class),
+            new GuiceMethodInterceptor());
 
         // super.bindInterceptor(Matchers.annotatedWith(Service.class),
         // Matchers.any(), new ProfilerInterceptor());
@@ -192,9 +194,11 @@ public class SystemModule extends AbstractModule {
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(GET.class), permissionInterceptor);
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(PUT.class), permissionInterceptor);
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(POST.class), permissionInterceptor);
-        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(DELETE.class), permissionInterceptor);
+        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(DELETE.class),
+            permissionInterceptor);
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(HEAD.class), permissionInterceptor);
-        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(OPTIONS.class), permissionInterceptor);
+        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(OPTIONS.class),
+            permissionInterceptor);
 
         // PermissionInterceptor permissionInterceptor = new
         // PermissionInterceptor();

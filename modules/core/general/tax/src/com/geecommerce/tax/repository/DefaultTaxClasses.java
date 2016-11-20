@@ -5,11 +5,8 @@ import java.util.Map;
 
 import com.geecommerce.core.service.AbstractRepository;
 import com.geecommerce.core.service.annotation.Repository;
-import com.geecommerce.core.service.api.Dao;
-import com.geecommerce.core.service.persistence.mongodb.MongoDao;
 import com.geecommerce.tax.TaxClassType;
 import com.geecommerce.tax.model.TaxClass;
-import com.google.inject.Inject;
 
 @Repository
 public class DefaultTaxClasses extends AbstractRepository implements TaxClasses {

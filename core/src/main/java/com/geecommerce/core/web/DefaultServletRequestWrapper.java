@@ -166,7 +166,7 @@ public class DefaultServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public Locale getLocale() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null) {
             RequestContext reqCtx = appCtx.getRequestContext();

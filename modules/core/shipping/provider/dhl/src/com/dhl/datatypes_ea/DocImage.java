@@ -19,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for DocImage complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="DocImage">
@@ -55,7 +56,7 @@ public class DocImage {
      * 
      */
     public Type getType() {
-	return type;
+        return type;
     }
 
     /**
@@ -66,7 +67,7 @@ public class DocImage {
      * 
      */
     public void setType(Type value) {
-	this.type = value;
+        this.type = value;
     }
 
     /**
@@ -75,7 +76,7 @@ public class DocImage {
      * @return possible object is byte[]
      */
     public byte[] getImage() {
-	return image;
+        return image;
     }
 
     /**
@@ -85,7 +86,7 @@ public class DocImage {
      *            allowed object is byte[]
      */
     public void setImage(byte[] value) {
-	this.image = value;
+        this.image = value;
     }
 
     /**
@@ -95,7 +96,7 @@ public class DocImage {
      * 
      */
     public ImageFormat getImageFormat() {
-	return imageFormat;
+        return imageFormat;
     }
 
     /**
@@ -106,7 +107,7 @@ public class DocImage {
      * 
      */
     public void setImageFormat(ImageFormat value) {
-	this.imageFormat = value;
+        this.imageFormat = value;
     }
 
 }

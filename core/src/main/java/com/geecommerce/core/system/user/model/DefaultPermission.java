@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.core.enums.PermissionAction;
 import com.geecommerce.core.enums.PermissionType;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Model("_permissions")
 @XmlRootElement(name = "permission")
@@ -38,84 +38,84 @@ public class DefaultPermission extends AbstractModel implements Permission {
     private String rule = null;
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public Permission setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getCode() {
-	return code;
+        return code;
     }
 
     @Override
     public Permission setCode(String code) {
-	this.code = code;
-	return this;
+        this.code = code;
+        return this;
     }
 
     public ContextObject<String> getName() {
-	return name;
+        return name;
     }
 
     public Permission setName(ContextObject<String> name) {
-	this.name = name;
-	return this;
+        this.name = name;
+        return this;
     }
 
     public PermissionType getType() {
-	return type;
+        return type;
     }
 
     public Permission setType(PermissionType type) {
-	this.type = type;
-	return this;
+        this.type = type;
+        return this;
     }
 
     public List<PermissionAction> getActions() {
-	return actions;
+        return actions;
     }
 
     public Permission setActions(List<PermissionAction> actions) {
-	this.actions = actions;
-	return this;
+        this.actions = actions;
+        return this;
     }
 
     public String getRule() {
-	return rule;
+        return rule;
     }
 
     public Permission setRule(String rule) {
-	this.rule = rule;
-	return this;
+        this.rule = rule;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.code = str_(map.get(Column.CODE));
-	this.name = ctxObj_(map.get(Column.NAME));
-	this.type = enum_(PermissionType.class, map.get(Column.TYPE));
-	this.actions = enumList_(PermissionAction.class, map.get(Column.ACTIONS));
-	this.rule = str_(map.get(Column.RULE));
+        this.id = id_(map.get(Column.ID));
+        this.code = str_(map.get(Column.CODE));
+        this.name = ctxObj_(map.get(Column.NAME));
+        this.type = enum_(PermissionType.class, map.get(Column.TYPE));
+        this.actions = enumList_(PermissionAction.class, map.get(Column.ACTIONS));
+        this.rule = str_(map.get(Column.RULE));
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> m = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> m = Maps.newLinkedHashMap(super.toMap());
 
-	m.put(Column.ID, getId());
-	m.put(Column.CODE, getCode());
-	m.put(Column.NAME, getName());
-	m.put(Column.TYPE, getType());
-	m.put(Column.ACTIONS, getActions());
-	m.put(Column.RULE, getRule());
+        m.put(Column.ID, getId());
+        m.put(Column.CODE, getCode());
+        m.put(Column.NAME, getName());
+        m.put(Column.TYPE, getType());
+        m.put(Column.ACTIONS, getActions());
+        m.put(Column.RULE, getRule());
 
-	return m;
+        return m;
     }
 }

@@ -86,7 +86,8 @@ public class Connections {
                     String systemPersistenceName = SystemConfig.GET.val(SystemConfig.SYSTEM_PERSISTENCE);
                     Map<String, String> persistenceProperties = SystemConfig.GET.values(systemPersistenceName);
 
-                    Class<? extends ConnectionProvider> systemConnectionProviderType = locateSystemConnectionProviderType(systemPersistenceName);
+                    Class<? extends ConnectionProvider> systemConnectionProviderType = locateSystemConnectionProviderType(
+                        systemPersistenceName);
 
                     if (systemConnectionProviderType != null) {
                         try {
@@ -102,7 +103,7 @@ public class Connections {
     }
 
     public static void initMerchantConnections() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
 
         // Just use the unique merchant path as the key.
@@ -121,16 +122,19 @@ public class Connections {
 
                     for (String merchantPersistenceName : merchantPersistenceNames) {
 
-                        String regex = new StringBuilder(Str.CARET).append(merchantPersistenceName).append("\\.[^\\.]+$").toString();
+                        String regex = new StringBuilder(Str.CARET).append(merchantPersistenceName)
+                            .append("\\.[^\\.]+$").toString();
 
                         Map<String, String> connProperties = MerchantConfig.GET.values(merchantPersistenceName, regex);
 
                         System.out.println(connProperties);
 
-                        Class<? extends ConnectionProvider> merchantConnectionProviderType = locateConnectionProviderType(merchantPersistenceName);
+                        Class<? extends ConnectionProvider> merchantConnectionProviderType = locateConnectionProviderType(
+                            merchantPersistenceName);
 
                         if (merchantConnectionProviderType == null) {
-                            String keyConnectionProvider = new StringBuilder(merchantPersistenceName).append(".connection_provider").toString();
+                            String keyConnectionProvider = new StringBuilder(merchantPersistenceName)
+                                .append(".connection_provider").toString();
                             String persistenceName = connProperties.get(keyConnectionProvider);
 
                             merchantConnectionProviderType = locateConnectionProviderType(persistenceName);
@@ -138,7 +142,8 @@ public class Connections {
 
                         if (merchantConnectionProviderType != null) {
                             try {
-                                ConnectionProvider merchantConnectionProvider = merchantConnectionProviderType.newInstance();
+                                ConnectionProvider merchantConnectionProvider = merchantConnectionProviderType
+                                    .newInstance();
                                 merchantConnectionProvider.init(connProperties);
                                 merchantConnectionProviderList.add(merchantConnectionProvider);
                             } catch (InstantiationException | IllegalAccessException e) {
@@ -175,7 +180,7 @@ public class Connections {
         if (isCoreClass(modelClass) && isSystemDatabase(modelClass)) {
             return systemConnectionProvider.provide();
         } else {
-            ApplicationContext appCtx = App.get().getApplicationContext();
+            ApplicationContext appCtx = App.get().context();
             Merchant m = appCtx.getMerchant();
 
             String key = m.getAbsoluteBaseSystemPath();
@@ -191,7 +196,7 @@ public class Connections {
     }
 
     public Object getConnection(String persistenceName) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
 
         String key = m.getAbsoluteBaseSystemPath();
@@ -209,7 +214,7 @@ public class Connections {
         if (groupName == null)
             return null;
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
 
         String key = m.getAbsoluteBaseSystemPath();
@@ -226,7 +231,7 @@ public class Connections {
     }
 
     public Object getDefaultMerchantConnection() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
         String key = m.getAbsoluteBaseSystemPath();
 
@@ -234,7 +239,7 @@ public class Connections {
     }
 
     public Connection getSqlConnection() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
         String key = m.getAbsoluteBaseSystemPath();
 

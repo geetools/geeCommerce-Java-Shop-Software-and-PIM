@@ -95,7 +95,8 @@ public class MediaAssetController extends BaseController {
             if (ma != null) {
                 MediaAssetFile file = ma.getFile();// mediaAssetService.getContent(ma.getId());
 
-                if (ma.getMimeType() != null && ma.getMimeType().contains("image") && params != null && params.size() != 0 && file != null) {
+                if (ma.getMimeType() != null && ma.getMimeType().contains("image") && params != null
+                    && params.size() != 0 && file != null) {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                     try {
@@ -111,7 +112,8 @@ public class MediaAssetController extends BaseController {
 
                         // Are parameters for resizing set?
                         if (targetWidth != null || targetHeight != null) {
-                            // If so, calculate new size maintaining the aspect-ratio.
+                            // If so, calculate new size maintaining the
+                            // aspect-ratio.
                             double originalWidth = originalImageBuff.getWidth();
                             double originalHeight = originalImageBuff.getHeight();
 
@@ -230,8 +232,10 @@ public class MediaAssetController extends BaseController {
         GridFSDBFile file = mediaAssetService.getGridFsFile(id);
 
         // mediaAssetFiles.
-        // MediaAssetFile file = mediaAssetFiles.findById(MediaAssetFile.class, id);
-        // StreamingResolution streamingResolution = new StreamingResolution(file.getContentType(), file.getInputStream());
+        // MediaAssetFile file = mediaAssetFiles.findById(MediaAssetFile.class,
+        // id);
+        // StreamingResolution streamingResolution = new
+        // StreamingResolution(file.getContentType(), file.getInputStream());
         // streamingResolution.setFilename(file.getFilename());
 
         Result viewStr = Results.stream(file.getContentType(), file.getInputStream());

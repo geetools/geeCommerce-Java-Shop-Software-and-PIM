@@ -15,7 +15,8 @@ public enum TaxClassType {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(TaxClassType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(TaxClassType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static TaxClassType fromId(int id) {
@@ -43,6 +44,7 @@ public enum TaxClassType {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(TaxClassType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(TaxClassType.class.getSimpleName()).append(".label").toString());
     }
 }

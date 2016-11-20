@@ -140,7 +140,7 @@ public class DefaultWebSlideShow extends AbstractMultiContextModel implements We
         if (slidesList != null) {
             this.slides = new ArrayList<>();
             for (Map<String, Object> slide : slidesList) {
-                Slide s = app.getModel(Slide.class);
+                Slide s = app.model(Slide.class);
                 s.fromMap(slide);
                 this.slides.add(s);
             }

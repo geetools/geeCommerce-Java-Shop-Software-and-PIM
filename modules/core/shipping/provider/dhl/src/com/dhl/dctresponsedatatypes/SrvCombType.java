@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for SrvCombType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="SrvCombType">
@@ -90,7 +91,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SrvCombType", propOrder = { "globalServiceName", "globalServiceCode", "localServiceCode", "localServiceTypeName", "chargeCodeType", "sOfferedCustAgreement", "srvComb" })
+@XmlType(name = "SrvCombType", propOrder = { "globalServiceName", "globalServiceCode", "localServiceCode",
+    "localServiceTypeName", "chargeCodeType", "sOfferedCustAgreement", "srvComb" })
 public class SrvCombType {
 
     @XmlElement(name = "GlobalServiceName")
@@ -115,7 +117,7 @@ public class SrvCombType {
      * 
      */
     public String getGlobalServiceName() {
-	return globalServiceName;
+        return globalServiceName;
     }
 
     /**
@@ -126,7 +128,7 @@ public class SrvCombType {
      * 
      */
     public void setGlobalServiceName(String value) {
-	this.globalServiceName = value;
+        this.globalServiceName = value;
     }
 
     /**
@@ -136,7 +138,7 @@ public class SrvCombType {
      * 
      */
     public String getGlobalServiceCode() {
-	return globalServiceCode;
+        return globalServiceCode;
     }
 
     /**
@@ -147,7 +149,7 @@ public class SrvCombType {
      * 
      */
     public void setGlobalServiceCode(String value) {
-	this.globalServiceCode = value;
+        this.globalServiceCode = value;
     }
 
     /**
@@ -157,7 +159,7 @@ public class SrvCombType {
      * 
      */
     public String getLocalServiceCode() {
-	return localServiceCode;
+        return localServiceCode;
     }
 
     /**
@@ -168,7 +170,7 @@ public class SrvCombType {
      * 
      */
     public void setLocalServiceCode(String value) {
-	this.localServiceCode = value;
+        this.localServiceCode = value;
     }
 
     /**
@@ -178,7 +180,7 @@ public class SrvCombType {
      * 
      */
     public String getLocalServiceTypeName() {
-	return localServiceTypeName;
+        return localServiceTypeName;
     }
 
     /**
@@ -189,7 +191,7 @@ public class SrvCombType {
      * 
      */
     public void setLocalServiceTypeName(String value) {
-	this.localServiceTypeName = value;
+        this.localServiceTypeName = value;
     }
 
     /**
@@ -199,7 +201,7 @@ public class SrvCombType {
      * 
      */
     public String getChargeCodeType() {
-	return chargeCodeType;
+        return chargeCodeType;
     }
 
     /**
@@ -210,7 +212,7 @@ public class SrvCombType {
      * 
      */
     public void setChargeCodeType(String value) {
-	this.chargeCodeType = value;
+        this.chargeCodeType = value;
     }
 
     /**
@@ -220,7 +222,7 @@ public class SrvCombType {
      * 
      */
     public String getSOfferedCustAgreement() {
-	return sOfferedCustAgreement;
+        return sOfferedCustAgreement;
     }
 
     /**
@@ -231,7 +233,7 @@ public class SrvCombType {
      * 
      */
     public void setSOfferedCustAgreement(String value) {
-	this.sOfferedCustAgreement = value;
+        this.sOfferedCustAgreement = value;
     }
 
     /**
@@ -241,7 +243,7 @@ public class SrvCombType {
      * 
      */
     public SrvCombType.SrvComb getSrvComb() {
-	return srvComb;
+        return srvComb;
     }
 
     /**
@@ -252,7 +254,7 @@ public class SrvCombType {
      * 
      */
     public void setSrvComb(SrvCombType.SrvComb value) {
-	this.srvComb = value;
+        this.srvComb = value;
     }
 
     /**
@@ -260,7 +262,8 @@ public class SrvCombType {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -280,29 +283,29 @@ public class SrvCombType {
     @XmlType(name = "", propOrder = { "prod" })
     public static class SrvComb {
 
-	@XmlElement(name = "Prod")
-	protected ProdType prod;
+        @XmlElement(name = "Prod")
+        protected ProdType prod;
 
-	/**
-	 * Gets the value of the prod property.
-	 * 
-	 * @return possible object is {@link ProdType }
-	 * 
-	 */
-	public ProdType getProd() {
-	    return prod;
-	}
+        /**
+         * Gets the value of the prod property.
+         * 
+         * @return possible object is {@link ProdType }
+         * 
+         */
+        public ProdType getProd() {
+            return prod;
+        }
 
-	/**
-	 * Sets the value of the prod property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ProdType }
-	 * 
-	 */
-	public void setProd(ProdType value) {
-	    this.prod = value;
-	}
+        /**
+         * Sets the value of the prod property.
+         * 
+         * @param value
+         *            allowed object is {@link ProdType }
+         * 
+         */
+        public void setProd(ProdType value) {
+            this.prod = value;
+        }
 
     }
 

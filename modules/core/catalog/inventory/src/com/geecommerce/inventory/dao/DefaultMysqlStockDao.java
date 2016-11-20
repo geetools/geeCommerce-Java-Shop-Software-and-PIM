@@ -56,7 +56,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
 
         Connection conn = connection();
 
-        StringBuilder sql = new StringBuilder().append(" select * from ").append(TABLE_NAME).append(" where prd_id = ?\n").append(" and store_id = ?\n");
+        StringBuilder sql = new StringBuilder().append(" select * from ").append(TABLE_NAME)
+            .append(" where prd_id = ?\n").append(" and store_id = ?\n");
 
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -75,7 +76,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
 
             if (rs.next()) {
                 if (rs.next())
-                    throw new RuntimeException("Unable to update quantity for [productId=" + productId + ", storeId=" + storeId + "]. More than one row to update found.");
+                    throw new RuntimeException("Unable to update quantity for [productId=" + productId + ", storeId="
+                        + storeId + "]. More than one row to update found.");
 
                 if (!rs.isFirst())
                     rs.first();
@@ -87,7 +89,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
                     int newQty = qty - decrementByQty;
 
                     if (newQty < 0 && !isBackorderAllowed && !isItemBackorderAllowed)
-                        throw new QuantityNotAvailableException("Unable to update quantity for [productId=" + productId + ", storeId=" + storeId + "]. Not enough stock.");
+                        throw new QuantityNotAvailableException("Unable to update quantity for [productId=" + productId
+                            + ", storeId=" + storeId + "]. Not enough stock.");
 
                     if (newQty < 0 && !isQtyBelowZeroAllowed)
                         newQty = 0;
@@ -101,7 +104,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
                     updatedQty = true;
                 } else {
                     rs.cancelRowUpdates();
-                    throw new RuntimeException("Unable to update quantity for [productId=" + productId + ", storeId=" + storeId + "]. Initial qty has NULL value.");
+                    throw new RuntimeException("Unable to update quantity for [productId=" + productId + ", storeId="
+                        + storeId + "]. Initial qty has NULL value.");
                 }
             }
         } catch (SQLException e) {
@@ -116,7 +120,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
         }
 
         if (!updatedQty) {
-            sql = new StringBuilder().append(" select * from ").append(TABLE_NAME).append(" where prd_id = ? and store_id is null\n");
+            sql = new StringBuilder().append(" select * from ").append(TABLE_NAME)
+                .append(" where prd_id = ? and store_id is null\n");
 
             pstmt = null;
             rs = null;
@@ -132,7 +137,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
 
                 if (rs.next()) {
                     if (rs.next())
-                        throw new RuntimeException("Unable to update quantity for [productId=" + productId + "]. More than one row to update found.");
+                        throw new RuntimeException("Unable to update quantity for [productId=" + productId
+                            + "]. More than one row to update found.");
 
                     if (!rs.isFirst())
                         rs.first();
@@ -144,7 +150,8 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
                         int newQty = qty - decrementByQty;
 
                         if (newQty < 0 && !isBackorderAllowed && !isItemBackorderAllowed)
-                            throw new RuntimeException("Unable to update quantity for [productId=" + productId + "]. Not enough stock.");
+                            throw new RuntimeException(
+                                "Unable to update quantity for [productId=" + productId + "]. Not enough stock.");
 
                         if (newQty < 0 && !isQtyBelowZeroAllowed)
                             newQty = 0;
@@ -156,10 +163,12 @@ public class DefaultMysqlStockDao extends DefaultMySqlDao implements StockDao {
                         updatedQty = true;
                     } else {
                         rs.cancelRowUpdates();
-                        throw new RuntimeException("Unable to update quantity for [productId=" + productId + "]. Initial qty has NULL value.");
+                        throw new RuntimeException("Unable to update quantity for [productId=" + productId
+                            + "]. Initial qty has NULL value.");
                     }
                 } else {
-                    throw new RuntimeException("Unable to update quantity for [productId=" + productId + "]. No initial qty set to decrement from.");
+                    throw new RuntimeException("Unable to update quantity for [productId=" + productId
+                        + "]. No initial qty set to decrement from.");
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);

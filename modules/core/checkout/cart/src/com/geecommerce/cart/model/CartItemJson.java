@@ -10,34 +10,34 @@ public class CartItemJson {
     private Id variant = null;
 
     public Id getProductId() {
-	return productId;
+        return productId;
     }
 
     public void setProductId(Id productId) {
-	this.productId = productId;
+        this.productId = productId;
     }
 
     public Integer getQuantity() {
-	return quantity;
+        return quantity;
     }
 
     public void setQuantity(Integer quantity) {
-	this.quantity = quantity;
+        this.quantity = quantity;
     }
 
     public Id getVariant() {
-	return variant;
+        return variant;
     }
 
     public void setVariant(Id variant) {
-	this.variant = variant;
+        this.variant = variant;
     }
 
     public String getDeliveryMethod() {
-	return deliveryMethod;
+        return deliveryMethod;
     }
 
     public void setDeliveryMethod(String deliveryMethod) {
-	this.deliveryMethod = deliveryMethod;
+        this.deliveryMethod = deliveryMethod;
     }
 }

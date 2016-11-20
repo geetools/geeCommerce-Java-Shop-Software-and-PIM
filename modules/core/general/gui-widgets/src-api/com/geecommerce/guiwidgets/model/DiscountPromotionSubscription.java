@@ -1,9 +1,9 @@
 package com.geecommerce.guiwidgets.model;
 
+import java.util.Map;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Map;
 
 public interface DiscountPromotionSubscription extends Model {
 
@@ -30,12 +30,12 @@ public interface DiscountPromotionSubscription extends Model {
     public DiscountPromotionSubscription setGiftId(Id giftId);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String DISCOUNT_PROMOTION_ID = "dsc_promo_id";
-	public static final String EMAIL = "email";
-	public static final String COUPON_CODE = "coupon_code";
-	public static final String FORM = "form";
-	public static final String GIFT_ID = "gift_id";
+        public static final String ID = "_id";
+        public static final String DISCOUNT_PROMOTION_ID = "dsc_promo_id";
+        public static final String EMAIL = "email";
+        public static final String COUPON_CODE = "coupon_code";
+        public static final String FORM = "form";
+        public static final String GIFT_ID = "gift_id";
 
     }
 

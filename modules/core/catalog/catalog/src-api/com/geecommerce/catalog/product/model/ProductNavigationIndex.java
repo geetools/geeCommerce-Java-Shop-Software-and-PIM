@@ -49,16 +49,16 @@ public interface ProductNavigationIndex extends Model {
     public ProductNavigationIndex setUpdateFlag(int updateFlag);
 
     public static class Col {
-	public static final String ID = "_id";
-	public static final String PRODUCT_LIST_ID = "prd_list_id";
-	public static final String PRODUCT_ID = "prd_id";
-	public static final String NAVIGATION_ITEM_ROOT_ID = "nav_item_root_id";
-	public static final String NAVIGATION_ITEM_ID = "nav_item_id";
-	public static final String NAVIGATION_LEVEL = "nav_item_level";
-	public static final String NAVIGATION_POSITION = "nav_item_pos";
-	public static final String PARENT_NAVIGATION_LEVEL = "par_nav_item_level";
-	public static final String PARENT_NAVIGATION_POSITION = "par_nav_item_pos";
-	public static final String VISIBLE = "visible";
-	public static final String UPDATE_FLAG = "upd";
+        public static final String ID = "_id";
+        public static final String PRODUCT_LIST_ID = "prd_list_id";
+        public static final String PRODUCT_ID = "prd_id";
+        public static final String NAVIGATION_ITEM_ROOT_ID = "nav_item_root_id";
+        public static final String NAVIGATION_ITEM_ID = "nav_item_id";
+        public static final String NAVIGATION_LEVEL = "nav_item_level";
+        public static final String NAVIGATION_POSITION = "nav_item_pos";
+        public static final String PARENT_NAVIGATION_LEVEL = "par_nav_item_level";
+        public static final String PARENT_NAVIGATION_POSITION = "par_nav_item_pos";
+        public static final String VISIBLE = "visible";
+        public static final String UPDATE_FLAG = "upd";
     }
 }

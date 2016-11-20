@@ -9,16 +9,16 @@ public class SimpleModel extends AbstractModel {
 
     @Override
     public Id getId() {
-	throw new IllegalStateException("Not supported by SimpleModel. Use AbstractModel instead.");
+        throw new IllegalStateException("Not supported by SimpleModel. Use AbstractModel instead.");
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	throw new IllegalStateException("Not supported by SimpleModel. Use AbstractModel instead.");
+        throw new IllegalStateException("Not supported by SimpleModel. Use AbstractModel instead.");
     }
 
     @Override
     public Map<String, Object> toMap() {
-	throw new IllegalStateException("Not supported by SimpleModel. Use AbstractModel instead.");
+        throw new IllegalStateException("Not supported by SimpleModel. Use AbstractModel instead.");
     }
 }

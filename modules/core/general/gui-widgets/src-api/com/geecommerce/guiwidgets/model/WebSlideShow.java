@@ -2,7 +2,6 @@ package com.geecommerce.guiwidgets.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
@@ -36,13 +35,13 @@ public interface WebSlideShow extends MultiContextModel {
     public WebSlideShow setEnabled(ContextObject<Boolean> enabled);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String NAME = "name";
-	public static final String LABEL = "label";
-	public static final String SLIDES = "slides";
-	public static final String DATE_FROM = "d_from";
-	public static final String DATE_TO = "d_to";
-	public static final String ENABLED = "enabled";
+        public static final String ID = "_id";
+        public static final String NAME = "name";
+        public static final String LABEL = "label";
+        public static final String SLIDES = "slides";
+        public static final String DATE_FROM = "d_from";
+        public static final String DATE_TO = "d_to";
+        public static final String ENABLED = "enabled";
     }
 
 }

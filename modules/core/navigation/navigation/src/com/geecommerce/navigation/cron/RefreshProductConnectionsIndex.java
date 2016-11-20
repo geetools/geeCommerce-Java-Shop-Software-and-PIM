@@ -70,8 +70,10 @@ public class RefreshProductConnectionsIndex implements Taskable, Job {
             // Reset all the updated flags back to 0.
             // That way we know which documents to delete after the bulk
             // upserts.
-            ProductConnectionIndex pciUpdFlag = app.getModel(ProductConnectionIndex.class).setUpdateFlag(0);
-            productConnectionIndexes.update(pciUpdFlag, MongoQueries.newFilter(ProductConnectionIndex.Col.UPDATE_FLAG, 1), false, true, ProductConnectionIndex.Col.UPDATE_FLAG);
+            ProductConnectionIndex pciUpdFlag = app.model(ProductConnectionIndex.class).setUpdateFlag(0);
+            productConnectionIndexes.update(pciUpdFlag,
+                MongoQueries.newFilter(ProductConnectionIndex.Col.UPDATE_FLAG, 1), false, true,
+                ProductConnectionIndex.Col.UPDATE_FLAG);
 
             Mongo.enableBulkMode();
 
@@ -82,12 +84,15 @@ public class RefreshProductConnectionsIndex implements Taskable, Job {
                     Set<Id> allChildren = parentProduct.getAllChildProductIds(false);
                     Set<Id> allConnections = parentProduct.getAllConnectedProductIds(false);
 
-                    if ((allChildren != null && !allChildren.isEmpty()) || (allConnections != null && !allConnections.isEmpty())) {
-                        ProductConnectionIndex pci = app.getModel(ProductConnectionIndex.class).setProductId(parentProduct.getId()).setConnections(allConnections).setChildConnections(allChildren)
-                            .setUpdateFlag(1);
+                    if ((allChildren != null && !allChildren.isEmpty())
+                        || (allConnections != null && !allConnections.isEmpty())) {
+                        ProductConnectionIndex pci = app.model(ProductConnectionIndex.class)
+                            .setProductId(parentProduct.getId()).setConnections(allConnections)
+                            .setChildConnections(allChildren).setUpdateFlag(1);
 
                         if (allChildren != null && !allChildren.isEmpty()) {
-                            List<Product> childProducts = products.findByIds(Product.class, allChildren.toArray(new Id[allChildren.size()]));
+                            List<Product> childProducts = products.findByIds(Product.class,
+                                allChildren.toArray(new Id[allChildren.size()]));
 
                             for (Product p : childProducts) {
                                 if (p.isValidForSelling())
@@ -108,7 +113,8 @@ public class RefreshProductConnectionsIndex implements Taskable, Job {
 
             // Remove all documents where the update flag was not set to 1,
             // which indicates that they are no longer needed.
-            productConnectionIndexes.remove(ProductConnectionIndex.class, MongoQueries.newFilter(ProductConnectionIndex.Col.UPDATE_FLAG, 0));
+            productConnectionIndexes.remove(ProductConnectionIndex.class,
+                MongoQueries.newFilter(ProductConnectionIndex.Col.UPDATE_FLAG, 0));
         }
 
         Environment.enableMessageBus();

@@ -23,10 +23,10 @@ public interface ShoppingCenterInfo extends MultiContextModel {
     void setImageUri(String imageUri);
 
     final class Col {
-	public static final String ID = "_id";
-	public static final String TEXT = "text";
-	public static final String WEB_SITE = "web_site";
-	public static final String WEB_SITE_LINK_TEXT = "web_site_link_text";
-	public static final String IMAGE_URI = "image_uri";
+        public static final String ID = "_id";
+        public static final String TEXT = "text";
+        public static final String WEB_SITE = "web_site";
+        public static final String WEB_SITE_LINK_TEXT = "web_site_link_text";
+        public static final String IMAGE_URI = "image_uri";
     }
 }

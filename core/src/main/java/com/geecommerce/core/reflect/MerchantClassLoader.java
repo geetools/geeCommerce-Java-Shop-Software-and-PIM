@@ -1,19 +1,20 @@
 package com.geecommerce.core.reflect;
 
-import com.geecommerce.core.system.merchant.model.Merchant;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
 
+import com.geecommerce.core.system.merchant.model.Merchant;
+
 /**
  * Created by Michael on 11.07.2016.
  */
 public class MerchantClassLoader extends URLClassLoader {
 
-    private static final String[] STANDARD_PACKAGES = new String[]{"java.", "javax.", "sun.", "com.sun.", "oracle.", "com.yourkit."};
+    private static final String[] STANDARD_PACKAGES = new String[] { "java.", "javax.", "sun.", "com.sun.", "oracle.",
+        "com.yourkit." };
 
     static {
         try {

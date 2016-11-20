@@ -21,9 +21,9 @@ public interface AttributeTabMapping extends Model {
     public AttributeTabMapping setPosition(int position);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String TAB_ID = "tab_id";
-	public static final String ATTRIBUTE_ID = "attr_id";
-	public static final String POSITION = "pos";
+        public static final String ID = "_id";
+        public static final String TAB_ID = "tab_id";
+        public static final String ATTRIBUTE_ID = "attr_id";
+        public static final String POSITION = "pos";
     }
 }

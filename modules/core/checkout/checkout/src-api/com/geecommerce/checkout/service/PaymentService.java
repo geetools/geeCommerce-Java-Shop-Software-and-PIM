@@ -1,11 +1,9 @@
 package com.geecommerce.checkout.service;
 
-import com.geecommerce.checkout.model.Checkout;
 import com.geecommerce.checkout.model.Order;
 import com.geecommerce.checkout.model.OrderPayment;
 import com.geecommerce.core.payment.PaymentResponse;
 import com.geecommerce.core.type.Id;
-import com.geecommerce.inventory.exception.QuantityNotAvailableException;
 
 public interface PaymentService {
 

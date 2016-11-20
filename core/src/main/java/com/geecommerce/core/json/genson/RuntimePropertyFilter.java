@@ -21,13 +21,11 @@ import com.owlike.genson.stream.ObjectWriter;
 /**
  * Ensures that only the following properties are serialized to json: <i>All
  * fields if include or exclude list is empty.</i> <i>Fields that are in an
- * include-list.</i> <i>Fields that are not in an
- * exclude-list.</i>
+ * include-list.</i> <i>Fields that are not in an exclude-list.</i>
  * 
  * Fields can be passed to the REST-API using the fields parameter: e.g.: GET
  * /api/call/object?fields=a,b,c or GET /api/call/object?fields=-d. Fields that
- * are prepended with a hyphen are excluded,
- * otherwise
+ * are prepended with a hyphen are excluded, otherwise
  * 
  * @author Michael
  * 
@@ -56,7 +54,8 @@ public class RuntimePropertyFilter implements Converter<Object> {
         }
 
         // We only want to do the property check for model objects.
-        if ((!isModel(property.getDeclaringClass()) && !isInjectable(property.getDeclaringClass())) || AttributeValue.class.isAssignableFrom(property.getDeclaringClass())) {
+        if ((!isModel(property.getDeclaringClass()) && !isInjectable(property.getDeclaringClass()))
+            || AttributeValue.class.isAssignableFrom(property.getDeclaringClass())) {
             ctx.genson.serialize(object, property.getType(), writer, ctx);
             return;
         }

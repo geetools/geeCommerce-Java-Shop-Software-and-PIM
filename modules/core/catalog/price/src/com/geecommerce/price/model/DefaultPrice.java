@@ -283,7 +283,8 @@ public class DefaultPrice extends AbstractModel implements Price {
 
     @Override
     public String toString() {
-        return "DefaultPrice [id=" + id + ", productId=" + productId + ", country=" + country + ", currency=" + currency + ", storeId=" + storeId + ", qtyFrom=" + qtyFrom + ", typeId=" + typeId
-            + ", price=" + price + ", validFrom=" + validFrom + ", validTo=" + validTo + "]";
+        return "DefaultPrice [id=" + id + ", productId=" + productId + ", country=" + country + ", currency=" + currency
+            + ", storeId=" + storeId + ", qtyFrom=" + qtyFrom + ", typeId=" + typeId + ", price=" + price
+            + ", validFrom=" + validFrom + ", validTo=" + validTo + "]";
     }
 }

@@ -1,10 +1,9 @@
 package com.geecommerce.customer.model;
 
+import java.util.Map;
 
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Map;
 
 public interface Payment extends Model {
 

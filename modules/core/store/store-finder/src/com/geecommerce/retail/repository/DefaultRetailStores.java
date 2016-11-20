@@ -36,7 +36,8 @@ public class DefaultRetailStores extends AbstractRepository implements RetailSto
     public List<RetailStore> enabledRetailStores() {
         Map<String, Object> filter = new HashMap<>();
         filter.put(RetailStore.Column.ENABLED, true);
-        List<RetailStore> retailStores = multiContextFind(RetailStore.class, filter, "id2", QueryOptions.builder().sortBy(RetailStore.Column.SORT_INDEX).build());
+        List<RetailStore> retailStores = multiContextFind(RetailStore.class, filter, "id2",
+            QueryOptions.builder().sortBy(RetailStore.Column.SORT_INDEX).build());
         return retailStores;
     }
 

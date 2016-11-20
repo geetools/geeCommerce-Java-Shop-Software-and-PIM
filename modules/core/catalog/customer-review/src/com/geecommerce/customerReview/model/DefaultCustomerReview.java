@@ -191,7 +191,7 @@ public class DefaultCustomerReview extends AbstractModel implements CustomerRevi
         if (abuseList != null) {
             this.abuses = new ArrayList<>();
             for (Map<String, Object> abuse : abuseList) {
-                Abuse a = app.getModel(Abuse.class);
+                Abuse a = app.model(Abuse.class);
                 a.fromMap(abuse);
                 this.abuses.add(a);
             }
@@ -251,7 +251,8 @@ public class DefaultCustomerReview extends AbstractModel implements CustomerRevi
 
     @Override
     public Boolean getRatedByCustomer(Id customerId) {
-        if (getThinkHelpful().contains(customerId) || getThinkUnhelpful().contains(customerId) || customerId.equals(getCustomerId()))
+        if (getThinkHelpful().contains(customerId) || getThinkUnhelpful().contains(customerId)
+            || customerId.equals(getCustomerId()))
             return true;
         return false;
     }

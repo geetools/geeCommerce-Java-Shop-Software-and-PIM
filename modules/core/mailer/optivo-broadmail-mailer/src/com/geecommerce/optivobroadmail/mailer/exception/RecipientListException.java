@@ -5,15 +5,15 @@ public class RecipientListException extends MailerServiceException {
     }
 
     public RecipientListException(String message) {
-	super(message);
+        super(message);
     }
 
     public RecipientListException(String message, Throwable cause) {
-	super(message, cause);
+        super(message, cause);
     }
 
     public RecipientListException(Throwable cause) {
-	super(cause);
+        super(cause);
     }
 
 }

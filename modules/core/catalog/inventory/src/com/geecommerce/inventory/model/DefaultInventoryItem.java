@@ -32,61 +32,62 @@ public class DefaultInventoryItem extends AbstractModel implements InventoryItem
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public InventoryItem setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getProductId() {
-	return productId;
+        return productId;
     }
 
     @Override
     public InventoryItem setProductId(Id productId) {
-	this.productId = productId;
-	return this;
+        this.productId = productId;
+        return this;
     }
 
     @Override
     public Id getStoreId() {
-	return storeId;
+        return storeId;
     }
 
     @Override
     public InventoryItem setStoreId(Id storeId) {
-	this.storeId = storeId;
-	return this;
+        this.storeId = storeId;
+        return this;
     }
 
     @Override
     public Integer getQty() {
-	return qty;
+        return qty;
     }
 
     @Override
     public InventoryItem setQty(Integer qty) {
-	this.qty = qty;
-	return this;
+        this.qty = qty;
+        return this;
     }
 
     @Override
     public boolean isAllowBackorder() {
-	return allowBackorder;
+        return allowBackorder;
     }
 
     @Override
     public InventoryItem setAllowBackorder(boolean allowBackorder) {
-	this.allowBackorder = allowBackorder;
-	return this;
+        this.allowBackorder = allowBackorder;
+        return this;
     }
 
     @Override
     public String toString() {
-	return "DefaultInventoryItem [id=" + id + ", productId=" + productId + ", storeId=" + storeId + ", qty=" + qty + ", allowBackorder=" + allowBackorder + "]";
+        return "DefaultInventoryItem [id=" + id + ", productId=" + productId + ", storeId=" + storeId + ", qty=" + qty
+            + ", allowBackorder=" + allowBackorder + "]";
     }
 }

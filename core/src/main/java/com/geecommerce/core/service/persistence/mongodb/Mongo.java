@@ -81,7 +81,8 @@ public class Mongo {
         return App.get().registryGet(bulkWriteOperationKey(modelClass));
     }
 
-    public static final <T extends Model> void stashBulkWriteOperation(Class<T> modelClass, BulkWriteOperation bulkWriteOp) {
+    public static final <T extends Model> void stashBulkWriteOperation(Class<T> modelClass,
+        BulkWriteOperation bulkWriteOp) {
         App.get().registryPut(bulkWriteOperationKey(modelClass), bulkWriteOp);
     }
 
@@ -119,6 +120,7 @@ public class Mongo {
     }
 
     private static final <T extends Model> String bulkWriteOperationKey(Class<T> modelClass) {
-        return new StringBuilder(MONGO_BULK_WRITE_OPERATION_CACHE_KEY).append(Char.AT).append(modelClass.getName()).toString();
+        return new StringBuilder(MONGO_BULK_WRITE_OPERATION_CACHE_KEY).append(Char.AT).append(modelClass.getName())
+            .toString();
     }
 }

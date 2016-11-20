@@ -8,6 +8,7 @@
 package com.dhl.dctrequestdatatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for PieceType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="PieceType">
@@ -109,7 +111,7 @@ public class PieceType {
      * 
      */
     public String getPieceID() {
-	return pieceID;
+        return pieceID;
     }
 
     /**
@@ -120,7 +122,7 @@ public class PieceType {
      * 
      */
     public void setPieceID(String value) {
-	this.pieceID = value;
+        this.pieceID = value;
     }
 
     /**
@@ -130,7 +132,7 @@ public class PieceType {
      * 
      */
     public String getPackageTypeCode() {
-	return packageTypeCode;
+        return packageTypeCode;
     }
 
     /**
@@ -141,7 +143,7 @@ public class PieceType {
      * 
      */
     public void setPackageTypeCode(String value) {
-	this.packageTypeCode = value;
+        this.packageTypeCode = value;
     }
 
     /**
@@ -151,7 +153,7 @@ public class PieceType {
      * 
      */
     public BigDecimal getHeight() {
-	return height;
+        return height;
     }
 
     /**
@@ -162,7 +164,7 @@ public class PieceType {
      * 
      */
     public void setHeight(BigDecimal value) {
-	this.height = value;
+        this.height = value;
     }
 
     /**
@@ -172,7 +174,7 @@ public class PieceType {
      * 
      */
     public BigDecimal getDepth() {
-	return depth;
+        return depth;
     }
 
     /**
@@ -183,7 +185,7 @@ public class PieceType {
      * 
      */
     public void setDepth(BigDecimal value) {
-	this.depth = value;
+        this.depth = value;
     }
 
     /**
@@ -193,7 +195,7 @@ public class PieceType {
      * 
      */
     public BigDecimal getWidth() {
-	return width;
+        return width;
     }
 
     /**
@@ -204,7 +206,7 @@ public class PieceType {
      * 
      */
     public void setWidth(BigDecimal value) {
-	this.width = value;
+        this.width = value;
     }
 
     /**
@@ -214,7 +216,7 @@ public class PieceType {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -225,7 +227,7 @@ public class PieceType {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
 }

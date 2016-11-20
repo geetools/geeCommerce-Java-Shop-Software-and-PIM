@@ -36,36 +36,38 @@ public class ProductCategoryWidget extends AbstractWidgetController implements W
     String productId = null;
 
     @Inject
-    public ProductCategoryWidget(ProductLists productLists, ProductNavigationIndexes productNavigationIndexes, ProductService productService) {
-	this.productLists = productLists;
-	this.productNavigationIndexes = productNavigationIndexes;
-	this.productService = productService;
+    public ProductCategoryWidget(ProductLists productLists, ProductNavigationIndexes productNavigationIndexes,
+        ProductService productService) {
+        this.productLists = productLists;
+        this.productNavigationIndexes = productNavigationIndexes;
+        this.productService = productService;
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
 
-	ProductList productList = null;
-	productId = widgetCtx.getParam(PARAM_PRODUCT);
-	String category = "";
+        ProductList productList = null;
+        productId = widgetCtx.getParam(PARAM_PRODUCT);
+        String category = "";
 
-	product = productService.getProduct(Id.parseId(productId));
+        product = productService.getProduct(Id.parseId(productId));
 
-	if (productList == null) {
-	    List<ProductNavigationIndex> pniList = productNavigationIndexes.forProduct(product);
-	    if (pniList != null && pniList.size() > 0) {
-		ProductNavigationIndex pni = pniList.get(0);
-		Id productListId = pni.getProductListId();
+        if (productList == null) {
+            List<ProductNavigationIndex> pniList = productNavigationIndexes.forProduct(product);
+            if (pniList != null && pniList.size() > 0) {
+                ProductNavigationIndex pni = pniList.get(0);
+                Id productListId = pni.getProductListId();
 
-		if (productListId != null)
-		    productList = productLists.findById(ProductList.class, productListId);
-	    }
-	}
-	if (productList != null) {
-	    category = String.valueOf(productList.getLabel().getVal());
-	}
+                if (productListId != null)
+                    productList = productLists.findById(ProductList.class, productListId);
+            }
+        }
+        if (productList != null) {
+            category = String.valueOf(productList.getLabel().getVal());
+        }
 
-	widgetCtx.renderContent(category);
+        widgetCtx.renderContent(category);
     }
 
 }

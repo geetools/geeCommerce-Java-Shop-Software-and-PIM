@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for PieceFault complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="PieceFault">
@@ -53,7 +54,7 @@ public class PieceFault {
      * 
      */
     public String getPieceID() {
-	return pieceID;
+        return pieceID;
     }
 
     /**
@@ -64,7 +65,7 @@ public class PieceFault {
      * 
      */
     public void setPieceID(String value) {
-	this.pieceID = value;
+        this.pieceID = value;
     }
 
     /**
@@ -74,7 +75,7 @@ public class PieceFault {
      * 
      */
     public String getConditionCode() {
-	return conditionCode;
+        return conditionCode;
     }
 
     /**
@@ -85,7 +86,7 @@ public class PieceFault {
      * 
      */
     public void setConditionCode(String value) {
-	this.conditionCode = value;
+        this.conditionCode = value;
     }
 
     /**
@@ -95,7 +96,7 @@ public class PieceFault {
      * 
      */
     public String getConditionData() {
-	return conditionData;
+        return conditionData;
     }
 
     /**
@@ -106,7 +107,7 @@ public class PieceFault {
      * 
      */
     public void setConditionData(String value) {
-	this.conditionData = value;
+        this.conditionData = value;
     }
 
 }

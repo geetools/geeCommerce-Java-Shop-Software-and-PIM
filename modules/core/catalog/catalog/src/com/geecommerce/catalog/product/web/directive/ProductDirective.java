@@ -6,12 +6,12 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.inject.Inject;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.repository.Products;
 import com.geecommerce.core.Str;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.web.annotation.Directive;
+import com.google.inject.Inject;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -35,58 +35,61 @@ public class ProductDirective implements TemplateDirectiveModel {
 
     @Inject
     private ProductDirective(Products products) {
-	this.products = products;
+        this.products = products;
     }
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-	if (log.isTraceEnabled()) {
-	    log.trace(params);
-	}
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
+        if (log.isTraceEnabled()) {
+            log.trace(params);
+        }
 
-	TemplateModel pId = (TemplateModel) params.get("id");
-	SimpleScalar pArticleNumber = (SimpleScalar) params.get("article_number");
-	SimpleScalar pVar = (SimpleScalar) params.get("var");
+        TemplateModel pId = (TemplateModel) params.get("id");
+        SimpleScalar pArticleNumber = (SimpleScalar) params.get("article_number");
+        SimpleScalar pVar = (SimpleScalar) params.get("var");
 
-	String articleNumber = null;
-	String varName = null;
+        String articleNumber = null;
+        String varName = null;
 
-	if (pVar != null)
-	    varName = pVar.getAsString();
+        if (pVar != null)
+            varName = pVar.getAsString();
 
-	if (pArticleNumber != null)
-	    articleNumber = pArticleNumber.getAsString();
+        if (pArticleNumber != null)
+            articleNumber = pArticleNumber.getAsString();
 
-	if (!Str.isEmpty(articleNumber)) {
-	    Product product = products.havingArticleNumber(articleNumber);
+        if (!Str.isEmpty(articleNumber)) {
+            Product product = products.havingArticleNumber(articleNumber);
 
-	    if (product != null)
-		env.setVariable(Str.isEmpty(varName) ? PRODUCT_KEY : varName, DefaultObjectWrapper.getDefaultInstance().wrap(product));
-	} else if (pId != null) {
-	    Object beanModel = null;
+            if (product != null)
+                env.setVariable(Str.isEmpty(varName) ? PRODUCT_KEY : varName,
+                    DefaultObjectWrapper.getDefaultInstance().wrap(product));
+        } else if (pId != null) {
+            Object beanModel = null;
 
-	    if (pId instanceof SimpleScalar)
-		beanModel = ((SimpleScalar) pId).getAsString();
+            if (pId instanceof SimpleScalar)
+                beanModel = ((SimpleScalar) pId).getAsString();
 
-	    if (pId instanceof SimpleNumber)
-		beanModel = ((SimpleNumber) pId).getAsNumber();
+            if (pId instanceof SimpleNumber)
+                beanModel = ((SimpleNumber) pId).getAsNumber();
 
-	    else if (pId instanceof StringModel)
-		beanModel = ((StringModel) pId).getAsString();
+            else if (pId instanceof StringModel)
+                beanModel = ((StringModel) pId).getAsString();
 
-	    else if (pId instanceof NumberModel)
-		beanModel = ((NumberModel) pId).getAsNumber();
+            else if (pId instanceof NumberModel)
+                beanModel = ((NumberModel) pId).getAsNumber();
 
-	    else if (pId instanceof BeanModel)
-		beanModel = ((BeanModel) pId).getWrappedObject();
+            else if (pId instanceof BeanModel)
+                beanModel = ((BeanModel) pId).getWrappedObject();
 
-	    Id productId = Id.valueOf(beanModel);
+            Id productId = Id.valueOf(beanModel);
 
-	    Product product = products.findById(Product.class, productId);
+            Product product = products.findById(Product.class, productId);
 
-	    if (product != null)
-		env.setVariable(Str.isEmpty(varName) ? PRODUCT_KEY : varName, DefaultObjectWrapper.getDefaultInstance().wrap(product));
-	}
+            if (product != null)
+                env.setVariable(Str.isEmpty(varName) ? PRODUCT_KEY : varName,
+                    DefaultObjectWrapper.getDefaultInstance().wrap(product));
+        }
     }
 }

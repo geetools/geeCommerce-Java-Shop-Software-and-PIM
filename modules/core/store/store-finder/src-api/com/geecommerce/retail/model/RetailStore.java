@@ -116,31 +116,31 @@ public interface RetailStore extends AttributeSupport {
     void setShoppingCenterInfo(ShoppingCenterInfo shoppingCenterInfo);
 
     final class Column {
-	public static final String ID = "_id";
-	public static final String ID2 = "id2";
-	public static final String NAME = "name";
-	public static final String TITLE = "title";
-	public static final String ADDRESS_LINES = "address_lines";
-	public static final String ZIP = "zip";
-	public static final String CITY = "city";
-	public static final String COUNTRY = "country";
-	public static final String TELEPHONE = "telephone";
-	public static final String FAX = "fax";
-	public static final String EMAIL = "email";
-	public static final String MAIN_IMAGE_ID = "main_image_id";
-	public static final String MAIN_IMAGE_URI = "main_image_uri";
-	public static final String SORT_INDEX = "sort_index";
-	public static final String ENABLED = "enabled";
-	public static final String STREET = "street";
-	public static final String BUILDING = "building";
-	public static final String WORKDAYSTART = "workdaystart";
-	public static final String WORKDAYEND = "workdayend";
-	public static final String WEEKENDSTART = "weekendstart";
-	public static final String WEEKENDEND = "weekendend";
-	public static final String NUMBER = "number";
-	public static final String LATITUDE = "latitude";
-	public static final String LONGITUDE = "longitude";
-	public static final String FLOORS = "floors";
-	public static final String SHOPPING_CENTER_INFO = "shopping_center_info";
+        public static final String ID = "_id";
+        public static final String ID2 = "id2";
+        public static final String NAME = "name";
+        public static final String TITLE = "title";
+        public static final String ADDRESS_LINES = "address_lines";
+        public static final String ZIP = "zip";
+        public static final String CITY = "city";
+        public static final String COUNTRY = "country";
+        public static final String TELEPHONE = "telephone";
+        public static final String FAX = "fax";
+        public static final String EMAIL = "email";
+        public static final String MAIN_IMAGE_ID = "main_image_id";
+        public static final String MAIN_IMAGE_URI = "main_image_uri";
+        public static final String SORT_INDEX = "sort_index";
+        public static final String ENABLED = "enabled";
+        public static final String STREET = "street";
+        public static final String BUILDING = "building";
+        public static final String WORKDAYSTART = "workdaystart";
+        public static final String WORKDAYEND = "workdayend";
+        public static final String WEEKENDSTART = "weekendstart";
+        public static final String WEEKENDEND = "weekendend";
+        public static final String NUMBER = "number";
+        public static final String LATITUDE = "latitude";
+        public static final String LONGITUDE = "longitude";
+        public static final String FLOORS = "floors";
+        public static final String SHOPPING_CENTER_INFO = "shopping_center_info";
     }
 }

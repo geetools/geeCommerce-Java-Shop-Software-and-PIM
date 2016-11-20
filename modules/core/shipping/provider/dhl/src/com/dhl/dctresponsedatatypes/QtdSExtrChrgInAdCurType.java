@@ -10,6 +10,7 @@ package com.dhl.dctresponsedatatypes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for QtdSExtrChrgInAdCurType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdSExtrChrgInAdCurType">
@@ -75,7 +77,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "QtdSExtrChrgInAdCurType", propOrder = { "chargeValue", "chargeExchangeRate", "chargeTaxAmount", "currencyCode", "currencyRoleTypeCode", "chargeTaxAmountDet" })
+@XmlType(name = "QtdSExtrChrgInAdCurType", propOrder = { "chargeValue", "chargeExchangeRate", "chargeTaxAmount",
+    "currencyCode", "currencyRoleTypeCode", "chargeTaxAmountDet" })
 public class QtdSExtrChrgInAdCurType {
 
     @XmlElement(name = "ChargeValue")
@@ -98,7 +101,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public BigDecimal getChargeValue() {
-	return chargeValue;
+        return chargeValue;
     }
 
     /**
@@ -109,7 +112,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public void setChargeValue(BigDecimal value) {
-	this.chargeValue = value;
+        this.chargeValue = value;
     }
 
     /**
@@ -119,7 +122,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public BigDecimal getChargeExchangeRate() {
-	return chargeExchangeRate;
+        return chargeExchangeRate;
     }
 
     /**
@@ -130,7 +133,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public void setChargeExchangeRate(BigDecimal value) {
-	this.chargeExchangeRate = value;
+        this.chargeExchangeRate = value;
     }
 
     /**
@@ -140,7 +143,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public BigDecimal getChargeTaxAmount() {
-	return chargeTaxAmount;
+        return chargeTaxAmount;
     }
 
     /**
@@ -151,7 +154,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public void setChargeTaxAmount(BigDecimal value) {
-	this.chargeTaxAmount = value;
+        this.chargeTaxAmount = value;
     }
 
     /**
@@ -161,7 +164,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -172,7 +175,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -182,7 +185,7 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public String getCurrencyRoleTypeCode() {
-	return currencyRoleTypeCode;
+        return currencyRoleTypeCode;
     }
 
     /**
@@ -193,15 +196,17 @@ public class QtdSExtrChrgInAdCurType {
      * 
      */
     public void setCurrencyRoleTypeCode(String value) {
-	this.currencyRoleTypeCode = value;
+        this.currencyRoleTypeCode = value;
     }
 
     /**
      * Gets the value of the chargeTaxAmountDet property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the chargeTaxAmountDet property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the chargeTaxAmountDet property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -212,15 +217,16 @@ public class QtdSExtrChrgInAdCurType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link ChargeTaxAmountDetType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link ChargeTaxAmountDetType }
      * 
      * 
      */
     public List<ChargeTaxAmountDetType> getChargeTaxAmountDet() {
-	if (chargeTaxAmountDet == null) {
-	    chargeTaxAmountDet = new ArrayList<ChargeTaxAmountDetType>();
-	}
-	return this.chargeTaxAmountDet;
+        if (chargeTaxAmountDet == null) {
+            chargeTaxAmountDet = new ArrayList<ChargeTaxAmountDetType>();
+        }
+        return this.chargeTaxAmountDet;
     }
 
 }

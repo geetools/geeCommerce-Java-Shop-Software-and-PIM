@@ -8,7 +8,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.facet.FacetBuilder;
 
 import com.geecommerce.core.system.attribute.model.Attribute;
-import com.geecommerce.core.type.Id;
 import com.geecommerce.search.model.Facet;
 
 public interface SearchHelper {

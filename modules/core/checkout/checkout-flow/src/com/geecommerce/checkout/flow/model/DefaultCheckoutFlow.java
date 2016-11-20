@@ -147,7 +147,7 @@ public class DefaultCheckoutFlow extends AbstractModel implements CheckoutFlow {
         if (stepList != null) {
             this.steps = new ArrayList<>();
             for (Map<String, Object> step : stepList) {
-                CheckoutFlowStep fs = app.getModel(CheckoutFlowStep.class);
+                CheckoutFlowStep fs = app.model(CheckoutFlowStep.class);
                 fs.fromMap(step);
                 this.steps.add(fs);
             }
@@ -176,11 +176,7 @@ public class DefaultCheckoutFlow extends AbstractModel implements CheckoutFlow {
 
     @Override
     public String toString() {
-        return "CheckoutFlow [id=" + id
-            + ", name=" + name
-            + ", description=" + description
-            + ", steps=" + steps
-            + ", enabled=" + enabled
-            + ", active=" + active + "]";
+        return "CheckoutFlow [id=" + id + ", name=" + name + ", description=" + description + ", steps=" + steps
+            + ", enabled=" + enabled + ", active=" + active + "]";
     }
 }

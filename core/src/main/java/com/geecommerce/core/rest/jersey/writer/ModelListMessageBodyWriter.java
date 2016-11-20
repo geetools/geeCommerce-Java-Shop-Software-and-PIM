@@ -16,10 +16,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-import com.google.inject.Singleton;
 import com.geecommerce.core.service.annotation.Profile;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.xml.JAXBWriterHelper;
+import com.google.inject.Singleton;
 
 @Profile
 @Singleton
@@ -28,36 +28,39 @@ import com.geecommerce.core.xml.JAXBWriterHelper;
 public class ModelListMessageBodyWriter implements MessageBodyWriter<List<Model>> {
     @Override
     public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-	if (!MediaType.APPLICATION_XML_TYPE.equals(mediaType))
-	    return false;
+        if (!MediaType.APPLICATION_XML_TYPE.equals(mediaType))
+            return false;
 
-	if (!Collection.class.isAssignableFrom(type))
-	    return false;
+        if (!Collection.class.isAssignableFrom(type))
+            return false;
 
-	ParameterizedType pType = ((ParameterizedType) genericType);
-	Type[] actualTypArgs = pType.getActualTypeArguments();
+        ParameterizedType pType = ((ParameterizedType) genericType);
+        Type[] actualTypArgs = pType.getActualTypeArguments();
 
-	if (actualTypArgs == null || actualTypArgs.length != 1)
-	    return false;
+        if (actualTypArgs == null || actualTypArgs.length != 1)
+            return false;
 
-	if (!Model.class.isAssignableFrom((Class<?>) actualTypArgs[0]))
-	    return false;
+        if (!Model.class.isAssignableFrom((Class<?>) actualTypArgs[0]))
+            return false;
 
-	return true;
+        return true;
     }
 
     @Override
     public long getSize(List<Model> t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-	return -1;
+        return -1;
     }
 
     @Override
-    public void writeTo(List<Model> list, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
-	Charset c = Charset.forName("UTF-8");
-	String cName = c.name();
+    public void writeTo(List<Model> list, Class<?> type, Type genericType, Annotation[] annotations,
+        MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream)
+        throws IOException, WebApplicationException {
+        Charset c = Charset.forName("UTF-8");
+        String cName = c.name();
 
-	entityStream.write(String.format("<?xml version=\"1.0\" encoding=\"%s\" standalone=\"yes\"?>", cName).getBytes(cName));
+        entityStream.write(
+            String.format("<?xml version=\"1.0\" encoding=\"%s\" standalone=\"yes\"?>", cName).getBytes(cName));
 
-	JAXBWriterHelper.write(list, type, annotations, mediaType, httpHeaders, entityStream);
+        JAXBWriterHelper.write(list, type, annotations, mediaType, httpHeaders, entityStream);
     }
 }

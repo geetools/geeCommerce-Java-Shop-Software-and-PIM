@@ -43,7 +43,8 @@ public class DefaultRetailStoreDistances extends AbstractRepository implements R
         Map<String, Object> filter = new HashMap<>();
         filter.put(RetailStoreDistance.Column.FROM_ZIP, regex);
 
-        QueryOptions.Builder queryOptionsBuilder = QueryOptions.builder().sortBy(RetailStoreDistance.Column.DISTANCE).fromOffset(0);
+        QueryOptions.Builder queryOptionsBuilder = QueryOptions.builder().sortBy(RetailStoreDistance.Column.DISTANCE)
+            .fromOffset(0);
         if (count != null) {
             queryOptionsBuilder.limitTo(count);
         }
@@ -63,7 +64,8 @@ public class DefaultRetailStoreDistances extends AbstractRepository implements R
         List<RetailStoreDistance> retailStoreDistances = find(RetailStoreDistance.class, filter, queryOptions);
         if (retailStoreDistances != null && !retailStoreDistances.isEmpty()) {
             for (RetailStoreDistance retailStoreDistance : retailStoreDistances) {
-                RetailStore retailStore = retailStores.findById(RetailStore.class, retailStoreDistance.getToRetailStore());
+                RetailStore retailStore = retailStores.findById(RetailStore.class,
+                    retailStoreDistance.getToRetailStore());
                 retailStoreList.add(retailStore);
             }
         }

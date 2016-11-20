@@ -1,9 +1,9 @@
 package com.geecommerce.retail.model;
 
+import java.util.Date;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Date;
 
 /**
  */
@@ -40,11 +40,11 @@ public interface Anniversary extends Model {
     boolean isSpecialInRange();
 
     class Column {
-	public static final String ID = "_id";
-	public static final String BRANCH_NAME = "branchName";
-	public static final String START_DATE = "startDate";
-	public static final String END_DATE = "endDate";
-	public static final String SPECIAL__DATE = "specialDate";
-	public static final String SPECIAL_TIME_RANGE = "specialTimeRange";
+        public static final String ID = "_id";
+        public static final String BRANCH_NAME = "branchName";
+        public static final String START_DATE = "startDate";
+        public static final String END_DATE = "endDate";
+        public static final String SPECIAL__DATE = "specialDate";
+        public static final String SPECIAL_TIME_RANGE = "specialTimeRange";
     }
 }

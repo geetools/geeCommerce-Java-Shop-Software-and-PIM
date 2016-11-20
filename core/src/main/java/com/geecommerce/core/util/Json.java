@@ -33,7 +33,8 @@ public class Json {
 
     // "2014-10-14T22:00:00.000Z"
 
-    private static final Pattern pattern = Pattern.compile("[\\d]{4}\\-[\\d]{2}\\-[\\d]{2}T[\\d]{2}\\:[\\d]{2}\\:[\\d]{2}(?:\\.[\\d]{3})?(?:[\\-+]{1}[\\d]{4})?[Z]{0,1}");
+    private static final Pattern pattern = Pattern.compile(
+        "[\\d]{4}\\-[\\d]{2}\\-[\\d]{2}T[\\d]{2}\\:[\\d]{2}\\:[\\d]{2}(?:\\.[\\d]{3})?(?:[\\-+]{1}[\\d]{4})?[Z]{0,1}");
 
     public static final String toJson(Object o) {
         try {
@@ -58,18 +59,16 @@ public class Json {
     }
 
     public static final Genson genson() {
-        Genson genson = new GensonBuilder()
-            .setSkipNull(true)
-            .useClassMetadata(false)
+        Genson genson = new GensonBuilder().setSkipNull(true).useClassMetadata(false)
             // .setWithDebugInfoPropertyNameResolver(false)
             .useBeanViews(false)
-            .withConverters(new IdConverter(), new UpdateConverter(), new AttributeValueConverter(), new AttributeOptionConverter(), new AttributeConverter())
+            .withConverters(new IdConverter(), new UpdateConverter(), new AttributeValueConverter(),
+                new AttributeOptionConverter(), new AttributeConverter())
             .withConverterFactory(ContextObjectConverter.factoryInstance)
             // .withContextualFactory(new IgnoreFieldContextualFactory())
-            .with(new BeanMutatorAccessorResolver.GensonAnnotationsResolver(), new DefaultMutatorAccessorResolver(), new BeanMutatorAccessorResolver.StandardMutaAccessorResolver())
-            .useDateFormat(dateFormat)
-            .useDateAsTimestamp(false)
-            .withBundle(new DefaultGensonBundle()).create();
+            .with(new BeanMutatorAccessorResolver.GensonAnnotationsResolver(), new DefaultMutatorAccessorResolver(),
+                new BeanMutatorAccessorResolver.StandardMutaAccessorResolver())
+            .useDateFormat(dateFormat).useDateAsTimestamp(false).withBundle(new DefaultGensonBundle()).create();
 
         return genson;
     }

@@ -16,7 +16,7 @@ public interface AvailabilityText extends MultiContextModel {
     public AvailabilityText setText(ContextObject<String> text);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String TEXT = "text";
+        public static final String ID = "_id";
+        public static final String TEXT = "text";
     }
 }

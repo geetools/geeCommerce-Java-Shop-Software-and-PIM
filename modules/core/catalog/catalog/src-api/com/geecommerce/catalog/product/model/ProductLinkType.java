@@ -20,8 +20,8 @@ public interface ProductLinkType extends Model {
     public ProductLinkType setLabel(ContextObject<String> label);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String LABEL = "label";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String LABEL = "label";
     }
 }

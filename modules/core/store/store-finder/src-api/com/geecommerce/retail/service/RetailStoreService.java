@@ -1,7 +1,6 @@
 package com.geecommerce.retail.service;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.geecommerce.core.service.api.Service;

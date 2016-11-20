@@ -22,9 +22,9 @@ public interface CatalogMediaType extends MultiContextModel {
     public CatalogMediaType setPriority(int priority);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String KEY = "key";
-	public static final String LABEL = "label";
-	public static final String PRIORITY = "pri";
+        public static final String ID = "_id";
+        public static final String KEY = "key";
+        public static final String LABEL = "label";
+        public static final String PRIORITY = "pri";
     }
 }

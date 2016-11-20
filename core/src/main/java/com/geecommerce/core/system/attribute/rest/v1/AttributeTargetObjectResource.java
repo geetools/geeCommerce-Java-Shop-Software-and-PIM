@@ -27,7 +27,8 @@ public class AttributeTargetObjectResource extends AbstractResource {
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getAttributeTargetObjects(@FilterParam Filter filter) {
-        List<AttributeTargetObject> attributeTargetObjects = service.get(AttributeTargetObject.class, filter.getParams(), queryOptions(filter));
+        List<AttributeTargetObject> attributeTargetObjects = service.get(AttributeTargetObject.class,
+            filter.getParams(), queryOptions(filter));
 
         return ok(attributeTargetObjects);
     }

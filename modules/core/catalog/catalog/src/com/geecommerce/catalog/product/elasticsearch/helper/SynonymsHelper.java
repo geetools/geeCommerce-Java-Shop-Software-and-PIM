@@ -31,7 +31,8 @@ public class SynonymsHelper {
         App app = App.get();
         SynonymsConfiguration synonymsConfiguration = new SynonymsConfiguration();
         synonymsConfiguration.setEnabled(app.cpBool_(Key.SYNONYMS_ENABLED, false));
-        synonymsConfiguration.setType(app.cpEnum_(Key.SYNONYMS_GENERATION_TYPE, SynonymsConfiguration.Type.class, SynonymsConfiguration.Type.INLINE));
+        synonymsConfiguration.setType(app.cpEnum_(Key.SYNONYMS_GENERATION_TYPE, SynonymsConfiguration.Type.class,
+            SynonymsConfiguration.Type.INLINE));
         synonymsConfiguration.setFilename(app.cpStr_(Key.SYNONYMS_PATH));
         synonymsConfiguration.setOnlyCustom(app.cpBool_(Key.SYNONYMS_ONLY_CUSTOM, true));
 
@@ -46,14 +47,16 @@ public class SynonymsHelper {
         String result = null;
         if (isSynonymsEnabled()) {
             try {
-                XContentBuilder contentBuilder = XContentFactory.jsonBuilder().startObject().startObject("analysis").startObject("filter").startObject("synonym").field("type", "synonym");
+                XContentBuilder contentBuilder = XContentFactory.jsonBuilder().startObject().startObject("analysis")
+                    .startObject("filter").startObject("synonym").field("type", "synonym");
                 if (synonymsConfiguration.getType() == SynonymsConfiguration.Type.INLINE) {
                     contentBuilder.array("synonyms", createInline().toArray());
                 } else {
                     generateFile();
                     contentBuilder.field("synonyms_path", synonymsConfiguration.getFilename());
                 }
-                result = contentBuilder.endObject().endObject().startObject("analyzer").startObject("synonym").field("tokenizer", "whitespace").array("filter", "synonym", "lowercase").endObject()
+                result = contentBuilder.endObject().endObject().startObject("analyzer").startObject("synonym")
+                    .field("tokenizer", "whitespace").array("filter", "synonym", "lowercase").endObject()
                     .endObject().endObject().endObject().string();
             } catch (IOException e) {
                 log.info("ERROR CREATING SYNONYMS CONFIGURATION!");

@@ -72,7 +72,8 @@ public class ApplicationInitFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+        throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -101,7 +102,7 @@ public class ApplicationInitFilter implements Filter {
 
             initApplicationContext(httpRequest);
 
-            ApplicationContext appCtx = app.getApplicationContext();
+            ApplicationContext appCtx = app.context();
 
             // Don't bother continuing if the application context is null;
             if (appCtx == null) {
@@ -129,8 +130,7 @@ public class ApplicationInitFilter implements Filter {
              * DefaultServletRequestWrapper(httpRequest, appCtx == null ? null :
              * appCtx.getRequestContext()); DefaultServletResponseWrapper
              * responseWrapper = new DefaultServletResponseWrapper(httpResponse,
-             * appCtx ==
-             * null ? null : appCtx.getRequestContext());
+             * appCtx == null ? null : appCtx.getRequestContext());
              * 
              * app.setServletRequest(requestWrapper);
              * app.setServletResponse(responseWrapper);
@@ -338,7 +338,7 @@ public class ApplicationInitFilter implements Filter {
                 // --------------------------------------------------------------------
                 initModules();
 
-                ModuleLoader loader = app.getModuleLoader();
+                ModuleLoader loader = app.moduleLoader();
 
                 if (loader == null)
                     throw new RuntimeException("ModuleLoader not found after it should have been initialited. RequestURL: " + httpRequest.getRequestURL());
@@ -497,7 +497,6 @@ public class ApplicationInitFilter implements Filter {
         headers.append(Char.SQUARE_BRACKET_CLOSE);
 
         StringBuilder info = new StringBuilder();
-        info.append(Char.NEWLINE).append("--------------------------------------------------------------------").append(Char.NEWLINE);
         info.append("Exception in ApplicationInitFilter at: ").append(sdf.format(new Date())).append(Char.NEWLINE);
         info.append("Request URL: ").append(httpRequest.getRequestURL()).append(Char.NEWLINE);
         info.append("Request URI: ").append(httpRequest.getRequestURI()).append(Char.NEWLINE);
@@ -533,7 +532,7 @@ public class ApplicationInitFilter implements Filter {
         info.append("Response Commited: ").append(httpResponse.isCommitted()).append(Char.NEWLINE);
         info.append("Response Headers: ").append(respHeaders).append(Char.NEWLINE);
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null) {
             Merchant m = appCtx.getMerchant();
@@ -549,8 +548,6 @@ public class ApplicationInitFilter implements Filter {
         } else {
             info.append("ApplicationContext: null\n");
         }
-
-        info.append("--------------------------------------------------------------------").append(Char.NEWLINE);
 
         return info.toString();
     }
@@ -597,7 +594,7 @@ public class ApplicationInitFilter implements Filter {
     }
 
     protected void initDefaultLogger() {
-        String logPath = App.get().getSystemConfig().val(Constant.BOOTSTRAP_LOGPATH);
+        String logPath = App.get().systemConfig().val(Constant.BOOTSTRAP_LOGPATH);
 
         // Log4j does not like backslashes in directory path.
         logPath = logPath.replace(Char.BACKSLASH, Char.SLASH);
@@ -609,7 +606,7 @@ public class ApplicationInitFilter implements Filter {
     }
 
     protected void initMerchantLogger() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
@@ -629,13 +626,14 @@ public class ApplicationInitFilter implements Filter {
     protected void initApplicationContext(HttpServletRequest httpRequest) {
         String host = Requests.getHost(httpRequest);
 
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         List<RequestContext> requestContexts = systemService.findRequestContextsForHost(host);
 
         RequestContext foundRequestCtx = null;
         for (RequestContext requestCtx : requestContexts) {
-            if (requestCtx.getUrlType().getUrlParser().isMatch(Requests.getURLWithoutPortAndContextPath(httpRequest), requestCtx)) {
+            if (requestCtx.getUrlType().getUrlParser().isMatch(Requests.getURLWithoutPortAndContextPath(httpRequest),
+                requestCtx)) {
                 foundRequestCtx = requestCtx;
                 break;
             }
@@ -651,7 +649,7 @@ public class ApplicationInitFilter implements Filter {
     }
 
     protected void initModules() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         ModuleLoader loader = Geemodule.createModuleLoader(appCtx.getMerchant().getModulesPath(), moduleCache);
         Collection<Module> modules = loader.getLoadedModules();
@@ -670,14 +668,14 @@ public class ApplicationInitFilter implements Filter {
     protected void initURLRewrite(HttpServletRequest httpRequest) {
         String path = httpRequest.getRequestURI();
 
-        UrlRewriteHelper helper = App.get().getHelper(UrlRewriteHelper.class);
+        UrlRewriteHelper helper = App.get().helper(UrlRewriteHelper.class);
 
         if (!helper.isExcludedFromURLRewriting(path)) {
             // Attempt to find a redirect in the database
             UrlRewrite urlRewrite = App.get().getUrlRewrite(path);
 
             if (urlRewrite != null) {
-                DefaultApplicationContext appCtx = (DefaultApplicationContext) App.get().getApplicationContext();
+                DefaultApplicationContext appCtx = (DefaultApplicationContext) App.get().context();
                 appCtx.setUrlRewrite(urlRewrite);
             }
         }

@@ -78,7 +78,8 @@ public class DefaultCacheManager implements CacheManager {
             // ", time=" + Long.valueOf(time) + ", unit=" + timeUnits.get(unit)
             // + "]");
 
-            c = app.inject(Cache.class).build(name, Long.valueOf(maxSize), Long.valueOf(time), unit == null ? null : timeUnits.get(unit));
+            c = app.inject(Cache.class).build(name, Long.valueOf(maxSize), Long.valueOf(time),
+                unit == null ? null : timeUnits.get(unit));
         } else {
             c = app.inject(Cache.class).build(name);
         }

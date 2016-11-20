@@ -100,7 +100,8 @@ public class JDBC {
         return App.get().registryGet(preparedStatementKey(modelClass, query));
     }
 
-    public static final <T extends Model> void stashPreparedStatement(Class<T> modelClass, String query, PreparedStatement pstmt) {
+    public static final <T extends Model> void stashPreparedStatement(Class<T> modelClass, String query,
+        PreparedStatement pstmt) {
         App.get().registryPut(preparedStatementKey(modelClass, query), pstmt);
     }
 
@@ -117,7 +118,8 @@ public class JDBC {
     }
 
     public static final boolean isBatchRenewPreparedStatementOnFlushEnabled() {
-        Boolean batchRenewPreparedStatementOnFlushEnabled = App.get().registryGet(JDBC_BATCH_PREPARED_STATEMENT_RENEW_ON_FLUSH);
+        Boolean batchRenewPreparedStatementOnFlushEnabled = App.get()
+            .registryGet(JDBC_BATCH_PREPARED_STATEMENT_RENEW_ON_FLUSH);
 
         return batchRenewPreparedStatementOnFlushEnabled == null ? false : batchRenewPreparedStatementOnFlushEnabled;
     }
@@ -178,6 +180,7 @@ public class JDBC {
     }
 
     private static final <T extends Model> String preparedStatementKey(Class<T> modelClass, String query) {
-        return new StringBuilder(JDBC_BATCH_PREPARED_STATEMENT_CACHE_KEY).append(Char.AT).append(modelClass.getName()).append(Char.DOT).append(query.hashCode()).toString();
+        return new StringBuilder(JDBC_BATCH_PREPARED_STATEMENT_CACHE_KEY).append(Char.AT).append(modelClass.getName())
+            .append(Char.DOT).append(query.hashCode()).toString();
     }
 }

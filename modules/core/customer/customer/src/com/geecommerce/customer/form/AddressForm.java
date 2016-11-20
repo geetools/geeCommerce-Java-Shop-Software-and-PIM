@@ -2,37 +2,36 @@ package com.geecommerce.customer.form;
 
 import com.geemvc.validation.annotation.Check;
 
-
 public class AddressForm {
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String salutation = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String forename = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String surname = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String zip = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String street = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String city = null;
 
     private String state = null;
 
     private String country = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String houseNumber = null;
 
     private String district = null;
 
-    @Check(required = true, on = {"/add", "/edit-confirm/{id}"})
+    @Check(required = true, on = { "/add", "/edit-confirm/{id}" })
     private String phone = null;
 
     private String mobile = null;

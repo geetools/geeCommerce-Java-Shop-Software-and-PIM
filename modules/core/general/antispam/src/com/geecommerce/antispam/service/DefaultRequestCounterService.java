@@ -22,7 +22,7 @@ public class DefaultRequestCounterService implements RequestCounterService {
 
     @Override
     public RequestCounter createCounter(String name, String ip) {
-        RequestCounter requestCounter = app.getModel(RequestCounter.class);
+        RequestCounter requestCounter = app.model(RequestCounter.class);
         requestCounter.setName(name);
         requestCounter.setIp(ip);
         requestCounter.setRequestTime(new Date());

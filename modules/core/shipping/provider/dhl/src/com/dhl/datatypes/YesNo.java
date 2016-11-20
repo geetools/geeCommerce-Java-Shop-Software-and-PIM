@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for YesNo.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -36,11 +37,11 @@ public enum YesNo {
     Y, N;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static YesNo fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

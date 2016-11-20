@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for BillCode.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -40,11 +41,11 @@ public enum BillCode {
     DSA, DBA, TCA, IEA, UAN;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static BillCode fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

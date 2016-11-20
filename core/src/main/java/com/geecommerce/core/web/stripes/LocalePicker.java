@@ -13,7 +13,7 @@ import net.sourceforge.stripes.localization.DefaultLocalePicker;
 public class LocalePicker extends DefaultLocalePicker {
     @Override
     public Locale pickLocale(HttpServletRequest request) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null) {
             RequestContext reqCtx = appCtx.getRequestContext();

@@ -30,7 +30,7 @@ public class DefaultUrlRewriteHelper implements UrlRewriteHelper {
 
     @Override
     public boolean isExcludedFromURLRewriting(String path) {
-        ServletContext servletContext = app.getServletContext();
+        ServletContext servletContext = app.servletContext();
 
         String skipUrlRewritingForPatterns = servletContext.getInitParameter("URLRewriteFilter.Skip");
         boolean skipUrlRewriting = false;
@@ -55,13 +55,15 @@ public class DefaultUrlRewriteHelper implements UrlRewriteHelper {
         UrlRewrite url = urlRewrites.havingURI(uri);
         if (url == null)
             return true;
-        if (targetObjectId != null && targetObjectType != null && url.getTargetObjectType().equals(targetObjectType) && url.getTargetObjectId().equals(targetObjectId))
+        if (targetObjectId != null && targetObjectType != null && url.getTargetObjectType().equals(targetObjectType)
+            && url.getTargetObjectId().equals(targetObjectId))
             return true;
         return false;
     }
 
     @Override
-    public Map<String, Boolean> isUriUnique(ObjectType targetObjectType, Id targetObjectId, ContextObject<String> uris) {
+    public Map<String, Boolean> isUriUnique(ObjectType targetObjectType, Id targetObjectId,
+        ContextObject<String> uris) {
         Map<String, Boolean> result = new HashMap<>();
         List<String> availableLaguages = app.cpStrList_(ConfigurationKey.I18N_AVAILABLE_LANGUAGES);
         for (String lang : availableLaguages) {
@@ -78,7 +80,8 @@ public class DefaultUrlRewriteHelper implements UrlRewriteHelper {
                 result.put(lang, true);
                 continue;
             }
-            if (targetObjectId != null && targetObjectType != null && url.getTargetObjectType().equals(targetObjectType) && url.getTargetObjectId().equals(targetObjectId)) {
+            if (targetObjectId != null && targetObjectType != null && url.getTargetObjectType().equals(targetObjectType)
+                && url.getTargetObjectId().equals(targetObjectId)) {
                 result.put(lang, true);
                 continue;
             }

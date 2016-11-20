@@ -57,7 +57,8 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         this.basicFilterParts = extractBasicFilterParts(request);
 
         String is_mobile = widgetCtx.getParam("is_mobile");
@@ -91,9 +92,9 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
     public String filterURI(String attrCode, String filterLabel) {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts)
-            .havingParamFilterParts(paramFilterParts)
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts)
             // .havingBasicFilterParts(basicFilterParts)
             .havingValue(attrCode, filterLabel).build();
 
@@ -103,9 +104,9 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
     public String filterRemoveURI(String attrCode, String filterLabel) {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts)
-            .havingParamFilterParts(paramFilterParts)
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts)
             // .havingBasicFilterParts(basicFilterParts)
             .removeValue(attrCode, filterLabel).build();
 
@@ -115,9 +116,10 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
     public String filterRangeURI(String attrCode, Double fromRange, Double toRange) {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts)
-            .havingParamFilterParts(paramFilterParts).havingRangeValue(attrCode, fromRange, toRange).build();
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts)
+            .havingRangeValue(attrCode, fromRange, toRange).build();
 
         return newURI == null ? Str.HASH : newURI;
     }
@@ -146,9 +148,10 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
             paramFilterPartsCopy.remove(attrCode);
         }
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterPartsCopy == null ? uriFilterParts : uriFilterPartsCopy).havingParamFilterParts(paramFilterPartsCopy == null ? paramFilterParts : paramFilterPartsCopy)
-            .build();
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterPartsCopy == null ? uriFilterParts : uriFilterPartsCopy)
+            .havingParamFilterParts(paramFilterPartsCopy == null ? paramFilterParts : paramFilterPartsCopy).build();
 
         return newURI == null ? Str.HASH : newURI;
     }
@@ -156,9 +159,9 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
     public String filterVanillaURI() {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts)
-            .havingParamFilterParts(paramFilterParts).build();
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts).build();
 
         return newURI == null ? Str.HASH : newURI;
     }
@@ -333,7 +336,8 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
             for (String key : keys) {
                 Attribute attr = filterAttributes.get(key);
 
-                if (attr.getProductListFilterKeyAlias() != null && attr.getProductListFilterKeyAlias().getStr() != null) {
+                if (attr.getProductListFilterKeyAlias() != null
+                    && attr.getProductListFilterKeyAlias().getStr() != null) {
                     attributeAliasIndex.put(attr.getProductListFilterKeyAlias().getStr(), attr.getCode());
                 }
             }

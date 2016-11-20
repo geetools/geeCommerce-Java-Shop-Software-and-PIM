@@ -3,13 +3,13 @@ package com.geecommerce.core.json.genson;
 import java.beans.Transient;
 import java.lang.reflect.Method;
 
-import com.owlike.genson.Trilean;
-import com.owlike.genson.annotation.JsonIgnore;
-import com.owlike.genson.reflect.BeanMutatorAccessorResolver;
 import com.geecommerce.core.reflect.Reflect;
 import com.geecommerce.core.service.api.Injectable;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
+import com.owlike.genson.Trilean;
+import com.owlike.genson.annotation.JsonIgnore;
+import com.owlike.genson.reflect.BeanMutatorAccessorResolver;
 
 public class DefaultMutatorAccessorResolver extends BeanMutatorAccessorResolver.PropertyBaseResolver {
     @Override
@@ -23,7 +23,8 @@ public class DefaultMutatorAccessorResolver extends BeanMutatorAccessorResolver.
 
     @Override
     public Trilean isAccessor(Method method, Class<?> fromClass) {
-        // We are not interested in Object methods, so we might as well stop here.
+        // We are not interested in Object methods, so we might as well stop
+        // here.
         if (Object.class.equals(method.getDeclaringClass()))
             return Trilean.FALSE;
 
@@ -32,8 +33,9 @@ public class DefaultMutatorAccessorResolver extends BeanMutatorAccessorResolver.
             return Reflect.isGetter(method) ? Trilean.TRUE : Trilean.FALSE;
         }
 
-        if (!Reflect.isGetter(method) || Reflect.isAnnotationPresent(method, fromClass, JsonIgnore.class) || Reflect.isAnnotationPresent(method, fromClass, Transient.class)
-                || Reflect.isAnnotationPresent(method, fromClass, javax.persistence.Transient.class)) {
+        if (!Reflect.isGetter(method) || Reflect.isAnnotationPresent(method, fromClass, JsonIgnore.class)
+            || Reflect.isAnnotationPresent(method, fromClass, Transient.class)
+            || Reflect.isAnnotationPresent(method, fromClass, javax.persistence.Transient.class)) {
             return Trilean.FALSE;
         }
 

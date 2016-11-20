@@ -63,11 +63,12 @@ public class TableRateShipmentCalculationMethod extends AbstractShippingCalculat
             }
         }
 
-        ShippingRate shippingRate = shippingRateService.findShippingRateFor(shippingData.getType(), type, countryCode, null, zip, value);
+        ShippingRate shippingRate = shippingRateService.findShippingRateFor(shippingData.getType(), type, countryCode,
+            null, zip, value);
         if (shippingRate == null)
             return shipmentOptions;
 
-        ShippingOption option = app.getInjectable(ShippingOption.class);
+        ShippingOption option = app.injectable(ShippingOption.class);
         option.setRate(shippingRate.getRate());
         option.setCarrierCode(getCode());
         option.setOptionCode(shippingRate.getId().toString());

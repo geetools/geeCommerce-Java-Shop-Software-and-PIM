@@ -20,7 +20,8 @@ public enum CouponFilterAttributeType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponFilterAttributeType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponFilterAttributeType.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 
     public static final CouponFilterAttributeType fromId(int id) {
@@ -37,7 +38,10 @@ public enum CouponFilterAttributeType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (CouponFilterAttributeType couponAttributeType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(CouponFilterAttributeType.class.getSimpleName()).append(".").append(couponAttributeType.name()).toString()),
+            hrMap.put(
+                App.get()
+                    .message(new StringBuilder("enum.").append(CouponFilterAttributeType.class.getSimpleName())
+                        .append(".").append(couponAttributeType.name()).toString()),
                 couponAttributeType.id);
         }
 
@@ -45,6 +49,7 @@ public enum CouponFilterAttributeType implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponFilterAttributeType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponFilterAttributeType.class.getSimpleName())
+            .append(".label").toString());
     }
 }

@@ -21,7 +21,7 @@ public class GuicePropertySettingJobFactory extends PropertySettingJobFactory {
         Class<? extends Job> jobClass = jobDetail.getJobClass();
 
         try {
-            if (App.get().getApplicationContext() == null) {
+            if (App.get().context() == null) {
                 Environment.init();
             }
 
@@ -40,9 +40,10 @@ public class GuicePropertySettingJobFactory extends PropertySettingJobFactory {
 
             return job;
         } catch (Exception e) {
-            System.out.println(Thread.currentThread().getName() + " ----------- " + App.get().getApplicationContext());
+            System.out.println(Thread.currentThread().getName() + " ----------- " + App.get().context());
 
-            SchedulerException se = new SchedulerException("Problem instantiating class '" + jobDetail.getJobClass().getName() + "'", e);
+            SchedulerException se = new SchedulerException(
+                "Problem instantiating class '" + jobDetail.getJobClass().getName() + "'", e);
             throw se;
         }
     }

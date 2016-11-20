@@ -1,12 +1,7 @@
 package com.geecommerce.core.system.model;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.Id;
 

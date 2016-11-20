@@ -9,8 +9,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.inject.Inject;
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
@@ -18,6 +16,8 @@ import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.system.attribute.repository.Attributes;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.inject.Inject;
+import com.owlike.genson.annotation.JsonIgnore;
 
 @Cacheable
 @Model("attribute_options")
@@ -57,180 +57,181 @@ public class DefaultAttributeOption extends AbstractModel implements AttributeOp
     private final transient Attributes attributes;
 
     public DefaultAttributeOption() {
-	this(i(Attributes.class));
+        this(i(Attributes.class));
     }
 
     @Inject
     public DefaultAttributeOption(Attributes attributes) {
-	this.attributes = attributes;
+        this.attributes = attributes;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public AttributeOption setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getId2() {
-	return id2;
+        return id2;
     }
 
     @Override
     public AttributeOption setId2(Id id2) {
-	this.id2 = id2;
-	return this;
+        this.id2 = id2;
+        return this;
     }
 
     @Override
     public Id getAttributeId() {
-	if (attributeId == null && belongsToAttribute != null) {
-	    attributeId = belongsToAttribute.getId();
-	}
+        if (attributeId == null && belongsToAttribute != null) {
+            attributeId = belongsToAttribute.getId();
+        }
 
-	return attributeId;
+        return attributeId;
     }
 
     @Override
     public AttributeOption setAttributeId(Id attributeId) {
-	this.attributeId = attributeId;
-	return this;
+        this.attributeId = attributeId;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public AttributeOption setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public List<String> getTags() {
-	return tags;
+        return tags;
     }
 
     @Override
     public AttributeOption setTags(List<String> tags) {
-	this.tags = tags;
-	return this;
+        this.tags = tags;
+        return this;
     }
 
     @Override
     public AttributeOption addTag(String tag) {
-	if (tags == null)
-	    tags = new ArrayList<>();
+        if (tags == null)
+            tags = new ArrayList<>();
 
-	tags.add(tag);
+        tags.add(tag);
 
-	return this;
+        return this;
     }
 
     @Override
     public String getThumbnailColor() {
-	return thumbnailColor;
+        return thumbnailColor;
     }
 
     @Override
     public void setThumbnailColor(String thumbnailColor) {
-	this.thumbnailColor = thumbnailColor;
+        this.thumbnailColor = thumbnailColor;
     }
 
     @Override
     public String getThumbnailStyle() {
-	return thumbnailStyle;
+        return thumbnailStyle;
     }
 
     @Override
     public void setThumbnailStyle(String thumbnailStyle) {
-	this.thumbnailStyle = thumbnailStyle;
+        this.thumbnailStyle = thumbnailStyle;
     }
 
     @Override
     public int getPosition() {
-	return position;
+        return position;
     }
 
     @Override
     public AttributeOption setPosition(int position) {
-	this.position = position;
-	return this;
+        this.position = position;
+        return this;
     }
 
     @Override
     public AttributeOption belongsTo(Attribute attribute) {
-	if (attribute == null)
-	    throw new NullPointerException("Attribute cannot be null in AttributeOption.");
+        if (attribute == null)
+            throw new NullPointerException("Attribute cannot be null in AttributeOption.");
 
-	this.belongsToAttribute = attribute;
+        this.belongsToAttribute = attribute;
 
-	return this;
+        return this;
     }
 
     @JsonIgnore
     @Override
     public Attribute getAttribute() {
-	if (belongsToAttribute == null) {
-	    belongsToAttribute = attributes.findById(Attribute.class, attributeId);
-	}
+        if (belongsToAttribute == null) {
+            belongsToAttribute = attributes.findById(Attribute.class, attributeId);
+        }
 
-	return belongsToAttribute;
+        return belongsToAttribute;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
+        if (map == null)
+            return;
 
-	this.id = id_(map.get(Col.ID));
-	this.id2 = id_(map.get(Col.ID2));
-	this.attributeId = id_(map.get(Col.ATTRIBUTE_ID));
-	this.label = ctxObj_(map.get(Col.LABEL));
-	this.thumbnailColor = str_(map.get(Col.THUMBNAIL_COLOR));
-	this.thumbnailStyle = str_(map.get(Col.THUMBNAIL_STYLE));
-	this.tags = list_(map.get(Col.TAGS));
-	this.position = int_(map.get(Col.POSITION)) == null ? 0 : int_(map.get(Col.POSITION));
+        this.id = id_(map.get(Col.ID));
+        this.id2 = id_(map.get(Col.ID2));
+        this.attributeId = id_(map.get(Col.ATTRIBUTE_ID));
+        this.label = ctxObj_(map.get(Col.LABEL));
+        this.thumbnailColor = str_(map.get(Col.THUMBNAIL_COLOR));
+        this.thumbnailStyle = str_(map.get(Col.THUMBNAIL_STYLE));
+        this.tags = list_(map.get(Col.TAGS));
+        this.position = int_(map.get(Col.POSITION)) == null ? 0 : int_(map.get(Col.POSITION));
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = new LinkedHashMap<String, Object>();
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
 
-	if (getId() != null) {
-	    map.put(Col.ID, getId());
-	}
+        if (getId() != null) {
+            map.put(Col.ID, getId());
+        }
 
-	if (getId2() != null) {
-	    map.put(Col.ID2, getId2());
-	}
+        if (getId2() != null) {
+            map.put(Col.ID2, getId2());
+        }
 
-	if (getAttributeId() == null) {
-	    throw new IllegalArgumentException("AttributeId cannot be null when saving attribute-option.");
-	}
+        if (getAttributeId() == null) {
+            throw new IllegalArgumentException("AttributeId cannot be null when saving attribute-option.");
+        }
 
-	map.put(Col.ATTRIBUTE_ID, getAttributeId());
-	map.put(Col.LABEL, getLabel());
-	map.put(Col.THUMBNAIL_COLOR, getThumbnailColor());
-	map.put(Col.THUMBNAIL_STYLE, getThumbnailStyle());
-	map.put(Col.POSITION, getPosition());
+        map.put(Col.ATTRIBUTE_ID, getAttributeId());
+        map.put(Col.LABEL, getLabel());
+        map.put(Col.THUMBNAIL_COLOR, getThumbnailColor());
+        map.put(Col.THUMBNAIL_STYLE, getThumbnailStyle());
+        map.put(Col.POSITION, getPosition());
 
-	if (getTags() != null) {
-	    map.put(Col.TAGS, getTags());
-	}
+        if (getTags() != null) {
+            map.put(Col.TAGS, getTags());
+        }
 
-	return map;
+        return map;
     }
 
     @Override
     public String toString() {
-	return "DefaultAttributeOption [id=" + id + ", id2=" + id2 + ", attributeId=" + attributeId + ", label=" + label + ", tags=" + tags + ", position=" + position + "]";
+        return "DefaultAttributeOption [id=" + id + ", id2=" + id2 + ", attributeId=" + attributeId + ", label=" + label
+            + ", tags=" + tags + ", position=" + position + "]";
     }
 }

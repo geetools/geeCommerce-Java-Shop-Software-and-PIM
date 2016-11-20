@@ -12,31 +12,32 @@ public class DefaultShippingAddress extends AbstractModel implements ShippingAdd
     private String country;
 
     public String getZip() {
-	return zip;
+        return zip;
     }
 
     public void setZip(String zip) {
-	this.zip = zip;
+        this.zip = zip;
     }
 
     public String getState() {
-	return state;
+        return state;
     }
 
     public void setState(String state) {
-	this.state = state;
+        this.state = state;
     }
 
     public String getCountry() {
-	return country;
+        return country;
     }
 
     public void setCountry(String country) {
-	this.country = country;
+        this.country = country;
     }
 
     @Override
     public Id getId() {
-	return null; // To change body of implemented methods use File | Settings | File Templates.
+        return null; // To change body of implemented methods use File |
+                     // Settings | File Templates.
     }
 }

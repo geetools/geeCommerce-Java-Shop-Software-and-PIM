@@ -10,18 +10,22 @@ package com.dhl;
 import javax.xml.bind.annotation.XmlRegistry;
 
 /**
- * This object contains factory methods for each Java content interface and Java element interface generated in the com.dhl package.
+ * This object contains factory methods for each Java content interface and Java
+ * element interface generated in the com.dhl package.
  * <p>
- * An ObjectFactory allows you to programatically construct new instances of the Java representation for XML content. The Java representation of XML
- * content can consist of schema derived interfaces and classes representing the binding of schema type definitions, element declarations and model
- * groups. Factory methods for each of these are provided in this class.
+ * An ObjectFactory allows you to programatically construct new instances of the
+ * Java representation for XML content. The Java representation of XML content
+ * can consist of schema derived interfaces and classes representing the binding
+ * of schema type definitions, element declarations and model groups. Factory
+ * methods for each of these are provided in this class.
  * 
  */
 @XmlRegistry
 public class ObjectFactory {
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.dhl
+     * Create a new ObjectFactory that can be used to create new instances of
+     * schema derived classes for package: com.dhl
      * 
      */
     public ObjectFactory() {
@@ -32,7 +36,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse createDCTResponse() {
-	return new DCTResponse();
+        return new DCTResponse();
     }
 
     /**
@@ -40,7 +44,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse.GetCapabilityResponse createDCTResponseGetCapabilityResponse() {
-	return new DCTResponse.GetCapabilityResponse();
+        return new DCTResponse.GetCapabilityResponse();
     }
 
     /**
@@ -48,7 +52,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse.GetQuoteResponse createDCTResponseGetQuoteResponse() {
-	return new DCTResponse.GetQuoteResponse();
+        return new DCTResponse.GetQuoteResponse();
     }
 
     /**
@@ -56,7 +60,7 @@ public class ObjectFactory {
      * 
      */
     public ServiceHeader createServiceHeader() {
-	return new ServiceHeader();
+        return new ServiceHeader();
     }
 
     /**
@@ -64,7 +68,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse.GetCapabilityResponse.Response createDCTResponseGetCapabilityResponseResponse() {
-	return new DCTResponse.GetCapabilityResponse.Response();
+        return new DCTResponse.GetCapabilityResponse.Response();
     }
 
     /**
@@ -72,7 +76,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse.GetCapabilityResponse.Srvs createDCTResponseGetCapabilityResponseSrvs() {
-	return new DCTResponse.GetCapabilityResponse.Srvs();
+        return new DCTResponse.GetCapabilityResponse.Srvs();
     }
 
     /**
@@ -80,7 +84,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse.GetQuoteResponse.Response createDCTResponseGetQuoteResponseResponse() {
-	return new DCTResponse.GetQuoteResponse.Response();
+        return new DCTResponse.GetQuoteResponse.Response();
     }
 
     /**
@@ -88,7 +92,7 @@ public class ObjectFactory {
      * 
      */
     public DCTResponse.GetQuoteResponse.Srvs createDCTResponseGetQuoteResponseSrvs() {
-	return new DCTResponse.GetQuoteResponse.Srvs();
+        return new DCTResponse.GetQuoteResponse.Srvs();
     }
 
     /**
@@ -96,7 +100,7 @@ public class ObjectFactory {
      *
      */
     public KnownTrackingRequest createKnownTrackingRequest() {
-	return new KnownTrackingRequest();
+        return new KnownTrackingRequest();
     }
 
     /**
@@ -104,7 +108,7 @@ public class ObjectFactory {
      *
      */
     public TrackingResponse createTrackingResponse() {
-	return new TrackingResponse();
+        return new TrackingResponse();
     }
 
     /**
@@ -112,7 +116,7 @@ public class ObjectFactory {
      *
      */
     public UnknownTrackingRequest createUnknownTrackingRequest() {
-	return new UnknownTrackingRequest();
+        return new UnknownTrackingRequest();
     }
 
     /**
@@ -120,7 +124,7 @@ public class ObjectFactory {
      *
      */
     public DCTRequest createDCTRequest() {
-	return new DCTRequest();
+        return new DCTRequest();
     }
 
     /**
@@ -128,7 +132,7 @@ public class ObjectFactory {
      *
      */
     public DCTRequest.GetQuote createDCTRequestGetQuote() {
-	return new DCTRequest.GetQuote();
+        return new DCTRequest.GetQuote();
     }
 
     /**
@@ -136,7 +140,7 @@ public class ObjectFactory {
      *
      */
     public DCTRequest.GetCapability createDCTRequestGetCapability() {
-	return new DCTRequest.GetCapability();
+        return new DCTRequest.GetCapability();
     }
 
 }

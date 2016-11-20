@@ -1,13 +1,13 @@
 package com.geecommerce.customerReview.model;
 
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Model
 public class DefaultAbuse extends AbstractModel implements Abuse {

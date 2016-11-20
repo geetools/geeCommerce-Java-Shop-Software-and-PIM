@@ -44,10 +44,11 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
         Class<? extends AttributeSupport> modelInterface = Reflect.getModelInterface(this.getClass());
 
         if (modelInterface == null)
-            throw new IllegalStateException("Unable to locate model interface for the object '" + this.getClass().getName()
+            throw new IllegalStateException("Unable to locate model interface for the object '"
+                + this.getClass().getName()
                 + "'. Therefore it is not possible to automatically create the attribute target object entry. Make sure that your model object has a matching interface, i.e. the object com.geecommerce.catalog.product.model.DefaultProduct must have the interface com.geecommerce.catalog.product.model.Product that extends the com.geecommerce.core.service.api.Model interface.");
 
-        return app.getService(AttributeService.class).getAttributeTargetObject(modelInterface, true);
+        return app.service(AttributeService.class).getAttributeTargetObject(modelInterface, true);
     }
 
     @Override
@@ -82,55 +83,64 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
         if (value == null || value.size() == 0)
             return this;
 
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setValue(value));
+        this.attributes
+            .add(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).setValue(value));
         return this;
     }
 
     @Override
     public AttributeSupport addAttribute(String attributeCode, Object value) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setSimpleValue(value));
+        this.attributes
+            .add(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).setSimpleValue(value));
         return this;
     }
 
     @Override
     public AttributeSupport addAttribute(String attributeCode, String language, String value) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setValue(language, value));
+        this.attributes.add(
+            app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).setValue(language, value));
         return this;
     }
 
     @Override
     public AttributeSupport addAttribute(String attributeCode, Object value, Store store) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setStoreValue(value, store));
+        this.attributes.add(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode)
+            .setStoreValue(value, store));
         return this;
     }
 
     @Override
     public AttributeSupport addAttribute(String attributeCode, Id optionId) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).addOptionId(optionId));
+        this.attributes
+            .add(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).addOptionId(optionId));
         return this;
     }
 
     @Override
     public AttributeSupport addAttribute(String attributeCode, List<Id> optionIds) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setOptionIds(optionIds));
+        this.attributes.add(
+            app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).setOptionIds(optionIds));
         return this;
     }
 
     @Override
     public AttributeSupport addXOptionAttribute(String attributeCode, ContextObject<List<Id>> xOptionIds) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setXOptionIds(xOptionIds));
+        this.attributes.add(
+            app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).setXOptionIds(xOptionIds));
         return this;
     }
 
     @Override
     public AttributeSupport addAttributeUsingCode2(String attributeCode2, Object value) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttributeWithCode2(targetObject(), attributeCode2).setSimpleValue(value));
+        this.attributes.add(app.model(AttributeValue.class).forAttributeWithCode2(targetObject(), attributeCode2)
+            .setSimpleValue(value));
         return this;
     }
 
     @Override
     public AttributeSupport addAttributeUsingCode2(String attributeCode2, Id optionId) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttributeWithCode2(targetObject(), attributeCode2).addOptionId(optionId));
+        this.attributes.add(app.model(AttributeValue.class).forAttributeWithCode2(targetObject(), attributeCode2)
+            .addOptionId(optionId));
         return this;
     }
 
@@ -247,7 +257,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
                 List<Id> currentOptionIds = attrValue.getOptionIds();
 
                 // Options have been reset.
-                if ((newOptionIds == null || newOptionIds.size() == 0) && currentOptionIds != null && !currentOptionIds.isEmpty()) {
+                if ((newOptionIds == null || newOptionIds.size() == 0) && currentOptionIds != null
+                    && !currentOptionIds.isEmpty()) {
                     removeAttribute(code);
                 } else {
                     attrValue.setOptionIds(newOptionIds);
@@ -283,13 +294,15 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
 
     @Override
     public AttributeSupport addXOptionAttribute(String attributeCode, Id optionId, Store store) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).addXOptionId(optionId, store));
+        this.attributes.add(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode)
+            .addXOptionId(optionId, store));
         return this;
     }
 
     @Override
     public AttributeSupport addXOptionAttribute(String attributeCode, List<Id> optionIds, Store store) {
-        this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).addXOptionIds(optionIds, store));
+        this.attributes.add(app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode)
+            .addXOptionIds(optionIds, store));
         return this;
     }
 
@@ -349,7 +362,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
             }
         } else {
             if (isOptOut)
-                this.attributes.add(app.getModel(AttributeValue.class).forAttribute(targetObject(), attributeCode).setOptOut(optOut));
+                this.attributes.add(
+                    app.model(AttributeValue.class).forAttribute(targetObject(), attributeCode).setOptOut(optOut));
         }
 
         return this;
@@ -522,7 +536,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public AttributeValue getAttribute(String attributeCode, boolean allowParentLookup, ChildSupport.Lookup allowChildLookup) {
+    public AttributeValue getAttribute(String attributeCode, boolean allowParentLookup,
+        ChildSupport.Lookup allowChildLookup) {
         // long start = System.currentTimeMillis();
 
         AttributeValue foundAttribute = null;
@@ -551,7 +566,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
         }
 
         // If there is still no value and child-lookup is allowed, try that too.
-        if (foundAttribute == null && allowChildLookup != null && allowChildLookup != ChildSupport.Lookup.NONE && this instanceof ChildSupport) {
+        if (foundAttribute == null && allowChildLookup != null && allowChildLookup != ChildSupport.Lookup.NONE
+            && this instanceof ChildSupport) {
             List<AttributeSupport> children = ((ChildSupport) this).getChildren();
 
             if (children != null && children.size() > 0) {
@@ -596,7 +612,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public AttributeValue getAttribute(Id attributeId, boolean allowParentLookup, ChildSupport.Lookup allowChildLookup) {
+    public AttributeValue getAttribute(Id attributeId, boolean allowParentLookup,
+        ChildSupport.Lookup allowChildLookup) {
         // long start = System.currentTimeMillis();
 
         AttributeValue foundAttribute = null;
@@ -625,7 +642,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
         }
 
         // If there is still no value and child-lookup is allowed, try that too.
-        if (foundAttribute == null && allowChildLookup != null && allowChildLookup != ChildSupport.Lookup.NONE && this instanceof ChildSupport) {
+        if (foundAttribute == null && allowChildLookup != null && allowChildLookup != ChildSupport.Lookup.NONE
+            && this instanceof ChildSupport) {
             List<AttributeSupport> children = ((ChildSupport) this).getChildren();
 
             if (children != null && children.size() > 0) {
@@ -669,7 +687,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
     }
 
     @Override
-    public boolean attributeValueEquals(String attributeCode, Object value, boolean allowParentLookup, ChildSupport.Lookup allowChildLookup) {
+    public boolean attributeValueEquals(String attributeCode, Object value, boolean allowParentLookup,
+        ChildSupport.Lookup allowChildLookup) {
         AttributeValue attrVal = getAttribute(attributeCode, allowParentLookup, allowChildLookup);
 
         if ((attrVal == null || attrVal.getVal() == null) && value == null)
@@ -704,7 +723,8 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
         int removeIndex = -1;
 
         for (int i = 0; i < attributes.size(); i++) {
-            if (attributes.get(i).getAttribute() != null && attributeCode.equals(attributes.get(i).getAttribute().getCode())) {
+            if (attributes.get(i).getAttribute() != null
+                && attributeCode.equals(attributes.get(i).getAttribute().getCode())) {
                 removeIndex = i;
                 break;
             }
@@ -793,7 +813,7 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
             attributes.clear();
 
             for (Map m : attributesList) {
-                AttributeValue attribute = app.getModel(AttributeValue.class);
+                AttributeValue attribute = app.model(AttributeValue.class);
                 attribute.fromMap(m);
 
                 attributes.add(attribute);

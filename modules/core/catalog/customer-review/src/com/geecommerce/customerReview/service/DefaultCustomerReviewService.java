@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.service.annotation.Service;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.customerReview.model.CustomerReview;
 import com.geecommerce.customerReview.repository.CustomerReviews;
+import com.google.inject.Inject;
 
 @Service
 public class DefaultCustomerReviewService implements CustomerReviewService {

@@ -141,16 +141,17 @@ public class DefaultApp implements App {
     // REST client
     private static final String KEY_AUTHENTICATED_CLIENT = "authenticated.client";
 
-    private static final String[] HEADERS_TO_TRY = { "X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP",
-        "HTTP_CLIENT_IP", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED",
-        "HTTP_VIA", "REMOTE_ADDR" };
+    private static final String[] HEADERS_TO_TRY = { "X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP",
+        "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_X_CLUSTER_CLIENT_IP", "HTTP_CLIENT_IP",
+        "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "HTTP_VIA", "REMOTE_ADDR" };
 
     // ### IMPORTANT note on using member variables in this class:
     // This is a singleton - do NOT set any member variables for setting state!
     // Use the registry-methods instead.
     // This will ensure that object state is available during the processing of
     // the current thread.
-    // com.geecommerce.core.AppRegistry is used for this which stores everything in a
+    // com.geecommerce.core.AppRegistry is used for this which stores everything
+    // in a
     // ThreadLocal map.
 
     @Override
@@ -191,9 +192,11 @@ public class DefaultApp implements App {
 
         for (int i = 0; i < numTries; i++) {
             try {
-                return new Id(IdGenerator.nextId(SystemConfig.GET.intVal(SystemConfig.IDGENERATOR_DATACENTER_ID), SystemConfig.GET.intVal(SystemConfig.IDGENERATOR_WORKER_ID)));
+                return new Id(IdGenerator.nextId(SystemConfig.GET.intVal(SystemConfig.IDGENERATOR_DATACENTER_ID),
+                    SystemConfig.GET.intVal(SystemConfig.IDGENERATOR_WORKER_ID)));
             } catch (Throwable t) {
-                System.out.println("The IDGenerator threw an exception. Trying agaim. Attempt: " + (i + 1) + "/" + numTries + ". " + t.getMessage());
+                System.out.println("The IDGenerator threw an exception. Trying agaim. Attempt: " + (i + 1) + "/"
+                    + numTries + ". " + t.getMessage());
 
                 try {
                     Thread.sleep(waitUntilRetry);
@@ -226,7 +229,8 @@ public class DefaultApp implements App {
             try {
                 return IncrementIdGenerator.GET.nextId(name);
             } catch (Throwable t) {
-                System.out.println("The IDGenerator threw an exception. Trying again. Attempt: " + (i + 1) + "/" + numTries + ". " + t.getMessage());
+                System.out.println("The IDGenerator threw an exception. Trying again. Attempt: " + (i + 1) + "/"
+                    + numTries + ". " + t.getMessage());
 
                 try {
                     Thread.sleep(waitUntilRetry);
@@ -259,7 +263,8 @@ public class DefaultApp implements App {
             try {
                 return new Id(SequenceGenerator.nextSequenceNumber(seqName));
             } catch (Throwable t) {
-                System.out.println("The SequenceGenerator threw an exception. Trying again. Attempt: " + (i + 1) + "/" + numTries + ". " + t.getMessage());
+                System.out.println("The SequenceGenerator threw an exception. Trying again. Attempt: " + (i + 1) + "/"
+                    + numTries + ". " + t.getMessage());
 
                 try {
                     Thread.sleep(waitUntilRetry);
@@ -273,16 +278,16 @@ public class DefaultApp implements App {
 
     @Override
     public final String message(final String message) {
-        ContextMessageService service = getService(ContextMessageService.class);
-        ContextMessageHelper helper = getHelper(ContextMessageHelper.class);
+        ContextMessageService service = service(ContextMessageService.class);
+        ContextMessageHelper helper = helper(ContextMessageHelper.class);
 
         return service.getOrSetMessage(helper.toKey(message), ContextObjects.global(message)).getValue().getString();
     }
 
     @Override
     public final String message(final String defMessage, final String message, String lang) {
-        ContextMessageService service = getService(ContextMessageService.class);
-        ContextMessageHelper helper = getHelper(ContextMessageHelper.class);
+        ContextMessageService service = service(ContextMessageService.class);
+        ContextMessageHelper helper = helper(ContextMessageHelper.class);
 
         ContextObject<String> ctxMessage = ContextObjects.global(defMessage);
         ctxMessage.add(lang, message);
@@ -300,7 +305,8 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final String message(final String message, final String lang, final String message2, final String lang2, final String message3, final String lang3) {
+    public final String message(final String message, final String lang, final String message2, final String lang2,
+        final String message3, final String lang3) {
         ContextMessage contextMessage = contextMessage(message, lang, message2, lang2, message3, lang3);
         return contextMessage.getMessage();
     }
@@ -316,14 +322,16 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final ContextMessage contextMessage(final String message, final String lang, final String message2, final String lang2) {
+    public final ContextMessage contextMessage(final String message, final String lang, final String message2,
+        final String lang2) {
         return contextMessage(message, lang, message2, lang2, null, null);
     }
 
     @Override
-    public final ContextMessage contextMessage(final String message, final String lang, final String message2, final String lang2, final String message3, final String lang3) {
-        ContextMessageService service = getService(ContextMessageService.class);
-        ContextMessageHelper helper = getHelper(ContextMessageHelper.class);
+    public final ContextMessage contextMessage(final String message, final String lang, final String message2,
+        final String lang2, final String message3, final String lang3) {
+        ContextMessageService service = service(ContextMessageService.class);
+        ContextMessageHelper helper = helper(ContextMessageHelper.class);
 
         ContextMessage cm = null;
 
@@ -402,7 +410,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Model> T getModel(final Class<T> model) {
+    public final <T extends Model> T model(final Class<T> model) {
         if (Reflect.hasCorePackagePrefix(model)) {
             return SystemInjector.get().getInstance(model);
         } else {
@@ -411,7 +419,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Pojo> T getPojo(final Class<T> pojo) {
+    public final <T extends Pojo> T pojo(final Class<T> pojo) {
         if (Reflect.hasCorePackagePrefix(pojo)) {
             return SystemInjector.get().getInstance(pojo);
         } else {
@@ -420,7 +428,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Helper> T getHelper(final Class<T> helper) {
+    public final <T extends Helper> T helper(final Class<T> helper) {
         if (Reflect.hasCorePackagePrefix(helper)) {
             return SystemInjector.get().getInstance(helper);
         } else {
@@ -429,7 +437,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Injectable> T getInjectable(final Class<T> injectable) {
+    public final <T extends Injectable> T injectable(final Class<T> injectable) {
         if (Reflect.hasCorePackagePrefix(injectable)) {
             return SystemInjector.get().getInstance(injectable);
         } else {
@@ -438,7 +446,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Repository> T getRepository(final Class<T> repository) {
+    public final <T extends Repository> T repository(final Class<T> repository) {
         if (Reflect.hasCorePackagePrefix(repository)) {
             return SystemInjector.get().getInstance(repository);
         } else {
@@ -447,7 +455,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Service> T getService(final Class<T> service) {
+    public final <T extends Service> T service(final Class<T> service) {
         if (Reflect.hasCorePackagePrefix(service)) {
             return SystemInjector.get().getInstance(service);
         } else {
@@ -456,7 +464,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final <T extends Service> T getSystemService(final Class<T> service) {
+    public final <T extends Service> T systemService(final Class<T> service) {
         return SystemInjector.get().getInstance(service);
     }
 
@@ -476,7 +484,7 @@ public class DefaultApp implements App {
 
     @Override
     public final Locale getCurrentLocale() {
-        ApplicationContext appCtx = getApplicationContext();
+        ApplicationContext appCtx = context();
         RequestContext requestCtx = appCtx.getRequestContext();
 
         return requestCtx.getLocale();
@@ -499,7 +507,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean previewHeaderExists() {
-        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) getServletRequest();
+        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) servletRequest();
 
         // if (true)
         // return false;
@@ -514,7 +522,8 @@ public class DefaultApp implements App {
 
             String xpage = request.getUncheckedParameter(XPAGE_PARAMETER);
 
-            isPreview = request.getUncheckedHeader(PREVIEW_HEADER) != null || XPAGE_PARAMETER_PREVIEW.equals(xpage) || (referrer != null && referrer.contains(XPAGE_REFERRER_PARAMETER_PREVIEW));
+            isPreview = request.getUncheckedHeader(PREVIEW_HEADER) != null || XPAGE_PARAMETER_PREVIEW.equals(xpage)
+                || (referrer != null && referrer.contains(XPAGE_REFERRER_PARAMETER_PREVIEW));
 
             registryPut(IS_PREVIEW_REQUEST_KEY, isPreview);
         }
@@ -527,7 +536,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean refreshHeaderExists() {
-        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) getServletRequest();
+        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) servletRequest();
 
         // if (true)
         // return false;
@@ -542,7 +551,8 @@ public class DefaultApp implements App {
 
             String xpage = request.getUncheckedParameter(XPAGE_PARAMETER);
 
-            isRefresh = request.getUncheckedHeader(REFRESH_HEADER) != null || XPAGE_PARAMETER_REFRESH.equals(xpage) || (referrer != null && referrer.contains(XPAGE_REFERRER_PARAMETER_REFRESH));
+            isRefresh = request.getUncheckedHeader(REFRESH_HEADER) != null || XPAGE_PARAMETER_REFRESH.equals(xpage)
+                || (referrer != null && referrer.contains(XPAGE_REFERRER_PARAMETER_REFRESH));
 
             registryPut(IS_REFRESH_REQUEST_KEY, isRefresh);
         }
@@ -552,7 +562,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean editHeaderExists() {
-        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) getServletRequest();
+        DefaultServletRequestWrapper request = (DefaultServletRequestWrapper) servletRequest();
 
         // if (true)
         // return false;
@@ -567,7 +577,8 @@ public class DefaultApp implements App {
 
             String xpage = request.getUncheckedParameter(XPAGE_PARAMETER);
 
-            isEdit = request.getUncheckedHeader(EDIT_HEADER) != null || XPAGE_PARAMETER_EDIT.equals(xpage) || (referrer != null && referrer.contains(XPAGE_REFERRER_PARAMETER_EDIT));
+            isEdit = request.getUncheckedHeader(EDIT_HEADER) != null || XPAGE_PARAMETER_EDIT.equals(xpage)
+                || (referrer != null && referrer.contains(XPAGE_REFERRER_PARAMETER_EDIT));
 
             registryPut(IS_EDIT_REQUEST_KEY, isEdit);
         }
@@ -593,7 +604,7 @@ public class DefaultApp implements App {
 
     @Override
     public final void initRequestType() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return;
@@ -607,7 +618,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isGetRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -617,7 +628,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isPostRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -627,7 +638,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isSecureRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -637,7 +648,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isAjaxRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -647,7 +658,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isMediaRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -659,7 +670,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isAPIRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -671,7 +682,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isWebRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null || request.getRequestURI() == null)
             return false;
@@ -681,7 +692,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isTemplateRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -695,7 +706,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isMultipartRequest() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -705,7 +716,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isExternalHost(String host) {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return true;
@@ -717,8 +728,8 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isErrorPage() {
-        HttpServletRequest request = getServletRequest();
-        HttpServletResponse response = getServletResponse();
+        HttpServletRequest request = servletRequest();
+        HttpServletResponse response = servletResponse();
 
         if (request == null)
             return false;
@@ -728,7 +739,7 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean hasPageExtension() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return false;
@@ -750,7 +761,7 @@ public class DefaultApp implements App {
 
     @Override
     public final Id getStoreFromHeader() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
 
         if (request == null)
             return null;
@@ -766,7 +777,7 @@ public class DefaultApp implements App {
 
     @Override
     public final Store getStoreFromMerchant(Id storeId) {
-        ApplicationContext appCtx = getApplicationContext();
+        ApplicationContext appCtx = context();
         Merchant m = appCtx.getMerchant();
 
         return m.getStore(storeId);
@@ -880,12 +891,14 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final void publish(final String message, final String key1, final Object value1, final String key2, final Object value2) {
+    public final void publish(final String message, final String key1, final Object value1, final String key2,
+        final Object value2) {
         MessageBus.publish(message, Context.create(key1, value1, key2, value2));
     }
 
     @Override
-    public final void publish(final String message, final String key1, final Object value1, final String key2, final Object value2, final String key3, final Object value3) {
+    public final void publish(final String message, final String key1, final Object value1, final String key2,
+        final Object value2, final String key3, final Object value3) {
         MessageBus.publish(message, Context.create(key1, value1, key2, value2, key3, value3));
     }
 
@@ -1202,7 +1215,7 @@ public class DefaultApp implements App {
 
     @Override
     public final Object cpVal_S(final String key, final Id storeId) {
-        Store s = getApplicationContext().getMerchant().getStore(storeId);
+        Store s = context().getMerchant().getStore(storeId);
         ConfigurationProperty cp = getConfigProperty(key, s);
 
         return cp == null ? null : cp.getValue();
@@ -1210,7 +1223,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String cpStr_S(final String key, final Id storeId) {
-        Store s = getApplicationContext().getMerchant().getStore(storeId);
+        Store s = context().getMerchant().getStore(storeId);
         ConfigurationProperty cp = getConfigProperty(key, s);
 
         return cp == null ? null : cp.getStringValue();
@@ -1238,7 +1251,7 @@ public class DefaultApp implements App {
 
     @Override
     public final Boolean cpBool_S(final String key, final Id storeId) {
-        Store s = getApplicationContext().getMerchant().getStore(storeId);
+        Store s = context().getMerchant().getStore(storeId);
         ConfigurationProperty cp = getConfigProperty(key, s);
 
         return cp == null ? null : cp.getBooleanValue();
@@ -1252,28 +1265,28 @@ public class DefaultApp implements App {
 
     @Override
     public final Attribute attr(final Id attributeId) {
-        return getRepository(Attributes.class).findById(Attribute.class, attributeId);
+        return repository(Attributes.class).findById(Attribute.class, attributeId);
     }
 
     @Override
     public final Attribute attr(final String code, final String targetObjectCode) {
-        AttributeTargetObject targetObject = getRepository(AttributeTargetObjects.class).havingCode(targetObjectCode);
-        return getRepository(Attributes.class).havingCode(targetObject, code);
+        AttributeTargetObject targetObject = repository(AttributeTargetObjects.class).havingCode(targetObjectCode);
+        return repository(Attributes.class).havingCode(targetObject, code);
     }
 
     @Override
     public final Attribute attr(final String code, final Class<? extends AttributeSupport> modelClass) {
-        AttributeTargetObject targetObject = getRepository(AttributeTargetObjects.class).forType(modelClass);
-        return getRepository(Attributes.class).havingCode(targetObject, code);
+        AttributeTargetObject targetObject = repository(AttributeTargetObjects.class).forType(modelClass);
+        return repository(Attributes.class).havingCode(targetObject, code);
     }
 
     @Override
     public final AttributeOption option(final Id optionId) {
-        return getRepository(AttributeOptions.class).findById(AttributeOption.class, optionId);
+        return repository(AttributeOptions.class).findById(AttributeOption.class, optionId);
     }
 
     @Override
-    public final SystemConfig getSystemConfig() {
+    public final SystemConfig systemConfig() {
         return SystemConfig.GET;
     }
 
@@ -1283,7 +1296,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final ModuleLoader getModuleLoader() {
+    public final ModuleLoader moduleLoader() {
         return (ModuleLoader) registryGet(ModuleLoader.class.getName());
     }
 
@@ -1303,7 +1316,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final ApplicationContext getApplicationContext() {
+    public final ApplicationContext context() {
         return AppRegistry.get(ApplicationContext.class.getName());
     }
 
@@ -1314,12 +1327,13 @@ public class DefaultApp implements App {
 
     @Override
     public final boolean isApplicationInitialized() {
-        return AppRegistry.get(KEY_IS_APP_INITIALIZED, false) == true && getApplicationContext() != null && getModuleLoader() != null;
+        return AppRegistry.get(KEY_IS_APP_INITIALIZED, false) == true && context() != null
+            && moduleLoader() != null;
     }
 
     @Override
     public final ContextTree getContextTree() {
-        return getSystemService(SystemService.class).getContextTree();
+        return systemService(SystemService.class).getContextTree();
     }
 
     @Override
@@ -1390,7 +1404,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String getSecureBasePath() {
-        RequestContext requestCtx = getApplicationContext().getRequestContext();
+        RequestContext requestCtx = context().getRequestContext();
 
         String httpsScheme = cpStr_(HTTPS_SCHEME_CONFIG_KEY, DEFAULT_HTTPS_SCHEME);
 
@@ -1399,7 +1413,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String getBasePath() {
-        RequestContext requestCtx = getApplicationContext().getRequestContext();
+        RequestContext requestCtx = context().getRequestContext();
 
         String httpScheme = cpStr_(HTTP_SCHEME_CONFIG_KEY, DEFAULT_HTTP_SCHEME);
 
@@ -1438,7 +1452,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String getProjectWebPath() {
-        ApplicationContext appCtx = getApplicationContext();
+        ApplicationContext appCtx = context();
         Merchant m = appCtx.getMerchant();
 
         return m.getWebPath();
@@ -1446,7 +1460,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String getBaseWebappPath() {
-        ServletContext servletCtx = getServletContext();
+        ServletContext servletCtx = servletContext();
 
         String baseWebappPath = null;
 
@@ -1464,18 +1478,18 @@ public class DefaultApp implements App {
 
     @Override
     public final Id getModelIdIfExists() {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return null;
 
-        return (Id) getServletRequest().getAttribute("currentId");
+        return (Id) servletRequest().getAttribute("currentId");
     }
 
     @Override
     public final Class<?> getControllerClass() {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return null;
 
-        return (Class<?>) getServletRequest().getAttribute(GeemvcKey.CONTROLLER_CLASS);
+        return (Class<?>) servletRequest().getAttribute(GeemvcKey.CONTROLLER_CLASS);
     }
 
     @Override
@@ -1524,7 +1538,7 @@ public class DefaultApp implements App {
 
     @Override
     public final void cookieSet(final String key, final Object value, final Integer maxAge) {
-        HttpServletResponse response = getServletResponse();
+        HttpServletResponse response = servletResponse();
 
         Cookie cookie = new Cookie(key, value.toString());
         cookie.setPath(Str.SLASH);
@@ -1543,7 +1557,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String cookieGet(final String key) {
-        Cookie[] cookies = getServletRequest().getCookies();
+        Cookie[] cookies = servletRequest().getCookies();
         String value = null;
 
         if (cookies != null && cookies.length > 0) {
@@ -1560,18 +1574,18 @@ public class DefaultApp implements App {
 
     @Override
     public final void sessionInit() {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return;
 
-        getServletRequest().getSession(true);
+        servletRequest().getSession(true);
     }
 
     @Override
     public final void sessionInvalidate() {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return;
 
-        HttpSession session = getServletRequest().getSession(false);
+        HttpSession session = servletRequest().getSession(false);
 
         if (session != null)
             session.invalidate();
@@ -1584,10 +1598,10 @@ public class DefaultApp implements App {
 
     @Override
     public final void sessionSet(final String key, final Object value, boolean createSession) {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return;
 
-        HttpSession session = getServletRequest().getSession(createSession);
+        HttpSession session = servletRequest().getSession(createSession);
 
         if (session != null)
             session.setAttribute(key, value);
@@ -1595,10 +1609,10 @@ public class DefaultApp implements App {
 
     @Override
     public final void sessionRemove(final String key) {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return;
 
-        HttpSession session = getServletRequest().getSession(false);
+        HttpSession session = servletRequest().getSession(false);
 
         if (session != null)
             session.removeAttribute(key);
@@ -1607,10 +1621,10 @@ public class DefaultApp implements App {
     @Override
     @SuppressWarnings("unchecked")
     public final <T> T sessionGet(final String key) {
-        if (getServletRequest() == null)
+        if (servletRequest() == null)
             return null;
 
-        HttpSession session = getServletRequest().getSession(false);
+        HttpSession session = servletRequest().getSession(false);
 
         if (session == null)
             return null;
@@ -1624,7 +1638,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public final ServletContext getServletContext() {
+    public final ServletContext servletContext() {
         return registryGet(RegistryKey.SERVLET_CONTEXT);
     }
 
@@ -1634,7 +1648,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public HttpServletRequest getServletRequest() {
+    public HttpServletRequest servletRequest() {
         return registryGet(RegistryKey.SERVLET_REQUEST);
     }
 
@@ -1644,7 +1658,7 @@ public class DefaultApp implements App {
     }
 
     @Override
-    public HttpServletResponse getServletResponse() {
+    public HttpServletResponse servletResponse() {
         return registryGet(RegistryKey.SERVLET_RESPONSE);
     }
 
@@ -1685,7 +1699,7 @@ public class DefaultApp implements App {
 
     @Override
     public final String getClientIpAddress() {
-        HttpServletRequest request = getServletRequest();
+        HttpServletRequest request = servletRequest();
         if (request == null)
             return null;
 

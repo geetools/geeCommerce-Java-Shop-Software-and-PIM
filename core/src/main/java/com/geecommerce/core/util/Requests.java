@@ -117,7 +117,8 @@ public final class Requests {
         return buildAbsoluteURL(request, uri, queryString, false);
     }
 
-    public static final String buildAbsoluteURL(HttpServletRequest request, String uri, String queryString, boolean useLocalIP) {
+    public static final String buildAbsoluteURL(HttpServletRequest request, String uri, String queryString,
+        boolean useLocalIP) {
         if (request == null)
             return null;
 
@@ -128,9 +129,10 @@ public final class Requests {
         String localIP = request.getLocalAddr();
         String contextPath = request.getContextPath();
 
-        StringBuilder sb = new StringBuilder(url.getProtocol()).append(Str.PROTOCOL_SUFFIX).append(useLocalIP ? localIP : host).append(port == 80 || port == -1 ? Str.EMPTY : Str.COLON)
-            .append(port == 80 || port == -1 ? Str.EMPTY : url.getPort())
-            .append(contextPath).append(uri).append(queryString == null ? Str.EMPTY : queryString);
+        StringBuilder sb = new StringBuilder(url.getProtocol()).append(Str.PROTOCOL_SUFFIX)
+            .append(useLocalIP ? localIP : host).append(port == 80 || port == -1 ? Str.EMPTY : Str.COLON)
+            .append(port == 80 || port == -1 ? Str.EMPTY : url.getPort()).append(contextPath).append(uri)
+            .append(queryString == null ? Str.EMPTY : queryString);
 
         return sb.toString();
     }
@@ -138,14 +140,16 @@ public final class Requests {
     public static final String getURLWithoutPortAndContextPath(HttpServletRequest request) {
         URL url = getURL(request);
 
-        StringBuilder newURL = new StringBuilder(url.getProtocol()).append(Str.PROTOCOL_SUFFIX).append(url.getHost()).append(request.getServletPath())
+        StringBuilder newURL = new StringBuilder(url.getProtocol()).append(Str.PROTOCOL_SUFFIX).append(url.getHost())
+            .append(request.getServletPath())
             .append(request.getPathInfo() == null ? Str.EMPTY : request.getPathInfo());
 
         return newURL.toString();
     }
 
     public static final String getURIWithoutContextPath(HttpServletRequest request) {
-        StringBuilder newURL = new StringBuilder().append(request.getServletPath()).append(request.getPathInfo() == null ? Str.EMPTY : request.getPathInfo());
+        StringBuilder newURL = new StringBuilder().append(request.getServletPath())
+            .append(request.getPathInfo() == null ? Str.EMPTY : request.getPathInfo());
 
         return newURL.toString();
     }
@@ -276,7 +280,8 @@ public final class Requests {
         String ajaxRequestHeaderValue = null;
 
         if (request instanceof DefaultServletRequestWrapper) {
-            ajaxRequestHeaderValue = ((DefaultServletRequestWrapper) request).getUncheckedHeader(AJAX_REQUEST_HEADER_NAME);
+            ajaxRequestHeaderValue = ((DefaultServletRequestWrapper) request)
+                .getUncheckedHeader(AJAX_REQUEST_HEADER_NAME);
         } else {
             ajaxRequestHeaderValue = request.getHeader(AJAX_REQUEST_HEADER_NAME);
         }
@@ -406,7 +411,8 @@ public final class Requests {
     }
 
     public static final boolean isMultipartRequest(HttpServletRequest request) {
-        return request.getContentType() != null && request.getContentType().toLowerCase().indexOf(MULTIPART_HEADER) > -1;
+        return request.getContentType() != null
+            && request.getContentType().toLowerCase().indexOf(MULTIPART_HEADER) > -1;
     }
 
     public static boolean isErrorPage(HttpServletRequest request, HttpServletResponse response) {

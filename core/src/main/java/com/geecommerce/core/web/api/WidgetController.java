@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.geecommerce.core.system.widget.model.WidgetParameter;
 import com.geecommerce.core.system.widget.model.WidgetParameterOption;
-import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 
 public interface WidgetController {
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception;
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception;
 
     public String getCode();
 

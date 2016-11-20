@@ -10,22 +10,23 @@ public class DOMAIN_ONLY extends AbstractURLParser implements URLParser {
 
     @Override
     public boolean isMatch(String requestURL, RequestContext requestCtx) {
-	if (requestURL == null)
-	    throw new NullPointerException("Cannot parse null URL");
+        if (requestURL == null)
+            throw new NullPointerException("Cannot parse null URL");
 
-	if (requestURL.startsWith(addProtocolToUrlPrefix(requestCtx.getUrlPrefix(), requestURL))) {
-	    if (log.isTraceEnabled()) {
-		log.trace(requestURL + " matches url-prefix " + requestCtx.getUrlPrefix() + " using " + this.getClass().getSimpleName());
-	    }
+        if (requestURL.startsWith(addProtocolToUrlPrefix(requestCtx.getUrlPrefix(), requestURL))) {
+            if (log.isTraceEnabled()) {
+                log.trace(requestURL + " matches url-prefix " + requestCtx.getUrlPrefix() + " using "
+                    + this.getClass().getSimpleName());
+            }
 
-	    return true;
-	}
+            return true;
+        }
 
-	return false;
+        return false;
     }
 
     @Override
     public String stripServletPath(String servletPath, RequestContext requestCtx) {
-	return servletPath;
+        return servletPath;
     }
 }

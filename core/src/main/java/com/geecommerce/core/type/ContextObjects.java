@@ -108,6 +108,6 @@ public class ContextObjects {
     }
 
     private static final ApplicationContext appCtx() {
-        return App.get().getApplicationContext();
+        return App.get().context();
     }
 }

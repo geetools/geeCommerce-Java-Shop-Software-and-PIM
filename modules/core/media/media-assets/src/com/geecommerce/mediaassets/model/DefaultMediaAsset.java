@@ -26,7 +26,8 @@ import com.owlike.genson.annotation.JsonIgnore;
 
 @Indexable(collection = "media_asset")
 @Model("media_assets")
-public class DefaultMediaAsset extends AbstractAttributeSupport implements MediaAsset, MediaAssetUrl, SearchIndexSupport {
+public class DefaultMediaAsset extends AbstractAttributeSupport
+    implements MediaAsset, MediaAssetUrl, SearchIndexSupport {
     private static final long serialVersionUID = -6499739421456471445L;
 
     private final String UNLABELED = "unlabeled";
@@ -48,7 +49,8 @@ public class DefaultMediaAsset extends AbstractAttributeSupport implements Media
     private final ElasticsearchIndexHelper elasticsearchHelper;
 
     @Inject
-    public DefaultMediaAsset(MediaAssetService mediaAssetService, MediaAssetFiles mediaAssetFiles, ElasticsearchIndexHelper elasticsearchHelper) {
+    public DefaultMediaAsset(MediaAssetService mediaAssetService, MediaAssetFiles mediaAssetFiles,
+        ElasticsearchIndexHelper elasticsearchHelper) {
         this.mediaAssetService = mediaAssetService;
         this.mediaAssetFiles = mediaAssetFiles;
         this.elasticsearchHelper = elasticsearchHelper;
@@ -77,23 +79,13 @@ public class DefaultMediaAsset extends AbstractAttributeSupport implements Media
     }
 
     /*
-     * @Override
-     * public String getLabel() {
-     * if (label != null)
-     * return label.getString();
-     * return UNLABELED;
-     * }
+     * @Override public String getLabel() { if (label != null) return
+     * label.getString(); return UNLABELED; }
      * 
-     * @Override
-     * public ContextObject<String> getLabels() {
-     * return label;
-     * }
+     * @Override public ContextObject<String> getLabels() { return label; }
      * 
-     * @Override
-     * public MediaAsset setLabel(ContextObject<String> label) {
-     * this.label = label;
-     * return this;
-     * }
+     * @Override public MediaAsset setLabel(ContextObject<String> label) {
+     * this.label = label; return this; }
      */
 
     @Override
@@ -121,14 +113,10 @@ public class DefaultMediaAsset extends AbstractAttributeSupport implements Media
         // TODO: FIXME
         /*
          * if (webPath != null && mimeType != null &&
-         * mimeType.startsWith("image/")) {
-         * int pos = webPath.lastIndexOf('.');
+         * mimeType.startsWith("image/")) { int pos = webPath.lastIndexOf('.');
          * StringBuilder sb = new StringBuilder();
-         * sb.append(webPath.substring(0, pos));
-         * sb.append("___s:" + width + "x" + height);
-         * sb.append(webPath.substring(pos));
-         * return sb.toString();
-         * }
+         * sb.append(webPath.substring(0, pos)); sb.append("___s:" + width + "x"
+         * + height); sb.append(webPath.substring(pos)); return sb.toString(); }
          */
 
         return webPath;
@@ -143,7 +131,7 @@ public class DefaultMediaAsset extends AbstractAttributeSupport implements Media
     @Override
     public String getMimeType() {
         if ((mimeType == null || mimeType.isEmpty()) && getId() != null) {
-            MediaAssetService mediaAssetService = app.getService(MediaAssetService.class);
+            MediaAssetService mediaAssetService = app.service(MediaAssetService.class);
             GridFSFile fsFile = mediaAssetService.getGridFsFile(getId());
             if (fsFile != null) {
                 mimeType = fsFile.getContentType();
@@ -218,14 +206,10 @@ public class DefaultMediaAsset extends AbstractAttributeSupport implements Media
         String webPath = getUrl();
         /*
          * if (webPath != null && mimeType != null &&
-         * mimeType.startsWith("image/")) {
-         * int pos = webPath.lastIndexOf('.');
+         * mimeType.startsWith("image/")) { int pos = webPath.lastIndexOf('.');
          * StringBuilder sb = new StringBuilder();
-         * sb.append(webPath.substring(0, pos));
-         * sb.append("___s:150x150");
-         * sb.append(webPath.substring(pos));
-         * return sb.toString();
-         * }
+         * sb.append(webPath.substring(0, pos)); sb.append("___s:150x150");
+         * sb.append(webPath.substring(pos)); return sb.toString(); }
          */
 
         return webPath;
@@ -289,7 +273,8 @@ public class DefaultMediaAsset extends AbstractAttributeSupport implements Media
         for (AttributeValue attributeValue : getAttributes()) {
             Attribute attr = attributeValue.getAttribute();
 
-            if (attr != null && (attr.isIncludeInSearchIndex() || attr.isSearchable() || attr.getIncludeInProductListFilter() || attr.getIncludeInProductListQuery())) {
+            if (attr != null && (attr.isIncludeInSearchIndex() || attr.isSearchable()
+                || attr.getIncludeInProductListFilter() || attr.getIncludeInProductListQuery())) {
                 // Only index text values when product is visible.
                 if (!isVisible && BackendType.STRING == attr.getBackendType())
                     continue;

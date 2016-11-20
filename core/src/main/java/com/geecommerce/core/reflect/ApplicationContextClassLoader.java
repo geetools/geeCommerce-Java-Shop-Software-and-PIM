@@ -40,8 +40,8 @@ import com.geemodule.api.ModuleLoader;
  * </ol>
  * <br/>
  * Note: this only works for classes starting with the package
- * com.geecommerce.core.reflect <i>com.cb</i> and starting with the class name prefix
- * <i>Default</i>.
+ * com.geecommerce.core.reflect <i>com.cb</i> and starting with the class name
+ * prefix <i>Default</i>.
  *
  * @author Michael Delamere
  */
@@ -95,8 +95,8 @@ public final class ApplicationContextClassLoader extends ClassLoader {
             throw new ClassNotFoundException("This classloader cannot be used for core-classes.");
         }
 
-        ModuleLoader moduleLoader = App.get().getModuleLoader();
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ModuleLoader moduleLoader = App.get().moduleLoader();
+        ApplicationContext appCtx = App.get().context();
 
         View view = appCtx.getView();
         Store store = appCtx.getStore();
@@ -126,7 +126,8 @@ public final class ApplicationContextClassLoader extends ClassLoader {
                         // Use the geemodule public classloader so that the
                         // project's custom classes folder
                         // also sees classes located in modules.
-                        return App.get().getModuleLoader().getPublicClassLoader(this.getClass().getClassLoader()).loadClass(name);
+                        return App.get().moduleLoader().getPublicClassLoader(this.getClass().getClassLoader())
+                            .loadClass(name);
                     } catch (Throwable t) {
                     }
 
@@ -243,7 +244,8 @@ public final class ApplicationContextClassLoader extends ClassLoader {
                 Class<?>[] defaultClassInterfaces = defaultModuleClass.getInterfaces();
 
                 if (defaultClassInterfaces == null || defaultClassInterfaces.length == 0)
-                    throw new ClassNotFoundException("The custom class <" + foundClass.getName() + "> was found for the default class <" + defaultModuleClass.getName()
+                    throw new ClassNotFoundException("The custom class <" + foundClass.getName()
+                        + "> was found for the default class <" + defaultModuleClass.getName()
                         + ">, but the default class has not declared any interfaces. Both the default and custom class muss share the same interfaces when the custom class does not extend the default class.");
 
                 for (Class<?> defaultClassInterface : defaultClassInterfaces) {
@@ -256,7 +258,8 @@ public final class ApplicationContextClassLoader extends ClassLoader {
                     }
 
                     if (!foundInterface)
-                        throw new ClassNotFoundException("The custom class <" + foundClass.getName() + "> was found for the default class <" + defaultModuleClass.getName()
+                        throw new ClassNotFoundException("The custom class <" + foundClass.getName()
+                            + "> was found for the default class <" + defaultModuleClass.getName()
                             + ">, but it does not implement the interfaces declared in that class ("
                             + Arrays.toString(defaultClassInterfaces) + ").");
                 }
@@ -268,37 +271,42 @@ public final class ApplicationContextClassLoader extends ClassLoader {
 
     private String toCustomFQN(String defaultClassFQN, String shopContextClassFQN) {
         if (defaultClassFQN.indexOf(DEFAULT_CLASS_PREFIX) == -1 && defaultClassFQN.endsWith(DEFAULT_ACTION_SUFFIX)) {
-            StringBuilder customFQN = new StringBuilder(defaultClassFQN.replace(BASE_PACKAGE_PREFIX, shopContextClassFQN));
+            StringBuilder customFQN = new StringBuilder(
+                defaultClassFQN.replace(BASE_PACKAGE_PREFIX, shopContextClassFQN));
             customFQN.insert(customFQN.lastIndexOf(Str.DOT) + 1, CUSTOM_ACTION_CLASS_PREFIX);
 
             return customFQN.toString();
         } else {
-            return defaultClassFQN.replace(BASE_PACKAGE_PREFIX, shopContextClassFQN).replace(DEFAULT_CLASS_PREFIX, CUSTOM_CLASS_PREFIX);
+            return defaultClassFQN.replace(BASE_PACKAGE_PREFIX, shopContextClassFQN).replace(DEFAULT_CLASS_PREFIX,
+                CUSTOM_CLASS_PREFIX);
         }
     }
 
     private String getMerchantPackage() {
         ApplicationContext appCtx = getApplicationContext();
 
-        return new StringBuilder(CUSTOM_PACKAGE_PREFIX).append(Classes.ensureSafePackagePath(appCtx.getMerchant().getCode())).toString();
+        return new StringBuilder(CUSTOM_PACKAGE_PREFIX)
+            .append(Classes.ensureSafePackagePath(appCtx.getMerchant().getCode())).toString();
     }
 
     private String getStorePackage() {
         ApplicationContext appCtx = getApplicationContext();
 
-        return new StringBuffer(CUSTOM_PACKAGE_PREFIX).append(Classes.ensureSafePackagePath(appCtx.getMerchant().getCode())).append(Char.DOT)
+        return new StringBuffer(CUSTOM_PACKAGE_PREFIX)
+            .append(Classes.ensureSafePackagePath(appCtx.getMerchant().getCode())).append(Char.DOT)
             .append(Classes.ensureSafePackagePath(appCtx.getStore().getCode())).toString();
     }
 
     private String getViewPackage() {
         ApplicationContext appCtx = getApplicationContext();
 
-        return new StringBuffer(CUSTOM_PACKAGE_PREFIX).append(Classes.ensureSafePackagePath(appCtx.getMerchant().getCode())).append(Char.DOT)
+        return new StringBuffer(CUSTOM_PACKAGE_PREFIX)
+            .append(Classes.ensureSafePackagePath(appCtx.getMerchant().getCode())).append(Char.DOT)
             .append(Classes.ensureSafePackagePath(appCtx.getStore().getCode())).append(Char.DOT)
             .append(Classes.ensureSafePackagePath(appCtx.getView().getCode())).toString();
     }
 
     private ApplicationContext getApplicationContext() {
-        return App.get().getApplicationContext();
+        return App.get().context();
     }
 }

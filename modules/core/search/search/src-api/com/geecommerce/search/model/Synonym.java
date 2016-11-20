@@ -1,9 +1,9 @@
 package com.geecommerce.search.model;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
 
 public interface Synonym extends MultiContextModel {
 
@@ -22,9 +22,9 @@ public interface Synonym extends MultiContextModel {
     Synonym setCustom(Boolean custom);
 
     class Col {
-	public static final String ID = "_id";
-	public static final String WORD = "word";
-	public static final String SYNONYMS = "synonyms";
-	public static final String CUSTOM = "custom";
+        public static final String ID = "_id";
+        public static final String WORD = "word";
+        public static final String SYNONYMS = "synonyms";
+        public static final String CUSTOM = "custom";
     }
 }

@@ -3,11 +3,11 @@ package com.geecommerce.guiwidgets.model;
 import java.util.Date;
 import java.util.List;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAsset;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface Magazine extends MultiContextModel {
     public Id getId();
@@ -57,16 +57,16 @@ public interface Magazine extends MultiContextModel {
     public Magazine setEnabled(ContextObject<Boolean> enabled);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String TITLE = "title";
-	public static final String TEASER_IMAGE = "teaser_image";
-	public static final String TEASER_TEXT = "teaser_text";
-	public static final String SHOW_FROM = "show_from";
-	public static final String SHOW_TO = "show_to";
-	public static final String VALID_FROM = "valid_from";
-	public static final String VALID_TO = "valid_to";
-	public static final String PAGES = "pages";
-	public static final String ENABLED = "enabled";
+        public static final String ID = "_id";
+        public static final String TITLE = "title";
+        public static final String TEASER_IMAGE = "teaser_image";
+        public static final String TEASER_TEXT = "teaser_text";
+        public static final String SHOW_FROM = "show_from";
+        public static final String SHOW_TO = "show_to";
+        public static final String VALID_FROM = "valid_from";
+        public static final String VALID_TO = "valid_to";
+        public static final String PAGES = "pages";
+        public static final String ENABLED = "enabled";
     }
 
 }

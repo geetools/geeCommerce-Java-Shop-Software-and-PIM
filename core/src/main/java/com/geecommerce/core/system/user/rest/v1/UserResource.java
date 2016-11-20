@@ -66,7 +66,7 @@ public class UserResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createUser(Update update) {
-        User user = app.getModel(User.class);
+        User user = app.model(User.class);
         user.set(update.getFields());
 
         try {

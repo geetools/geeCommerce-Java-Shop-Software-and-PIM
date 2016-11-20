@@ -1,10 +1,11 @@
 package com.geecommerce.customer.model;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.*;
 
 @Model("customer_payments")
 public class DefaultPayment extends AbstractModel implements Payment {
@@ -78,7 +79,8 @@ public class DefaultPayment extends AbstractModel implements Payment {
         this.id = id_(map.get(Column.ID));
         this.customerId = id_(map.get(Column.CUSTOMER_ID));
         this.paymentCode = str_(map.get(Column.PAYMENT_CODE));
-        this.defaultPayment = bool_(map.get(Column.DEFAULT_PAYMENT)) == null ? false : bool_(map.get(Column.DEFAULT_PAYMENT));
+        this.defaultPayment = bool_(map.get(Column.DEFAULT_PAYMENT)) == null ? false
+            : bool_(map.get(Column.DEFAULT_PAYMENT));
         this.parameters = map_(map.get(Column.PARAMETERS));
     }
 
@@ -96,6 +98,6 @@ public class DefaultPayment extends AbstractModel implements Payment {
     @Override
     public String toString() {
         return "DefaultPayment [id=" + id + ", customerId=" + customerId + ", paymentCode=" + paymentCode
-                + ", isDefaultPayment=" + defaultPayment + ", parameters=" + parameters + "]";
+            + ", isDefaultPayment=" + defaultPayment + ", parameters=" + parameters + "]";
     }
 }

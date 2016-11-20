@@ -114,7 +114,8 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Id> findIds(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return dao().findIds(modelClass, filter, queryOptions);
     }
 
@@ -129,7 +130,8 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findData(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return dao().findData(modelClass, filter, queryOptions);
     }
 
@@ -139,7 +141,8 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids, QueryOptions queryOptions) {
+    public <T extends Model> List<Map<String, Object>> findDataByIds(Class<T> modelClass, Id[] ids,
+        QueryOptions queryOptions) {
         return dao().findDataByIds(modelClass, ids, queryOptions);
     }
 
@@ -149,12 +152,14 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter, String... distinctField) {
+    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter,
+        String... distinctField) {
         return distinct(modelClass, filter, null, distinctField);
     }
 
     @Override
-    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions, String... distinctField) {
+    public <T extends Model> List<?> distinct(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions, String... distinctField) {
         return dao().distinct(modelClass, filter, queryOptions, distinctField);
     }
 
@@ -212,7 +217,8 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi, String... updateFields) {
+    public <T extends Model> void update(T entity, Map<String, Object> filter, boolean upsert, boolean multi,
+        String... updateFields) {
         dao().update(entity, filter, upsert, multi, updateFields);
     }
 
@@ -261,7 +267,8 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Id id, Integer[] versions,
+        QueryOptions queryOptions) {
         return dao().findSnapshots(modelClass, id, versions, queryOptions);
     }
 
@@ -271,12 +278,14 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
     }
 
     @Override
-    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
+    public <T extends Model> List<T> findSnapshots(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
         return dao().findSnapshots(modelClass, filter, queryOptions);
     }
 
     // Global interfaces cannot be used as cache-keys.
-    protected List<Class<?>> interfaceBlackList = Lists.newArrayList(Model.class, MultiContextModel.class, IdSupport.class, ProductIdSupport.class, Versionable.class, Serializable.class);
+    protected List<Class<?>> interfaceBlackList = Lists.newArrayList(Model.class, MultiContextModel.class,
+        IdSupport.class, ProductIdSupport.class, Versionable.class, Serializable.class);
 
     protected <T extends Model> String cacheableInterface(Class<T> modelClass) {
         if (modelClass == null)
@@ -288,7 +297,8 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
         Class<?>[] interfaces = modelClass.getInterfaces();
 
         if (interfaces == null || interfaces.length == 0)
-            throw new IllegalArgumentException("Unable to convert modelClass '" + modelClass.getName() + "' to cache-name because no interfaces were present");
+            throw new IllegalArgumentException("Unable to convert modelClass '" + modelClass.getName()
+                + "' to cache-name because no interfaces were present");
 
         if (interfaces.length == 1) {
             Class<?> iface = interfaces[0];
@@ -300,8 +310,9 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
                 return iface.getName();
 
             else
-                throw new IllegalArgumentException(
-                    "ModelClass " + modelClass.getName() + " could not be converted to a cache-name. Make sure that its only interace is not one of " + interfaceBlackList);
+                throw new IllegalArgumentException("ModelClass " + modelClass.getName()
+                    + " could not be converted to a cache-name. Make sure that its only interace is not one of "
+                    + interfaceBlackList);
         } else {
             // First try the default model specific interface.
             for (Class<?> iface : interfaces) {
@@ -316,25 +327,30 @@ public abstract class AbstractRepositorySupport implements RepositorySupport {
                     return iface.getName();
             }
 
-            throw new IllegalArgumentException(
-                "ModelClass " + modelClass.getName() + " could not be converted to a cache-name. Try giving it a model-specific interface and make sure that it is not one of " + interfaceBlackList);
+            throw new IllegalArgumentException("ModelClass " + modelClass.getName()
+                + " could not be converted to a cache-name. Try giving it a model-specific interface and make sure that it is not one of "
+                + interfaceBlackList);
         }
     }
 
-    protected <T extends Model> Cache<MultiContextCacheKey, ContextType> multiContextQueryOneCtxCache(Class<T> modelClass) {
+    protected <T extends Model> Cache<MultiContextCacheKey, ContextType> multiContextQueryOneCtxCache(
+        Class<T> modelClass) {
         return cacheManager.getCache(MULTI_CTX_QUERY_ONE_CTX_CACHE_NAME);
     }
 
-    protected <T extends Model> Cache<MultiContextCacheKey, List<ContextType>> multiContextQueryCtxCache(Class<T> modelClass) {
+    protected <T extends Model> Cache<MultiContextCacheKey, List<ContextType>> multiContextQueryCtxCache(
+        Class<T> modelClass) {
         return cacheManager.getCache(MULTI_CTX_QUERY_CTX_CACHE_NAME);
     }
 
     protected <T extends Model> Cache<String, T> modelCache(Class<T> modelClass) {
-        return cacheManager.getCache(new StringBuilder(MODEL_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
+        return cacheManager
+            .getCache(new StringBuilder(MODEL_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
     }
 
     protected <T extends Model> Cache<String, List<Id>> queryCache(Class<T> modelClass) {
-        return cacheManager.getCache(new StringBuilder(QUERY_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
+        return cacheManager
+            .getCache(new StringBuilder(QUERY_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
     }
 
     @Override

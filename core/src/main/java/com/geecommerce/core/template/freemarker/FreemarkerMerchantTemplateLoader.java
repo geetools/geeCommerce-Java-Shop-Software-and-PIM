@@ -121,8 +121,8 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
     }
 
     private final File locateViewTemplateInFileSystem(final String templateName, boolean useParent) {
-        Merchant merchant = App.get().getApplicationContext().getMerchant();
-        View view = merchant.getViewFor(App.get().getApplicationContext().getRequestContext());
+        Merchant merchant = App.get().context().getMerchant();
+        View view = merchant.getViewFor(App.get().context().getRequestContext());
 
         if (view == null)
             return null;
@@ -141,10 +141,12 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
         if (viewTemplateFile.exists()) {
             if (!viewTemplateFile.isFile()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located view template '" + viewTemplateFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                    log.warn("The located view template '" + viewTemplateFile.getAbsolutePath()
+                        + "' does not appear to be a regular file.");
             } else if (!viewTemplateFile.canRead()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located view template '" + viewTemplateFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                    log.warn("The located view template '" + viewTemplateFile.getAbsolutePath()
+                        + "' does not have the necessary read permission.");
             } else {
                 if (log.isDebugEnabled())
                     log.debug("Using view template '" + viewTemplateFile.getAbsolutePath() + "'.");
@@ -157,8 +159,8 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
     }
 
     private final File locateStoreTemplateInFileSystem(final String templateName, boolean useParent) {
-        Merchant merchant = App.get().getApplicationContext().getMerchant();
-        Store store = merchant.getStoreFor(App.get().getApplicationContext().getRequestContext());
+        Merchant merchant = App.get().context().getMerchant();
+        Store store = merchant.getStoreFor(App.get().context().getRequestContext());
 
         if (store == null)
             return null;
@@ -177,10 +179,12 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
         if (storeTemplateFile.exists()) {
             if (!storeTemplateFile.isFile()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located store template '" + storeTemplateFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                    log.warn("The located store template '" + storeTemplateFile.getAbsolutePath()
+                        + "' does not appear to be a regular file.");
             } else if (!storeTemplateFile.canRead()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located store template '" + storeTemplateFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                    log.warn("The located store template '" + storeTemplateFile.getAbsolutePath()
+                        + "' does not have the necessary read permission.");
             } else {
                 if (log.isDebugEnabled())
                     log.debug("Using store template '" + storeTemplateFile.getAbsolutePath() + "'.");
@@ -193,7 +197,7 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
     }
 
     private final File locateMerchantTemplateInFileSystem(final String templateName) {
-        Merchant merchant = App.get().getApplicationContext().getMerchant();
+        Merchant merchant = App.get().context().getMerchant();
 
         File merchantTemplateFile = new File(merchant.getTemplatesPath(), templateName);
 
@@ -202,10 +206,12 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
         if (merchantTemplateFile.exists()) {
             if (!merchantTemplateFile.isFile()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located merchant template '" + merchantTemplateFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                    log.warn("The located merchant template '" + merchantTemplateFile.getAbsolutePath()
+                        + "' does not appear to be a regular file.");
             } else if (!merchantTemplateFile.canRead()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located merchant template '" + merchantTemplateFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                    log.warn("The located merchant template '" + merchantTemplateFile.getAbsolutePath()
+                        + "' does not have the necessary read permission.");
             } else {
                 if (log.isDebugEnabled())
                     log.debug("Using merchant template '" + merchantTemplateFile.getAbsolutePath() + "'.");
@@ -221,7 +227,8 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
         String templatesPath = SystemConfig.GET.val(SystemConfig.APPLICATION_TEMPLATE_PATH);
 
         if (templatesPath == null) {
-            throw new IllegalStateException("The System.properties configuration element 'Application.Template.Path' cannot be null");
+            throw new IllegalStateException(
+                "The System.properties configuration element 'Application.Template.Path' cannot be null");
         }
 
         templatesPath = templatesPath.trim();
@@ -238,7 +245,8 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
     @Override
     public final long getLastModified(final Object templateSource) {
         if (!(templateSource instanceof File))
-            throw new IllegalArgumentException("the parameter templateSource is of type '" + templateSource.getClass().getName() + "', java.io.File expected.");
+            throw new IllegalArgumentException("the parameter templateSource is of type '"
+                + templateSource.getClass().getName() + "', java.io.File expected.");
 
         return new Long(((File) templateSource).lastModified());
     }
@@ -246,7 +254,8 @@ public class FreemarkerMerchantTemplateLoader implements TemplateLoader {
     @Override
     public final Reader getReader(final Object templateSource, final String encoding) throws IOException {
         if (!(templateSource instanceof File))
-            throw new IllegalArgumentException("the parameter templateSource is of type '" + templateSource.getClass().getName() + "', java.io.File expected.");
+            throw new IllegalArgumentException("the parameter templateSource is of type '"
+                + templateSource.getClass().getName() + "', java.io.File expected.");
 
         return new InputStreamReader(new FileInputStream((File) templateSource), encoding);
     }

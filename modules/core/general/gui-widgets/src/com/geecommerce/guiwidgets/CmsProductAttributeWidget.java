@@ -36,7 +36,8 @@ public class CmsProductAttributeWidget extends AbstractWidgetController implemen
     private final Attributes attributes;
 
     @Inject
-    public CmsProductAttributeWidget(ProductService productService, WidgetParameters widgetParameters, AttributeService attributeService, Attributes attributes) {
+    public CmsProductAttributeWidget(ProductService productService, WidgetParameters widgetParameters,
+        AttributeService attributeService, Attributes attributes) {
         this.productService = productService;
         this.widgetParameters = widgetParameters;
         this.attributes = attributes;
@@ -44,7 +45,8 @@ public class CmsProductAttributeWidget extends AbstractWidgetController implemen
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String attrCode = widgetCtx.getParam(PARAM_ATTRIBUTE_CODE);
         String productId = widgetCtx.getParam(PARAM_PRODUCT);
         if (!StringUtils.isBlank(productId)) {
@@ -73,7 +75,7 @@ public class CmsProductAttributeWidget extends AbstractWidgetController implemen
             if (productAttributes != null && !productAttributes.isEmpty()) {
                 parameterOptions = new ArrayList<>();
                 for (Attribute attribute : productAttributes) {
-                    WidgetParameterOption option = app.getModel(WidgetParameterOption.class);
+                    WidgetParameterOption option = app.model(WidgetParameterOption.class);
                     option.setValue(attribute.getCode());
                     option.setLabel(new ContextObject<>(attribute.getCode()));
                     option.belongsTo(parameter);

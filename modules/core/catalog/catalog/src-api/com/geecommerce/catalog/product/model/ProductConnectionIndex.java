@@ -55,11 +55,11 @@ public interface ProductConnectionIndex extends Model {
     public ProductConnectionIndex setUpdateFlag(int updateFlag);
 
     public static class Col {
-	public static final String ID = "_id";
-	public static final String PRODUCT_ID = "prd_id";
-	public static final String CONNECTIONS = "conns";
-	public static final String CHILD_CONNECTIONS = "c_conns";
-	public static final String SELLABLE_CHILD_CONNECTIONS = "sc_conns";
-	public static final String UPDATE_FLAG = "upd";
+        public static final String ID = "_id";
+        public static final String PRODUCT_ID = "prd_id";
+        public static final String CONNECTIONS = "conns";
+        public static final String CHILD_CONNECTIONS = "c_conns";
+        public static final String SELLABLE_CHILD_CONNECTIONS = "sc_conns";
+        public static final String UPDATE_FLAG = "upd";
     }
 }

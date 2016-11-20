@@ -1,6 +1,7 @@
 package com.geecommerce.catalog.product.model;
 
-import com.owlike.genson.annotation.JsonIgnore;
+import java.util.List;
+
 import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.PageSupport;
 import com.geecommerce.core.service.TargetSupport;
@@ -8,8 +9,7 @@ import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface ProductList extends MultiContextModel, AttributeSupport, TargetSupport, PageSupport {
     public Id getId();
@@ -67,18 +67,18 @@ public interface ProductList extends MultiContextModel, AttributeSupport, Target
     public ProductList setFilterAttributeIds(List<Id> ids);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String ID2 = "id2";
+        public static final String ID = "_id";
+        public static final String ID2 = "id2";
 
-	public static final String KEY = "key";
-	public static final String LABEL = "label";
-	public static final String QUERY = "query";
-	public static final String QUERY_NODE = "query_node";
-	public static final String FILTER_RULE_ID = "f_rule_id";
-	public static final String ENABLED = "enabled";
-	public static final String SALE = "sale";
-	public static final String SPECIAL = "special";
-	public static final String ATTRIBUTES = "attributes";
-	public static final String FILTER_ATTRIBUTES = "filter_attrs";
+        public static final String KEY = "key";
+        public static final String LABEL = "label";
+        public static final String QUERY = "query";
+        public static final String QUERY_NODE = "query_node";
+        public static final String FILTER_RULE_ID = "f_rule_id";
+        public static final String ENABLED = "enabled";
+        public static final String SALE = "sale";
+        public static final String SPECIAL = "special";
+        public static final String ATTRIBUTES = "attributes";
+        public static final String FILTER_ATTRIBUTES = "filter_attrs";
     }
 }

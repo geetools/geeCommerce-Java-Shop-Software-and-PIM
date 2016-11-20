@@ -21,7 +21,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for ServiceHeader complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ServiceHeader">
@@ -61,7 +62,7 @@ public class ServiceHeader {
      * 
      */
     public XMLGregorianCalendar getMessageTime() {
-	return messageTime;
+        return messageTime;
     }
 
     /**
@@ -72,7 +73,7 @@ public class ServiceHeader {
      * 
      */
     public void setMessageTime(XMLGregorianCalendar value) {
-	this.messageTime = value;
+        this.messageTime = value;
     }
 
     /**
@@ -82,7 +83,7 @@ public class ServiceHeader {
      * 
      */
     public String getMessageReference() {
-	return messageReference;
+        return messageReference;
     }
 
     /**
@@ -93,7 +94,7 @@ public class ServiceHeader {
      * 
      */
     public void setMessageReference(String value) {
-	this.messageReference = value;
+        this.messageReference = value;
     }
 
     /**
@@ -103,7 +104,7 @@ public class ServiceHeader {
      * 
      */
     public String getSiteID() {
-	return siteID;
+        return siteID;
     }
 
     /**
@@ -114,7 +115,7 @@ public class ServiceHeader {
      * 
      */
     public void setSiteID(String value) {
-	this.siteID = value;
+        this.siteID = value;
     }
 
     /**
@@ -124,7 +125,7 @@ public class ServiceHeader {
      * 
      */
     public String getPassword() {
-	return password;
+        return password;
     }
 
     /**
@@ -135,7 +136,7 @@ public class ServiceHeader {
      * 
      */
     public void setPassword(String value) {
-	this.password = value;
+        this.password = value;
     }
 
 }

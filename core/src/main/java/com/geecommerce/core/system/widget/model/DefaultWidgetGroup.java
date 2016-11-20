@@ -1,18 +1,12 @@
 package com.geecommerce.core.system.widget.model;
 
+import java.util.List;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
-import com.geecommerce.core.system.widget.enums.WidgetParameterTabItemType;
-import com.geecommerce.core.system.widget.enums.WidgetType;
-import com.geecommerce.core.system.widget.repository.WidgetParameterTabs;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-import com.google.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Model("widget_groups")
 public class DefaultWidgetGroup extends AbstractModel implements WidgetGroup {
@@ -28,7 +22,6 @@ public class DefaultWidgetGroup extends AbstractModel implements WidgetGroup {
 
     @Column(Col.WIDGETS)
     private List<Id> widgetIds = null;
-
 
     @Override
     public Id getId() {
@@ -73,6 +66,5 @@ public class DefaultWidgetGroup extends AbstractModel implements WidgetGroup {
         this.widgetIds = widgetIds;
         return this;
     }
-
 
 }

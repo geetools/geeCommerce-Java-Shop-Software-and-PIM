@@ -26,9 +26,9 @@ public interface CalculationRule extends MultiContextModel {
     public CalculationRule addCalculationStep(CalculationStep calculationStep);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String LABEL = "label";
-	public static final String CALCULATION_STEPS = "calc_steps";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String LABEL = "label";
+        public static final String CALCULATION_STEPS = "calc_steps";
     }
 }

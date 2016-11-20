@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for PieceDetails complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="PieceDetails">
@@ -48,7 +49,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PieceDetails", propOrder = { "awbNumber", "licensePlate", "pieceNumber", "actualDepth", "actualWidth", "actualHeight", "actualWeight", "depth", "width", "height", "weight", "packageType", "dimWeight", "weightUnit", "pieceContents" })
+@XmlType(name = "PieceDetails", propOrder = { "awbNumber", "licensePlate", "pieceNumber", "actualDepth", "actualWidth",
+    "actualHeight", "actualWeight", "depth", "width", "height", "weight", "packageType", "dimWeight", "weightUnit",
+    "pieceContents" })
 public class PieceDetails {
 
     @XmlElement(name = "AWBNumber", required = true)
@@ -89,7 +92,7 @@ public class PieceDetails {
      * 
      */
     public String getAWBNumber() {
-	return awbNumber;
+        return awbNumber;
     }
 
     /**
@@ -100,7 +103,7 @@ public class PieceDetails {
      * 
      */
     public void setAWBNumber(String value) {
-	this.awbNumber = value;
+        this.awbNumber = value;
     }
 
     /**
@@ -110,7 +113,7 @@ public class PieceDetails {
      * 
      */
     public String getLicensePlate() {
-	return licensePlate;
+        return licensePlate;
     }
 
     /**
@@ -121,7 +124,7 @@ public class PieceDetails {
      * 
      */
     public void setLicensePlate(String value) {
-	this.licensePlate = value;
+        this.licensePlate = value;
     }
 
     /**
@@ -131,7 +134,7 @@ public class PieceDetails {
      * 
      */
     public String getPieceNumber() {
-	return pieceNumber;
+        return pieceNumber;
     }
 
     /**
@@ -142,7 +145,7 @@ public class PieceDetails {
      * 
      */
     public void setPieceNumber(String value) {
-	this.pieceNumber = value;
+        this.pieceNumber = value;
     }
 
     /**
@@ -152,7 +155,7 @@ public class PieceDetails {
      * 
      */
     public String getActualDepth() {
-	return actualDepth;
+        return actualDepth;
     }
 
     /**
@@ -163,7 +166,7 @@ public class PieceDetails {
      * 
      */
     public void setActualDepth(String value) {
-	this.actualDepth = value;
+        this.actualDepth = value;
     }
 
     /**
@@ -173,7 +176,7 @@ public class PieceDetails {
      * 
      */
     public String getActualWidth() {
-	return actualWidth;
+        return actualWidth;
     }
 
     /**
@@ -184,7 +187,7 @@ public class PieceDetails {
      * 
      */
     public void setActualWidth(String value) {
-	this.actualWidth = value;
+        this.actualWidth = value;
     }
 
     /**
@@ -194,7 +197,7 @@ public class PieceDetails {
      * 
      */
     public String getActualHeight() {
-	return actualHeight;
+        return actualHeight;
     }
 
     /**
@@ -205,7 +208,7 @@ public class PieceDetails {
      * 
      */
     public void setActualHeight(String value) {
-	this.actualHeight = value;
+        this.actualHeight = value;
     }
 
     /**
@@ -215,7 +218,7 @@ public class PieceDetails {
      * 
      */
     public String getActualWeight() {
-	return actualWeight;
+        return actualWeight;
     }
 
     /**
@@ -226,7 +229,7 @@ public class PieceDetails {
      * 
      */
     public void setActualWeight(String value) {
-	this.actualWeight = value;
+        this.actualWeight = value;
     }
 
     /**
@@ -236,7 +239,7 @@ public class PieceDetails {
      * 
      */
     public String getDepth() {
-	return depth;
+        return depth;
     }
 
     /**
@@ -247,7 +250,7 @@ public class PieceDetails {
      * 
      */
     public void setDepth(String value) {
-	this.depth = value;
+        this.depth = value;
     }
 
     /**
@@ -257,7 +260,7 @@ public class PieceDetails {
      * 
      */
     public String getWidth() {
-	return width;
+        return width;
     }
 
     /**
@@ -268,7 +271,7 @@ public class PieceDetails {
      * 
      */
     public void setWidth(String value) {
-	this.width = value;
+        this.width = value;
     }
 
     /**
@@ -278,7 +281,7 @@ public class PieceDetails {
      * 
      */
     public String getHeight() {
-	return height;
+        return height;
     }
 
     /**
@@ -289,7 +292,7 @@ public class PieceDetails {
      * 
      */
     public void setHeight(String value) {
-	this.height = value;
+        this.height = value;
     }
 
     /**
@@ -299,7 +302,7 @@ public class PieceDetails {
      * 
      */
     public String getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -310,7 +313,7 @@ public class PieceDetails {
      * 
      */
     public void setWeight(String value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -320,7 +323,7 @@ public class PieceDetails {
      * 
      */
     public PackageType getPackageType() {
-	return packageType;
+        return packageType;
     }
 
     /**
@@ -331,7 +334,7 @@ public class PieceDetails {
      * 
      */
     public void setPackageType(PackageType value) {
-	this.packageType = value;
+        this.packageType = value;
     }
 
     /**
@@ -341,7 +344,7 @@ public class PieceDetails {
      * 
      */
     public String getDimWeight() {
-	return dimWeight;
+        return dimWeight;
     }
 
     /**
@@ -352,7 +355,7 @@ public class PieceDetails {
      * 
      */
     public void setDimWeight(String value) {
-	this.dimWeight = value;
+        this.dimWeight = value;
     }
 
     /**
@@ -362,7 +365,7 @@ public class PieceDetails {
      * 
      */
     public String getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -373,7 +376,7 @@ public class PieceDetails {
      * 
      */
     public void setWeightUnit(String value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
     /**
@@ -383,7 +386,7 @@ public class PieceDetails {
      * 
      */
     public String getPieceContents() {
-	return pieceContents;
+        return pieceContents;
     }
 
     /**
@@ -394,7 +397,7 @@ public class PieceDetails {
      * 
      */
     public void setPieceContents(String value) {
-	this.pieceContents = value;
+        this.pieceContents = value;
     }
 
 }

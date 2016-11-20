@@ -33,13 +33,15 @@ public enum InputType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (InputType inputType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(InputType.class.getSimpleName()).append(".").append(inputType.name()).toString()), inputType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(InputType.class.getSimpleName()).append(".")
+                .append(inputType.name()).toString()), inputType.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(InputType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(InputType.class.getSimpleName()).append(".label").toString());
     }
 }

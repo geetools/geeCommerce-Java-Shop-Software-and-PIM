@@ -60,7 +60,7 @@ public class VacancyResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createVacancy(Update update) {
-        Vacancy model = app.getModel(Vacancy.class);
+        Vacancy model = app.model(Vacancy.class);
         model.set(update.getFields());
         model.setAttributes(update.getAttributes());
         model.setOptionAttributes(update.getOptions());
@@ -100,7 +100,8 @@ public class VacancyResource extends AbstractResource {
     @POST
     @Path("{id}/file")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response createFile(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    public Response createFile(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         // Get product and image.
         FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
         MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());
@@ -115,7 +116,8 @@ public class VacancyResource extends AbstractResource {
     @POST
     @Path("file")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response createFile(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    public Response createFile(@FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         // Get product and image.
         FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
         MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());

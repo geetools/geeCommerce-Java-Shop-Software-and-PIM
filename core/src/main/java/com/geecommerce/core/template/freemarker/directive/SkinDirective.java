@@ -33,7 +33,8 @@ public class SkinDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         CacheManager cm = App.get().inject(CacheManager.class);
         Cache<String, String> c = cm.getCache(CACHE_NAME);
 

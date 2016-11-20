@@ -7,8 +7,9 @@ import com.geecommerce.core.service.api.ModelEnum;
 import com.google.common.collect.Maps;
 
 public enum CouponActionType implements ModelEnum {
-    PERCENT_PRODUCT(1), FIXED_PRODUCT(2), PERCENT_CART(3), FIXED_CART(4), BUY_X_GET_Y_FREE(5), SPEND_X_GET_Y_FREE(6), RANGE_PERCENT_CART(7), RANGE_FIXED_CART(8), LIST_PERCENT_PRODUCT(
-        9), LIST_FIXED_PRODUCT(11), BUY_X_GET_Y_FREE_SAME(12);
+    PERCENT_PRODUCT(1), FIXED_PRODUCT(2), PERCENT_CART(3), FIXED_CART(4), BUY_X_GET_Y_FREE(5), SPEND_X_GET_Y_FREE(
+        6), RANGE_PERCENT_CART(
+            7), RANGE_FIXED_CART(8), LIST_PERCENT_PRODUCT(9), LIST_FIXED_PRODUCT(11), BUY_X_GET_Y_FREE_SAME(12);
 
     private int id;
 
@@ -21,7 +22,8 @@ public enum CouponActionType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponActionType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponActionType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final CouponActionType fromId(int id) {
@@ -38,13 +40,15 @@ public enum CouponActionType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (CouponActionType couponActionType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(CouponActionType.class.getSimpleName()).append(".").append(couponActionType.name()).toString()), couponActionType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(CouponActionType.class.getSimpleName())
+                .append(".").append(couponActionType.name()).toString()), couponActionType.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponActionType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(CouponActionType.class.getSimpleName()).append(".label").toString());
     }
 }

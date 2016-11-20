@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Reference complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Reference">
@@ -50,7 +51,7 @@ public class Reference {
      * 
      */
     public String getReferenceID() {
-	return referenceID;
+        return referenceID;
     }
 
     /**
@@ -61,7 +62,7 @@ public class Reference {
      * 
      */
     public void setReferenceID(String value) {
-	this.referenceID = value;
+        this.referenceID = value;
     }
 
     /**
@@ -71,7 +72,7 @@ public class Reference {
      * 
      */
     public String getReferenceType() {
-	return referenceType;
+        return referenceType;
     }
 
     /**
@@ -82,7 +83,7 @@ public class Reference {
      * 
      */
     public void setReferenceType(String value) {
-	this.referenceType = value;
+        this.referenceType = value;
     }
 
 }

@@ -2,10 +2,10 @@ package com.geecommerce.test.def.classes;
 
 public class DefaultShopExtendsOnlyTestObject {
     public String test() {
-	return "default";
+        return "default";
     }
 
     public String parentTest() {
-	return "parent-default";
+        return "parent-default";
     }
 }

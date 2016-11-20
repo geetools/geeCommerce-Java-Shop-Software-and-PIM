@@ -127,8 +127,9 @@ public class DefaultOrder extends AbstractModel implements Order {
     private transient final OrderStatusHistories orderStatusHistories;
 
     @Inject
-    public DefaultOrder(Customers customers, Checkouts checkouts, OrderAddresses orderAddresses, OrderItems orderItems, OrderPayments orderPayments, OrderShipments orderShipments,
-        UserService userService, OrderStatusHistories orderStatusHistories) {
+    public DefaultOrder(Customers customers, Checkouts checkouts, OrderAddresses orderAddresses, OrderItems orderItems,
+        OrderPayments orderPayments, OrderShipments orderShipments, UserService userService,
+        OrderStatusHistories orderStatusHistories) {
         this.customers = customers;
         this.checkouts = checkouts;
         this.orderAddresses = orderAddresses;
@@ -392,7 +393,7 @@ public class DefaultOrder extends AbstractModel implements Order {
     @Override
     public CouponCode getCouponCode() {
         if (couponCode == null && couponCodeId != null) {
-            CouponService couponService = app.getService(CouponService.class);
+            CouponService couponService = app.service(CouponService.class);
             couponCode = couponService.getCouponCode(couponCodeId);
         }
         return couponCode;
@@ -570,7 +571,7 @@ public class DefaultOrder extends AbstractModel implements Order {
 
         this.jsonCalculationResult = str_(map.get(Col.CALCULATION_RESULT));
         if (jsonCalculationResult != null && !jsonCalculationResult.isEmpty()) {
-            CalculationResult calculationResults = app.getInjectable(CalculationResult.class);
+            CalculationResult calculationResults = app.injectable(CalculationResult.class);
             try {
                 this.calculationResult = calculationResults.fromJSON(jsonCalculationResult);
             } catch (JSONException e) {

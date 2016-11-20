@@ -40,7 +40,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
 
     protected static final Logger log = LogManager.getLogger(DefaultOptivoMailerService.class);
 
-    public static final ContentType contentType = ContentType.create("application/x-www-form-urlencoded", App.get().cpStr_(Configuration.BM_ENCODING));
+    public static final ContentType contentType = ContentType.create("application/x-www-form-urlencoded",
+        App.get().cpStr_(Configuration.BM_ENCODING));
 
     public static final String CMD_SENDEVENTMAIL = "sendeventmail";
     public static final String CMD_SENDTRANSACTIONTMAIL = "sendtransactionmail";
@@ -57,7 +58,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
     }
 
     @Override
-    public String invoke(String operation, String authCode, Map<String, Object> parameters) throws MailerServiceException, IOException {
+    public String invoke(String operation, String authCode, Map<String, Object> parameters)
+        throws MailerServiceException, IOException {
         final MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create();
         addSystemParameters(multipartEntity);
 
@@ -137,16 +139,20 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
     }
 
     @Override
-    public String sendTransactionMail(String recipientId, String attachmentsToken, Map<String, Object> recipientParams) throws MailerServiceException, IOException {
-        return sendTransactionMail(recipientId, app.cpStr_(Configuration.BM_MAILING_ID), attachmentsToken, recipientParams);
+    public String sendTransactionMail(String recipientId, String attachmentsToken, Map<String, Object> recipientParams)
+        throws MailerServiceException, IOException {
+        return sendTransactionMail(recipientId, app.cpStr_(Configuration.BM_MAILING_ID), attachmentsToken,
+            recipientParams);
     }
 
     @Override
-    public String sendTransactionMail(String recipientId, String mailingId, String attachmentToken, Map<String, Object> recipientParams) throws MailerServiceException, IOException {
+    public String sendTransactionMail(String recipientId, String mailingId, String attachmentToken,
+        Map<String, Object> recipientParams) throws MailerServiceException, IOException {
         return send(CMD_SENDTRANSACTIONTMAIL, recipientId, mailingId, attachmentToken, recipientParams);
     }
 
-    private String send(String command, String recipientId, String mailingId, String attachmentToken, Map<String, Object> additionalParams) throws MailerServiceException, IOException {
+    private String send(String command, String recipientId, String mailingId, String attachmentToken,
+        Map<String, Object> additionalParams) throws MailerServiceException, IOException {
 
         Map<String, Object> params = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(recipientId)) {
@@ -159,22 +165,26 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
         params.put("bmMailingId", mailingId);
 
         if (additionalParams != null) {
-            additionalParams.keySet().stream().filter(p -> additionalParams.get(p) != null).forEach(p -> params.put(p, additionalParams.get(p)));
+            additionalParams.keySet().stream().filter(p -> additionalParams.get(p) != null)
+                .forEach(p -> params.put(p, additionalParams.get(p)));
         }
 
         String response = invoke(command, app.cpStr_(Configuration.BM_MAILSERVICE_AUTH_CODE), params);
         if (!response.startsWith("enqueued:")) {
             throw new SendMailException(response);
         } else {
-            log.debug("Optivo mail  has been sent. Username='" + recipientId + "' mailingId=" + mailingId + " response=" + response);
-            System.out.println("Optivo mail  has been sent. Username='" + recipientId + "' mailingId=" + mailingId + " response=" + response);
+            log.debug("Optivo mail  has been sent. Username='" + recipientId + "' mailingId=" + mailingId + " response="
+                + response);
+            System.out.println("Optivo mail  has been sent. Username='" + recipientId + "' mailingId=" + mailingId
+                + " response=" + response);
 
             // to archive
             if (app.cpBool_(Configuration.SEND_TO_ARCHIVE)) {
                 params.put("bmRecipientId", app.cpStr_(Configuration.ARCHIVE_MAILBOX));
                 params.put(TemplateParameter.KDKONTO, recipientId);
                 String archiveResponse = invoke(command, app.cpStr_(Configuration.BM_MAILSERVICE_AUTH_CODE), params);
-                System.out.println("EMail for '" + recipientId + "' mailingId=" + mailingId + " has been sent to archive. Response=" + archiveResponse);
+                System.out.println("EMail for '" + recipientId + "' mailingId=" + mailingId
+                    + " has been sent to archive. Response=" + archiveResponse);
             }
 
             return response.replace("enqueued: ", "");
@@ -189,8 +199,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
     }
 
     @Override
-    public String subscribe(String recipientId, String optinId, boolean failOnUnsubscribe, boolean overwrite, String optinSource, Map<String, String> additionalParams)
-        throws MailerServiceException, IOException {
+    public String subscribe(String recipientId, String optinId, boolean failOnUnsubscribe, boolean overwrite,
+        String optinSource, Map<String, String> additionalParams) throws MailerServiceException, IOException {
         Map<String, Object> params = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(recipientId)) {
             params.put("bmRecipientId", recipientId);
@@ -207,7 +217,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
         }
 
         if (additionalParams != null) {
-            additionalParams.keySet().stream().filter(p -> StringUtils.isNotBlank(additionalParams.get(p))).forEach(p -> params.put(p, additionalParams.get(p)));
+            additionalParams.keySet().stream().filter(p -> StringUtils.isNotBlank(additionalParams.get(p)))
+                .forEach(p -> params.put(p, additionalParams.get(p)));
         }
 
         String response = invoke(CMD_SUBSCRIBE, app.cpStr_(Configuration.BM_NEWSLETTER_AUTH_CODE_1), params);
@@ -219,7 +230,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
     }
 
     @Override
-    public String unsubscribe(String recipientId, String mailId, boolean removeId) throws MailerServiceException, IOException {
+    public String unsubscribe(String recipientId, String mailId, boolean removeId)
+        throws MailerServiceException, IOException {
 
         Map<String, Object> params = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(recipientId)) {
@@ -240,7 +252,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
     }
 
     @Override
-    public String updateFields(String recipientId, String newRecipientId, boolean overwrite, Map<String, String> additionalParams) throws MailerServiceException, IOException {
+    public String updateFields(String recipientId, String newRecipientId, boolean overwrite,
+        Map<String, String> additionalParams) throws MailerServiceException, IOException {
 
         Map<String, Object> params = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(recipientId)) {
@@ -252,7 +265,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
 
         params.put("bmOverwrite", String.valueOf(overwrite));
         if (additionalParams != null) {
-            additionalParams.keySet().stream().filter(p -> StringUtils.isNotBlank(additionalParams.get(p))).forEach(p -> params.put(p, additionalParams.get(p)));
+            additionalParams.keySet().stream().filter(p -> StringUtils.isNotBlank(additionalParams.get(p)))
+                .forEach(p -> params.put(p, additionalParams.get(p)));
         }
 
         String response = invoke(CMD_UPDATEFIELDS, app.cpStr_(Configuration.BM_NEWSLETTER_AUTH_CODE_1), params);
@@ -277,7 +291,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
         attachments.stream().forEach(attachment -> objects.add(attachment));
         params.put("bmFile", objects);
 
-        String response = invoke(CMD_UPLOADPERSONALIZEDATTACHMENTS, app.cpStr_(Configuration.BM_MAILSERVICE_AUTH_CODE), params);
+        String response = invoke(CMD_UPLOADPERSONALIZEDATTACHMENTS, app.cpStr_(Configuration.BM_MAILSERVICE_AUTH_CODE),
+            params);
         if (!response.startsWith("ok:")) {
             throw new MailerServiceException(response);
         } else {
@@ -295,7 +310,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
     }
 
     @Override
-    public String onlineVersion(String recipientId, String pattern, String mailingId) throws IOException, MailerServiceException {
+    public String onlineVersion(String recipientId, String pattern, String mailingId)
+        throws IOException, MailerServiceException {
         Map<String, Object> params = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(recipientId)) {
             params.put("bmRecipientId", recipientId);
@@ -315,7 +331,8 @@ public class DefaultOptivoMailerService implements OptivoMailerService {
 
     private String buildServiceUri(String serviceType, String authCode) throws UnsupportedEncodingException {
 
-        return app.cpStr_(Configuration.BM_MAILSERVICE_PROTOCOL) + "://" + app.cpStr_(Configuration.BM_MAILSERVICE_HOST) + "/http" + "/" + serviceType + "/" + authCode;
+        return app.cpStr_(Configuration.BM_MAILSERVICE_PROTOCOL) + "://" + app.cpStr_(Configuration.BM_MAILSERVICE_HOST)
+            + "/http" + "/" + serviceType + "/" + authCode;
     }
 
     private void addSystemParameters(MultipartEntityBuilder builder) {

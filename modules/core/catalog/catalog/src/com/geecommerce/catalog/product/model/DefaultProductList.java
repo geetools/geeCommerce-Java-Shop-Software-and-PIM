@@ -30,7 +30,8 @@ import com.owlike.genson.annotation.JsonIgnore;
 
 @Cacheable
 @Model(collection = "product_lists", history = true)
-public class DefaultProductList extends AbstractAttributeSupport implements ProductList, AttributeSupport, TargetSupport, PageSupport {
+public class DefaultProductList extends AbstractAttributeSupport
+    implements ProductList, AttributeSupport, TargetSupport, PageSupport {
     private static final long serialVersionUID = -6927276841061370646L;
 
     @Column(Col.ID)
@@ -79,7 +80,8 @@ public class DefaultProductList extends AbstractAttributeSupport implements Prod
     private final AttributeService attributeService;
 
     @Inject
-    public DefaultProductList(ProductListFilterRules filterRules, UrlRewrites urlRewrites, AttributeService attributeService) {
+    public DefaultProductList(ProductListFilterRules filterRules, UrlRewrites urlRewrites,
+        AttributeService attributeService) {
         this.filterRules = filterRules;
         this.urlRewrites = urlRewrites;
         this.attributeService = attributeService;
@@ -265,13 +267,14 @@ public class DefaultProductList extends AbstractAttributeSupport implements Prod
     public void fromOldFormat() {
         try {
             if (getAttributes() != null) {
-                ProductListQueryNode rootQueryNode = app.getModel(ProductListQueryNode.class);
+                ProductListQueryNode rootQueryNode = app.model(ProductListQueryNode.class);
                 rootQueryNode.setType(ProductListQueryNodeType.BOOLEAN);
                 rootQueryNode.setOperator("AND");
                 rootQueryNode.setNodes(new ArrayList<ProductListQueryNode>());
                 for (AttributeValue attributeValue : getAttributes()) {
-                    if (attributeValue.getAttribute() != null && attributeValue.getAttributeTargetObject().getCode().equals(TargetObjectCode.PRODUCT)) {
-                        ProductListQueryNode childQueryNode = app.getModel(ProductListQueryNode.class);
+                    if (attributeValue.getAttribute() != null
+                        && attributeValue.getAttributeTargetObject().getCode().equals(TargetObjectCode.PRODUCT)) {
+                        ProductListQueryNode childQueryNode = app.model(ProductListQueryNode.class);
                         childQueryNode.setType(ProductListQueryNodeType.ATTRIBUTE);
                         childQueryNode.setValue(attributeValue);
                         rootQueryNode.getNodes().add(childQueryNode);
@@ -309,9 +312,11 @@ public class DefaultProductList extends AbstractAttributeSupport implements Prod
         AttributeValue metaDescription = getAttribute("meta_description");
         AttributeValue description = getAttribute("description");
 
-        if (metaDescription != null && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(metaDescription.getValue()))) {
+        if (metaDescription != null
+            && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(metaDescription.getValue()))) {
             return metaDescription.getValue();
-        } else if (description != null && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(description.getValue()))) {
+        } else if (description != null
+            && Strings.isNotEmpty(ContextObjects.findCurrentLanguageOrGlobal(description.getValue()))) {
             return description.getValue();
         } else {
             return null;
@@ -370,7 +375,7 @@ public class DefaultProductList extends AbstractAttributeSupport implements Prod
 
         Map<String, Object> queryNodeMap = map_(map.get(Col.QUERY_NODE));
         if (queryNodeMap != null && queryNodeMap.size() > 0) {
-            this.queryNode = app.getModel(ProductListQueryNode.class);
+            this.queryNode = app.model(ProductListQueryNode.class);
             this.queryNode.fromMap(queryNodeMap);
         }
 

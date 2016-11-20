@@ -8,6 +8,6 @@ public class EmptyFilter extends HashMap<String, Object> {
     private static final EmptyFilter EMPTY_FILTER = new EmptyFilter();
 
     public static final EmptyFilter get() {
-	return EMPTY_FILTER;
+        return EMPTY_FILTER;
     }
 }

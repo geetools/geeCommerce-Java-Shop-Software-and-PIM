@@ -1,11 +1,11 @@
 package com.geecommerce.core.system.model;
 
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
@@ -13,8 +13,8 @@ import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.service.api.GlobalColumn;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-
-import java.util.Map;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
 
 @Cacheable
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -120,7 +120,8 @@ public class DefaultCountry extends AbstractModel implements Country {
 
     @Override
     public String toString() {
-        return "DefaultCountry [id=" + id + ", code=" + code + ", code3=" + code3 + ", name=" + name + ", latitude=" + latitude + ", longitude=" + longitude + ", currency=" + currency + ", timezone="
-                + timezone + ", phoneCode=" + phoneCode + "]";
+        return "DefaultCountry [id=" + id + ", code=" + code + ", code3=" + code3 + ", name=" + name + ", latitude="
+            + latitude + ", longitude=" + longitude + ", currency=" + currency + ", timezone=" + timezone
+            + ", phoneCode=" + phoneCode + "]";
     }
 }

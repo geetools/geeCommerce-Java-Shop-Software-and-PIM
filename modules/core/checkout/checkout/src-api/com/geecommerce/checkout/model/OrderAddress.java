@@ -76,22 +76,22 @@ public interface OrderAddress extends Model {
     public OrderAddress setEmail(String email);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String ORDER_ID = "order_fk";
-	public static final String FIRST_NAME = "first_name";
-	public static final String LAST_NAME = "last_name";
-	public static final String ZIP = "zip";
-	public static final String HOUSE_NUMBER = "house_number";
-	public static final String ADDRESS1 = "address1";
-	public static final String ADDRESS2 = "address2";
-	public static final String DISTRICT = "district";
-	public static final String CITY = "city";
-	public static final String COUNTRY = "country";
-	public static final String TYPE = "type";
-	public static final String PHONE = "phone";
-	public static final String MOBILE = "mobile";
-	public static final String FAX = "fax";
-	public static final String SALUTATION = "salutation";
-	public static final String EMAIL = "email";
+        public static final String ID = "_id";
+        public static final String ORDER_ID = "order_fk";
+        public static final String FIRST_NAME = "first_name";
+        public static final String LAST_NAME = "last_name";
+        public static final String ZIP = "zip";
+        public static final String HOUSE_NUMBER = "house_number";
+        public static final String ADDRESS1 = "address1";
+        public static final String ADDRESS2 = "address2";
+        public static final String DISTRICT = "district";
+        public static final String CITY = "city";
+        public static final String COUNTRY = "country";
+        public static final String TYPE = "type";
+        public static final String PHONE = "phone";
+        public static final String MOBILE = "mobile";
+        public static final String FAX = "fax";
+        public static final String SALUTATION = "salutation";
+        public static final String EMAIL = "email";
     }
 }

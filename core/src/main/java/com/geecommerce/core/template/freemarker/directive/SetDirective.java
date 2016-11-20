@@ -20,35 +20,36 @@ import freemarker.template.utility.DeepUnwrap;
 public class SetDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-	TemplateModel pValue = (TemplateModel) params.get("value");
-	SimpleScalar pVar = (SimpleScalar) params.get("var");
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
+        TemplateModel pValue = (TemplateModel) params.get("value");
+        SimpleScalar pVar = (SimpleScalar) params.get("var");
 
-	if (pVar == null)
-	    throw new IllegalArgumentException("The var parameter cannot be null in set-directive");
+        if (pVar == null)
+            throw new IllegalArgumentException("The var parameter cannot be null in set-directive");
 
-	String var = pVar.getAsString();
-	Object value = null;
+        String var = pVar.getAsString();
+        Object value = null;
 
-	if (pValue != null) {
-	    if (pValue instanceof StringModel) {
-		value = ((StringModel) pValue).getWrappedObject();
-	    } else if (pValue instanceof SimpleHash) {
-		value = ((SimpleHash) pValue).toMap();
-	    } else {
-		value = DeepUnwrap.unwrap(pValue);
-	    }
-	} else if (body != null) {
-	    StringWriter sw = new StringWriter();
+        if (pValue != null) {
+            if (pValue instanceof StringModel) {
+                value = ((StringModel) pValue).getWrappedObject();
+            } else if (pValue instanceof SimpleHash) {
+                value = ((SimpleHash) pValue).toMap();
+            } else {
+                value = DeepUnwrap.unwrap(pValue);
+            }
+        } else if (body != null) {
+            StringWriter sw = new StringWriter();
 
-	    try {
-		body.render(sw);
-		value = sw.toString().trim();
-	    } finally {
-		IOUtils.closeQuietly(sw);
-	    }
-	}
+            try {
+                body.render(sw);
+                value = sw.toString().trim();
+            } finally {
+                IOUtils.closeQuietly(sw);
+            }
+        }
 
-	env.setVariable(var, DefaultObjectWrapper.getDefaultInstance().wrap(value));
+        env.setVariable(var, DefaultObjectWrapper.getDefaultInstance().wrap(value));
     }
 }

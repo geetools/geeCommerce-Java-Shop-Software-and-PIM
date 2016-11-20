@@ -18,7 +18,8 @@ public class DefaultAttributeOptions extends AbstractRepository implements Attri
         Map<String, Object> filter = new LinkedHashMap<String, Object>();
         filter.put(AttributeOption.Col.ATTRIBUTE_ID, attribute.getId());
 
-        List<AttributeOption> options = find(AttributeOption.class, filter, QueryOptions.builder().sortBy(AttributeOption.Col.POSITION).build());
+        List<AttributeOption> options = find(AttributeOption.class, filter,
+            QueryOptions.builder().sortBy(AttributeOption.Col.POSITION).build());
 
         return options;
     }

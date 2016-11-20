@@ -50,385 +50,388 @@ public class DefaultRetailStore extends AbstractAttributeSupport implements Reta
 
     @Inject
     public DefaultRetailStore(UrlRewrites urlRewrites) {
-	this.urlRewrites = urlRewrites;
+        this.urlRewrites = urlRewrites;
     }
 
     private List<String> addressLines = new ArrayList<>();
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public RetailStore setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getId2() {
-	return id2;
+        return id2;
     }
 
     @Override
     public RetailStore setId2(String id2) {
-	this.id2 = id2;
-	return this;
+        this.id2 = id2;
+        return this;
     }
 
     @Override
     public String getName() {
-	return name;
+        return name;
     }
 
     @Override
     public RetailStore setName(String name) {
-	this.name = name;
-	return this;
+        this.name = name;
+        return this;
     }
 
     @Override
     public RetailStore setTitle(ContextObject<String> title) {
-	this.title = title;
-	return this;
+        this.title = title;
+        return this;
     }
 
     @Override
     public String getTitle() {
-	if (title != null)
-	    return title.getString();
-	return NO_TITLE;
+        if (title != null)
+            return title.getString();
+        return NO_TITLE;
     }
 
     @Override
     public ContextObject<String> getTitles() {
-	return title;
+        return title;
     }
 
     @Override
     public RetailStore setZip(String zip) {
-	this.zip = zip;
-	return this;
+        this.zip = zip;
+        return this;
     }
 
     @Override
     public String getZip() {
-	return zip;
+        return zip;
     }
 
     @Override
     public RetailStore setCity(String city) {
-	this.city = city;
-	return this;
+        this.city = city;
+        return this;
     }
 
     @Override
     public String getCity() {
-	return city;
+        return city;
     }
 
     @Override
     public RetailStore setCountry(String country) {
-	this.country = country;
-	return this;
+        this.country = country;
+        return this;
     }
 
     @Override
     public String getCountry() {
-	return country;
+        return country;
     }
 
     @Override
     public RetailStore setTelephone(String telephone) {
-	this.telephone = telephone;
-	return this;
+        this.telephone = telephone;
+        return this;
     }
 
     @Override
     public String getTelephone() {
-	return telephone;
+        return telephone;
     }
 
     @Override
     public RetailStore setFax(String fax) {
-	this.fax = fax;
-	return this;
+        this.fax = fax;
+        return this;
     }
 
     @Override
     public String getFax() {
-	return fax;
+        return fax;
     }
 
     @Override
     public RetailStore setEmail(String email) {
-	this.email = email;
-	return this;
+        this.email = email;
+        return this;
     }
 
     @Override
     public String getEmail() {
-	return email;
+        return email;
     }
 
     @Override
     public RetailStore setAddressLines(List<String> addressLines) {
-	this.addressLines = addressLines;
-	return this;
+        this.addressLines = addressLines;
+        return this;
     }
 
     @Override
     public List<String> getAddressLines() {
-	return addressLines;
+        return addressLines;
     }
 
     @Override
     public RetailStore setAddressLines(String... lines) {
-	this.addressLines = Lists.newArrayList(lines);
-	return this;
+        this.addressLines = Lists.newArrayList(lines);
+        return this;
     }
 
     @Override
     public RetailStore addAddressLine(String addressLine) {
-	this.addressLines.add(addressLine);
-	return this;
+        this.addressLines.add(addressLine);
+        return this;
     }
 
     @Override
     public RetailStore setMainImageId(Id mainImageId) {
-	this.mainImageId = mainImageId;
-	return this;
+        this.mainImageId = mainImageId;
+        return this;
     }
 
     public Id getMainImageId() {
-	return mainImageId;
+        return mainImageId;
     }
 
     public String getMainImageUri() {
-	return mainImageUri;
+        return mainImageUri;
     }
 
     public String setMainImageUri(String mainImageUri) {
-	return mainImageUri;
+        return mainImageUri;
     }
 
     @Override
     public boolean isEnabled() {
-	return enabled;
+        return enabled;
     }
 
     @Override
     public RetailStore enable() {
-	enabled = true;
-	return this;
+        enabled = true;
+        return this;
 
     }
 
     @Override
     public RetailStore disable() {
-	enabled = false;
-	return this;
+        enabled = false;
+        return this;
     }
 
     @Override
     public String getUri() {
-	if (uri == null) {
-	    UrlRewrite urlRewrite = urlRewrites.forRetailStore(getId());
+        if (uri == null) {
+            UrlRewrite urlRewrite = urlRewrites.forRetailStore(getId());
 
-	    if (urlRewrite != null && urlRewrite.getRequestURI() != null && urlRewrite.getRequestURI().getClosestValue() != null)
-		uri = urlRewrite.getRequestURI().getClosestValue();
+            if (urlRewrite != null && urlRewrite.getRequestURI() != null
+                && urlRewrite.getRequestURI().getClosestValue() != null)
+                uri = urlRewrite.getRequestURI().getClosestValue();
 
-	    if (uri == null) {
-		uri = "/store/view/" + getId();
-	    }
-	}
-	return uri;
+            if (uri == null) {
+                uri = "/store/view/" + getId();
+            }
+        }
+        return uri;
     }
 
     @Override
     public RetailStore setUri(String uri) {
-	this.uri = uri;
-	return this;
+        this.uri = uri;
+        return this;
     }
 
     @Override
     public Integer getSortIndex() {
-	return sortIndex;
+        return sortIndex;
     }
 
     @Override
     public RetailStore setSortIndex(Integer sortIndex) {
-	this.sortIndex = sortIndex;
-	return this;
+        this.sortIndex = sortIndex;
+        return this;
     }
 
     public Double getDistance() {// WORKAROUND
-	return distance;
+        return distance;
     }
 
     public void setDistance(Double distance) {
-	this.distance = distance;
+        this.distance = distance;
     };
 
     @Override
     public String getStreet() {
-	return street;
+        return street;
     }
 
     @Override
     public void setStreet(String street) {
-	this.street = street;
+        this.street = street;
     }
 
     @Override
     public String getBuilding() {
-	return building;
+        return building;
     }
 
     @Override
     public void setBuilding(String building) {
-	this.building = building;
+        this.building = building;
     }
 
     @Override
     public String getWorkdayStart() {
-	return workdaystart;
+        return workdaystart;
     }
 
     @Override
     public void setWorkdayStart(String workdayStart) {
-	this.workdaystart = workdayStart;
+        this.workdaystart = workdayStart;
     }
 
     @Override
     public String getWorkdayEnd() {
-	return workdayend;
+        return workdayend;
     }
 
     @Override
     public void setWorkdayEnd(String workdayEnd) {
-	this.workdayend = workdayEnd;
+        this.workdayend = workdayEnd;
     }
 
     @Override
     public String getWeekendStart() {
-	return weekendstart;
+        return weekendstart;
     }
 
     @Override
     public void setWeekendStart(String weekendStart) {
-	this.weekendstart = weekendStart;
+        this.weekendstart = weekendStart;
     }
 
     @Override
     public String getWeekendEnd() {
-	return weekendend;
+        return weekendend;
     }
 
     @Override
     public void setWeekendEnd(String weekendEnd) {
-	this.weekendend = weekendEnd;
+        this.weekendend = weekendEnd;
     }
 
     public List<Floor> getFloors() {
-	return floors;
+        return floors;
     }
 
     public void setFloors(List<Floor> floors) {
-	this.floors = floors;
+        this.floors = floors;
     }
 
     public ShoppingCenterInfo getShoppingCenterInfo() {
-	return shoppingCenterInfo;
+        return shoppingCenterInfo;
     }
 
     public void setShoppingCenterInfo(ShoppingCenterInfo shoppingCenterInfo) {
-	this.shoppingCenterInfo = shoppingCenterInfo;
+        this.shoppingCenterInfo = shoppingCenterInfo;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
+        if (map == null)
+            return;
 
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.id2 = str_(map.get(Column.ID2));
-	this.name = str_(map.get(Column.NAME));
-	this.title = ctxObj_(map.get(Column.TITLE));
-	this.zip = str_(map.get(Column.ZIP));
-	this.city = str_(map.get(Column.CITY));
-	this.country = str_(map.get(Column.COUNTRY));
-	this.telephone = str_(map.get(Column.TELEPHONE));
-	this.fax = str_(map.get(Column.FAX));
-	this.email = str_(map.get(Column.EMAIL));
-	this.mainImageId = id_(map.get(Column.MAIN_IMAGE_ID));
-	this.mainImageUri = str_(map.get(Column.MAIN_IMAGE_URI));
-	this.enabled = bool_(map.get(Column.ENABLED));
-	this.addressLines = list_(map.get(Column.ADDRESS_LINES));
-	this.sortIndex = int_(map.get(Column.SORT_INDEX));
-	this.street = str_(map.get(Column.STREET));
-	this.building = str_(map.get(Column.BUILDING));
-	this.workdaystart = str_(map.get(Column.WORKDAYSTART));
-	this.workdayend = str_(map.get(Column.WORKDAYEND));
-	this.weekendstart = str_(map.get(Column.WORKDAYSTART));
-	this.weekendend = str_(map.get(Column.WEEKENDEND));
+        this.id = id_(map.get(Column.ID));
+        this.id2 = str_(map.get(Column.ID2));
+        this.name = str_(map.get(Column.NAME));
+        this.title = ctxObj_(map.get(Column.TITLE));
+        this.zip = str_(map.get(Column.ZIP));
+        this.city = str_(map.get(Column.CITY));
+        this.country = str_(map.get(Column.COUNTRY));
+        this.telephone = str_(map.get(Column.TELEPHONE));
+        this.fax = str_(map.get(Column.FAX));
+        this.email = str_(map.get(Column.EMAIL));
+        this.mainImageId = id_(map.get(Column.MAIN_IMAGE_ID));
+        this.mainImageUri = str_(map.get(Column.MAIN_IMAGE_URI));
+        this.enabled = bool_(map.get(Column.ENABLED));
+        this.addressLines = list_(map.get(Column.ADDRESS_LINES));
+        this.sortIndex = int_(map.get(Column.SORT_INDEX));
+        this.street = str_(map.get(Column.STREET));
+        this.building = str_(map.get(Column.BUILDING));
+        this.workdaystart = str_(map.get(Column.WORKDAYSTART));
+        this.workdayend = str_(map.get(Column.WORKDAYEND));
+        this.weekendstart = str_(map.get(Column.WORKDAYSTART));
+        this.weekendend = str_(map.get(Column.WEEKENDEND));
 
-	List<Map<String, Object>> floorMap = list_(map.get(Column.FLOORS));
-	if (floorMap != null) {
-	    floorMap.forEach(entry -> {
-		Floor floor = app.getModel(Floor.class);
-		floor.fromMap(entry);
-		getFloors().add(floor);
-	    });
-	}
+        List<Map<String, Object>> floorMap = list_(map.get(Column.FLOORS));
+        if (floorMap != null) {
+            floorMap.forEach(entry -> {
+                Floor floor = app.model(Floor.class);
+                floor.fromMap(entry);
+                getFloors().add(floor);
+            });
+        }
 
-	if (map.get(Column.SHOPPING_CENTER_INFO) != null) {
-	    ShoppingCenterInfo shoppingCenterInfo = app.getModel(ShoppingCenterInfo.class);
-	    shoppingCenterInfo.fromMap(map_(map.get(Column.SHOPPING_CENTER_INFO)));
-	    setShoppingCenterInfo(shoppingCenterInfo);
-	}
+        if (map.get(Column.SHOPPING_CENTER_INFO) != null) {
+            ShoppingCenterInfo shoppingCenterInfo = app.model(ShoppingCenterInfo.class);
+            shoppingCenterInfo.fromMap(map_(map.get(Column.SHOPPING_CENTER_INFO)));
+            setShoppingCenterInfo(shoppingCenterInfo);
+        }
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(Column.ID, getId());
-	map.put(Column.ID2, getId2());
-	map.put(Column.NAME, getName());
-	map.put(Column.TITLE, getTitles());
-	map.put(Column.ZIP, getZip());
-	map.put(Column.CITY, getCity());
-	map.put(Column.COUNTRY, getCountry());
-	map.put(Column.TELEPHONE, getTelephone());
-	map.put(Column.FAX, getFax());
-	map.put(Column.EMAIL, getEmail());
-	map.put(Column.MAIN_IMAGE_ID, getMainImageId());
-	map.put(Column.MAIN_IMAGE_URI, getMainImageUri());
-	map.put(Column.ENABLED, isEnabled());
-	map.put(Column.ADDRESS_LINES, getAddressLines());
-	map.put(Column.SORT_INDEX, getSortIndex());
-	map.put(Column.STREET, getStreet());
-	map.put(Column.BUILDING, getBuilding());
-	map.put(Column.WEEKENDSTART, getWorkdayStart());
-	map.put(Column.WORKDAYEND, getWorkdayEnd());
-	map.put(Column.WEEKENDSTART, getWeekendStart());
-	map.put(Column.WEEKENDEND, getWeekendEnd());
+        map.put(Column.ID, getId());
+        map.put(Column.ID2, getId2());
+        map.put(Column.NAME, getName());
+        map.put(Column.TITLE, getTitles());
+        map.put(Column.ZIP, getZip());
+        map.put(Column.CITY, getCity());
+        map.put(Column.COUNTRY, getCountry());
+        map.put(Column.TELEPHONE, getTelephone());
+        map.put(Column.FAX, getFax());
+        map.put(Column.EMAIL, getEmail());
+        map.put(Column.MAIN_IMAGE_ID, getMainImageId());
+        map.put(Column.MAIN_IMAGE_URI, getMainImageUri());
+        map.put(Column.ENABLED, isEnabled());
+        map.put(Column.ADDRESS_LINES, getAddressLines());
+        map.put(Column.SORT_INDEX, getSortIndex());
+        map.put(Column.STREET, getStreet());
+        map.put(Column.BUILDING, getBuilding());
+        map.put(Column.WEEKENDSTART, getWorkdayStart());
+        map.put(Column.WORKDAYEND, getWorkdayEnd());
+        map.put(Column.WEEKENDSTART, getWeekendStart());
+        map.put(Column.WEEKENDEND, getWeekendEnd());
 
-	List<Map<String, Object>> floors = new LinkedList<>();
-	getFloors().forEach(floor -> floors.add(floor.toMap()));
-	map.put(Column.FLOORS, floors);
+        List<Map<String, Object>> floors = new LinkedList<>();
+        getFloors().forEach(floor -> floors.add(floor.toMap()));
+        map.put(Column.FLOORS, floors);
 
-	map.put(Column.SHOPPING_CENTER_INFO, getShoppingCenterInfo());
+        map.put(Column.SHOPPING_CENTER_INFO, getShoppingCenterInfo());
 
-	return map;
+        return map;
     }
 
     @Override
     public String toString() {
-	return "DefaultRetailStore [id=" + id + ", id2=" + id2 + ", title=" + title + ", name=" + name + ", zip=" + zip + ", city=" + city + ", country=" + country + ", email=" + email + ", enabled=" + enabled + ", sortIndex=" + sortIndex + "]";
+        return "DefaultRetailStore [id=" + id + ", id2=" + id2 + ", title=" + title + ", name=" + name + ", zip=" + zip
+            + ", city=" + city + ", country=" + country + ", email=" + email + ", enabled=" + enabled
+            + ", sortIndex=" + sortIndex + "]";
     }
 }

@@ -20,6 +20,7 @@ public class DefaultViewedProducts extends AbstractRepository implements ViewedP
         Map<String, Object> filter = new HashMap<>();
         filter.put(ViewedProduct.Column.CUSTOMER_ID, customer.getId());
 
-        return find(ViewedProduct.class, filter, QueryOptions.builder().limitTo(limit).sortByDesc(ViewedProduct.Column.VIEWED_ON).build());
+        return find(ViewedProduct.class, filter,
+            QueryOptions.builder().limitTo(limit).sortByDesc(ViewedProduct.Column.VIEWED_ON).build());
     }
 }

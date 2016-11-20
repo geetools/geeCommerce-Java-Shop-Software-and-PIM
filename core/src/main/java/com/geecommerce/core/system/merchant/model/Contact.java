@@ -53,16 +53,16 @@ public interface Contact extends Model {
     public Contact setStores(List<Store> stores);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String FORENAME = "forename";
-	public static final String SURNAME = "surname";
-	public static final String JOB_TITLE = "job_title";
-	public static final String EMAIL = "email";
-	public static final String TYPE = "type";
-	public static final String ROLE = "role";
-	public static final String HOME_PHONE = "home_phone";
-	public static final String MOBILE_PHONE = "mobile_phone";
-	public static final String WORK_PHONE = "work_phone";
-	public static final String STORES = "stores";
+        public static final String ID = "_id";
+        public static final String FORENAME = "forename";
+        public static final String SURNAME = "surname";
+        public static final String JOB_TITLE = "job_title";
+        public static final String EMAIL = "email";
+        public static final String TYPE = "type";
+        public static final String ROLE = "role";
+        public static final String HOME_PHONE = "home_phone";
+        public static final String MOBILE_PHONE = "mobile_phone";
+        public static final String WORK_PHONE = "work_phone";
+        public static final String STORES = "stores";
     }
 }

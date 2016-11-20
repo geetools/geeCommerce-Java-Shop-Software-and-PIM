@@ -8,6 +8,7 @@
 package com.dhl.datatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for QtdSInAdCur complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdSInAdCur">
@@ -40,7 +42,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "QtdSInAdCur", propOrder = { "currencyCode", "currencyRoleTypeCode", "packageCharge", "shippingCharge" })
+@XmlType(name = "QtdSInAdCur", propOrder = { "currencyCode", "currencyRoleTypeCode", "packageCharge",
+    "shippingCharge" })
 public class QtdSInAdCur {
 
     @XmlElement(name = "CurrencyCode", required = true)
@@ -59,7 +62,7 @@ public class QtdSInAdCur {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -70,7 +73,7 @@ public class QtdSInAdCur {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -80,7 +83,7 @@ public class QtdSInAdCur {
      * 
      */
     public CurrencyRoleTypeCode getCurrencyRoleTypeCode() {
-	return currencyRoleTypeCode;
+        return currencyRoleTypeCode;
     }
 
     /**
@@ -91,7 +94,7 @@ public class QtdSInAdCur {
      * 
      */
     public void setCurrencyRoleTypeCode(CurrencyRoleTypeCode value) {
-	this.currencyRoleTypeCode = value;
+        this.currencyRoleTypeCode = value;
     }
 
     /**
@@ -101,7 +104,7 @@ public class QtdSInAdCur {
      * 
      */
     public BigDecimal getPackageCharge() {
-	return packageCharge;
+        return packageCharge;
     }
 
     /**
@@ -112,7 +115,7 @@ public class QtdSInAdCur {
      * 
      */
     public void setPackageCharge(BigDecimal value) {
-	this.packageCharge = value;
+        this.packageCharge = value;
     }
 
     /**
@@ -122,7 +125,7 @@ public class QtdSInAdCur {
      * 
      */
     public BigDecimal getShippingCharge() {
-	return shippingCharge;
+        return shippingCharge;
     }
 
     /**
@@ -133,7 +136,7 @@ public class QtdSInAdCur {
      * 
      */
     public void setShippingCharge(BigDecimal value) {
-	this.shippingCharge = value;
+        this.shippingCharge = value;
     }
 
 }

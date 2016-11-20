@@ -36,7 +36,8 @@ public class DefaultAttributeService implements AttributeService {
     protected final Connections connections;
 
     @Inject
-    public DefaultAttributeService(Attributes attributes, AttributeOptions attributeOptions, AttributeTargetObjects attributeTargetObjects, Connections connections) {
+    public DefaultAttributeService(Attributes attributes, AttributeOptions attributeOptions,
+        AttributeTargetObjects attributeTargetObjects, Connections connections) {
         this.attributes = attributes;
         this.attributeOptions = attributeOptions;
         this.attributeTargetObjects = attributeTargetObjects;
@@ -54,17 +55,20 @@ public class DefaultAttributeService implements AttributeService {
     }
 
     @Override
-    public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface, boolean createIfNotExists) {
+    public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface,
+        boolean createIfNotExists) {
         AttributeTargetObject targetObject = attributeTargetObjects.forType(modelInterface);
 
         if (targetObject == null && createIfNotExists) {
-            String code = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.UNDERSCORE).toLowerCase();
-            String name = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.SPACE).toLowerCase());
+            String code = StringUtils
+                .join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.UNDERSCORE)
+                .toLowerCase();
+            String name = StringUtils.capitalize(StringUtils
+                .join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.SPACE)
+                .toLowerCase());
 
-            targetObject = attributeTargetObjects.add(app.getModel(AttributeTargetObject.class)
-                .setType(modelInterface.getName())
-                .setCode(code)
-                .setName(ContextObjects.global(name)));
+            targetObject = attributeTargetObjects.add(app.model(AttributeTargetObject.class)
+                .setType(modelInterface.getName()).setCode(code).setName(ContextObjects.global(name)));
         }
 
         return targetObject;
@@ -114,7 +118,8 @@ public class DefaultAttributeService implements AttributeService {
     public Map<Id, Map<String, String>> getAttributeCodesBeginningWith(Id attrTargetObjectId, String codePrefix) {
         Map<Id, Map<String, String>> attributeCodes = new HashMap<>();
 
-        List<Attribute> attributeList = attributes.havingCodeBeginningWith(attributeTargetObjects.findById(AttributeTargetObject.class, attrTargetObjectId), codePrefix);
+        List<Attribute> attributeList = attributes.havingCodeBeginningWith(
+            attributeTargetObjects.findById(AttributeTargetObject.class, attrTargetObjectId), codePrefix);
 
         for (Attribute attribute : attributeList) {
             Map<String, String> m = new HashMap<>();
@@ -128,10 +133,12 @@ public class DefaultAttributeService implements AttributeService {
     }
 
     @Override
-    public Map<Id, Map<String, String>> getAttributeCodesBeginningWithCode2Prefix(Id attrTargetObjectId, String code2Prefix) {
+    public Map<Id, Map<String, String>> getAttributeCodesBeginningWithCode2Prefix(Id attrTargetObjectId,
+        String code2Prefix) {
         Map<Id, Map<String, String>> attributeCodes = new HashMap<>();
 
-        List<Attribute> attributeList = attributes.havingCode2BeginningWith(attributeTargetObjects.findById(AttributeTargetObject.class, attrTargetObjectId), code2Prefix);
+        List<Attribute> attributeList = attributes.havingCode2BeginningWith(
+            attributeTargetObjects.findById(AttributeTargetObject.class, attrTargetObjectId), code2Prefix);
 
         for (Attribute attribute : attributeList) {
             Map<String, String> m = new HashMap<>();
@@ -160,7 +167,8 @@ public class DefaultAttributeService implements AttributeService {
     }
 
     @Override
-    public List<Attribute> getAttributesFor(Class<? extends AttributeSupport> targetObjectType, QueryOptions queryOptions) {
+    public List<Attribute> getAttributesFor(Class<? extends AttributeSupport> targetObjectType,
+        QueryOptions queryOptions) {
         return attributes.thatBelongTo(attributeTargetObjects.forType(targetObjectType), queryOptions);
     }
 
@@ -171,7 +179,8 @@ public class DefaultAttributeService implements AttributeService {
 
     @Override
     public List<Attribute> getAttributesFor(Id targetObjectId, QueryOptions queryOptions) {
-        return attributes.thatBelongTo(attributeTargetObjects.findById(AttributeTargetObject.class, targetObjectId), queryOptions);
+        return attributes.thatBelongTo(attributeTargetObjects.findById(AttributeTargetObject.class, targetObjectId),
+            queryOptions);
     }
 
     @Override
@@ -222,7 +231,8 @@ public class DefaultAttributeService implements AttributeService {
     public Map<String, Attribute> getAttributesForSearchFilter(List<Id> attrTargetObjectIds) {
         Map<String, Attribute> filterAttributes = new HashMap<>();
 
-        List<Attribute> attributeList = attributes.forSearchFilter(attributeTargetObjects.findByIds(AttributeTargetObject.class, attrTargetObjectIds.toArray(new Id[attrTargetObjectIds.size()])));
+        List<Attribute> attributeList = attributes.forSearchFilter(attributeTargetObjects.findByIds(
+            AttributeTargetObject.class, attrTargetObjectIds.toArray(new Id[attrTargetObjectIds.size()])));
 
         for (Attribute attribute : attributeList) {
             filterAttributes.put(attribute.getCode(), attribute);
@@ -252,7 +262,8 @@ public class DefaultAttributeService implements AttributeService {
     // TODO:find better place for that
     @Override
     public List<String> getSuggestions(Id attributeId, String collectionName, String lang, String query) {
-        DBObject val = new BasicDBObject("$elemMatch", new BasicDBObject("val", new BasicDBObject("$regex", "^" + query + ".*")));
+        DBObject val = new BasicDBObject("$elemMatch",
+            new BasicDBObject("val", new BasicDBObject("$regex", "^" + query + ".*")));
 
         DBObject elemMathContent = new BasicDBObject("attr_id", attributeId);
         elemMathContent.put("val", val);
@@ -271,10 +282,11 @@ public class DefaultAttributeService implements AttributeService {
         matchAdditionalContent.put("attributes.val.val", new BasicDBObject("$regex", "^" + query + ".*"));
 
         DBObject matchAdditional = new BasicDBObject("$match", matchAdditionalContent);
-        AggregationOutput output = ((DB) connections.getFirstConnection("mongodb")).getCollection(collectionName).aggregate(match, new BasicDBObject("$unwind", "$attributes"),
-            new BasicDBObject("$unwind", "$attributes.val"), matchAdditional,
-            new BasicDBObject("$group", new BasicDBObject("_id", "$attributes.val.val")),
-            new BasicDBObject("$sort", new BasicDBObject("_id", 1)));
+        AggregationOutput output = ((DB) connections.getFirstConnection("mongodb")).getCollection(collectionName)
+            .aggregate(match, new BasicDBObject("$unwind", "$attributes"),
+                new BasicDBObject("$unwind", "$attributes.val"), matchAdditional,
+                new BasicDBObject("$group", new BasicDBObject("_id", "$attributes.val.val")),
+                new BasicDBObject("$sort", new BasicDBObject("_id", 1)));
 
         List<String> suggestions = new ArrayList<>();
 

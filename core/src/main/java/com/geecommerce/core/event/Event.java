@@ -1,7 +1,8 @@
 package com.geecommerce.core.event;
 
 /**
- * Choose which event is to be observed when using the {@link com.geecommerce.core.event.annotation.Observe} annotation.
+ * Choose which event is to be observed when using the
+ * {@link com.geecommerce.core.event.annotation.Observe} annotation.
  * 
  * @see com.geecommerce.core.event.annotation.Observe
  * @see com.geecommerce.core.event.Observable

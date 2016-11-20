@@ -9,6 +9,7 @@ package com.dhl.dctresponsedatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for NoteType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="NoteType">
@@ -69,8 +71,10 @@ public class NoteType {
      * Gets the value of the condition property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the condition property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the condition property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -81,15 +85,16 @@ public class NoteType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link NoteType.Condition }
+     * Objects of the following type(s) are allowed in the list
+     * {@link NoteType.Condition }
      * 
      * 
      */
     public List<NoteType.Condition> getCondition() {
-	if (condition == null) {
-	    condition = new ArrayList<NoteType.Condition>();
-	}
-	return this.condition;
+        if (condition == null) {
+            condition = new ArrayList<NoteType.Condition>();
+        }
+        return this.condition;
     }
 
     /**
@@ -97,7 +102,8 @@ public class NoteType {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -130,52 +136,52 @@ public class NoteType {
     @XmlType(name = "", propOrder = { "conditionCode", "conditionData" })
     public static class Condition {
 
-	@XmlElement(name = "ConditionCode")
-	protected String conditionCode;
-	@XmlElement(name = "ConditionData")
-	protected String conditionData;
+        @XmlElement(name = "ConditionCode")
+        protected String conditionCode;
+        @XmlElement(name = "ConditionData")
+        protected String conditionData;
 
-	/**
-	 * Gets the value of the conditionCode property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getConditionCode() {
-	    return conditionCode;
-	}
+        /**
+         * Gets the value of the conditionCode property.
+         * 
+         * @return possible object is {@link String }
+         * 
+         */
+        public String getConditionCode() {
+            return conditionCode;
+        }
 
-	/**
-	 * Sets the value of the conditionCode property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setConditionCode(String value) {
-	    this.conditionCode = value;
-	}
+        /**
+         * Sets the value of the conditionCode property.
+         * 
+         * @param value
+         *            allowed object is {@link String }
+         * 
+         */
+        public void setConditionCode(String value) {
+            this.conditionCode = value;
+        }
 
-	/**
-	 * Gets the value of the conditionData property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getConditionData() {
-	    return conditionData;
-	}
+        /**
+         * Gets the value of the conditionData property.
+         * 
+         * @return possible object is {@link String }
+         * 
+         */
+        public String getConditionData() {
+            return conditionData;
+        }
 
-	/**
-	 * Sets the value of the conditionData property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setConditionData(String value) {
-	    this.conditionData = value;
-	}
+        /**
+         * Sets the value of the conditionData property.
+         * 
+         * @param value
+         *            allowed object is {@link String }
+         * 
+         */
+        public void setConditionData(String value) {
+            this.conditionData = value;
+        }
 
     }
 

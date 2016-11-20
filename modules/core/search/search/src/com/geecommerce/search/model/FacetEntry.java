@@ -6,26 +6,26 @@ public class FacetEntry {
     private int count = 0;
 
     public FacetEntry(String id, String label, int count) {
-	super();
-	this.id = id;
-	this.label = label;
-	this.count = count;
+        super();
+        this.id = id;
+        this.label = label;
+        this.count = count;
     }
 
     public String getId() {
-	return id;
+        return id;
     }
 
     public String getLabel() {
-	return label;
+        return label;
     }
 
     public FacetEntry setLabel(String label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     public int getCount() {
-	return count;
+        return count;
     }
 }

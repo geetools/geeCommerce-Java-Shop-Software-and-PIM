@@ -50,7 +50,8 @@ public class Assets {
     }
 
     public static final String jsModulePath(String relativeURI, String moduleCode) {
-        return moduleAssetPath(new StringBuilder(JS_BASE_PATH).append(appendExtension(relativeURI)).toString(), moduleCode);
+        return moduleAssetPath(new StringBuilder(JS_BASE_PATH).append(appendExtension(relativeURI)).toString(),
+            moduleCode);
     }
 
     public static final String resourceModulePath(String relativeURI) {
@@ -72,7 +73,7 @@ public class Assets {
         if (moduleCode == null)
             return null;
 
-        ModuleLoader ml = App.get().getModuleLoader();
+        ModuleLoader ml = App.get().moduleLoader();
 
         if (ml == null)
             return null;
@@ -93,14 +94,15 @@ public class Assets {
             // url.toString()));
 
             if (url != null)
-                webpath = new StringBuilder(String.format(MODULE_WEBPATH_PREFIX, moduleCode)).append(relativeURI).toString();
+                webpath = new StringBuilder(String.format(MODULE_WEBPATH_PREFIX, moduleCode)).append(relativeURI)
+                    .toString();
         }
 
         return webpath;
     }
 
     public static final String getModuleCode() {
-        return (String) App.get().getServletRequest().getAttribute("moduleCode");
+        return (String) App.get().servletRequest().getAttribute("moduleCode");
     }
 
     private static final String appendExtension(String relativeURI) {
@@ -120,7 +122,8 @@ public class Assets {
             return null;
 
         return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString());
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString());
     }
 
     public static final String jsModuleViewPath(String relativeURI, String moduleCode, boolean fromParentView) {
@@ -131,7 +134,8 @@ public class Assets {
             return null;
 
         return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString(),
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString(),
             fromParentView);
     }
 
@@ -143,7 +147,8 @@ public class Assets {
             return null;
 
         return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString());
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString());
     }
 
     public static final String jsModuleStorePath(String relativeURI, String moduleCode, boolean fromParentView) {
@@ -154,7 +159,8 @@ public class Assets {
             return null;
 
         return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString(),
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString(),
             fromParentView);
     }
 
@@ -166,7 +172,8 @@ public class Assets {
             return null;
 
         return merchantPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString());
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString());
     }
 
     // String projectPagesJsPath = new
@@ -174,24 +181,30 @@ public class Assets {
     // .append(pagePath).toString();
 
     public static final String jsPageViewPath(String relativeURI) {
-        return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString());
+        return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
+            new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString());
     }
 
     public static final String jsPageViewPath(String relativeURI, boolean fromParentView) {
-        return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString(), fromParentView);
+        return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
+            new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString(),
+            fromParentView);
     }
 
     public static final String jsPageStorePath(String relativeURI) {
-        return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString());
+        return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
+            new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString());
     }
 
     public static final String jsPageStorePath(String relativeURI, boolean fromParentView) {
-        return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString(),
+        return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
+            new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString(),
             fromParentView);
     }
 
     public static final String jsPageMerchantPath(String relativeURI) {
-        return merchantPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString());
+        return merchantPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(),
+            new StringBuilder(PAGES).append(File.separatorChar).append(appendExtension(relativeURI)).toString());
     }
 
     public static final String jsPageModulePath(String relativeURI) {
@@ -199,11 +212,13 @@ public class Assets {
     }
 
     public static final String jsPageModulePath(String relativeURI, String moduleCode) {
-        return jsModulePath(new StringBuilder(PAGES).append(Str.SLASH).append(appendExtension(relativeURI)).toString(), moduleCode);
+        return jsModulePath(new StringBuilder(PAGES).append(Str.SLASH).append(appendExtension(relativeURI)).toString(),
+            moduleCode);
     }
 
     public static final String jsPageDefaultPath(String relativeURI) {
-        String jsWebPath = new StringBuilder(Str.SLASH).append(JS_BASE_PATH).append(PAGES).append(Str.SLASH).append(appendExtension(relativeURI)).toString();
+        String jsWebPath = new StringBuilder(Str.SLASH).append(JS_BASE_PATH).append(PAGES).append(Str.SLASH)
+            .append(appendExtension(relativeURI)).toString();
         File f = new File(App.get().getBaseWebappPath(), jsWebPath);
 
         System.out.println(f.getAbsolutePath());
@@ -216,7 +231,8 @@ public class Assets {
     }
 
     public static final String jsDefaultPath(String relativeURI) {
-        String jsWebPath = new StringBuilder(Str.SLASH).append(JS_BASE_PATH).append(appendExtension(relativeURI)).toString();
+        String jsWebPath = new StringBuilder(Str.SLASH).append(JS_BASE_PATH).append(appendExtension(relativeURI))
+            .toString();
         File f = new File(App.get().getBaseWebappPath(), jsWebPath);
 
         System.out.println(f.getAbsolutePath());
@@ -236,7 +252,8 @@ public class Assets {
             return null;
 
         return viewPath(App.get().getWebappSkinPath(), App.get().getProjectSkinPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(relativeURI).toString());
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(relativeURI).toString());
     }
 
     public static final String skinModuleViewPath(String relativeURI, String moduleCode, boolean fromParentView) {
@@ -247,7 +264,9 @@ public class Assets {
             return null;
 
         return viewPath(App.get().getWebappSkinPath(), App.get().getProjectSkinPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(relativeURI).toString(), fromParentView);
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(relativeURI).toString(),
+            fromParentView);
     }
 
     public static final String skinViewPath(String relativeURI) {
@@ -266,7 +285,8 @@ public class Assets {
             return null;
 
         return storePath(App.get().getWebappSkinPath(), App.get().getProjectSkinPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(relativeURI).toString());
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(relativeURI).toString());
     }
 
     public static final String skinModuleStorePath(String relativeURI, String moduleCode, boolean fromParentView) {
@@ -277,7 +297,9 @@ public class Assets {
             return null;
 
         return storePath(App.get().getWebappSkinPath(), App.get().getProjectSkinPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(relativeURI).toString(), fromParentView);
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(relativeURI).toString(),
+            fromParentView);
     }
 
     public static final String skinStorePath(String relativeURI) {
@@ -296,7 +318,8 @@ public class Assets {
             return null;
 
         return merchantPath(App.get().getWebappSkinPath(), App.get().getProjectSkinPath(),
-            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar).append(relativeURI).toString());
+            new StringBuilder(MODULES).append(File.separatorChar).append(moduleCode).append(File.separatorChar)
+                .append(relativeURI).toString());
     }
 
     public static final String skinMerchantPath(String relativeURI) {
@@ -314,7 +337,8 @@ public class Assets {
     }
 
     public static final String jsViewPath(String relativeURI, boolean fromParentStore) {
-        return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), appendExtension(relativeURI), fromParentStore);
+        return viewPath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), appendExtension(relativeURI),
+            fromParentStore);
     }
 
     public static final String jsStorePath(String relativeURI) {
@@ -322,7 +346,8 @@ public class Assets {
     }
 
     public static final String jsStorePath(String relativeURI, boolean fromParentStore) {
-        return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), appendExtension(relativeURI), fromParentStore);
+        return storePath(App.get().getWebappJsPath(), App.get().getProjectJsPath(), appendExtension(relativeURI),
+            fromParentStore);
     }
 
     public static final String jsMerchantPath(String relativeURI) {
@@ -345,8 +370,9 @@ public class Assets {
         return viewPath(webappBasePath, projectsBasePath, relativeURI, false);
     }
 
-    public static final String viewPath(String webappBasePath, String projectsBasePath, String relativeURI, boolean fromParentView) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+    public static final String viewPath(String webappBasePath, String projectsBasePath, String relativeURI,
+        boolean fromParentView) {
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
         Store s = m.getStoreFor(appCtx.getRequestContext());
         View v = m.getViewFor(appCtx.getRequestContext());
@@ -358,9 +384,12 @@ public class Assets {
         }
 
         if (isLocateInProjects()) {
-            StringBuilder path = new StringBuilder(projectsBasePath).append(File.separatorChar).append(ctxFolderPrefix())
-                .append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true)).append(File.separatorChar)
-                .append(ctxFolderPrefix()).append(Filenames.ensureSafeName(v.getCode() != null ? v.getCode() : v.getName(), true)).append(File.separatorChar).append(relativeURI);
+            StringBuilder path = new StringBuilder(projectsBasePath).append(File.separatorChar)
+                .append(ctxFolderPrefix())
+                .append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true))
+                .append(File.separatorChar).append(ctxFolderPrefix())
+                .append(Filenames.ensureSafeName(v.getCode() != null ? v.getCode() : v.getName(), true))
+                .append(File.separatorChar).append(relativeURI);
 
             File f = new File(path.toString());
             // System.out.println("Trying: " + f.getAbsolutePath());
@@ -372,9 +401,12 @@ public class Assets {
 
         if (isLocateInWebapp()) {
             StringBuilder path = new StringBuilder(webappBasePath).append(File.separatorChar).append(ctxFolderPrefix())
-                .append(Filenames.ensureSafeName(m.getCode() != null ? m.getCode() : m.getCompanyName(), true)).append(File.separatorChar)
-                .append(ctxFolderPrefix()).append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true)).append(File.separatorChar).append(ctxFolderPrefix())
-                .append(Filenames.ensureSafeName(v.getCode() != null ? v.getCode() : v.getName(), true)).append(File.separatorChar).append(relativeURI);
+                .append(Filenames.ensureSafeName(m.getCode() != null ? m.getCode() : m.getCompanyName(), true))
+                .append(File.separatorChar).append(ctxFolderPrefix())
+                .append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true))
+                .append(File.separatorChar).append(ctxFolderPrefix())
+                .append(Filenames.ensureSafeName(v.getCode() != null ? v.getCode() : v.getName(), true))
+                .append(File.separatorChar).append(relativeURI);
 
             File f = new File(path.toString());
             // System.out.println("Trying: " + f.getAbsolutePath());
@@ -391,8 +423,9 @@ public class Assets {
         return storePath(webappBasePath, projectsBasePath, relativeURI, false);
     }
 
-    public static final String storePath(String webappBasePath, String projectsBasePath, String relativeURI, boolean fromParentStore) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+    public static final String storePath(String webappBasePath, String projectsBasePath, String relativeURI,
+        boolean fromParentStore) {
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
         Store s = m.getStoreFor(appCtx.getRequestContext());
 
@@ -403,9 +436,10 @@ public class Assets {
         }
 
         if (isLocateInProjects()) {
-            StringBuilder path = new StringBuilder(projectsBasePath).append(File.separatorChar).append(ctxFolderPrefix())
-                .append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true)).append(File.separatorChar)
-                .append(relativeURI);
+            StringBuilder path = new StringBuilder(projectsBasePath).append(File.separatorChar)
+                .append(ctxFolderPrefix())
+                .append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true))
+                .append(File.separatorChar).append(relativeURI);
 
             File f = new File(path.toString());
             // System.out.println("Trying: " + f.getAbsolutePath());
@@ -417,8 +451,10 @@ public class Assets {
 
         if (isLocateInWebapp()) {
             StringBuilder path = new StringBuilder(webappBasePath).append(File.separatorChar).append(ctxFolderPrefix())
-                .append(Filenames.ensureSafeName(m.getCode() != null ? m.getCode() : m.getCompanyName(), true)).append(File.separatorChar)
-                .append(ctxFolderPrefix()).append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true)).append(File.separatorChar).append(relativeURI);
+                .append(Filenames.ensureSafeName(m.getCode() != null ? m.getCode() : m.getCompanyName(), true))
+                .append(File.separatorChar).append(ctxFolderPrefix())
+                .append(Filenames.ensureSafeName(s.getCode() != null ? s.getCode() : s.getName(), true))
+                .append(File.separatorChar).append(relativeURI);
 
             File f = new File(path.toString());
             // System.out.println("Trying: " + f.getAbsolutePath());
@@ -432,7 +468,7 @@ public class Assets {
     }
 
     public static final String merchantPath(String webappBasePath, String projectsBasePath, String relativeURI) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         Merchant m = appCtx.getMerchant();
 
         if (isLocateInProjects()) {
@@ -448,8 +484,8 @@ public class Assets {
 
         if (isLocateInWebapp()) {
             StringBuilder path = new StringBuilder(webappBasePath).append(File.separatorChar).append(ctxFolderPrefix())
-                .append(Filenames.ensureSafeName(m.getCode() != null ? m.getCode() : m.getCompanyName(), true)).append(File.separatorChar)
-                .append(relativeURI);
+                .append(Filenames.ensureSafeName(m.getCode() != null ? m.getCode() : m.getCompanyName(), true))
+                .append(File.separatorChar).append(relativeURI);
 
             File f = new File(path.toString());
             // System.out.println("Trying: " + f.getAbsolutePath());

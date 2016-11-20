@@ -17,9 +17,9 @@ public interface ContentLayout extends Model {
     public ContentLayout setLabel(ContextObject<String> label);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String LABEL = "label";
-	public static final String PATH = "path";
+        public static final String ID = "_id";
+        public static final String LABEL = "label";
+        public static final String PATH = "path";
     }
 
 }

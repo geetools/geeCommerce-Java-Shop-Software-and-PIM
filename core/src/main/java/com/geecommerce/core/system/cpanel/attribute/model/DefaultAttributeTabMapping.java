@@ -34,51 +34,52 @@ public class DefaultAttributeTabMapping extends AbstractModel implements Attribu
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public AttributeTabMapping setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getTabId() {
-	return tabId;
+        return tabId;
     }
 
     @Override
     public AttributeTabMapping setTabId(Id tabId) {
-	this.tabId = tabId;
-	return this;
+        this.tabId = tabId;
+        return this;
     }
 
     @Override
     public Id getAttributeId() {
-	return attributeId;
+        return attributeId;
     }
 
     @Override
     public AttributeTabMapping setAttributeId(Id attributeId) {
-	this.attributeId = attributeId;
-	return this;
+        this.attributeId = attributeId;
+        return this;
     }
 
     @Override
     public int getPosition() {
-	return position;
+        return position;
     }
 
     @Override
     public AttributeTabMapping setPosition(int position) {
-	this.position = position;
-	return this;
+        this.position = position;
+        return this;
     }
 
     @Override
     public String toString() {
-	return "DefaultAttributeTabMapping [id=" + id + ", tabId=" + tabId + ", attributeId=" + attributeId + ", position=" + position + "]";
+        return "DefaultAttributeTabMapping [id=" + id + ", tabId=" + tabId + ", attributeId=" + attributeId
+            + ", position=" + position + "]";
     }
 
 }

@@ -79,7 +79,8 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
         json.put(FIELD_KEY_IS_VISIBLE, isVisible);
 
         Boolean visibleInProductList = ContextObjects.findCurrentStoreOrGlobal(product.getVisibleInProductList());
-        json.put(FIELD_KEY_IS_VISIBLE_IN_PRODUCT_LIST, visibleInProductList == null ? true : visibleInProductList.booleanValue());
+        json.put(FIELD_KEY_IS_VISIBLE_IN_PRODUCT_LIST,
+            visibleInProductList == null ? true : visibleInProductList.booleanValue());
 
         Integer qty = product.getQty();
         json.put(FIELD_KEY_QTY, qty);
@@ -100,11 +101,14 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
                             Set<Id> childProductIds = product.getAllChildProductIds();
 
                             if (childProductIds != null && !childProductIds.isEmpty()) {
-                                List<Product> childProducts = products.findByIds(Product.class, childProductIds.toArray(new Id[childProductIds.size()]));
+                                List<Product> childProducts = products.findByIds(Product.class,
+                                    childProductIds.toArray(new Id[childProductIds.size()]));
 
                                 for (Product childProduct : childProducts) {
-                                    if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling()) && childProduct.isVisible()) {
-                                        isSale = Groovy.conditionMatches(isSaleMatcherScript, KEY_PRODUCT, childProduct);
+                                    if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling())
+                                        && childProduct.isVisible()) {
+                                        isSale = Groovy.conditionMatches(isSaleMatcherScript, KEY_PRODUCT,
+                                            childProduct);
 
                                         if (isSale)
                                             break;
@@ -131,15 +135,20 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
                     try {
                         isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT, product);
 
-                        if (!isSpecial && (product.getType() == ProductType.VARIANT_MASTER || product.getType() == ProductType.PROGRAMME || product.getType() == ProductType.BUNDLE)) {
+                        if (!isSpecial && (product.getType() == ProductType.VARIANT_MASTER
+                            || product.getType() == ProductType.PROGRAMME
+                            || product.getType() == ProductType.BUNDLE)) {
                             Set<Id> childProductIds = product.getAllChildProductIds();
 
                             if (childProductIds != null && !childProductIds.isEmpty()) {
-                                List<Product> childProducts = products.findByIds(Product.class, childProductIds.toArray(new Id[childProductIds.size()]));
+                                List<Product> childProducts = products.findByIds(Product.class,
+                                    childProductIds.toArray(new Id[childProductIds.size()]));
 
                                 for (Product childProduct : childProducts) {
-                                    if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling()) && childProduct.isVisible()) {
-                                        isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT, childProduct);
+                                    if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling())
+                                        && childProduct.isVisible()) {
+                                        isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT,
+                                            childProduct);
 
                                         if (isSpecial)
                                             break;
@@ -164,7 +173,8 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
         } else {
             Double finalPrice = null;
 
-            if ((!product.isProgramme() && !product.isVariantMaster()) || (product.getPrice() != null && product.getPrice().hasValidPrice())) {
+            if ((!product.isProgramme() && !product.isVariantMaster())
+                || (product.getPrice() != null && product.getPrice().hasValidPrice())) {
                 finalPrice = priceResult.getFinalPrice();
             } else if (product.isVariantMaster() || product.isProgramme()) {
                 finalPrice = priceResult.getLowestFinalPrice();
@@ -181,7 +191,8 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
             if (priceResult != null && finalPrice != null) {
                 Map<String, Double> prices = null;
 
-                if ((!product.isProgramme() && !product.isVariantMaster()) || (product.getPrice() != null && product.getPrice().hasValidPrice())) {
+                if ((!product.isProgramme() && !product.isVariantMaster())
+                    || (product.getPrice() != null && product.getPrice().hasValidPrice())) {
                     prices = priceResult.getValidPrices();
                 } else if (product.isVariantMaster() || product.isProgramme()) {
                     prices = priceResult.getLowestValidPrices();
@@ -200,7 +211,8 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
         for (AttributeValue attributeValue : product.getAttributes()) {
             Attribute attr = attributeValue.getAttribute();
 
-            if (attr != null && (attr.isIncludeInSearchIndex() || attr.isSearchable() || attr.getIncludeInProductListFilter() || attr.getIncludeInProductListQuery())) {
+            if (attr != null && (attr.isIncludeInSearchIndex() || attr.isSearchable()
+                || attr.getIncludeInProductListFilter() || attr.getIncludeInProductListQuery())) {
                 // Only index text values when product is visible.
                 if (!isVisible && BackendType.STRING == attr.getBackendType())
                     continue;
@@ -224,7 +236,8 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
             Set<Id> childProductIds = product.getAllChildProductIds();
 
             if (childProductIds != null && !childProductIds.isEmpty()) {
-                List<Product> childProducts = products.findByIds(Product.class, childProductIds.toArray(new Id[childProductIds.size()]));
+                List<Product> childProducts = products.findByIds(Product.class,
+                    childProductIds.toArray(new Id[childProductIds.size()]));
 
                 Map<Id, AttributeValue> childAttributeValues = new HashMap<Id, AttributeValue>();
 
@@ -245,11 +258,12 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
 
                         Attribute attr = attributeValue.getAttribute();
 
-                        if (attr != null && attr.isProductListFilterIncludeChildren() && attr.getIncludeInProductListFilter()) {
+                        if (attr != null && attr.isProductListFilterIncludeChildren()
+                            && attr.getIncludeInProductListFilter()) {
                             AttributeValue av = childAttributeValues.get(attr.getId());
 
                             if (av == null) {
-                                av = app.getModel(AttributeValue.class).setAttributeId(attr.getId());
+                                av = app.model(AttributeValue.class).setAttributeId(attr.getId());
 
                                 childAttributeValues.put(attr.getId(), av);
                             }

@@ -121,7 +121,7 @@ public class DefaultAttributeGroup extends AbstractMultiContextModel implements 
 
     @Override
     public AttributeGroup addItem(Id id, AttributeGroupMappingType type) {
-        AttributeGroupMapping mapping = app.getModel(AttributeGroupMapping.class);
+        AttributeGroupMapping mapping = app.model(AttributeGroupMapping.class);
         mapping.setId(id);
         mapping.setType(type);
         this.items.add(mapping);
@@ -152,7 +152,7 @@ public class DefaultAttributeGroup extends AbstractMultiContextModel implements 
         if (itemsList != null && itemsList.size() > 0) {
             this.items = new ArrayList<>();
             for (Map<String, Object> item : itemsList) {
-                AttributeGroupMapping mapping = app.getModel(AttributeGroupMapping.class);
+                AttributeGroupMapping mapping = app.model(AttributeGroupMapping.class);
                 mapping.fromMap(item);
                 this.items.add(mapping);
             }
@@ -160,7 +160,7 @@ public class DefaultAttributeGroup extends AbstractMultiContextModel implements 
             if (this.attributeIds != null && this.attributeIds.size() > 0) {
                 int index = 0;
                 for (Id attrId : this.attributeIds) {
-                    AttributeGroupMapping mapping = app.getModel(AttributeGroupMapping.class);
+                    AttributeGroupMapping mapping = app.model(AttributeGroupMapping.class);
                     mapping.setId(attrId);
                     mapping.setType(AttributeGroupMappingType.ATTRIBUTE);
                     mapping.setPosition(index);
@@ -174,7 +174,8 @@ public class DefaultAttributeGroup extends AbstractMultiContextModel implements 
         Collections.sort(this.items, new Comparator<AttributeGroupMapping>() {
             @Override
             public int compare(AttributeGroupMapping agm1, AttributeGroupMapping agm2) {
-                return (agm1.getPosition() < agm2.getPosition() ? -1 : (agm1.getPosition() > agm2.getPosition() ? 1 : 0));
+                return (agm1.getPosition() < agm2.getPosition() ? -1
+                    : (agm1.getPosition() > agm2.getPosition() ? 1 : 0));
             }
         });
     }

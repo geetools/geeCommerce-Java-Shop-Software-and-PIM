@@ -13,7 +13,8 @@ import com.geecommerce.shipping.tablerate.model.ShippingRate;
 @Repository
 public class DefaultShippingRates extends AbstractRepository implements ShippingRates {
     @Override
-    public List<ShippingRate> forZip(ShippingType shippingType, ShippingRateType type, String countryCode, String zipCode) {
+    public List<ShippingRate> forZip(ShippingType shippingType, ShippingRateType type, String countryCode,
+        String zipCode) {
         Map<String, Object> filter = new HashMap<>();
         filter.put(ShippingRate.Column.RATE_TYPE, type.toId());
         if (shippingType != null) {
@@ -26,7 +27,8 @@ public class DefaultShippingRates extends AbstractRepository implements Shipping
     }
 
     @Override
-    public List<ShippingRate> forState(ShippingType shippingType, ShippingRateType type, String countryCode, String stateCode) {
+    public List<ShippingRate> forState(ShippingType shippingType, ShippingRateType type, String countryCode,
+        String stateCode) {
         Map<String, Object> filter = new HashMap<>();
         filter.put(ShippingRate.Column.RATE_TYPE, type.toId());
         if (shippingType != null) {

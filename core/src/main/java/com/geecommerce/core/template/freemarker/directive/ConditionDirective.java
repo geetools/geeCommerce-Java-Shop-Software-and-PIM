@@ -28,7 +28,8 @@ public class ConditionDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pSource = (TemplateModel) params.get("src");
 
         SimpleScalar pRoot = (SimpleScalar) params.get("root");
@@ -38,7 +39,8 @@ public class ConditionDirective implements TemplateDirectiveModel {
         TemplateModel pDefault = (TemplateModel) params.get("default");
 
         if (pSource == null || pCondition == null && pScript == null)
-            throw new IllegalArgumentException("The parameters 'source' and 'value' cannot be null [src=" + pSource + ", conditon=" + pCondition + ", script=" + pScript + "].");
+            throw new IllegalArgumentException("The parameters 'source' and 'value' cannot be null [src=" + pSource
+                + ", conditon=" + pCondition + ", script=" + pScript + "].");
 
         Object source = null;
         String rootName = null;
@@ -143,7 +145,7 @@ public class ConditionDirective implements TemplateDirectiveModel {
     }
 
     protected Cache<String, Object> cache() {
-        CacheManager cm = App.get().getInjectable(CacheManager.class);
+        CacheManager cm = App.get().injectable(CacheManager.class);
         return cm.getCache(ConditionDirective.class.getName());
     }
 }

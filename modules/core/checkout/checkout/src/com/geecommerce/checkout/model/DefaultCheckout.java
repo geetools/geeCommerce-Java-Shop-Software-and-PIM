@@ -82,7 +82,8 @@ public class DefaultCheckout extends AbstractModel implements Checkout, Shipping
     private final ShippingService shippingService;
 
     @Inject
-    public DefaultCheckout(CalculationService calculationService, CalculationHelper calculationHelper, CouponService couponService, CartService cartService, ShippingService shippingService) {
+    public DefaultCheckout(CalculationService calculationService, CalculationHelper calculationHelper,
+        CouponService couponService, CartService cartService, ShippingService shippingService) {
         this.calculationService = calculationService;
         this.calculationHelper = calculationHelper;
         this.couponService = couponService;
@@ -363,7 +364,7 @@ public class DefaultCheckout extends AbstractModel implements Checkout, Shipping
     @Override
     public CouponCode getCouponCode() {
         if (couponCode == null && couponCodeId != null) {
-            CouponService couponService = app.getService(CouponService.class);
+            CouponService couponService = app.service(CouponService.class);
             couponCode = couponService.getCouponCode(couponCodeId);
         }
         return couponCode;
@@ -404,11 +405,13 @@ public class DefaultCheckout extends AbstractModel implements Checkout, Shipping
         Cart cart = getCart();
 
         CartAttributeCollection cartAttributeCollection = ((CouponData) cart).toCartAttributeCollection();
-        CouponCode code = couponService.maintainCouponCodesList(cart.getCouponCode(), cartAttributeCollection, cart.getUseAutoCoupon());
+        CouponCode code = couponService.maintainCouponCodesList(cart.getCouponCode(), cartAttributeCollection,
+            cart.getUseAutoCoupon());
         cart.setCouponCode(code);
         cartService.updateCart(cart);
 
-        // Create new calculation context (with configuration properties and cart items)
+        // Create new calculation context (with configuration properties and
+        // cart items)
         CalculationContext calcCtx = calculationHelper.newCalculationContext((CalculationData) cart);
 
         Double shippingAmount = 0.0;
@@ -425,7 +428,8 @@ public class DefaultCheckout extends AbstractModel implements Checkout, Shipping
 
         couponService.applyDiscount(calcCtx, cart.getCouponCode(), cartAttributeCollection);
 
-        // Now that we have all the information, we can pass it onto the calculationService to calculate all the totals.
+        // Now that we have all the information, we can pass it onto the
+        // calculationService to calculate all the totals.
         CalculationResult cr = null;
 
         try {
@@ -460,7 +464,9 @@ public class DefaultCheckout extends AbstractModel implements Checkout, Shipping
     }
 
     private boolean isAllNull(CheckoutAddress address) {
-        if (address.getFirstName() == null && address.getLastName() == null && address.getAddress1() == null && address.getAddress2() == null && address.getCity() == null && address.getCountry() == null && address.getZip() == null)
+        if (address.getFirstName() == null && address.getLastName() == null && address.getAddress1() == null
+            && address.getAddress2() == null && address.getCity() == null && address.getCountry() == null
+            && address.getZip() == null)
             return true;
         return false;
     }
@@ -480,13 +486,13 @@ public class DefaultCheckout extends AbstractModel implements Checkout, Shipping
         this.lastName = str_(map.get(Column.LAST_NAME));
         this.email = str_(map.get(Column.EMAIL));
 
-        CheckoutAddress cad = app.getModel(CheckoutAddress.class);
+        CheckoutAddress cad = app.model(CheckoutAddress.class);
         cad.fromMap(map, "del_");
         if (!isAllNull(cad)) {
             this.deliveryAddress = cad;
         }
 
-        CheckoutAddress cai = app.getModel(CheckoutAddress.class);
+        CheckoutAddress cai = app.model(CheckoutAddress.class);
         cai.fromMap(map, "inv_");
         if (!isAllNull(cai)) {
             this.invoiceAddress = cai;

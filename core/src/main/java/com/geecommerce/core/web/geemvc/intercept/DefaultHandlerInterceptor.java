@@ -71,7 +71,8 @@ public class DefaultHandlerInterceptor implements HandlerInterceptor {
         RequestContext requestCtx = invocationCtx.requestContext();
         ServletRequest request = requestCtx.getRequest();
 
-        String controller = controllerClass.getSimpleName().replaceFirst("Controller$", Str.EMPTY).replaceFirst("Action$", Str.EMPTY);
+        String controller = controllerClass.getSimpleName().replaceFirst("Controller$", Str.EMPTY)
+            .replaceFirst("Action$", Str.EMPTY);
 
         if (controller.startsWith("My") && controllerClass.getName().startsWith("custom."))
             controller = controller.replaceFirst("^My", Str.EMPTY);

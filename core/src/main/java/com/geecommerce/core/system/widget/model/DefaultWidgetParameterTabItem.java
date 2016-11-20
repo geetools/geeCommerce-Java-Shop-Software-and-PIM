@@ -1,5 +1,7 @@
 package com.geecommerce.core.system.widget.model;
 
+import java.util.Map;
+
 import com.geecommerce.core.service.annotation.Injectable;
 import com.geecommerce.core.system.widget.enums.WidgetParameterTabItemType;
 import com.geecommerce.core.system.widget.repository.WidgetParameterTabs;
@@ -9,10 +11,8 @@ import com.geecommerce.core.type.TypeConverter;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 
-import java.util.Map;
-
 @Injectable
-public class DefaultWidgetParameterTabItem implements WidgetParameterTabItem{
+public class DefaultWidgetParameterTabItem implements WidgetParameterTabItem {
     private static final long serialVersionUID = -756836049491579572L;
 
     private Id id = null;
@@ -54,13 +54,13 @@ public class DefaultWidgetParameterTabItem implements WidgetParameterTabItem{
 
     @Override
     public Object getItem() {
-        if(item!= null)
+        if (item != null)
             return item;
 
-        if( id != null && type!= null){
-            if(type == WidgetParameterTabItemType.PARAMETER){
+        if (id != null && type != null) {
+            if (type == WidgetParameterTabItemType.PARAMETER) {
                 item = widgetParameters.findById(WidgetParameter.class, id);
-            } else if(type == WidgetParameterTabItemType.TAB){
+            } else if (type == WidgetParameterTabItemType.TAB) {
                 item = widgetParameterTabs.findById(WidgetParameterTab.class, id);
             }
             return item;

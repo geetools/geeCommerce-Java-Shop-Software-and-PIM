@@ -43,7 +43,7 @@ public class SessionResource extends AbstractResource {
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response currentSession() {
-        HttpServletRequest request = app.getServletRequest();
+        HttpServletRequest request = app.servletRequest();
         boolean isAuthorizationEnabled = app.cpBool_("core/cpanel/authorization/enabled", false);
 
         if (!isAuthorizationEnabled) {
@@ -76,9 +76,10 @@ public class SessionResource extends AbstractResource {
                 long sessionTimesOutAt = session.getLastAccessedTime() + (session.getMaxInactiveInterval() * 1000);
                 long sessionTimesOutIn = sessionTimesOutAt - currentTime;
 
-                return created(ResponseWrapper.builder().set("name", user.getForename() + " " + user.getSurname()).set("roles", roleCodes).set("currentDate", new Date(currentTime))
-                    .set("currentTimeMillis", currentTime)
-                    .set("timeoutAtDate", new Date(sessionTimesOutAt)).set("timeoutAtMillis", sessionTimesOutAt).set("timeoutInMillis", sessionTimesOutIn).build());
+                return created(ResponseWrapper.builder().set("name", user.getForename() + " " + user.getSurname())
+                    .set("roles", roleCodes).set("currentDate", new Date(currentTime))
+                    .set("currentTimeMillis", currentTime).set("timeoutAtDate", new Date(sessionTimesOutAt))
+                    .set("timeoutAtMillis", sessionTimesOutAt).set("timeoutInMillis", sessionTimesOutIn).build());
             } else {
                 return notFound();
             }
@@ -107,7 +108,7 @@ public class SessionResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createSession(@FormParam("username") String email, @FormParam("password") String password) {
         try {
-            HttpServletRequest request = app.getServletRequest();
+            HttpServletRequest request = app.servletRequest();
             request.setAttribute(DefaultSubjectContext.SESSION_CREATION_ENABLED, Boolean.TRUE);
 
             UsernamePasswordToken userPassToken = new UsernamePasswordToken(email, password);
@@ -139,9 +140,10 @@ public class SessionResource extends AbstractResource {
             long sessionTimesOutAt = session.getLastAccessedTime() + (session.getMaxInactiveInterval() * 1000);
             long sessionTimesOutIn = sessionTimesOutAt - currentTime;
 
-            return created(ResponseWrapper.builder().set("name", user.getForename() + " " + user.getSurname()).set("roles", roleCodes).set("currentDate", new Date(currentTime))
-                .set("currentTimeMillis", currentTime)
-                .set("timeoutAtDate", new Date(sessionTimesOutAt)).set("timeoutAtMillis", sessionTimesOutAt).set("timeoutInMillis", sessionTimesOutIn).build());
+            return created(ResponseWrapper.builder().set("name", user.getForename() + " " + user.getSurname())
+                .set("roles", roleCodes).set("currentDate", new Date(currentTime))
+                .set("currentTimeMillis", currentTime).set("timeoutAtDate", new Date(sessionTimesOutAt))
+                .set("timeoutAtMillis", sessionTimesOutAt).set("timeoutInMillis", sessionTimesOutIn).build());
         } catch (AuthenticationException e) {
             return response(Status.UNAUTHORIZED, "Wrong credentials");
         }

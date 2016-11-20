@@ -64,14 +64,14 @@ public interface Cart extends Model {
     public List<ShippingOption> getDeliveryEstimationOptions();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
-	public static final String CUSTOMER_ID = "customer_id";
-	public static final String ENABLED = "enabled";
-	public static final String CART_ITEMS = "items";
-	public static final String CREATED_ON = "cr_on";
-	public static final String MODIFIED_ON = "mod_on";
-	public static final String COUPON_CODE = "coupon";
-	public static final String USE_AUTO_COUPON = "use_auto_coupon";
+        public static final String ID = "_id";
+        public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
+        public static final String CUSTOMER_ID = "customer_id";
+        public static final String ENABLED = "enabled";
+        public static final String CART_ITEMS = "items";
+        public static final String CREATED_ON = "cr_on";
+        public static final String MODIFIED_ON = "mod_on";
+        public static final String COUPON_CODE = "coupon";
+        public static final String USE_AUTO_COUPON = "use_auto_coupon";
     }
 }

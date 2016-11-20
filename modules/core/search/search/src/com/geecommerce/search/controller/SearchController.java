@@ -34,14 +34,12 @@ import com.google.inject.Inject;
 // @UrlBinding(value = "/catalog/search/{$event}/{k}")
 public class SearchController extends BaseController {
     /*
-     * private String k = null;
-     * private String f = null;
+     * private String k = null; private String f = null;
      */
 
     /*
-     * private SearchResult searchResult = null;
-     * private List<Product> products = null;
-     * private Map<String, Object> activeFilters = null;
+     * private SearchResult searchResult = null; private List<Product> products
+     * = null; private Map<String, Object> activeFilters = null;
      */
     private final SearchService searchService;
     private final SearchHelper searchHelper;
@@ -52,7 +50,8 @@ public class SearchController extends BaseController {
     private FilterForm filterForm = null;
 
     @Inject
-    public SearchController(SearchService searchService, SearchHelper searchHelper, ProductService productService, SearchRewriteService searchRewriteService, ElasticsearchHelper elasticsearchHelper) {
+    public SearchController(SearchService searchService, SearchHelper searchHelper, ProductService productService,
+        SearchRewriteService searchRewriteService, ElasticsearchHelper elasticsearchHelper) {
         this.searchService = searchService;
         this.searchHelper = searchHelper;
         this.productService = productService;
@@ -62,7 +61,8 @@ public class SearchController extends BaseController {
 
     // @HandlesEvent("query")
     @Request("/query")
-    public Result query(@Param("q") String query, @Param("f") String filter, FilterForm filterForm, FilterContext filterCtx, PagingContext pagingCtx) {
+    public Result query(@Param("q") String query, @Param("f") String filter, FilterForm filterForm,
+        FilterContext filterCtx, PagingContext pagingCtx) {
         Map<String, Object> activeFilters = null;
         SearchResult searchResult = null;
         List<Product> products = null;
@@ -78,10 +78,12 @@ public class SearchController extends BaseController {
         if (query != null) {
             String newUri = searchRewriteService.findUrl(query);
             if (newUri == null) {
-                searchResult = searchService.query(new SearchQuery(query, activeFilters, pagingCtx.getOffset(), pagingCtx.getNumResultsPerPage(),
-                    filterForm.getSort(), filterForm.getPriceFrom(), filterForm.getPriceTo(), filterForm.isShowEvent(), filterForm.isShowSale()));
+                searchResult = searchService.query(new SearchQuery(query, activeFilters, pagingCtx.getOffset(),
+                    pagingCtx.getNumResultsPerPage(), filterForm.getSort(), filterForm.getPriceFrom(),
+                    filterForm.getPriceTo(), filterForm.isShowEvent(), filterForm.isShowSale()));
 
-                if (searchResult != null && searchResult.getDocumentIds() != null && searchResult.getDocumentIds().size() > 0) {
+                if (searchResult != null && searchResult.getDocumentIds() != null
+                    && searchResult.getDocumentIds().size() > 0) {
                     Id[] productIds = elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray());
                     products = productService.getProducts(productIds);
                     products = orderByProductIds(products, productIds);
@@ -93,37 +95,32 @@ public class SearchController extends BaseController {
                         String articleNumber = p.getArticleNumber();
 
                         if (Str.trimEquals(query, articleNumber)) {
-                            return Results.redirect(app.getHelper(TargetSupportHelper.class).findURI(p));
+                            return Results.redirect(app.helper(TargetSupportHelper.class).findURI(p));
                             /*
-                             * .bind("products", products)
-                             * .bind("form", filterForm)
-                             * .bind("filterCtx", filterCtx)
+                             * .bind("products", products) .bind("form",
+                             * filterForm) .bind("filterCtx", filterCtx)
                              * .bind("pagingCtx", pagingCtx);
                              */
                         }
                     }
                 }
             } else {
-                return Results.redirect(newUri);/*
-                                                 * .bind("products", products)
-                                                 * .bind("form", filterForm)
-                                                 * .bind("filterCtx", filterCtx)
-                                                 * .bind("pagingCtx",
-                                                 * pagingCtx);
-                                                 */
+                return Results.redirect(
+                    newUri);/*
+                             * .bind("products", products) .bind("form",
+                             * filterForm) .bind("filterCtx", filterCtx)
+                             * .bind("pagingCtx", pagingCtx);
+                             */
             }
         }
 
-        return Results.view("catalog/search/result")
-            .bind("products", products)
-            .bind("form", filterForm)
-            .bind("filterCtx", filterCtx)
-            .bind("pagingCtx", pagingCtx);
+        return Results.view("catalog/search/result").bind("products", products).bind("form", filterForm)
+            .bind("filterCtx", filterCtx).bind("pagingCtx", pagingCtx);
     }
 
     @Request("/autocomplete")
     public Result autocomplete() {
-        String searchPhrase = app.getServletRequest().getParameter("term");
+        String searchPhrase = app.servletRequest().getParameter("term");
 
         SearchResult searchResult = null;
         List<Product> products = null;
@@ -145,15 +142,18 @@ public class SearchController extends BaseController {
                 }
 
             }
-            searchResult = searchService.autocomplete(new SearchQuery(searchPhrase + "*", 0, 10 - autocompleteMappingSize));
-            if (searchResult != null && searchResult.getDocumentIds() != null && searchResult.getDocumentIds().size() > 0) {
-                products = productService.getProducts(false, elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray()));
+            searchResult = searchService
+                .autocomplete(new SearchQuery(searchPhrase + "*", 0, 10 - autocompleteMappingSize));
+            if (searchResult != null && searchResult.getDocumentIds() != null
+                && searchResult.getDocumentIds().size() > 0) {
+                products = productService.getProducts(false,
+                    elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray()));
                 for (Product product : products) {
                     HashMap<String, String> resultProduct = new HashMap<>();
                     resultProduct.put("id", product.getId().str());
                     resultProduct.put("value", product.attr("name2").getStr() + " " + product.attr("name").getStr());
                     resultProduct.put("label", product.attr("name2").getStr() + " " + product.attr("name").getStr());
-                    resultProduct.put("uri", app.getHelper(TargetSupportHelper.class).findURI(product));
+                    resultProduct.put("uri", app.helper(TargetSupportHelper.class).findURI(product));
                     resultList.add(resultProduct);
                 }
             }

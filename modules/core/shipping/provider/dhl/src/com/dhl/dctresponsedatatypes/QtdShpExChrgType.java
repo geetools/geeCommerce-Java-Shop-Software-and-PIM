@@ -10,6 +10,7 @@ package com.dhl.dctresponsedatatypes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for QtdShpExChrgType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdShpExChrgType">
@@ -95,8 +97,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "QtdShpExChrgType", propOrder = { "specialServiceType", "localServiceType", "globalServiceName", "localServiceTypeName", "sOfferedCustAgreement", "chargeCodeType", "insPrmRateInPercentage", "currencyCode", "chargeValue",
-	"chargeTaxAmount", "chargeTaxRate", "chargeTaxAmountDet", "qtdSExtrChrgInAdCur" })
+@XmlType(name = "QtdShpExChrgType", propOrder = { "specialServiceType", "localServiceType", "globalServiceName",
+    "localServiceTypeName", "sOfferedCustAgreement", "chargeCodeType", "insPrmRateInPercentage", "currencyCode",
+    "chargeValue", "chargeTaxAmount", "chargeTaxRate", "chargeTaxAmountDet", "qtdSExtrChrgInAdCur" })
 public class QtdShpExChrgType {
 
     @XmlElement(name = "SpecialServiceType")
@@ -133,7 +136,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getSpecialServiceType() {
-	return specialServiceType;
+        return specialServiceType;
     }
 
     /**
@@ -144,7 +147,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setSpecialServiceType(String value) {
-	this.specialServiceType = value;
+        this.specialServiceType = value;
     }
 
     /**
@@ -154,7 +157,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getLocalServiceType() {
-	return localServiceType;
+        return localServiceType;
     }
 
     /**
@@ -165,7 +168,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setLocalServiceType(String value) {
-	this.localServiceType = value;
+        this.localServiceType = value;
     }
 
     /**
@@ -175,7 +178,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getGlobalServiceName() {
-	return globalServiceName;
+        return globalServiceName;
     }
 
     /**
@@ -186,7 +189,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setGlobalServiceName(String value) {
-	this.globalServiceName = value;
+        this.globalServiceName = value;
     }
 
     /**
@@ -196,7 +199,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getLocalServiceTypeName() {
-	return localServiceTypeName;
+        return localServiceTypeName;
     }
 
     /**
@@ -207,7 +210,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setLocalServiceTypeName(String value) {
-	this.localServiceTypeName = value;
+        this.localServiceTypeName = value;
     }
 
     /**
@@ -217,7 +220,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getSOfferedCustAgreement() {
-	return sOfferedCustAgreement;
+        return sOfferedCustAgreement;
     }
 
     /**
@@ -228,7 +231,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setSOfferedCustAgreement(String value) {
-	this.sOfferedCustAgreement = value;
+        this.sOfferedCustAgreement = value;
     }
 
     /**
@@ -238,7 +241,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getChargeCodeType() {
-	return chargeCodeType;
+        return chargeCodeType;
     }
 
     /**
@@ -249,7 +252,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setChargeCodeType(String value) {
-	this.chargeCodeType = value;
+        this.chargeCodeType = value;
     }
 
     /**
@@ -259,7 +262,7 @@ public class QtdShpExChrgType {
      * 
      */
     public BigDecimal getInsPrmRateInPercentage() {
-	return insPrmRateInPercentage;
+        return insPrmRateInPercentage;
     }
 
     /**
@@ -270,7 +273,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setInsPrmRateInPercentage(BigDecimal value) {
-	this.insPrmRateInPercentage = value;
+        this.insPrmRateInPercentage = value;
     }
 
     /**
@@ -280,7 +283,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -291,7 +294,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -301,7 +304,7 @@ public class QtdShpExChrgType {
      * 
      */
     public BigDecimal getChargeValue() {
-	return chargeValue;
+        return chargeValue;
     }
 
     /**
@@ -312,7 +315,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setChargeValue(BigDecimal value) {
-	this.chargeValue = value;
+        this.chargeValue = value;
     }
 
     /**
@@ -322,7 +325,7 @@ public class QtdShpExChrgType {
      * 
      */
     public BigDecimal getChargeTaxAmount() {
-	return chargeTaxAmount;
+        return chargeTaxAmount;
     }
 
     /**
@@ -333,15 +336,17 @@ public class QtdShpExChrgType {
      * 
      */
     public void setChargeTaxAmount(BigDecimal value) {
-	this.chargeTaxAmount = value;
+        this.chargeTaxAmount = value;
     }
 
     /**
      * Gets the value of the chargeTaxRate property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the chargeTaxRate property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the chargeTaxRate property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -352,23 +357,26 @@ public class QtdShpExChrgType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link BigDecimal }
+     * Objects of the following type(s) are allowed in the list
+     * {@link BigDecimal }
      * 
      * 
      */
     public List<BigDecimal> getChargeTaxRate() {
-	if (chargeTaxRate == null) {
-	    chargeTaxRate = new ArrayList<BigDecimal>();
-	}
-	return this.chargeTaxRate;
+        if (chargeTaxRate == null) {
+            chargeTaxRate = new ArrayList<BigDecimal>();
+        }
+        return this.chargeTaxRate;
     }
 
     /**
      * Gets the value of the chargeTaxAmountDet property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the chargeTaxAmountDet property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the chargeTaxAmountDet property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -379,23 +387,26 @@ public class QtdShpExChrgType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link ChargeTaxAmountDetType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link ChargeTaxAmountDetType }
      * 
      * 
      */
     public List<ChargeTaxAmountDetType> getChargeTaxAmountDet() {
-	if (chargeTaxAmountDet == null) {
-	    chargeTaxAmountDet = new ArrayList<ChargeTaxAmountDetType>();
-	}
-	return this.chargeTaxAmountDet;
+        if (chargeTaxAmountDet == null) {
+            chargeTaxAmountDet = new ArrayList<ChargeTaxAmountDetType>();
+        }
+        return this.chargeTaxAmountDet;
     }
 
     /**
      * Gets the value of the qtdSExtrChrgInAdCur property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qtdSExtrChrgInAdCur property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the qtdSExtrChrgInAdCur property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -406,15 +417,16 @@ public class QtdShpExChrgType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link QtdSExtrChrgInAdCurType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link QtdSExtrChrgInAdCurType }
      * 
      * 
      */
     public List<QtdSExtrChrgInAdCurType> getQtdSExtrChrgInAdCur() {
-	if (qtdSExtrChrgInAdCur == null) {
-	    qtdSExtrChrgInAdCur = new ArrayList<QtdSExtrChrgInAdCurType>();
-	}
-	return this.qtdSExtrChrgInAdCur;
+        if (qtdSExtrChrgInAdCur == null) {
+            qtdSExtrChrgInAdCur = new ArrayList<QtdSExtrChrgInAdCurType>();
+        }
+        return this.qtdSExtrChrgInAdCur;
     }
 
 }

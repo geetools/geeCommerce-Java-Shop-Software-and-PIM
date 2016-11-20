@@ -59,7 +59,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pSource = (TemplateModel) params.get("src");
         SimpleScalar pCode = (SimpleScalar) params.get("code");
         SimpleScalar pPrint = (SimpleScalar) params.get("print");
@@ -110,14 +111,16 @@ public class AttributeDirective implements TemplateDirectiveModel {
                 source = (AttributeSupport) beanModel;
 
                 if (pCode == null) {
-                    throw new IllegalArgumentException("The parameter 'code' cannot be null if source type is not an AttributeValue object");
+                    throw new IllegalArgumentException(
+                        "The parameter 'code' cannot be null if source type is not an AttributeValue object");
                 } else {
                     code = pCode.getAsString();
                 }
             } else if (beanModel instanceof AttributeValue) {
                 value = (AttributeValue) beanModel;
             } else {
-                throw new IllegalArgumentException("The source-object must be of type AttributeSupportModel or AttributeValue");
+                throw new IllegalArgumentException(
+                    "The source-object must be of type AttributeSupportModel or AttributeValue");
             }
         }
 
@@ -198,7 +201,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
                 // Attempt to get value from parent if it exists.This only works
                 // for objects implementing the
                 // ParentSupport interface.
-                if ((value == null || value.getValue() == null || StringUtils.isBlank(value.getValue().str())) && fallbackToParent) {
+                if ((value == null || value.getValue() == null || StringUtils.isBlank(value.getValue().str()))
+                    && fallbackToParent) {
                     AttributeSupport parentSource = (AttributeSupport) ((ParentSupport) source).getParent();
 
                     if (parentSource != null)
@@ -230,7 +234,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
                                 if (value == null && childLevels != null && childLevels > 1) {
                                     for (AttributeSupport childL1Source : children) {
                                         if (childL1Source instanceof ChildSupport) {
-                                            List<AttributeSupport> childrenL2 = ((ChildSupport) childL1Source).getAnyChildren();
+                                            List<AttributeSupport> childrenL2 = ((ChildSupport) childL1Source)
+                                                .getAnyChildren();
 
                                             if (childrenL2 == null || childrenL2.size() == 0)
                                                 continue;
@@ -265,7 +270,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
                                 labels.add(option.getLabel().getString());
                         }
 
-                        if (make != null && "list".equals(make) || value.getAttribute().getFrontendOutput().equals(FrontendOutput.LIST)) {
+                        if (make != null && "list".equals(make)
+                            || value.getAttribute().getFrontendOutput().equals(FrontendOutput.LIST)) {
 
                             StringBuilder asList = new StringBuilder();
                             asList.append("<ul class=\"list-attr-" + code + "\">");
@@ -314,7 +320,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
             if (format == null && value != null) {
                 Attribute attr = value.getAttribute();
 
-                if (attr != null && attr.getFrontendFormat() != null && !StringUtils.isBlank(attr.getFrontendFormat().str()))
+                if (attr != null && attr.getFrontendFormat() != null
+                    && !StringUtils.isBlank(attr.getFrontendFormat().str()))
                     format = attr.getFrontendFormat().str().toLowerCase();
             }
 
@@ -339,7 +346,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
             }
 
             if (truncateAt != null) {
-                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(), "...");
+                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(),
+                    "...");
             }
 
             if (listMaxRows != null) {
@@ -356,7 +364,8 @@ public class AttributeDirective implements TemplateDirectiveModel {
                         String liText = el.text();
 
                         if (listMaxRowLength != null) {
-                            liText = com.geecommerce.core.util.Strings.truncateNicely(liText, listMaxRowLength.intValue(), "...");
+                            liText = com.geecommerce.core.util.Strings.truncateNicely(liText,
+                                listMaxRowLength.intValue(), "...");
                         }
 
                         html.append("<li>").append(liText).append("</li>");
@@ -416,7 +425,7 @@ public class AttributeDirective implements TemplateDirectiveModel {
     }
 
     private String format(Object value, String format) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         Locale locale = null;
 

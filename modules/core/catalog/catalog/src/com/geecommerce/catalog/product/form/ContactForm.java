@@ -10,34 +10,34 @@ public class ContactForm {
     private String fullName;
 
     public String getQuestionerEmail() {
-	return questionerEmail;
+        return questionerEmail;
     }
 
     public void setQuestionerEmail(String questionerEmail) {
-	this.questionerEmail = questionerEmail;
+        this.questionerEmail = questionerEmail;
     }
 
     public String getQuestion() {
-	return question;
+        return question;
     }
 
     public void setQuestion(String question) {
-	this.question = question;
+        this.question = question;
     }
 
     public String getArticle() {
-	return article;
+        return article;
     }
 
     public void setArticle(String article) {
-	this.article = article;
+        this.article = article;
     }
 
     public String getFullName() {
-	return fullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-	this.fullName = fullName;
+        this.fullName = fullName;
     }
 }

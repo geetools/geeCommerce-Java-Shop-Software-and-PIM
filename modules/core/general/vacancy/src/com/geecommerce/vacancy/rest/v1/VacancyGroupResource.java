@@ -74,7 +74,7 @@ public class VacancyGroupResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createVacancyGroup(Update update) {
-        VacancyGroup model = app.getModel(VacancyGroup.class);
+        VacancyGroup model = app.model(VacancyGroup.class);
         model.set(update.getFields());
         model = service.create(model);
 
@@ -118,7 +118,7 @@ public class VacancyGroupResource extends AbstractResource {
         for (Update update : updates) {
             if (update != null && update.getFields() != null && update.getFields().size() > 0) {
                 if (update.getId() == null) {
-                    Vacancy v = app.getModel(Vacancy.class);
+                    Vacancy v = app.model(Vacancy.class);
                     v.set(update.getFields());
                     v.setVacancyGroupId(id);
                     service.create(v);
@@ -163,7 +163,8 @@ public class VacancyGroupResource extends AbstractResource {
     @POST
     @Path("image")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response createImage(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    public Response createImage(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         // Get product and image.
         FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
         MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());

@@ -1,9 +1,10 @@
 package com.geecommerce.guiwidgets.generator;
 
-import com.geecommerce.guiwidgets.model.ContentNode;
+import java.io.IOException;
+
 import org.rendersnake.HtmlCanvas;
 
-import java.io.IOException;
+import com.geecommerce.guiwidgets.model.ContentNode;
 
 public interface NodeGenerator {
 

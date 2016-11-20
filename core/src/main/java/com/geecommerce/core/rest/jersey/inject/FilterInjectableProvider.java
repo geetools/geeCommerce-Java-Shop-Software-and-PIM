@@ -26,7 +26,8 @@ import com.sun.jersey.spi.inject.InjectableProvider;
 @Profile
 @Provider
 @Singleton
-public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filter> implements InjectableProvider<FilterParam, Type> {
+public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filter>
+    implements InjectableProvider<FilterParam, Type> {
     public static final String QUERY_OPTIONS_KEY = "gc/api/queryOptions";
 
     public FilterInjectableProvider() {
@@ -97,7 +98,8 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
         }
 
         App.get().registryPut(QUERY_OPTIONS_KEY,
-            QueryOptions.builder().fetchFields(filter.getFields()).sortBy(filter.getSort()).limitTo(filter.getLimit()).fromOffset(filter.getOffset()).noCache(filter.isNoCache()).build());
+            QueryOptions.builder().fetchFields(filter.getFields()).sortBy(filter.getSort())
+                .limitTo(filter.getLimit()).fromOffset(filter.getOffset()).noCache(filter.isNoCache()).build());
 
         return filter;
     }

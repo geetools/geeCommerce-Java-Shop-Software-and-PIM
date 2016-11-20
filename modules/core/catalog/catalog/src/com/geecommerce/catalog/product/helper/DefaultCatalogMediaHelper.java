@@ -87,7 +87,8 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         File f = new File(path);
 
         if (f.exists() && f.isFile()) {
-            StringBuilder newName = new StringBuilder(f.getName()).append(Char.DOT).append(System.currentTimeMillis()).append(DELETED_SUFFIX);
+            StringBuilder newName = new StringBuilder(f.getName()).append(Char.DOT).append(System.currentTimeMillis())
+                .append(DELETED_SUFFIX);
 
             File newFile = new File(f.getParent(), newName.toString());
             f.renameTo(newFile);
@@ -203,28 +204,37 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_BASEPATH).toString(), storeId);
+                path = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_BASEPATH).toString(),
+                    storeId);
 
             if (path == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_BASEPATH).toString(), storeId);
+                path = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_BASEPATH).toString(),
+                    storeId);
             }
 
             if (path == null)
-                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_BASEPATH).toString(), storeId);
+                path = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_BASEPATH).toString(),
+                    storeId);
         }
 
         if (path == null) {
             if (mimeType != null)
-                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_BASEPATH).toString());
+                path = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_BASEPATH).toString());
 
             if (path == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_BASEPATH).toString());
+                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_BASEPATH)
+                    .toString());
             }
 
             if (path == null)
-                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_BASEPATH).toString());
+                path = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_BASEPATH).toString());
         }
 
         path = path.trim();
@@ -237,7 +247,7 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         if (pathFile.isAbsolute()) {
             return pathFile.getAbsolutePath();
         } else {
-            ApplicationContext appCtx = app.getApplicationContext();
+            ApplicationContext appCtx = app.context();
             Merchant m = appCtx.getMerchant();
 
             return new File(m.getWebPath(), path).getAbsolutePath();
@@ -265,28 +275,36 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                subdomain = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBDOMAIN).toString(), storeId);
+                subdomain = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBDOMAIN).toString(),
+                    storeId);
 
             if (subdomain == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                subdomain = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SUBDOMAIN).toString(), storeId);
+                subdomain = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_SUBDOMAIN).toString(), storeId);
             }
 
             if (subdomain == null)
-                subdomain = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBDOMAIN).toString(), storeId);
+                subdomain = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBDOMAIN).toString(),
+                    storeId);
         }
 
         if (subdomain == null) {
             if (mimeType != null)
-                subdomain = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBDOMAIN).toString());
+                subdomain = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBDOMAIN).toString());
 
             if (subdomain == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                subdomain = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SUBDOMAIN).toString());
+                subdomain = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_SUBDOMAIN).toString());
             }
 
             if (subdomain == null)
-                subdomain = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBDOMAIN).toString());
+                subdomain = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBDOMAIN).toString());
         }
 
         return subdomain;
@@ -313,28 +331,34 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                size = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(Char.SLASH).append(sizeName).append(CONF_SUFFIX_SIZE).toString(), storeId);
+                size = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(Char.SLASH).append(sizeName)
+                    .append(CONF_SUFFIX_SIZE).toString(), storeId);
 
             if (size == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                size = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(Char.SLASH).append(sizeName).append(CONF_SUFFIX_SIZE).toString(), storeId);
+                size = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(Char.SLASH)
+                    .append(sizeName).append(CONF_SUFFIX_SIZE).toString(), storeId);
             }
 
             if (size == null)
-                size = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(Char.SLASH).append(sizeName).append(CONF_SUFFIX_SIZE).toString(), storeId);
+                size = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(Char.SLASH)
+                    .append(sizeName).append(CONF_SUFFIX_SIZE).toString(), storeId);
         }
 
         if (size == null) {
             if (mimeType != null)
-                size = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(Char.SLASH).append(sizeName).append(CONF_SUFFIX_SIZE).toString());
+                size = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(Char.SLASH).append(sizeName)
+                    .append(CONF_SUFFIX_SIZE).toString());
 
             if (size == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                size = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(Char.SLASH).append(sizeName).append(CONF_SUFFIX_SIZE).toString());
+                size = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(Char.SLASH)
+                    .append(sizeName).append(CONF_SUFFIX_SIZE).toString());
             }
 
             if (size == null)
-                size = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(Char.SLASH).append(sizeName).append(CONF_SUFFIX_SIZE).toString());
+                size = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(Char.SLASH)
+                    .append(sizeName).append(CONF_SUFFIX_SIZE).toString());
         }
 
         return size;
@@ -361,28 +385,36 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                servletPath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SERVLETPATH).toString(), storeId);
+                servletPath = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SERVLETPATH).toString(),
+                    storeId);
 
             if (servletPath == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                servletPath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SERVLETPATH).toString(), storeId);
+                servletPath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_SERVLETPATH).toString(), storeId);
             }
 
             if (servletPath == null)
-                servletPath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SERVLETPATH).toString(), storeId);
+                servletPath = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SERVLETPATH).toString(),
+                    storeId);
         }
 
         if (servletPath == null) {
             if (mimeType != null)
-                servletPath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SERVLETPATH).toString());
+                servletPath = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SERVLETPATH).toString());
 
             if (servletPath == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                servletPath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SERVLETPATH).toString());
+                servletPath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_SERVLETPATH).toString());
             }
 
             if (servletPath == null)
-                servletPath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SERVLETPATH).toString());
+                servletPath = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SERVLETPATH).toString());
         }
 
         servletPath = toWebURI(servletPath.trim());
@@ -417,28 +449,37 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                subpath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBPATH).toString(), storeId);
+                subpath = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBPATH).toString(),
+                    storeId);
 
             if (subpath == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                subpath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SUBPATH).toString(), storeId);
+                subpath = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SUBPATH).toString(),
+                    storeId);
             }
 
             if (subpath == null)
-                subpath = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBPATH).toString(), storeId);
+                subpath = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBPATH).toString(),
+                    storeId);
         }
 
         if (subpath == null) {
             if (mimeType != null)
-                subpath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBPATH).toString());
+                subpath = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_SUBPATH).toString());
 
             if (subpath == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                subpath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SUBPATH).toString());
+                subpath = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_SUBPATH).toString());
             }
 
             if (subpath == null)
-                subpath = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBPATH).toString());
+                subpath = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_SUBPATH).toString());
         }
 
         subpath = subpath.trim();
@@ -470,28 +511,35 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                isCacheEnabled = app.cpBool_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_ENABLED).toString(), storeId);
+                isCacheEnabled = app.cpBool_S(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_ENABLED).toString(),
+                    storeId);
 
             if (isCacheEnabled == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                isCacheEnabled = app.cpBool_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_CACHE_ENABLED).toString(), storeId);
+                isCacheEnabled = app.cpBool_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_CACHE_ENABLED).toString(), storeId);
             }
 
             if (isCacheEnabled == null)
-                isCacheEnabled = app.cpBool_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_CACHE_ENABLED).toString(), storeId);
+                isCacheEnabled = app.cpBool_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT)
+                    .append(CONF_SUFFIX_CACHE_ENABLED).toString(), storeId);
         }
 
         if (isCacheEnabled == null) {
             if (mimeType != null)
-                isCacheEnabled = app.cpBool__(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_ENABLED).toString());
+                isCacheEnabled = app.cpBool__(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_ENABLED).toString());
 
             if (isCacheEnabled == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                isCacheEnabled = app.cpBool__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_CACHE_ENABLED).toString());
+                isCacheEnabled = app.cpBool__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_CACHE_ENABLED).toString());
             }
 
             if (isCacheEnabled == null)
-                isCacheEnabled = app.cpBool__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_CACHE_ENABLED).toString());
+                isCacheEnabled = app.cpBool__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT)
+                    .append(CONF_SUFFIX_CACHE_ENABLED).toString());
         }
 
         return isCacheEnabled == null ? false : isCacheEnabled.booleanValue();
@@ -518,28 +566,35 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
         if (storeId != null) {
             if (mimeType != null)
-                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_BASE_PATH).toString(), storeId);
+                path = app.cpStr_S(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_BASE_PATH).toString(),
+                    storeId);
 
             if (path == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_CACHE_BASE_PATH).toString(), storeId);
+                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_CACHE_BASE_PATH).toString(), storeId);
             }
 
             if (path == null)
-                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_CACHE_BASE_PATH).toString(), storeId);
+                path = app.cpStr_S(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT)
+                    .append(CONF_SUFFIX_CACHE_BASE_PATH).toString(), storeId);
         }
 
         if (path == null) {
             if (mimeType != null)
-                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_BASE_PATH).toString());
+                path = app.cpStr__(
+                    new StringBuilder(CONF_PREFIX).append(mimeType).append(CONF_SUFFIX_CACHE_BASE_PATH).toString());
 
             if (path == null && mimeType != null) {
                 String wildcardMimeType = MimeType.toWildcard(mimeType);
-                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType).append(CONF_SUFFIX_CACHE_BASE_PATH).toString());
+                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(wildcardMimeType)
+                    .append(CONF_SUFFIX_CACHE_BASE_PATH).toString());
             }
 
             if (path == null)
-                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT).append(CONF_SUFFIX_CACHE_BASE_PATH).toString());
+                path = app.cpStr__(new StringBuilder(CONF_PREFIX).append(CONF_DEFAULT)
+                    .append(CONF_SUFFIX_CACHE_BASE_PATH).toString());
         }
 
         if (path != null) {
@@ -556,7 +611,7 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         if (pathFile.isAbsolute()) {
             return pathFile.getAbsolutePath();
         } else {
-            ApplicationContext appCtx = app.getApplicationContext();
+            ApplicationContext appCtx = app.context();
             Merchant m = appCtx.getMerchant();
 
             return new File(m.getWebPath(), path).getAbsolutePath();
@@ -582,9 +637,12 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         String webURI = toWebURI(relativePath);
 
         if (webURI.startsWith(servletPath)) {
-            return new File(new StringBuilder(baseSystemPath).append(File.separatorChar).append(relativePath).toString()).getAbsolutePath();
+            return new File(
+                new StringBuilder(baseSystemPath).append(File.separatorChar).append(relativePath).toString())
+                    .getAbsolutePath();
         } else {
-            return new File(new StringBuilder(baseSystemPath).append(servletPath).append(File.separatorChar).append(relativePath).toString()).getAbsolutePath();
+            return new File(new StringBuilder(baseSystemPath).append(servletPath).append(File.separatorChar)
+                .append(relativePath).toString()).getAbsolutePath();
         }
     }
 
@@ -626,11 +684,13 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         String webURI = toWebURI(relativePath);
 
         if (webURI.startsWith(servletPath)) {
-            File f = new File(new StringBuilder(baseCacheSystemPath).append(sizePart.toString()).append(File.separatorChar).append(relativePath).toString());
+            File f = new File(new StringBuilder(baseCacheSystemPath).append(sizePart.toString())
+                .append(File.separatorChar).append(relativePath).toString());
             String safeName = Filenames.ensureSafeName(f.getName(), true, true);
             return new File(f.getParent(), safeName).getAbsolutePath();
         } else {
-            File f = new File(new StringBuilder(baseCacheSystemPath).append(sizePart.toString()).append(servletPath).append(File.separatorChar).append(relativePath).toString());
+            File f = new File(new StringBuilder(baseCacheSystemPath).append(sizePart.toString()).append(servletPath)
+                .append(File.separatorChar).append(relativePath).toString());
             String safeName = Filenames.ensureSafeName(f.getName(), true, true);
             return new File(f.getParent(), safeName).getAbsolutePath();
         }
@@ -811,10 +871,12 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
                     double aspectRatio = (double) originalWidth / (double) originalHeight;
 
                     if (targetWidth == null)
-                        targetWidth = (int) (aspectRatio < 1 ? (targetHeight * aspectRatio) : (targetHeight / aspectRatio));
+                        targetWidth = (int) (aspectRatio < 1 ? (targetHeight * aspectRatio)
+                            : (targetHeight / aspectRatio));
 
                     if (targetHeight == null)
-                        targetHeight = (int) (aspectRatio < 1 ? (targetWidth * aspectRatio) : (targetWidth / aspectRatio));
+                        targetHeight = (int) (aspectRatio < 1 ? (targetWidth * aspectRatio)
+                            : (targetWidth / aspectRatio));
 
                     // Check if the height of image is greater than the allowed
                     // height and reset it
@@ -875,7 +937,8 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
 
                     // Convert to RGB if necessary as the Internet Explorer < 9
                     // cannot cope with CMYK.
-                    if (MimeType.fromFilename(sourceFile.getName()) == MimeType.IMAGE_JPEG && "CMYK".equalsIgnoreCase(originalColorspace)) {
+                    if (MimeType.fromFilename(sourceFile.getName()) == MimeType.IMAGE_JPEG
+                        && "CMYK".equalsIgnoreCase(originalColorspace)) {
                         op.colorspace("RGB");
                     }
 
@@ -981,12 +1044,14 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
     }
 
     @Override
-    public String getNewAbsoluteFilePath(String originalFilename, String customFilename, String mimeType, Product product, Id forStore) {
+    public String getNewAbsoluteFilePath(String originalFilename, String customFilename, String mimeType,
+        Product product, Id forStore) {
         String baseSystemPath = getBaseSystemPath(mimeType, forStore);
         String servletPath = getServletPath(mimeType, forStore);
         String relPath = getRelativeAssetPath(originalFilename, customFilename, mimeType, product, forStore);
 
-        return new File(new StringBuilder(baseSystemPath).append(File.separatorChar).append(servletPath).append(File.separatorChar).append(relPath).toString()).getAbsolutePath();
+        return new File(new StringBuilder(baseSystemPath).append(File.separatorChar).append(servletPath)
+            .append(File.separatorChar).append(relPath).toString()).getAbsolutePath();
     }
 
     @Override
@@ -1024,7 +1089,8 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
     }
 
     @Override
-    public String getRelativeAssetPath(String originalFilename, String customFilename, String mimeType, Product product, Id forStore) {
+    public String getRelativeAssetPath(String originalFilename, String customFilename, String mimeType, Product product,
+        Id forStore) {
         ImageFilenameOrigin filenameOrigin = ImageFilenameOrigin.PRODUCT_NAME;
 
         if (customFilename != null)
@@ -1203,7 +1269,7 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
             }
         }
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Store store = appCtx.getStore();
         String mimeType = MimeType.fromFilename(uri);
 
@@ -1252,7 +1318,8 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
             CacheManager cm = app.inject(CacheManager.class);
             Cache<String, String> c = cm.getCache(CACHE_NAME);
 
-            String key = new StringBuilder(mediaAssetURI).append(Str.AT).append(width == null ? Str.EMPTY : width).append('x').append(height == null ? Str.EMPTY : height).toString();
+            String key = new StringBuilder(mediaAssetURI).append(Str.AT).append(width == null ? Str.EMPTY : width)
+                .append('x').append(height == null ? Str.EMPTY : height).toString();
 
             mediaAssetURL = c.get(key);
 
@@ -1260,7 +1327,7 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
             boolean isRefresh = app.refreshHeaderExists();
 
             if (mediaAssetURL == null || isPreview || isRefresh) {
-                ApplicationContext appCtx = app.getApplicationContext();
+                ApplicationContext appCtx = app.context();
                 Store store = appCtx.getStore();
                 String mimeType = MimeType.fromFilename(mediaAssetURI);
 
@@ -1311,7 +1378,8 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         CacheManager cm = app.inject(CacheManager.class);
         Cache<String, String> c = cm.getCache(CACHE_NAME);
 
-        System.out.println("ATTEMPTING TO DELETE VALUES FROM CACHE: " + CACHE_NAME + " --> " + c + " --> " + (c == null ? 0 : c.size()));
+        System.out.println("ATTEMPTING TO DELETE VALUES FROM CACHE: " + CACHE_NAME + " --> " + c + " --> "
+            + (c == null ? 0 : c.size()));
 
         if (c != null && c.size() > 0) {
             String[] keys = c.keySet();

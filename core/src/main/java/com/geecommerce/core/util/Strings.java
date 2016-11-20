@@ -29,7 +29,6 @@ import org.jsoup.safety.Whitelist;
 
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
-import com.geecommerce.core.authentication.Passwords;
 import com.google.common.base.Charsets;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
@@ -38,7 +37,8 @@ import com.ibm.icu.text.Transliterator;
 import com.lyncode.jtwig.functions.util.HtmlUtils;
 
 public class Strings {
-    private static final char[] RANDOM_LCASE_LETTERS = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+    private static final char[] RANDOM_LCASE_LETTERS = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+        'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
     private static final char[] RANDOM_NUMBERS = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
 
     private static final List<char[]> randomCharArrays = new ArrayList<>();
@@ -232,14 +232,16 @@ public class Strings {
                 String newText = new StringBuilder(text.substring(0, maxLength)).toString().trim();
 
                 if (newText.endsWith(Str.COMMA) || newText.endsWith(Str.MINUS))
-                    return new StringBuilder(newText.substring(0, newText.length() - 1)).append(Char.SPACE).append(append).toString();
+                    return new StringBuilder(newText.substring(0, newText.length() - 1)).append(Char.SPACE)
+                        .append(append).toString();
                 else
                     return new StringBuilder(newText).append(Char.SPACE).append(append).toString();
             } else {
                 String newText = new StringBuilder(text.substring(0, first_before)).toString().trim();
 
                 if (newText.endsWith(Str.COMMA) || newText.endsWith(Str.MINUS))
-                    return new StringBuilder(newText.substring(0, newText.length() - 1)).append(Char.SPACE).append(append).toString();
+                    return new StringBuilder(newText.substring(0, newText.length() - 1)).append(Char.SPACE)
+                        .append(append).toString();
                 else
                     return new StringBuilder(newText).append(Char.SPACE).append(append).toString();
             }
@@ -323,7 +325,8 @@ public class Strings {
                                     totalLen += len;
                                     numRows++;
                                     newText.append("<li>").append(s).append("</li>\n");
-                                } else if ((maxLength - totalLen) >= 10 && len >= 10 && (numRows < maxRows || maxRows == 0)) {
+                                } else if ((maxLength - totalLen) >= 10 && len >= 10
+                                    && (numRows < maxRows || maxRows == 0)) {
                                     String truncated = truncateNicely(s, maxLength - totalLen, append);
 
                                     if ((truncated.length() - 4) >= 10)
@@ -349,9 +352,12 @@ public class Strings {
                         if ((totalLen + len) <= maxLength && (numRows < maxRows || maxRows == 0)) {
                             totalLen += len;
                             numRows++;
-                            newText.append("<").append(node.nodeName()).append(">").append(s).append("</").append(node.nodeName()).append(">\n");
+                            newText.append("<").append(node.nodeName()).append(">").append(s).append("</")
+                                .append(node.nodeName()).append(">\n");
                         } else if ((maxLength - totalLen) >= 10 && (numRows < maxRows || maxRows == 0)) {
-                            newText.append("<").append(node.nodeName()).append(">").append(truncateNicely(s, maxLength - totalLen, append)).append("</").append(node.nodeName()).append(">\n");
+                            newText.append("<").append(node.nodeName()).append(">")
+                                .append(truncateNicely(s, maxLength - totalLen, append)).append("</")
+                                .append(node.nodeName()).append(">\n");
                             isMaxReached = true;
                         } else {
                             isMaxReached = true;
@@ -450,11 +456,12 @@ public class Strings {
         if (transliterationCode == null)
             transliterationCode = DEFAULT_TRANSLITERATION_CODE;
 
-        String transliteratedText = text.replace(ae, transliterateReplaceChars.get(ae)).replace(oe, transliterateReplaceChars.get(oe)).replace(ue, transliterateReplaceChars.get(ue))
-                .replace(Ae, transliterateReplaceChars.get(Ae))
-                .replace(Oe, transliterateReplaceChars.get(Oe)).replace(Ue, transliterateReplaceChars.get(Ue)).replace(ss, transliterateReplaceChars.get(ss))
-                .replace(Str.AT, transliterateReplaceChars.get(Str.AT))
-                .replace(Str.AMPERSAND, transliterateReplaceChars.get(Str.AMPERSAND));
+        String transliteratedText = text.replace(ae, transliterateReplaceChars.get(ae))
+            .replace(oe, transliterateReplaceChars.get(oe)).replace(ue, transliterateReplaceChars.get(ue))
+            .replace(Ae, transliterateReplaceChars.get(Ae)).replace(Oe, transliterateReplaceChars.get(Oe))
+            .replace(Ue, transliterateReplaceChars.get(Ue)).replace(ss, transliterateReplaceChars.get(ss))
+            .replace(Str.AT, transliterateReplaceChars.get(Str.AT))
+            .replace(Str.AMPERSAND, transliterateReplaceChars.get(Str.AMPERSAND));
 
         Transliterator t = transliteratorCache.get(transliterationCode);
 
@@ -465,8 +472,9 @@ public class Strings {
 
         transliteratedText = t.transform(transliteratedText);
 
-        transliteratedText = Normalizer.normalize(transliteratedText, Normalizer.Form.NFD).replace(Char.UNDERSCORE, Char.MINUS).replace(Char.SPACE, Char.MINUS).replace(Char.COMMA, Char.MINUS)
-                .replace(Char.DOT, Char.MINUS);
+        transliteratedText = Normalizer.normalize(transliteratedText, Normalizer.Form.NFD)
+            .replace(Char.UNDERSCORE, Char.MINUS).replace(Char.SPACE, Char.MINUS).replace(Char.COMMA, Char.MINUS)
+            .replace(Char.DOT, Char.MINUS);
 
         Matcher m1 = slugifyReplacePattern1.matcher(transliteratedText);
         transliteratedText = m1.replaceAll(Str.EMPTY);
@@ -491,11 +499,12 @@ public class Strings {
             transliterationCode = DEFAULT_TRANSLITERATION_CODE;
         }
 
-        String transliteratedText = text.replace(ae, transliterateReplaceChars.get(ae)).replace(oe, transliterateReplaceChars.get(oe)).replace(ue, transliterateReplaceChars.get(ue))
-                .replace(Ae, transliterateReplaceChars.get(Ae))
-                .replace(Oe, transliterateReplaceChars.get(Oe)).replace(Ue, transliterateReplaceChars.get(Ue)).replace(ss, transliterateReplaceChars.get(ss))
-                .replace(Str.AT, transliterateReplaceChars.get(Str.AT))
-                .replace(Str.AMPERSAND, transliterateReplaceChars.get(Str.AMPERSAND));
+        String transliteratedText = text.replace(ae, transliterateReplaceChars.get(ae))
+            .replace(oe, transliterateReplaceChars.get(oe)).replace(ue, transliterateReplaceChars.get(ue))
+            .replace(Ae, transliterateReplaceChars.get(Ae)).replace(Oe, transliterateReplaceChars.get(Oe))
+            .replace(Ue, transliterateReplaceChars.get(Ue)).replace(ss, transliterateReplaceChars.get(ss))
+            .replace(Str.AT, transliterateReplaceChars.get(Str.AT))
+            .replace(Str.AMPERSAND, transliterateReplaceChars.get(Str.AMPERSAND));
 
         Transliterator t = transliteratorCache.get(transliterationCode);
 
@@ -506,8 +515,9 @@ public class Strings {
 
         transliteratedText = t.transform(transliteratedText);
 
-        transliteratedText = Normalizer.normalize(transliteratedText, Normalizer.Form.NFD).replace(Char.UNDERSCORE, Char.MINUS).replace(Char.SPACE, Char.UNDERSCORE).replace(Char.COMMA, Char.MINUS)
-                .replace(Char.DOT, Char.MINUS);
+        transliteratedText = Normalizer.normalize(transliteratedText, Normalizer.Form.NFD)
+            .replace(Char.UNDERSCORE, Char.MINUS).replace(Char.SPACE, Char.UNDERSCORE)
+            .replace(Char.COMMA, Char.MINUS).replace(Char.DOT, Char.MINUS);
 
         Matcher m1 = slugifyReplacePattern1.matcher(transliteratedText);
         transliteratedText = m1.replaceAll(Str.EMPTY);
@@ -536,11 +546,12 @@ public class Strings {
             transliterationCode = DEFAULT_TRANSLITERATION_CODE;
         }
 
-        String transliteratedText = text.replace(ae, transliterateReplaceChars.get(ae)).replace(oe, transliterateReplaceChars.get(oe)).replace(ue, transliterateReplaceChars.get(ue))
-                .replace(Ae, transliterateReplaceChars.get(Ae))
-                .replace(Oe, transliterateReplaceChars.get(Oe)).replace(Ue, transliterateReplaceChars.get(Ue)).replace(ss, transliterateReplaceChars.get(ss))
-                .replace(Str.AT, transliterateReplaceChars.get(Str.AT))
-                .replace(Str.AMPERSAND, transliterateReplaceChars.get(Str.AMPERSAND));
+        String transliteratedText = text.replace(ae, transliterateReplaceChars.get(ae))
+            .replace(oe, transliterateReplaceChars.get(oe)).replace(ue, transliterateReplaceChars.get(ue))
+            .replace(Ae, transliterateReplaceChars.get(Ae)).replace(Oe, transliterateReplaceChars.get(Oe))
+            .replace(Ue, transliterateReplaceChars.get(Ue)).replace(ss, transliterateReplaceChars.get(ss))
+            .replace(Str.AT, transliterateReplaceChars.get(Str.AT))
+            .replace(Str.AMPERSAND, transliterateReplaceChars.get(Str.AMPERSAND));
 
         Transliterator t = transliteratorCache.get(transliterationCode);
 

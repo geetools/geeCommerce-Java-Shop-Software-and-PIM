@@ -44,7 +44,9 @@ public class RestHelper {
 
         String name = getName(model);
 
-        return name == null ? null : Inflector.pluralize(new StringBuilder(name.substring(0, 1).toLowerCase()).append(name.substring(1)).toString());
+        return name == null ? null
+            : Inflector.pluralize(
+                new StringBuilder(name.substring(0, 1).toLowerCase()).append(name.substring(1)).toString());
     }
 
     public static <T extends Model> String getName(T model) {

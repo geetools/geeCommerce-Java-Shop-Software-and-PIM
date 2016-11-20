@@ -8,6 +8,7 @@
 package com.dhl.dctresponsedatatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for WeightChargeTaxDetType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="WeightChargeTaxDetType">
@@ -84,7 +86,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public BigDecimal getTaxTypeRate() {
-	return taxTypeRate;
+        return taxTypeRate;
     }
 
     /**
@@ -95,7 +97,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public void setTaxTypeRate(BigDecimal value) {
-	this.taxTypeRate = value;
+        this.taxTypeRate = value;
     }
 
     /**
@@ -105,7 +107,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public String getTaxTypeCode() {
-	return taxTypeCode;
+        return taxTypeCode;
     }
 
     /**
@@ -116,7 +118,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public void setTaxTypeCode(String value) {
-	this.taxTypeCode = value;
+        this.taxTypeCode = value;
     }
 
     /**
@@ -126,7 +128,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public BigDecimal getWeightChargeTax() {
-	return weightChargeTax;
+        return weightChargeTax;
     }
 
     /**
@@ -137,7 +139,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public void setWeightChargeTax(BigDecimal value) {
-	this.weightChargeTax = value;
+        this.weightChargeTax = value;
     }
 
     /**
@@ -147,7 +149,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public BigDecimal getBaseAmt() {
-	return baseAmt;
+        return baseAmt;
     }
 
     /**
@@ -158,7 +160,7 @@ public class WeightChargeTaxDetType {
      * 
      */
     public void setBaseAmt(BigDecimal value) {
-	this.baseAmt = value;
+        this.baseAmt = value;
     }
 
 }

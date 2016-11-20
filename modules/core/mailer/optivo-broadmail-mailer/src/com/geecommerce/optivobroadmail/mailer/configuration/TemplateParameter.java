@@ -7,59 +7,59 @@ public class TemplateParameter {
     private static final Map<String, String> parameters;
 
     static {
-	parameters = new LinkedHashMap<String, String>() {
-	    {
-		put(TemplateParameter.EMAIL, "Email");
-		put(TemplateParameter.KDKONTO, "KdKonto");
-		put(TemplateParameter.KDKONTO_NR, "KdKonto-Nr");
-		put(TemplateParameter.ANREDE, "Anrede");
-		put(TemplateParameter.NAME, "Name");
-		put(TemplateParameter.VORNAME, "Vorname");
-		put(TemplateParameter.ORDER_ID, "KV-Nr");
-		put(TemplateParameter.ORDER_DATE, "Bestelldatum");
-		put(TemplateParameter.PAYMENT_METHOD, "Bezahlart");
+        parameters = new LinkedHashMap<String, String>() {
+            {
+                put(TemplateParameter.EMAIL, "Email");
+                put(TemplateParameter.KDKONTO, "KdKonto");
+                put(TemplateParameter.KDKONTO_NR, "KdKonto-Nr");
+                put(TemplateParameter.ANREDE, "Anrede");
+                put(TemplateParameter.NAME, "Name");
+                put(TemplateParameter.VORNAME, "Vorname");
+                put(TemplateParameter.ORDER_ID, "KV-Nr");
+                put(TemplateParameter.ORDER_DATE, "Bestelldatum");
+                put(TemplateParameter.PAYMENT_METHOD, "Bezahlart");
 
-		put(TemplateParameter.INVOICE_VORENAME, "Rechn.Vorname");
-		put(TemplateParameter.INVOICE_SURNAME, "Rechn.Name");
-		put(TemplateParameter.INVOICE_STREET, "Rechn.Straße");
-		put(TemplateParameter.INVOICE_HOUSENUMBER, "Rechn.HausNr");
-		put(TemplateParameter.INVOICE_ADDITIONAL, "Rechn.Zusatz");
-		put(TemplateParameter.INVOICE_ZIPCODE, "Rechn.PLZ");
-		put(TemplateParameter.INVOICE_CITY, "Rechn.Ort");
-		put(TemplateParameter.DELIVERY_VORENAME, "Lief.Vorname");
-		put(TemplateParameter.DELIVERY_SURNAME, "Lief.Name");
-		put(TemplateParameter.DELIVERY_STREET, "Lief.Straße");
-		put(TemplateParameter.DELIVERY_HOUSENUMBER, "Lief.HausNr");
-		put(TemplateParameter.DELIVERY_ADDITIONAL, "Lief.Zusatz");
-		put(TemplateParameter.DELIVERY_ZIPCODE, "Lief.PLZ");
-		put(TemplateParameter.DELIVERY_CITY, "Lief.Ort");
-		put(TemplateParameter.DELIVERY_DATE, "Lief.Termin");
+                put(TemplateParameter.INVOICE_VORENAME, "Rechn.Vorname");
+                put(TemplateParameter.INVOICE_SURNAME, "Rechn.Name");
+                put(TemplateParameter.INVOICE_STREET, "Rechn.Straße");
+                put(TemplateParameter.INVOICE_HOUSENUMBER, "Rechn.HausNr");
+                put(TemplateParameter.INVOICE_ADDITIONAL, "Rechn.Zusatz");
+                put(TemplateParameter.INVOICE_ZIPCODE, "Rechn.PLZ");
+                put(TemplateParameter.INVOICE_CITY, "Rechn.Ort");
+                put(TemplateParameter.DELIVERY_VORENAME, "Lief.Vorname");
+                put(TemplateParameter.DELIVERY_SURNAME, "Lief.Name");
+                put(TemplateParameter.DELIVERY_STREET, "Lief.Straße");
+                put(TemplateParameter.DELIVERY_HOUSENUMBER, "Lief.HausNr");
+                put(TemplateParameter.DELIVERY_ADDITIONAL, "Lief.Zusatz");
+                put(TemplateParameter.DELIVERY_ZIPCODE, "Lief.PLZ");
+                put(TemplateParameter.DELIVERY_CITY, "Lief.Ort");
+                put(TemplateParameter.DELIVERY_DATE, "Lief.Termin");
 
-		put(TemplateParameter.KDKTO_LINK, "KdKto-Link");
-		put(TemplateParameter.PW_LINK, "PwLink");
-		put(TemplateParameter.ORDER_SUMMARY, "Artikeltabelle");
-		put(TemplateParameter.ORDER_TOTAL, "Gesamtsumme");
-		put(TemplateParameter.ORDER_VAT, "MwSt");
-		put(TemplateParameter.FILIALE_ADDRESS, "Filialadresse");
-		put(TemplateParameter.FILIALE_WORKTIME, "Filialöffnung");
-		put(TemplateParameter.IMPRESSUM, "Impressum");
-		put(TemplateParameter.FIRMA, "Firma");
-		put(TemplateParameter.APPENDIX, "Anhang");
+                put(TemplateParameter.KDKTO_LINK, "KdKto-Link");
+                put(TemplateParameter.PW_LINK, "PwLink");
+                put(TemplateParameter.ORDER_SUMMARY, "Artikeltabelle");
+                put(TemplateParameter.ORDER_TOTAL, "Gesamtsumme");
+                put(TemplateParameter.ORDER_VAT, "MwSt");
+                put(TemplateParameter.FILIALE_ADDRESS, "Filialadresse");
+                put(TemplateParameter.FILIALE_WORKTIME, "Filialöffnung");
+                put(TemplateParameter.IMPRESSUM, "Impressum");
+                put(TemplateParameter.FIRMA, "Firma");
+                put(TemplateParameter.APPENDIX, "Anhang");
 
-		put(TemplateParameter.KUNDEN_NR, "KDNr");
-		put(TemplateParameter.FIRMEN_URL, "firmenURL");
-		put(TemplateParameter.ENTERPRISE, "Firma");
-		put(TemplateParameter.CONDITIONS, "Widerrufsbelehrung");
-		put(TemplateParameter.SHIPPING_AMOUNT, "Versandkosten");
+                put(TemplateParameter.KUNDEN_NR, "KDNr");
+                put(TemplateParameter.FIRMEN_URL, "firmenURL");
+                put(TemplateParameter.ENTERPRISE, "Firma");
+                put(TemplateParameter.CONDITIONS, "Widerrufsbelehrung");
+                put(TemplateParameter.SHIPPING_AMOUNT, "Versandkosten");
 
-		put(TemplateParameter.OUTSTANDING_AMOUNT, "Saldo");
+                put(TemplateParameter.OUTSTANDING_AMOUNT, "Saldo");
 
-	    }
-	};
+            }
+        };
     }
 
     public static String getLabel(String parameterName) {
-	return parameters.get(parameterName);
+        return parameters.get(parameterName);
     }
 
     public static final String FIRMA = "company";
@@ -70,8 +70,10 @@ public class TemplateParameter {
     public static final String KDKTO_LINK = "custtolink";
     public static final String IMPRESSUM = "impressum";
     public static final String PW_LINK = "pwlink";
-    public static final String KDKONTO = "cusaccount"; // customer account emails address
-    public static final String KDKONTO_NR = "cusaccnumber"; // customer account ID number
+    public static final String KDKONTO = "cusaccount"; // customer account
+                                                       // emails address
+    public static final String KDKONTO_NR = "cusaccnumber"; // customer account
+                                                            // ID number
     public static final String ORDER_ID = "kvnumber"; // order ID
     public static final String KUNDEN_NR = "KDNr";
     public static final String FIRMEN_URL = "firmenURL";

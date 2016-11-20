@@ -20,7 +20,7 @@ public final class ConfigurationKey {
     public static final String CPANEL_LOGO_TEXT = "core/cpanel/logo/text";
     public static final String CPANEL_LOGIN_LOGO = "core/cpanel/login/logo";
     public static final String CPANEL_LOGIN_LOGO_TEXT = "core/cpanel/login/logo/text";
-    
+
     public static final String DEV_PRINT_ERRORS = "core/dev/print_errors";
     public static final String DEV_TOOLBAR = "core/dev/toolbar";
 

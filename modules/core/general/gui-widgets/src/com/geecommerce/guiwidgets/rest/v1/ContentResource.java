@@ -44,7 +44,8 @@ public class ContentResource extends AbstractResource {
     private final ContentUrlHelper contentUrlHelper;
 
     @Inject
-    public ContentResource(RestService service, ContentService contentService, UrlRewrites urlRewrites, UrlRewriteHelper urlRewriteHelper, ContentUrlHelper contentUrlHelper) {
+    public ContentResource(RestService service, ContentService contentService, UrlRewrites urlRewrites,
+        UrlRewriteHelper urlRewriteHelper, ContentUrlHelper contentUrlHelper) {
         this.service = service;
         this.contentService = contentService;
         this.urlRewrites = urlRewrites;
@@ -79,7 +80,7 @@ public class ContentResource extends AbstractResource {
         update.getFields().remove("structure_nodes");
         update.getFields().put("structure_nodes", nodesMap);
 
-        Content c = app.getModel(Content.class);
+        Content c = app.model(Content.class);
         c.fromMap(update.getFields());
         c.set(update.getFields());
         c.setTemplate(contentService.generateTemplate(c));
@@ -175,7 +176,7 @@ public class ContentResource extends AbstractResource {
     public Response getRewriteUrl(@PathParam("id") Id contentId) {
         UrlRewrite urlRewrite = urlRewrites.forCMS(contentId);
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
         }
         return ok(checked(urlRewrite));
     }
@@ -192,7 +193,7 @@ public class ContentResource extends AbstractResource {
         Content content = checked(service.get(Content.class, contentId));
         UrlRewrite urlRewrite = urlRewrites.forCMS(contentId);
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
             urlRewrite.setRequestURI(new ContextObject<String>());
             urlRewrite.setEnabled(true);
             urlRewrite.setRequestMethod("GET");
@@ -213,7 +214,8 @@ public class ContentResource extends AbstractResource {
         else
             urlRewrites.update(urlRewrite);
 
-        if (urlRewrite != null && (urlRewrite.getRequestURI() == null || urlRewrite.getRequestURI().size() == 0) && urlRewrite.getId() != null) {
+        if (urlRewrite != null && (urlRewrite.getRequestURI() == null || urlRewrite.getRequestURI().size() == 0)
+            && urlRewrite.getId() != null) {
             urlRewrites.remove(urlRewrite);
         }
 

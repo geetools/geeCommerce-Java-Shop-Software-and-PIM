@@ -99,10 +99,12 @@ public enum SSL {
         if (certFile.exists()) {
             if (!certFile.isFile()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located global certificate '" + certFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                    log.warn("The located global certificate '" + certFile.getAbsolutePath()
+                        + "' does not appear to be a regular file.");
             } else if (!certFile.canRead()) {
                 if (log.isWarnEnabled())
-                    log.warn("The located global certificate '" + certFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                    log.warn("The located global certificate '" + certFile.getAbsolutePath()
+                        + "' does not have the necessary read permission.");
             } else {
                 if (log.isDebugEnabled())
                     log.debug("Using global certificate '" + certFile.getAbsolutePath() + "'.");
@@ -115,7 +117,7 @@ public enum SSL {
     }
 
     protected final File locateCertFileForCurrentContext(String name) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null) {
             Merchant m = appCtx.getMerchant();
@@ -132,10 +134,12 @@ public enum SSL {
                 if (certFile.exists()) {
                     if (!certFile.isFile()) {
                         if (log.isWarnEnabled())
-                            log.warn("The located view certificate '" + certFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                            log.warn("The located view certificate '" + certFile.getAbsolutePath()
+                                + "' does not appear to be a regular file.");
                     } else if (!certFile.canRead()) {
                         if (log.isWarnEnabled()) {
-                            log.warn("The located view certificate '" + certFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                            log.warn("The located view certificate '" + certFile.getAbsolutePath()
+                                + "' does not have the necessary read permission.");
                         }
                     } else {
                         if (log.isDebugEnabled()) {
@@ -157,10 +161,12 @@ public enum SSL {
                 if (certFile.exists()) {
                     if (!certFile.isFile()) {
                         if (log.isWarnEnabled())
-                            log.warn("The located store certificate '" + certFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                            log.warn("The located store certificate '" + certFile.getAbsolutePath()
+                                + "' does not appear to be a regular file.");
                     } else if (!certFile.canRead()) {
                         if (log.isWarnEnabled()) {
-                            log.warn("The located store certificate '" + certFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                            log.warn("The located store certificate '" + certFile.getAbsolutePath()
+                                + "' does not have the necessary read permission.");
                         }
                     } else {
                         if (log.isDebugEnabled()) {
@@ -182,10 +188,12 @@ public enum SSL {
                 if (certFile.exists()) {
                     if (!certFile.isFile()) {
                         if (log.isWarnEnabled())
-                            log.warn("The located merchant certificate '" + certFile.getAbsolutePath() + "' does not appear to be a regular file.");
+                            log.warn("The located merchant certificate '" + certFile.getAbsolutePath()
+                                + "' does not appear to be a regular file.");
                     } else if (!certFile.canRead()) {
                         if (log.isWarnEnabled())
-                            log.warn("The located merchant certificate '" + certFile.getAbsolutePath() + "' does not have the necessary read permission.");
+                            log.warn("The located merchant certificate '" + certFile.getAbsolutePath()
+                                + "' does not have the necessary read permission.");
                     } else {
                         if (log.isDebugEnabled())
                             log.debug("Using merchant certificate '" + certFile.getAbsolutePath() + "'.");

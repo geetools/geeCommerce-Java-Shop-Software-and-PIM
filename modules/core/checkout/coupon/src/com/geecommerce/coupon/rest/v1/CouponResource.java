@@ -76,7 +76,8 @@ public class CouponResource extends AbstractResource {
     private SimpleDateFormat exportDateFormat = new SimpleDateFormat("yyyyMMdd-HHmm");
 
     @Inject
-    public CouponResource(RestService service, CouponHelper couponHelper, AttributeService attributeService, CouponCodes couponCodes, Coupons coupons) {
+    public CouponResource(RestService service, CouponHelper couponHelper, AttributeService attributeService,
+        CouponCodes couponCodes, Coupons coupons) {
         this.service = service;
         this.couponHelper = couponHelper;
         this.attributeService = attributeService;
@@ -114,11 +115,13 @@ public class CouponResource extends AbstractResource {
         if (id != null && amount != null) {
             Coupon c = checked(service.get(Coupon.class, id));
             if (c.getCouponCodeGeneration().getAuto() != null && c.getCouponCodeGeneration().getAuto()) {
-                CouponCodePattern pattern = service.get(CouponCodePattern.class, c.getCouponCodeGeneration().getPattern());
-                List<String> codes = couponHelper.generateCodes(c.getCouponCodeGeneration().getPrefix(), c.getCouponCodeGeneration().getPostfix(), pattern, c.getCouponCodeGeneration().getLength(),
+                CouponCodePattern pattern = service.get(CouponCodePattern.class,
+                    c.getCouponCodeGeneration().getPattern());
+                List<String> codes = couponHelper.generateCodes(c.getCouponCodeGeneration().getPrefix(),
+                    c.getCouponCodeGeneration().getPostfix(), pattern, c.getCouponCodeGeneration().getLength(),
                     amount);
                 for (String code : codes) {
-                    CouponCode cc = app.getModel(CouponCode.class);
+                    CouponCode cc = app.model(CouponCode.class);
                     cc.belongsTo(c);
                     cc.setCode(code);
                     service.create(cc);
@@ -174,10 +177,10 @@ public class CouponResource extends AbstractResource {
              * null && generation.getAuto()){ CouponCodePattern pattern =
              * service.get(CouponCodePattern.class, g.getPattern());
              * List<String> codes = couponHelper.generateCodes(g.getPrefix(),
-             * g.getPostfix(),
-             * pattern, g.getLength(), generation.getQuantity()); for(String
-             * code: codes){ CouponCode cc = app.getModel(CouponCode.class);
-             * cc.belongsTo(c); cc.setCode(code); service.create(cc); } } }
+             * g.getPostfix(), pattern, g.getLength(),
+             * generation.getQuantity()); for(String code: codes){ CouponCode cc
+             * = app.getModel(CouponCode.class); cc.belongsTo(c);
+             * cc.setCode(code); service.create(cc); } } }
              */
         }
     }
@@ -185,7 +188,7 @@ public class CouponResource extends AbstractResource {
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createCoupon(List<Update> updates) {
-        Coupon c = app.getModel(Coupon.class);
+        Coupon c = app.model(Coupon.class);
         Update coupon = updates.get(0);
         Update action = updates.get(1);
         Update generator = updates.get(2);
@@ -213,31 +216,32 @@ public class CouponResource extends AbstractResource {
         }
 
         c.fromMap(coupon.getFields());
-        c.setCouponAction(app.getModel(CouponAction.class));
+        c.setCouponAction(app.model(CouponAction.class));
         c.getCouponAction().fromMap(action.getFields());
         couponHelper.fixCouponFilters(c);
         c = service.create(c);
         if (c != null) {
             if (c.getAuto()) {
-                CouponCode cc = app.getModel(CouponCode.class);
+                CouponCode cc = app.model(CouponCode.class);
                 cc.belongsTo(c);
                 service.create(cc);
                 // create just one coupon code
             } else {
-                CouponCodeGeneration g = app.getModel(CouponCodeGeneration.class);
+                CouponCodeGeneration g = app.model(CouponCodeGeneration.class);
                 g.set(generator.getFields());
                 c.setCouponCodeGeneration(g);
                 service.update(c);
                 if (!g.getAuto()) {
-                    CouponCode cc = app.getModel(CouponCode.class);
+                    CouponCode cc = app.model(CouponCode.class);
                     cc.belongsTo(c);
                     cc.setCode(g.getCode());
                     service.create(cc);
                 } else {
                     CouponCodePattern pattern = service.get(CouponCodePattern.class, g.getPattern());
-                    List<String> codes = couponHelper.generateCodes(g.getPrefix(), g.getPostfix(), pattern, g.getLength(), g.getQuantity());
+                    List<String> codes = couponHelper.generateCodes(g.getPrefix(), g.getPostfix(), pattern,
+                        g.getLength(), g.getQuantity());
                     for (String code : codes) {
-                        CouponCode cc = app.getModel(CouponCode.class);
+                        CouponCode cc = app.model(CouponCode.class);
                         cc.belongsTo(c);
                         cc.setCode(code);
                         service.create(cc);
@@ -253,7 +257,8 @@ public class CouponResource extends AbstractResource {
     @Path("{id}/codes")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getCodes(@PathParam("id") Id id, @FilterParam Filter filter) {
-        return ok(checked(service.get(CouponCode.class, filter.append("coupon_id", id).getParams(), queryOptions(filter))));
+        return ok(checked(
+            service.get(CouponCode.class, filter.append("coupon_id", id).getParams(), queryOptions(filter))));
     }
 
     @GET
@@ -397,7 +402,8 @@ public class CouponResource extends AbstractResource {
     @Path("/couponFilterNodeTypes")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response geCouponFilterNodeTypes() {
-        ArrayList<CouponFilterNodeType> types = new ArrayList<CouponFilterNodeType>(Arrays.asList(CouponFilterNodeType.values()));
+        ArrayList<CouponFilterNodeType> types = new ArrayList<CouponFilterNodeType>(
+            Arrays.asList(CouponFilterNodeType.values()));
         List<LabelValue> result = new ArrayList<>();
 
         for (CouponFilterNodeType type : types) {
@@ -427,7 +433,8 @@ public class CouponResource extends AbstractResource {
 
     @GET
     @Path("{id}/export/codes")
-    public Response getCouponsExport(@PathParam("id") Id id, @Context HttpServletResponse response, @QueryParam("mark") Boolean mark, @QueryParam("qty") Integer qty,
+    public Response getCouponsExport(@PathParam("id") Id id, @Context HttpServletResponse response,
+        @QueryParam("mark") Boolean mark, @QueryParam("qty") Integer qty,
         @QueryParam("exportMarkedAndUsed") Boolean exportMarkedAndUsed) throws IOException {
         Coupon c = checked(service.get(Coupon.class, id));
         String couponName = Str.EMPTY;
@@ -435,10 +442,12 @@ public class CouponResource extends AbstractResource {
         if (c.getName() != null && c.getName().str() != null) {
 
             couponName = Strings.transliterate(c.getName().str());
-            couponName = couponName.replaceAll(REPLACE_REGEX, Str.EMPTY).replace(Str.DOUBLE_SPACE, Str.SPACE).replace(Char.SPACE, Char.UNDERSCORE).toLowerCase();
+            couponName = couponName.replaceAll(REPLACE_REGEX, Str.EMPTY).replace(Str.DOUBLE_SPACE, Str.SPACE)
+                .replace(Char.SPACE, Char.UNDERSCORE).toLowerCase();
         }
 
-        String baseName = new StringBuilder(COUPON_CODES_EXPORT_FILE_BASENAME).append(couponName == null ? Str.EMPTY : Char.UNDERSCORE).append(couponName).append(Char.UNDERSCORE)
+        String baseName = new StringBuilder(COUPON_CODES_EXPORT_FILE_BASENAME)
+            .append(couponName == null ? Str.EMPTY : Char.UNDERSCORE).append(couponName).append(Char.UNDERSCORE)
             .append(exportDateFormat.format(new Date())).toString();
 
         response.setContentType("application/zip");
@@ -461,15 +470,18 @@ public class CouponResource extends AbstractResource {
             List<CouponCode> couponCodeList = couponCodes.thatBelongTo(c);
             if (couponCodeList != null) {
                 for (CouponCode couponCode : couponCodeList) {
-                    if ((couponCode.getExportedDate() == null && couponCode.getEmail() == null && !isCouponUsed(couponCode)) || (exportMarkedAndUsed != null && exportMarkedAndUsed)) {
+                    if ((couponCode.getExportedDate() == null && couponCode.getEmail() == null
+                        && !isCouponUsed(couponCode)) || (exportMarkedAndUsed != null && exportMarkedAndUsed)) {
 
                         if (maxCount == 0)
                             break;
 
                         String code = couponCode.getCode();
                         String email = couponCode.getEmail() == null ? Str.EMPTY : couponCode.getEmail();
-                        String used = couponCode.getCouponUsages() != null && couponCode.getCouponUsages().size() > 0 ? couponCode.getCouponUsages().get(0).getUsageDate().toString() : "";
-                        String exported = couponCode.getExportedDate() != null ? couponCode.getExportedDate().toString() : "";
+                        String used = couponCode.getCouponUsages() != null && couponCode.getCouponUsages().size() > 0
+                            ? couponCode.getCouponUsages().get(0).getUsageDate().toString() : "";
+                        String exported = couponCode.getExportedDate() != null ? couponCode.getExportedDate().toString()
+                            : "";
 
                         // Code
                         pw.write(Char.DOUBLE_QUOTE);

@@ -9,6 +9,7 @@ package com.dhl.datatypes_ea;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for PieceDetails complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="PieceDetails">
@@ -43,7 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PieceDetails", propOrder = { "pieceID", "packageType", "weight", "dimWeight", "width", "height", "depth" })
+@XmlType(name = "PieceDetails", propOrder = { "pieceID", "packageType", "weight", "dimWeight", "width", "height",
+    "depth" })
 public class PieceDetails {
 
     @XmlElement(name = "PieceID")
@@ -71,7 +74,7 @@ public class PieceDetails {
      * 
      */
     public String getPieceID() {
-	return pieceID;
+        return pieceID;
     }
 
     /**
@@ -82,7 +85,7 @@ public class PieceDetails {
      * 
      */
     public void setPieceID(String value) {
-	this.pieceID = value;
+        this.pieceID = value;
     }
 
     /**
@@ -92,7 +95,7 @@ public class PieceDetails {
      * 
      */
     public PackageType getPackageType() {
-	return packageType;
+        return packageType;
     }
 
     /**
@@ -103,7 +106,7 @@ public class PieceDetails {
      * 
      */
     public void setPackageType(PackageType value) {
-	this.packageType = value;
+        this.packageType = value;
     }
 
     /**
@@ -113,7 +116,7 @@ public class PieceDetails {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -124,7 +127,7 @@ public class PieceDetails {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -134,7 +137,7 @@ public class PieceDetails {
      * 
      */
     public String getDimWeight() {
-	return dimWeight;
+        return dimWeight;
     }
 
     /**
@@ -145,7 +148,7 @@ public class PieceDetails {
      * 
      */
     public void setDimWeight(String value) {
-	this.dimWeight = value;
+        this.dimWeight = value;
     }
 
     /**
@@ -155,7 +158,7 @@ public class PieceDetails {
      * 
      */
     public BigInteger getWidth() {
-	return width;
+        return width;
     }
 
     /**
@@ -166,7 +169,7 @@ public class PieceDetails {
      * 
      */
     public void setWidth(BigInteger value) {
-	this.width = value;
+        this.width = value;
     }
 
     /**
@@ -176,7 +179,7 @@ public class PieceDetails {
      * 
      */
     public BigInteger getHeight() {
-	return height;
+        return height;
     }
 
     /**
@@ -187,7 +190,7 @@ public class PieceDetails {
      * 
      */
     public void setHeight(BigInteger value) {
-	this.height = value;
+        this.height = value;
     }
 
     /**
@@ -197,7 +200,7 @@ public class PieceDetails {
      * 
      */
     public BigInteger getDepth() {
-	return depth;
+        return depth;
     }
 
     /**
@@ -208,7 +211,7 @@ public class PieceDetails {
      * 
      */
     public void setDepth(BigInteger value) {
-	this.depth = value;
+        this.depth = value;
     }
 
 }

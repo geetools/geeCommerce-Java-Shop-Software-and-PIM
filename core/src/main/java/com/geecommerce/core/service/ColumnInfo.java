@@ -39,6 +39,7 @@ public class ColumnInfo {
 
     @Override
     public String toString() {
-        return "ColumnInfo [name=" + name + ", type=" + type + ", genericType=" + genericType + ", property=" + property + ", autoPopulate=" + autoPopulate + "]";
+        return "ColumnInfo [name=" + name + ", type=" + type + ", genericType=" + genericType + ", property=" + property
+            + ", autoPopulate=" + autoPopulate + "]";
     }
 }

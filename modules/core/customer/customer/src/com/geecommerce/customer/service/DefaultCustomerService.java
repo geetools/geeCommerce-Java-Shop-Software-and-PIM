@@ -48,7 +48,8 @@ public class DefaultCustomerService implements CustomerService {
     private static final String ACCOUNT_SCOPE_KEY = "customer/account/scope";
 
     @Inject
-    public DefaultCustomerService(Customers customers, Accounts accounts, Addresses addresses, ViewedProducts viewedProducts, Payments payments) {
+    public DefaultCustomerService(Customers customers, Accounts accounts, Addresses addresses,
+        ViewedProducts viewedProducts, Payments payments) {
         this.customers = customers;
         this.accounts = accounts;
         this.addresses = addresses;
@@ -63,7 +64,7 @@ public class DefaultCustomerService implements CustomerService {
         if (customer == null)
             throw new NullPointerException("Customer cannot be null");
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         // Add merchant if it has not yet been set.
         if (!customer.isIn(appCtx.getMerchant())) {
@@ -87,15 +88,17 @@ public class DefaultCustomerService implements CustomerService {
             Long customerGroupId = app.cpLong_(CustomerConstant.CUSTOMER_GROUP_DEFAULT_NEW_CUSTOMER_CONFIG_KEY);
 
             if (customerGroupId == null) {
-                throw new IllegalStateException("Unable to create customer because no default customer-group has been configured. Please add a value for the key '"
-                    + CustomerConstant.CUSTOMER_GROUP_DEFAULT_NEW_CUSTOMER_CONFIG_KEY
-                    + "' to the configuration collection.");
+                throw new IllegalStateException(
+                    "Unable to create customer because no default customer-group has been configured. Please add a value for the key '"
+                        + CustomerConstant.CUSTOMER_GROUP_DEFAULT_NEW_CUSTOMER_CONFIG_KEY
+                        + "' to the configuration collection.");
             }
 
             CustomerGroup customerGroup = getCustomerGroup(Id.valueOf(customerGroupId));
 
             if (customerGroup == null) {
-                throw new IllegalStateException("Unable to create customer because customer-group '" + customerGroupId + "' could not be found. Please check your configuration property '"
+                throw new IllegalStateException("Unable to create customer because customer-group '" + customerGroupId
+                    + "' could not be found. Please check your configuration property '"
                     + CustomerConstant.CUSTOMER_GROUP_DEFAULT_NEW_CUSTOMER_CONFIG_KEY + "'.");
             }
 
@@ -184,7 +187,7 @@ public class DefaultCustomerService implements CustomerService {
         if (account == null)
             return null;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         // Add merchant if it has not yet been set.
         if (!account.isIn(appCtx.getMerchant())) {
@@ -250,7 +253,7 @@ public class DefaultCustomerService implements CustomerService {
         if (username == null)
             return null;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         Scope accountScope = app.cpEnum_(ACCOUNT_SCOPE_KEY, Scope.class, Scope.STORE);
 
@@ -272,7 +275,8 @@ public class DefaultCustomerService implements CustomerService {
         }
 
         if (customerAccounts != null && customerAccounts.size() > 1) {
-            throw new IllegalStateException("There is more than one account for username '" + username + "' in scope '" + accountScope + "'! Therefore not returning any account.");
+            throw new IllegalStateException("There is more than one account for username '" + username + "' in scope '"
+                + accountScope + "'! Therefore not returning any account.");
         }
 
         return customerAccounts == null || customerAccounts.isEmpty() ? null : customerAccounts.get(0);
@@ -467,16 +471,12 @@ public class DefaultCustomerService implements CustomerService {
         List<Payment> payments = getPaymentWithCode(paymentMethodCode, true);
         if (payments != null && !payments.isEmpty()) {
             Payment payment = payments.get(0);
-            payment.setDefaultPayment(true)
-                .setParameters(paymentParams);
+            payment.setDefaultPayment(true).setParameters(paymentParams);
             updatePayment(payment);
         } else {
-            Payment payment = app.getModel(Payment.class);
-            payment.setId(app.nextId())
-                .setDefaultPayment(true)
-                .setPaymentCode(paymentMethodCode)
-                .setParameters(paymentParams)
-                .belongsTo(customer);
+            Payment payment = app.model(Payment.class);
+            payment.setId(app.nextId()).setDefaultPayment(true).setPaymentCode(paymentMethodCode)
+                .setParameters(paymentParams).belongsTo(customer);
             createPayment(payment);
         }
     }
@@ -487,7 +487,8 @@ public class DefaultCustomerService implements CustomerService {
         if (customer == null || productId == null)
             return;
 
-        ViewedProduct vp = app.getModel(ViewedProduct.class).viewedBy(customer).viewedProduct(productId).viewedOn(DateTimes.newDate());
+        ViewedProduct vp = app.model(ViewedProduct.class).viewedBy(customer).viewedProduct(productId)
+            .viewedOn(DateTimes.newDate());
 
         viewedProducts.add(vp);
     }
@@ -502,7 +503,8 @@ public class DefaultCustomerService implements CustomerService {
         // TODO add limit to config table
         List<ViewedProduct> viewedProductsList = viewedProducts.thatBelongTo(customer, 10);
 
-        return viewedProductsList == null || viewedProductsList.size() == 0 ? productIds : ProductIds.toIdList(viewedProductsList);
+        return viewedProductsList == null || viewedProductsList.size() == 0 ? productIds
+            : ProductIds.toIdList(viewedProductsList);
     }
 
     private boolean equals(String str1, String str2) {
@@ -536,7 +538,8 @@ public class DefaultCustomerService implements CustomerService {
         if (Str.trimNormalizedEqualsIgnoreCase(address1.getForename(), address2.getForename())
             && Str.trimNormalizedEqualsIgnoreCase(address1.getSurname(), address2.getSurname())
             && Str.trimNormalizedEqualsIgnoreCase(address1.getHouseNumber(), address2.getHouseNumber())
-            && Str.trimNormalizedEqualsIgnoreCase(formatPostcode(address1.getZip(), address1.getCountry()), formatPostcode(address2.getZip(), address2.getCountry()))
+            && Str.trimNormalizedEqualsIgnoreCase(formatPostcode(address1.getZip(), address1.getCountry()),
+                formatPostcode(address2.getZip(), address2.getCountry()))
             && Str.trimNormalizedEqualsIgnoreCase(address1.getCity(), address2.getCity())
             && Str.trimNormalizedEqualsIgnoreCase(address1.getCountry(), address2.getCountry())) {
             List<String> addressLines1 = address1.getAddressLines();

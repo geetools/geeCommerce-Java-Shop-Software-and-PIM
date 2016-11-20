@@ -33,7 +33,7 @@ import com.google.inject.Inject;
 public class AddressController extends BaseController {
     @Inject
     protected App app;
-    
+
     protected final CustomerService customerService;
     protected final CountryService countryService;
 
@@ -65,29 +65,20 @@ public class AddressController extends BaseController {
     public Result createAddress(@Valid AddressForm addressForm, Bindings bindings) {
 
         if (bindings.hasErrors())
-            return Results.view("customer/address/new_form")
-                .bind(bindings.typedValues())
-                .bind("countries", getCountries());
+            return Results.view("customer/address/new_form").bind(bindings.typedValues()).bind("countries",
+                getCountries());
 
         Customer customer = getLoggedInCustomer();
         try {
             if (customer != null) {
-                Address address = app.getModel(Address.class);
-                address.belongsTo(customer)
-                    .setCountry(addressForm.getCountry())
-                    .setCompany(addressForm.getCompany())
-                    .setCity(addressForm.getCity())
-                    .setDistrict(addressForm.getDistrict())
-                    .setHouseNumber(addressForm.getHouseNumber())
-                    .setZip(addressForm.getZip())
-                    .setFax(addressForm.getFax())
-                    .setMobile(addressForm.getMobile())
-                    .setSalutation(addressForm.getSalutation())
-                    .setForename(addressForm.getForename())
-                    .setSurname(addressForm.getSurname())
-                    .setTelephone(addressForm.getPhone())
-                    .setState(addressForm.getState())
-                    .setAddressLines(addressForm.getStreet());
+                Address address = app.model(Address.class);
+                address.belongsTo(customer).setCountry(addressForm.getCountry()).setCompany(addressForm.getCompany())
+                    .setCity(addressForm.getCity()).setDistrict(addressForm.getDistrict())
+                    .setHouseNumber(addressForm.getHouseNumber()).setZip(addressForm.getZip())
+                    .setFax(addressForm.getFax()).setMobile(addressForm.getMobile())
+                    .setSalutation(addressForm.getSalutation()).setForename(addressForm.getForename())
+                    .setSurname(addressForm.getSurname()).setTelephone(addressForm.getPhone())
+                    .setState(addressForm.getState()).setAddressLines(addressForm.getStreet());
 
                 if (addressForm.getDefaultInvoiceAddress() != null && addressForm.getDefaultInvoiceAddress()) {
                     resetDefaultInvoiceAddress(address);
@@ -121,14 +112,13 @@ public class AddressController extends BaseController {
 
         Address address = customerService.getAddress(id);
         if (address != null) {
-            return view("customer/address/edit_form")
-                .bind("addressForm", populateAddressForm(address))
-                .bind("id", id)
+            return view("customer/address/edit_form").bind("addressForm", populateAddressForm(address)).bind("id", id)
                 .bind("countries", getCountries());
         } else {
             // addValidationError(app.message("Unfortunately there was an error
             // when editing the address. Please try again later."));
-            LOG.error("An error occured when trying to edit the address: address ID=" + id + ", customer=" + getLoggedInCustomer());
+            LOG.error("An error occured when trying to edit the address: address ID=" + id + ", customer="
+                + getLoggedInCustomer());
             return redirect("/customer/account/overview/");
         }
     }
@@ -140,29 +130,19 @@ public class AddressController extends BaseController {
         Address address = null;
 
         if (bindings.hasErrors())
-            return Results.view("customer/address/edit_form")
-                .bind(bindings.typedValues())
-                .bind("id", id)
+            return Results.view("customer/address/edit_form").bind(bindings.typedValues()).bind("id", id)
                 .bind("countries", getCountries());
 
         try {
             if (loggedInCustomer != null) {
                 address = customerService.getAddress(id);
-                address.belongsTo(loggedInCustomer)
-                    .setCountry(addressForm.getCountry())
-                    .setCompany(addressForm.getCompany())
-                    .setCity(addressForm.getCity())
-                    .setDistrict(addressForm.getDistrict())
-                    .setHouseNumber(addressForm.getHouseNumber())
-                    .setZip(addressForm.getZip())
-                    .setFax(addressForm.getFax())
-                    .setMobile(addressForm.getMobile())
-                    .setSalutation(addressForm.getSalutation())
-                    .setForename(addressForm.getForename())
-                    .setSurname(addressForm.getSurname())
-                    .setTelephone(addressForm.getPhone())
-                    .setState(addressForm.getState())
-                    .setAddressLines(addressForm.getStreet());
+                address.belongsTo(loggedInCustomer).setCountry(addressForm.getCountry())
+                    .setCompany(addressForm.getCompany()).setCity(addressForm.getCity())
+                    .setDistrict(addressForm.getDistrict()).setHouseNumber(addressForm.getHouseNumber())
+                    .setZip(addressForm.getZip()).setFax(addressForm.getFax()).setMobile(addressForm.getMobile())
+                    .setSalutation(addressForm.getSalutation()).setForename(addressForm.getForename())
+                    .setSurname(addressForm.getSurname()).setTelephone(addressForm.getPhone())
+                    .setState(addressForm.getState()).setAddressLines(addressForm.getStreet());
 
                 if (addressForm.getDefaultInvoiceAddress() != null && addressForm.getDefaultInvoiceAddress()) {
                     resetDefaultInvoiceAddress(address);
@@ -180,7 +160,8 @@ public class AddressController extends BaseController {
             }
         } catch (Throwable t) {
             t.printStackTrace();
-            LOG.error("An error occured when trying to update an address: customer=" + loggedInCustomer + ", address id=" + address.getId());
+            LOG.error("An error occured when trying to update an address: customer=" + loggedInCustomer
+                + ", address id=" + address.getId());
             // addValidationError(app.message("Unfortunately there was an error
             // when updating the address. Please try again later."));
             return view("customer/address/edit_form").bind("addressForm", addressForm);
@@ -195,9 +176,7 @@ public class AddressController extends BaseController {
             return redirect("/customer/account/login/");
 
         Address address = customerService.getAddress(id);
-        return view("/customer/address/delete_form")
-            .bind("address", address)
-            .bind("id", id);
+        return view("/customer/address/delete_form").bind("address", address).bind("id", id);
     }
 
     @Request("delete-confirm/{id}")
@@ -209,11 +188,13 @@ public class AddressController extends BaseController {
             if (address != null) {
                 customerService.removeAddress(address);
             } else {
-                LOG.error("An error occured when trying to delete an address. The address doesn't exist: customer=" + getLoggedInCustomer() + ", address id=" + address.getId());
+                LOG.error("An error occured when trying to delete an address. The address doesn't exist: customer="
+                    + getLoggedInCustomer() + ", address id=" + address.getId());
             }
         } catch (Throwable t) {
             t.printStackTrace();
-            LOG.error("An error occured when trying to delete an address: customer=" + getLoggedInCustomer() + ", address id=" + address.getId());
+            LOG.error("An error occured when trying to delete an address: customer=" + getLoggedInCustomer()
+                + ", address id=" + address.getId());
             LOG.throwing(t);
         }
 
@@ -227,9 +208,7 @@ public class AddressController extends BaseController {
             return redirect("/customer/account/login/");
 
         Address address = customerService.getAddress(id);
-        return view("/customer/address/detail")
-            .bind("address", address)
-            .bind("id", id);
+        return view("/customer/address/detail").bind("address", address).bind("id", id);
 
     }
 

@@ -100,9 +100,10 @@ public class AppHelper {
 
     private static final void initApplicationContext(RequestContext reqCtx) {
         if (reqCtx == null)
-            throw new IllegalStateException("Unable to initialize application context because the request-context is null");
+            throw new IllegalStateException(
+                "Unable to initialize application context because the request-context is null");
 
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         Merchant merchant = systemService.findMerchantBy(reqCtx.getMerchantId());
 
@@ -112,14 +113,15 @@ public class AppHelper {
     }
 
     private static final void initApplicationContext(Merchant m) {
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         RequestContext reqCtx = systemService.findRequestContext(m, null, null, null, null);
 
         if (reqCtx == null)
-            throw new IllegalStateException("Unable to initialize application context as no request-context could be found for the prameters  [merchant=" + (m == null ? null : m.getId()) + ", store="
-                + null + ", language=" + null + ", country="
-                + null + ", view=" + null + "]");
+            throw new IllegalStateException(
+                "Unable to initialize application context as no request-context could be found for the prameters  [merchant="
+                    + (m == null ? null : m.getId()) + ", store=" + null + ", language=" + null + ", country="
+                    + null + ", view=" + null + "]");
 
         Merchant merchant = systemService.findMerchantBy(reqCtx.getMerchantId());
 
@@ -129,14 +131,15 @@ public class AppHelper {
     }
 
     private static final void initApplicationContext(Merchant m, Store s) {
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         RequestContext reqCtx = systemService.findRequestContext(m, s, null, null, null);
 
         if (reqCtx == null)
-            throw new IllegalStateException("Unable to initialize application context as no request-context could be found for the prameters  [merchant=" + (m == null ? null : m.getId()) + ", store="
-                + (s == null ? null : s.getId()) + ", language="
-                + null + ", country=" + null + ", view=" + null + "]");
+            throw new IllegalStateException(
+                "Unable to initialize application context as no request-context could be found for the prameters  [merchant="
+                    + (m == null ? null : m.getId()) + ", store=" + (s == null ? null : s.getId())
+                    + ", language=" + null + ", country=" + null + ", view=" + null + "]");
 
         Merchant merchant = systemService.findMerchantBy(reqCtx.getMerchantId());
 
@@ -146,14 +149,16 @@ public class AppHelper {
     }
 
     private static final void initApplicationContext(Merchant m, Store s, View v) {
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         RequestContext reqCtx = systemService.findRequestContext(m, s, null, null, v);
 
         if (reqCtx == null)
-            throw new IllegalStateException("Unable to initialize application context as no request-context could be found for the prameters  [merchant=" + (m == null ? null : m.getId()) + ", store="
-                + (s == null ? null : s.getId()) + ", language="
-                + null + ", country=" + null + ", view=" + (v == null ? null : v.getId()) + "]");
+            throw new IllegalStateException(
+                "Unable to initialize application context as no request-context could be found for the prameters  [merchant="
+                    + (m == null ? null : m.getId()) + ", store=" + (s == null ? null : s.getId())
+                    + ", language=" + null + ", country=" + null + ", view=" + (v == null ? null : v.getId())
+                    + "]");
 
         Merchant merchant = systemService.findMerchantBy(reqCtx.getMerchantId());
 
@@ -163,14 +168,16 @@ public class AppHelper {
     }
 
     private static final void initApplicationContext(Merchant m, Store s, View v, String language) {
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         RequestContext reqCtx = systemService.findRequestContext(m, s, language, null, v);
 
         if (reqCtx == null)
-            throw new IllegalStateException("Unable to initialize application context as no request-context could be found for the prameters  [merchant=" + (m == null ? null : m.getId()) + ", store="
-                + (s == null ? null : s.getId()) + ", language="
-                + language + ", country=" + null + ", view=" + (v == null ? null : v.getId()) + "]");
+            throw new IllegalStateException(
+                "Unable to initialize application context as no request-context could be found for the prameters  [merchant="
+                    + (m == null ? null : m.getId()) + ", store=" + (s == null ? null : s.getId())
+                    + ", language=" + language + ", country=" + null + ", view="
+                    + (v == null ? null : v.getId()) + "]");
 
         Merchant merchant = systemService.findMerchantBy(reqCtx.getMerchantId());
 
@@ -180,14 +187,16 @@ public class AppHelper {
     }
 
     private static final void initApplicationContext(Merchant m, Store s, View v, String language, String country) {
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
 
         RequestContext reqCtx = systemService.findRequestContext(m, s, language, country, v);
 
         if (reqCtx == null)
-            throw new IllegalStateException("Unable to initialize application context as no request-context could be found for the prameters  [merchant=" + (m == null ? null : m.getId()) + ", store="
-                + (s == null ? null : s.getId()) + ", language="
-                + language + ", country=" + country + ", view=" + (v == null ? null : v.getId()) + "]");
+            throw new IllegalStateException(
+                "Unable to initialize application context as no request-context could be found for the prameters  [merchant="
+                    + (m == null ? null : m.getId()) + ", store=" + (s == null ? null : s.getId())
+                    + ", language=" + language + ", country=" + country + ", view="
+                    + (v == null ? null : v.getId()) + "]");
 
         Merchant merchant = systemService.findMerchantBy(reqCtx.getMerchantId());
 
@@ -197,11 +206,12 @@ public class AppHelper {
     }
 
     private static final void initModules() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         ModuleLoader loader = Geemodule.createModuleLoader(appCtx.getMerchant().getModulesPath());
 
-        System.out.println("!!!!! INITIAIZED MODULE LOADER ::::: " + loader + " - " + appCtx.getMerchant().getModulesPath());
+        System.out.println(
+            "!!!!! INITIAIZED MODULE LOADER ::::: " + loader + " - " + appCtx.getMerchant().getModulesPath());
 
         Collection<Module> modules = loader.getLoadedModules();
 

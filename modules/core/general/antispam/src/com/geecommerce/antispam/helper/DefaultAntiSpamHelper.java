@@ -51,7 +51,7 @@ public class DefaultAntiSpamHelper implements AntiSpamHelper {
         if (!app.cpBool_(Key.HONEYPOT, true))
             return true;
 
-        String fillme = app.getServletRequest().getParameter("fillme");
+        String fillme = app.servletRequest().getParameter("fillme");
 
         if (StringUtils.isBlank(fillme))
             return true;
@@ -64,7 +64,7 @@ public class DefaultAntiSpamHelper implements AntiSpamHelper {
         if (!app.cpBool_(Key.RECAPTURE, false))
             return true;
 
-        String gRecaptchaResponse = app.getServletRequest().getParameter("g-recaptcha-response");
+        String gRecaptchaResponse = app.servletRequest().getParameter("g-recaptcha-response");
         System.out.println(gRecaptchaResponse);
         return verifyRecaptcha(gRecaptchaResponse);
     }

@@ -84,7 +84,8 @@ public interface AttributeSupport extends MultiContextModel {
 
     public AttributeValue attr(String attributeCode, boolean allowParentLookup, ChildSupport.Lookup allowChildLookup);
 
-    public AttributeValue getAttribute(String attributeCode, boolean allowParentLookup, ChildSupport.Lookup allowChildLookup);
+    public AttributeValue getAttribute(String attributeCode, boolean allowParentLookup,
+        ChildSupport.Lookup allowChildLookup);
 
     public AttributeValue getAttribute(Id attributeId, boolean allowParentLookup);
 
@@ -96,7 +97,8 @@ public interface AttributeSupport extends MultiContextModel {
 
     public boolean attributeValueEquals(String attributeCode, Object value, boolean allowParentLookup);
 
-    public boolean attributeValueEquals(String attributeCode, Object value, boolean allowParentLookup, ChildSupport.Lookup allowChildLookup);
+    public boolean attributeValueEquals(String attributeCode, Object value, boolean allowParentLookup,
+        ChildSupport.Lookup allowChildLookup);
 
     public AttributeSupport setAttributes(Map<String, ContextObject<?>> attributes);
 

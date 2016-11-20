@@ -10,7 +10,7 @@ import com.geecommerce.guiwidgets.model.ContentNode;
 
 public class ImageProductWidgetNodeGenerator implements NodeGenerator {
 
-    private final Products products = App.get().getRepository(Products.class);
+    private final Products products = App.get().repository(Products.class);
 
     /*
      * @Inject public ImageProductWidgetNodeGenerator(Products products) {
@@ -21,8 +21,7 @@ public class ImageProductWidgetNodeGenerator implements NodeGenerator {
     public boolean couldGenerateNode(ContentNode node) {
         /*
          * if (ContentNodeType.WIDGET.equals(node.getType()) &&
-         * "cp_image_product".equals(node.getContent()))
-         * return true;
+         * "cp_image_product".equals(node.getContent())) return true;
          */
         return false;
     }
@@ -32,21 +31,13 @@ public class ImageProductWidgetNodeGenerator implements NodeGenerator {
         /*
          * String widget = "<@" + contentNode.getContent() + " ";
          * 
-         * if (contentNode.getParameters() != null) {
-         * for (String key : contentNode.getParameters().keySet()) {
-         * String value = contentNode.getParameters().get(key);
-         * if (key.equals("product")) {
-         * Product product = products.havingArticleNumber(value);
-         * if (product != null) {
-         * value = product.getId().str();
-         * key = "product_id";
-         * }
-         * }
-         * if (value != null && !value.isEmpty())
-         * widget += key + "=\"" + value + "\" ";
-         * }
-         * }
-         * widget += "/>";
+         * if (contentNode.getParameters() != null) { for (String key :
+         * contentNode.getParameters().keySet()) { String value =
+         * contentNode.getParameters().get(key); if (key.equals("product")) {
+         * Product product = products.havingArticleNumber(value); if (product !=
+         * null) { value = product.getId().str(); key = "product_id"; } } if
+         * (value != null && !value.isEmpty()) widget += key + "=\"" + value +
+         * "\" "; } } widget += "/>";
          * 
          * html.div(class_(contentNode.getCss())).write(widget, false)._div();
          */

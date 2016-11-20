@@ -6,5 +6,6 @@ import com.geecommerce.shipping.tablerate.ShippingRateType;
 import com.geecommerce.shipping.tablerate.model.ShippingRate;
 
 public interface ShippingRateService extends Service {
-    public ShippingRate findShippingRateFor(ShippingType shippingType, ShippingRateType type, String countryCode, String stateCode, String zipCode, Double value);
+    public ShippingRate findShippingRateFor(ShippingType shippingType, ShippingRateType type, String countryCode,
+        String stateCode, String zipCode, Double value);
 }

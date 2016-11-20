@@ -1,11 +1,11 @@
 package com.geecommerce.search.service;
 
-import com.google.inject.Inject;
-import com.geecommerce.core.service.annotation.Service;
-import com.geecommerce.search.model.*;
-import com.geecommerce.search.repository.SearchRewrites;
-
 import java.util.Collections;
+
+import com.geecommerce.core.service.annotation.Service;
+import com.geecommerce.search.model.SearchRewrite;
+import com.geecommerce.search.repository.SearchRewrites;
+import com.google.inject.Inject;
 
 @Service
 public class DefaultSearchRewriteService implements SearchRewriteService {
@@ -14,12 +14,13 @@ public class DefaultSearchRewriteService implements SearchRewriteService {
 
     @Inject
     public DefaultSearchRewriteService(SearchRewrites searchRewrites) {
-	this.searchRewrites = searchRewrites;
+        this.searchRewrites = searchRewrites;
     }
 
     @Override
     public String findUrl(String keyword) {
-	SearchRewrite rewrite = searchRewrites.findOne(SearchRewrite.class, Collections.singletonMap(SearchRewrite.Col.KEYWORDS, keyword.toLowerCase()));
-	return rewrite != null ? rewrite.getTargetUri() : null;
+        SearchRewrite rewrite = searchRewrites.findOne(SearchRewrite.class,
+            Collections.singletonMap(SearchRewrite.Col.KEYWORDS, keyword.toLowerCase()));
+        return rewrite != null ? rewrite.getTargetUri() : null;
     }
 }

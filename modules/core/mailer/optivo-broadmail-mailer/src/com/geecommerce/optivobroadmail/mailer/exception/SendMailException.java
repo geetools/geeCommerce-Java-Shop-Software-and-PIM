@@ -5,15 +5,15 @@ public class SendMailException extends MailerServiceException {
     }
 
     public SendMailException(String message) {
-	super(message);
+        super(message);
     }
 
     public SendMailException(String message, Throwable cause) {
-	super(message, cause);
+        super(message, cause);
     }
 
     public SendMailException(Throwable cause) {
-	super(cause);
+        super(cause);
     }
 
 }

@@ -25,11 +25,11 @@ public interface RetailStoreDistance extends MultiContextModel {
     public RetailStoreDistance setDistance(Integer distance);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String FROM_ZIP = "from_zip";
-	public static final String FROM_CITY = "from_city";
-	public static final String TO_RETAIL_STORE = "to_retail_store";
-	public static final String DISTANCE = "distance";
+        public static final String ID = "_id";
+        public static final String FROM_ZIP = "from_zip";
+        public static final String FROM_CITY = "from_city";
+        public static final String TO_RETAIL_STORE = "to_retail_store";
+        public static final String DISTANCE = "distance";
     }
 
 }

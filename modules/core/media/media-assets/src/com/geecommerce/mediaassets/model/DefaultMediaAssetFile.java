@@ -1,5 +1,8 @@
 package com.geecommerce.mediaassets.model;
 
+import java.io.InputStream;
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
@@ -9,9 +12,6 @@ import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.owlike.genson.annotation.JsonIgnore;
-
-import java.io.InputStream;
-import java.util.Map;
 
 @Model("media_asset_files")
 public class DefaultMediaAssetFile extends AbstractModel implements MediaAssetFile {
@@ -44,7 +44,7 @@ public class DefaultMediaAssetFile extends AbstractModel implements MediaAssetFi
     @Column(Col.SIZE)
     private Long size;
 
-    //@Column(Col.ACTIVE)
+    // @Column(Col.ACTIVE)
     private boolean active;
 
     private Map<Object, Object> metadata = null;
@@ -81,14 +81,14 @@ public class DefaultMediaAssetFile extends AbstractModel implements MediaAssetFi
 
     @Override
     public String getPreviewImageUrl() {
-        if(getPreviewImageId() != null)
+        if (getPreviewImageId() != null)
             return "dma/file/" + getPreviewImageId();
         return null;
     }
 
     @Override
     public String getPreviewDocumentUrl() {
-        if(getPreviewDocId() != null)
+        if (getPreviewDocId() != null)
             return "dma/file/" + getPreviewDocId();
         return null;
     }

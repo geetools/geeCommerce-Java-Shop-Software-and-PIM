@@ -6,7 +6,7 @@ public class GuiceRestProvider<T> implements Provider<T> {
 
     @Override
     public T get() {
-	return null;
+        return null;
     }
 
 }

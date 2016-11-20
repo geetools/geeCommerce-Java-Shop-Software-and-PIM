@@ -7,4 +7,3 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.dhl.com/DCTResponsedatatypes")
 package com.dhl.dctresponsedatatypes;
-

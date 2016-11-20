@@ -80,21 +80,21 @@ public interface CartItem extends Model {
     public String getPickupDeliveryTime();
 
     static final class Column {
-	public static final String PRODUCT_ID = "prd_id";
-	public static final String PRODUCT_NAME = "prd_name";
-	public static final String PRODUCT_PRICE = "prd_price";
-	public static final String PRODUCT_PRICE_TYPE_ID = "prd_price_type_id";
-	public static final String PRODUCT_TAX_RATE = "prd_tax_rate";
-	public static final String PRODUCT_PACKAGE_WEIGHT = "prd_pkg_weight";
-	public static final String PRODUCT_PACKAGE_WIDTH = "prd_pkg_width";
-	public static final String PRODUCT_PACKAGE_HEIGHT = "prd_pkg_height";
-	public static final String PRODUCT_PACKAGE_DEPTH = "prd_pkg_depth";
-	public static final String QUANTITY = "qty";
-	public static final String LAST = "is_last";
-	public static final String DELIVERY_METHOD = "delivery_method";
-	public static final String ACTIVE = "prd_active";
-	public static final String PICKUP = "prd_pickup";
-	public static final String PICKUP_AVAILABLE = "prd_pickup_available";
-	public static final String PICKUP_STORE_ID = "prd_pickup_store_id";
+        public static final String PRODUCT_ID = "prd_id";
+        public static final String PRODUCT_NAME = "prd_name";
+        public static final String PRODUCT_PRICE = "prd_price";
+        public static final String PRODUCT_PRICE_TYPE_ID = "prd_price_type_id";
+        public static final String PRODUCT_TAX_RATE = "prd_tax_rate";
+        public static final String PRODUCT_PACKAGE_WEIGHT = "prd_pkg_weight";
+        public static final String PRODUCT_PACKAGE_WIDTH = "prd_pkg_width";
+        public static final String PRODUCT_PACKAGE_HEIGHT = "prd_pkg_height";
+        public static final String PRODUCT_PACKAGE_DEPTH = "prd_pkg_depth";
+        public static final String QUANTITY = "qty";
+        public static final String LAST = "is_last";
+        public static final String DELIVERY_METHOD = "delivery_method";
+        public static final String ACTIVE = "prd_active";
+        public static final String PICKUP = "prd_pickup";
+        public static final String PICKUP_AVAILABLE = "prd_pickup_available";
+        public static final String PICKUP_STORE_ID = "prd_pickup_store_id";
     }
 }

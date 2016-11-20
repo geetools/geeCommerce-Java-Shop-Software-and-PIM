@@ -200,7 +200,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     }
 
     @Inject
-    public DefaultAttribute(Attributes attributes, AttributeOptions attributeOptions, AttributeTargetObjects attributeTargetObjects) {
+    public DefaultAttribute(Attributes attributes, AttributeOptions attributeOptions,
+        AttributeTargetObjects attributeTargetObjects) {
         this.attributes = attributes;
         this.attributeOptions = attributeOptions;
         this.attributeTargetObjects = attributeTargetObjects;
@@ -915,7 +916,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         if (this.type != AttributeType.VIRTUAL && linkedAttributeIds != null && linkedAttributeIds.size() > 0)
             throw new IllegalArgumentException("Attribute links can only be set when the attribute type is 'VIRTUAL'");
 
-        if ((this.optionAttribute || (options != null && options.size() > 0)) && linkedAttributeIds != null && linkedAttributeIds.size() > 0)
+        if ((this.optionAttribute || (options != null && options.size() > 0)) && linkedAttributeIds != null
+            && linkedAttributeIds.size() > 0)
             throw new IllegalArgumentException("Attribute links cannot be set for option-attributes");
 
         this.linkedAttributeIds = linkedAttributeIds;
@@ -965,7 +967,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     @Override
     public List<Attribute> getLinkedAttributes() {
         if (linkedAttributeIds != null && linkedAttributeIds.size() > 0 && linkedAttributes == null) {
-            linkedAttributes = attributes.findByIds(Attribute.class, linkedAttributeIds.toArray(new Id[linkedAttributeIds.size()]));
+            linkedAttributes = attributes.findByIds(Attribute.class,
+                linkedAttributeIds.toArray(new Id[linkedAttributeIds.size()]));
         }
 
         return linkedAttributes;
@@ -981,7 +984,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         if (this.type == AttributeType.VIRTUAL && options != null && options.size() > 0)
             throw new IllegalArgumentException("Options cannot be set when the attribute type is 'VIRTUAL'");
 
-        if (this.linkedAttributeIds != null && this.linkedAttributeIds.size() > 0 && options != null && options.size() > 0)
+        if (this.linkedAttributeIds != null && this.linkedAttributeIds.size() > 0 && options != null
+            && options.size() > 0)
             throw new IllegalArgumentException("Options cannot be set when the linked attributes exist");
 
         this.options = options;
@@ -1038,7 +1042,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
         if (values != null && values.length > 0) {
             for (String val : values) {
-                AttributeOption option = app.getModel(AttributeOption.class).belongsTo(this).setLabel(new ContextObject<String>(val)).setPosition(++lastPos);
+                AttributeOption option = app.model(AttributeOption.class).belongsTo(this)
+                    .setLabel(new ContextObject<String>(val)).setPosition(++lastPos);
 
                 if (tag != null && !"".equals(tag.trim())) {
                     option.addTag(tag);
@@ -1084,7 +1089,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
         if (values != null && values.size() > 0) {
             for (ContextObject<String> val : values) {
-                AttributeOption option = app.getModel(AttributeOption.class).belongsTo(this).setLabel(val).setPosition(++lastPos);
+                AttributeOption option = app.model(AttributeOption.class).belongsTo(this).setLabel(val)
+                    .setPosition(++lastPos);
 
                 if (tag != null && !"".equals(tag.trim())) {
                     option.addTag(tag);
@@ -1141,7 +1147,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     }
 
     @Override
-    public Attribute setSearchFilterOptions(boolean includeInSearchFilter, FilterType searchFilterInputType, boolean searchFilterMulti, int searchFilterPosition) {
+    public Attribute setSearchFilterOptions(boolean includeInSearchFilter, FilterType searchFilterInputType,
+        boolean searchFilterMulti, int searchFilterPosition) {
         this.includeInSearchFilter = includeInSearchFilter;
         this.searchFilterPosition = searchFilterPosition;
         this.searchFilterType = searchFilterInputType;
@@ -1282,7 +1289,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
             this.productListFilterParseValue = ctxObj_(map.get(Col.PRODUCT_LIST_FILTER_PARSE_VALUE));
 
         if (map.get(Col.PRODUCT_LIST_FILTER_INDEX_FIELDS) != null)
-            this.productListFilterIndexFields = enumList_(FilterIndexField.class, map.get(Col.PRODUCT_LIST_FILTER_INDEX_FIELDS));
+            this.productListFilterIndexFields = enumList_(FilterIndexField.class,
+                map.get(Col.PRODUCT_LIST_FILTER_INDEX_FIELDS));
 
         if (map.get(Col.PRODUCT_LIST_FILTER_TYPE) != null)
             this.productListFilterType = enum_(FilterType.class, map.get(Col.PRODUCT_LIST_FILTER_TYPE));
@@ -1348,7 +1356,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
             map.put(Col.FRONTEND_INPUT, frontendInput.toId());
 
-            if (frontendInput == FrontendInput.SELECT || frontendInput == FrontendInput.MULTISELECT || ((frontendInput == FrontendInput.COMBOBOX && isAllowMultipleValues()))) {
+            if (frontendInput == FrontendInput.SELECT || frontendInput == FrontendInput.MULTISELECT
+                || ((frontendInput == FrontendInput.COMBOBOX && isAllowMultipleValues()))) {
                 map.put(Col.IS_OPTION_ATTRIBUTE, true);
             } else {
                 map.put(Col.IS_OPTION_ATTRIBUTE, isOptionAttribute());
@@ -1473,12 +1482,13 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
     @Override
     public String toString() {
-        return "DefaultAttribute [id=" + id + ", id2=" + id2 + ", code=" + code + ", code2=" + code2 + ", targetObjectId=" + targetObjectId + ", scopes=" + scopes + ", editable=" + editable
-            + ", enabled=" + enabled + ", searchable=" + searchable
-            + ", includeInSearchIndex=" + includeInSearchIndex + ", showInProductDetails=" + showInProductDetails + ", frontendInput=" + frontendInput + ", frontendLabel=" + frontendLabel
-            + ", backendLabel=" + backendLabel + ", inputType="
-            + inputType + ", optionAttribute=" + optionAttribute + ", allowMultipleValues=" + allowMultipleValues + ", includeInNavigationFilter=" + includeInProductListFilter
-            + ", includeInSearchFilter=" + includeInSearchFilter + ", options="
-            + options + "]";
+        return "DefaultAttribute [id=" + id + ", id2=" + id2 + ", code=" + code + ", code2=" + code2
+            + ", targetObjectId=" + targetObjectId + ", scopes=" + scopes + ", editable=" + editable + ", enabled="
+            + enabled + ", searchable=" + searchable + ", includeInSearchIndex=" + includeInSearchIndex
+            + ", showInProductDetails=" + showInProductDetails + ", frontendInput=" + frontendInput
+            + ", frontendLabel=" + frontendLabel + ", backendLabel=" + backendLabel + ", inputType=" + inputType
+            + ", optionAttribute=" + optionAttribute + ", allowMultipleValues=" + allowMultipleValues
+            + ", includeInNavigationFilter=" + includeInProductListFilter + ", includeInSearchFilter="
+            + includeInSearchFilter + ", options=" + options + "]";
     }
 }

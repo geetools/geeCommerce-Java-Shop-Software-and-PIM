@@ -56,7 +56,8 @@ public class DefaultNavigationService implements NavigationService {
 
     @Override
     public NavigationItem getNavigationItem(Integer level, Integer position) {
-        Id rootId = Id.valueOf(app.cpLong_(new StringBuilder("navigation/").append("default").append("/root_id").toString()));
+        Id rootId = Id
+            .valueOf(app.cpLong_(new StringBuilder("navigation/").append("default").append("/root_id").toString()));
         return getNavigationItem(level, position, rootId);
     }
 
@@ -108,7 +109,8 @@ public class DefaultNavigationService implements NavigationService {
     }
 
     @Override
-    public List<NavigationItem> getNavigationItemsByTargetObject(ObjectType targetObjectType, Id targetObjectId, Id rootId) {
+    public List<NavigationItem> getNavigationItemsByTargetObject(ObjectType targetObjectType, Id targetObjectId,
+        Id rootId) {
         if (targetObjectType == null || targetObjectId == null) {
             return null;
         }
@@ -151,7 +153,7 @@ public class DefaultNavigationService implements NavigationService {
 
     @Override
     public NavigationItem saveNavigationFromMap(Map<String, Object> navigationTree) {
-        NavigationItem navigationItem = app.getModel(NavigationItem.class);
+        NavigationItem navigationItem = app.model(NavigationItem.class);
         // navigationItem.fromMap();
 
         return null;

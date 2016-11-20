@@ -9,6 +9,7 @@ package com.dhl.dctresponsedatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for BkgDetailsType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="BkgDetailsType">
@@ -45,7 +47,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "BkgDetailsType", propOrder = { "originServiceArea", "destinationServiceArea", "qtdShp", "calcNextDayInd" })
+@XmlType(name = "BkgDetailsType", propOrder = { "originServiceArea", "destinationServiceArea", "qtdShp",
+    "calcNextDayInd" })
 public class BkgDetailsType {
 
     @XmlElement(name = "OriginServiceArea", required = true)
@@ -64,7 +67,7 @@ public class BkgDetailsType {
      * 
      */
     public OrgnSvcAreaType getOriginServiceArea() {
-	return originServiceArea;
+        return originServiceArea;
     }
 
     /**
@@ -75,7 +78,7 @@ public class BkgDetailsType {
      * 
      */
     public void setOriginServiceArea(OrgnSvcAreaType value) {
-	this.originServiceArea = value;
+        this.originServiceArea = value;
     }
 
     /**
@@ -85,7 +88,7 @@ public class BkgDetailsType {
      * 
      */
     public DestSvcAreaType getDestinationServiceArea() {
-	return destinationServiceArea;
+        return destinationServiceArea;
     }
 
     /**
@@ -96,15 +99,17 @@ public class BkgDetailsType {
      * 
      */
     public void setDestinationServiceArea(DestSvcAreaType value) {
-	this.destinationServiceArea = value;
+        this.destinationServiceArea = value;
     }
 
     /**
      * Gets the value of the qtdShp property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qtdShp property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the qtdShp property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -115,15 +120,16 @@ public class BkgDetailsType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link QtdShpType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link QtdShpType }
      * 
      * 
      */
     public List<QtdShpType> getQtdShp() {
-	if (qtdShp == null) {
-	    qtdShp = new ArrayList<QtdShpType>();
-	}
-	return this.qtdShp;
+        if (qtdShp == null) {
+            qtdShp = new ArrayList<QtdShpType>();
+        }
+        return this.qtdShp;
     }
 
     /**
@@ -133,7 +139,7 @@ public class BkgDetailsType {
      * 
      */
     public String getCalcNextDayInd() {
-	return calcNextDayInd;
+        return calcNextDayInd;
     }
 
     /**
@@ -144,7 +150,7 @@ public class BkgDetailsType {
      * 
      */
     public void setCalcNextDayInd(String value) {
-	this.calcNextDayInd = value;
+        this.calcNextDayInd = value;
     }
 
 }

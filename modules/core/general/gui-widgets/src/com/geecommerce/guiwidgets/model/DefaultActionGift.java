@@ -1,20 +1,16 @@
 package com.geecommerce.guiwidgets.model;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
-import com.geecommerce.catalog.product.model.Product;
-import com.geecommerce.catalog.product.repository.Products;
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-import com.geecommerce.guiwidgets.enums.SlideType;
 import com.geecommerce.mediaassets.model.MediaAsset;
 import com.geecommerce.mediaassets.service.MediaAssetService;
-
-import java.util.Date;
-import java.util.Map;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
 
 @Model
 public class DefaultActionGift extends AbstractModel implements ActionGift {
@@ -42,105 +38,105 @@ public class DefaultActionGift extends AbstractModel implements ActionGift {
 
     @Inject
     public DefaultActionGift(MediaAssetService mediaAssetService) {
-	this.mediaAssetService = mediaAssetService;
+        this.mediaAssetService = mediaAssetService;
     }
 
     @Override
     public ActionGift setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public MediaAsset getMediaAsset() {
-	if (mediaAsset == null && mediaAssetId != null)
-	    mediaAsset = mediaAssetService.get(mediaAssetId);
-	return mediaAsset;
+        if (mediaAsset == null && mediaAssetId != null)
+            mediaAsset = mediaAssetService.get(mediaAssetId);
+        return mediaAsset;
     }
 
     @Override
     public ActionGift setMediaAsset(MediaAsset mediaAsset) {
-	this.mediaAsset = mediaAsset;
-	this.mediaAssetId = mediaAsset.getId();
-	return this;
+        this.mediaAsset = mediaAsset;
+        this.mediaAssetId = mediaAsset.getId();
+        return this;
     }
 
     @Override
     public String getUrl() {
-	if (url == null && mediaAssetId != null) {
-	    MediaAsset asset = getMediaAsset();
-	    url = asset.getUrl();
-	}
-	return url;
+        if (url == null && mediaAssetId != null) {
+            MediaAsset asset = getMediaAsset();
+            url = asset.getUrl();
+        }
+        return url;
     }
 
     @Override
     public ActionGift setUrl(String url) {
-	this.url = url;
-	return this;
+        this.url = url;
+        return this;
     }
 
     @Override
     public Integer getPosition() {
-	return position;
+        return position;
     }
 
     @Override
     public ActionGift setPosition(Integer position) {
-	this.position = position;
-	return this;
+        this.position = position;
+        return this;
     }
 
     @Override
     public ContextObject<String> getName() {
-	return name;
+        return name;
     }
 
     @Override
     public ActionGift setName(ContextObject<String> name) {
-	this.name = name;
-	return this;
+        this.name = name;
+        return this;
     }
 
     @Override
     public ContextObject<String> getDescription() {
-	return description;
+        return description;
     }
 
     @Override
     public ActionGift setDescription(ContextObject<String> description) {
-	this.description = description;
-	return this;
+        this.description = description;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
+        if (map == null)
+            return;
 
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Col.ID));
-	this.mediaAssetId = id_(map.get(Col.MEDIA_ASSET_ID));
-	this.position = int_(map.get(Col.POSITION));
-	this.name = ctxObj_(map.get(Col.NAME));
-	this.description = ctxObj_(map.get(Col.DESCRIPTION));
+        this.id = id_(map.get(Col.ID));
+        this.mediaAssetId = id_(map.get(Col.MEDIA_ASSET_ID));
+        this.position = int_(map.get(Col.POSITION));
+        this.name = ctxObj_(map.get(Col.NAME));
+        this.description = ctxObj_(map.get(Col.DESCRIPTION));
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
-	map.put(Col.ID, getId());
-	map.put(Col.MEDIA_ASSET_ID, mediaAssetId);
-	map.put(Col.POSITION, getPosition());
-	map.put(Col.NAME, getName());
-	map.put(Col.DESCRIPTION, getDescription());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        map.put(Col.ID, getId());
+        map.put(Col.MEDIA_ASSET_ID, mediaAssetId);
+        map.put(Col.POSITION, getPosition());
+        map.put(Col.NAME, getName());
+        map.put(Col.DESCRIPTION, getDescription());
 
-	return map;
+        return map;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 }

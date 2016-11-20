@@ -1,11 +1,11 @@
 package com.geecommerce.guiwidgets.model;
 
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Map;
 
 @Model("discount_promotion_subscriptions")
 public class DefaultDiscountPromotionSubscription extends AbstractModel implements DiscountPromotionSubscription {
@@ -30,67 +30,67 @@ public class DefaultDiscountPromotionSubscription extends AbstractModel implemen
 
     @Override
     public DiscountPromotionSubscription setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getDiscountPromotionId() {
-	return discountPromotionId;
+        return discountPromotionId;
     }
 
     @Override
     public DiscountPromotionSubscription setDiscountPromotionId(Id discountPromotionId) {
-	this.discountPromotionId = discountPromotionId;
-	return this;
+        this.discountPromotionId = discountPromotionId;
+        return this;
     }
 
     @Override
     public String getEmail() {
-	return email;
+        return email;
     }
 
     @Override
     public DiscountPromotionSubscription setEmail(String email) {
-	this.email = email;
-	return this;
+        this.email = email;
+        return this;
     }
 
     @Override
     public String getCouponCode() {
-	return couponCode;
+        return couponCode;
     }
 
     @Override
     public DiscountPromotionSubscription setCouponCode(String couponCode) {
-	this.couponCode = couponCode;
-	return this;
+        this.couponCode = couponCode;
+        return this;
     }
 
     @Override
     public Map<String, Object> getForm() {
-	return form;
+        return form;
     }
 
     @Override
     public DiscountPromotionSubscription setForm(Map<String, Object> form) {
-	this.form = form;
-	return this;
+        this.form = form;
+        return this;
     }
 
     @Override
     public Id getGiftId() {
-	return giftId;
+        return giftId;
     }
 
     @Override
     public DiscountPromotionSubscription setGiftId(Id giftId) {
-	this.giftId = giftId;
-	return this;
+        this.giftId = giftId;
+        return this;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 }

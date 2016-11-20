@@ -46,122 +46,122 @@ public class DefaultProductNavigationIndex extends AbstractModel implements Prod
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public ProductNavigationIndex setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getProductListId() {
-	return productListId;
+        return productListId;
     }
 
     @Override
     public ProductNavigationIndex setProductListId(Id productListId) {
-	this.productListId = productListId;
-	return this;
+        this.productListId = productListId;
+        return this;
     }
 
     @Override
     public Id getProductId() {
-	return productId;
+        return productId;
     }
 
     @Override
     public ProductNavigationIndex setProductId(Id productId) {
-	this.productId = productId;
-	return this;
+        this.productId = productId;
+        return this;
     }
 
     @Override
     public Id getNavigationItemRootId() {
-	return navigationItemRootId;
+        return navigationItemRootId;
     }
 
     @Override
     public ProductNavigationIndex setNavigationItemRootId(Id navigationItemRootId) {
-	this.navigationItemRootId = navigationItemRootId;
-	return this;
+        this.navigationItemRootId = navigationItemRootId;
+        return this;
     }
 
     @Override
     public Id getNavigationItemId() {
-	return navigationItemId;
+        return navigationItemId;
     }
 
     @Override
     public ProductNavigationIndex setNavigationItemId(Id navigationItemId) {
-	this.navigationItemId = navigationItemId;
-	return this;
+        this.navigationItemId = navigationItemId;
+        return this;
     }
 
     @Override
     public int getNavigationLevel() {
-	return navigationLevel;
+        return navigationLevel;
     }
 
     @Override
     public ProductNavigationIndex setNavigationLevel(int navigationLevel) {
-	this.navigationLevel = navigationLevel;
-	return this;
+        this.navigationLevel = navigationLevel;
+        return this;
     }
 
     @Override
     public int getNavigationPosition() {
-	return navigationPosition;
+        return navigationPosition;
     }
 
     @Override
     public ProductNavigationIndex setNavigationPosition(int navigationPosition) {
-	this.navigationPosition = navigationPosition;
-	return this;
+        this.navigationPosition = navigationPosition;
+        return this;
     }
 
     @Override
     public int getParentNavigationLevel() {
-	return parentNavigationLevel;
+        return parentNavigationLevel;
     }
 
     @Override
     public ProductNavigationIndex setParentNavigationLevel(int parentNavigationLevel) {
-	this.parentNavigationLevel = parentNavigationLevel;
-	return this;
+        this.parentNavigationLevel = parentNavigationLevel;
+        return this;
     }
 
     @Override
     public int getParentNavigationPosition() {
-	return parentNavigationPosition;
+        return parentNavigationPosition;
     }
 
     @Override
     public ProductNavigationIndex setParentNavigationPosition(int parentNavigationPosition) {
-	this.parentNavigationPosition = parentNavigationPosition;
-	return this;
+        this.parentNavigationPosition = parentNavigationPosition;
+        return this;
     }
 
     @Override
     public boolean isVisible() {
-	return visible == null ? false : true;
+        return visible == null ? false : true;
     }
 
     @Override
     public ProductNavigationIndex setVisible(boolean visible) {
-	this.visible = visible;
-	return this;
+        this.visible = visible;
+        return this;
     }
 
     @Override
     public int getUpdateFlag() {
-	return updateFlag;
+        return updateFlag;
     }
 
     @Override
     public ProductNavigationIndex setUpdateFlag(int updateFlag) {
-	this.updateFlag = updateFlag;
-	return this;
+        this.updateFlag = updateFlag;
+        return this;
     }
 }

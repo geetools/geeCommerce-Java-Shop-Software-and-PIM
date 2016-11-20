@@ -49,7 +49,7 @@ import com.google.inject.Inject;
 public class DefaultProductListService implements ProductListService {
     @Inject
     protected App app;
-    
+
     protected static final String INDEX_TYPE_PRODUCT = "products";
     protected static final String SEARCH_TYPE_PRODUCT = "product";
 
@@ -64,8 +64,9 @@ public class DefaultProductListService implements ProductListService {
     protected static final String CACHE_KEY_PREFIX = "pl/";
 
     @Inject
-    public DefaultProductListService(ProductLists productLists, ProductListHelper productListHelper, ProductListFilterRules productListFilterRules, AttributeService attributeService, ElasticsearchIndexHelper elasticsearchIndexHelper,
-            ElasticsearchHelper elasticsearchHelper) {
+    public DefaultProductListService(ProductLists productLists, ProductListHelper productListHelper,
+        ProductListFilterRules productListFilterRules, AttributeService attributeService,
+        ElasticsearchIndexHelper elasticsearchIndexHelper, ElasticsearchHelper elasticsearchHelper) {
         this.productLists = productLists;
         this.productListHelper = productListHelper;
         this.productListFilterRules = productListFilterRules;
@@ -94,14 +95,16 @@ public class DefaultProductListService implements ProductListService {
     }
 
     @Override
-    public Set<Id> getProductIds(ProductListQueryNode queryNode, Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
+    public Set<Id> getProductIds(ProductListQueryNode queryNode, Map<String, Object> navFilterParts,
+        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
         Client client = ElasticSearch.CLIENT.get();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
-        Map<String, Attribute> filterAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+        Map<String, Attribute> filterAttributes = attributeService
+            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
         Map<String, FilterValue> searchQueryFilter = elasticsearchHelper.toQueryMap(navFilterParts, filterAttributes);
 
@@ -110,9 +113,11 @@ public class DefaultProductListService implements ProductListService {
 
         QueryBuilder searchQuery = elasticsearchHelper.buildQuery(builders, searchQueryFilter);
 
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), Product.class)).setTypes(Annotations.getIndexedCollectionName(Product.class))
-                .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(0).setSize(100000)
-                .addFields("product_id").setQuery(searchQuery).setExplain(false);
+        SearchRequestBuilder searchRequestBuilder = client
+            .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), Product.class))
+            .setTypes(Annotations.getIndexedCollectionName(Product.class))
+            .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(0).setSize(100000).addFields("product_id")
+            .setQuery(searchQuery).setExplain(false);
 
         SearchResponse response = searchRequestBuilder.execute().actionGet();
 
@@ -130,14 +135,16 @@ public class DefaultProductListService implements ProductListService {
     }
 
     @Override
-    public Map<Id, Boolean> getProductIdsAndVisibility(ProductListQueryNode queryNode, Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
+    public Map<Id, Boolean> getProductIdsAndVisibility(ProductListQueryNode queryNode,
+        Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
         Client client = ElasticSearch.CLIENT.get();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
-        Map<String, Attribute> filterAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+        Map<String, Attribute> filterAttributes = attributeService
+            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
         Map<String, FilterValue> searchQueryFilter = elasticsearchHelper.toQueryMap(navFilterParts, filterAttributes);
 
@@ -146,9 +153,11 @@ public class DefaultProductListService implements ProductListService {
 
         QueryBuilder searchQuery = elasticsearchHelper.buildQuery(builders, searchQueryFilter);
 
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), Product.class)).setTypes(Annotations.getIndexedCollectionName(Product.class))
-                .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(0).setSize(100000)
-                .addFields("product_id", "is_visible").setQuery(searchQuery).setExplain(false);
+        SearchRequestBuilder searchRequestBuilder = client
+            .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), Product.class))
+            .setTypes(Annotations.getIndexedCollectionName(Product.class))
+            .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(0).setSize(100000)
+            .addFields("product_id", "is_visible").setQuery(searchQuery).setExplain(false);
 
         SearchResponse response = searchRequestBuilder.execute().actionGet();
 
@@ -170,7 +179,8 @@ public class DefaultProductListService implements ProductListService {
                     uniqueDocumentIds.put(id, field == null || isVisible == null ? false : isVisible);
                 } catch (Throwable t) {
                     error = true;
-                    System.out.println("getProductIdsAndVisibility error: id=" + searchHit.id() + ", isVisible=" + field.getValue());
+                    System.out.println("getProductIdsAndVisibility error: id=" + searchHit.id() + ", isVisible="
+                        + field.getValue());
                 }
             }
         }
@@ -185,15 +195,17 @@ public class DefaultProductListService implements ProductListService {
     public Map<String, Object> findProductById(Id productId) {
         Client client = ElasticSearch.CLIENT.get();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
         IdsQueryBuilder qb = QueryBuilders.idsQuery(SEARCH_TYPE_PRODUCT);
         qb.addIds(productId.str());
 
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), Product.class)).setTypes(Annotations.getIndexedCollectionName(Product.class))
-                .setSearchType(SearchType.QUERY_THEN_FETCH).setQuery(qb).setExplain(false);
+        SearchRequestBuilder searchRequestBuilder = client
+            .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), Product.class))
+            .setTypes(Annotations.getIndexedCollectionName(Product.class))
+            .setSearchType(SearchType.QUERY_THEN_FETCH).setQuery(qb).setExplain(false);
 
         SearchResponse response = searchRequestBuilder.execute().actionGet();
 

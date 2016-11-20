@@ -3,7 +3,8 @@ package com.geecommerce.core.interceptor.inject;
 import com.google.inject.AbstractModule;
 
 /**
- * This simple class enables all method interceptors to have objects injected by Guice when they are created in the
+ * This simple class enables all method interceptors to have objects injected by
+ * Guice when they are created in the
  * {@link com.geecommerce.core.interceptor.AspectMethodInterceptor}.
  * 
  * @author Michael Delamere
@@ -15,6 +16,6 @@ public class BaseInterceptorModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-	bind(this.getClass());
+        bind(this.getClass());
     }
 }

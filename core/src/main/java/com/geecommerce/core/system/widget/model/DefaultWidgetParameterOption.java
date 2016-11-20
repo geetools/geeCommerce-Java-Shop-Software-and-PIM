@@ -3,7 +3,6 @@ package com.geecommerce.core.system.widget.model;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
-import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 
@@ -21,60 +20,60 @@ public class DefaultWidgetParameterOption extends AbstractMultiContextModel impl
 
     @Override
     public WidgetParameterOption setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getWidgetParameterId() {
-	return widgetParameterId;
+        return widgetParameterId;
     }
 
     @Override
     public WidgetParameterOption setWidgetParameterId(Id widgetParameterId) {
-	this.widgetParameterId = widgetParameterId;
-	return this;
+        this.widgetParameterId = widgetParameterId;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public WidgetParameterOption setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public String getValue() {
-	return value;
+        return value;
     }
 
     @Override
     public WidgetParameterOption setValue(String value) {
-	this.value = value;
-	return this;
+        this.value = value;
+        return this;
     }
 
     @Override
     public WidgetParameterOption belongsTo(WidgetParameter widgetParameter) {
-	if (widgetParameter != null)
-	    widgetParameterId = widgetParameter.getId();
-	else
-	    widgetParameterId = null;
+        if (widgetParameter != null)
+            widgetParameterId = widgetParameter.getId();
+        else
+            widgetParameterId = null;
 
-	return this;
+        return this;
     }
 
     @Override
     public WidgetParameter getWidgetParameter() {
-	return null;
+        return null;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 }

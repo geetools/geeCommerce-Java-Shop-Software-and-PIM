@@ -9,28 +9,29 @@ public class Annotations {
 
     @SuppressWarnings("unchecked")
     public static <A extends Annotation> A declaredAnnotation(Class<?> annotatedClass, Class<A> annotationClass) {
-	if (annotatedClass == null || annotationClass == null)
-	    throw new NullPointerException();
+        if (annotatedClass == null || annotationClass == null)
+            throw new NullPointerException();
 
-	long cacheKey = new StringBuilder(annotatedClass.getName()).append(annotationClass.getName()).toString().hashCode();
+        long cacheKey = new StringBuilder(annotatedClass.getName()).append(annotationClass.getName()).toString()
+            .hashCode();
 
-	Annotation foundAnnotation = cache.get(cacheKey);
+        Annotation foundAnnotation = cache.get(cacheKey);
 
-	if (foundAnnotation == null) {
-	    Annotation[] declaredAnnotations = annotatedClass.getDeclaredAnnotations();
-	    for (Annotation declaredAnnotation : declaredAnnotations) {
-		if (annotationClass.equals(declaredAnnotation.annotationType())) {
-		    foundAnnotation = declaredAnnotation;
-		    break;
-		}
-	    }
+        if (foundAnnotation == null) {
+            Annotation[] declaredAnnotations = annotatedClass.getDeclaredAnnotations();
+            for (Annotation declaredAnnotation : declaredAnnotations) {
+                if (annotationClass.equals(declaredAnnotation.annotationType())) {
+                    foundAnnotation = declaredAnnotation;
+                    break;
+                }
+            }
 
-	    Annotation cachedFoundAnnotation = cache.putIfAbsent(cacheKey, foundAnnotation);
+            Annotation cachedFoundAnnotation = cache.putIfAbsent(cacheKey, foundAnnotation);
 
-	    if (cachedFoundAnnotation != null)
-		foundAnnotation = cachedFoundAnnotation;
-	}
+            if (cachedFoundAnnotation != null)
+                foundAnnotation = cachedFoundAnnotation;
+        }
 
-	return (A) foundAnnotation;
+        return (A) foundAnnotation;
     }
 }

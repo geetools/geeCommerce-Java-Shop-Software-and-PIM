@@ -19,15 +19,19 @@ public class IdGenerator {
 
     public static final synchronized long nextId(int dataCenterId, int workerId) {
         if (workerId > MAX_WORKER_ID)
-            throw new IllegalArgumentException("Unable to generate next id because the worker id exceeds the limit of " + MAX_WORKER_ID);
+            throw new IllegalArgumentException(
+                "Unable to generate next id because the worker id exceeds the limit of " + MAX_WORKER_ID);
 
         if (dataCenterId > MAX_DATACENTER_ID)
-            throw new IllegalArgumentException("Unable to generate next id because the datacenter id exceeds the limit of " + MAX_DATACENTER_ID);
+            throw new IllegalArgumentException(
+                "Unable to generate next id because the datacenter id exceeds the limit of " + MAX_DATACENTER_ID);
 
         long millis = System.currentTimeMillis();
 
         if (millis < lastTimestamp) {
-            throw new IllegalStateException(String.format("Unable to generate next id for %d milliseconds because the clock moved backwards", lastTimestamp - millis));
+            throw new IllegalStateException(
+                String.format("Unable to generate next id for %d milliseconds because the clock moved backwards",
+                    lastTimestamp - millis));
         }
 
         long nextId = 0;

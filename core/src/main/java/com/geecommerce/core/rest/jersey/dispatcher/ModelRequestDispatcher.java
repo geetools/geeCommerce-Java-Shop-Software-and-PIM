@@ -7,11 +7,11 @@ public class ModelRequestDispatcher implements RequestDispatcher {
     private final RequestDispatcher wrappedDispatcher;
 
     ModelRequestDispatcher(RequestDispatcher wrappedDispatcher) {
-	this.wrappedDispatcher = wrappedDispatcher;
+        this.wrappedDispatcher = wrappedDispatcher;
     }
 
     @Override
     public void dispatch(Object resource, HttpContext context) {
-	wrappedDispatcher.dispatch(resource, context);
+        wrappedDispatcher.dispatch(resource, context);
     }
 }

@@ -31,7 +31,8 @@ public class Navigation extends AbstractWidgetController implements WidgetContro
 
     @SuppressWarnings("unused")
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         // Fetch options
         Id rootId = widgetCtx.getParam("root_id", Id.class);
         String name = widgetCtx.getParam("name");
@@ -81,7 +82,8 @@ public class Navigation extends AbstractWidgetController implements WidgetContro
     }
 
     protected List<Id> locateRootIds(String type) {
-        List<Long> rootIds = app.cpLongList_(new StringBuilder("navigation/").append(type).append("/root_ids").toString());
+        List<Long> rootIds = app
+            .cpLongList_(new StringBuilder("navigation/").append(type).append("/root_ids").toString());
         List<Id> ids = new ArrayList<>();
         if (rootIds != null) {
             for (Long id : rootIds) {

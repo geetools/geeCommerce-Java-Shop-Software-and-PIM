@@ -23,9 +23,9 @@ public interface Page extends Model {
     public Page setPreview(Boolean preview);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String MEDIA_ASSET_ID = "media_asset_id";
-	public static final String POSITION = "pos";
-	public static final String PREVIEW = "preview";
+        public static final String ID = "_id";
+        public static final String MEDIA_ASSET_ID = "media_asset_id";
+        public static final String POSITION = "pos";
+        public static final String PREVIEW = "preview";
     }
 }

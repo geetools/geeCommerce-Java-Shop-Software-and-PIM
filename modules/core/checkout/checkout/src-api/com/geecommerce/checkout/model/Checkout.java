@@ -127,33 +127,33 @@ public interface Checkout extends Model {
     public List<ShippingOption> getDeliveryEstimationOptions();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
-	public static final String CART_ID = "cart_id";
-	public static final String CUSTOMER_ID = "customer_id";
-	public static final String ACTIVE = "active";
+        public static final String ID = "_id";
+        public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
+        public static final String CART_ID = "cart_id";
+        public static final String CUSTOMER_ID = "customer_id";
+        public static final String ACTIVE = "active";
 
-	public static final String SALUTATION = "salutation";
-	public static final String FIRST_NAME = "first_name";
-	public static final String LAST_NAME = "last_name";
-	public static final String PHONE = "phone";
-	public static final String PHONE_CODE = "phone_code";
-	public static final String EMAIL = "email";
+        public static final String SALUTATION = "salutation";
+        public static final String FIRST_NAME = "first_name";
+        public static final String LAST_NAME = "last_name";
+        public static final String PHONE = "phone";
+        public static final String PHONE_CODE = "phone_code";
+        public static final String EMAIL = "email";
 
-	public static final String PAYMENT_METHOD = "pay_method";
-	public static final String PAYMENT_RATE_AMOUNT = "pay_rate_amount";
-	public static final String PAYMENT_PARAMETERS = "pay_params";
+        public static final String PAYMENT_METHOD = "pay_method";
+        public static final String PAYMENT_RATE_AMOUNT = "pay_rate_amount";
+        public static final String PAYMENT_PARAMETERS = "pay_params";
 
-	public static final String SHIPPING_CARRIER = "ship_carrier";
-	public static final String SHIPPING_OPTION = "ship_option";
-	public static final String SHIPPING_AMOUNT = "ship_amount";
-	public static final String SHIPPING_OPTION_NAME = "ship_option_name";
+        public static final String SHIPPING_CARRIER = "ship_carrier";
+        public static final String SHIPPING_OPTION = "ship_option";
+        public static final String SHIPPING_AMOUNT = "ship_amount";
+        public static final String SHIPPING_OPTION_NAME = "ship_option_name";
 
-	public static final String CREATED_ON = "cr_on";
-	public static final String MODIFIED_ON = "mod_on";
+        public static final String CREATED_ON = "cr_on";
+        public static final String MODIFIED_ON = "mod_on";
 
-	public static final String COUPON_CODE = "coupon";
-	public static final String STORE = "store";
-	public static final String NOTE = "note";
+        public static final String COUPON_CODE = "coupon";
+        public static final String STORE = "store";
+        public static final String NOTE = "note";
     }
 }

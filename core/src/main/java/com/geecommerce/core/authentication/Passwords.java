@@ -12,81 +12,85 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 public final class Passwords {
-    private static final char[] RANDOM_LCASE_LETTERS = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-    private static final char[] RANDOM_UCASE_LETTERS = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+    private static final char[] RANDOM_LCASE_LETTERS = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+        'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+    private static final char[] RANDOM_UCASE_LETTERS = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
     private static final char[] RANDOM_NUMBERS = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
     private static final char[] RANDOM_SPECIAL_CHARS = new char[] { '!', '%', '/', '#', '+', '_', '-' };
 
     private static final List<char[]> randomCharArrays = new ArrayList<>();
     static {
-	randomCharArrays.add(RANDOM_LCASE_LETTERS);
-	randomCharArrays.add(RANDOM_UCASE_LETTERS);
-	randomCharArrays.add(RANDOM_NUMBERS);
-	randomCharArrays.add(RANDOM_SPECIAL_CHARS);
+        randomCharArrays.add(RANDOM_LCASE_LETTERS);
+        randomCharArrays.add(RANDOM_UCASE_LETTERS);
+        randomCharArrays.add(RANDOM_NUMBERS);
+        randomCharArrays.add(RANDOM_SPECIAL_CHARS);
     }
 
-    public static final boolean authenticate(String attemptedPassword, byte[] encryptedPassword, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-	byte[] encryptedAttemptedPassword = getEncryptedPassword(attemptedPassword, salt);
+    public static final boolean authenticate(String attemptedPassword, byte[] encryptedPassword, byte[] salt)
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
+        byte[] encryptedAttemptedPassword = getEncryptedPassword(attemptedPassword, salt);
 
-	return Arrays.equals(encryptedPassword, encryptedAttemptedPassword);
+        return Arrays.equals(encryptedPassword, encryptedAttemptedPassword);
     }
 
-    public static final byte[] getEncryptedPassword(String password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-	String algorithm = "PBKDF2WithHmacSHA1";
+    public static final byte[] getEncryptedPassword(String password, byte[] salt)
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String algorithm = "PBKDF2WithHmacSHA1";
 
-	int derivedKeyLength = 160;
-	int iterations = 20000;
+        int derivedKeyLength = 160;
+        int iterations = 20000;
 
-	KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, derivedKeyLength);
-	SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, derivedKeyLength);
+        SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
 
-	return f.generateSecret(spec).getEncoded();
+        return f.generateSecret(spec).getEncoded();
     }
 
     public static final byte[] getRandomSalt() throws NoSuchAlgorithmException {
-	SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-	byte[] salt = new byte[8];
-	random.nextBytes(salt);
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[8];
+        random.nextBytes(salt);
 
-	return salt;
+        return salt;
     }
 
     public static final byte[] merge(byte[] one, byte[] two) {
-	byte[] combined = new byte[one.length + two.length];
+        byte[] combined = new byte[one.length + two.length];
 
-	System.arraycopy(one, 0, combined, 0, one.length);
-	System.arraycopy(two, 0, combined, one.length, two.length);
+        System.arraycopy(one, 0, combined, 0, one.length);
+        System.arraycopy(two, 0, combined, one.length, two.length);
 
-	return combined;
+        return combined;
     }
 
     public static String random() {
-	return random(10);
+        return random(10);
     }
 
     public static String random(int length) {
-	StringBuilder randomPassword = new StringBuilder();
+        StringBuilder randomPassword = new StringBuilder();
 
-	for (int i = 0; i < length; i++) {
-	    int idx = i < randomCharArrays.size() ? i : (int) (Math.random() * randomCharArrays.size());
-	    char[] chars = randomCharArrays.get(idx);
+        for (int i = 0; i < length; i++) {
+            int idx = i < randomCharArrays.size() ? i : (int) (Math.random() * randomCharArrays.size());
+            char[] chars = randomCharArrays.get(idx);
 
-	    int idx2 = (int) (Math.random() * chars.length);
-	    randomPassword.append(chars[idx2]);
-	}
+            int idx2 = (int) (Math.random() * chars.length);
+            randomPassword.append(chars[idx2]);
+        }
 
-	return randomPassword.toString();
+        return randomPassword.toString();
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
-	byte[] merchant_sugar = "%f&h!./fghzu46uzf-'+".getBytes();
-	byte[] salt = getRandomSalt();
-	byte[] secret = merge(salt, merchant_sugar);
+        byte[] merchant_sugar = "%f&h!./fghzu46uzf-'+".getBytes();
+        byte[] salt = getRandomSalt();
+        byte[] secret = merge(salt, merchant_sugar);
 
-	byte[] password = getEncryptedPassword("mypassword", secret);
+        byte[] password = getEncryptedPassword("mypassword", secret);
 
-	boolean auth = authenticate("mypasswordx", password, secret);
+        boolean auth = authenticate("mypasswordx", password, secret);
 
-	System.out.println("AUTH:: " + auth);
+        System.out.println("AUTH:: " + auth);
     }
 }

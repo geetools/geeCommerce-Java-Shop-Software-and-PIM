@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,7 +24,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for BkgDetailsType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="BkgDetailsType">
@@ -213,8 +215,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "BkgDetailsType", propOrder = { "paymentCountryCode", "date", "readyTime", "readyTimeGMTOffset", "dimensionUnit", "weightUnit", "numberOfPieces", "shipmentWeight", "volume", "maxPieceWeight", "maxPieceHeight", "maxPieceDepth",
-	"maxPieceWidth", "pieces", "paymentAccountNumber", "isDutiable", "networkTypeCode", "qtdShp", "codAmount", "codCurrencyCode", "codAccountNumber", "insuredValue", "insuredCurrency" })
+@XmlType(name = "BkgDetailsType", propOrder = { "paymentCountryCode", "date", "readyTime", "readyTimeGMTOffset",
+    "dimensionUnit", "weightUnit", "numberOfPieces", "shipmentWeight", "volume", "maxPieceWeight", "maxPieceHeight",
+    "maxPieceDepth", "maxPieceWidth", "pieces", "paymentAccountNumber", "isDutiable", "networkTypeCode", "qtdShp",
+    "codAmount", "codCurrencyCode", "codAccountNumber", "insuredValue", "insuredCurrency" })
 public class BkgDetailsType {
 
     @XmlElement(name = "PaymentCountryCode", required = true)
@@ -271,7 +275,7 @@ public class BkgDetailsType {
      * 
      */
     public String getPaymentCountryCode() {
-	return paymentCountryCode;
+        return paymentCountryCode;
     }
 
     /**
@@ -282,7 +286,7 @@ public class BkgDetailsType {
      * 
      */
     public void setPaymentCountryCode(String value) {
-	this.paymentCountryCode = value;
+        this.paymentCountryCode = value;
     }
 
     /**
@@ -292,7 +296,7 @@ public class BkgDetailsType {
      * 
      */
     public XMLGregorianCalendar getDate() {
-	return date;
+        return date;
     }
 
     /**
@@ -303,7 +307,7 @@ public class BkgDetailsType {
      * 
      */
     public void setDate(XMLGregorianCalendar value) {
-	this.date = value;
+        this.date = value;
     }
 
     /**
@@ -313,7 +317,7 @@ public class BkgDetailsType {
      * 
      */
     public Duration getReadyTime() {
-	return readyTime;
+        return readyTime;
     }
 
     /**
@@ -324,7 +328,7 @@ public class BkgDetailsType {
      * 
      */
     public void setReadyTime(Duration value) {
-	this.readyTime = value;
+        this.readyTime = value;
     }
 
     /**
@@ -334,7 +338,7 @@ public class BkgDetailsType {
      * 
      */
     public String getReadyTimeGMTOffset() {
-	return readyTimeGMTOffset;
+        return readyTimeGMTOffset;
     }
 
     /**
@@ -345,7 +349,7 @@ public class BkgDetailsType {
      * 
      */
     public void setReadyTimeGMTOffset(String value) {
-	this.readyTimeGMTOffset = value;
+        this.readyTimeGMTOffset = value;
     }
 
     /**
@@ -355,7 +359,7 @@ public class BkgDetailsType {
      * 
      */
     public String getDimensionUnit() {
-	return dimensionUnit;
+        return dimensionUnit;
     }
 
     /**
@@ -366,7 +370,7 @@ public class BkgDetailsType {
      * 
      */
     public void setDimensionUnit(String value) {
-	this.dimensionUnit = value;
+        this.dimensionUnit = value;
     }
 
     /**
@@ -376,7 +380,7 @@ public class BkgDetailsType {
      * 
      */
     public String getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -387,15 +391,17 @@ public class BkgDetailsType {
      * 
      */
     public void setWeightUnit(String value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
     /**
      * Gets the value of the numberOfPieces property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the numberOfPieces property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the numberOfPieces property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -406,15 +412,16 @@ public class BkgDetailsType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link BigInteger }
+     * Objects of the following type(s) are allowed in the list
+     * {@link BigInteger }
      * 
      * 
      */
     public List<BigInteger> getNumberOfPieces() {
-	if (numberOfPieces == null) {
-	    numberOfPieces = new ArrayList<BigInteger>();
-	}
-	return this.numberOfPieces;
+        if (numberOfPieces == null) {
+            numberOfPieces = new ArrayList<BigInteger>();
+        }
+        return this.numberOfPieces;
     }
 
     /**
@@ -424,7 +431,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getShipmentWeight() {
-	return shipmentWeight;
+        return shipmentWeight;
     }
 
     /**
@@ -435,7 +442,7 @@ public class BkgDetailsType {
      * 
      */
     public void setShipmentWeight(BigDecimal value) {
-	this.shipmentWeight = value;
+        this.shipmentWeight = value;
     }
 
     /**
@@ -445,7 +452,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getVolume() {
-	return volume;
+        return volume;
     }
 
     /**
@@ -456,7 +463,7 @@ public class BkgDetailsType {
      * 
      */
     public void setVolume(BigDecimal value) {
-	this.volume = value;
+        this.volume = value;
     }
 
     /**
@@ -466,7 +473,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getMaxPieceWeight() {
-	return maxPieceWeight;
+        return maxPieceWeight;
     }
 
     /**
@@ -477,7 +484,7 @@ public class BkgDetailsType {
      * 
      */
     public void setMaxPieceWeight(BigDecimal value) {
-	this.maxPieceWeight = value;
+        this.maxPieceWeight = value;
     }
 
     /**
@@ -487,7 +494,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getMaxPieceHeight() {
-	return maxPieceHeight;
+        return maxPieceHeight;
     }
 
     /**
@@ -498,7 +505,7 @@ public class BkgDetailsType {
      * 
      */
     public void setMaxPieceHeight(BigDecimal value) {
-	this.maxPieceHeight = value;
+        this.maxPieceHeight = value;
     }
 
     /**
@@ -508,7 +515,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getMaxPieceDepth() {
-	return maxPieceDepth;
+        return maxPieceDepth;
     }
 
     /**
@@ -519,7 +526,7 @@ public class BkgDetailsType {
      * 
      */
     public void setMaxPieceDepth(BigDecimal value) {
-	this.maxPieceDepth = value;
+        this.maxPieceDepth = value;
     }
 
     /**
@@ -529,7 +536,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getMaxPieceWidth() {
-	return maxPieceWidth;
+        return maxPieceWidth;
     }
 
     /**
@@ -540,7 +547,7 @@ public class BkgDetailsType {
      * 
      */
     public void setMaxPieceWidth(BigDecimal value) {
-	this.maxPieceWidth = value;
+        this.maxPieceWidth = value;
     }
 
     /**
@@ -550,7 +557,7 @@ public class BkgDetailsType {
      * 
      */
     public BkgDetailsType.Pieces getPieces() {
-	return pieces;
+        return pieces;
     }
 
     /**
@@ -561,7 +568,7 @@ public class BkgDetailsType {
      * 
      */
     public void setPieces(BkgDetailsType.Pieces value) {
-	this.pieces = value;
+        this.pieces = value;
     }
 
     /**
@@ -571,7 +578,7 @@ public class BkgDetailsType {
      * 
      */
     public String getPaymentAccountNumber() {
-	return paymentAccountNumber;
+        return paymentAccountNumber;
     }
 
     /**
@@ -582,7 +589,7 @@ public class BkgDetailsType {
      * 
      */
     public void setPaymentAccountNumber(String value) {
-	this.paymentAccountNumber = value;
+        this.paymentAccountNumber = value;
     }
 
     /**
@@ -592,7 +599,7 @@ public class BkgDetailsType {
      * 
      */
     public String getIsDutiable() {
-	return isDutiable;
+        return isDutiable;
     }
 
     /**
@@ -603,7 +610,7 @@ public class BkgDetailsType {
      * 
      */
     public void setIsDutiable(String value) {
-	this.isDutiable = value;
+        this.isDutiable = value;
     }
 
     /**
@@ -613,7 +620,7 @@ public class BkgDetailsType {
      * 
      */
     public String getNetworkTypeCode() {
-	return networkTypeCode;
+        return networkTypeCode;
     }
 
     /**
@@ -624,15 +631,17 @@ public class BkgDetailsType {
      * 
      */
     public void setNetworkTypeCode(String value) {
-	this.networkTypeCode = value;
+        this.networkTypeCode = value;
     }
 
     /**
      * Gets the value of the qtdShp property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qtdShp property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the qtdShp property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -643,15 +652,16 @@ public class BkgDetailsType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link QtdShpType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link QtdShpType }
      * 
      * 
      */
     public List<QtdShpType> getQtdShp() {
-	if (qtdShp == null) {
-	    qtdShp = new ArrayList<QtdShpType>();
-	}
-	return this.qtdShp;
+        if (qtdShp == null) {
+            qtdShp = new ArrayList<QtdShpType>();
+        }
+        return this.qtdShp;
     }
 
     /**
@@ -661,7 +671,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getCODAmount() {
-	return codAmount;
+        return codAmount;
     }
 
     /**
@@ -672,7 +682,7 @@ public class BkgDetailsType {
      * 
      */
     public void setCODAmount(BigDecimal value) {
-	this.codAmount = value;
+        this.codAmount = value;
     }
 
     /**
@@ -682,7 +692,7 @@ public class BkgDetailsType {
      * 
      */
     public String getCODCurrencyCode() {
-	return codCurrencyCode;
+        return codCurrencyCode;
     }
 
     /**
@@ -693,7 +703,7 @@ public class BkgDetailsType {
      * 
      */
     public void setCODCurrencyCode(String value) {
-	this.codCurrencyCode = value;
+        this.codCurrencyCode = value;
     }
 
     /**
@@ -703,7 +713,7 @@ public class BkgDetailsType {
      * 
      */
     public String getCODAccountNumber() {
-	return codAccountNumber;
+        return codAccountNumber;
     }
 
     /**
@@ -714,7 +724,7 @@ public class BkgDetailsType {
      * 
      */
     public void setCODAccountNumber(String value) {
-	this.codAccountNumber = value;
+        this.codAccountNumber = value;
     }
 
     /**
@@ -724,7 +734,7 @@ public class BkgDetailsType {
      * 
      */
     public BigDecimal getInsuredValue() {
-	return insuredValue;
+        return insuredValue;
     }
 
     /**
@@ -735,7 +745,7 @@ public class BkgDetailsType {
      * 
      */
     public void setInsuredValue(BigDecimal value) {
-	this.insuredValue = value;
+        this.insuredValue = value;
     }
 
     /**
@@ -745,7 +755,7 @@ public class BkgDetailsType {
      * 
      */
     public String getInsuredCurrency() {
-	return insuredCurrency;
+        return insuredCurrency;
     }
 
     /**
@@ -756,7 +766,7 @@ public class BkgDetailsType {
      * 
      */
     public void setInsuredCurrency(String value) {
-	this.insuredCurrency = value;
+        this.insuredCurrency = value;
     }
 
     /**
@@ -764,7 +774,8 @@ public class BkgDetailsType {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -784,35 +795,38 @@ public class BkgDetailsType {
     @XmlType(name = "", propOrder = { "piece" })
     public static class Pieces {
 
-	@XmlElement(name = "Piece", required = true)
-	protected List<PieceType> piece;
+        @XmlElement(name = "Piece", required = true)
+        protected List<PieceType> piece;
 
-	/**
-	 * Gets the value of the piece property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-	 * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the piece property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getPiece().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link PieceType }
-	 * 
-	 * 
-	 */
-	public List<PieceType> getPiece() {
-	    if (piece == null) {
-		piece = new ArrayList<PieceType>();
-	    }
-	    return this.piece;
-	}
+        /**
+         * Gets the value of the piece property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list, not a
+         * snapshot. Therefore any modification you make to the returned list
+         * will be present inside the JAXB object. This is why there is not a
+         * <CODE>set</CODE> method for the piece property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * 
+         * <pre>
+         * getPiece().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link PieceType }
+         * 
+         * 
+         */
+        public List<PieceType> getPiece() {
+            if (piece == null) {
+                piece = new ArrayList<PieceType>();
+            }
+            return this.piece;
+        }
 
     }
 

@@ -146,7 +146,8 @@ public class DefaultConfigurationProperty extends AbstractMultiContextModel impl
 
         Object val = raw_(map.get(Column.VALUE));
 
-        if (val instanceof Collection && ((Collection) val).size() > 0 && Map.class.isAssignableFrom(((Collection) val).iterator().next().getClass())) {
+        if (val instanceof Collection && ((Collection) val).size() > 0
+            && Map.class.isAssignableFrom(((Collection) val).iterator().next().getClass())) {
             ContextObject<Object> ctxVal = ctxObj_(val);
             this.value = ctxVal;
         } else {

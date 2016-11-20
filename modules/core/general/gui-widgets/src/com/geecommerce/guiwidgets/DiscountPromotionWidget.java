@@ -21,7 +21,8 @@ public class DiscountPromotionWidget extends AbstractWidgetController implements
     private final String PARAM_TEMPLATE = "template";
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String promotionKey = widgetCtx.getParam(PARAM_KEY);
         String promotionTemplate = widgetCtx.getParam(PARAM_TEMPLATE);
         if (promotionTemplate == null)
@@ -40,7 +41,7 @@ public class DiscountPromotionWidget extends AbstractWidgetController implements
 
     @Override
     public List<WidgetParameter> getParameters() {
-        WidgetParameters widgetParameters = app.getRepository(WidgetParameters.class);
+        WidgetParameters widgetParameters = app.repository(WidgetParameters.class);
 
         return null;
     }

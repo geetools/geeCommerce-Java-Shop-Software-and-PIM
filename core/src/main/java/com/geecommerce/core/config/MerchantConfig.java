@@ -86,7 +86,7 @@ public enum MerchantConfig {
         Configuration config = null;
 
         App app = App.get();
-        ApplicationContext appCtx = (ApplicationContext) app.getApplicationContext();
+        ApplicationContext appCtx = (ApplicationContext) app.context();
 
         if (appCtx != null || System.getProperty("merchant.properties.path") != null) {
             try {
@@ -95,12 +95,14 @@ public enum MerchantConfig {
                 if (envMerchantPropertiesPath != null && !"".equals(envMerchantPropertiesPath.trim())) {
                     config = new PropertiesConfiguration(new File(envMerchantPropertiesPath));
                 } else if (appCtx.getMerchant() != null) {
-                    File propertiesFile = new File(appCtx.getMerchant().getConfigurationPath(), app.isTestMode() ? Constant.MERCHANT_TEST_CONFIG_NAME : Constant.MERCHANT_CONFIG_NAME);
+                    File propertiesFile = new File(appCtx.getMerchant().getConfigurationPath(),
+                        app.isTestMode() ? Constant.MERCHANT_TEST_CONFIG_NAME : Constant.MERCHANT_CONFIG_NAME);
 
                     if (propertiesFile.exists()) {
                         config = new PropertiesConfiguration(propertiesFile);
                     } else {
-                        throw new RuntimeException("FATAL ERROR: Merchant properties file '" + propertiesFile.getAbsolutePath() + "' not found.");
+                        throw new RuntimeException("FATAL ERROR: Merchant properties file '"
+                            + propertiesFile.getAbsolutePath() + "' not found.");
                     }
                 } else {
                     throw new RuntimeException("FATAL ERROR: Unable to load merchant properties file!");
@@ -109,7 +111,8 @@ public enum MerchantConfig {
                 throw new RuntimeException("FATAL ERROR: Unable to load merchant configuration.", e);
             }
         } else {
-            throw new RuntimeException("FATAL ERROR: Cannot load merchant configuration because ApplicationContext is null.");
+            throw new RuntimeException(
+                "FATAL ERROR: Cannot load merchant configuration because ApplicationContext is null.");
         }
 
         return config;
@@ -117,14 +120,16 @@ public enum MerchantConfig {
 
     public Configuration config() {
         App app = App.get();
-        ApplicationContext appCtx = (ApplicationContext) app.getApplicationContext();
+        ApplicationContext appCtx = (ApplicationContext) app.context();
 
         String cacheKey = null;
 
         if (appCtx != null) {
-            cacheKey = new StringBuilder("gc/merchant-configuration/").append(appCtx.getMerchant().getId().str()).toString();
+            cacheKey = new StringBuilder("gc/merchant-configuration/").append(appCtx.getMerchant().getId().str())
+                .toString();
         } else if (System.getProperty("merchant.properties.path") != null) {
-            cacheKey = new StringBuilder("gc/merchant-configuration/").append(System.getProperty("merchant.properties.path").hashCode()).toString();
+            cacheKey = new StringBuilder("gc/merchant-configuration/")
+                .append(System.getProperty("merchant.properties.path").hashCode()).toString();
         }
 
         CacheManager cm = app.inject(CacheManager.class);

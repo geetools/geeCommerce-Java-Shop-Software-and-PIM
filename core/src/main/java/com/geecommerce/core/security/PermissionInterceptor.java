@@ -51,7 +51,7 @@ public class PermissionInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         App app = App.get();
-        HttpServletRequest request = app.getServletRequest();
+        HttpServletRequest request = app.servletRequest();
         String uri = request.getRequestURI();
         String method = request.getMethod();
 
@@ -81,7 +81,8 @@ public class PermissionInterceptor implements MethodInterceptor {
             || ("GET".equals(method) && (uri.matches("^\\/api\\/v[0-9]+\\/settings[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/attributes[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/control\\-panels\\/[0-9]+\\/attribute\\-tabs[\\/]?$")
-                || uri.matches("^\\/api\\/v[0-9]+\\/control\\-panels\\/[0-9]+\\/attribute\\-tabs\\/attributes[\\/]?$")
+                || uri.matches(
+                    "^\\/api\\/v[0-9]+\\/control\\-panels\\/[0-9]+\\/attribute\\-tabs\\/attributes[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/attributes/input\\-conditions[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/attribute-target-objects[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/products/media-types[\\/]?$")))) {
@@ -104,13 +105,15 @@ public class PermissionInterceptor implements MethodInterceptor {
                 String vendor = m.getVendor();
                 String name = m.getName();
 
-                String neededModulePermission = new StringBuilder("module:use").append(Char.COLON).append(vendor.toLowerCase()).append(Char.COLON)
+                String neededModulePermission = new StringBuilder("module:use").append(Char.COLON)
+                    .append(vendor.toLowerCase()).append(Char.COLON)
                     .append(name.toLowerCase().replace(Char.SPACE, Char.MINUS)).toString();
 
                 // System.out.println("NEEDED MODULE PERMISSION: " +
                 // neededModulePermission.toString());
 
-                boolean isPermitted = SecurityUtils.getSecurityManager().isPermitted(currentUser.getPrincipals(), neededModulePermission);
+                boolean isPermitted = SecurityUtils.getSecurityManager().isPermitted(currentUser.getPrincipals(),
+                    neededModulePermission);
 
                 if (isPermitted) {
                     return invocation.proceed();
@@ -122,14 +125,17 @@ public class PermissionInterceptor implements MethodInterceptor {
             }
             // Core classes
             else {
-                String permissionURI = uri.replaceFirst("^\\/api\\/v[0-9]+\\/", Str.COLON).replace(Char.SLASH, Char.COLON);
+                String permissionURI = uri.replaceFirst("^\\/api\\/v[0-9]+\\/", Str.COLON).replace(Char.SLASH,
+                    Char.COLON);
 
-                String neededModulePermission = new StringBuilder("uri:").append(method.toLowerCase()).append(permissionURI).toString();
+                String neededModulePermission = new StringBuilder("uri:").append(method.toLowerCase())
+                    .append(permissionURI).toString();
 
                 // System.out.println("NEEDED URI PERMISSION: " +
                 // neededModulePermission.toString());
 
-                boolean isPermitted = SecurityUtils.getSecurityManager().isPermitted(currentUser.getPrincipals(), neededModulePermission);
+                boolean isPermitted = SecurityUtils.getSecurityManager().isPermitted(currentUser.getPrincipals(),
+                    neededModulePermission);
 
                 if (isPermitted) {
                     return invocation.proceed();
@@ -177,10 +183,11 @@ public class PermissionInterceptor implements MethodInterceptor {
     public void createWebSession() {
         try {
             App app = App.get();
-            HttpServletRequest request = app.getServletRequest();
+            HttpServletRequest request = app.servletRequest();
             request.setAttribute(DefaultSubjectContext.SESSION_CREATION_ENABLED, Boolean.TRUE);
 
-            UsernamePasswordToken userPassToken = new UsernamePasswordToken(DefaultCredentialsMatcher.DEFAULT_WEB_USERNAME, (String) null);
+            UsernamePasswordToken userPassToken = new UsernamePasswordToken(
+                DefaultCredentialsMatcher.DEFAULT_WEB_USERNAME, (String) null);
 
             Subject subject = SecurityUtils.getSubject();
             subject.login(userPassToken);
@@ -190,13 +197,14 @@ public class PermissionInterceptor implements MethodInterceptor {
             if (subject.isAuthenticated()) {
                 Id userId = (Id) subject.getPrincipal();
 
-                user = app.getService(UserService.class).getUserForRealm(userId);
+                user = app.service(UserService.class).getUserForRealm(userId);
 
                 subject = SecurityUtils.getSubject();
 
                 if (subject.isAuthenticated()) {
 
-                    ClientSession clientSession = new ClientSession(user.getUsername(), user.getForename() + " " + user.getSurname(), user.getScopeIds());
+                    ClientSession clientSession = new ClientSession(user.getUsername(),
+                        user.getForename() + " " + user.getSurname(), user.getScopeIds());
 
                     System.out.println("CREATING WEB SESSION ***** ClientSession: " + clientSession);
 
@@ -243,7 +251,8 @@ public class PermissionInterceptor implements MethodInterceptor {
         Method method = invocation.getMethod();
         String className = method.getDeclaringClass().getName();
 
-        StringBuilder permission = new StringBuilder("api:").append(className.replaceAll("\\.", ":")).append(":").append(method.getName());
+        StringBuilder permission = new StringBuilder("api:").append(className.replaceAll("\\.", ":")).append(":")
+            .append(method.getName());
 
         Class<?>[] paramTypes = method.getParameterTypes();
 

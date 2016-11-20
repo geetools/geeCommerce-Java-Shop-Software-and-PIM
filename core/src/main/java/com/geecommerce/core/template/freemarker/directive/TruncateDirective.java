@@ -7,7 +7,6 @@ import com.geecommerce.core.util.Strings;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.StringModel;
-import freemarker.template.SimpleHash;
 import freemarker.template.SimpleNumber;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateDirectiveBody;
@@ -22,42 +21,44 @@ public class TruncateDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-	// SimpleScalar value = (SimpleScalar) params.get("value");
-	TemplateModel value = (TemplateModel) params.get("value");
-	SimpleScalar append = (SimpleScalar) params.get("append");
-	SimpleNumber truncateAt = (SimpleNumber) params.get("truncateAt");
-	SimpleNumber maxRows = (SimpleNumber) params.get("maxRows");
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
+        // SimpleScalar value = (SimpleScalar) params.get("value");
+        TemplateModel value = (TemplateModel) params.get("value");
+        SimpleScalar append = (SimpleScalar) params.get("append");
+        SimpleNumber truncateAt = (SimpleNumber) params.get("truncateAt");
+        SimpleNumber maxRows = (SimpleNumber) params.get("maxRows");
 
-	SimpleScalar type = (SimpleScalar) params.get("type");
+        SimpleScalar type = (SimpleScalar) params.get("type");
 
-	if (value != null && truncateAt != null) {
-	    String text = null;
+        if (value != null && truncateAt != null) {
+            String text = null;
 
-	    if (value instanceof StringModel) {
-		text = ((StringModel) value).getWrappedObject().toString();
-	    } else {
-		text = DeepUnwrap.unwrap(value).toString();
-	    }
+            if (value instanceof StringModel) {
+                text = ((StringModel) value).getWrappedObject().toString();
+            } else {
+                text = DeepUnwrap.unwrap(value).toString();
+            }
 
-	    if (append == null)
-		append = new SimpleScalar("...");
+            if (append == null)
+                append = new SimpleScalar("...");
 
-	    if (type == null)
-		type = new SimpleScalar(TYPE_PLAIN_TEXT);
+            if (type == null)
+                type = new SimpleScalar(TYPE_PLAIN_TEXT);
 
-	    if (maxRows == null)
-		maxRows = new SimpleNumber(0);
+            if (maxRows == null)
+                maxRows = new SimpleNumber(0);
 
-	    String truncatedText = text;
+            String truncatedText = text;
 
-	    if (TYPE_HTML_LIST.equalsIgnoreCase(type.getAsString().trim())) {
-		truncatedText = Strings.truncateHtmlList(text, truncateAt.getAsNumber().intValue(), maxRows.getAsNumber().intValue(), append.getAsString());
-	    } else {
-		truncatedText = Strings.truncateNicely(text, truncateAt.getAsNumber().intValue(), append.getAsString());
-	    }
+            if (TYPE_HTML_LIST.equalsIgnoreCase(type.getAsString().trim())) {
+                truncatedText = Strings.truncateHtmlList(text, truncateAt.getAsNumber().intValue(),
+                    maxRows.getAsNumber().intValue(), append.getAsString());
+            } else {
+                truncatedText = Strings.truncateNicely(text, truncateAt.getAsNumber().intValue(), append.getAsString());
+            }
 
-	    env.getOut().write(truncatedText);
-	}
+            env.getOut().write(truncatedText);
+        }
     }
 }

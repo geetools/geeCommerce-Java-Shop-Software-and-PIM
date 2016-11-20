@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for ShipmentInfo complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ShipmentInfo">
@@ -72,8 +74,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ShipmentInfo", propOrder = { "originServiceArea", "destinationServiceArea", "shipperName", "shipperAccountNumber", "consigneeName", "shipmentDate", "pieces", "weight", "weightUnit", "estDlvyDate", "globalProductCode",
-	"shipmentDesc", "dlvyNotificationFlag", "shipper", "consignee", "shipmentEvent", "shipperReference" })
+@XmlType(name = "ShipmentInfo", propOrder = { "originServiceArea", "destinationServiceArea", "shipperName",
+    "shipperAccountNumber", "consigneeName", "shipmentDate", "pieces", "weight", "weightUnit", "estDlvyDate",
+    "globalProductCode", "shipmentDesc", "dlvyNotificationFlag", "shipper", "consignee", "shipmentEvent",
+    "shipperReference" })
 public class ShipmentInfo {
 
     @XmlElement(name = "OriginServiceArea", required = true)
@@ -120,7 +124,7 @@ public class ShipmentInfo {
      * 
      */
     public OriginServiceArea getOriginServiceArea() {
-	return originServiceArea;
+        return originServiceArea;
     }
 
     /**
@@ -131,7 +135,7 @@ public class ShipmentInfo {
      * 
      */
     public void setOriginServiceArea(OriginServiceArea value) {
-	this.originServiceArea = value;
+        this.originServiceArea = value;
     }
 
     /**
@@ -141,7 +145,7 @@ public class ShipmentInfo {
      * 
      */
     public DestinationServiceArea getDestinationServiceArea() {
-	return destinationServiceArea;
+        return destinationServiceArea;
     }
 
     /**
@@ -152,7 +156,7 @@ public class ShipmentInfo {
      * 
      */
     public void setDestinationServiceArea(DestinationServiceArea value) {
-	this.destinationServiceArea = value;
+        this.destinationServiceArea = value;
     }
 
     /**
@@ -162,7 +166,7 @@ public class ShipmentInfo {
      * 
      */
     public String getShipperName() {
-	return shipperName;
+        return shipperName;
     }
 
     /**
@@ -173,7 +177,7 @@ public class ShipmentInfo {
      * 
      */
     public void setShipperName(String value) {
-	this.shipperName = value;
+        this.shipperName = value;
     }
 
     /**
@@ -183,7 +187,7 @@ public class ShipmentInfo {
      * 
      */
     public Long getShipperAccountNumber() {
-	return shipperAccountNumber;
+        return shipperAccountNumber;
     }
 
     /**
@@ -194,7 +198,7 @@ public class ShipmentInfo {
      * 
      */
     public void setShipperAccountNumber(Long value) {
-	this.shipperAccountNumber = value;
+        this.shipperAccountNumber = value;
     }
 
     /**
@@ -204,7 +208,7 @@ public class ShipmentInfo {
      * 
      */
     public String getConsigneeName() {
-	return consigneeName;
+        return consigneeName;
     }
 
     /**
@@ -215,7 +219,7 @@ public class ShipmentInfo {
      * 
      */
     public void setConsigneeName(String value) {
-	this.consigneeName = value;
+        this.consigneeName = value;
     }
 
     /**
@@ -225,7 +229,7 @@ public class ShipmentInfo {
      * 
      */
     public XMLGregorianCalendar getShipmentDate() {
-	return shipmentDate;
+        return shipmentDate;
     }
 
     /**
@@ -236,7 +240,7 @@ public class ShipmentInfo {
      * 
      */
     public void setShipmentDate(XMLGregorianCalendar value) {
-	this.shipmentDate = value;
+        this.shipmentDate = value;
     }
 
     /**
@@ -246,7 +250,7 @@ public class ShipmentInfo {
      * 
      */
     public Object getPieces() {
-	return pieces;
+        return pieces;
     }
 
     /**
@@ -257,7 +261,7 @@ public class ShipmentInfo {
      * 
      */
     public void setPieces(Object value) {
-	this.pieces = value;
+        this.pieces = value;
     }
 
     /**
@@ -267,7 +271,7 @@ public class ShipmentInfo {
      * 
      */
     public String getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -278,7 +282,7 @@ public class ShipmentInfo {
      * 
      */
     public void setWeight(String value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -288,7 +292,7 @@ public class ShipmentInfo {
      * 
      */
     public String getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -299,7 +303,7 @@ public class ShipmentInfo {
      * 
      */
     public void setWeightUnit(String value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
     /**
@@ -309,7 +313,7 @@ public class ShipmentInfo {
      * 
      */
     public XMLGregorianCalendar getEstDlvyDate() {
-	return estDlvyDate;
+        return estDlvyDate;
     }
 
     /**
@@ -320,7 +324,7 @@ public class ShipmentInfo {
      * 
      */
     public void setEstDlvyDate(XMLGregorianCalendar value) {
-	this.estDlvyDate = value;
+        this.estDlvyDate = value;
     }
 
     /**
@@ -330,7 +334,7 @@ public class ShipmentInfo {
      * 
      */
     public String getGlobalProductCode() {
-	return globalProductCode;
+        return globalProductCode;
     }
 
     /**
@@ -341,7 +345,7 @@ public class ShipmentInfo {
      * 
      */
     public void setGlobalProductCode(String value) {
-	this.globalProductCode = value;
+        this.globalProductCode = value;
     }
 
     /**
@@ -351,7 +355,7 @@ public class ShipmentInfo {
      * 
      */
     public String getShipmentDesc() {
-	return shipmentDesc;
+        return shipmentDesc;
     }
 
     /**
@@ -362,7 +366,7 @@ public class ShipmentInfo {
      * 
      */
     public void setShipmentDesc(String value) {
-	this.shipmentDesc = value;
+        this.shipmentDesc = value;
     }
 
     /**
@@ -372,7 +376,7 @@ public class ShipmentInfo {
      * 
      */
     public String getDlvyNotificationFlag() {
-	return dlvyNotificationFlag;
+        return dlvyNotificationFlag;
     }
 
     /**
@@ -383,7 +387,7 @@ public class ShipmentInfo {
      * 
      */
     public void setDlvyNotificationFlag(String value) {
-	this.dlvyNotificationFlag = value;
+        this.dlvyNotificationFlag = value;
     }
 
     /**
@@ -393,7 +397,7 @@ public class ShipmentInfo {
      * 
      */
     public Shipper getShipper() {
-	return shipper;
+        return shipper;
     }
 
     /**
@@ -404,7 +408,7 @@ public class ShipmentInfo {
      * 
      */
     public void setShipper(Shipper value) {
-	this.shipper = value;
+        this.shipper = value;
     }
 
     /**
@@ -414,7 +418,7 @@ public class ShipmentInfo {
      * 
      */
     public Consignee getConsignee() {
-	return consignee;
+        return consignee;
     }
 
     /**
@@ -425,15 +429,17 @@ public class ShipmentInfo {
      * 
      */
     public void setConsignee(Consignee value) {
-	this.consignee = value;
+        this.consignee = value;
     }
 
     /**
      * Gets the value of the shipmentEvent property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the shipmentEvent property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the shipmentEvent property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -444,15 +450,16 @@ public class ShipmentInfo {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link ShipmentEvent }
+     * Objects of the following type(s) are allowed in the list
+     * {@link ShipmentEvent }
      * 
      * 
      */
     public List<ShipmentEvent> getShipmentEvent() {
-	if (shipmentEvent == null) {
-	    shipmentEvent = new ArrayList<ShipmentEvent>();
-	}
-	return this.shipmentEvent;
+        if (shipmentEvent == null) {
+            shipmentEvent = new ArrayList<ShipmentEvent>();
+        }
+        return this.shipmentEvent;
     }
 
     /**
@@ -462,7 +469,7 @@ public class ShipmentInfo {
      * 
      */
     public Reference getShipperReference() {
-	return shipperReference;
+        return shipperReference;
     }
 
     /**
@@ -473,7 +480,7 @@ public class ShipmentInfo {
      * 
      */
     public void setShipperReference(Reference value) {
-	this.shipperReference = value;
+        this.shipperReference = value;
     }
 
 }

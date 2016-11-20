@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.geecommerce.core.service.api.Service;
-import com.geecommerce.core.system.merchant.model.Store;
 import com.geecommerce.core.type.Id;
-import com.geecommerce.customer.model.*;
+import com.geecommerce.customer.model.Account;
+import com.geecommerce.customer.model.Address;
+import com.geecommerce.customer.model.Customer;
+import com.geecommerce.customer.model.CustomerGroup;
+import com.geecommerce.customer.model.Payment;
 
 public interface CustomerService extends Service {
     /* Customer */

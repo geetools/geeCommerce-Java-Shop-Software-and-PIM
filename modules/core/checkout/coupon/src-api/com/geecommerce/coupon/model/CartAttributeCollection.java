@@ -1,10 +1,10 @@
 package com.geecommerce.coupon.model;
 
+import java.util.Map;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.type.Id;
-
-import java.util.Map;
 
 public interface CartAttributeCollection extends Model {
 

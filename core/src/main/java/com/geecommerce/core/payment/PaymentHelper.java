@@ -29,13 +29,14 @@ public class PaymentHelper {
         List<AbstractPaymentMethod> paymentMethods = new ArrayList<>();
 
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx != null) {
             // Find payment methods in modules
-            ModuleLoader loader = app.getModuleLoader();
+            ModuleLoader loader = app.moduleLoader();
 
-            Class<AbstractPaymentMethod>[] types = (Class<AbstractPaymentMethod>[]) loader.findAllTypesAnnotatedWith(PaymentMethod.class, false);
+            Class<AbstractPaymentMethod>[] types = (Class<AbstractPaymentMethod>[]) loader
+                .findAllTypesAnnotatedWith(PaymentMethod.class, false);
 
             for (Class<AbstractPaymentMethod> type : types) {
                 AbstractPaymentMethod paymentMethodInstance = null;
@@ -56,7 +57,8 @@ public class PaymentHelper {
                 Collections.sort(paymentMethods, new Comparator<AbstractPaymentMethod>() {
                     @Override
                     public int compare(AbstractPaymentMethod o1, AbstractPaymentMethod o2) {
-                        return (o1.getSortIndex() < o2.getSortIndex() ? -1 : (o1.getSortIndex() > o2.getSortIndex() ? 1 : 0));
+                        return (o1.getSortIndex() < o2.getSortIndex() ? -1
+                            : (o1.getSortIndex() > o2.getSortIndex() ? 1 : 0));
                     }
                 });
             }
@@ -87,7 +89,8 @@ public class PaymentHelper {
         return foundPaymentMethod;
     }
 
-    public static final Map<String, Object> filterRequestParameters(String formFieldPrefix, Map<String, String[]> requestParameters) {
+    public static final Map<String, Object> filterRequestParameters(String formFieldPrefix,
+        Map<String, String[]> requestParameters) {
         Map<String, Object> filteredRequestParameters = new HashMap<>();
 
         if (formFieldPrefix == null || "".equals(formFieldPrefix.trim()) || requestParameters.isEmpty())

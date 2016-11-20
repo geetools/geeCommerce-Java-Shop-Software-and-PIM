@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for DestinationServiceArea complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="DestinationServiceArea">
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "DestinationServiceArea", propOrder = { "serviceAreaCode", "description", "facilityCode", "inboundSortCode" })
+@XmlType(name = "DestinationServiceArea", propOrder = { "serviceAreaCode", "description", "facilityCode",
+    "inboundSortCode" })
 public class DestinationServiceArea {
 
     @XmlElement(name = "ServiceAreaCode")
@@ -56,7 +58,7 @@ public class DestinationServiceArea {
      * 
      */
     public String getServiceAreaCode() {
-	return serviceAreaCode;
+        return serviceAreaCode;
     }
 
     /**
@@ -67,7 +69,7 @@ public class DestinationServiceArea {
      * 
      */
     public void setServiceAreaCode(String value) {
-	this.serviceAreaCode = value;
+        this.serviceAreaCode = value;
     }
 
     /**
@@ -77,7 +79,7 @@ public class DestinationServiceArea {
      * 
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
@@ -88,7 +90,7 @@ public class DestinationServiceArea {
      * 
      */
     public void setDescription(String value) {
-	this.description = value;
+        this.description = value;
     }
 
     /**
@@ -98,7 +100,7 @@ public class DestinationServiceArea {
      * 
      */
     public String getFacilityCode() {
-	return facilityCode;
+        return facilityCode;
     }
 
     /**
@@ -109,7 +111,7 @@ public class DestinationServiceArea {
      * 
      */
     public void setFacilityCode(String value) {
-	this.facilityCode = value;
+        this.facilityCode = value;
     }
 
     /**
@@ -119,7 +121,7 @@ public class DestinationServiceArea {
      * 
      */
     public String getInboundSortCode() {
-	return inboundSortCode;
+        return inboundSortCode;
     }
 
     /**
@@ -130,7 +132,7 @@ public class DestinationServiceArea {
      * 
      */
     public void setInboundSortCode(String value) {
-	this.inboundSortCode = value;
+        this.inboundSortCode = value;
     }
 
 }

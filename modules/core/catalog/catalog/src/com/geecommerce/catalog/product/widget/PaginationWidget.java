@@ -42,7 +42,8 @@ public class PaginationWidget extends AbstractWidgetController implements Widget
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         this.basicFilterParts = extractBasicFilterParts(request);
         widgetCtx.render("pagination/pagination");
     }
@@ -65,9 +66,9 @@ public class PaginationWidget extends AbstractWidgetController implements Widget
     public String filterVanillaURI() {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts)
-            .havingParamFilterParts(paramFilterParts).build();
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts).build();
 
         return newURI == null ? "#" : newURI;
     }
@@ -75,9 +76,10 @@ public class PaginationWidget extends AbstractWidgetController implements Widget
     public String filterBaseVanillaURI() {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.getInjectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule).withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts)
-            .havingParamFilterParts(paramFilterParts).havingBasicFilterParts(basicFilterParts).build();
+        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts)
+            .havingBasicFilterParts(basicFilterParts).build();
 
         return newURI == null ? "#" : newURI;
     }
@@ -147,7 +149,8 @@ public class PaginationWidget extends AbstractWidgetController implements Widget
             for (String key : keys) {
                 Attribute attr = filterAttributes.get(key);
 
-                if (attr.getProductListFilterKeyAlias() != null && attr.getProductListFilterKeyAlias().getStr() != null) {
+                if (attr.getProductListFilterKeyAlias() != null
+                    && attr.getProductListFilterKeyAlias().getStr() != null) {
                     attributeAliasIndex.put(attr.getProductListFilterKeyAlias().getStr(), attr.getCode());
                 }
             }

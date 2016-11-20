@@ -1,9 +1,9 @@
 package com.geecommerce.core.system.widget.repository;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Repository;
 import com.geecommerce.core.system.widget.model.WidgetParameter;
-
-import java.util.List;
 
 public interface WidgetParameters extends Repository {
 

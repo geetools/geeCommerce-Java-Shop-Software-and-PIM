@@ -33,13 +33,15 @@ public enum ImageFilenameOrigin implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (ImageFilenameOrigin value : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(ImageFilenameOrigin.class.getSimpleName()).append(".").append(value.name()).toString()), value.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(ImageFilenameOrigin.class.getSimpleName())
+                .append(".").append(value.name()).toString()), value.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ImageFilenameOrigin.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(ImageFilenameOrigin.class.getSimpleName())
+            .append(".label").toString());
     }
 }

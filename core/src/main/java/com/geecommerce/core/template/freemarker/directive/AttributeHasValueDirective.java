@@ -28,7 +28,8 @@ public class AttributeHasValueDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pSource = (TemplateModel) params.get("src");
         SimpleScalar pCode = (SimpleScalar) params.get("code");
         TemplateModel pValue = (TemplateModel) params.get("value");
@@ -57,14 +58,16 @@ public class AttributeHasValueDirective implements TemplateDirectiveModel {
                 source = (AttributeSupport) beanModel;
 
                 if (pCode == null) {
-                    throw new IllegalArgumentException("The parameter 'code' cannot be null if source type is not an AttributeValue object");
+                    throw new IllegalArgumentException(
+                        "The parameter 'code' cannot be null if source type is not an AttributeValue object");
                 } else {
                     code = pCode.getAsString();
                 }
             } else if (beanModel instanceof AttributeValue) {
                 sourceAttrValue = (AttributeValue) beanModel;
             } else {
-                throw new IllegalArgumentException("The source-object must be of type AttributeSupportModel or AttributeValue");
+                throw new IllegalArgumentException(
+                    "The source-object must be of type AttributeSupportModel or AttributeValue");
             }
         }
 
@@ -174,7 +177,8 @@ public class AttributeHasValueDirective implements TemplateDirectiveModel {
                                             if (!((ChildSupport) childL1Source).isValidChild())
                                                 continue;
 
-                                            List<AttributeSupport> childrenL2 = ((ChildSupport) childL1Source).getAnyChildren();
+                                            List<AttributeSupport> childrenL2 = ((ChildSupport) childL1Source)
+                                                .getAnyChildren();
 
                                             if (childrenL2 == null || childrenL2.size() == 0)
                                                 continue;

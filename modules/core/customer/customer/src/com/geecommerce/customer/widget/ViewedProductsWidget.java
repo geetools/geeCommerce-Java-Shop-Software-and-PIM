@@ -28,10 +28,13 @@ public class ViewedProductsWidget extends AbstractWidgetController implements Wi
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         if (widgetCtx.isCustomerLoggedIn()) {
-            widgetCtx.setParam(VIEWED_PRODUCT_IDS, customerService.getViewedProductIds((Customer) widgetCtx.getLoggedInCustomer()));
-            app.sessionSet(CURRENT_PRODUCT_LIST_NAME, customerService.getViewedProductIds((Customer) widgetCtx.getLoggedInCustomer()));
+            widgetCtx.setParam(VIEWED_PRODUCT_IDS,
+                customerService.getViewedProductIds((Customer) widgetCtx.getLoggedInCustomer()));
+            app.sessionSet(CURRENT_PRODUCT_LIST_NAME,
+                customerService.getViewedProductIds((Customer) widgetCtx.getLoggedInCustomer()));
         } else {
             widgetCtx.setParam(VIEWED_PRODUCT_IDS, viewedProductHelper.getViewedProductIds());
             app.sessionSet(CURRENT_PRODUCT_LIST_NAME, viewedProductHelper.getViewedProductIds());

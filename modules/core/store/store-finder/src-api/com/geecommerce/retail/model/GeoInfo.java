@@ -22,9 +22,9 @@ public interface GeoInfo extends Model {
     void setLongitude(Double longitude);
 
     class Col {
-	public static final String ID = "id";
-	public static final String LATITUDE = "latitude";
-	public static final String LONGITUDE = "longitude";
-	public static final String ZIP = "zip";
+        public static final String ID = "id";
+        public static final String LATITUDE = "latitude";
+        public static final String LONGITUDE = "longitude";
+        public static final String ZIP = "zip";
     }
 }

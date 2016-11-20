@@ -43,7 +43,7 @@ public class FixedRateShipmentCalculationMethod extends AbstractShippingCalculat
             if (app.cpBool_(getFullKey(name, Key.ENABLED), false)) {
                 String countries = app.cpStr_(getFullKey(name, Key.COUNTRIES));
                 if (countries.contains(countryCode)) {
-                    ShippingOption option = app.getInjectable(ShippingOption.class);
+                    ShippingOption option = app.injectable(ShippingOption.class);
                     option.setRate(app.cpDouble_(getFullKey(name, Key.PRICE)));
                     option.setName(app.cpStr_(getFullKey(name, Key.NAME)));
                     option.setDescription(app.cpStr_(getFullKey(name, Key.DESCRIPTION)));

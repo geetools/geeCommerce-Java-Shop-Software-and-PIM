@@ -1,11 +1,12 @@
 package com.geecommerce.checkout.model;
 
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Map;
 
 @Model("sale_order_shipment_option")
 @XmlRootElement(name = "shipment_option")
@@ -19,89 +20,89 @@ public class DefaultOrderShipmentOption extends AbstractModel implements OrderSh
 
     @Override
     public OrderShipmentOption setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getName() {
-	return name;
+        return name;
     }
 
     @Override
     public OrderShipmentOption setName(String name) {
-	this.name = name;
-	return this;
+        this.name = name;
+        return this;
     }
 
     @Override
     public String getCarrier() {
-	return carrier;
+        return carrier;
     }
 
     @Override
     public OrderShipmentOption setCarrier(String carrier) {
-	this.carrier = carrier;
-	return this;
+        this.carrier = carrier;
+        return this;
     }
 
     @Override
     public String getOption() {
-	return option;
+        return option;
     }
 
     @Override
     public OrderShipmentOption setOption(String option) {
-	this.option = option;
-	return this;
+        this.option = option;
+        return this;
     }
 
     @Override
     public double getAmount() {
-	return amount;
+        return amount;
     }
 
     @Override
     public OrderShipmentOption setAmount(double amount) {
-	this.amount = amount;
-	return this;
+        this.amount = amount;
+        return this;
     }
 
     @Override
     public OrderShipmentOption belongsTo(OrderShipment orderShipment) {
-	shipmentId = orderShipment.getId();
-	return this;
+        shipmentId = orderShipment.getId();
+        return this;
     }
 
     @Override
     public Id getOrderShipmentId() {
-	return shipmentId;
+        return shipmentId;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	this.id = id_(map.get(Column.ID));
-	this.shipmentId = id_(map.get(Column.ORDER_SHIPMENT_ID));
-	this.name = str_(map.get(Column.NAME));
-	this.carrier = str_(map.get(Column.CARRIER));
-	this.option = str_(map.get(Column.OPTION));
-	this.amount = double_(map.get(Column.AMOUNT), 0.0);
+        this.id = id_(map.get(Column.ID));
+        this.shipmentId = id_(map.get(Column.ORDER_SHIPMENT_ID));
+        this.name = str_(map.get(Column.NAME));
+        this.carrier = str_(map.get(Column.CARRIER));
+        this.option = str_(map.get(Column.OPTION));
+        this.amount = double_(map.get(Column.AMOUNT), 0.0);
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> m = super.toMap();
-	m.put(Column.ID, getId());
-	m.put(Column.ORDER_SHIPMENT_ID, getOrderShipmentId());
-	m.put(Column.NAME, getName());
-	m.put(Column.CARRIER, getCarrier());
-	m.put(Column.OPTION, getOption());
-	m.put(Column.AMOUNT, getAmount());
-	return m;
+        Map<String, Object> m = super.toMap();
+        m.put(Column.ID, getId());
+        m.put(Column.ORDER_SHIPMENT_ID, getOrderShipmentId());
+        m.put(Column.NAME, getName());
+        m.put(Column.CARRIER, getCarrier());
+        m.put(Column.OPTION, getOption());
+        m.put(Column.AMOUNT, getAmount());
+        return m;
     }
 }

@@ -56,8 +56,10 @@ public class MediaAssetResource extends AbstractResource {
     private final AttributeService attributeService;
 
     @Inject
-    public MediaAssetResource(RestService service, MediaAssetService mediaAssetService, MediaAssetDirectoryService mediaAssetDirectoryService, MediaAssets mediaAssets, ElasticsearchService elasticsearchService,
-            ElasticsearchHelper elasticsearchHelper, AttributeService attributeService) {
+    public MediaAssetResource(RestService service, MediaAssetService mediaAssetService,
+        MediaAssetDirectoryService mediaAssetDirectoryService, MediaAssets mediaAssets,
+        ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper,
+        AttributeService attributeService) {
         this.service = service;
         this.mediaAssetService = mediaAssetService;
         this.mediaAssetDirectoryService = mediaAssetDirectoryService;
@@ -71,7 +73,8 @@ public class MediaAssetResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getMediaAssets(@FilterParam Filter filter) {
         return ok(mediaAssets.find(MediaAsset.class, filter.getParams(), queryOptions(filter)));
-        // service.get(MediaAsset.class, filter.getParams(), queryOptions(filter)));
+        // service.get(MediaAsset.class, filter.getParams(),
+        // queryOptions(filter)));
     }
 
     @GET
@@ -80,7 +83,8 @@ public class MediaAssetResource extends AbstractResource {
     public Response getMediaAssets(@FilterParam Filter filter, @PathParam("id") Id directoryId) {
         filter.getParams().put("directory", directoryId);
         return ok(mediaAssets.find(MediaAsset.class, filter.getParams(), queryOptions(filter)));
-        // service.get(MediaAsset.class, filter.getParams(), queryOptions(filter)));
+        // service.get(MediaAsset.class, filter.getParams(),
+        // queryOptions(filter)));
     }
 
     @GET
@@ -121,7 +125,8 @@ public class MediaAssetResource extends AbstractResource {
     @POST
     @Path("{id}")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response createMediaAsset(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart, @PathParam("id") Id id) {
+    public Response createMediaAsset(@FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart, @PathParam("id") Id id) {
         // Get product and image.
         FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
         MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());
@@ -134,7 +139,8 @@ public class MediaAssetResource extends AbstractResource {
     @POST
     @Path("/system")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response createSystemMediaAsset(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart, @QueryParam("path") String path) {
+    public Response createSystemMediaAsset(@FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart, @QueryParam("path") String path) {
         FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
         MediaAssetDirectory directory = mediaAssetDirectoryService.createOrGetSystem(path);
         if (directory != null) {
@@ -149,7 +155,8 @@ public class MediaAssetResource extends AbstractResource {
     @POST
     @Path("/update-file/{id}")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response updateContentMediaAsset(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart, @PathParam("id") Id id) {
+    public Response updateContentMediaAsset(@FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart, @PathParam("id") Id id) {
         // Get product and image.
         FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
         MediaAsset newMediaAsset = mediaAssetService.update(id, uploadedInputStream, fileDetails.getFileName());
@@ -181,19 +188,22 @@ public class MediaAssetResource extends AbstractResource {
         AttributeTargetObject maTargetObject = attributeService.getAttributeTargetObject(MediaAsset.class);
 
         if (maTargetObject == null)
-            throw new IllegalStateException("Missing attribute target object entry for the type '" + MediaAsset.class.getName() + "'");
+            throw new IllegalStateException(
+                "Missing attribute target object entry for the type '" + MediaAsset.class.getName() + "'");
 
         List<Id> attributeTargetObjectIds = new ArrayList<>();
         attributeTargetObjectIds.add(maTargetObject.getId());
 
-        SearchResult searchResult = elasticsearchService.findItems(MediaAsset.class, query, searchParams, attributeTargetObjectIds);
+        SearchResult searchResult = elasticsearchService.findItems(MediaAsset.class, query, searchParams,
+            attributeTargetObjectIds);
 
         List<MediaAsset> mediaAssetList = null;
 
         if (searchResult != null && searchResult.getDocumentIds() != null && searchResult.getDocumentIds().size() > 0) {
             QueryOptions queryOptions = queryOptions(filter);
 
-            mediaAssetList = mediaAssets.findByIds(MediaAsset.class, elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray()), queryOptions);
+            mediaAssetList = mediaAssets.findByIds(MediaAsset.class,
+                elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray()), queryOptions);
         }
 
         return ok(mediaAssetList);

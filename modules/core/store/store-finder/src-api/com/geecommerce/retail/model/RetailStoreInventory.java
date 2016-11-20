@@ -29,10 +29,10 @@ public interface RetailStoreInventory extends MultiContextModel {
     public RetailStoreInventory setQuantity(Integer quantity);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String RETAIL_STORE_ID = "retail_store_id";
-	public static final String PRODUCT_ID = "product_id";
-	public static final String AVAILABILITY_TEXT_ID = "availability_text_id";
-	public static final String QUANTITY = "qty";
+        public static final String ID = "_id";
+        public static final String RETAIL_STORE_ID = "retail_store_id";
+        public static final String PRODUCT_ID = "product_id";
+        public static final String AVAILABILITY_TEXT_ID = "availability_text_id";
+        public static final String QUANTITY = "qty";
     }
 }

@@ -48,7 +48,8 @@ public class MerchantMessageResolver implements MessageResolver {
                 if (moduleCode != null) {
                     try {
                         // Attempt to load bundle from merchant classpath.
-                        ResourceBundle bundle = ResourceBundle.getBundle(PATH_PREFIX + moduleCode + Str.DOT + bundleName, locale, classLoader);
+                        ResourceBundle bundle = ResourceBundle
+                            .getBundle(PATH_PREFIX + moduleCode + Str.DOT + bundleName, locale, classLoader);
                         message = bundle.getString(messageKey);
                     } catch (Throwable t) {
                     }

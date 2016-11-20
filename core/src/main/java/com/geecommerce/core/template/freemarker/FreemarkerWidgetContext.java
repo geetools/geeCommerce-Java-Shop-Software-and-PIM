@@ -50,7 +50,8 @@ public class FreemarkerWidgetContext extends AbstractWidgetContext {
     public FreemarkerWidgetContext() {
     }
 
-    public void init(final Module module, final Environment env, final Map<String, Object> params, final TemplateModel[] loopVars, final TemplateDirectiveBody body, final HttpServletRequest request,
+    public void init(final Module module, final Environment env, final Map<String, Object> params,
+        final TemplateModel[] loopVars, final TemplateDirectiveBody body, final HttpServletRequest request,
         final HttpServletResponse response, final ServletContext servletContext) {
         super.init(request, response, servletContext);
 
@@ -245,7 +246,8 @@ public class FreemarkerWidgetContext extends AbstractWidgetContext {
         String templateSuffix = SystemConfig.GET.val(SystemConfig.APPLICATION_TEMPLATE_SUFFIX);
 
         if (templateSuffix == null) {
-            throw new IllegalStateException("The System.properties configuration element 'Application.Template.Suffix' cannot be null");
+            throw new IllegalStateException(
+                "The System.properties configuration element 'Application.Template.Suffix' cannot be null");
         }
 
         templateSuffix = templateSuffix.trim();
@@ -265,7 +267,8 @@ public class FreemarkerWidgetContext extends AbstractWidgetContext {
             // System.out.println("Widget template path: " + new
             // StringBuilder(Templates.getWidgetsPath()).append("/").append(path).append(templateSuffix).toString());
 
-            Template temp = conf.getTemplate(new StringBuilder(Templates.getWidgetsPath()).append("/").append(path).append(templateSuffix).toString());
+            Template temp = conf.getTemplate(new StringBuilder(Templates.getWidgetsPath()).append("/").append(path)
+                .append(templateSuffix).toString());
 
             temp.process(data, environment.getOut());
 
@@ -283,7 +286,8 @@ public class FreemarkerWidgetContext extends AbstractWidgetContext {
                     environment.getOut().write(jsScriptTag);
             }
         } catch (TemplateNotFoundException e) {
-            log.warn("Unable to render widget '" + (widgetController == null ? null : widgetController.getCode()) + "' because the template could not be found", e);
+            log.warn("Unable to render widget '" + (widgetController == null ? null : widgetController.getCode())
+                + "' because the template could not be found", e);
 
             e.printStackTrace();
         } catch (IOException | TemplateException e) {

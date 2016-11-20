@@ -16,7 +16,7 @@ public enum CacheProps {
     private Configuration config = null;
 
     private CacheProps() {
-        ServletContext servletCtx = App.get().getServletContext();
+        ServletContext servletCtx = App.get().servletContext();
 
         try {
             String cachePropertiesPath = System.getProperty("cache.properties.path");
@@ -29,7 +29,8 @@ public enum CacheProps {
                 if (propertiesFile.exists()) {
                     config = new PropertiesConfiguration(propertiesFile);
                 } else {
-                    throw new RuntimeException("FATAL ERROR: env properties file '" + propertiesFile.getAbsolutePath() + "' not found.");
+                    throw new RuntimeException(
+                        "FATAL ERROR: env properties file '" + propertiesFile.getAbsolutePath() + "' not found.");
                 }
             } else {
                 config = new PropertiesConfiguration("Cache.properties");

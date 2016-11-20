@@ -60,9 +60,11 @@ public class ProductListResource extends AbstractResource {
     private final AttributeService attributeService;
 
     @Inject
-    public ProductListResource(RestService service, ProductListService productListService, ProductHelper productHelper, ProductListHelper productListHelper, ProductService productService,
-        UrlRewrites urlRewrites, UrlRewriteHelper urlRewriteHelper,
-        ProductListUrlHelper productListUrlHelper, ElasticsearchHelper elasticsearchHelper, ElasticsearchService elasticsearchService, AttributeService attributeService) {
+    public ProductListResource(RestService service, ProductListService productListService, ProductHelper productHelper,
+        ProductListHelper productListHelper, ProductService productService, UrlRewrites urlRewrites,
+        UrlRewriteHelper urlRewriteHelper, ProductListUrlHelper productListUrlHelper,
+        ElasticsearchHelper elasticsearchHelper, ElasticsearchService elasticsearchService,
+        AttributeService attributeService) {
         this.service = service;
         this.productListService = productListService;
         this.productHelper = productHelper;
@@ -104,10 +106,10 @@ public class ProductListResource extends AbstractResource {
         Map<String, Object> queryNodeMap = Json.fromJson(queryNodeJson, HashMap.class);
         update.getFields().remove("queryNode");
         // update.getFields().put("queryNode", queryNodeMap);
-        ProductListQueryNode queryNode = app.getModel(ProductListQueryNode.class);
+        ProductListQueryNode queryNode = app.model(ProductListQueryNode.class);
         queryNode.fromMap(queryNodeMap);
 
-        ProductList p = app.getModel(ProductList.class);
+        ProductList p = app.model(ProductList.class);
         p.fromMap(update.getFields());
         p.setQueryNode(queryNode);
         productListHelper.fixProductListQuery(p);
@@ -130,7 +132,7 @@ public class ProductListResource extends AbstractResource {
             Map<String, Object> queryNodeMap = Json.fromJson(queryNodeJson, HashMap.class);
             update.getFields().remove("queryNode");
             // update.getFields().put("queryNode", queryNodeMap);
-            ProductListQueryNode queryNode = app.getModel(ProductListQueryNode.class);
+            ProductListQueryNode queryNode = app.model(ProductListQueryNode.class);
             queryNode.fromMap(queryNodeMap);
 
             ProductList p = checked(service.get(ProductList.class, id));
@@ -190,8 +192,8 @@ public class ProductListResource extends AbstractResource {
      * 
      * SearchResult productListResult =
      * elasticsearchService.findItems(Product.class, queryMap, null, 0, 100,
-     * null); List<Product> products = new
-     * ArrayList<>(); List<HashMap<String, Object>> urls = new ArrayList<>();
+     * null); List<Product> products = new ArrayList<>(); List<HashMap<String,
+     * Object>> urls = new ArrayList<>();
      * 
      * // If product document-ids have been returned, fetch their respective
      * products. if (productListResult != null &&
@@ -203,18 +205,15 @@ public class ProductListResource extends AbstractResource {
      * 
      * String webPath =
      * app.cpStr_(ConfigurationKey.MEDIA_IMAGES_PRODUCT_WEBPATH); String domain
-     * =
-     * app.cpStr_(ConfigurationKey.MEDIA_IMAGES_PRODUCT_SUBDOMAIN); String
+     * = app.cpStr_(ConfigurationKey.MEDIA_IMAGES_PRODUCT_SUBDOMAIN); String
      * baseUrl = "http://" + domain + webPath; for (Product product : products)
-     * {
-     * HashMap<String, Object> url = new HashMap<>(); url.put("id",
+     * { HashMap<String, Object> url = new HashMap<>(); url.put("id",
      * product.getId()); String finalUrl; if (product.getMainImageURI() == null)
-     * {
-     * finalUrl = baseUrl + "/produkty/no_image.jpg"; } else { finalUrl =
+     * { finalUrl = baseUrl + "/produkty/no_image.jpg"; } else { finalUrl =
      * "http://" + product.getMainImageURI(); } String urlParams =
-     * "___s:180x200";
-     * finalUrl = finalUrl.replaceFirst("(.*)\\.(jpg|jpeg|png|gif)$", "$1" +
-     * urlParams + ".$2"); url.put("url", finalUrl); urls.add(url); } }
+     * "___s:180x200"; finalUrl =
+     * finalUrl.replaceFirst("(.*)\\.(jpg|jpeg|png|gif)$", "$1" + urlParams +
+     * ".$2"); url.put("url", finalUrl); urls.add(url); } }
      * 
      * return ok(checked(urls)); }
      */
@@ -237,8 +236,7 @@ public class ProductListResource extends AbstractResource {
      * 
      * SearchResult productListResult = null; try { productListResult =
      * productListService.findProducts(productList, queryMap, null, 0, 100,
-     * null); }
-     * catch (Exception ex) { System.out.println(ex.getMessage()); }
+     * null); } catch (Exception ex) { System.out.println(ex.getMessage()); }
      * 
      * // If product document-ids have been returned, fetch their respective
      * products. if (productListResult != null &&
@@ -301,7 +299,7 @@ public class ProductListResource extends AbstractResource {
     public Response getRewriteUrl(@PathParam("id") Id productListId) {
         UrlRewrite urlRewrite = urlRewrites.forProductList(productListId);
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
         }
         return ok(checked(urlRewrite));
     }
@@ -318,7 +316,7 @@ public class ProductListResource extends AbstractResource {
         ProductList productList = checked(service.get(ProductList.class, productListId));
         UrlRewrite urlRewrite = urlRewrites.forProductList(productListId);
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
             urlRewrite.setRequestURI(new ContextObject<String>());
             urlRewrite.setEnabled(true);
             urlRewrite.setRequestMethod("GET");
@@ -338,7 +336,8 @@ public class ProductListResource extends AbstractResource {
         else
             urlRewrites.update(urlRewrite);
 
-        if (urlRewrite != null && (urlRewrite.getRequestURI() == null || urlRewrite.getRequestURI().size() == 0) && urlRewrite.getId() != null) {
+        if (urlRewrite != null && (urlRewrite.getRequestURI() == null || urlRewrite.getRequestURI().size() == 0)
+            && urlRewrite.getId() != null) {
             urlRewrites.remove(urlRewrite);
         }
 

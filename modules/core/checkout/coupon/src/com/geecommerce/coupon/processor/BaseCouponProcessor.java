@@ -35,7 +35,8 @@ public class BaseCouponProcessor {
     protected FilterService filterService;
 
     protected boolean nullCheck(CouponCode couponCode) {
-        if (couponCode != null && couponCode.getCoupon() != null && couponCode.getCoupon().getCouponAction() != null && couponCode.getCoupon().getCouponAction().getFreeShipping() != null
+        if (couponCode != null && couponCode.getCoupon() != null && couponCode.getCoupon().getCouponAction() != null
+            && couponCode.getCoupon().getCouponAction().getFreeShipping() != null
             && couponCode.getCoupon().getCouponAction().getType() != null)
             return true;
         return false;
@@ -46,15 +47,19 @@ public class BaseCouponProcessor {
         if (priceTypeId == null) {
             Price price = product.getPrice().getFinalPriceFor(1);
             itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
-            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
+            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE_TYPE,
+                price.getPriceType().getCode());
         } else {
             PriceType priceType = priceTypes.findById(PriceType.class, priceTypeId);
-            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE, product.getPrice().getPrice(priceType.getCode(), 1));
-            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE_TYPE, priceType.getCode());
+            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE,
+                product.getPrice().getPrice(priceType.getCode(), 1));
+            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_BASE_CALCULATION_PRICE_TYPE,
+                priceType.getCode());
         }
     }
 
-    protected void setDiscountPrices(CalculationContext calcCtx, CartAttributeCollection cartAttributeCollection, CouponAction couponAction) {
+    protected void setDiscountPrices(CalculationContext calcCtx, CartAttributeCollection cartAttributeCollection,
+        CouponAction couponAction) {
         Set<Id> allProducts = cartAttributeCollection.getProductAttributes().keySet();
         setDiscountPrices(calcCtx, couponAction, allProducts);
     }
@@ -65,7 +70,8 @@ public class BaseCouponProcessor {
             Map<String, Object> item = getItem(calcCtx, id);
             Map<String, Object> itemDiscount = new HashMap<>();
             itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_ARTICLE_ID, id);
-            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY, (Integer) item.get(CalculationItem.FIELD.ITEM_QUANTITY));
+            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY,
+                (Integer) item.get(CalculationItem.FIELD.ITEM_QUANTITY));
             itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_RATE, 0.0);
             setItemDiscountPrice(id, couponAction.getPriceTypeId(), itemDiscount);
             itemDiscounts.put(id, itemDiscount);

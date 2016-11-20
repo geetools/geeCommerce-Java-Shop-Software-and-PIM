@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Email complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Email">
@@ -65,7 +67,7 @@ public class Email {
      * 
      */
     public String getFrom() {
-	return from;
+        return from;
     }
 
     /**
@@ -76,7 +78,7 @@ public class Email {
      * 
      */
     public void setFrom(String value) {
-	this.from = value;
+        this.from = value;
     }
 
     /**
@@ -86,7 +88,7 @@ public class Email {
      * 
      */
     public String getTo() {
-	return to;
+        return to;
     }
 
     /**
@@ -97,15 +99,17 @@ public class Email {
      * 
      */
     public void setTo(String value) {
-	this.to = value;
+        this.to = value;
     }
 
     /**
      * Gets the value of the cc property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the cc property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the cc property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -121,10 +125,10 @@ public class Email {
      * 
      */
     public List<String> getCc() {
-	if (cc == null) {
-	    cc = new ArrayList<String>();
-	}
-	return this.cc;
+        if (cc == null) {
+            cc = new ArrayList<String>();
+        }
+        return this.cc;
     }
 
     /**
@@ -134,7 +138,7 @@ public class Email {
      * 
      */
     public String getSubject() {
-	return subject;
+        return subject;
     }
 
     /**
@@ -145,7 +149,7 @@ public class Email {
      * 
      */
     public void setSubject(String value) {
-	this.subject = value;
+        this.subject = value;
     }
 
     /**
@@ -155,7 +159,7 @@ public class Email {
      * 
      */
     public String getReplyTo() {
-	return replyTo;
+        return replyTo;
     }
 
     /**
@@ -166,7 +170,7 @@ public class Email {
      * 
      */
     public void setReplyTo(String value) {
-	this.replyTo = value;
+        this.replyTo = value;
     }
 
     /**
@@ -176,7 +180,7 @@ public class Email {
      * 
      */
     public String getBody() {
-	return body;
+        return body;
     }
 
     /**
@@ -187,7 +191,7 @@ public class Email {
      * 
      */
     public void setBody(String value) {
-	this.body = value;
+        this.body = value;
     }
 
 }

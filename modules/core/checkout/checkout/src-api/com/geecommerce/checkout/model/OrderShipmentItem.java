@@ -22,9 +22,9 @@ public interface OrderShipmentItem extends Model {
     public Id getOrderShipmentId();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String ORDER_SHIPMENT_ID = "order_shipment_fk";
-	public static final String ORDER_ITEM_ID = "order_item_fk";
-	public static final String QUANTITY = "quantity";
+        public static final String ID = "_id";
+        public static final String ORDER_SHIPMENT_ID = "order_shipment_fk";
+        public static final String ORDER_ITEM_ID = "order_item_fk";
+        public static final String QUANTITY = "quantity";
     }
 }

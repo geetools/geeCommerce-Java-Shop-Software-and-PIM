@@ -9,12 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.system.user.repository.Roles;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
 
 @Model("_users")
 @XmlRootElement(name = "user")
@@ -294,8 +294,8 @@ public class DefaultUser extends AbstractModel implements User {
 
     @Override
     public String toString() {
-        return "DefaultUser [id=" + id + ", username=" + username + ", email=" + email + ", forename=" + forename + ", surname=" + surname + ", lastLoggedIn=" + lastLoggedIn + ", enabled=" + enabled
-            + ", roleIds=" + roleIds + ", scopeIds="
-            + scopeIds + "]";
+        return "DefaultUser [id=" + id + ", username=" + username + ", email=" + email + ", forename=" + forename
+            + ", surname=" + surname + ", lastLoggedIn=" + lastLoggedIn + ", enabled=" + enabled + ", roleIds="
+            + roleIds + ", scopeIds=" + scopeIds + "]";
     }
 }

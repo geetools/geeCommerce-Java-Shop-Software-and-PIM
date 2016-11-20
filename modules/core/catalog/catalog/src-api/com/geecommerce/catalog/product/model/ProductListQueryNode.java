@@ -1,10 +1,10 @@
 package com.geecommerce.catalog.product.model;
 
+import java.util.List;
+
 import com.geecommerce.catalog.product.enums.ProductListQueryNodeType;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
-
-import java.util.List;
 
 public interface ProductListQueryNode extends Model {
 
@@ -27,11 +27,11 @@ public interface ProductListQueryNode extends Model {
     public boolean isValid();
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String NODES = "nodes";
-	public static final String TYPE = "type";
-	public static final String OPERATOR = "operator";
-	public static final String VALUE = "val";
+        public static final String ID = "_id";
+        public static final String NODES = "nodes";
+        public static final String TYPE = "type";
+        public static final String OPERATOR = "operator";
+        public static final String VALUE = "val";
     }
 
 }

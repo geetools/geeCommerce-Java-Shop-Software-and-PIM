@@ -10,31 +10,31 @@ public class DefaultProductAvailability implements ProductAvailability {
 
     @Override
     public String getName() {
-	return name;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     @Override
     public String getStatus() {
-	return status;
+        return status;
     }
 
     @Override
     public void setStatus(String status) {
-	this.status = status;
+        this.status = status;
     }
 
     @Override
     public Boolean getIsAvailable() {
-	return available;
+        return available;
     }
 
     @Override
     public void setIsAvailable(boolean isAvailable) {
-	this.available = isAvailable;
+        this.available = isAvailable;
     }
 }

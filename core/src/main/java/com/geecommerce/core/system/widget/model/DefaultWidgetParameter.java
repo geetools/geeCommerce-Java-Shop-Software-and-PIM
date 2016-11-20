@@ -7,7 +7,6 @@ import com.geecommerce.core.system.widget.enums.WidgetParameterInputType;
 import com.geecommerce.core.system.widget.enums.WidgetParameterType;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-import com.geemvc.converter.adapter.DoubleArrayConverterAdapter;
 
 @Model(collection = "widget_parameters")
 public class DefaultWidgetParameter extends AbstractMultiContextModel implements WidgetParameter {

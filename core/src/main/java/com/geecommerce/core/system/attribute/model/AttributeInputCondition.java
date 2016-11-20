@@ -35,12 +35,12 @@ public interface AttributeInputCondition extends Model {
     public AttributeInputCondition addApplyToProductTypes(ProductType... productTypes);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String WHEN_ATTRIBUTE_ID = "when_attr_id";
-	public static final String HAS_OPTION_IDS = "has_opt_ids";
-	public static final String SHOW_ATTRIBUTE_ID = "show_attr_id";
-	public static final String SHOW_OPTIONS_HAVING_TAG = "show_opt_tag";
-	public static final String APPLY_TO_PRODUCT_TYPES = "prd_types";
+        public static final String ID = "_id";
+        public static final String WHEN_ATTRIBUTE_ID = "when_attr_id";
+        public static final String HAS_OPTION_IDS = "has_opt_ids";
+        public static final String SHOW_ATTRIBUTE_ID = "show_attr_id";
+        public static final String SHOW_OPTIONS_HAVING_TAG = "show_opt_tag";
+        public static final String APPLY_TO_PRODUCT_TYPES = "prd_types";
 
     }
 }

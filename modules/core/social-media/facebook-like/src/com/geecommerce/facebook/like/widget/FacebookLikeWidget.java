@@ -14,7 +14,8 @@ public class FacebookLikeWidget extends AbstractWidgetController implements Widg
     private static final String VIEW = "facebook/like";
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
-	widgetCtx.render(VIEW);
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
+        widgetCtx.render(VIEW);
     }
 }

@@ -1,10 +1,10 @@
 package com.geecommerce.checkout.flow.helper;
 
+import java.util.List;
+
 import com.geecommerce.checkout.flow.model.CheckoutFlow;
 import com.geecommerce.checkout.flow.model.CheckoutFlowStep;
 import com.geecommerce.core.service.api.Helper;
-
-import java.util.List;
 
 public interface CheckoutFlowHelper extends Helper {
 
@@ -41,6 +41,5 @@ public interface CheckoutFlowHelper extends Helper {
     String getOriginalURI(CheckoutFlowStep step);
 
     CheckoutFlowStep getFlowStep(String uri);
-
 
 }

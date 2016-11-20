@@ -81,7 +81,7 @@ public class DefaultWidgetParameterTab extends AbstractModel implements WidgetPa
         if (itemsList != null) {
             this.items = new ArrayList<>();
             for (Map<String, Object> item : itemsList) {
-                WidgetParameterTabItem tabItem = app.getInjectable(WidgetParameterTabItem.class);
+                WidgetParameterTabItem tabItem = app.injectable(WidgetParameterTabItem.class);
                 tabItem.fromMap(item);
                 this.items.add(tabItem);
             }

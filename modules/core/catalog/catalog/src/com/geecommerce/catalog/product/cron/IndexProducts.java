@@ -33,7 +33,7 @@ import com.google.inject.Inject;
 public class IndexProducts extends SearchIndexer implements Taskable, Job {
     @Inject
     protected App app;
-    
+
     protected static final Logger log = LogManager.getLogger(IndexProducts.class);
     protected final Products products;
 
@@ -54,8 +54,10 @@ public class IndexProducts extends SearchIndexer implements Taskable, Job {
         } catch (Throwable t) {
             t.printStackTrace();
 
-            // According to quartz documentation, exceptions should be caught in a try-catch-block
-            // wrapping the whole task. Only exceptions of type JobExecutionException may be thrown.
+            // According to quartz documentation, exceptions should be caught in
+            // a try-catch-block
+            // wrapping the whole task. Only exceptions of type
+            // JobExecutionException may be thrown.
             // http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/TutorialLesson03#TutorialLesson3-JobExecutionException
 
             JobExecutionException e = new JobExecutionException(t.getMessage(), t, false);
@@ -65,7 +67,7 @@ public class IndexProducts extends SearchIndexer implements Taskable, Job {
     }
 
     protected Map<String, Object> getIndexerContext() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
@@ -74,7 +76,8 @@ public class IndexProducts extends SearchIndexer implements Taskable, Job {
         query.put(GlobalColumn.MERCHANT_ID, merchant.getId());
         query.put(GlobalColumn.STORE_ID, store.getId());
 
-        List<Map<String, Object>> indexerContexts = MongoHelper.find(MongoHelper.mongoSystemDB(), "search_indexer", query, null);
+        List<Map<String, Object>> indexerContexts = MongoHelper.find(MongoHelper.mongoSystemDB(), "search_indexer",
+            query, null);
 
         return indexerContexts != null && indexerContexts.size() > 0 ? indexerContexts.get(0) : null;
     }

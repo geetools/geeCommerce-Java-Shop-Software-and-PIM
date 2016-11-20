@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for DCTFrom complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="DCTFrom">
@@ -89,7 +90,7 @@ public class DCTFrom {
      * 
      */
     public String getCountryCode() {
-	return countryCode;
+        return countryCode;
     }
 
     /**
@@ -100,7 +101,7 @@ public class DCTFrom {
      * 
      */
     public void setCountryCode(String value) {
-	this.countryCode = value;
+        this.countryCode = value;
     }
 
     /**
@@ -110,7 +111,7 @@ public class DCTFrom {
      * 
      */
     public String getPostalcode() {
-	return postalcode;
+        return postalcode;
     }
 
     /**
@@ -121,7 +122,7 @@ public class DCTFrom {
      * 
      */
     public void setPostalcode(String value) {
-	this.postalcode = value;
+        this.postalcode = value;
     }
 
     /**
@@ -131,7 +132,7 @@ public class DCTFrom {
      * 
      */
     public String getCity() {
-	return city;
+        return city;
     }
 
     /**
@@ -142,7 +143,7 @@ public class DCTFrom {
      * 
      */
     public void setCity(String value) {
-	this.city = value;
+        this.city = value;
     }
 
     /**
@@ -152,7 +153,7 @@ public class DCTFrom {
      * 
      */
     public String getSuburb() {
-	return suburb;
+        return suburb;
     }
 
     /**
@@ -163,7 +164,7 @@ public class DCTFrom {
      * 
      */
     public void setSuburb(String value) {
-	this.suburb = value;
+        this.suburb = value;
     }
 
     /**
@@ -173,7 +174,7 @@ public class DCTFrom {
      * 
      */
     public String getVatNo() {
-	return vatNo;
+        return vatNo;
     }
 
     /**
@@ -184,7 +185,7 @@ public class DCTFrom {
      * 
      */
     public void setVatNo(String value) {
-	this.vatNo = value;
+        this.vatNo = value;
     }
 
 }

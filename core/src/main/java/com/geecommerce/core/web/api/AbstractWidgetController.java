@@ -41,7 +41,7 @@ public abstract class AbstractWidgetController implements WidgetController {
     @Override
     public List<WidgetParameter> getParameters() {
         if (getCode() != null) {
-            WidgetParameters widgetParameters = app.getRepository(WidgetParameters.class);
+            WidgetParameters widgetParameters = app.repository(WidgetParameters.class);
             return widgetParameters.forWidget(getCode());
         }
         return null;
@@ -52,7 +52,7 @@ public abstract class AbstractWidgetController implements WidgetController {
         if (parameterId == null)
             return null;
 
-        WidgetParameterOptions widgetParameterOptions = app.getRepository(WidgetParameterOptions.class);
+        WidgetParameterOptions widgetParameterOptions = app.repository(WidgetParameterOptions.class);
         return widgetParameterOptions.thatBelongTo(parameterId);
     }
 

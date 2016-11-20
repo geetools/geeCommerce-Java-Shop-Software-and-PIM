@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ExportReasonCode.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -37,11 +38,11 @@ public enum ExportReasonCode {
     P, T, R;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static ExportReasonCode fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

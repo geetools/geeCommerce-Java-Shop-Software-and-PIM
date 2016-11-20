@@ -13,9 +13,9 @@ public class BootstrapPricing extends AbstractBootstrap {
 
     @Override
     public void init() {
-        HttpServletRequest request = App.get().getServletRequest();
+        HttpServletRequest request = App.get().servletRequest();
 
-        PricingContext defaultPricingCtx = App.get().getPojo(PricingContext.class);
+        PricingContext defaultPricingCtx = App.get().pojo(PricingContext.class);
 
         request.setAttribute(DEFAULT_PRICING_CONTEXT_KEY, defaultPricingCtx);
     }

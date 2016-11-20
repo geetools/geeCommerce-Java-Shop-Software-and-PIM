@@ -19,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ServiceEvent complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ServiceEvent">
@@ -58,7 +59,7 @@ public class ServiceEvent {
      * 
      */
     public String getEventCode() {
-	return eventCode;
+        return eventCode;
     }
 
     /**
@@ -69,7 +70,7 @@ public class ServiceEvent {
      * 
      */
     public void setEventCode(String value) {
-	this.eventCode = value;
+        this.eventCode = value;
     }
 
     /**
@@ -79,7 +80,7 @@ public class ServiceEvent {
      * 
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
@@ -90,7 +91,7 @@ public class ServiceEvent {
      * 
      */
     public void setDescription(String value) {
-	this.description = value;
+        this.description = value;
     }
 
 }

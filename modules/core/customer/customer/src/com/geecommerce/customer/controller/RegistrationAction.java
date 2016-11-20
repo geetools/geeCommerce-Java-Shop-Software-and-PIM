@@ -20,14 +20,16 @@ import net.sourceforge.stripes.validation.ValidationState;
 
 @UrlBinding("/customer/registration/{$event}")
 public class RegistrationAction extends BaseActionBean {
-    @ValidateNestedProperties({ @Validate(field = "email", required = true, on = "update"), @Validate(field = "forename", required = true, minlength = 2, maxlength = 50, on = { "update" }),
+    @ValidateNestedProperties({ @Validate(field = "email", required = true, on = "update"),
+        @Validate(field = "forename", required = true, minlength = 2, maxlength = 50, on = { "update" }),
         @Validate(field = "surname", required = true, minlength = 5, maxlength = 50, on = { "update" }),
 
         @Validate(field = "invoice.firstName", required = true, minlength = 2, maxlength = 50, on = "update"),
         @Validate(field = "invoice.lastName", required = true, minlength = 2, maxlength = 50, on = "update"),
         @Validate(field = "invoice.address1", required = true, minlength = 2, maxlength = 128, on = "update"),
         @Validate(field = "invoice.city", required = true, minlength = 2, maxlength = 45, on = "update"),
-        @Validate(field = "invoice.country", required = true, on = "update"), @Validate(field = "invoice.zip", required = true, on = "update"), })
+        @Validate(field = "invoice.country", required = true, on = "update"),
+        @Validate(field = "invoice.zip", required = true, on = "update"), })
     private RegistrationForm customerForm = null;
 
     private Customer customer = null;
@@ -63,7 +65,8 @@ public class RegistrationAction extends BaseActionBean {
         Customer customer = getLoggedInCustomer();
 
         if (customer != null) {
-            customer.setForename(getCustomerForm().getForename()).setSurname(getCustomerForm().getSurname()).setEmail(getCustomerForm().getEmail());
+            customer.setForename(getCustomerForm().getForename()).setSurname(getCustomerForm().getSurname())
+                .setEmail(getCustomerForm().getEmail());
 
             customerService.updateCustomer(customer);
         }
@@ -84,7 +87,7 @@ public class RegistrationAction extends BaseActionBean {
     }
 
     public Customer getCustomer() {
-        return app.getModel(Customer.class);
+        return app.model(Customer.class);
     }
 
     @ValidationMethod(when = ValidationState.ALWAYS, on = { "update" })

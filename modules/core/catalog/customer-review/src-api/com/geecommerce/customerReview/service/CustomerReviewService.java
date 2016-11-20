@@ -1,11 +1,11 @@
 package com.geecommerce.customerReview.service;
 
+import java.util.List;
+
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.service.api.Service;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.customerReview.model.CustomerReview;
-
-import java.util.List;
 
 public interface CustomerReviewService extends Service {
 

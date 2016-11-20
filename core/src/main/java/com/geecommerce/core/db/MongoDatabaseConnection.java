@@ -28,8 +28,10 @@ public class MongoDatabaseConnection implements ConnectionProvider {
             this.properties = new HashMap<>(properties);
 
             try {
-                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).autoConnectRetry(true).connectTimeout(30000).socketTimeout(60000).socketKeepAlive(true).build();
-                mongoClient = new MongoClient(new ServerAddress(property("host"), Integer.parseInt(property("port"))), options);
+                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).autoConnectRetry(true)
+                    .connectTimeout(30000).socketTimeout(60000).socketKeepAlive(true).build();
+                mongoClient = new MongoClient(new ServerAddress(property("host"), Integer.parseInt(property("port"))),
+                    options);
             } catch (Throwable t) {
                 throw new IllegalStateException(t);
             }

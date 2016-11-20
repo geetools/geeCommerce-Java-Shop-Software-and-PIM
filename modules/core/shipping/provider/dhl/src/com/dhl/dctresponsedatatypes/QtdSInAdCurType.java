@@ -10,6 +10,7 @@ package com.dhl.dctresponsedatatypes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for QtdSInAdCurType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdSInAdCurType">
@@ -99,7 +101,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "QtdSInAdCurType", propOrder = { "customsValue", "exchangeRate", "currencyCode", "currencyRoleTypeCode", "weightCharge", "totalAmount", "totalTaxAmount", "weightChargeTax", "weightChargeTaxDet" })
+@XmlType(name = "QtdSInAdCurType", propOrder = { "customsValue", "exchangeRate", "currencyCode", "currencyRoleTypeCode",
+    "weightCharge", "totalAmount", "totalTaxAmount", "weightChargeTax", "weightChargeTaxDet" })
 public class QtdSInAdCurType {
 
     @XmlElement(name = "CustomsValue")
@@ -128,7 +131,7 @@ public class QtdSInAdCurType {
      * 
      */
     public BigDecimal getCustomsValue() {
-	return customsValue;
+        return customsValue;
     }
 
     /**
@@ -139,7 +142,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setCustomsValue(BigDecimal value) {
-	this.customsValue = value;
+        this.customsValue = value;
     }
 
     /**
@@ -149,7 +152,7 @@ public class QtdSInAdCurType {
      * 
      */
     public BigDecimal getExchangeRate() {
-	return exchangeRate;
+        return exchangeRate;
     }
 
     /**
@@ -160,7 +163,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setExchangeRate(BigDecimal value) {
-	this.exchangeRate = value;
+        this.exchangeRate = value;
     }
 
     /**
@@ -170,7 +173,7 @@ public class QtdSInAdCurType {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -181,7 +184,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -191,7 +194,7 @@ public class QtdSInAdCurType {
      * 
      */
     public String getCurrencyRoleTypeCode() {
-	return currencyRoleTypeCode;
+        return currencyRoleTypeCode;
     }
 
     /**
@@ -202,7 +205,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setCurrencyRoleTypeCode(String value) {
-	this.currencyRoleTypeCode = value;
+        this.currencyRoleTypeCode = value;
     }
 
     /**
@@ -212,7 +215,7 @@ public class QtdSInAdCurType {
      * 
      */
     public BigDecimal getWeightCharge() {
-	return weightCharge;
+        return weightCharge;
     }
 
     /**
@@ -223,7 +226,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setWeightCharge(BigDecimal value) {
-	this.weightCharge = value;
+        this.weightCharge = value;
     }
 
     /**
@@ -233,7 +236,7 @@ public class QtdSInAdCurType {
      * 
      */
     public BigDecimal getTotalAmount() {
-	return totalAmount;
+        return totalAmount;
     }
 
     /**
@@ -244,7 +247,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setTotalAmount(BigDecimal value) {
-	this.totalAmount = value;
+        this.totalAmount = value;
     }
 
     /**
@@ -254,7 +257,7 @@ public class QtdSInAdCurType {
      * 
      */
     public BigDecimal getTotalTaxAmount() {
-	return totalTaxAmount;
+        return totalTaxAmount;
     }
 
     /**
@@ -265,7 +268,7 @@ public class QtdSInAdCurType {
      * 
      */
     public void setTotalTaxAmount(BigDecimal value) {
-	this.totalTaxAmount = value;
+        this.totalTaxAmount = value;
     }
 
     /**
@@ -275,7 +278,7 @@ public class QtdSInAdCurType {
      * 
      */
     public BigDecimal getWeightChargeTax() {
-	return weightChargeTax;
+        return weightChargeTax;
     }
 
     /**
@@ -286,15 +289,17 @@ public class QtdSInAdCurType {
      * 
      */
     public void setWeightChargeTax(BigDecimal value) {
-	this.weightChargeTax = value;
+        this.weightChargeTax = value;
     }
 
     /**
      * Gets the value of the weightChargeTaxDet property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the weightChargeTaxDet property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the weightChargeTaxDet property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -305,15 +310,16 @@ public class QtdSInAdCurType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link WeightChargeTaxDetType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link WeightChargeTaxDetType }
      * 
      * 
      */
     public List<WeightChargeTaxDetType> getWeightChargeTaxDet() {
-	if (weightChargeTaxDet == null) {
-	    weightChargeTaxDet = new ArrayList<WeightChargeTaxDetType>();
-	}
-	return this.weightChargeTaxDet;
+        if (weightChargeTaxDet == null) {
+            weightChargeTaxDet = new ArrayList<WeightChargeTaxDetType>();
+        }
+        return this.weightChargeTaxDet;
     }
 
 }

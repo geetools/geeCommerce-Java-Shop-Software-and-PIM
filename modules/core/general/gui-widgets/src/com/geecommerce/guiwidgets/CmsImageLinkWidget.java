@@ -25,7 +25,8 @@ public class CmsImageLinkWidget extends AbstractWidgetController implements Widg
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String imageId = widgetCtx.getParam(PARAM_IMAGE);
         String link = widgetCtx.getParam(PARAM_LINK);
         if (link == null)

@@ -1,11 +1,11 @@
 package com.geecommerce.checkout.model;
 
+import java.util.Date;
+
 import com.geecommerce.core.payment.PaymentStatus;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.user.model.User;
 import com.geecommerce.core.type.Id;
-
-import java.util.Date;
 
 public interface OrderPaymentEvent extends Model {
     public Id getId();
@@ -51,15 +51,15 @@ public interface OrderPaymentEvent extends Model {
     public User getOperator();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String ORDER_ID = "order_fk";
-	public static final String SUCCESS_MESSAGE = "success_message";
-	public static final String ERROR_MESSAGE = "error_message";
-	public static final String RESPONSE_TEXT = "response_text";
-	public static final String REQUEST_TEXT = "request_text";
-	public static final String PAYMENT_STATUS = "payment_status";
-	public static final String EXPECTED_PAYMENT_STATUS = "expected_payment_status";
-	public static final String CREATED_ON = "cr_on";
-	public static final String OPERATOR = "operator";
+        public static final String ID = "_id";
+        public static final String ORDER_ID = "order_fk";
+        public static final String SUCCESS_MESSAGE = "success_message";
+        public static final String ERROR_MESSAGE = "error_message";
+        public static final String RESPONSE_TEXT = "response_text";
+        public static final String REQUEST_TEXT = "request_text";
+        public static final String PAYMENT_STATUS = "payment_status";
+        public static final String EXPECTED_PAYMENT_STATUS = "expected_payment_status";
+        public static final String CREATED_ON = "cr_on";
+        public static final String OPERATOR = "operator";
     }
 }

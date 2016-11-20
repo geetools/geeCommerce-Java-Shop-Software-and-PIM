@@ -15,10 +15,12 @@ import com.geecommerce.coupon.model.CouponCode;
 
 public abstract class BaseProductCouponProcessor extends BaseCouponProcessor implements CouponProcessor {
 
-    public abstract boolean canBeProcessed(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection);
+    public abstract boolean canBeProcessed(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection);
 
     @Override
-    public void process(CalculationContext calcCtx, CouponCode couponCode, CartAttributeCollection cartAttributeCollection) {
+    public void process(CalculationContext calcCtx, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection) {
         Coupon coupon = couponCode.getCoupon();
         CouponAction couponAction = coupon.getCouponAction();
 
@@ -39,7 +41,8 @@ public abstract class BaseProductCouponProcessor extends BaseCouponProcessor imp
         Integer applyDiscountTo = 0;
         Map<Id, Map<String, Object>> itemDiscounts = new HashMap<>();
 
-        int discountQtyStep = couponAction.getDiscountQtyStep() != null ? couponAction.getDiscountQtyStep().intValue() : 0;
+        int discountQtyStep = couponAction.getDiscountQtyStep() != null ? couponAction.getDiscountQtyStep().intValue()
+            : 0;
         int maxPossibleSteps = totalItems / (1 + discountQtyStep);
 
         if (couponAction.getMaximumQtyApplyTo() == null || couponAction.getMaximumQtyApplyTo() > maxPossibleSteps) {
@@ -61,7 +64,8 @@ public abstract class BaseProductCouponProcessor extends BaseCouponProcessor imp
                 itemDiscounts.put(current, itemDiscount);
             }
 
-            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY, (Integer) itemDiscount.get(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY) + 1);
+            itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY,
+                (Integer) itemDiscount.get(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY) + 1);
             applyDiscountTo -= 1; // 1 item;
             itemCounts.put(current, itemCounts.get(current) - 1);
             removeItemsByStep(itemCounts, itemPrices, discountQtyStep);

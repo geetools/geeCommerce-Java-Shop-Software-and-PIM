@@ -54,25 +54,29 @@ public class DefaultElasticsearchService implements ElasticsearchService {
     protected final AttributeService attributeService;
 
     @Inject
-    public DefaultElasticsearchService(ElasticsearchIndexHelper elasticsearchIndexHelper, ElasticsearchHelper elasticsearchHelper, AttributeService attributeService) {
+    public DefaultElasticsearchService(ElasticsearchIndexHelper elasticsearchIndexHelper,
+        ElasticsearchHelper elasticsearchHelper, AttributeService attributeService) {
         this.elasticsearchIndexHelper = elasticsearchIndexHelper;
         this.elasticsearchHelper = elasticsearchHelper;
         this.attributeService = attributeService;
     }
 
     @Override
-    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts,
-        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams, Integer offset, Integer limit, String sort) {
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders,
+        Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts,
+        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams, Integer offset, Integer limit,
+        String sort) {
         searchParams.setOffset(offset).setLimit(limit).setSort(sort);
         return findItems(modelClass, filterBuilders, filterAttributes, navFilterParts, uriFilterParts, searchParams);
     }
 
     @Override
-    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts,
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders,
+        Map<String, Attribute> filterAttributes, Map<String, Object> navFilterParts,
         Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
         Client client = ElasticSearch.CLIENT.get();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
@@ -107,7 +111,9 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         SearchRequestBuilder searchRequestBuilder = null;
 
         if (responseAll == null) {
-            searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass)).setTypes(Annotations.getIndexedCollectionName(modelClass))
+            searchRequestBuilder = client
+                .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass))
+                .setTypes(Annotations.getIndexedCollectionName(modelClass))
                 .setSearchType(SearchType.QUERY_THEN_FETCH)
                 // .setFetchSource(fields, null)
                 // .addFields(fields)
@@ -115,7 +121,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
                 .setQuery(searchQuery).setPostFilter(fb).setExplain(false);
 
             if (!Strings.isNullOrEmpty(sortField)) {
-                searchRequestBuilder.addSort(SortBuilders.fieldSort(sortField).order(SortOrder.ASC).ignoreUnmapped(true));
+                searchRequestBuilder
+                    .addSort(SortBuilders.fieldSort(sortField).order(SortOrder.ASC).ignoreUnmapped(true));
             }
 
             for (FacetBuilder facetBuilder : facetBuilders) {
@@ -137,8 +144,9 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         searchQueryFilter = elasticsearchHelper.toQueryMap(navFilterParts, nonMultipleFilterParts, filterAttributes);
         searchQuery = elasticsearchHelper.buildQuery(filterBuilders, searchQueryFilter);
 
-        searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass)).setTypes(Annotations.getIndexedCollectionName(modelClass))
-            .setSearchType(SearchType.QUERY_THEN_FETCH)
+        searchRequestBuilder = client
+            .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass))
+            .setTypes(Annotations.getIndexedCollectionName(modelClass)).setSearchType(SearchType.QUERY_THEN_FETCH)
             // .addFields(fields)
             .setFrom(0).setSize(10000) // TODO: improve
             // static value
@@ -163,9 +171,11 @@ public class DefaultElasticsearchService implements ElasticsearchService {
 
         // System.out.println(new String(searchQuery.buildAsBytes().toBytes()));
 
-        searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass)).setTypes(Annotations.getIndexedCollectionName(modelClass))
-            .setSearchType(SearchType.QUERY_THEN_FETCH)
-            .setFrom(0).setSize(100000).setQuery(searchQuery).setPostFilter(fb).setFetchSource(false).setExplain(false);
+        searchRequestBuilder = client
+            .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass))
+            .setTypes(Annotations.getIndexedCollectionName(modelClass)).setSearchType(SearchType.QUERY_THEN_FETCH)
+            .setFrom(0).setSize(100000).setQuery(searchQuery).setPostFilter(fb).setFetchSource(false)
+            .setExplain(false);
 
         if (!Strings.isNullOrEmpty(sortField)) {
             searchRequestBuilder.addSort(SortBuilders.fieldSort(sortField).order(SortOrder.ASC).ignoreUnmapped(true));
@@ -178,8 +188,10 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         SearchResponse response = searchRequestBuilder.execute().actionGet();
 
         // Create flat field and facet-count index for better performance.
-        Map<FieldKey, FieldValue> fieldIndex = elasticsearchHelper.toFlatFieldIndex(response, responseAll, filterAttributes);
-        Map<FieldKey, FacetCount> facetCountIndex = elasticsearchHelper.toFlatFacetCountIndex(response, responseNonMulti, responseAll);
+        Map<FieldKey, FieldValue> fieldIndex = elasticsearchHelper.toFlatFieldIndex(response, responseAll,
+            filterAttributes);
+        Map<FieldKey, FacetCount> facetCountIndex = elasticsearchHelper.toFlatFacetCountIndex(response,
+            responseNonMulti, responseAll);
 
         // ---------------------------------------------------------------------
         // Process response
@@ -187,7 +199,7 @@ public class DefaultElasticsearchService implements ElasticsearchService {
 
         SearchHits hits = response.getHits();
 
-        SearchResult result = app.getInjectable(SearchResult.class);
+        SearchResult result = app.injectable(SearchResult.class);
 
         if (hits != null && hits.totalHits() > 0) {
             Set<String> uniqueDocumentIds = Sets.newLinkedHashSet();
@@ -207,7 +219,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
                 x++;
             }
 
-            List<Facet> facets = elasticsearchHelper.retrieveFacets(responseAll, fieldIndex, facetCountIndex, filterAttributes);
+            List<Facet> facets = elasticsearchHelper.retrieveFacets(responseAll, fieldIndex, facetCountIndex,
+                filterAttributes);
 
             result.setFacets(facets);
         }
@@ -216,7 +229,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
     }
 
     @Override
-    public <T extends Model> SearchResult findItems(Class<T> modelClass, String query, SearchParams searchParams, List<Id> attributeTargetObjectIds) {
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, String query, SearchParams searchParams,
+        List<Id> attributeTargetObjectIds) {
         Client client = ElasticSearch.CLIENT.get();
 
         // ---------------------------------------------------------------------
@@ -238,7 +252,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
 
             qb = QueryBuilders.boolQuery().must(queryBuilder);
         } else {
-            throw new IllegalArgumentException("You must provide either a search-phrase or query-parameters when searching.");
+            throw new IllegalArgumentException(
+                "You must provide either a search-phrase or query-parameters when searching.");
         }
 
         // ---------------------------------------------------------------------
@@ -251,21 +266,22 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         // Prepare search
         // ---------------------------------------------------------------------
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass)).setMinScore(0.5f)
-            .setTypes(Annotations.getIndexedCollectionName(modelClass))
-            .setSearchType(SearchType.QUERY_THEN_FETCH)
-            .setFrom(searchParams.getOffset()).setSize(searchParams.getLimit())
-            .setQuery(qb).setPostFilter(fb);
+        SearchRequestBuilder searchRequestBuilder = client
+            .prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass))
+            .setMinScore(0.5f).setTypes(Annotations.getIndexedCollectionName(modelClass))
+            .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(searchParams.getOffset())
+            .setSize(searchParams.getLimit()).setQuery(qb).setPostFilter(fb);
 
         // ---------------------------------------------------------------------
         // Build facets
         // ---------------------------------------------------------------------
 
-        Map<String, Attribute> facetAttributes = attributeService.getAttributesForSearchFilter(attributeTargetObjectIds);
+        Map<String, Attribute> facetAttributes = attributeService
+            .getAttributesForSearchFilter(attributeTargetObjectIds);
 
         List<FacetBuilder> facetBuilders = elasticsearchHelper.toFacetBuilders(facetAttributes);
 
@@ -283,7 +299,7 @@ public class DefaultElasticsearchService implements ElasticsearchService {
 
         SearchHits hits = response.getHits();
 
-        SearchResult result = app.getInjectable(SearchResult.class);
+        SearchResult result = app.injectable(SearchResult.class);
 
         if (hits != null && hits.totalHits() > 0) {
             Set<String> uniqueDocumentIds = Sets.newLinkedHashSet();
@@ -313,7 +329,8 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         return result;// return searchRequestBuilder.execute().actionGet();
     }
 
-    protected Map<String, Set<Object>> getNonMultipleFilterParts(Map<String, Set<Object>> allFilterParts, Map<String, Attribute> filterAttributes) {
+    protected Map<String, Set<Object>> getNonMultipleFilterParts(Map<String, Set<Object>> allFilterParts,
+        Map<String, Attribute> filterAttributes) {
         if (allFilterParts == null || filterAttributes == null)
             return null;
 

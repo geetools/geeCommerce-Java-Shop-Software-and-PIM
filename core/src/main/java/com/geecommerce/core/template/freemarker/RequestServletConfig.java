@@ -15,27 +15,27 @@ public class RequestServletConfig implements ServletConfig {
     private Map<String, String> initParams = new HashMap<>();
 
     public RequestServletConfig(ServletContext servletContext) {
-	this.servletContext = servletContext;
+        this.servletContext = servletContext;
     }
 
     @Override
     public String getServletName() {
-	return "";
+        return "";
     }
 
     @Override
     public ServletContext getServletContext() {
-	return servletContext;
+        return servletContext;
     }
 
     @Override
     public String getInitParameter(String name) {
-	return initParams.get(name);
+        return initParams.get(name);
     }
 
     @SuppressWarnings("rawtypes")
     @Override
     public Enumeration getInitParameterNames() {
-	return Iterators.asEnumeration(initParams.keySet().iterator());
+        return Iterators.asEnumeration(initParams.keySet().iterator());
     }
 }

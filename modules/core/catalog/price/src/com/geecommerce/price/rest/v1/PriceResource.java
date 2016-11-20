@@ -6,12 +6,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.rest.AbstractResource;
 import com.geecommerce.core.rest.jersey.inject.FilterParam;
 import com.geecommerce.core.rest.pojo.Filter;
 import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.price.model.PriceType;
+import com.google.inject.Inject;
 
 @Path("/v1/prices")
 public class PriceResource extends AbstractResource {
@@ -19,13 +19,13 @@ public class PriceResource extends AbstractResource {
 
     @Inject
     public PriceResource(RestService service) {
-	this.service = service;
+        this.service = service;
     }
 
     @GET
     @Path("types")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getPriceTypes(@FilterParam Filter filter) {
-	return ok(checked(service.get(PriceType.class, filter.getParams(), queryOptions(filter))));
+        return ok(checked(service.get(PriceType.class, filter.getParams(), queryOptions(filter))));
     }
 }

@@ -37,8 +37,8 @@ public class DefaultBeanDescriptor<T> extends BeanDescriptor<T> {
         }
     };
 
-    public DefaultBeanDescriptor(Class<T> forClass, Class<?> fromDeclaringClass, List<PropertyAccessor> readableBps, Map<String, PropertyMutator> writableBps, BeanCreator creator,
-        boolean failOnMissingProperty) {
+    public DefaultBeanDescriptor(Class<T> forClass, Class<?> fromDeclaringClass, List<PropertyAccessor> readableBps,
+        Map<String, PropertyMutator> writableBps, BeanCreator creator, boolean failOnMissingProperty) {
         super(forClass, fromDeclaringClass, readableBps, writableBps, creator, failOnMissingProperty);
 
         Collections.sort(readableBps, _readablePropsComparator);

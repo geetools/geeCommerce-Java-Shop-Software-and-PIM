@@ -6,31 +6,31 @@ import java.util.Collection;
 
 public class Arr {
     public static Object[] asObjectArray(Object val) {
-	if (val == null)
-	    return null;
+        if (val == null)
+            return null;
 
-	if (val instanceof Object[])
-	    return (Object[]) val;
+        if (val instanceof Object[])
+            return (Object[]) val;
 
-	int arrlength = Array.getLength(val);
-	Object[] outputArray = new Object[arrlength];
+        int arrlength = Array.getLength(val);
+        Object[] outputArray = new Object[arrlength];
 
-	for (int i = 0; i < arrlength; ++i) {
-	    outputArray[i] = Array.get(val, i);
-	}
+        for (int i = 0; i < arrlength; ++i) {
+            outputArray[i] = Array.get(val, i);
+        }
 
-	return outputArray;
+        return outputArray;
     }
 
     public static Collection<Object> asCollection(Object val) {
-	if (val == null)
-	    return null;
+        if (val == null)
+            return null;
 
-	Object[] outputArray = asObjectArray(val);
+        Object[] outputArray = asObjectArray(val);
 
-	if (outputArray == null)
-	    return null;
+        if (outputArray == null)
+            return null;
 
-	return Arrays.asList(outputArray);
+        return Arrays.asList(outputArray);
     }
 }

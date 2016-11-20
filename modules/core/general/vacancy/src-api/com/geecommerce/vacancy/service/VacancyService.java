@@ -1,13 +1,13 @@
 package com.geecommerce.vacancy.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.service.api.Service;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.vacancy.model.Vacancy;
 import com.geecommerce.vacancy.model.VacancyGroup;
-
-import java.util.List;
-import java.util.Map;
 
 public interface VacancyService extends Service {
     List<VacancyGroup> getVacancyGroups();

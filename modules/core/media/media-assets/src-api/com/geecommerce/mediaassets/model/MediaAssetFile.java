@@ -1,11 +1,11 @@
 package com.geecommerce.mediaassets.model;
 
+import java.io.InputStream;
+import java.util.Map;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
 import com.owlike.genson.annotation.JsonIgnore;
-
-import java.io.InputStream;
-import java.util.Map;
 
 public interface MediaAssetFile extends Model {
 
@@ -29,7 +29,7 @@ public interface MediaAssetFile extends Model {
 
     public Map<Object, Object> getMetadata();
 
-    //public MediaAssetFile setContent(InputStream inputStream);
+    // public MediaAssetFile setContent(InputStream inputStream);
 
     @JsonIgnore
     public InputStream getContent();

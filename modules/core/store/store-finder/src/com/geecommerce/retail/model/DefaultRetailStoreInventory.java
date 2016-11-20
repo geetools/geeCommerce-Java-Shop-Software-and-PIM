@@ -79,7 +79,7 @@ public class DefaultRetailStoreInventory extends AbstractMultiContextModel imple
     @Override
     public String getAvailabilityText() {
         if (availabilityText == null && availabilityTextId != null) {
-            AvailabilityTextService ats = app.getService(AvailabilityTextService.class);
+            AvailabilityTextService ats = app.service(AvailabilityTextService.class);
             AvailabilityText text = ats.getAvailabilityText(getAvailabilityTextId());
             if (text != null) {
                 availabilityText = text.getText();

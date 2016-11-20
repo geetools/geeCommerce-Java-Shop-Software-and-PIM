@@ -80,7 +80,8 @@ public class ContentController extends BaseController {
     }
 
     @Request("page/{id}")
-    public Result getPage(@PathParam("id") Id id, @Context HttpServletRequest request, @Context HttpServletResponse response) {
+    public Result getPage(@PathParam("id") Id id, @Context HttpServletRequest request,
+        @Context HttpServletResponse response) {
         Content content = contents.findById(Content.class, id);
 
         app.setViewPath("page/content/view_" + id.str());
@@ -107,7 +108,7 @@ public class ContentController extends BaseController {
                 node = StringEscapeUtils.unescapeHtml(node);
                 Map<String, Object> nodeMap = Json.fromJson(node, HashMap.class);
 
-                ContentNode contentNode = app.getModel(ContentNode.class);
+                ContentNode contentNode = app.model(ContentNode.class);
                 contentNode.fromMap(nodeMap);
                 System.out.println(node);
 
@@ -144,12 +145,13 @@ public class ContentController extends BaseController {
                 m = mcl.getModule();
             }
 
-            Configuration conf = FreemarkerHelper.newConfig(app.getServletContext(), m);
+            Configuration conf = FreemarkerHelper.newConfig(app.servletContext(), m);
 
             getResponse().setLocale(conf.getLocale());
             getResponse().setCharacterEncoding("UTF-8");
 
-            TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.getServletContext(), getRequest(), getResponse());
+            TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.servletContext(),
+                getRequest(), getResponse());
 
             app.registryPut(FreemarkerConstant.FREEMARKER_REQUEST_TEMPLATE_MODEL, tm);
 
@@ -171,20 +173,13 @@ public class ContentController extends BaseController {
     }
 
     /*
-     * public String getNode() {
-     * return node;
-     * }
+     * public String getNode() { return node; }
      * 
-     * public void setNode(String node) {
-     * this.node = node;
-     * }
+     * public void setNode(String node) { this.node = node; }
      * 
-     * public String getHtmlContent() {
-     * return htmlContent;
-     * }
+     * public String getHtmlContent() { return htmlContent; }
      * 
-     * public void setHtmlContent(String htmlContent) {
-     * this.htmlContent = htmlContent;
-     * }
+     * public void setHtmlContent(String htmlContent) { this.htmlContent =
+     * htmlContent; }
      */
 }

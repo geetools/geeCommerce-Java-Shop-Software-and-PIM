@@ -11,15 +11,15 @@ public class ProductIds {
      * @return ids
      */
     public static final <T extends ProductIdSupport> List<Id> toIdList(List<T> productIdObjects) {
-	List<Id> ids = new ArrayList<>();
+        List<Id> ids = new ArrayList<>();
 
-	if (productIdObjects == null || productIdObjects.size() == 0)
-	    return ids;
+        if (productIdObjects == null || productIdObjects.size() == 0)
+            return ids;
 
-	for (ProductIdSupport productIdObject : productIdObjects) {
-	    ids.add(productIdObject.getProductId());
-	}
+        for (ProductIdSupport productIdObject : productIdObjects) {
+            ids.add(productIdObject.getProductId());
+        }
 
-	return ids;
+        return ids;
     }
 }

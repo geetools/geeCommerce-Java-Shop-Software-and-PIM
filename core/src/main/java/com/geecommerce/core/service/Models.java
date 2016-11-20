@@ -1,11 +1,15 @@
 package com.geecommerce.core.service;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.geecommerce.core.reflect.Reflect;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.TypeConverter;
 import com.geecommerce.core.util.NullableConcurrentHashMap;
-
-import java.util.*;
 
 public class Models {
     private static final String CACHE_KEY_PRELOADABLE_MODELS = "preloadable-models";
@@ -13,7 +17,8 @@ public class Models {
     private static final Map<String, Set<Class<? extends Model>>> preloadableModelsCache = new NullableConcurrentHashMap<>();
     private static final Map<String, Class<? extends Model>> modelMappingCache = new NullableConcurrentHashMap<>();
 
-    public static final void populate(final Class<? extends Model> modelClass, final Model modelInstance, final Map<String, Object> values) {
+    public static final void populate(final Class<? extends Model> modelClass, final Model modelInstance,
+        final Map<String, Object> values) {
         if (modelClass == null || values == null || values.size() == 0)
             return;
 
@@ -32,9 +37,11 @@ public class Models {
 
             if (columnInfo != null && columnInfo.isAutoPopulate()) {
                 if (Annotations.isFieldAccessEnabled(modelClass)) {
-                    Reflect.setField(modelInstance, columnInfo.property(), TypeConverter.convert(columnInfo.type(), columnInfo.genericType(), values.get(key)));
+                    Reflect.setField(modelInstance, columnInfo.property(),
+                        TypeConverter.convert(columnInfo.type(), columnInfo.genericType(), values.get(key)));
                 } else {
-                    Reflect.invokeSetter(modelClass, modelInstance, columnInfo.property(), TypeConverter.convert(columnInfo.type(), columnInfo.genericType(), values.get(key)));
+                    Reflect.invokeSetter(modelClass, modelInstance, columnInfo.property(),
+                        TypeConverter.convert(columnInfo.type(), columnInfo.genericType(), values.get(key)));
                 }
             }
         }
@@ -123,7 +130,8 @@ public class Models {
             // First get all model types.
             // -----------------------------------------------------------------------
 
-            Set<Class<?>> types = Reflect.getTypesAnnotatedWith(com.geecommerce.core.service.annotation.Model.class, false);
+            Set<Class<?>> types = Reflect.getTypesAnnotatedWith(com.geecommerce.core.service.annotation.Model.class,
+                false);
 
             Class<T> foundModelType = null;
             int foundCount = 0;
@@ -234,7 +242,8 @@ public class Models {
             // -----------------------------------------------------------------------
 
             for (Class<?> modelClass : types) {
-                com.geecommerce.core.service.annotation.Model modelAnno = Reflect.getDeclaredAnnotation(modelClass, com.geecommerce.core.service.annotation.Model.class);
+                com.geecommerce.core.service.annotation.Model modelAnno = Reflect.getDeclaredAnnotation(modelClass,
+                    com.geecommerce.core.service.annotation.Model.class);
 
                 if (modelAnno == null)
                     continue;
@@ -274,7 +283,8 @@ public class Models {
         if (preloadableModels != null) {
             return preloadableModels;
         } else {
-            Set<Class<?>> types = Reflect.getTypesAnnotatedWith(com.geecommerce.core.service.annotation.Model.class, false);
+            Set<Class<?>> types = Reflect.getTypesAnnotatedWith(com.geecommerce.core.service.annotation.Model.class,
+                false);
 
             preloadableModels = new HashSet<Class<T>>();
 
@@ -284,14 +294,16 @@ public class Models {
                 if (modelInterface == null)
                     continue;
 
-                com.geecommerce.core.service.annotation.Model modelAnno = Reflect.getDeclaredAnnotation(modelClass, com.geecommerce.core.service.annotation.Model.class);
+                com.geecommerce.core.service.annotation.Model modelAnno = Reflect.getDeclaredAnnotation(modelClass,
+                    com.geecommerce.core.service.annotation.Model.class);
 
                 if (modelAnno.preload()) {
                     preloadableModels.add(modelInterface);
                 }
             }
 
-            Set<Class<T>> cachedPreloadableModels = (Set) preloadableModelsCache.put(CACHE_KEY_PRELOADABLE_MODELS, (Set) preloadableModels);
+            Set<Class<T>> cachedPreloadableModels = (Set) preloadableModelsCache.put(CACHE_KEY_PRELOADABLE_MODELS,
+                (Set) preloadableModels);
 
             if (cachedPreloadableModels != null)
                 preloadableModels = cachedPreloadableModels;

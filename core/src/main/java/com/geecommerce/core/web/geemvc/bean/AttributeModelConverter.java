@@ -36,13 +36,15 @@ public class AttributeModelConverter extends AbstractBeanConverter implements Be
     protected String ATTR_PREFIX = "attr:";
 
     @Override
-    public AttributeModelConverter bindProperty(AttributeSupport beanInstance, String expression, List<String> value, ConverterContext converterCtx) {
+    public AttributeModelConverter bindProperty(AttributeSupport beanInstance, String expression, List<String> value,
+        ConverterContext converterCtx) {
         super._bindProperty(beanInstance, expression, value);
         return this;
     }
 
     @Override
-    public AttributeModelConverter bindProperty(AttributeSupport beanInstance, String expression, String value, ConverterContext converterCtx) {
+    public AttributeModelConverter bindProperty(AttributeSupport beanInstance, String expression, String value,
+        ConverterContext converterCtx) {
         int dotPos = expression.lastIndexOf(Char.DOT);
         String propertyExpression = expression.substring(dotPos + 1);
 
@@ -84,13 +86,15 @@ public class AttributeModelConverter extends AbstractBeanConverter implements Be
     }
 
     @Override
-    public AttributeModelConverter bindProperties(List<String> values, String beanName, AttributeSupport beanInstance, ConverterContext converterCtx) {
+    public AttributeModelConverter bindProperties(List<String> values, String beanName, AttributeSupport beanInstance,
+        ConverterContext converterCtx) {
         super._bindProperties(values, beanName, beanInstance);
         return this;
     }
 
     @Override
-    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType, ConverterContext converterCtx) {
+    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType,
+        ConverterContext converterCtx) {
         AttributeSupport beanInstance = null;
 
         if (beanName != null && beanType != null) {
@@ -109,22 +113,26 @@ public class AttributeModelConverter extends AbstractBeanConverter implements Be
     }
 
     @Override
-    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType, int index, ConverterContext converterCtx) {
+    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType,
+        int index, ConverterContext converterCtx) {
         return (AttributeSupport) super._fromStrings(values, beanName, beanType, index);
     }
 
     @Override
-    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType, int index, String mapKey, ConverterContext converterCtx) {
+    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType,
+        int index, String mapKey, ConverterContext converterCtx) {
         return (AttributeSupport) super._fromStrings(values, beanName, beanType, index, mapKey);
     }
 
     @Override
-    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType, String mapKey, ConverterContext converterCtx) {
+    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType,
+        String mapKey, ConverterContext converterCtx) {
         return (AttributeSupport) super._fromStrings(values, beanName, beanType, mapKey);
     }
 
     @Override
-    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType, String mapKey, int index, ConverterContext converterCtx) {
+    public AttributeSupport fromStrings(List<String> values, String beanName, Class<AttributeSupport> beanType,
+        String mapKey, int index, ConverterContext converterCtx) {
         return (AttributeSupport) super._fromStrings(values, beanName, beanType, mapKey, index);
     }
 

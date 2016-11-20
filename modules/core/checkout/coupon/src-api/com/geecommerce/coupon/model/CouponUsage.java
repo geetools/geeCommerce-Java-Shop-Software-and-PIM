@@ -1,9 +1,9 @@
 package com.geecommerce.coupon.model;
 
+import java.util.Date;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Date;
 
 public interface CouponUsage extends Model {
 
@@ -24,9 +24,9 @@ public interface CouponUsage extends Model {
     public CouponUsage setEmail(String email);
 
     static final class Column {
-	public static final String CUSTOMER_ID = "customer_id";
-	public static final String EMAIL = "email";
-	public static final String USAGE_DATE = "u_date";
-	public static final String ORDER_ID = "order_id";
+        public static final String CUSTOMER_ID = "customer_id";
+        public static final String EMAIL = "email";
+        public static final String USAGE_DATE = "u_date";
+        public static final String ORDER_ID = "order_id";
     }
 }

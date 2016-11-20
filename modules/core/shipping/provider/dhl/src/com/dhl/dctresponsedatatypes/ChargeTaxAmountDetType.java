@@ -8,6 +8,7 @@
 package com.dhl.dctresponsedatatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ChargeTaxAmountDetType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ChargeTaxAmountDetType">
@@ -84,7 +86,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public BigDecimal getTaxTypeRate() {
-	return taxTypeRate;
+        return taxTypeRate;
     }
 
     /**
@@ -95,7 +97,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public void setTaxTypeRate(BigDecimal value) {
-	this.taxTypeRate = value;
+        this.taxTypeRate = value;
     }
 
     /**
@@ -105,7 +107,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public String getTaxTypeCode() {
-	return taxTypeCode;
+        return taxTypeCode;
     }
 
     /**
@@ -116,7 +118,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public void setTaxTypeCode(String value) {
-	this.taxTypeCode = value;
+        this.taxTypeCode = value;
     }
 
     /**
@@ -126,7 +128,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public BigDecimal getTaxAmount() {
-	return taxAmount;
+        return taxAmount;
     }
 
     /**
@@ -137,7 +139,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public void setTaxAmount(BigDecimal value) {
-	this.taxAmount = value;
+        this.taxAmount = value;
     }
 
     /**
@@ -147,7 +149,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public BigDecimal getBaseAmount() {
-	return baseAmount;
+        return baseAmount;
     }
 
     /**
@@ -158,7 +160,7 @@ public class ChargeTaxAmountDetType {
      * 
      */
     public void setBaseAmount(BigDecimal value) {
-	this.baseAmount = value;
+        this.baseAmount = value;
     }
 
 }

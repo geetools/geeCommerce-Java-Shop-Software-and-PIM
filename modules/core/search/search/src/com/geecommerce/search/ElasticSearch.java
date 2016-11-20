@@ -20,7 +20,8 @@ public enum ElasticSearch // TODO com.geecommerce.catalog.search.ElasticSearch
     Client client = null;
 
     ElasticSearch() {
-        Settings settings = ImmutableSettings.settingsBuilder().put("node.client", true).classLoader(Settings.class.getClassLoader()).build();
+        Settings settings = ImmutableSettings.settingsBuilder().put("node.client", true)
+            .classLoader(Settings.class.getClassLoader()).build();
 
         String nodesCSV = MerchantConfig.GET.val(MerchantConfig.ELASTICSEARCH_NODES);
 
@@ -47,7 +48,8 @@ public enum ElasticSearch // TODO com.geecommerce.catalog.search.ElasticSearch
         } else {
             System.out.println("Connection to: 127.0.0.1:9300");
 
-            client = new TransportClient(settings).addTransportAddress(new InetSocketTransportAddress("127.0.0.1", 9300));
+            client = new TransportClient(settings)
+                .addTransportAddress(new InetSocketTransportAddress("127.0.0.1", 9300));
         }
     }
 

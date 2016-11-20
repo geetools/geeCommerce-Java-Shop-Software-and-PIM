@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for DestSvcAreaType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="DestSvcAreaType">
@@ -62,7 +63,7 @@ public class DestSvcAreaType {
      * 
      */
     public String getFacilityCode() {
-	return facilityCode;
+        return facilityCode;
     }
 
     /**
@@ -73,7 +74,7 @@ public class DestSvcAreaType {
      * 
      */
     public void setFacilityCode(String value) {
-	this.facilityCode = value;
+        this.facilityCode = value;
     }
 
     /**
@@ -83,7 +84,7 @@ public class DestSvcAreaType {
      * 
      */
     public String getServiceAreaCode() {
-	return serviceAreaCode;
+        return serviceAreaCode;
     }
 
     /**
@@ -94,7 +95,7 @@ public class DestSvcAreaType {
      * 
      */
     public void setServiceAreaCode(String value) {
-	this.serviceAreaCode = value;
+        this.serviceAreaCode = value;
     }
 
 }

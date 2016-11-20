@@ -21,7 +21,8 @@ public class UrlRewriteFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+        throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String path = httpRequest.getRequestURI();
 
@@ -30,7 +31,7 @@ public class UrlRewriteFilter implements Filter {
         app.setOriginalURI(path);
         app.setOriginalQueryString(httpRequest.getQueryString());
 
-        UrlRewriteHelper helper = app.getHelper(UrlRewriteHelper.class);
+        UrlRewriteHelper helper = app.helper(UrlRewriteHelper.class);
 
         if (!helper.isExcludedFromURLRewriting(path)) {
             // See if URL-rewrite has been initialized from DB.

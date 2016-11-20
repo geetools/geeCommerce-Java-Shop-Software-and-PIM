@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for OriginServiceArea complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="OriginServiceArea">
@@ -53,7 +54,7 @@ public class OriginServiceArea {
      * 
      */
     public String getServiceAreaCode() {
-	return serviceAreaCode;
+        return serviceAreaCode;
     }
 
     /**
@@ -64,7 +65,7 @@ public class OriginServiceArea {
      * 
      */
     public void setServiceAreaCode(String value) {
-	this.serviceAreaCode = value;
+        this.serviceAreaCode = value;
     }
 
     /**
@@ -74,7 +75,7 @@ public class OriginServiceArea {
      * 
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
@@ -85,7 +86,7 @@ public class OriginServiceArea {
      * 
      */
     public void setDescription(String value) {
-	this.description = value;
+        this.description = value;
     }
 
     /**
@@ -95,7 +96,7 @@ public class OriginServiceArea {
      * 
      */
     public String getOutboundSortCode() {
-	return outboundSortCode;
+        return outboundSortCode;
     }
 
     /**
@@ -106,7 +107,7 @@ public class OriginServiceArea {
      * 
      */
     public void setOutboundSortCode(String value) {
-	this.outboundSortCode = value;
+        this.outboundSortCode = value;
     }
 
 }

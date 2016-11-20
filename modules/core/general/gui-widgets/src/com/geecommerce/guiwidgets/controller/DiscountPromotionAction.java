@@ -68,9 +68,10 @@ public class DiscountPromotionAction extends BaseActionBean {
     private UserForm form = null;
 
     @Inject
-    public DiscountPromotionAction(NewsSubscriberService newsSubscriberService, CouponService couponService, CouponCodes couponCodes, DiscountPromotions discountPromotions,
-        MailerService mailerService, CustomerService customerService,
-        DiscountPromotionSubscriptions discountPromotionSubscriptions, DiscountPromotionService discountPromotionService) {
+    public DiscountPromotionAction(NewsSubscriberService newsSubscriberService, CouponService couponService,
+        CouponCodes couponCodes, DiscountPromotions discountPromotions, MailerService mailerService,
+        CustomerService customerService, DiscountPromotionSubscriptions discountPromotionSubscriptions,
+        DiscountPromotionService discountPromotionService) {
         this.newsSubscriberService = newsSubscriberService;
         this.couponService = couponService;
         this.couponCodes = couponCodes;
@@ -127,14 +128,17 @@ public class DiscountPromotionAction extends BaseActionBean {
                 this.discountPromotion = discountPromotion;
             }
         } else {
-            List<DiscountPromotion> discountPromotions = discountPromotionService.getDiscountPromotionByKey(promotionKey);
+            List<DiscountPromotion> discountPromotions = discountPromotionService
+                .getDiscountPromotionByKey(promotionKey);
 
             if (discountPromotions != null && discountPromotions.size() != 0) {
 
                 DiscountPromotion discountPromotion = null;
 
                 Optional<DiscountPromotion> optional = discountPromotions.stream()
-                    .filter(x -> (x.getShowFrom() == null || x.getShowFrom().before(new Date())) && (x.getShowTo() == null || x.getShowTo().after(new Date()))).findFirst();
+                    .filter(x -> (x.getShowFrom() == null || x.getShowFrom().before(new Date()))
+                        && (x.getShowTo() == null || x.getShowTo().after(new Date())))
+                    .findFirst();
 
                 if (optional.isPresent())
                     discountPromotion = optional.get();
@@ -148,7 +152,8 @@ public class DiscountPromotionAction extends BaseActionBean {
                 String promotionIdStr = discountPromotion.getId().toString();
 
                 if (receivedCodeStr == null || showPromoAnyway) {
-                    if (discountPromotion.getShowForAll() != null && discountPromotion.getShowForAll() || couponService.couponCouldBeUsedCustomerWithGroups(discountPromotion.getCoupon())
+                    if (discountPromotion.getShowForAll() != null && discountPromotion.getShowForAll()
+                        || couponService.couponCouldBeUsedCustomerWithGroups(discountPromotion.getCoupon())
                         || showPromoAnyway) {
                         Integer showedTimes = getShowedTimes(showedTimesStr);
                         Date showedLastTime = getShowedLastTime(showedLastTimeStr);
@@ -158,20 +163,25 @@ public class DiscountPromotionAction extends BaseActionBean {
                             showedLastTime = null;
                         }
 
-                        if (showedTimes == null || discountPromotion.getShowTimes() == null || showedTimes < discountPromotion.getShowTimes() || showPromoAnyway) {
+                        if (showedTimes == null || discountPromotion.getShowTimes() == null
+                            || showedTimes < discountPromotion.getShowTimes() || showPromoAnyway) {
 
                             Date now = new Date();
                             if (showedLastTime == null || discountPromotion.getRerunAfter() == null
-                                || new Period(new DateTime(showedLastTime), new DateTime(now)).getHours() > discountPromotion.getRerunAfter() || showPromoAnyway) {
+                                || new Period(new DateTime(showedLastTime), new DateTime(now))
+                                    .getHours() > discountPromotion.getRerunAfter()
+                                || showPromoAnyway) {
                                 this.discountPromotion = discountPromotion;
 
-                                app.cookieSet(COOKIE_DISPLAYED_LAST_TIME + promotionIdStr, simpleDateFormat.format(now), (60 * 60 * 24 * 365 * 2));
+                                app.cookieSet(COOKIE_DISPLAYED_LAST_TIME + promotionIdStr, simpleDateFormat.format(now),
+                                    (60 * 60 * 24 * 365 * 2));
                                 if (showedTimes == null)
                                     showedTimes = 1;
                                 else {
                                     showedTimes += 1;
                                 }
-                                app.cookieSet(COOKIE_DISPLAYED_COUNT + promotionIdStr, showedTimes, (60 * 60 * 24 * 365 * 2));
+                                app.cookieSet(COOKIE_DISPLAYED_COUNT + promotionIdStr, showedTimes,
+                                    (60 * 60 * 24 * 365 * 2));
                             }
                         }
                     }
@@ -195,7 +205,8 @@ public class DiscountPromotionAction extends BaseActionBean {
             return new ErrorResolution(404);
 
         Date nowDate = new Date();
-        if (discountPromotion.getShowFrom() != null && nowDate.before(discountPromotion.getShowFrom()) || discountPromotion.getShowTo() != null && nowDate.after(discountPromotion.getShowTo()))
+        if (discountPromotion.getShowFrom() != null && nowDate.before(discountPromotion.getShowFrom())
+            || discountPromotion.getShowTo() != null && nowDate.after(discountPromotion.getShowTo()))
             return new ErrorResolution(404);
 
         return view("discount_promotion/special_form");
@@ -207,15 +218,16 @@ public class DiscountPromotionAction extends BaseActionBean {
         discountPromotion = discountPromotions.findById(DiscountPromotion.class, getId());
 
         if (discountPromotion == null) {
-            errorMessage = app
-                .message("Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
+            errorMessage = app.message(
+                "Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
             return view("discount_promotion/special_result");
         }
 
         Date nowDate = new Date();
-        if (discountPromotion.getShowFrom() != null && nowDate.before(discountPromotion.getShowFrom()) || discountPromotion.getShowTo() != null && nowDate.after(discountPromotion.getShowTo())) {
-            errorMessage = app
-                .message("Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
+        if (discountPromotion.getShowFrom() != null && nowDate.before(discountPromotion.getShowFrom())
+            || discountPromotion.getShowTo() != null && nowDate.after(discountPromotion.getShowTo())) {
+            errorMessage = app.message(
+                "Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
             return view("discount_promotion/special_result");
         }
 
@@ -226,8 +238,8 @@ public class DiscountPromotionAction extends BaseActionBean {
         if (!couponService.couponCouldBeUsedCustomerWithGroups(discountPromotion.getCoupon())) {
             Customer customer = customerService.getCustomer(userForm.getEmail());
             if (customer != null) {
-                errorMessage = app
-                    .message("Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
+                errorMessage = app.message(
+                    "Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
                 return view("discount_promotion/special_result");
             }
         }
@@ -236,8 +248,8 @@ public class DiscountPromotionAction extends BaseActionBean {
         // check there no codes exists
         CouponCode couponCode = couponCodes.thatBelongTo(coupon, userForm.getEmail());
         if (couponCode != null) {
-            errorMessage = app
-                .message("Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
+            errorMessage = app.message(
+                "Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje.");
             return view("discount_promotion/special_result");
         }
 
@@ -258,7 +270,7 @@ public class DiscountPromotionAction extends BaseActionBean {
 
         app.cookieSet(COOKIE_RECEIVED_CODE + discountPromotion.getId(), true, (60 * 60 * 24 * 365 * 2));
 
-        DiscountPromotionSubscription subscription = app.getModel(DiscountPromotionSubscription.class);
+        DiscountPromotionSubscription subscription = app.model(DiscountPromotionSubscription.class);
         subscription.setDiscountPromotionId(discountPromotion.getId());
         subscription.setEmail(userForm.getEmail());
         subscription.setCouponCode(couponCode.getCode());
@@ -266,7 +278,8 @@ public class DiscountPromotionAction extends BaseActionBean {
         subscription.setGiftId(Id.parseId(userForm.getGift()));
 
         discountPromotionSubscriptions.add(subscription);
-        ActionGift actionGift = discountPromotion.getGifts().stream().filter(g -> g.getId().toString().equals(userForm.getGift())).findFirst().get();
+        ActionGift actionGift = discountPromotion.getGifts().stream()
+            .filter(g -> g.getId().toString().equals(userForm.getGift())).findFirst().get();
 
         String gift = actionGift.getName().toString();
 
@@ -308,8 +321,8 @@ public class DiscountPromotionAction extends BaseActionBean {
             Customer customer = customerService.getCustomer(email);
             if (customer != null) {
                 resultMap.put("result", "error");
-                resultMap.put("message",
-                    app.message("Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje."));
+                resultMap.put("message", app.message(
+                    "Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje."));
                 return json(Json.toJson(resultMap));
             }
         }
@@ -319,8 +332,8 @@ public class DiscountPromotionAction extends BaseActionBean {
         CouponCode couponCode = couponCodes.thatBelongTo(coupon, email);
         if (couponCode != null) {
             resultMap.put("result", "error");
-            resultMap.put("message",
-                app.message("Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje."));
+            resultMap.put("message", app.message(
+                "Zdá se, že Váš e-mail je již v naší databázi. Tato akce je pouze pro nově registrované, ale nezoufejte, e-mail s jinou speciální akcí pro Vás se právě připravuje."));
             return json(Json.toJson(resultMap));
         }
         // create coupon code
@@ -339,7 +352,7 @@ public class DiscountPromotionAction extends BaseActionBean {
         }
 
         // Create subscription
-        DiscountPromotionSubscription subscription = app.getModel(DiscountPromotionSubscription.class);
+        DiscountPromotionSubscription subscription = app.model(DiscountPromotionSubscription.class);
         subscription.setDiscountPromotionId(discountPromotion.getId());
         subscription.setEmail(email);
         subscription.setCouponCode(couponCode.getCode());

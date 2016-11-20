@@ -32,7 +32,8 @@ public class Bootstrapper {
 
     private static final Map<String, LocatedBootstrap[]> cache = new NullableConcurrentHashMap<>();
 
-    public static final void run(HttpServletRequest request, HttpServletResponse response) throws InstantiationException, IllegalAccessException {
+    public static final void run(HttpServletRequest request, HttpServletResponse response)
+        throws InstantiationException, IllegalAccessException {
         long start = System.currentTimeMillis();
 
         LocatedBootstrap[] bootstrapTypes = locateBootstrapTypes();
@@ -51,23 +52,27 @@ public class Bootstrapper {
             long startBootstrap = System.currentTimeMillis();
 
             if (log.isTraceEnabled()) {
-                log.trace("Attempting to bootstrap class '" + locatedBootstrap.bootstrapableClass.getName() + "' with order number #" + locatedBootstrap.bootstrapAnnotation.order() + ".");
+                log.trace("Attempting to bootstrap class '" + locatedBootstrap.bootstrapableClass.getName()
+                    + "' with order number #" + locatedBootstrap.bootstrapAnnotation.order() + ".");
             }
 
             try {
-                AbstractBootstrap bootstrap = (AbstractBootstrap) injector.getInstance(locatedBootstrap.bootstrapableClass);
+                AbstractBootstrap bootstrap = (AbstractBootstrap) injector
+                    .getInstance(locatedBootstrap.bootstrapableClass);
 
                 bootstrap.setRequest(request);
                 bootstrap.setResponse(response);
                 bootstrap.init();
             } catch (Throwable t) {
-                throw new RuntimeException("Bootstrap-class '" + locatedBootstrap.getClass().getName() + "' caused a FATAL error", t);
+                throw new RuntimeException(
+                    "Bootstrap-class '" + locatedBootstrap.getClass().getName() + "' caused a FATAL error", t);
             }
 
             long endBootstrap = System.currentTimeMillis();
 
             if (log.isTraceEnabled()) {
-                log.trace("Processed bootstrap class '" + locatedBootstrap.bootstrapableClass.getName() + "' in " + (endBootstrap - startBootstrap) + "ms.");
+                log.trace("Processed bootstrap class '" + locatedBootstrap.bootstrapableClass.getName() + "' in "
+                    + (endBootstrap - startBootstrap) + "ms.");
             }
 
         }
@@ -115,7 +120,8 @@ public class Bootstrapper {
                     if (isUnitTest != null && isUnitTest && !includeInUnitTest)
                         continue;
 
-                    bootstrapTypes.add(new LocatedBootstrap((Bootstrap) declaredAnnotation, (Class<AbstractBootstrap>) annotatedType));
+                    bootstrapTypes.add(new LocatedBootstrap((Bootstrap) declaredAnnotation,
+                        (Class<AbstractBootstrap>) annotatedType));
                 }
             }
 
@@ -125,14 +131,16 @@ public class Bootstrapper {
                 Collections.sort(bootstrapTypes, new Comparator<LocatedBootstrap>() {
                     @Override
                     public int compare(LocatedBootstrap o1, LocatedBootstrap o2) {
-                        return (o1.bootstrapAnnotation.order() < o2.bootstrapAnnotation.order() ? -1 : (o1.bootstrapAnnotation.order() > o2.bootstrapAnnotation.order() ? 1 : 0));
+                        return (o1.bootstrapAnnotation.order() < o2.bootstrapAnnotation.order() ? -1
+                            : (o1.bootstrapAnnotation.order() > o2.bootstrapAnnotation.order() ? 1 : 0));
                     }
                 });
 
                 locatedBootstraps = bootstrapTypes.toArray(new LocatedBootstrap[bootstrapTypes.size()]);
             }
 
-            LocatedBootstrap[] cachedLocatedBootstraps = cache.putIfAbsent(CACHE_KEY, locatedBootstraps == null ? new LocatedBootstrap[0] : locatedBootstraps);
+            LocatedBootstrap[] cachedLocatedBootstraps = cache.putIfAbsent(CACHE_KEY,
+                locatedBootstraps == null ? new LocatedBootstrap[0] : locatedBootstraps);
 
             if (cachedLocatedBootstraps != null)
                 locatedBootstraps = cachedLocatedBootstraps;

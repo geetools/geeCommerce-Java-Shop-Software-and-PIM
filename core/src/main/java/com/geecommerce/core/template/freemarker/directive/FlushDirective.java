@@ -14,8 +14,9 @@ import freemarker.template.TemplateModel;
 public class FlushDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         env.getOut().flush();
-        App.get().getServletResponse().getOutputStream().flush();
+        App.get().servletResponse().getOutputStream().flush();
     }
 }

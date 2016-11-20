@@ -92,7 +92,8 @@ public class AttributeResource extends AbstractResource {
 
         // We do a query instead of attribute.getOptions() so that we also get
         // the total count.
-        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter.getParams(), queryOptions(filter));
+        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter.getParams(),
+            queryOptions(filter));
 
         return ok(attributeOptions);
     }
@@ -100,22 +101,25 @@ public class AttributeResource extends AbstractResource {
     @GET
     @Path("{id}/options/map")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getAttributeOptions(@PathParam("id") Id attributeId, @QueryParam("term") String term, @QueryParam("lang") String language, @QueryParam("limit") Integer limit) {
+    public Response getAttributeOptions(@PathParam("id") Id attributeId, @QueryParam("term") String term,
+        @QueryParam("lang") String language, @QueryParam("limit") Integer limit) {
         // Check if attribute exists.
         checked(service.get(Attribute.class, attributeId));
 
         Map<String, Object> filter = new HashMap<>();
         filter.put(AttributeOption.Col.ATTRIBUTE_ID, attributeId);
-        MongoQueries.addCtxObjFilter(filter, AttributeOption.Col.LABEL, Pattern.compile("^" + term.replaceAll("/", "\\/"), Pattern.CASE_INSENSITIVE), language);
+        MongoQueries.addCtxObjFilter(filter, AttributeOption.Col.LABEL,
+            Pattern.compile("^" + term.replaceAll("/", "\\/"), Pattern.CASE_INSENSITIVE), language);
 
         // filter.put("attr_id", attributeId);
         // filter.put("label.val", "/^" + term.replaceAll("/", "\\/") + "/");
 
-        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter, limit == null ? null : QueryOptions.builder().limitTo(limit).build());
+        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter,
+            limit == null ? null : QueryOptions.builder().limitTo(limit).build());
 
         List<Label> result = new ArrayList<>();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         for (AttributeOption attributeOption : attributeOptions) {
             if (attributeOption.getLabel() != null && attributeOption.getLabel().hasEntryFor(appCtx.getLanguage())) {
@@ -218,7 +222,8 @@ public class AttributeResource extends AbstractResource {
         List<AttributeOption> options = attribute.getOptions();
 
         if (options.size() > 1000) {
-            throwInternalServerError("Cannot delete an attribute with more than 1000 options. Consult the administrator.");
+            throwInternalServerError(
+                "Cannot delete an attribute with more than 1000 options. Consult the administrator.");
         }
 
         for (AttributeOption attributeOption : options) {
@@ -257,7 +262,8 @@ public class AttributeResource extends AbstractResource {
 
         if (attributeOptions != null && attributeOptions.size() > 0) {
             for (AttributeOption attributeOption : attributeOptions) {
-                if (attributeOption != null && attributeOption.getLabel() != null && attributeOption.getLabel().isValid()) {
+                if (attributeOption != null && attributeOption.getLabel() != null
+                    && attributeOption.getLabel().isValid()) {
                     service.create(attributeOption);
                 }
             }
@@ -303,7 +309,8 @@ public class AttributeResource extends AbstractResource {
             filter = new Filter();
         }
 
-        List<AttributeInputCondition> inputConditions = service.get(AttributeInputCondition.class, filter.getParams(), queryOptions(filter));
+        List<AttributeInputCondition> inputConditions = service.get(AttributeInputCondition.class, filter.getParams(),
+            queryOptions(filter));
 
         System.out.println("getAttributeInputConditions1a :: " + (System.currentTimeMillis() - start));
 
@@ -334,7 +341,8 @@ public class AttributeResource extends AbstractResource {
         // Make sure that we get the options for the right attribute.
         filter.append(AttributeInputCondition.Col.SHOW_ATTRIBUTE_ID, attributeId);
 
-        List<AttributeInputCondition> inputConditions = service.get(AttributeInputCondition.class, filter.getParams(), queryOptions(filter));
+        List<AttributeInputCondition> inputConditions = service.get(AttributeInputCondition.class, filter.getParams(),
+            queryOptions(filter));
 
         System.out.println("getAttributeInputConditions2 :: " + (System.currentTimeMillis() - start));
 
@@ -344,12 +352,14 @@ public class AttributeResource extends AbstractResource {
     @POST
     @Path("{id}/input-conditions")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void createAttributeInputConditions(@PathParam("id") Id id, @ModelParam List<AttributeInputCondition> attributeInputConditions) {
+    public void createAttributeInputConditions(@PathParam("id") Id id,
+        @ModelParam List<AttributeInputCondition> attributeInputConditions) {
         checked(service.get(Attribute.class, id));
 
         if (attributeInputConditions != null && attributeInputConditions.size() > 0) {
             for (AttributeInputCondition attributeInputCondition : attributeInputConditions) {
-                if (attributeInputCondition != null && attributeInputCondition.getWhenAttributeId() != null && attributeInputCondition.getShowAttributeId() != null) {
+                if (attributeInputCondition != null && attributeInputCondition.getWhenAttributeId() != null
+                    && attributeInputCondition.getShowAttributeId() != null) {
                     service.create(attributeInputCondition);
                 }
             }
@@ -376,7 +386,8 @@ public class AttributeResource extends AbstractResource {
 
     @DELETE
     @Path("{id}/input-conditions/{inputConditionId}")
-    public void removeAttributeInputCondition(@PathParam("id") Id id, @PathParam("inputConditionId") Id inputConditionId) {
+    public void removeAttributeInputCondition(@PathParam("id") Id id,
+        @PathParam("inputConditionId") Id inputConditionId) {
         Attribute a = checked(service.get(Attribute.class, id));
         AttributeInputCondition aic = checked(service.get(AttributeInputCondition.class, inputConditionId));
 
@@ -388,7 +399,8 @@ public class AttributeResource extends AbstractResource {
     @GET
     @Path("{id}/suggestions/{lang}/{query}/{collection}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getAttributeSuggestions(@PathParam("id") Id id, @PathParam("lang") String lang, @PathParam("query") String query, @PathParam("collection") String collection)
+    public Response getAttributeSuggestions(@PathParam("id") Id id, @PathParam("lang") String lang,
+        @PathParam("query") String query, @PathParam("collection") String collection)
         throws ClassNotFoundException {
         List<String> suggestions = attrService.getSuggestions(id, collection, lang, query);
         if (suggestions.size() > 20)

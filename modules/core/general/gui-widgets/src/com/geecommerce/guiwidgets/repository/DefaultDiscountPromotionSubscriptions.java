@@ -10,7 +10,8 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.guiwidgets.model.DiscountPromotionSubscription;
 
 @Repository
-public class DefaultDiscountPromotionSubscriptions extends AbstractRepository implements DiscountPromotionSubscriptions {
+public class DefaultDiscountPromotionSubscriptions extends AbstractRepository
+    implements DiscountPromotionSubscriptions {
     @Override
     public List<DiscountPromotionSubscription> subscribedOnPromotion(Id discountPromotionId) {
         Map<String, Object> filter = new HashMap<>();

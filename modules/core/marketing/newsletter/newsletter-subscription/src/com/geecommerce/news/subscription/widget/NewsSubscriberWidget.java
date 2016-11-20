@@ -29,7 +29,8 @@ public class NewsSubscriberWidget extends AbstractWidgetController implements Wi
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
 
         String template = widgetCtx.getParam(PARAM_TEMPLATE);
 

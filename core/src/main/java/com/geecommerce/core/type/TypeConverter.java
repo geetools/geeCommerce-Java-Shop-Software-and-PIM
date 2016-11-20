@@ -198,7 +198,8 @@ public class TypeConverter {
 
             return Integer.parseInt((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Integer.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + Integer.class.getName());
         }
     }
 
@@ -218,7 +219,8 @@ public class TypeConverter {
 
             return Long.parseLong((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Long.class.getName());
+            throw new IllegalArgumentException(
+                "Unable to convert object of type " + object.getClass().getName() + " to " + Long.class.getName());
         }
     }
 
@@ -238,7 +240,8 @@ public class TypeConverter {
 
             return Double.parseDouble(((String) object).replace(',', '.'));
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Double.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + Double.class.getName());
         }
     }
 
@@ -258,7 +261,8 @@ public class TypeConverter {
 
             return Float.parseFloat(((String) object).replace(',', '.'));
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Float.class.getName());
+            throw new IllegalArgumentException(
+                "Unable to convert object of type " + object.getClass().getName() + " to " + Float.class.getName());
         }
     }
 
@@ -278,7 +282,8 @@ public class TypeConverter {
 
             return Short.parseShort((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Short.class.getName());
+            throw new IllegalArgumentException(
+                "Unable to convert object of type " + object.getClass().getName() + " to " + Short.class.getName());
         }
     }
 
@@ -301,7 +306,8 @@ public class TypeConverter {
         } else if (object instanceof String) {
             return Boolean.parseBoolean((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Boolean.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + Boolean.class.getName());
         }
     }
 
@@ -318,7 +324,8 @@ public class TypeConverter {
         } else if (object instanceof String) {
             return new BigDecimal(((String) object).replace(',', '.'));
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + BigDecimal.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + BigDecimal.class.getName());
         }
     }
 
@@ -335,7 +342,8 @@ public class TypeConverter {
         } else if (object instanceof String) {
             return new BigInteger((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + BigInteger.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + BigInteger.class.getName());
         }
     }
 
@@ -352,7 +360,8 @@ public class TypeConverter {
 
             return (char) n;
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Character.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + Character.class.getName());
         }
     }
 
@@ -371,7 +380,8 @@ public class TypeConverter {
                 return (E) m.invoke(null, (String) object);
             } catch (NoSuchMethodException e) {
                 return Enum.valueOf(enumType, (String) object);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | SecurityException e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
         } else if (object instanceof Integer) {
@@ -387,13 +397,15 @@ public class TypeConverter {
                         return constant;
                     }
                 }
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | SecurityException e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
 
             return null;
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + UUID.class.getName());
+            throw new IllegalArgumentException(
+                "Unable to convert object of type " + object.getClass().getName() + " to " + UUID.class.getName());
         }
     }
 
@@ -444,7 +456,8 @@ public class TypeConverter {
         } else if (object instanceof String) {
             return UUID.fromString((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + UUID.class.getName());
+            throw new IllegalArgumentException(
+                "Unable to convert object of type " + object.getClass().getName() + " to " + UUID.class.getName());
         }
     }
 
@@ -460,32 +473,35 @@ public class TypeConverter {
         ContextObject<T> co = null;
 
         // Value given is not a context object.
-//        if (!(object instanceof List && !((List) object).isEmpty() && Map.class.isAssignableFrom(((List) object).get(0).getClass()))) {
-//            if (object instanceof Collection) {
-//                if (containsIdList) {
-//                    co = (ContextObject<T>) ContextObjects.global(asIdList(object));
-//                } else {
-//                    co = (ContextObject<T>) ContextObjects.global(asList(object));
-//                }
-//            } else if (object instanceof Map) {
-//                co = (ContextObject<T>) ContextObjects.global(asMap(object));
-//            } else {
-//                co = (ContextObject<T>) ContextObjects.global(asRaw(object));
-//            }
-//
-//            System.out.println("--------- CONVETED PLAIN VALUE: " + object + " - to contextobject - " + co);
-//
-//            return co;
-//        }
+        // if (!(object instanceof List && !((List) object).isEmpty() &&
+        // Map.class.isAssignableFrom(((List) object).get(0).getClass()))) {
+        // if (object instanceof Collection) {
+        // if (containsIdList) {
+        // co = (ContextObject<T>) ContextObjects.global(asIdList(object));
+        // } else {
+        // co = (ContextObject<T>) ContextObjects.global(asList(object));
+        // }
+        // } else if (object instanceof Map) {
+        // co = (ContextObject<T>) ContextObjects.global(asMap(object));
+        // } else {
+        // co = (ContextObject<T>) ContextObjects.global(asRaw(object));
+        // }
+        //
+        // System.out.println("--------- CONVETED PLAIN VALUE: " + object + " -
+        // to contextobject - " + co);
+        //
+        // return co;
+        // }
 
         if (object instanceof List) {
             List<Map<String, Object>> listOfMaps = (List<Map<String, Object>>) object;
 
             if (listOfMaps != null && listOfMaps.size() > 0) {
                 // TODO: Temporary hack for backwards compatibility!!
-//                if (listOfMaps.get(0) != null && listOfMaps.get(0) instanceof List) {
-//                    listOfMaps = (List<Map<String, Object>>) listOfMaps.get(0);
-//                }
+                // if (listOfMaps.get(0) != null && listOfMaps.get(0) instanceof
+                // List) {
+                // listOfMaps = (List<Map<String, Object>>) listOfMaps.get(0);
+                // }
 
                 co = new ContextObject<>();
 
@@ -509,7 +525,8 @@ public class TypeConverter {
                             returnMap.put(ContextObject.VIEW, asLong(innerMap.get(ContextObject.VIEW)));
 
                         if (innerMap.get(ContextObject.REQUEST_CONTEXT) != null)
-                            returnMap.put(ContextObject.REQUEST_CONTEXT, asId(innerMap.get(ContextObject.REQUEST_CONTEXT)));
+                            returnMap.put(ContextObject.REQUEST_CONTEXT,
+                                asId(innerMap.get(ContextObject.REQUEST_CONTEXT)));
 
                         if (innerMap.get(ContextObject.VALUE) != null) {
                             Object val = innerMap.get(ContextObject.VALUE);
@@ -564,7 +581,8 @@ public class TypeConverter {
         } else if (object instanceof String) {
             return (String) object;
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + String.class.getName());
+            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName()
+                + " to " + String.class.getName());
         }
     }
 
@@ -586,7 +604,8 @@ public class TypeConverter {
 
             return DateTimes.parseDate((String) object);
         } else {
-            throw new IllegalArgumentException("Unable to convert object of type " + object.getClass().getName() + " to " + Date.class.getName());
+            throw new IllegalArgumentException(
+                "Unable to convert object of type " + object.getClass().getName() + " to " + Date.class.getName());
         }
     }
 

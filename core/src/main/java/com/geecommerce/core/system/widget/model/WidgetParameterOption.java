@@ -1,9 +1,10 @@
 package com.geecommerce.core.system.widget.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 public interface WidgetParameterOption extends MultiContextModel {
 
@@ -29,9 +30,9 @@ public interface WidgetParameterOption extends MultiContextModel {
     public WidgetParameter getWidgetParameter();
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String WIDGET_PARAMETER_ID = "wp_id";
-	public static final String LABEL = "label";
-	public static final String VALUE = "val";
+        public static final String ID = "_id";
+        public static final String WIDGET_PARAMETER_ID = "wp_id";
+        public static final String LABEL = "label";
+        public static final String VALUE = "val";
     }
 }

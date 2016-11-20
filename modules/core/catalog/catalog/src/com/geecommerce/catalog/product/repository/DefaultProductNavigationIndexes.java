@@ -44,7 +44,8 @@ public class DefaultProductNavigationIndexes extends AbstractRepository implemen
             filter.put(ProductNavigationIndex.Col.VISIBLE, true);
 
         return find(ProductNavigationIndex.class, filter,
-            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL).sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION).build());
+            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL)
+                .sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION).build());
     }
 
     @Override
@@ -78,7 +79,8 @@ public class DefaultProductNavigationIndexes extends AbstractRepository implemen
             filter.put(ProductNavigationIndex.Col.VISIBLE, true);
 
         return find(ProductNavigationIndex.class, filter,
-            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL).sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION)
+            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL)
+                .sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION)
                 .sortBy(ProductNavigationIndex.Col.PARENT_NAVIGATION_POSITION).build());
     }
 
@@ -94,7 +96,8 @@ public class DefaultProductNavigationIndexes extends AbstractRepository implemen
         filter.put(ProductNavigationIndex.Col.VISIBLE, true);
 
         return find(ProductNavigationIndex.class, filter,
-            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL).sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION).build());
+            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL)
+                .sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION).build());
     }
 
     @Override
@@ -108,6 +111,7 @@ public class DefaultProductNavigationIndexes extends AbstractRepository implemen
         filter.put(ProductNavigationIndex.Col.VISIBLE, true);
 
         return find(ProductNavigationIndex.class, filter,
-            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL).sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION).build());
+            QueryOptions.builder().sortByDesc(ProductNavigationIndex.Col.NAVIGATION_LEVEL)
+                .sortBy(ProductNavigationIndex.Col.NAVIGATION_POSITION).build());
     }
 }

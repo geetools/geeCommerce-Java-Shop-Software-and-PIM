@@ -4,10 +4,10 @@ import com.geemvc.validation.annotation.Check;
 
 public class CustomerReviewForm {
 
-    @Check(required = true, on = {"/add/{id}", "/process-edit/{id}"})
+    @Check(required = true, on = { "/add/{id}", "/process-edit/{id}" })
     private String headline = null;
 
-    @Check(required = true, on = {"/add/{id}", "/process-edit/{id}"})
+    @Check(required = true, on = { "/add/{id}", "/process-edit/{id}" })
     private String review = null;
 
     private String rating = null;

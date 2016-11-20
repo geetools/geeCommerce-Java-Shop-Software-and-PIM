@@ -40,7 +40,8 @@ public class TaskListener implements JobListener {
 
         try {
             log.info("=============================================================================================");
-            log.info("Starting task '" + context.getJobDetail().getKey() + "' at " + dateFormat.format(new Date()) + ".");
+            log.info("Starting task '" + context.getJobDetail().getKey() + "' at " + dateFormat.format(new Date())
+                + ".");
             log.info("---------------------------------------------------------------------------------------------");
         } catch (Throwable t) {
             t.printStackTrace();
@@ -51,12 +52,17 @@ public class TaskListener implements JobListener {
     public void jobExecutionVetoed(JobExecutionContext context) {
         try {
             log.info("---------------------------------------------------------------------------------------------");
-            log.info("Task '" + context.getJobDetail().getKey() + "' was vetoed at " + dateFormat.format(new Date()) + ".");
+            log.info("Task '" + context.getJobDetail().getKey() + "' was vetoed at " + dateFormat.format(new Date())
+                + ".");
             log.info("---------------------------------------------------------------------------------------------");
 
-            sendMail("Task '" + context.getJobDetail().getKey() + "' has been vetoed",
+            sendMail(
+                "Task '" + context.getJobDetail().getKey()
+                    + "' has been vetoed",
                 "Task '" + context.getJobDetail().getKey() + "' has been vetoed. "
-                    + (context.getNextFireTime() == null ? "" : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime()) + "."),
+                    + (context.getNextFireTime() == null ? ""
+                        : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime())
+                            + "."),
                 context, true);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -83,22 +89,33 @@ public class TaskListener implements JobListener {
         } else {
             try {
                 if (jobException == null) {
-                    log.info("---------------------------------------------------------------------------------------------");
-                    log.info("Task '" + context.getJobDetail().getKey() + "' completed at " + dateFormat.format(new Date()) + ". "
-                        + (context.getNextFireTime() == null ? "" : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime()) + "."));
-                    log.info("=============================================================================================");
+                    log.info(
+                        "---------------------------------------------------------------------------------------------");
+                    log.info("Task '" + context.getJobDetail().getKey() + "' completed at "
+                        + dateFormat.format(new Date()) + ". "
+                        + (context.getNextFireTime() == null ? ""
+                            : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime())
+                                + "."));
+                    log.info(
+                        "=============================================================================================");
 
                     sendMail("Task '" + context.getJobDetail().getKey() + "' completed",
                         "Task '" + context.getJobDetail().getKey() + "' has completed. "
-                            + (context.getNextFireTime() == null ? "" : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime()) + "."),
+                            + (context.getNextFireTime() == null ? ""
+                                : "Next trigger fire time is at "
+                                    + dateFormat.format(context.getNextFireTime()) + "."),
                         context, false);
                 } else {
-                    log.error("---------------------------------------------------------------------------------------------");
-                    log.error("Task '" + context.getJobDetail().getKey() + "' threw an exception at " + dateFormat.format(new Date()) + ". "
+                    log.error(
+                        "---------------------------------------------------------------------------------------------");
+                    log.error("Task '" + context.getJobDetail().getKey() + "' threw an exception at "
+                        + dateFormat.format(new Date()) + ". "
                         + (context.getNextFireTime() == null ? ""
-                            : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime()) + " (unless this exception prevents next trigger to execute)."));
+                            : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime())
+                                + " (unless this exception prevents next trigger to execute)."));
                     log.error(jobException.getMessage() + "\n\n", jobException, true);
-                    log.error("=============================================================================================");
+                    log.error(
+                        "=============================================================================================");
 
                     StringWriter sw = new StringWriter();
                     PrintWriter pw = new PrintWriter(sw);
@@ -106,7 +123,8 @@ public class TaskListener implements JobListener {
 
                     System.out.println(sw.toString());
 
-                    sendMail("Task '" + context.getJobDetail().getKey() + "' threw an error: " + jobException.getMessage(), sw.toString(), context, true);
+                    sendMail("Task '" + context.getJobDetail().getKey() + "' threw an error: "
+                        + jobException.getMessage(), sw.toString(), context, true);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

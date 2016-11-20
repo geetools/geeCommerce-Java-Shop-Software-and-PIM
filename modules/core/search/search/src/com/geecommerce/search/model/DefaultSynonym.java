@@ -1,11 +1,11 @@
 package com.geecommerce.search.model;
 
+import java.util.List;
+
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
 
 @Model("search_synonyms")
 public class DefaultSynonym extends AbstractMultiContextModel implements Synonym {
@@ -24,45 +24,45 @@ public class DefaultSynonym extends AbstractMultiContextModel implements Synonym
 
     @Override
     public Synonym setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public List<String> getSynonyms() {
-	return synonyms;
+        return synonyms;
     }
 
     @Override
     public Synonym setSynonyms(List<String> synonyms) {
-	this.synonyms = synonyms;
-	return this;
+        this.synonyms = synonyms;
+        return this;
     }
 
     @Override
     public String getWord() {
-	return word;
+        return word;
     }
 
     @Override
     public Synonym setWord(String word) {
-	this.word = word;
-	return this;
+        this.word = word;
+        return this;
     }
 
     @Override
     public Boolean getCustom() {
-	return custom;
+        return custom;
     }
 
     @Override
     public Synonym setCustom(Boolean custom) {
-	this.custom = custom;
-	return this;
+        this.custom = custom;
+        return this;
     }
 }

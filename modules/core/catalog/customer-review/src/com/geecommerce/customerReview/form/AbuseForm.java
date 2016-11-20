@@ -4,10 +4,10 @@ import com.geemvc.validation.annotation.Check;
 
 public class AbuseForm {
 
-    @Check(required = true, on = {"/process-abuse/{id}"})
+    @Check(required = true, on = { "/process-abuse/{id}" })
     private String headline = null;
 
-    @Check(required = true, on = {"/process-abuse/{id}"})
+    @Check(required = true, on = { "/process-abuse/{id}" })
     private String text = null;
 
     public String getHeadline() {

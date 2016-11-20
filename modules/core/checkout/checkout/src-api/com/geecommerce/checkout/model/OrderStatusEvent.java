@@ -33,11 +33,11 @@ public interface OrderStatusEvent extends Model {
     OrderStatusEvent setExpectedOrderStatus(OrderStatus expectedOrderStatus);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String ORDER_ID = "order_fk";
-	public static final String ORDER_STATUS = "order_status";
-	public static final String OPERATOR = "operator";
-	public static final String EXPECTED_ORDER_STATUS = "expected_order_status";
-	public static final String MAIL_SENT = "mail_sent";
+        public static final String ID = "_id";
+        public static final String ORDER_ID = "order_fk";
+        public static final String ORDER_STATUS = "order_status";
+        public static final String OPERATOR = "operator";
+        public static final String EXPECTED_ORDER_STATUS = "expected_order_status";
+        public static final String MAIL_SENT = "mail_sent";
     }
 }

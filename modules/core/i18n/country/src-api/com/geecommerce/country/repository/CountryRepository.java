@@ -1,9 +1,9 @@
 package com.geecommerce.country.repository;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Repository;
 import com.geecommerce.core.system.model.Country;
-
-import java.util.List;
 
 /**
  */

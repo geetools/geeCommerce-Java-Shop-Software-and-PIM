@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Condition complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Condition">
@@ -50,7 +51,7 @@ public class Condition {
      * 
      */
     public String getConditionCode() {
-	return conditionCode;
+        return conditionCode;
     }
 
     /**
@@ -61,7 +62,7 @@ public class Condition {
      * 
      */
     public void setConditionCode(String value) {
-	this.conditionCode = value;
+        this.conditionCode = value;
     }
 
     /**
@@ -71,7 +72,7 @@ public class Condition {
      * 
      */
     public String getConditionData() {
-	return conditionData;
+        return conditionData;
     }
 
     /**
@@ -82,7 +83,7 @@ public class Condition {
      * 
      */
     public void setConditionData(String value) {
-	this.conditionData = value;
+        this.conditionData = value;
     }
 
 }

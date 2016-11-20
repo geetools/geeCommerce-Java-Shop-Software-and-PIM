@@ -43,13 +43,15 @@ public class MongoHelper {
         });
     }
 
-    public static Map<String, Object> findOne(DB db, String collectionName, Map<String, Object> query, QueryOptions queryOptions) {
+    public static Map<String, Object> findOne(DB db, String collectionName, Map<String, Object> query,
+        QueryOptions queryOptions) {
         List<Map<String, Object>> results = find(db, collectionName, query, queryOptions);
 
         return results.size() == 0 ? null : results.get(0);
     }
 
-    public static List<Map<String, Object>> find(DB db, String collectionName, Map<String, Object> query, QueryOptions queryOptions) {
+    public static List<Map<String, Object>> find(DB db, String collectionName, Map<String, Object> query,
+        QueryOptions queryOptions) {
         List<Map<String, Object>> results = new ArrayList<>();
 
         DBCollection col = db.getCollection(collectionName);

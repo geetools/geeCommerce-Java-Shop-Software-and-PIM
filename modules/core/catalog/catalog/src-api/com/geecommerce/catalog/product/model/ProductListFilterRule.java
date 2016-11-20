@@ -22,7 +22,8 @@ public interface ProductListFilterRule extends MultiContextModel {
 
     public List<Map<String, Object>> getAttributes();
 
-    public ProductListFilterRule addAttribute(String attributeCode, int position, boolean allowMultipleValues, ContextObject<String> prefix, Boolean prefixMatchEnabled);
+    public ProductListFilterRule addAttribute(String attributeCode, int position, boolean allowMultipleValues,
+        ContextObject<String> prefix, Boolean prefixMatchEnabled);
 
     public Map<String, Object> findAttribute(String attributeCode);
 
@@ -31,16 +32,16 @@ public interface ProductListFilterRule extends MultiContextModel {
     public Map<String, Object> findAttributeByPrefix(String prefix);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String KEY = "key";
-	public static final String LABEL = "label";
-	public static final String ATTRIBUTES = "attributes";
+        public static final String ID = "_id";
+        public static final String KEY = "key";
+        public static final String LABEL = "label";
+        public static final String ATTRIBUTES = "attributes";
     }
 
     static final class AttributeField {
-	public static final String ATTRIBUTE_CODE = "attr_code";
-	public static final String POSITION_IN_URI = "uri_pos";
-	public static final String PREFIX = "prefix";
-	public static final String PREFIX_MATCH_ENABLED = "prefix_match_enabled";
+        public static final String ATTRIBUTE_CODE = "attr_code";
+        public static final String POSITION_IN_URI = "uri_pos";
+        public static final String PREFIX = "prefix";
+        public static final String PREFIX_MATCH_ENABLED = "prefix_match_enabled";
     }
 }

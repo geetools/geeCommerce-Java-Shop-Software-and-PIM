@@ -96,7 +96,7 @@ public class DefaultFloor extends AbstractAttributeSupport implements Floor {
             List<Map<String, Object>> floorItemsMap = list_(map.get(FLOOR_ITEMS));
             if (floorItemsMap != null) {
                 floorItemsMap.forEach(entry -> {
-                    FloorItem floorItem = app.getModel(FloorItem.class);
+                    FloorItem floorItem = app.model(FloorItem.class);
                     floorItem.fromMap(entry);
                     getFloorItems().add(floorItem);
                 });

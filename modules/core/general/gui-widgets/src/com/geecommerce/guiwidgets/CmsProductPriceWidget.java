@@ -27,7 +27,8 @@ public class CmsProductPriceWidget extends AbstractWidgetController implements W
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String productId = widgetCtx.getParam(PARAM_PRODUCT);
         if (!StringUtils.isBlank(productId)) {
             Id id = Id.parseId(productId);

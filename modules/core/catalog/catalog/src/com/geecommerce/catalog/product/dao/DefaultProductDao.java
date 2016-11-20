@@ -68,7 +68,8 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
 
         for (DBObject result : output.results()) {
             if (result.get("an") != null) {
-                articleNumbers.put(String.valueOf(((BasicDBList) result.get("an")).get(0)).trim(), Id.valueOf(result.get("_id")));
+                articleNumbers.put(String.valueOf(((BasicDBList) result.get("an")).get(0)).trim(),
+                    Id.valueOf(result.get("_id")));
             }
         }
 
@@ -100,7 +101,8 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
 
         for (DBObject result : output.results()) {
             if (result.get("an") != null) {
-                articleNumbers.put(Id.valueOf(result.get("_id")), String.valueOf(((BasicDBList) result.get("an")).get(0)).trim());
+                articleNumbers.put(Id.valueOf(result.get("_id")),
+                    String.valueOf(((BasicDBList) result.get("an")).get(0)).trim());
             }
         }
 

@@ -8,16 +8,16 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 
-import com.geecommerce.core.App;
-import com.geecommerce.shipping.AbstractShippingTracker;
-import com.geecommerce.shipping.annotation.ShippingTracker;
-import com.geecommerce.shipping.model.ShippingEvent;
 import com.dhl.KnownTrackingRequest;
 import com.dhl.ShipmentTrackingErrorResponse;
 import com.dhl.TrackingResponse;
 import com.dhl.datatypes.AWBInfo;
 import com.dhl.datatypes.LevelOfDetails;
 import com.dhl.datatypes.ShipmentEvent;
+import com.geecommerce.core.App;
+import com.geecommerce.shipping.AbstractShippingTracker;
+import com.geecommerce.shipping.annotation.ShippingTracker;
+import com.geecommerce.shipping.model.ShippingEvent;
 
 @ShippingTracker
 public class DhlShippingTracker extends AbstractShippingTracker {
@@ -48,14 +48,15 @@ public class DhlShippingTracker extends AbstractShippingTracker {
             dhlService.sendRequestToXmlPi(request, connection);
             String response = dhlService.readResponseFromXmlPi(connection);
             if (!dhlService.isErrorResponse(response, "res:ErrorResponse")) {
-                TrackingResponse trackingResponse = (TrackingResponse) dhlService.unmarshal(response, new Class[] { TrackingResponse.class });
+                TrackingResponse trackingResponse = (TrackingResponse) dhlService.unmarshal(response,
+                    new Class[] { TrackingResponse.class });
                 // TODO: check for fault
                 List<ShippingEvent> shippingEvents = new ArrayList<>();
                 // Presume that we get info only for one shipment;
                 if (trackingResponse.getAWBInfo().size() > 0) {
                     AWBInfo info = trackingResponse.getAWBInfo().get(0);
                     for (ShipmentEvent shipmentEvent : info.getShipmentInfo().getShipmentEvent()) {
-                        ShippingEvent event = App.get().getModel(ShippingEvent.class);
+                        ShippingEvent event = App.get().model(ShippingEvent.class);
                         event.setDate(shipmentEvent.getDate().toGregorianCalendar().getTime());
                         event.setName(shipmentEvent.getServiceEvent().getDescription());
                         event.setLocation(shipmentEvent.getServiceArea().getDescription());
@@ -64,7 +65,8 @@ public class DhlShippingTracker extends AbstractShippingTracker {
                 }
                 return shippingEvents;
             } else {
-                ShipmentTrackingErrorResponse trackingErrorResponse = (ShipmentTrackingErrorResponse) dhlService.unmarshal(response, new Class[] { ShipmentTrackingErrorResponse.class });
+                ShipmentTrackingErrorResponse trackingErrorResponse = (ShipmentTrackingErrorResponse) dhlService
+                    .unmarshal(response, new Class[] { ShipmentTrackingErrorResponse.class });
                 throw new Exception(trackingErrorResponse.getResponse().getStatus().getCondition().toString()); // TODO:
                                                                                                                 // fix
                                                                                                                 // this

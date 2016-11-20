@@ -16,11 +16,11 @@ public class PaymentMethodTag extends SimpleTagSupport {
     }
 
     public AbstractPaymentMethod getPaymentMethod() {
-	return paymentMethod;
+        return paymentMethod;
     }
 
     public void setPaymentMethod(AbstractPaymentMethod paymentMethod) {
-	this.paymentMethod = paymentMethod;
+        this.paymentMethod = paymentMethod;
     }
 
 }

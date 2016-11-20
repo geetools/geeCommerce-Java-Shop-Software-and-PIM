@@ -26,45 +26,45 @@ public class DefaultCatalogMediaType extends AbstractMultiContextModel implement
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public CatalogMediaType setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getKey() {
-	return key;
+        return key;
     }
 
     @Override
     public CatalogMediaType setKey(String key) {
-	this.key = key;
-	return this;
+        this.key = key;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public CatalogMediaType setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public int getPriority() {
-	return priority;
+        return priority;
     }
 
     @Override
     public CatalogMediaType setPriority(int priority) {
-	this.priority = priority;
-	return this;
+        this.priority = priority;
+        return this;
     }
 }

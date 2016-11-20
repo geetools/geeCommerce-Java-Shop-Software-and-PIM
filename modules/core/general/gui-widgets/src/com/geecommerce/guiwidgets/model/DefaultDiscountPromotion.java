@@ -299,7 +299,7 @@ public class DefaultDiscountPromotion extends AbstractModel implements DiscountP
 
         if (giftsMap != null && giftsMap.size() > 0) {
             for (Map<String, Object> giftMap : giftsMap) {
-                ActionGift actionGift = app.getModel(ActionGift.class);
+                ActionGift actionGift = app.model(ActionGift.class);
                 actionGift.fromMap(giftMap);
                 gifts.add(actionGift);
             }

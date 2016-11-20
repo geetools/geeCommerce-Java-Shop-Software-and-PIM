@@ -62,7 +62,7 @@ public class RoleResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createRole(Update update) {
-        Role role = app.getModel(Role.class);
+        Role role = app.model(Role.class);
         role.set(update.getFields());
         role = service.create(role);
         return created(role);

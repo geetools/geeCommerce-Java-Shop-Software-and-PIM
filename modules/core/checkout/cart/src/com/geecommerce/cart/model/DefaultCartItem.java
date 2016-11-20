@@ -140,7 +140,7 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
 
     @Override
     public String getProductURI() {
-        return app.getHelper(TargetSupportHelper.class).findURI(getProduct());
+        return app.helper(TargetSupportHelper.class).findURI(getProduct());
     }
 
     @Override
@@ -285,7 +285,7 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
 
     @Override
     public ShippingItem toShippingItem() {
-        ShippingItem shippingItem = app.getModel(ShippingItem.class);
+        ShippingItem shippingItem = app.model(ShippingItem.class);
 
         shippingItem.setProductName(getProductName());
         shippingItem.setProductId(getProductId());

@@ -61,7 +61,8 @@ public class Update implements Serializable {
         this.attributes = attributes;
     }
 
-    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes, Map<String, List<Id>> options) {
+    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes,
+        Map<String, List<Id>> options) {
         this.id = id;
         this.fields = new UpdateMap();
         this.fields.putAll(fields);
@@ -69,7 +70,8 @@ public class Update implements Serializable {
         this.options = options;
     }
 
-    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes, Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions) {
+    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes,
+        Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions) {
         this.id = id;
         this.fields = new UpdateMap();
         this.fields.putAll(fields);
@@ -78,8 +80,9 @@ public class Update implements Serializable {
         this.xOptions = xOptions;
     }
 
-    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes, Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
-            Map<String, ContextObject<Boolean>> optOuts) {
+    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes,
+        Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
+        Map<String, ContextObject<Boolean>> optOuts) {
         this.id = id;
         this.fields = new UpdateMap();
         this.fields.putAll(fields);
@@ -89,8 +92,10 @@ public class Update implements Serializable {
         this.optOuts = optOuts;
     }
 
-    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes, Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
-            Map<String, ContextObject<Boolean>> optOuts, List<Id> merchantIds, List<Id> storeIds, List<Id> requestContextIds) {
+    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes,
+        Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
+        Map<String, ContextObject<Boolean>> optOuts, List<Id> merchantIds, List<Id> storeIds,
+        List<Id> requestContextIds) {
         this.id = id;
         this.fields = new UpdateMap();
         this.fields.putAll(fields);
@@ -103,8 +108,10 @@ public class Update implements Serializable {
         this.requestContextIds = requestContextIds;
     }
 
-    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes, Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
-            Map<String, ContextObject<Boolean>> optOuts, List<Id> merchantIds, List<Id> storeIds, List<Id> requestContextIds, Boolean saveAsNewCopy) {
+    public Update(Id id, Map<String, Object> fields, Map<String, ContextObject<?>> attributes,
+        Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
+        Map<String, ContextObject<Boolean>> optOuts, List<Id> merchantIds, List<Id> storeIds,
+        List<Id> requestContextIds, Boolean saveAsNewCopy) {
         this.id = id;
         this.fields = new UpdateMap();
         this.fields.putAll(fields);
@@ -118,8 +125,10 @@ public class Update implements Serializable {
         this.saveAsNewCopy = saveAsNewCopy == null ? false : saveAsNewCopy;
     }
 
-    public Update(Id id, Map<String, Object> fields, Map<String, Object> vars, Map<String, ContextObject<?>> attributes, Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
-            Map<String, ContextObject<Boolean>> optOuts, List<Id> merchantIds, List<Id> storeIds, List<Id> requestContextIds, Boolean saveAsNewCopy) {
+    public Update(Id id, Map<String, Object> fields, Map<String, Object> vars, Map<String, ContextObject<?>> attributes,
+        Map<String, List<Id>> options, Map<String, ContextObject<List<Id>>> xOptions,
+        Map<String, ContextObject<Boolean>> optOuts, List<Id> merchantIds, List<Id> storeIds,
+        List<Id> requestContextIds, Boolean saveAsNewCopy) {
         this.id = id;
         this.fields = new UpdateMap();
         this.fields.putAll(fields);
@@ -435,8 +444,10 @@ public class Update implements Serializable {
 
     @Override
     public String toString() {
-        return "Update [id=" + id + ", fields=" + fields + ", vars=" + vars + ", attributes=" + attributes + ", options=" + options + ", xOptions=" + xOptions + ", optOuts=" + optOuts
-                + ", merchantIds=" + merchantIds + ", storeIds=" + storeIds + ", requestContextIds=" + requestContextIds + ", saveAsNewCopy=" + saveAsNewCopy + "]";
+        return "Update [id=" + id + ", fields=" + fields + ", vars=" + vars + ", attributes=" + attributes
+            + ", options=" + options + ", xOptions=" + xOptions + ", optOuts=" + optOuts + ", merchantIds="
+            + merchantIds + ", storeIds=" + storeIds + ", requestContextIds=" + requestContextIds
+            + ", saveAsNewCopy=" + saveAsNewCopy + "]";
     }
 
     public static final class UpdateMap extends HashMap<String, Object> {

@@ -79,7 +79,8 @@ public class ProductResource extends AbstractResource {
     private final ProductDao productDao;
 
     @Inject
-    public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper, ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+    public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
+        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
         UrlRewriteHelper urlRewriteHelper) {
         this.service = service;
         this.catalogMediaHelper = catalogMediaHelper;
@@ -96,7 +97,9 @@ public class ProductResource extends AbstractResource {
         QueryOptions queryOptions = queryOptions(filter);
 
         if (storeHeaderExists())
-            queryOptions = QueryOptions.builder(queryOptions).limitAttributeToStore("status_description", getStoreFromHeader()).limitAttributeToStore("status_article", getStoreFromHeader()).build();
+            queryOptions = QueryOptions.builder(queryOptions)
+                .limitAttributeToStore("status_description", getStoreFromHeader())
+                .limitAttributeToStore("status_article", getStoreFromHeader()).build();
 
         return ok(service.get(Product.class, filter.getParams(), queryOptions));
     }
@@ -107,7 +110,9 @@ public class ProductResource extends AbstractResource {
     public Product getProduct(@PathParam("id") Id id) {
 
         try {
-            Product p = Json.fromJson("{\"type\":\"PHYSICAL\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}", DefaultProduct.class);
+            Product p = Json.fromJson(
+                "{\"type\":\"PHYSICAL\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}",
+                DefaultProduct.class);
             System.out.println("DESERIALIZED PRODUCT: " + p);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -167,7 +172,8 @@ public class ProductResource extends AbstractResource {
             // Save main product with the new upsell-productId.
             service.update(product);
         } else {
-            throwBadRequest("productId and upsellProductId cannot be null in requestURI. Expecting: products/{productId}/upsells/{upsellProductId}");
+            throwBadRequest(
+                "productId and upsellProductId cannot be null in requestURI. Expecting: products/{productId}/upsells/{upsellProductId}");
         }
     }
 
@@ -186,7 +192,8 @@ public class ProductResource extends AbstractResource {
             // Save main product with the removed variant-productId.
             service.update(product);
         } else {
-            throwBadRequest("productId and upsellProductId cannot be null in requestURI. Expecting: products/{productId}/upsells/{upsellProductId}");
+            throwBadRequest(
+                "productId and upsellProductId cannot be null in requestURI. Expecting: products/{productId}/upsells/{upsellProductId}");
         }
     }
 
@@ -203,7 +210,8 @@ public class ProductResource extends AbstractResource {
     @PUT
     @Path("{programmeProductId}/programme-products/{childProductId}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void addProductToProgramme(@PathParam("programmeProductId") Id id, @PathParam("childProductId") Id childProductId) {
+    public void addProductToProgramme(@PathParam("programmeProductId") Id id,
+        @PathParam("childProductId") Id childProductId) {
         if (id != null && childProductId != null) {
             // Get main and child product.,
             Product programmeProduct = checked(service.get(Product.class, id));
@@ -217,14 +225,16 @@ public class ProductResource extends AbstractResource {
             // Save child-product with the new parent-productId.
             service.update(childProduct);
         } else {
-            throwBadRequest("programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
+            throwBadRequest(
+                "programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
         }
     }
 
     @DELETE
     @Path("{programmeProductId}/programme-products/{childProductId}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void removeProductFromProgramme(@PathParam("programmeProductId") Id programmeProductId, @PathParam("childProductId") Id childProductId) {
+    public void removeProductFromProgramme(@PathParam("programmeProductId") Id programmeProductId,
+        @PathParam("childProductId") Id childProductId) {
         if (programmeProductId != null && childProductId != null) {
             // Get main and child product.
             Product programmeProduct = checked(service.get(Product.class, programmeProductId));
@@ -236,7 +246,8 @@ public class ProductResource extends AbstractResource {
             // Save main product with the removed variant-productId.
             service.update(programmeProduct);
         } else {
-            throwBadRequest("programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
+            throwBadRequest(
+                "programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
         }
     }
 
@@ -246,7 +257,7 @@ public class ProductResource extends AbstractResource {
     public Response getPrices(@PathParam("id") Id productId) {
         Product p = checked(service.get(Product.class, productId));
 
-        PriceService priceService = app.getService(PriceService.class);
+        PriceService priceService = app.service(PriceService.class);
 
         List<Price> prices = null;
 
@@ -269,7 +280,7 @@ public class ProductResource extends AbstractResource {
         Product p = checked(service.get(Product.class, productId));
 
         if (p != null) {
-            PriceService priceService = app.getService(PriceService.class);
+            PriceService priceService = app.service(PriceService.class);
 
             if (price != null && productId.equals(price.getProductId())) {
                 Price newPrice = priceService.createPrice(price);
@@ -294,7 +305,7 @@ public class ProductResource extends AbstractResource {
         Product p = checked(service.get(Product.class, productId));
 
         if (p != null) {
-            PriceService priceService = app.getService(PriceService.class);
+            PriceService priceService = app.service(PriceService.class);
 
             if (price != null && productId.equals(price.getProductId())) {
                 Price dbPrice = priceService.getPrice(priceId);
@@ -316,7 +327,7 @@ public class ProductResource extends AbstractResource {
         Product p = checked(service.get(Product.class, productId));
 
         if (p != null) {
-            PriceService priceService = app.getService(PriceService.class);
+            PriceService priceService = app.service(PriceService.class);
             Price price = priceService.getPrice(priceId);
 
             if (price != null && productId.equals(price.getProductId())) {
@@ -335,7 +346,7 @@ public class ProductResource extends AbstractResource {
     public Response getStockInventoryItems(@PathParam("id") Id productId) {
         Product p = checked(service.get(Product.class, productId));
 
-        StockService stockService = app.getService(StockService.class);
+        StockService stockService = app.service(StockService.class);
 
         List<InventoryItem> inventoryItems = null;
 
@@ -358,7 +369,7 @@ public class ProductResource extends AbstractResource {
     // TODO replace DefaultInventoryItem with interface when there is enough
     // time to write custom jersey/genson code.
     public void updateStockInventoryItems(@PathParam("id") Id productId, List<DefaultInventoryItem> inventoryItems) {
-        StockService stockService = app.getService(StockService.class);
+        StockService stockService = app.service(StockService.class);
 
         if (inventoryItems != null && inventoryItems.size() > 0) {
             stockService.updateInventoryItems((List) inventoryItems);
@@ -369,9 +380,11 @@ public class ProductResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createProduct(@ModelParam Product product) {
-        System.out.println("CREATE product :::::::::::::::: " + product + ", " + product.getType() + ", att-size: " + product.getAttributes().size());
+        System.out.println("CREATE product :::::::::::::::: " + product + ", " + product.getType() + ", att-size: "
+            + product.getAttributes().size());
 
-        product.setStatus(ProductStatus.ENABLED).setVisible(ContextObjects.global(false)).setVisibleInProductList(ContextObjects.global(true));
+        product.setStatus(ProductStatus.ENABLED).setVisible(ContextObjects.global(false))
+            .setVisibleInProductList(ContextObjects.global(true));
 
         setStatuses(product);
 
@@ -436,7 +449,7 @@ public class ProductResource extends AbstractResource {
         if (p == null)
             return;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant m = appCtx.getMerchant();
 
         for (Store store : m.getStores()) {
@@ -455,7 +468,8 @@ public class ProductResource extends AbstractResource {
     @PUT
     @Path("{id}/attributes/{attributeId}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void updateAttribute(@PathParam("id") Id id, @PathParam("attributeId") Id attributeId, @ModelParam AttributeValue attributeValue) {
+    public void updateAttribute(@PathParam("id") Id id, @PathParam("attributeId") Id attributeId,
+        @ModelParam AttributeValue attributeValue) {
         if (id != null && attributeId != null && attributeValue != null) {
             Product p = checked(service.get(Product.class, id, QueryOptions.builder().refresh(true).build()));
 
@@ -498,7 +512,8 @@ public class ProductResource extends AbstractResource {
             // Save variant-product with the new parent-productId.
             service.update(variantProduct);
         } else {
-            throwBadRequest("ProductId and variantProductId cannot be null in requestURI. Expecting: products/{id}/variants/{variantProductId}");
+            throwBadRequest(
+                "ProductId and variantProductId cannot be null in requestURI. Expecting: products/{id}/variants/{variantProductId}");
         }
     }
 
@@ -519,7 +534,8 @@ public class ProductResource extends AbstractResource {
             // Save variant-product with the removed parent-productId.
             service.update(variantProduct);
         } else {
-            throwBadRequest("ProductId and variantProductId cannot be null in requestURI. Expecting: products/{id}/variants/{variantProductId}");
+            throwBadRequest(
+                "ProductId and variantProductId cannot be null in requestURI. Expecting: products/{id}/variants/{variantProductId}");
         }
     }
 
@@ -551,7 +567,8 @@ public class ProductResource extends AbstractResource {
 
         filter.append("productId", productIds);
 
-        mediaAssets = service.get(CatalogMediaAsset.class, filter.getParams(), QueryOptions.builder().sortBy(CatalogMediaAsset.Col.POSITION).build());
+        mediaAssets = service.get(CatalogMediaAsset.class, filter.getParams(),
+            QueryOptions.builder().sortBy(CatalogMediaAsset.Col.POSITION).build());
 
         return ok(mediaAssets);
     }
@@ -588,7 +605,8 @@ public class ProductResource extends AbstractResource {
                 }
 
                 filter.append("productId", variantProductIds);
-                mediaAssets = service.get(CatalogMediaAsset.class, filter.getParams(), QueryOptions.builder().sortBy(CatalogMediaAsset.Col.POSITION).build());
+                mediaAssets = service.get(CatalogMediaAsset.class, filter.getParams(),
+                    QueryOptions.builder().sortBy(CatalogMediaAsset.Col.POSITION).build());
                 mediaAssetsMap.put(productId, mediaAssets);
             }
         }
@@ -599,7 +617,8 @@ public class ProductResource extends AbstractResource {
     @POST
     @Path("{id}/media-assets")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response newMediaAsset(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    public Response newMediaAsset(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         CatalogMediaAsset newMediaAsset = null;
 
         if (id != null) {
@@ -614,9 +633,11 @@ public class ProductResource extends AbstractResource {
             String absSystemPath = null;
 
             if (MimeType.isImage(fileDetails.getFileName())) {
-                absSystemPath = catalogMediaHelper.getNewAbsoluteFilePath(fileDetails.getFileName(), null, mimeType, product, app.getStoreFromHeader());
+                absSystemPath = catalogMediaHelper.getNewAbsoluteFilePath(fileDetails.getFileName(), null, mimeType,
+                    product, app.getStoreFromHeader());
             } else {
-                absSystemPath = catalogMediaHelper.getNewAbsoluteFilePath(fileDetails.getFileName(), fileDetails.getFileName(), mimeType, product, app.getStoreFromHeader());
+                absSystemPath = catalogMediaHelper.getNewAbsoluteFilePath(fileDetails.getFileName(),
+                    fileDetails.getFileName(), mimeType, product, app.getStoreFromHeader());
             }
 
             System.out.println(absSystemPath);
@@ -631,7 +652,9 @@ public class ProductResource extends AbstractResource {
 
             System.out.println(relativePath);
 
-            CatalogMediaAsset cma = app.getModel(CatalogMediaAsset.class).belongsTo(product).setPath(catalogMediaHelper.toWebURI(relativePath)).setMimeType(mimeType).setPosition(99).setEnabled(true);
+            CatalogMediaAsset cma = app.model(CatalogMediaAsset.class).belongsTo(product)
+                .setPath(catalogMediaHelper.toWebURI(relativePath)).setMimeType(mimeType).setPosition(99)
+                .setEnabled(true);
 
             if (app.storeHeaderExists())
                 cma.setStoreId(app.getStoreFromHeader());
@@ -655,7 +678,8 @@ public class ProductResource extends AbstractResource {
     @PUT
     @Path("{id}/media-assets/{mediaAssetId}/preview-image")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response newMediaAssetPreviewImage(@PathParam("id") Id id, @PathParam("mediaAssetId") Id mediaAssetId, @FormDataParam("file") InputStream uploadedInputStream,
+    public Response newMediaAssetPreviewImage(@PathParam("id") Id id, @PathParam("mediaAssetId") Id mediaAssetId,
+        @FormDataParam("file") InputStream uploadedInputStream,
         @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         CatalogMediaAsset mediaAsset = null;
 
@@ -671,7 +695,8 @@ public class ProductResource extends AbstractResource {
                 String videoSysPath = mediaAsset.getSystemPath();
 
                 if (videoSysPath != null) {
-                    String absSystemPath = videoSysPath.substring(0, videoSysPath.lastIndexOf(File.separatorChar) + 1) + fileDetails.getFileName();
+                    String absSystemPath = videoSysPath.substring(0, videoSysPath.lastIndexOf(File.separatorChar) + 1)
+                        + fileDetails.getFileName();
 
                     File savedFile = catalogMediaHelper.saveToDisk(uploadedInputStream, absSystemPath, product);
 
@@ -684,7 +709,8 @@ public class ProductResource extends AbstractResource {
                 }
             }
         } else {
-            throwBadRequest("ProductId and mediaAssetId cannot be null in requestURI. Expecting: products/{id}/media-assets/{mediaAssetId}/preview-image");
+            throwBadRequest(
+                "ProductId and mediaAssetId cannot be null in requestURI. Expecting: products/{id}/media-assets/{mediaAssetId}/preview-image");
         }
 
         if (mediaAsset == null || mediaAsset.getId() == null) {
@@ -728,7 +754,8 @@ public class ProductResource extends AbstractResource {
                 service.update(product);
             }
         } else {
-            throwBadRequest("ProductId and mediaAssetId cannot be null in requestURI. Expecting: products/{id}/media-assets/{mediaAssetId}");
+            throwBadRequest(
+                "ProductId and mediaAssetId cannot be null in requestURI. Expecting: products/{id}/media-assets/{mediaAssetId}");
         }
     }
 
@@ -740,7 +767,8 @@ public class ProductResource extends AbstractResource {
 
         if (updates != null && updates.size() > 0) {
             for (Update update : updates) {
-                if (update != null && update.getId() != null && update.getFields() != null && update.getFields().size() > 0) {
+                if (update != null && update.getId() != null && update.getFields() != null
+                    && update.getFields().size() > 0) {
                     CatalogMediaAsset cma = service.get(CatalogMediaAsset.class, update.getId());
                     cma.set(update.getFields());
 
@@ -822,9 +850,12 @@ public class ProductResource extends AbstractResource {
 
                 // First clean url in case random number has previously been
                 // added.
-                if (!Str.isEmpty(sluggedArticleNumber) && ((requestURI.contains(sluggedArticleNumber) && containsRandomMatcher.matches()) || requestURI.endsWith(sluggedArticleNumber + ".html"))) {
+                if (!Str.isEmpty(sluggedArticleNumber)
+                    && ((requestURI.contains(sluggedArticleNumber) && containsRandomMatcher.matches())
+                        || requestURI.endsWith(sluggedArticleNumber + ".html"))) {
                     _reqURI = requestURI.substring(0, requestURI.indexOf(sluggedArticleNumber));
-                } else if ((requestURI.contains(productId.str()) && containsRandomMatcher.matches()) || requestURI.endsWith(productId.str() + ".html")) {
+                } else if ((requestURI.contains(productId.str()) && containsRandomMatcher.matches())
+                    || requestURI.endsWith(productId.str() + ".html")) {
                     _reqURI = requestURI.substring(0, requestURI.indexOf(productId.str()));
                 } else {
                     _reqURI = requestURI.substring(0, extPos) + Str.MINUS;
@@ -832,8 +863,7 @@ public class ProductResource extends AbstractResource {
 
                 // Now we'll build a new one with the clean base URI.
                 if (!Str.isEmpty(sluggedArticleNumber)) {
-                    StringBuilder sb = new StringBuilder(_reqURI)
-                        .append(sluggedArticleNumber);
+                    StringBuilder sb = new StringBuilder(_reqURI).append(sluggedArticleNumber);
 
                     if (addRandom)
                         sb.append(Char.MINUS).append(rnd);
@@ -842,8 +872,7 @@ public class ProductResource extends AbstractResource {
 
                     requestURI = sb.toString();
                 } else {
-                    StringBuilder sb = new StringBuilder(_reqURI)
-                        .append(productId.str());
+                    StringBuilder sb = new StringBuilder(_reqURI).append(productId.str());
 
                     if (addRandom)
                         sb.append(Char.MINUS).append(rnd);
@@ -866,7 +895,7 @@ public class ProductResource extends AbstractResource {
         }
 
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
             urlRewrite.setEnabled(true);
             urlRewrite.setRequestMethod("GET");
             urlRewrite.setTargetObjectId(productId);
@@ -916,9 +945,12 @@ public class ProductResource extends AbstractResource {
 
                 // First clean url in case random number has previously been
                 // added.
-                if (!Str.isEmpty(sluggedArticleNumber) && ((requestURI.contains(sluggedArticleNumber) && containsRandomMatcher.matches()) || requestURI.endsWith(sluggedArticleNumber + ".html"))) {
+                if (!Str.isEmpty(sluggedArticleNumber)
+                    && ((requestURI.contains(sluggedArticleNumber) && containsRandomMatcher.matches())
+                        || requestURI.endsWith(sluggedArticleNumber + ".html"))) {
                     _reqURI = requestURI.substring(0, requestURI.indexOf(sluggedArticleNumber));
-                } else if ((requestURI.contains(productId.str()) && containsRandomMatcher.matches()) || requestURI.endsWith(productId.str() + ".html")) {
+                } else if ((requestURI.contains(productId.str()) && containsRandomMatcher.matches())
+                    || requestURI.endsWith(productId.str() + ".html")) {
                     _reqURI = requestURI.substring(0, requestURI.indexOf(productId.str()));
                 } else {
                     _reqURI = requestURI.substring(0, extPos) + Str.MINUS;
@@ -926,8 +958,7 @@ public class ProductResource extends AbstractResource {
 
                 // Now we'll build a new one with the clean base URI.
                 if (!Str.isEmpty(sluggedArticleNumber)) {
-                    StringBuilder sb = new StringBuilder(_reqURI)
-                        .append(sluggedArticleNumber);
+                    StringBuilder sb = new StringBuilder(_reqURI).append(sluggedArticleNumber);
 
                     if (addRandom)
                         sb.append(Char.MINUS).append(rnd);
@@ -936,8 +967,7 @@ public class ProductResource extends AbstractResource {
 
                     requestURI = sb.toString();
                 } else {
-                    StringBuilder sb = new StringBuilder(_reqURI)
-                        .append(productId.str());
+                    StringBuilder sb = new StringBuilder(_reqURI).append(productId.str());
 
                     if (addRandom)
                         sb.append(Char.MINUS).append(rnd);
@@ -986,7 +1016,7 @@ public class ProductResource extends AbstractResource {
     public Response getRewriteUrl(@PathParam("id") Id productId) {
         UrlRewrite urlRewrite = urlRewrites.forProduct(productId);
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
         }
         return ok(checked(urlRewrite));
     }

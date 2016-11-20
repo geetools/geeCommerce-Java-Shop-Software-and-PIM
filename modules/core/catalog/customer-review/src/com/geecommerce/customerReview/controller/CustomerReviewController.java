@@ -43,7 +43,8 @@ public class CustomerReviewController extends BaseController {
     private final CustomerService customerService;
 
     @Inject
-    public CustomerReviewController(CustomerReviewService customerReviewService, ProductService productService, CustomerService customerService) {
+    public CustomerReviewController(CustomerReviewService customerReviewService, ProductService productService,
+        CustomerService customerService) {
         this.customerReviewService = customerReviewService;
         this.productService = productService;
         this.customerService = customerService;
@@ -74,7 +75,8 @@ public class CustomerReviewController extends BaseController {
     }
 
     @Request("/view/{id}")
-    public Result viewReviews(@PathParam("id") Id id, @Param("order") String order, @Param("limit") Integer limit, @Param("page") Integer page, PagingContext pagingContext) {
+    public Result viewReviews(@PathParam("id") Id id, @Param("order") String order, @Param("limit") Integer limit,
+        @Param("page") Integer page, PagingContext pagingContext) {
 
         if (id == null)
             return Results.view("/error/404");
@@ -90,22 +92,16 @@ public class CustomerReviewController extends BaseController {
         pagingContext.setPage(page != null ? page : 1);
         List<CustomerReview> pageReviews = getReviews(reviews, pagingContext);
 
-        return Results.view("review/view")
-            .bind("reviews", pageReviews)
-            .bind("product", product)
+        return Results.view("review/view").bind("reviews", pageReviews).bind("product", product)
             .bind("order", StringUtils.isNotBlank(order) ? order : getDefaultOrder())
-            .bind("pagingUri", "/review/view/" + id)
-            .bind("stars", getStars(id))
-            .bind("total", getTotal(id))
-            .bind("average", getAverage(id))
-            .bind("hasReview", getHasReview(id))
+            .bind("pagingUri", "/review/view/" + id).bind("stars", getStars(id)).bind("total", getTotal(id))
+            .bind("average", getAverage(id)).bind("hasReview", getHasReview(id))
             .bind("pagingContext", pagingContext);
     }
 
     @Request("/product-view/{id}")
     public Result viewReviewsForProduct(@PathParam("id") Id id) {
-        return view("review/product_view")
-            .bind("reviews", getProductReviews(id, null));
+        return view("review/product_view").bind("reviews", getProductReviews(id, null));
     }
 
     @Request("/summary/{id}")
@@ -115,16 +111,13 @@ public class CustomerReviewController extends BaseController {
         if (product == null)
             return view("/error/404");
 
-        return view("review/summary")
-            .bind("product", product)
-            .bind("stars", getStars(id))
-            .bind("total", getTotal(id))
-            .bind("average", getAverage(id))
-            .bind("hasReview", getHasReview(id));
+        return view("review/summary").bind("product", product).bind("stars", getStars(id)).bind("total", getTotal(id))
+            .bind("average", getAverage(id)).bind("hasReview", getHasReview(id));
     }
 
     @Request("/customer/{id}")
-    public Result viewCustomerReviews(@PathParam("id") Id id, @Param("order") String order, @Param("limit") Integer limit, @Param("page") Integer page, PagingContext pagingContext) {
+    public Result viewCustomerReviews(@PathParam("id") Id id, @Param("order") String order,
+        @Param("limit") Integer limit, @Param("page") Integer page, PagingContext pagingContext) {
         if (id == null)
             return view("/error/404");
 
@@ -144,13 +137,9 @@ public class CustomerReviewController extends BaseController {
         pagingContext.setPage(page != null ? page : 1);
         List<CustomerReview> pageReviews = getReviews(reviews, pagingContext);
 
-        return view("review/customer")
-            .bind("reviews", pageReviews)
-            .bind("order", order != null ? order : getDefaultOrder())
-            .bind("pagingUri", "/review/customer/" + id)
-            .bind("pagingContext", pagingContext)
-            .bind("customer", customer)
-            .bind("canEdit", getCanEdit(id));
+        return view("review/customer").bind("reviews", pageReviews)
+            .bind("order", order != null ? order : getDefaultOrder()).bind("pagingUri", "/review/customer/" + id)
+            .bind("pagingContext", pagingContext).bind("customer", customer).bind("canEdit", getCanEdit(id));
     }
 
     @Request("/helpful/{id}")
@@ -208,17 +197,16 @@ public class CustomerReviewController extends BaseController {
             }
         }
 
-        return view("review/review_form")
-            .bind("formAction", "/review/add/" + id)
-            .bind("redirectUrl", "/review/new/" + id)
-            .bind("customerLoggedIn", isCustomerLoggedIn())
+        return view("review/review_form").bind("formAction", "/review/add/" + id)
+            .bind("redirectUrl", "/review/new/" + id).bind("customerLoggedIn", isCustomerLoggedIn())
             .bind("product", product)
             .bind("customerId", isCustomerLoggedIn() ? ((Customer) getLoggedInCustomer()).getId() : "");
 
     }
 
     @Request(value = "/add/{id}", method = HttpMethod.POST)
-    public Result processReview(@PathParam("id") Id id, @Valid CustomerReviewForm reviewForm, @Param("rating") @Required String rating, Bindings bindings) {
+    public Result processReview(@PathParam("id") Id id, @Valid CustomerReviewForm reviewForm,
+        @Param("rating") @Required String rating, Bindings bindings) {
 
         Product p = productService.getProduct(id);
         if (p == null)
@@ -231,19 +219,16 @@ public class CustomerReviewController extends BaseController {
             return view("/error/404");
 
         if (bindings.hasErrors())
-            return Results.view("review/review_form")
-                .bind(bindings.typedValues())
-                .bind("formAction", "/review/add/" + id)
-                .bind("redirectUrl", "/review/new/" + id)
-                .bind("customerLoggedIn", isCustomerLoggedIn())
-                .bind("product", p)
+            return Results.view("review/review_form").bind(bindings.typedValues())
+                .bind("formAction", "/review/add/" + id).bind("redirectUrl", "/review/new/" + id)
+                .bind("customerLoggedIn", isCustomerLoggedIn()).bind("product", p)
                 .bind("customerId", isCustomerLoggedIn() ? ((Customer) getLoggedInCustomer()).getId() : "");
 
         if (customerReviewService.hasReview(id, ((Customer) getLoggedInCustomer()).getId())) {
             return redirect("/review/customer/" + ((Customer) getLoggedInCustomer()).getId());
         }
 
-        CustomerReview customerReview = app.getModel(CustomerReview.class);
+        CustomerReview customerReview = app.model(CustomerReview.class);
         customerReview.setProductId(id);
         customerReview.belongsTo(getLoggedInCustomer());
         customerReview.setPublished(getAutoPublished());
@@ -268,18 +253,16 @@ public class CustomerReviewController extends BaseController {
         CustomerReviewForm reviewForm = new CustomerReviewForm();
         populateReviewForm(review, reviewForm);
 
-        return view("review/review_form")
-            .bind("formAction", "/review/process-edit/" + id)
-            .bind("redirectUrl", "/review/edit/" + id)
-            .bind("reviewForm", reviewForm)
-            .bind("rating", reviewForm.getRating())
-            .bind("customerLoggedIn", isCustomerLoggedIn())
+        return view("review/review_form").bind("formAction", "/review/process-edit/" + id)
+            .bind("redirectUrl", "/review/edit/" + id).bind("reviewForm", reviewForm)
+            .bind("rating", reviewForm.getRating()).bind("customerLoggedIn", isCustomerLoggedIn())
             .bind("product", productService.getProduct(review.getProductId()))
             .bind("customerId", isCustomerLoggedIn() ? ((Customer) getLoggedInCustomer()).getId() : "");
     }
 
     @Request(value = "/process-edit/{id}", method = HttpMethod.POST)
-    public Result processEditReview(@PathParam("id") Id id, @Valid CustomerReviewForm reviewForm, @Param("rating") @Required Integer rating, Bindings bindings) {
+    public Result processEditReview(@PathParam("id") Id id, @Valid CustomerReviewForm reviewForm,
+        @Param("rating") @Required Integer rating, Bindings bindings) {
 
         CustomerReview customerReviewSaved = customerReviewService.getCustomerReview(id);
 
@@ -287,12 +270,9 @@ public class CustomerReviewController extends BaseController {
             return view("/error/404");
 
         if (bindings.hasErrors())
-            return Results.view("review/review_form")
-                .bind(bindings.typedValues())
-                .bind("formAction", "/review/process-edit/" + id)
-                .bind("redirectUrl", "/review/edit/" + id)
-                .bind("rating", reviewForm.getRating())
-                .bind("customerLoggedIn", isCustomerLoggedIn())
+            return Results.view("review/review_form").bind(bindings.typedValues())
+                .bind("formAction", "/review/process-edit/" + id).bind("redirectUrl", "/review/edit/" + id)
+                .bind("rating", reviewForm.getRating()).bind("customerLoggedIn", isCustomerLoggedIn())
                 .bind("product", productService.getProduct(customerReviewSaved.getProductId()))
                 .bind("customerId", isCustomerLoggedIn() ? ((Customer) getLoggedInCustomer()).getId() : "");
 
@@ -327,11 +307,8 @@ public class CustomerReviewController extends BaseController {
             return view("/error/404");
 
         Product product = productService.getProduct(review.getProductId());
-        return view("review/abuse_form")
-            .bind("product", product)
-            .bind("formAction", "/review/process-abuse/" + id)
-            .bind("redirectUrl", redirectUrl)
-            .bind("customerLoggedIn", isCustomerLoggedIn());
+        return view("review/abuse_form").bind("product", product).bind("formAction", "/review/process-abuse/" + id)
+            .bind("redirectUrl", redirectUrl).bind("customerLoggedIn", isCustomerLoggedIn());
 
     }
 
@@ -353,14 +330,11 @@ public class CustomerReviewController extends BaseController {
         String redirectUrl = "/review/abuse/" + id;
 
         if (bindings.hasErrors())
-            return Results.view("review/abuse_form")
-                .bind(bindings.typedValues())
-                .bind("product", product)
-                .bind("formAction", "/review/process-abuse/" + id)
-                .bind("redirectUrl", redirectUrl)
+            return Results.view("review/abuse_form").bind(bindings.typedValues()).bind("product", product)
+                .bind("formAction", "/review/process-abuse/" + id).bind("redirectUrl", redirectUrl)
                 .bind("customerLoggedIn", isCustomerLoggedIn());
 
-        Abuse abuse = app.getModel(Abuse.class);
+        Abuse abuse = app.model(Abuse.class);
         abuse.setId(app.nextId());
         abuse.setHeadline(abuseForm.getHeadline());
         abuse.setText(abuseForm.getText());
@@ -440,11 +414,13 @@ public class CustomerReviewController extends BaseController {
     }
 
     public List<CustomerReview> getProductReviews(Id id, String orderColumn) {
-        return customerReviewService.productReviews(id, QueryOptions.builder().sortBy(getOrderColumn(orderColumn)).build());
+        return customerReviewService.productReviews(id,
+            QueryOptions.builder().sortBy(getOrderColumn(orderColumn)).build());
     }
 
     public List<CustomerReview> getCustomerReviews(Boolean published, Id id, String orderColumn) {
-        return customerReviewService.customerReviews(id, published, QueryOptions.builder().sortByDesc(getOrderColumn(orderColumn)).build());
+        return customerReviewService.customerReviews(id, published,
+            QueryOptions.builder().sortByDesc(getOrderColumn(orderColumn)).build());
     }
 
     private boolean getCanEdit(Id id) {

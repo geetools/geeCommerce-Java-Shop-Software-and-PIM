@@ -45,7 +45,8 @@ public class RetailStoreDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         SimpleScalar pId = (SimpleScalar) params.get("id");
         SimpleScalar pId2 = (SimpleScalar) params.get("id2");
         SimpleScalar pRoot = (SimpleScalar) params.get("root");
@@ -165,7 +166,8 @@ public class RetailStoreDirective implements TemplateDirectiveModel {
             }
 
             if (truncateAt != null) {
-                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(), "...");
+                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(),
+                    "...");
             }
 
             if (message != null) {
@@ -210,7 +212,7 @@ public class RetailStoreDirective implements TemplateDirectiveModel {
 
     protected String format(Object value, String format) {
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         Locale locale = null;
 
@@ -235,7 +237,7 @@ public class RetailStoreDirective implements TemplateDirectiveModel {
 
     protected Cache<String, Object> cache() {
         App app = App.get();
-        CacheManager cm = app.getInjectable(CacheManager.class);
+        CacheManager cm = app.injectable(CacheManager.class);
         return cm.getCache(RetailStoreDirective.class.getName());
     }
 }

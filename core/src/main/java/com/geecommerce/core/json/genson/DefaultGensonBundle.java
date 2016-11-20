@@ -14,7 +14,10 @@ public class DefaultGensonBundle extends GensonBundle {
     }
 
     @Override
-    public BeanDescriptorProvider createBeanDescriptorProvider(ContextualConverterFactory contextualConverterFactory, BeanPropertyFactory propertyFactory, BeanMutatorAccessorResolver propertyResolver, PropertyNameResolver nameResolver, GensonBuilder builder) {
-	return new DefaultBeanDescriptorProvider(contextualConverterFactory, propertyFactory, propertyResolver, nameResolver, true, true, true);
+    public BeanDescriptorProvider createBeanDescriptorProvider(ContextualConverterFactory contextualConverterFactory,
+        BeanPropertyFactory propertyFactory, BeanMutatorAccessorResolver propertyResolver,
+        PropertyNameResolver nameResolver, GensonBuilder builder) {
+        return new DefaultBeanDescriptorProvider(contextualConverterFactory, propertyFactory, propertyResolver,
+            nameResolver, true, true, true);
     }
 }

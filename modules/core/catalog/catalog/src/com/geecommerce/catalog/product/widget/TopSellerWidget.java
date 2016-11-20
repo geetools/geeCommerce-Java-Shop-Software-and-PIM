@@ -45,7 +45,9 @@ public class TopSellerWidget extends AbstractWidgetController implements WidgetC
     private final String TOP_SELLER_TRUE_QUERY = "{\"att_topSeller_hash\":\"___156041024830434188__\"}";
 
     @Inject
-    public TopSellerWidget(ProductService productService, ProductListService productListService, ElasticsearchService elasticsearchService, ProductHelper productHelper, ProductListHelper productListHelper, AttributeService attributeService) {
+    public TopSellerWidget(ProductService productService, ProductListService productListService,
+        ElasticsearchService elasticsearchService, ProductHelper productHelper, ProductListHelper productListHelper,
+        AttributeService attributeService) {
         this.productService = productService;
         this.productListService = productListService;
         this.elasticsearchService = elasticsearchService;
@@ -89,9 +91,11 @@ public class TopSellerWidget extends AbstractWidgetController implements WidgetC
         // List<AttributeGroup> attributeGroups = new ArrayList<>();
         // attributeGroups.add(AttributeGroup.PRODUCT_FILTER);
         // attributeGroups.add(AttributeGroup.PRODUCT);
-        Map<String, Attribute> filterAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+        Map<String, Attribute> filterAttributes = attributeService
+            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
-        SearchResult productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, query, null, new SearchParams(), 0, size, "name");
+        SearchResult productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes,
+            query, null, new SearchParams(), 0, size, "name");
 
         if (productListResult == null)
             return null;
@@ -102,7 +106,8 @@ public class TopSellerWidget extends AbstractWidgetController implements WidgetC
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String view = widgetCtx.getParam("view");
         String widgetName = "topseller";
         if (view != null && !view.isEmpty()) {

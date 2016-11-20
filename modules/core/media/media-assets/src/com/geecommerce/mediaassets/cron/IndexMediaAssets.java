@@ -72,7 +72,7 @@ public class IndexMediaAssets extends SearchIndexer implements Taskable, Job {
     }
 
     protected Map<String, Object> getIndexerContext() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
@@ -81,7 +81,8 @@ public class IndexMediaAssets extends SearchIndexer implements Taskable, Job {
         query.put(GlobalColumn.MERCHANT_ID, merchant.getId());
         query.put(GlobalColumn.STORE_ID, store.getId());
 
-        List<Map<String, Object>> indexerContexts = MongoHelper.find(MongoHelper.mongoSystemDB(), "search_indexer", query, null);
+        List<Map<String, Object>> indexerContexts = MongoHelper.find(MongoHelper.mongoSystemDB(), "search_indexer",
+            query, null);
 
         return indexerContexts != null && indexerContexts.size() > 0 ? indexerContexts.get(0) : null;
     }

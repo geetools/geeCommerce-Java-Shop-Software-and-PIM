@@ -20,58 +20,58 @@ public class DefaultProductLinkType extends AbstractModel implements ProductLink
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
-	this.id = id_(map.get(Column.ID));
-	this.code = str_(map.get(Column.CODE));
-	this.label = ctxObj_(map.get(Column.LABEL));
+        if (map == null)
+            return;
+        this.id = id_(map.get(Column.ID));
+        this.code = str_(map.get(Column.CODE));
+        this.label = ctxObj_(map.get(Column.LABEL));
     }
 
     @Override
     public Map<String, Object> toMap() {
 
-	Map<String, Object> map = new LinkedHashMap<>();
-	map.put(Column.ID, getId());
-	map.put(Column.CODE, getCode());
-	map.put(Column.LABEL, getLabels());
-	return map;
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put(Column.ID, getId());
+        map.put(Column.CODE, getCode());
+        map.put(Column.LABEL, getLabels());
+        return map;
     }
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public ProductLinkType setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getCode() {
-	return code;
+        return code;
     }
 
     @Override
     public ProductLinkType setCode(String code) {
-	this.code = code;
-	return this;
+        this.code = code;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabels() {
-	return label;
+        return label;
     }
 
     @Override
     public String getLabel() {
-	return label.getString();
+        return label.getString();
     }
 
     @Override
     public ProductLinkType setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 }

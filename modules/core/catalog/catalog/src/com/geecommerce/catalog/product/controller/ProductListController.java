@@ -62,9 +62,9 @@ public class ProductListController {
     protected Injector injector;
 
     @Inject
-    public ProductListController(ProductListService productListService, ProductService productService, ProductListHelper productListHelper, AttributeService attributeService,
-        ProductHelper productHelper, ElasticsearchService elasticsearchService,
-        ElasticsearchHelper elasticsearchHelper) {
+    public ProductListController(ProductListService productListService, ProductService productService,
+        ProductListHelper productListHelper, AttributeService attributeService, ProductHelper productHelper,
+        ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper) {
         this.productListService = productListService;
         this.productService = productService;
         this.productListHelper = productListHelper;
@@ -113,13 +113,16 @@ public class ProductListController {
             List<FilterBuilder> builders = productListHelper.getVisibilityFilters();
             builders.add(productListHelper.buildQuery(productList.getQueryNode()));
 
-            Map<String, Attribute> filterAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+            Map<String, Attribute> filterAttributes = attributeService
+                .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
-            productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null, requestFilters, searchParams);
+            productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null,
+                requestFilters, searchParams);
 
             // If product document-ids have been returned, fetch their
             // respective products.
-            if (productListResult != null && productListResult.getDocumentIds() != null && productListResult.getDocumentIds().size() > 0) {
+            if (productListResult != null && productListResult.getDocumentIds() != null
+                && productListResult.getDocumentIds().size() > 0) {
                 Id[] productIds = elasticsearchHelper.toIds(productListResult.getDocumentIds().toArray());
 
                 // Only load a limited list of attributes if configured.
@@ -127,7 +130,8 @@ public class ProductListController {
                 QueryOptions qb = null;
 
                 if (attributes != null && !attributes.isEmpty()) {
-                    qb = QueryOptions.builder().fetchAttributes(attributes.toArray(new String[attributes.size()])).build();
+                    qb = QueryOptions.builder().fetchAttributes(attributes.toArray(new String[attributes.size()]))
+                        .build();
                 }
 
                 products = orderByProductIds(productService.getProducts(Arrays.asList(productIds), qb), productIds);
@@ -142,18 +146,12 @@ public class ProductListController {
         // Only tell varnish to cache if the user is not filtering.
         if (requestFilters.isEmpty()) {
             // return Views.forward("catalog/product/list", "1h");
-            return Results.view("catalog/product/list")
-                .bind("products", products)
-                .bind("productList", productList)
-                .bind("productListResult", productListResult)
-                .bind("filterCtx", filterCtx)
+            return Results.view("catalog/product/list").bind("products", products).bind("productList", productList)
+                .bind("productListResult", productListResult).bind("filterCtx", filterCtx)
                 .bind("pagingCtx", pagingCtx);
         } else {
-            return Results.view("catalog/product/list")
-                .bind("products", products)
-                .bind("productList", productList)
-                .bind("productListResult", productListResult)
-                .bind("filterCtx", filterCtx)
+            return Results.view("catalog/product/list").bind("products", products).bind("productList", productList)
+                .bind("productListResult", productListResult).bind("filterCtx", filterCtx)
                 .bind("pagingCtx", pagingCtx);
         }
     }
@@ -169,9 +167,10 @@ public class ProductListController {
         return filterRule;
     }
 
-    protected void collectURIFilters(ProductList productList, ProductListFilterRule catFilterRule, Map<String, Set<Object>> requestFilters) {
+    protected void collectURIFilters(ProductList productList, ProductListFilterRule catFilterRule,
+        Map<String, Set<Object>> requestFilters) {
         String originalURI = app.getOriginalURI();
-        String productListURI = app.getHelper(TargetSupportHelper.class).findURI(productList);
+        String productListURI = app.helper(TargetSupportHelper.class).findURI(productList);
 
         if (originalURI.equals(productListURI)) {
             return;
@@ -194,7 +193,8 @@ public class ProductListController {
     }
 
     protected void collectParamFilters(ProductListFilterRule navFilterRule, Map<String, Set<Object>> requestFilters) {
-        Map<String, Attribute> filterAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+        Map<String, Attribute> filterAttributes = attributeService
+            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
         Map<String, String> attributesAliasIndex = elasticsearchHelper.buildAttributeAliasIndex(filterAttributes);
 
@@ -202,7 +202,8 @@ public class ProductListController {
         app.registryPut(ProductListConstant.FILTER_ATTRIBUTES, filterAttributes);
         app.registryPut(ProductListConstant.FILTER_ATTRIBUTE_ALIAS_INDEX, attributesAliasIndex);
 
-        Map<String, Set<Object>> paramFilterParts = productListHelper.getFilterPartsFromParameters(app.getServletRequest().getParameterMap(), navFilterRule, filterAttributes, attributesAliasIndex);
+        Map<String, Set<Object>> paramFilterParts = productListHelper.getFilterPartsFromParameters(
+            app.servletRequest().getParameterMap(), navFilterRule, filterAttributes, attributesAliasIndex);
 
         if (paramFilterParts != null && paramFilterParts.size() > 0) {
             app.registryPut(ProductListConstant.PARAM_FILTER_PARTS, paramFilterParts);

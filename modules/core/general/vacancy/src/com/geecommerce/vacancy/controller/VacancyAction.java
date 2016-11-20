@@ -1,22 +1,21 @@
 package com.geecommerce.vacancy.controller;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import com.geecommerce.core.service.api.Model;
-import com.geecommerce.core.type.ContextObject;
-import com.geecommerce.core.type.Id;
-import com.geecommerce.mediaassets.model.MediaAsset;
-import com.geecommerce.vacancy.model.DefaultVacancyGroup;
+import com.geecommerce.core.web.BaseActionBean;
 import com.geecommerce.vacancy.model.Vacancy;
+import com.geecommerce.vacancy.model.VacancyGroup;
+import com.geecommerce.vacancy.service.VacancyService;
+import com.google.inject.Inject;
+
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
-
-import com.google.inject.Inject;
-import com.geecommerce.core.web.BaseActionBean;
-import com.geecommerce.vacancy.model.VacancyGroup;
-import com.geecommerce.vacancy.service.VacancyService;
 
 @UrlBinding("/jobs/{$event}/{id}")
 public class VacancyAction extends BaseActionBean {

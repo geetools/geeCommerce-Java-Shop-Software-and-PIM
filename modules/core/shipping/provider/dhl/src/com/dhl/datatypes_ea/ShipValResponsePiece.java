@@ -9,6 +9,7 @@ package com.dhl.datatypes_ea;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ShipValResponsePiece complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ShipValResponsePiece">
@@ -47,7 +49,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ShipValResponsePiece", propOrder = { "pieceNumber", "depth", "width", "height", "weight", "packageType", "dimWeight", "pieceContents", "dataIdentifier", "licensePlate", "licensePlateBarCode" })
+@XmlType(name = "ShipValResponsePiece", propOrder = { "pieceNumber", "depth", "width", "height", "weight",
+    "packageType", "dimWeight", "pieceContents", "dataIdentifier", "licensePlate", "licensePlateBarCode" })
 public class ShipValResponsePiece {
 
     @XmlElement(name = "PieceNumber", required = true)
@@ -83,7 +86,7 @@ public class ShipValResponsePiece {
      * 
      */
     public BigInteger getPieceNumber() {
-	return pieceNumber;
+        return pieceNumber;
     }
 
     /**
@@ -94,7 +97,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setPieceNumber(BigInteger value) {
-	this.pieceNumber = value;
+        this.pieceNumber = value;
     }
 
     /**
@@ -104,7 +107,7 @@ public class ShipValResponsePiece {
      * 
      */
     public BigInteger getDepth() {
-	return depth;
+        return depth;
     }
 
     /**
@@ -115,7 +118,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setDepth(BigInteger value) {
-	this.depth = value;
+        this.depth = value;
     }
 
     /**
@@ -125,7 +128,7 @@ public class ShipValResponsePiece {
      * 
      */
     public BigInteger getWidth() {
-	return width;
+        return width;
     }
 
     /**
@@ -136,7 +139,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setWidth(BigInteger value) {
-	this.width = value;
+        this.width = value;
     }
 
     /**
@@ -146,7 +149,7 @@ public class ShipValResponsePiece {
      * 
      */
     public BigInteger getHeight() {
-	return height;
+        return height;
     }
 
     /**
@@ -157,7 +160,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setHeight(BigInteger value) {
-	this.height = value;
+        this.height = value;
     }
 
     /**
@@ -167,7 +170,7 @@ public class ShipValResponsePiece {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -178,7 +181,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -188,7 +191,7 @@ public class ShipValResponsePiece {
      * 
      */
     public PackageType getPackageType() {
-	return packageType;
+        return packageType;
     }
 
     /**
@@ -199,7 +202,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setPackageType(PackageType value) {
-	this.packageType = value;
+        this.packageType = value;
     }
 
     /**
@@ -209,7 +212,7 @@ public class ShipValResponsePiece {
      * 
      */
     public BigDecimal getDimWeight() {
-	return dimWeight;
+        return dimWeight;
     }
 
     /**
@@ -220,7 +223,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setDimWeight(BigDecimal value) {
-	this.dimWeight = value;
+        this.dimWeight = value;
     }
 
     /**
@@ -230,7 +233,7 @@ public class ShipValResponsePiece {
      * 
      */
     public String getPieceContents() {
-	return pieceContents;
+        return pieceContents;
     }
 
     /**
@@ -241,7 +244,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setPieceContents(String value) {
-	this.pieceContents = value;
+        this.pieceContents = value;
     }
 
     /**
@@ -251,7 +254,7 @@ public class ShipValResponsePiece {
      * 
      */
     public String getDataIdentifier() {
-	return dataIdentifier;
+        return dataIdentifier;
     }
 
     /**
@@ -262,7 +265,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setDataIdentifier(String value) {
-	this.dataIdentifier = value;
+        this.dataIdentifier = value;
     }
 
     /**
@@ -272,7 +275,7 @@ public class ShipValResponsePiece {
      * 
      */
     public String getLicensePlate() {
-	return licensePlate;
+        return licensePlate;
     }
 
     /**
@@ -283,7 +286,7 @@ public class ShipValResponsePiece {
      * 
      */
     public void setLicensePlate(String value) {
-	this.licensePlate = value;
+        this.licensePlate = value;
     }
 
     /**
@@ -292,7 +295,7 @@ public class ShipValResponsePiece {
      * @return possible object is byte[]
      */
     public byte[] getLicensePlateBarCode() {
-	return licensePlateBarCode;
+        return licensePlateBarCode;
     }
 
     /**
@@ -302,7 +305,7 @@ public class ShipValResponsePiece {
      *            allowed object is byte[]
      */
     public void setLicensePlateBarCode(byte[] value) {
-	this.licensePlateBarCode = value;
+        this.licensePlateBarCode = value;
     }
 
 }

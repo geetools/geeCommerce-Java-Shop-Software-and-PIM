@@ -8,7 +8,6 @@ import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-import com.geecommerce.mediaassets.repository.MediaAssetFiles;
 
 public interface MediaAsset extends MultiContextModel, AttributeSupport, SearchIndexSupport {
     public Id getId();
@@ -19,11 +18,13 @@ public interface MediaAsset extends MultiContextModel, AttributeSupport, SearchI
 
     public MediaAsset setDirectoryId(Id id);
 
-/*    public String getLabel();
-
-    public ContextObject<String> getLabels();
-
-    public MediaAsset setLabel(ContextObject<String> label);*/
+    /*
+     * public String getLabel();
+     * 
+     * public ContextObject<String> getLabels();
+     * 
+     * public MediaAsset setLabel(ContextObject<String> label);
+     */
 
     public MediaAssetFile getFile();
 
@@ -60,15 +61,15 @@ public interface MediaAsset extends MultiContextModel, AttributeSupport, SearchI
     public String getWebThumbnailPath();
 
     static final class Col {
-	public static final String ID = "_id";
-    public static final String DIRECTORY = "directory";
-	public static final String LABEL = "label";
-	public static final String FILE = "file";
-	public static final String NAME = "name";
-	public static final String GROUP = "group";
-	public static final String MIME_TYPE = "mime_type";
-	public static final String ENABLED = "enabled";
-	public static final String SIZE = "size";
-	public static final String RAW_METADATA = "raw_meta";
+        public static final String ID = "_id";
+        public static final String DIRECTORY = "directory";
+        public static final String LABEL = "label";
+        public static final String FILE = "file";
+        public static final String NAME = "name";
+        public static final String GROUP = "group";
+        public static final String MIME_TYPE = "mime_type";
+        public static final String ENABLED = "enabled";
+        public static final String SIZE = "size";
+        public static final String RAW_METADATA = "raw_meta";
     }
 }

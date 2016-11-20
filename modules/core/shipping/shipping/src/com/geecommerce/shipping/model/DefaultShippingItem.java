@@ -19,105 +19,105 @@ public class DefaultShippingItem extends AbstractModel implements ShippingItem {
 
     @Override
     public String getProductName() {
-	return productName;
+        return productName;
     }
 
     @Override
     public ShippingItem setProductName(String productName) {
-	this.productName = productName;
-	return this;
+        this.productName = productName;
+        return this;
     }
 
     @Override
     public Id getProductId() {
-	return productId;
+        return productId;
     }
 
     @Override
     public ShippingItem setProductId(Id productId) {
-	this.productId = productId;
-	return this;
+        this.productId = productId;
+        return this;
     }
 
     @Override
     public Integer getQuantity() {
-	return quantity;
+        return quantity;
     }
 
     @Override
     public ShippingItem setQuantity(Integer quantity) {
-	this.quantity = quantity;
-	return this;
+        this.quantity = quantity;
+        return this;
     }
 
     @Override
     public Double getWidth() {
-	return width;
+        return width;
     }
 
     @Override
     public ShippingItem setWidth(Double width) {
-	this.width = width;
-	return this;
+        this.width = width;
+        return this;
     }
 
     @Override
     public Double getHeight() {
-	return height;
+        return height;
     }
 
     @Override
     public ShippingItem setHeight(Double height) {
-	this.height = height;
-	return this;
+        this.height = height;
+        return this;
     }
 
     @Override
     public Double getDepth() {
-	return depth;
+        return depth;
     }
 
     @Override
     public ShippingItem setDepth(Double depth) {
-	this.depth = depth;
-	return this;
+        this.depth = depth;
+        return this;
     }
 
     @Override
     public Double getWeight() {
-	return weight;
+        return weight;
     }
 
     @Override
     public ShippingItem setWeight(Double weight) {
-	this.weight = weight;
-	return this;
+        this.weight = weight;
+        return this;
     }
 
     @Override
     public Double getPrice() {
-	return price;
+        return price;
     }
 
     @Override
     public ShippingItem setPrice(Double price) {
-	this.price = price;
-	return this;
+        this.price = price;
+        return this;
     }
 
     @Override
     public String getPickupStoreId() {
-	return pickupStoreId;
+        return pickupStoreId;
     }
 
     @Override
     public ShippingItem setPickupStoreId(String pickupStoreId) {
-	this.pickupStoreId = pickupStoreId;
-	return this;
+        this.pickupStoreId = pickupStoreId;
+        return this;
     }
 
     @Override
     public Id getId() {
-	return null;
+        return null;
     }
 }

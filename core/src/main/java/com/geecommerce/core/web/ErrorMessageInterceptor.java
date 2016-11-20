@@ -21,28 +21,29 @@ public class ErrorMessageInterceptor implements Interceptor {
     @SuppressWarnings("unchecked")
     @Override
     public Resolution intercept(ExecutionContext ctx) throws Exception {
-	List<ValidationError> globalErrors = (List<ValidationError>) ctx.getActionBeanContext().getRequest().getAttribute(CTX_KEY);
+        List<ValidationError> globalErrors = (List<ValidationError>) ctx.getActionBeanContext().getRequest()
+            .getAttribute(CTX_KEY);
 
-	if (globalErrors != null) {
-	    for (ValidationError globalError : globalErrors) {
-		ValidationErrors errors = ctx.getActionBeanContext().getValidationErrors();
-		errors.addGlobalError(globalError);
-	    }
+        if (globalErrors != null) {
+            for (ValidationError globalError : globalErrors) {
+                ValidationErrors errors = ctx.getActionBeanContext().getValidationErrors();
+                errors.addGlobalError(globalError);
+            }
 
-	    ctx.getActionBeanContext().getRequest().removeAttribute(CTX_KEY);
-	}
+            ctx.getActionBeanContext().getRequest().removeAttribute(CTX_KEY);
+        }
 
-	Resolution resolution = ctx.proceed();
+        Resolution resolution = ctx.proceed();
 
-	ValidationErrors errors = ctx.getActionBeanContext().getValidationErrors();
+        ValidationErrors errors = ctx.getActionBeanContext().getValidationErrors();
 
-	globalErrors = errors.get(ValidationErrors.GLOBAL_ERROR);
+        globalErrors = errors.get(ValidationErrors.GLOBAL_ERROR);
 
-	if (globalErrors != null && globalErrors.size() > 0 && resolution instanceof RedirectResolution) {
-	    FlashScope scope = FlashScope.getCurrent(ctx.getActionBeanContext().getRequest(), true);
-	    scope.put(CTX_KEY, globalErrors);
-	}
+        if (globalErrors != null && globalErrors.size() > 0 && resolution instanceof RedirectResolution) {
+            FlashScope scope = FlashScope.getCurrent(ctx.getActionBeanContext().getRequest(), true);
+            scope.put(CTX_KEY, globalErrors);
+        }
 
-	return resolution;
+        return resolution;
     }
 }

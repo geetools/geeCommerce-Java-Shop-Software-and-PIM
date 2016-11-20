@@ -12,15 +12,18 @@ public interface Attributes extends Repository {
 
     public List<Attribute> thatAreMandatory(AttributeTargetObject targetObject, QueryOptions queryOptions);
 
-    public List<Attribute> thatAreMandatory(AttributeTargetObject targetObject, QueryOptions queryOptions, boolean includeOptOutAttributes);
+    public List<Attribute> thatAreMandatory(AttributeTargetObject targetObject, QueryOptions queryOptions,
+        boolean includeOptOutAttributes);
 
     public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject);
 
-    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, boolean includeOptOutAttributes);
+    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject,
+        boolean includeOptOutAttributes);
 
     public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, QueryOptions queryOptions);
 
-    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, QueryOptions queryOptions, boolean includeOptOutAttributes);
+    public List<Attribute> thatAreMandatoryAndEditable(AttributeTargetObject targetObject, QueryOptions queryOptions,
+        boolean includeOptOutAttributes);
 
     public Attribute havingCode(AttributeTargetObject targetObject, String code);
 

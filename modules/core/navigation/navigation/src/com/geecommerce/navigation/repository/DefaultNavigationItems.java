@@ -40,7 +40,8 @@ public class DefaultNavigationItems extends AbstractRepository implements Naviga
         filter.put(NavigationItem.Col.ROOT_ID, rootId);
         filter.put(NavigationItem.Col.ENABLED, true);
 
-        return multiContextFind(NavigationItem.class, filter, NavigationItem.Col.KEY, QueryOptions.builder().sortBy(NavigationItem.Col.POSITION).build());
+        return multiContextFind(NavigationItem.class, filter, NavigationItem.Col.KEY,
+            QueryOptions.builder().sortBy(NavigationItem.Col.POSITION).build());
     }
 
     @Override
@@ -48,7 +49,8 @@ public class DefaultNavigationItems extends AbstractRepository implements Naviga
         Map<String, Object> filter = new LinkedHashMap<>();
         filter.put(NavigationItem.Col.ROOT_ID, rootId);
 
-        return multiContextFind(NavigationItem.class, filter, NavigationItem.Col.KEY, QueryOptions.builder().sortBy(NavigationItem.Col.POSITION).build());
+        return multiContextFind(NavigationItem.class, filter, NavigationItem.Col.KEY,
+            QueryOptions.builder().sortBy(NavigationItem.Col.POSITION).build());
     }
 
     @Override

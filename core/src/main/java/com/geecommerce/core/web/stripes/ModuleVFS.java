@@ -37,10 +37,10 @@ public class ModuleVFS extends DefaultVFS {
 
         try {
             App app = App.get();
-            ApplicationContext appCtx = app.getApplicationContext();
+            ApplicationContext appCtx = app.context();
 
             if (appCtx != null) {
-                ModuleLoader loader = app.getModuleLoader();
+                ModuleLoader loader = app.moduleLoader();
 
                 Collection<Module> modules = loader.getLoadedModules();
 
@@ -94,14 +94,13 @@ public class ModuleVFS extends DefaultVFS {
                         /*
                          * Some servlet containers allow reading from directory
                          * resources like a text file, listing the child
-                         * resources one per line.
-                         * However, there is no way to differentiate between
-                         * directory and file resources just by reading them. To
-                         * work around that,
-                         * as each line is read, try to look it up via the class
-                         * loader as a child of the current resource. If any
-                         * line fails then we
-                         * assume the current resource is not a directory.
+                         * resources one per line. However, there is no way to
+                         * differentiate between directory and file resources
+                         * just by reading them. To work around that, as each
+                         * line is read, try to look it up via the class loader
+                         * as a child of the current resource. If any line fails
+                         * then we assume the current resource is not a
+                         * directory.
                          */
                         is = url.openStream();
                         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -124,9 +123,8 @@ public class ModuleVFS extends DefaultVFS {
                     /*
                      * For file URLs the openStream() call might fail, depending
                      * on the servlet container, because directories can't be
-                     * opened for
-                     * reading. If that happens, then list the directory
-                     * directly instead.
+                     * opened for reading. If that happens, then list the
+                     * directory directly instead.
                      */
                     if ("file".equals(url.getProtocol())) {
                         File file = new File(url.getFile());

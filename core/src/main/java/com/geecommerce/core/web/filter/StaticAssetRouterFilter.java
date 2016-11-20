@@ -33,7 +33,8 @@ public class StaticAssetRouterFilter implements Filter {
     protected Pattern moduleAssetURIPattern = Pattern.compile("^\\/m\\/([^\\/]+)\\/(js|resources|skin)\\/(.+)");
 
     // Rewrite for module specific assets in project's folder.
-    protected Pattern projectModuleAssetURIPattern = Pattern.compile("^(\\/[^\\/]+\\/web\\/(?:js|resources|skin).*)\\/m\\/(.+)");
+    protected Pattern projectModuleAssetURIPattern = Pattern
+        .compile("^(\\/[^\\/]+\\/web\\/(?:js|resources|skin).*)\\/m\\/(.+)");
 
     // Rewrite for all remaining assets in project's folder.
     protected Pattern projectAssetURIPattern = Pattern.compile("^\\/[^\\/]+\\/web\\/(?:js|resources|skin)\\/.+");
@@ -44,11 +45,12 @@ public class StaticAssetRouterFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         String requestURI = httpRequest.getRequestURI();
 
@@ -59,11 +61,8 @@ public class StaticAssetRouterFilter implements Filter {
         if (m.matches()) {
             String projectsPath = SystemConfig.GET.val(SystemConfig.APPLICATION_PROJECTS_PATH);
 
-            StringBuilder projectModuleAssetSystemPath = new StringBuilder(projectsPath)
-                .append(Char.SLASH)
-                .append(m.group(1))
-                .append("/modules/")
-                .append(m.group(2));
+            StringBuilder projectModuleAssetSystemPath = new StringBuilder(projectsPath).append(Char.SLASH)
+                .append(m.group(1)).append("/modules/").append(m.group(2));
 
             asset = new File(projectModuleAssetSystemPath.toString());
         }
@@ -74,8 +73,7 @@ public class StaticAssetRouterFilter implements Filter {
             if (m.matches()) {
                 String projectsPath = SystemConfig.GET.val(SystemConfig.APPLICATION_PROJECTS_PATH);
 
-                StringBuilder projectAssetSystemPath = new StringBuilder(projectsPath)
-                    .append(requestURI);
+                StringBuilder projectAssetSystemPath = new StringBuilder(projectsPath).append(requestURI);
 
                 asset = new File(projectAssetSystemPath.toString());
             }
@@ -85,14 +83,11 @@ public class StaticAssetRouterFilter implements Filter {
             m = moduleAssetURIPattern.matcher(requestURI);
 
             if (m.matches()) {
-                ModuleLoader ml = app.getModuleLoader();
+                ModuleLoader ml = app.moduleLoader();
                 Module module = ml.getLoadedModuleByCode(m.group(1));
 
-                StringBuilder moduleAssetSystemPath = new StringBuilder(module.getBasePath())
-                    .append("/web/")
-                    .append(m.group(2))
-                    .append(Char.SLASH)
-                    .append(m.group(3));
+                StringBuilder moduleAssetSystemPath = new StringBuilder(module.getBasePath()).append("/web/")
+                    .append(m.group(2)).append(Char.SLASH).append(m.group(3));
 
                 asset = new File(moduleAssetSystemPath.toString());
             }

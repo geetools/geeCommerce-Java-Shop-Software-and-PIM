@@ -126,7 +126,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue forAttribute(Attribute attribute) {
         if (attribute == null || attribute.getId() == null)
-            throw new NullPointerException("Attribute or id of attribute cannot be null when setting it in AttributeVaue object.");
+            throw new NullPointerException(
+                "Attribute or id of attribute cannot be null when setting it in AttributeVaue object.");
 
         this.attribute = attribute;
         this.attributeId = attribute.getId();
@@ -202,7 +203,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @JsonIgnore(serialize = true)
     @Override
     public Map<Id, AttributeOption> getAttributeOptions() {
-        if (this.attributeOptionsMap == null && (this.optionIds != null && !this.optionIds.isEmpty()) || (this.xOptionIds != null && !this.xOptionIds.isEmpty())) {
+        if (this.attributeOptionsMap == null && (this.optionIds != null && !this.optionIds.isEmpty())
+            || (this.xOptionIds != null && !this.xOptionIds.isEmpty())) {
             List<Id> optionIds = new ArrayList<>();
 
             if (this.optionIds != null && !this.optionIds.isEmpty()) {
@@ -231,7 +233,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
                 }
             }
 
-            List<AttributeOption> attributeOptionsList = attributeOptions.findByIds(AttributeOption.class, optionIds.toArray(new Id[optionIds.size()]));
+            List<AttributeOption> attributeOptionsList = attributeOptions.findByIds(AttributeOption.class,
+                optionIds.toArray(new Id[optionIds.size()]));
 
             if (attributeOptionsList != null && !attributeOptionsList.isEmpty()) {
                 this.attributeOptionsMap = new LinkedHashMap<>();
@@ -555,7 +558,7 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
         if (value == null || value.isEmpty())
             return false;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Store store = appCtx.getStore();
 
         if (store == null)
@@ -573,8 +576,10 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
 
     @Override
     public AttributeValue setValue(ContextObject<?> value) {
-        if ((this.optionIds != null && this.optionIds.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+        if ((this.optionIds != null && this.optionIds.size() > 0)
+            || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (value != null) {
@@ -586,8 +591,10 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
 
     @Override
     public AttributeValue setValue(String language, String value) {
-        if ((this.optionIds != null && this.optionIds.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+        if ((this.optionIds != null && this.optionIds.size() > 0)
+            || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (value != null) {
@@ -599,8 +606,10 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
 
     @Override
     public AttributeValue setSimpleValue(Object value) {
-        if ((this.optionIds != null && this.optionIds.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+        if ((this.optionIds != null && this.optionIds.size() > 0)
+            || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (value != null) {
@@ -617,8 +626,10 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public AttributeValue setStoreValue(Object value, Store store) {
-        if ((this.optionIds != null && this.optionIds.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+        if ((this.optionIds != null && this.optionIds.size() > 0)
+            || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (value != null) {
@@ -655,7 +666,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue setOptionId(Id optionId) {
         if ((this.value != null && this.value.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (optionId != null) {
@@ -670,7 +682,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue setOptionIds(List<Id> optionIds) {
         if ((this.value != null && this.value.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         this.optionIds = optionIds;
@@ -681,7 +694,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue addOptionId(Id optionId) {
         if ((this.value != null && this.value.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (optionId != null) {
@@ -699,7 +713,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue addOptionIds(List<Id> newOptionIds) {
         if ((this.value != null && this.value.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (newOptionIds != null && !newOptionIds.isEmpty()) {
@@ -728,7 +743,7 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
         if (xOptionIds == null || xOptionIds.isEmpty())
             return false;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Store store = appCtx.getStore();
 
         if (store == null)
@@ -745,7 +760,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue setXOptionId(Id optionId, Store store) {
         if ((this.value != null && this.value.size() > 0) || (this.optionIds != null && this.optionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (store == null || store.getId() == null)
@@ -779,7 +795,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue setXOptionIds(List<Id> optionIds, Store store) {
         if ((this.value != null && this.value.size() > 0) || (this.optionIds != null && this.optionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (store == null || store.getId() == null)
@@ -800,7 +817,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue setXOptionIds(ContextObject<List<Id>> xOptionIds) {
         if ((this.value != null && this.value.size() > 0) || (this.optionIds != null && this.optionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         this.xOptionIds = xOptionIds;
@@ -811,7 +829,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue addXOptionId(Id optionId, Store store) {
         if ((this.value != null && this.value.size() > 0) || (this.optionIds != null && this.optionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (store == null || store.getId() == null)
@@ -844,7 +863,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue addXOptionIds(List<Id> newOptionIds, Store store) {
         if ((this.value != null && this.value.size() > 0) || (this.optionIds != null && this.optionIds.size() > 0)) {
-            throw new IllegalStateException("You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            throw new IllegalStateException(
+                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
         }
 
         if (store == null || store.getId() == null)
@@ -1065,7 +1085,8 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
         if (attr == null)
             throw new IllegalStateException("Attribute cannot be null");
 
-        if (attr.getBackendType() == null && (object instanceof Number || object instanceof String || object instanceof Boolean || object instanceof Date || object instanceof Id)) {
+        if (attr.getBackendType() == null && (object instanceof Number || object instanceof String
+            || object instanceof Boolean || object instanceof Date || object instanceof Id)) {
             return object;
         } else if (attr.getBackendType() == null) {
             throw new IllegalStateException("The value '" + object + "' for attribute '" + attr.getCode()
@@ -1136,8 +1157,9 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
 
     @Override
     public String toString() {
-        return "DefaultAttributeValue [attributeId=" + attributeId + ", value=" + value + ", optionIds=" + optionIds + ", xOptionIds=" + xOptionIds + ", sortOrder=" + sortOrder + ", properties="
-            + properties + ", optOut=" + optOut + "]";
+        return "DefaultAttributeValue [attributeId=" + attributeId + ", value=" + value + ", optionIds=" + optionIds
+            + ", xOptionIds=" + xOptionIds + ", sortOrder=" + sortOrder + ", properties=" + properties + ", optOut="
+            + optOut + "]";
     }
 
     @Override

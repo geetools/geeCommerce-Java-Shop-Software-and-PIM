@@ -20,7 +20,8 @@ public enum ShippingType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ShippingType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(ShippingType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final ShippingType fromId(int id) {
@@ -36,14 +37,16 @@ public enum ShippingType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (ShippingType shippingPackageType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(ShippingType.class.getSimpleName()).append(".").append(shippingPackageType.name()).toString()), shippingPackageType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(ShippingType.class.getSimpleName())
+                .append(".").append(shippingPackageType.name()).toString()), shippingPackageType.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ShippingType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(ShippingType.class.getSimpleName()).append(".label").toString());
     }
 
 }

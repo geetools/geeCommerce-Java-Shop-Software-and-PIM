@@ -16,7 +16,7 @@ public class DefaultTargetSupportHelper implements TargetSupportHelper {
     public String findURI(TargetSupport targetSupport) {
         ContextObject<String> targetURI = targetSupport.getURI();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         String uri = targetURI.getStr(appCtx.getLanguage());
 

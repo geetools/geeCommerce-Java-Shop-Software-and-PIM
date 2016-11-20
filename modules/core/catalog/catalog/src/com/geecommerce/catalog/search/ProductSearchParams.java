@@ -16,7 +16,6 @@ public class ProductSearchParams extends SearchParams {
     private Double priceFrom;
     private Double priceTo;
 
-
     public Double getPriceFrom() {
         return priceFrom;
     }
@@ -37,7 +36,7 @@ public class ProductSearchParams extends SearchParams {
 
     @Override
     public String getSort() {
-        if("price".equals(super.getSort())){
+        if ("price".equals(super.getSort())) {
             return "price";
         } else {
             return getNameSearchField();
@@ -45,7 +44,7 @@ public class ProductSearchParams extends SearchParams {
     }
 
     protected String getNameSearchField() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         RequestContext reqCtx = appCtx.getRequestContext();
         String auto = "att_name_slug" + "_" + reqCtx.getLanguage();
         return auto;
@@ -59,6 +58,7 @@ public class ProductSearchParams extends SearchParams {
             filterBuilders.add(FilterBuilders.rangeFilter("price").from(this.getPriceFrom()).to(this.getPriceTo()));
         }
 
-        return filterBuilders.size() == 0 ? null : FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+        return filterBuilders.size() == 0 ? null
+            : FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
     }
 }

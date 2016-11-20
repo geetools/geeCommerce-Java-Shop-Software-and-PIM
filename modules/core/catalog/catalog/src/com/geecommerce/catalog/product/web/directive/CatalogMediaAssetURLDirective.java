@@ -6,10 +6,10 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.inject.Inject;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.core.Str;
 import com.geecommerce.core.web.annotation.Directive;
+import com.google.inject.Inject;
 
 import freemarker.core.Environment;
 import freemarker.template.DefaultObjectWrapper;
@@ -31,9 +31,10 @@ public class CatalogMediaAssetURLDirective implements TemplateDirectiveModel {
         this.catalogMediaHelper = catalogMediaHelper;
     }
 
-    @SuppressWarnings({"rawtypes", "deprecation"})
+    @SuppressWarnings({ "rawtypes", "deprecation" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         if (log.isTraceEnabled()) {
             log.trace(params);
         }
@@ -51,7 +52,9 @@ public class CatalogMediaAssetURLDirective implements TemplateDirectiveModel {
                 varStr = var.getAsString();
 
             if (!Str.isEmpty(uriStr)) {
-                String mediaAssetURL = catalogMediaHelper.toMediaAssetURL(uriStr, width == null ? null : width.getAsNumber().intValue(), height == null ? null : height.getAsNumber().intValue());
+                String mediaAssetURL = catalogMediaHelper.toMediaAssetURL(uriStr,
+                    width == null ? null : width.getAsNumber().intValue(),
+                    height == null ? null : height.getAsNumber().intValue());
 
                 if (varStr != null) {
                     env.setVariable(varStr, DefaultObjectWrapper.getDefaultInstance().wrap(mediaAssetURL));

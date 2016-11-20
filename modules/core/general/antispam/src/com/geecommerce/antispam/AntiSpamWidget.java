@@ -18,7 +18,8 @@ public class AntiSpamWidget extends AbstractWidgetController implements WidgetCo
     private final String PARAM_RECAPTURE_KEY = "recaptureKey";
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         boolean useHoneyPot = app.cpBool_(Key.HONEYPOT, true);
         boolean useRecapture = app.cpBool_(Key.RECAPTURE, false);
         String recaptureKey = app.cpStr_(Key.RECAPTURE_PUBLIC_KEY);

@@ -19,7 +19,8 @@ public enum CalculationType {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CalculationType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(CalculationType.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final CalculationType fromId(int id) {
@@ -36,14 +37,16 @@ public enum CalculationType {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (CalculationType calculationType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(CalculationType.class.getSimpleName()).append(".").append(calculationType.name()).toString()), calculationType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(CalculationType.class.getSimpleName())
+                .append(".").append(calculationType.name()).toString()), calculationType.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CalculationType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(CalculationType.class.getSimpleName()).append(".label").toString());
     }
 
 }

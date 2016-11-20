@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.boon.Str;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.service.AbstractRepository;
 import com.geecommerce.core.service.QueryOptions;
@@ -16,6 +15,7 @@ import com.geecommerce.core.service.persistence.mongodb.MongoQueries;
 import com.geecommerce.core.system.model.UrlRewrite;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.type.IdSupport;
+import com.google.inject.Inject;
 
 public class DefaultUrlRewrites extends AbstractRepository implements UrlRewrites {
     final MongoDao mongoDao;
@@ -77,7 +77,8 @@ public class DefaultUrlRewrites extends AbstractRepository implements UrlRewrite
             return null;
 
         if (!(targetObject instanceof TargetSupport))
-            throw new IllegalArgumentException("TargetObject must support the '" + TargetSupport.class.getName() + "' interface");
+            throw new IllegalArgumentException(
+                "TargetObject must support the '" + TargetSupport.class.getName() + "' interface");
 
         Map<String, Object> filter = new LinkedHashMap<>();
         filter.put(UrlRewrite.Col.TARGET_OBJECT_ID, targetObject.getId());

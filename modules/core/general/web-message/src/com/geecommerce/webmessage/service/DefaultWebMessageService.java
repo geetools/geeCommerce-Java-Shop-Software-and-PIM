@@ -20,7 +20,7 @@ public class DefaultWebMessageService implements WebMessageService {
         if (messages == null) {
             messages = new ArrayList<>();
         }
-        WebMessage webMessage = app.getModel(WebMessage.class);
+        WebMessage webMessage = app.model(WebMessage.class);
         webMessage.setStatus(status).setCode(code).setMessage(message);
         messages.add(webMessage);
         app.sessionSet(SESSION_KEY, messages);

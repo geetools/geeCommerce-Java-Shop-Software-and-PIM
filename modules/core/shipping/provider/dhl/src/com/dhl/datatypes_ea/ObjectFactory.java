@@ -13,11 +13,14 @@ import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 /**
- * This object contains factory methods for each Java content interface and Java element interface generated in the com.dhl.datatypes_ea package.
+ * This object contains factory methods for each Java content interface and Java
+ * element interface generated in the com.dhl.datatypes_ea package.
  * <p>
- * An ObjectFactory allows you to programatically construct new instances of the Java representation for XML content. The Java representation of XML
- * content can consist of schema derived interfaces and classes representing the binding of schema type definitions, element declarations and model
- * groups. Factory methods for each of these are provided in this class.
+ * An ObjectFactory allows you to programatically construct new instances of the
+ * Java representation for XML content. The Java representation of XML content
+ * can consist of schema derived interfaces and classes representing the binding
+ * of schema type definitions, element declarations and model groups. Factory
+ * methods for each of these are provided in this class.
  * 
  */
 @XmlRegistry
@@ -26,7 +29,8 @@ public class ObjectFactory {
     private final static QName _DataTypes_QNAME = new QName("http://www.dhl.com/datatypes_EA", "DataTypes");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.dhl.datatypes_ea
+     * Create a new ObjectFactory that can be used to create new instances of
+     * schema derived classes for package: com.dhl.datatypes_ea
      * 
      */
     public ObjectFactory() {
@@ -37,7 +41,7 @@ public class ObjectFactory {
      * 
      */
     public ErrorResponse createErrorResponse() {
-	return new ErrorResponse();
+        return new ErrorResponse();
     }
 
     /**
@@ -45,7 +49,7 @@ public class ObjectFactory {
      * 
      */
     public Condition createCondition() {
-	return new Condition();
+        return new Condition();
     }
 
     /**
@@ -53,7 +57,7 @@ public class ObjectFactory {
      * 
      */
     public Commodity createCommodity() {
-	return new Commodity();
+        return new Commodity();
     }
 
     /**
@@ -61,7 +65,7 @@ public class ObjectFactory {
      * 
      */
     public DocImages createDocImages() {
-	return new DocImages();
+        return new DocImages();
     }
 
     /**
@@ -69,7 +73,7 @@ public class ObjectFactory {
      * 
      */
     public PieceDetails createPieceDetails() {
-	return new PieceDetails();
+        return new PieceDetails();
     }
 
     /**
@@ -77,7 +81,7 @@ public class ObjectFactory {
      * 
      */
     public ShipmentDate createShipmentDate() {
-	return new ShipmentDate();
+        return new ShipmentDate();
     }
 
     /**
@@ -85,7 +89,7 @@ public class ObjectFactory {
      * 
      */
     public Consignee createConsignee() {
-	return new Consignee();
+        return new Consignee();
     }
 
     /**
@@ -93,7 +97,7 @@ public class ObjectFactory {
      * 
      */
     public QtdSInAdCur createQtdSInAdCur() {
-	return new QtdSInAdCur();
+        return new QtdSInAdCur();
     }
 
     /**
@@ -101,7 +105,7 @@ public class ObjectFactory {
      * 
      */
     public Email createEmail() {
-	return new Email();
+        return new Email();
     }
 
     /**
@@ -109,7 +113,7 @@ public class ObjectFactory {
      * 
      */
     public DocImage createDocImage() {
-	return new DocImage();
+        return new DocImage();
     }
 
     /**
@@ -117,7 +121,7 @@ public class ObjectFactory {
      * 
      */
     public DestinationServiceArea createDestinationServiceArea() {
-	return new DestinationServiceArea();
+        return new DestinationServiceArea();
     }
 
     /**
@@ -125,7 +129,7 @@ public class ObjectFactory {
      * 
      */
     public Request createRequest() {
-	return new Request();
+        return new Request();
     }
 
     /**
@@ -133,7 +137,7 @@ public class ObjectFactory {
      * 
      */
     public WeightSeg createWeightSeg() {
-	return new WeightSeg();
+        return new WeightSeg();
     }
 
     /**
@@ -141,7 +145,7 @@ public class ObjectFactory {
      * 
      */
     public AWBInfo createAWBInfo() {
-	return new AWBInfo();
+        return new AWBInfo();
     }
 
     /**
@@ -149,7 +153,7 @@ public class ObjectFactory {
      * 
      */
     public OriginServiceArea createOriginServiceArea() {
-	return new OriginServiceArea();
+        return new OriginServiceArea();
     }
 
     /**
@@ -157,7 +161,7 @@ public class ObjectFactory {
      * 
      */
     public ShipValResponsePieces createShipValResponsePieces() {
-	return new ShipValResponsePieces();
+        return new ShipValResponsePieces();
     }
 
     /**
@@ -165,7 +169,7 @@ public class ObjectFactory {
      * 
      */
     public Place createPlace() {
-	return new Place();
+        return new Place();
     }
 
     /**
@@ -173,7 +177,7 @@ public class ObjectFactory {
      * 
      */
     public Response createResponse() {
-	return new Response();
+        return new Response();
     }
 
     /**
@@ -181,7 +185,7 @@ public class ObjectFactory {
      * 
      */
     public Note createNote() {
-	return new Note();
+        return new Note();
     }
 
     /**
@@ -189,7 +193,7 @@ public class ObjectFactory {
      * 
      */
     public Fault createFault() {
-	return new Fault();
+        return new Fault();
     }
 
     /**
@@ -197,7 +201,7 @@ public class ObjectFactory {
      * 
      */
     public PieceEvent createPieceEvent() {
-	return new PieceEvent();
+        return new PieceEvent();
     }
 
     /**
@@ -205,7 +209,7 @@ public class ObjectFactory {
      * 
      */
     public BarCodes createBarCodes() {
-	return new BarCodes();
+        return new BarCodes();
     }
 
     /**
@@ -213,7 +217,7 @@ public class ObjectFactory {
      * 
      */
     public Pieces createPieces() {
-	return new Pieces();
+        return new Pieces();
     }
 
     /**
@@ -221,7 +225,7 @@ public class ObjectFactory {
      * 
      */
     public ExportDeclaration createExportDeclaration() {
-	return new ExportDeclaration();
+        return new ExportDeclaration();
     }
 
     /**
@@ -229,7 +233,7 @@ public class ObjectFactory {
      * 
      */
     public Shipper createShipper() {
-	return new Shipper();
+        return new Shipper();
     }
 
     /**
@@ -237,7 +241,7 @@ public class ObjectFactory {
      * 
      */
     public Piece createPiece() {
-	return new Piece();
+        return new Piece();
     }
 
     /**
@@ -245,7 +249,7 @@ public class ObjectFactory {
      * 
      */
     public ShipValResponsePiece createShipValResponsePiece() {
-	return new ShipValResponsePiece();
+        return new ShipValResponsePiece();
     }
 
     /**
@@ -253,7 +257,7 @@ public class ObjectFactory {
      * 
      */
     public PieceFault createPieceFault() {
-	return new PieceFault();
+        return new PieceFault();
     }
 
     /**
@@ -261,7 +265,7 @@ public class ObjectFactory {
      * 
      */
     public ShipmentEvent createShipmentEvent() {
-	return new ShipmentEvent();
+        return new ShipmentEvent();
     }
 
     /**
@@ -269,7 +273,7 @@ public class ObjectFactory {
      * 
      */
     public TrackingPieces createTrackingPieces() {
-	return new TrackingPieces();
+        return new TrackingPieces();
     }
 
     /**
@@ -277,7 +281,7 @@ public class ObjectFactory {
      * 
      */
     public ServiceHeader createServiceHeader() {
-	return new ServiceHeader();
+        return new ServiceHeader();
     }
 
     /**
@@ -285,7 +289,7 @@ public class ObjectFactory {
      * 
      */
     public ExportLineItem createExportLineItem() {
-	return new ExportLineItem();
+        return new ExportLineItem();
     }
 
     /**
@@ -293,7 +297,7 @@ public class ObjectFactory {
      * 
      */
     public Reference createReference() {
-	return new Reference();
+        return new Reference();
     }
 
     /**
@@ -301,7 +305,7 @@ public class ObjectFactory {
      * 
      */
     public ShipmentDetails createShipmentDetails() {
-	return new ShipmentDetails();
+        return new ShipmentDetails();
     }
 
     /**
@@ -309,7 +313,7 @@ public class ObjectFactory {
      * 
      */
     public PieceInfo createPieceInfo() {
-	return new PieceInfo();
+        return new PieceInfo();
     }
 
     /**
@@ -317,7 +321,7 @@ public class ObjectFactory {
      * 
      */
     public Customer createCustomer() {
-	return new Customer();
+        return new Customer();
     }
 
     /**
@@ -325,7 +329,7 @@ public class ObjectFactory {
      * 
      */
     public SpecialService createSpecialService() {
-	return new SpecialService();
+        return new SpecialService();
     }
 
     /**
@@ -333,7 +337,7 @@ public class ObjectFactory {
      * 
      */
     public Billing createBilling() {
-	return new Billing();
+        return new Billing();
     }
 
     /**
@@ -341,7 +345,7 @@ public class ObjectFactory {
      * 
      */
     public Contact createContact() {
-	return new Contact();
+        return new Contact();
     }
 
     /**
@@ -349,7 +353,7 @@ public class ObjectFactory {
      * 
      */
     public LabelImage createLabelImage() {
-	return new LabelImage();
+        return new LabelImage();
     }
 
     /**
@@ -357,7 +361,7 @@ public class ObjectFactory {
      * 
      */
     public Status createStatus() {
-	return new Status();
+        return new Status();
     }
 
     /**
@@ -365,7 +369,7 @@ public class ObjectFactory {
      * 
      */
     public ServiceEvent createServiceEvent() {
-	return new ServiceEvent();
+        return new ServiceEvent();
     }
 
     /**
@@ -373,7 +377,7 @@ public class ObjectFactory {
      * 
      */
     public Dutiable createDutiable() {
-	return new Dutiable();
+        return new Dutiable();
     }
 
     /**
@@ -381,7 +385,7 @@ public class ObjectFactory {
      * 
      */
     public ShipmentInfo createShipmentInfo() {
-	return new ShipmentInfo();
+        return new ShipmentInfo();
     }
 
     /**
@@ -389,7 +393,7 @@ public class ObjectFactory {
      * 
      */
     public ChargeCard createChargeCard() {
-	return new ChargeCard();
+        return new ChargeCard();
     }
 
     /**
@@ -397,16 +401,17 @@ public class ObjectFactory {
      * 
      */
     public ServiceArea createServiceArea() {
-	return new ServiceArea();
+        return new ServiceArea();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object
+     * }{@code >}
      * 
      */
     @XmlElementDecl(namespace = "http://www.dhl.com/datatypes_EA", name = "DataTypes")
     public JAXBElement<Object> createDataTypes(Object value) {
-	return new JAXBElement<Object>(_DataTypes_QNAME, Object.class, null, value);
+        return new JAXBElement<Object>(_DataTypes_QNAME, Object.class, null, value);
     }
 
 }

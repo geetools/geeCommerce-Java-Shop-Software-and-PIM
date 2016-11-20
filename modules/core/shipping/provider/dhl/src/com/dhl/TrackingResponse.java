@@ -9,11 +9,13 @@ package com.dhl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import com.dhl.datatypes.AWBInfo;
 import com.dhl.datatypes.Fault;
 import com.dhl.datatypes.Response;
@@ -23,7 +25,8 @@ import com.dhl.datatypes.Response;
  * Java class for anonymous complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -60,7 +63,7 @@ public class TrackingResponse {
      * 
      */
     public Response getResponse() {
-	return response;
+        return response;
     }
 
     /**
@@ -71,15 +74,17 @@ public class TrackingResponse {
      * 
      */
     public void setResponse(Response value) {
-	this.response = value;
+        this.response = value;
     }
 
     /**
      * Gets the value of the awbInfo property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the awbInfo property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the awbInfo property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -95,10 +100,10 @@ public class TrackingResponse {
      * 
      */
     public List<AWBInfo> getAWBInfo() {
-	if (awbInfo == null) {
-	    awbInfo = new ArrayList<AWBInfo>();
-	}
-	return this.awbInfo;
+        if (awbInfo == null) {
+            awbInfo = new ArrayList<AWBInfo>();
+        }
+        return this.awbInfo;
     }
 
     /**
@@ -108,7 +113,7 @@ public class TrackingResponse {
      * 
      */
     public Fault getFault() {
-	return fault;
+        return fault;
     }
 
     /**
@@ -119,7 +124,7 @@ public class TrackingResponse {
      * 
      */
     public void setFault(Fault value) {
-	this.fault = value;
+        this.fault = value;
     }
 
 }

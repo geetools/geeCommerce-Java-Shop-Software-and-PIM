@@ -51,7 +51,8 @@ public class HttpsFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+        throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -68,7 +69,8 @@ public class HttpsFilter implements Filter {
         int incr = app.registryGet(INCREMENT_CONFIG_KEY, 0);
 
         if (incr > 100) {
-            httpResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Possible stackoverflow detected while processing URI '" + path + "'.");
+            httpResponse.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                "Possible stackoverflow detected while processing URI '" + path + "'.");
             return;
         } else {
             app.registryPut(INCREMENT_CONFIG_KEY, ++incr);
@@ -151,8 +153,8 @@ public class HttpsFilter implements Filter {
             // else
             {
                 if (path.equals(sourcePage)) {
-                    httpResponse.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                        "Cannot forward to oneself ('" + path + "'). Make sure you have a proper Stripes _sourcePage set or redirect to a different page.");
+                    httpResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cannot forward to oneself ('" + path
+                        + "'). Make sure you have a proper Stripes _sourcePage set or redirect to a different page.");
                     return;
                 }
 
@@ -195,24 +197,29 @@ public class HttpsFilter implements Filter {
 
                     String httpsScheme = app.cpStr_(HTTPS_SCHEME_CONFIG_KEY, DEFAULT_HTTPS_SCHEME);
 
-                    StringBuilder url = new StringBuilder(httpsScheme).append(Str.PROTOCOL_SUFFIX).append(Requests.getHost(httpRequest))
+                    StringBuilder url = new StringBuilder(httpsScheme).append(Str.PROTOCOL_SUFFIX)
+                        .append(Requests.getHost(httpRequest))
                         .append(Str.isEmpty(app.getOriginalURI()) ? path : app.getOriginalURI())
-                        .append(httpRequest.getQueryString() == null ? Str.EMPTY : Char.QUESTION_MARK).append(httpRequest.getQueryString() == null ? Str.EMPTY : httpRequest.getQueryString());
+                        .append(httpRequest.getQueryString() == null ? Str.EMPTY : Char.QUESTION_MARK)
+                        .append(httpRequest.getQueryString() == null ? Str.EMPTY : httpRequest.getQueryString());
 
                     httpResponse.sendRedirect(url.toString());
                 }
                 // If request should not be secure, but it is, and we have
                 // redirects back to http enabled, we initiate a
                 // redirect.
-                else if (isGET && !isErrorPage && isForceHttpForNonSecureURIs && !isSecurePostGetRedirect && !isSecureURI && app.isSecureRequest()) {
+                else if (isGET && !isErrorPage && isForceHttpForNonSecureURIs && !isSecurePostGetRedirect
+                    && !isSecureURI && app.isSecureRequest()) {
                     // System.out.println("Redirect PATH " + path + " to
                     // ***HTTP***");
 
                     String httpScheme = app.cpStr_(HTTP_SCHEME_CONFIG_KEY, DEFAULT_HTTP_SCHEME);
 
-                    StringBuilder url = new StringBuilder(httpScheme).append(Str.PROTOCOL_SUFFIX).append(Requests.getHost(httpRequest))
+                    StringBuilder url = new StringBuilder(httpScheme).append(Str.PROTOCOL_SUFFIX)
+                        .append(Requests.getHost(httpRequest))
                         .append(Str.isEmpty(app.getOriginalURI()) ? path : app.getOriginalURI())
-                        .append(httpRequest.getQueryString() == null ? Str.EMPTY : Char.QUESTION_MARK).append(httpRequest.getQueryString() == null ? Str.EMPTY : httpRequest.getQueryString());
+                        .append(httpRequest.getQueryString() == null ? Str.EMPTY : Char.QUESTION_MARK)
+                        .append(httpRequest.getQueryString() == null ? Str.EMPTY : httpRequest.getQueryString());
 
                     httpResponse.sendRedirect(url.toString());
                 }
@@ -233,7 +240,7 @@ public class HttpsFilter implements Filter {
         String friendlyURI = null;
 
         if (!Str.isEmpty(path) && !Str.SLASH.equals(path.trim())) {
-            UrlRewrite urlRewrite = App.get().getRepository(UrlRewrites.class).forTargetURI(path);
+            UrlRewrite urlRewrite = App.get().repository(UrlRewrites.class).forTargetURI(path);
 
             if (urlRewrite != null) {
                 friendlyURI = ContextObjects.findCurrentLanguage(urlRewrite.getRequestURI());

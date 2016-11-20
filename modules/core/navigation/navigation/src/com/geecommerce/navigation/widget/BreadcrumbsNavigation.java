@@ -54,14 +54,16 @@ public class BreadcrumbsNavigation extends AbstractWidgetController implements W
     private final ProductNavigationIndexes productNavigationIndexes;
 
     @Inject
-    public BreadcrumbsNavigation(NavigationService navigationService, ProductLists productLists, ProductNavigationIndexes productNavigationIndexes) {
+    public BreadcrumbsNavigation(NavigationService navigationService, ProductLists productLists,
+        ProductNavigationIndexes productNavigationIndexes) {
         this.navigationService = navigationService;
         this.productLists = productLists;
         this.productNavigationIndexes = productNavigationIndexes;
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         Class<?> controllerClass = (Class<?>) request.getAttribute(GeemvcKey.CONTROLLER_CLASS);
 
         boolean isProductList = false;
@@ -170,7 +172,8 @@ public class BreadcrumbsNavigation extends AbstractWidgetController implements W
 
         if (productList != null) {
             if (rootNavItem != null) {
-                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productList.getId(), rootNavItem.getId());
+                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST,
+                    productList.getId(), rootNavItem.getId());
 
                 // No need to search further, we have found a unique entry.
                 if (navigationItems != null && navigationItems.size() == 1)
@@ -178,7 +181,8 @@ public class BreadcrumbsNavigation extends AbstractWidgetController implements W
             }
             // Attempt the same as above, but without root node.
             else {
-                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productList.getId());
+                navigationItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST,
+                    productList.getId());
 
                 // No need to search further, we have found a unique entry.
                 if (navigationItems != null && navigationItems.size() == 1)
@@ -190,7 +194,8 @@ public class BreadcrumbsNavigation extends AbstractWidgetController implements W
         // collection, there can only be one.
         if (navigationItem == null && productList != null && product != null) {
             if (rootNavItem != null) {
-                List<ProductNavigationIndex> pniList = productNavigationIndexes.forValues(product, productList, rootNavItem.getId());
+                List<ProductNavigationIndex> pniList = productNavigationIndexes.forValues(product, productList,
+                    rootNavItem.getId());
                 if (pniList != null && pniList.size() > 0) {
                     ProductNavigationIndex pni = pniList.get(0);
                     Id navItemId = pni.getNavigationItemId();
@@ -263,7 +268,8 @@ public class BreadcrumbsNavigation extends AbstractWidgetController implements W
             NavigationItem rootNavItem = navigationService.findRootNavigationItem();
 
             if (rootNavItem != null) {
-                List<ProductNavigationIndex> pniList = productNavigationIndexes.forProduct(product, rootNavItem.getId());
+                List<ProductNavigationIndex> pniList = productNavigationIndexes.forProduct(product,
+                    rootNavItem.getId());
                 if (pniList != null && pniList.size() > 0) {
                     ProductNavigationIndex pni = pniList.get(0);
                     Id productListId = pni.getProductListId();

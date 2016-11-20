@@ -55,15 +55,15 @@ public interface Vacancy extends AttributeGroupSupport {
     public boolean isShow();
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String GROUP_ID = "group_id";
-	public static final String LABEL = "label";
-	public static final String DESCRIPTION = "description";
-	public static final String BRANCH = "branch";
-	public static final String DOCUMENT_URL = "doc_url";
-	public static final String TAG = "tag";
-	public static final String POSITION = "pos";
-	public static final String ENABLED = "enabled";
-	public static final String DOCUMENT_ID = "doc_id";
+        public static final String ID = "_id";
+        public static final String GROUP_ID = "group_id";
+        public static final String LABEL = "label";
+        public static final String DESCRIPTION = "description";
+        public static final String BRANCH = "branch";
+        public static final String DOCUMENT_URL = "doc_url";
+        public static final String TAG = "tag";
+        public static final String POSITION = "pos";
+        public static final String ENABLED = "enabled";
+        public static final String DOCUMENT_ID = "doc_id";
     }
 }

@@ -1,11 +1,11 @@
 package com.geecommerce.search.model;
 
+import java.util.List;
+
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
 
 /**
  * Created by Andrey on 05.10.2015.
@@ -24,34 +24,34 @@ public class DefaultSearchRewrite extends AbstractMultiContextModel implements S
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public SearchRewrite setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public List<String> getKeywords() {
-	return keywords;
+        return keywords;
     }
 
     @Override
     public SearchRewrite setKeywords(List<String> keywords) {
-	this.keywords = keywords;
-	return this;
+        this.keywords = keywords;
+        return this;
     }
 
     @Override
     public String getTargetUri() {
-	return targetUri;
+        return targetUri;
     }
 
     @Override
     public SearchRewrite setTargetUri(String targetUri) {
-	this.targetUri = targetUri;
-	return this;
+        this.targetUri = targetUri;
+        return this;
     }
 }

@@ -13,21 +13,25 @@ import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 /**
- * This object contains factory methods for each Java content interface and Java element interface generated in the com.dhl.dctresponsedatatypes
- * package.
+ * This object contains factory methods for each Java content interface and Java
+ * element interface generated in the com.dhl.dctresponsedatatypes package.
  * <p>
- * An ObjectFactory allows you to programatically construct new instances of the Java representation for XML content. The Java representation of XML
- * content can consist of schema derived interfaces and classes representing the binding of schema type definitions, element declarations and model
- * groups. Factory methods for each of these are provided in this class.
+ * An ObjectFactory allows you to programatically construct new instances of the
+ * Java representation for XML content. The Java representation of XML content
+ * can consist of schema derived interfaces and classes representing the binding
+ * of schema type definitions, element declarations and model groups. Factory
+ * methods for each of these are provided in this class.
  * 
  */
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _DCTResponseDataTypes_QNAME = new QName("http://www.dhl.com/DCTResponsedatatypes", "DCTResponseDataTypes");
+    private final static QName _DCTResponseDataTypes_QNAME = new QName("http://www.dhl.com/DCTResponsedatatypes",
+        "DCTResponseDataTypes");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.dhl.dctresponsedatatypes
+     * Create a new ObjectFactory that can be used to create new instances of
+     * schema derived classes for package: com.dhl.dctresponsedatatypes
      * 
      */
     public ObjectFactory() {
@@ -38,7 +42,7 @@ public class ObjectFactory {
      * 
      */
     public ProdType createProdType() {
-	return new ProdType();
+        return new ProdType();
     }
 
     /**
@@ -46,7 +50,7 @@ public class ObjectFactory {
      * 
      */
     public ProdType.VldSrvComb createProdTypeVldSrvComb() {
-	return new ProdType.VldSrvComb();
+        return new ProdType.VldSrvComb();
     }
 
     /**
@@ -54,7 +58,7 @@ public class ObjectFactory {
      * 
      */
     public NoteType createNoteType() {
-	return new NoteType();
+        return new NoteType();
     }
 
     /**
@@ -62,7 +66,7 @@ public class ObjectFactory {
      * 
      */
     public SrvCombType createSrvCombType() {
-	return new SrvCombType();
+        return new SrvCombType();
     }
 
     /**
@@ -70,7 +74,7 @@ public class ObjectFactory {
      * 
      */
     public QtdSExtrChrgInAdCurType createQtdSExtrChrgInAdCurType() {
-	return new QtdSExtrChrgInAdCurType();
+        return new QtdSExtrChrgInAdCurType();
     }
 
     /**
@@ -78,7 +82,7 @@ public class ObjectFactory {
      * 
      */
     public MrkSrvType createMrkSrvType() {
-	return new MrkSrvType();
+        return new MrkSrvType();
     }
 
     /**
@@ -86,7 +90,7 @@ public class ObjectFactory {
      * 
      */
     public SrvType createSrvType() {
-	return new SrvType();
+        return new SrvType();
     }
 
     /**
@@ -94,7 +98,7 @@ public class ObjectFactory {
      * 
      */
     public WeightChargeTaxDetType createWeightChargeTaxDetType() {
-	return new WeightChargeTaxDetType();
+        return new WeightChargeTaxDetType();
     }
 
     /**
@@ -102,7 +106,7 @@ public class ObjectFactory {
      * 
      */
     public ChargeTaxAmountDetType createChargeTaxAmountDetType() {
-	return new ChargeTaxAmountDetType();
+        return new ChargeTaxAmountDetType();
     }
 
     /**
@@ -110,7 +114,7 @@ public class ObjectFactory {
      * 
      */
     public QtdSInAdCurType createQtdSInAdCurType() {
-	return new QtdSInAdCurType();
+        return new QtdSInAdCurType();
     }
 
     /**
@@ -118,7 +122,7 @@ public class ObjectFactory {
      * 
      */
     public BkgDetailsType createBkgDetailsType() {
-	return new BkgDetailsType();
+        return new BkgDetailsType();
     }
 
     /**
@@ -126,7 +130,7 @@ public class ObjectFactory {
      * 
      */
     public ProdNtwrkType createProdNtwrkType() {
-	return new ProdNtwrkType();
+        return new ProdNtwrkType();
     }
 
     /**
@@ -134,7 +138,7 @@ public class ObjectFactory {
      * 
      */
     public QtdShpType createQtdShpType() {
-	return new QtdShpType();
+        return new QtdShpType();
     }
 
     /**
@@ -142,7 +146,7 @@ public class ObjectFactory {
      * 
      */
     public DestSvcAreaType createDestSvcAreaType() {
-	return new DestSvcAreaType();
+        return new DestSvcAreaType();
     }
 
     /**
@@ -150,7 +154,7 @@ public class ObjectFactory {
      * 
      */
     public OrgnSvcAreaType createOrgnSvcAreaType() {
-	return new OrgnSvcAreaType();
+        return new OrgnSvcAreaType();
     }
 
     /**
@@ -158,7 +162,7 @@ public class ObjectFactory {
      * 
      */
     public SBTPType createSBTPType() {
-	return new SBTPType();
+        return new SBTPType();
     }
 
     /**
@@ -166,7 +170,7 @@ public class ObjectFactory {
      * 
      */
     public QtdShpExChrgType createQtdShpExChrgType() {
-	return new QtdShpExChrgType();
+        return new QtdShpExChrgType();
     }
 
     /**
@@ -174,7 +178,7 @@ public class ObjectFactory {
      * 
      */
     public ProdType.VldSrvComb.CombRSrv createProdTypeVldSrvCombCombRSrv() {
-	return new ProdType.VldSrvComb.CombRSrv();
+        return new ProdType.VldSrvComb.CombRSrv();
     }
 
     /**
@@ -182,7 +186,7 @@ public class ObjectFactory {
      * 
      */
     public NoteType.Condition createNoteTypeCondition() {
-	return new NoteType.Condition();
+        return new NoteType.Condition();
     }
 
     /**
@@ -190,16 +194,17 @@ public class ObjectFactory {
      * 
      */
     public SrvCombType.SrvComb createSrvCombTypeSrvComb() {
-	return new SrvCombType.SrvComb();
+        return new SrvCombType.SrvComb();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Object
+     * }{@code >}
      * 
      */
     @XmlElementDecl(namespace = "http://www.dhl.com/DCTResponsedatatypes", name = "DCTResponseDataTypes")
     public JAXBElement<Object> createDCTResponseDataTypes(Object value) {
-	return new JAXBElement<Object>(_DCTResponseDataTypes_QNAME, Object.class, null, value);
+        return new JAXBElement<Object>(_DCTResponseDataTypes_QNAME, Object.class, null, value);
     }
 
 }

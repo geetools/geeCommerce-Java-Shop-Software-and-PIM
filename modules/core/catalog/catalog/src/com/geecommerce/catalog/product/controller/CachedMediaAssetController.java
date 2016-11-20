@@ -38,7 +38,7 @@ public class CachedMediaAssetController extends BaseController {
 
         String mediaAssetURI = Requests.getURIWithoutContextPath(request);
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Store store = appCtx.getStore();
         String mimeType = MimeType.fromFilename(mediaAssetURI);
 

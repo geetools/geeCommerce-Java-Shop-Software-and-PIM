@@ -62,7 +62,8 @@ public interface App {
 
     ContextMessage contextMessage(final String message, final String lang, final String message2, final String lang2);
 
-    ContextMessage contextMessage(final String message, final String lang, final String message2, final String lang2, final String message3, final String lang3);
+    ContextMessage contextMessage(final String message, final String lang, final String message2, final String lang2,
+        final String message3, final String lang3);
 
     String cookieGet(final String key);
 
@@ -154,7 +155,7 @@ public interface App {
 
     String getActionURI();
 
-    ApplicationContext getApplicationContext();
+    ApplicationContext context();
 
     String getBaseCurrency();
 
@@ -188,9 +189,9 @@ public interface App {
 
     ConfigurationProperty getGlobalConfigProperty(final String key);
 
-    <T extends Helper> T getHelper(final Class<T> helper);
+    <T extends Helper> T helper(final Class<T> helper);
 
-    <T extends Injectable> T getInjectable(final Class<T> injectable);
+    <T extends Injectable> T injectable(final Class<T> injectable);
 
     QueryMetadata getLastQueryMetadata();
 
@@ -202,17 +203,17 @@ public interface App {
 
     Map<String, Object> getMap(final String key, final Map<String, Object> defaultValue);
 
-    <T extends Model> T getModel(final Class<T> model);
+    <T extends Model> T model(final Class<T> model);
 
     Id getModelIdIfExists();
 
-    ModuleLoader getModuleLoader();
+    ModuleLoader moduleLoader();
 
     String getOriginalQueryString();
 
     String getOriginalURI();
 
-    <T extends Pojo> T getPojo(final Class<T> pojo);
+    <T extends Pojo> T pojo(final Class<T> pojo);
 
     String getProjectJsPath();
 
@@ -222,7 +223,7 @@ public interface App {
 
     String getProjectWebPath();
 
-    <T extends Repository> T getRepository(final Class<T> repository);
+    <T extends Repository> T repository(final Class<T> repository);
 
     String getRewrittenURI();
 
@@ -230,13 +231,13 @@ public interface App {
 
     String getServer();
 
-    <T extends Service> T getService(final Class<T> service);
+    <T extends Service> T service(final Class<T> service);
 
-    ServletContext getServletContext();
+    ServletContext servletContext();
 
-    HttpServletRequest getServletRequest();
+    HttpServletRequest servletRequest();
 
-    HttpServletResponse getServletResponse();
+    HttpServletResponse servletResponse();
 
     Id getStoreFromHeader();
 
@@ -244,9 +245,9 @@ public interface App {
 
     String getSystemCharset();
 
-    SystemConfig getSystemConfig();
+    SystemConfig systemConfig();
 
-    <T extends Service> T getSystemService(final Class<T> service);
+    <T extends Service> T systemService(final Class<T> service);
 
     Module getTargetModule();
 
@@ -318,7 +319,8 @@ public interface App {
 
     String message(final String message, final String lang, final String message2, final String lang2);
 
-    String message(final String message, final String lang, final String message2, final String lang2, final String message3, final String lang3);
+    String message(final String message, final String lang, final String message2, final String lang2,
+        final String message3, final String lang3);
 
     Id nextId();
 
@@ -336,7 +338,8 @@ public interface App {
 
     void publish(final String message, final String key1, final Object value1, final String key2, final Object value2);
 
-    void publish(final String message, final String key1, final Object value1, final String key2, final Object value2, final String key3, final Object value3);
+    void publish(final String message, final String key1, final Object value1, final String key2, final Object value2,
+        final String key3, final Object value3);
 
     boolean refreshHeaderExists();
 
@@ -413,5 +416,4 @@ public interface App {
     void storeProperty(final String key, final Object value, final Store store);
 
     UrlRewriteService urlRewriteService();
-
 }

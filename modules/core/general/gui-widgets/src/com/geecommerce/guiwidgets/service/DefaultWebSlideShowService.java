@@ -1,12 +1,11 @@
 package com.geecommerce.guiwidgets.service;
 
-import com.google.inject.Inject;
+import java.util.List;
+
 import com.geecommerce.core.service.annotation.Service;
 import com.geecommerce.guiwidgets.model.WebSlideShow;
 import com.geecommerce.guiwidgets.repository.WebSlideShows;
-
-
-import java.util.List;
+import com.google.inject.Inject;
 
 @Service
 public class DefaultWebSlideShowService implements WebSlideShowService {
@@ -14,24 +13,21 @@ public class DefaultWebSlideShowService implements WebSlideShowService {
 
     @Inject
     public DefaultWebSlideShowService(WebSlideShows webSlideShows) {
-	this.webSlideShows = webSlideShows;
+        this.webSlideShows = webSlideShows;
     }
 
-    
     @Override
     public WebSlideShow createWebSlideShow(WebSlideShow webSlideShow) {
-	return webSlideShows.add(webSlideShow);
+        return webSlideShows.add(webSlideShow);
     }
 
-    
     @Override
     public List<WebSlideShow> getWebSlideShowByName(String name) {
-	return webSlideShows.thatBelongTo(name);
+        return webSlideShows.thatBelongTo(name);
     }
 
-    
     @Override
     public void update(WebSlideShow webSlideShow) {
-	webSlideShows.update(webSlideShow);
+        webSlideShows.update(webSlideShow);
     }
 }

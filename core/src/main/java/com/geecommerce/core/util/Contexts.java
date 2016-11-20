@@ -17,7 +17,7 @@ public class Contexts {
         if (allowedScopes == null || allowedScopes.size() == 0)
             return new ArrayList<>();
 
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
         List<RequestContext> requestContexts = systemService.getRequestContextsForScopes(allowedScopes);
         ContextTree ctxTree = systemService.getContextTree(requestContexts);
 
@@ -40,7 +40,7 @@ public class Contexts {
         if (allowedScopes == null || allowedScopes.size() == 0)
             return new ArrayList<>();
 
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
         List<RequestContext> requestContexts = systemService.getRequestContextsForScopes(allowedScopes);
         ContextTree ctxTree = systemService.getContextTree(requestContexts);
 
@@ -70,7 +70,7 @@ public class Contexts {
         if (allowedScopes == null || allowedScopes.size() == 0)
             return new ArrayList<>();
 
-        SystemService systemService = App.get().getSystemService(SystemService.class);
+        SystemService systemService = App.get().systemService(SystemService.class);
         List<RequestContext> requestContexts = systemService.getRequestContextsForScopes(allowedScopes);
         ContextTree ctxTree = systemService.getContextTree(requestContexts);
 

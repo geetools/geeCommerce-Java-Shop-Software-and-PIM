@@ -30,7 +30,8 @@ public class DefaultTaxService implements TaxService {
         String defaultZip = app.cpStr_("tax/default/tax_zip");
 
         if (defaultCountry == null || "".equals(defaultCountry.trim())) {
-            throw new RuntimeException("The default configuration property 'tax/default/tax_country' has not been set.");
+            throw new RuntimeException(
+                "The default configuration property 'tax/default/tax_country' has not been set.");
         }
 
         if (defaultState == null || "".equals(defaultState.trim())) {

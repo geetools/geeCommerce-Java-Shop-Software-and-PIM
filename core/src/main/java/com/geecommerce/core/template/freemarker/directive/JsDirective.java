@@ -39,7 +39,8 @@ public class JsDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         CacheManager cm = App.get().inject(CacheManager.class);
         Cache<String, String> c = cm.getCache(CACHE_NAME);
 
@@ -191,7 +192,8 @@ public class JsDirective implements TemplateDirectiveModel {
                 if (varName != null) {
                     // Sets the result into the current template as if using
                     // <#assign name=model>.
-                    env.setVariable(varName, DefaultObjectWrapper.getDefaultInstance().wrap(webpath.substring(0, webpath.lastIndexOf(Char.DOT))));
+                    env.setVariable(varName, DefaultObjectWrapper.getDefaultInstance()
+                        .wrap(webpath.substring(0, webpath.lastIndexOf(Char.DOT))));
                 } else {
                     env.getOut().write(webpath.substring(0, webpath.lastIndexOf(Char.DOT)));
                 }

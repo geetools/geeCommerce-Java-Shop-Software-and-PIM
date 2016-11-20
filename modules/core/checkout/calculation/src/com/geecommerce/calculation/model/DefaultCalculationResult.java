@@ -13,7 +13,8 @@ import com.geecommerce.core.service.annotation.Injectable;
 import com.geecommerce.core.type.Id;
 
 @Injectable
-public class DefaultCalculationResult extends LinkedHashMap<String, Object> implements CalculationResult, Map<String, Object> {
+public class DefaultCalculationResult extends LinkedHashMap<String, Object>
+    implements CalculationResult, Map<String, Object> {
     private static final long serialVersionUID = -8049048059067567450L;
 
     @Override
@@ -113,11 +114,14 @@ public class DefaultCalculationResult extends LinkedHashMap<String, Object> impl
                                     String subItemResultDataKey = subItemResultDataKeys.next();
 
                                     if ("qty".equals(subItemResultDataKey)) {
-                                        calcItemResult.addSubItemResult(calcType, subItemResultDataKey, subItemResultData.getInt(subItemResultDataKey));
+                                        calcItemResult.addSubItemResult(calcType, subItemResultDataKey,
+                                            subItemResultData.getInt(subItemResultDataKey));
                                     } else if ("price_type".equals(subItemResultDataKey)) {
-                                        calcItemResult.addSubItemResult(calcType, subItemResultDataKey, subItemResultData.getString(subItemResultDataKey));
+                                        calcItemResult.addSubItemResult(calcType, subItemResultDataKey,
+                                            subItemResultData.getString(subItemResultDataKey));
                                     } else {
-                                        calcItemResult.addSubItemResult(calcType, subItemResultDataKey, subItemResultData.getDouble(subItemResultDataKey));
+                                        calcItemResult.addSubItemResult(calcType, subItemResultDataKey,
+                                            subItemResultData.getDouble(subItemResultDataKey));
                                     }
                                 }
                             }

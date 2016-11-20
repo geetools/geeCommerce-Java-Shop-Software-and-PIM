@@ -20,7 +20,8 @@ public enum WidgetParameterType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(WidgetParameterType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(WidgetParameterType.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 
     public static final WidgetParameterType fromId(int id) {
@@ -44,6 +45,7 @@ public enum WidgetParameterType implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(WidgetParameterType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(WidgetParameterType.class.getSimpleName())
+            .append(".label").toString());
     }
 }

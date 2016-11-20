@@ -7,8 +7,8 @@ import com.geecommerce.core.interceptor.annotation.Intercept;
 public class TestMethodExceptionInterceptor extends AbstractMethodInterceptor {
     @Override
     public void onAfterThrowing(Throwable e) {
-	if (e instanceof TestRuntimeException) {
-	    throw new TestAnotherRuntimeException();
-	}
+        if (e instanceof TestRuntimeException) {
+            throw new TestAnotherRuntimeException();
+        }
     }
 }

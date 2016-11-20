@@ -2,7 +2,6 @@ package com.geecommerce.core.system.service;
 
 import java.util.List;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.enums.Scope;
 import com.geecommerce.core.system.merchant.model.Merchant;
 import com.geecommerce.core.system.merchant.model.Store;
@@ -15,6 +14,7 @@ import com.geecommerce.core.system.model.RequestContext;
 import com.geecommerce.core.system.repository.Languages;
 import com.geecommerce.core.system.repository.RequestContexts;
 import com.geecommerce.core.type.Id;
+import com.google.inject.Inject;
 
 public class DefaultSystemService implements SystemService {
     private final RequestContexts requestContexts;
@@ -51,22 +51,26 @@ public class DefaultSystemService implements SystemService {
     }
 
     @Override
-    public RequestContext findRequestContext(Merchant merchant, Store store, String language, String country, View view) {
+    public RequestContext findRequestContext(Merchant merchant, Store store, String language, String country,
+        View view) {
         List<RequestContext> requestContexts = findRequestContexts(merchant, store, language, country, view);
 
         if (requestContexts == null || requestContexts.isEmpty())
             return null;
 
         if (requestContexts.size() > 1)
-            throw new IllegalStateException("Unable to return a unique request-context. More than 1 found for the parameters [merchant=" + (merchant == null ? null : merchant.getId()) + ", store="
-                + (store == null ? null : store.getId())
-                + ", language=" + language + ", country=" + country + ", view=" + (view == null ? null : view.getId()) + "]");
+            throw new IllegalStateException(
+                "Unable to return a unique request-context. More than 1 found for the parameters [merchant="
+                    + (merchant == null ? null : merchant.getId()) + ", store="
+                    + (store == null ? null : store.getId()) + ", language=" + language + ", country=" + country
+                    + ", view=" + (view == null ? null : view.getId()) + "]");
 
         return requestContexts.get(0);
     }
 
     @Override
-    public List<RequestContext> findRequestContexts(Merchant merchant, Store store, String language, String country, View view) {
+    public List<RequestContext> findRequestContexts(Merchant merchant, Store store, String language, String country,
+        View view) {
         return requestContexts.forValues(merchant, store, language, country, view);
     }
 

@@ -4,27 +4,27 @@ public class QueryMetadata {
     private final Long count;
 
     public QueryMetadata(Long count) {
-	this.count = count;
+        this.count = count;
     }
 
     public Long getCount() {
-	return count;
+        return count;
     }
 
     public static Builder builder() {
-	return new Builder();
+        return new Builder();
     }
 
     public static class Builder {
-	private Long count;
+        private Long count;
 
-	public Builder count(Long count) {
-	    this.count = count;
-	    return this;
-	}
+        public Builder count(Long count) {
+            this.count = count;
+            return this;
+        }
 
-	public QueryMetadata build() {
-	    return new QueryMetadata(count);
-	}
+        public QueryMetadata build() {
+            return new QueryMetadata(count);
+        }
     }
 }

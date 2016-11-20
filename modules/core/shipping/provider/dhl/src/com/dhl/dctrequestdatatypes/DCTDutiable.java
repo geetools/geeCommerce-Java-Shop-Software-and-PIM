@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for DCTDutiable complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="DCTDutiable">
@@ -63,7 +64,7 @@ public class DCTDutiable {
      * 
      */
     public String getDeclaredCurrency() {
-	return declaredCurrency;
+        return declaredCurrency;
     }
 
     /**
@@ -74,7 +75,7 @@ public class DCTDutiable {
      * 
      */
     public void setDeclaredCurrency(String value) {
-	this.declaredCurrency = value;
+        this.declaredCurrency = value;
     }
 
     /**
@@ -84,7 +85,7 @@ public class DCTDutiable {
      * 
      */
     public Float getDeclaredValue() {
-	return declaredValue;
+        return declaredValue;
     }
 
     /**
@@ -95,7 +96,7 @@ public class DCTDutiable {
      * 
      */
     public void setDeclaredValue(Float value) {
-	this.declaredValue = value;
+        this.declaredValue = value;
     }
 
 }

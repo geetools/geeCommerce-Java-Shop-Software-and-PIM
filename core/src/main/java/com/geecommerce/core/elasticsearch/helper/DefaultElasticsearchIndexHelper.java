@@ -96,12 +96,14 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
     @Override
     public String indexName(Long merchantId, Long storeId, String name) {
         String mode = EnvProps.GET.val(EnvProps.MODE);
-        return new StringBuilder(mode == null ? Str.EMPTY : mode).append(Char.UNDERSCORE).append(merchantId).append(Char.UNDERSCORE).append(storeId).append(Char.UNDERSCORE).append(name).toString();
+        return new StringBuilder(mode == null ? Str.EMPTY : mode).append(Char.UNDERSCORE).append(merchantId)
+            .append(Char.UNDERSCORE).append(storeId).append(Char.UNDERSCORE).append(name).toString();
     }
 
     @Override
     public Map<String, Set<String>> getIndexAliases() {
-        ImmutableOpenMap<String, ImmutableOpenMap<String, AliasMetaData>> indexAliasesMap = clusterAdminClient().prepareState().execute().actionGet().getState().getMetaData().getAliases();
+        ImmutableOpenMap<String, ImmutableOpenMap<String, AliasMetaData>> indexAliasesMap = clusterAdminClient()
+            .prepareState().execute().actionGet().getState().getMetaData().getAliases();
 
         Map<String, Set<String>> indexAliases = new HashMap<>();
 
@@ -140,7 +142,7 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         if (indexedItem == null)
             return;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         List<Map<String, Object>> indexerContexts = getIndexerContexts(appCtx.getMerchant());
 
@@ -161,9 +163,11 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
                         app.setApplicationContext(obsAppCtx);
                     }
 
-                    String idxName = indexName(merchant.getId().longValue(), storeId.longValue(), Annotations.getCollectionName(((Model) indexedItem).getClass()));
+                    String idxName = indexName(merchant.getId().longValue(), storeId.longValue(),
+                        Annotations.getCollectionName(((Model) indexedItem).getClass()));
 
-                    System.out.println("[" + Thread.currentThread().getName() + "] Updating item " + indexedItem.getId() + " in index: " + idxName);
+                    System.out.println("[" + Thread.currentThread().getName() + "] Updating item " + indexedItem.getId()
+                        + " in index: " + idxName);
 
                     updateIndex(indexerContext, indexedItem);
 
@@ -179,7 +183,7 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
 
     @Override
     public void removeIndexedItem(SearchIndexSupport indexedItem) {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         List<Map<String, Object>> indexerContexts = getIndexerContexts(appCtx.getMerchant());
 
@@ -193,7 +197,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
                 if (storeId.equals(store.getId())) {
                     removeFromIndex(indexerContext, indexedItem);
 
-                    flushIndex(indexName(merchant.getId().longValue(), storeId.longValue(), Annotations.getCollectionName(((Model) indexedItem).getClass())));
+                    flushIndex(indexName(merchant.getId().longValue(), storeId.longValue(),
+                        Annotations.getCollectionName(((Model) indexedItem).getClass())));
                 }
             }
         }
@@ -211,7 +216,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         if (item instanceof Model) {
             modelName = Annotations.getCollectionName(((Model) item).getClass());
         } else {
-            throw new UnsupportedOperationException("Item should implement both Model and SearchIndexSupport interfaces");
+            throw new UnsupportedOperationException(
+                "Item should implement both Model and SearchIndexSupport interfaces");
         }
 
         String indexName = indexName(merchantId, storeId, modelName);
@@ -236,7 +242,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
 
         String key = Annotations.getIndexedCollectionName(((Model) item).getClass());
 
-        IndexResponse response = client.prepareIndex(indexName, key, String.valueOf(item.getId())).setSource(jsonProduct).setOperationThreaded(false).execute().actionGet();
+        IndexResponse response = client.prepareIndex(indexName, key, String.valueOf(item.getId()))
+            .setSource(jsonProduct).setOperationThreaded(false).execute().actionGet();
 
         String _index = response.getIndex();
         String _type = response.getType();
@@ -244,7 +251,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         long _version = response.getVersion();
 
         if (log.isTraceEnabled())
-            log.trace("Index: " + _index + ", Type: " + _type + ", Version: " + _version + ", _Id: " + _id + ", Id: " + item.getId());
+            log.trace("Index: " + _index + ", Type: " + _type + ", Version: " + _version + ", _Id: " + _id + ", Id: "
+                + item.getId());
     }
 
     @Override
@@ -255,7 +263,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         Long merchantId = (Long) indexerContext.get(GlobalColumn.MERCHANT_ID);
         Long storeId = (Long) indexerContext.get(GlobalColumn.STORE_ID);
 
-        String indexName = indexName(merchantId, storeId, Annotations.getCollectionName(((Model) indexedItem).getClass()));
+        String indexName = indexName(merchantId, storeId,
+            Annotations.getCollectionName(((Model) indexedItem).getClass()));
 
         removeFromIndex(indexName, indexedItem);
     }
@@ -267,7 +276,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
 
         Client client = ElasticSearch.CLIENT.get();
 
-        client.prepareDelete(indexName, Annotations.getIndexedCollectionName(((Model) indexedItem).getClass()), String.valueOf(indexedItem.getId())).execute().actionGet();
+        client.prepareDelete(indexName, Annotations.getIndexedCollectionName(((Model) indexedItem).getClass()),
+            String.valueOf(indexedItem.getId())).execute().actionGet();
     }
 
     @Override
@@ -279,8 +289,7 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
             /*
              * if (SynonymsHelper.isSynonymsEnabled()) {
              * indexRequestBuilder.setSettings(SynonymsHelper.
-             * createIndexSettings());
-             * }
+             * createIndexSettings()); }
              */
             CreateIndexResponse response = indexRequestBuilder.execute().actionGet();
 
@@ -338,7 +347,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
                     indexCounts.put(aliasName, count);
                 }
 
-                if (count > keepLastNumIndexes && !isActive(indexName, indexAliases) && !indexName.equals(newIndexName)) {
+                if (count > keepLastNumIndexes && !isActive(indexName, indexAliases)
+                    && !indexName.equals(newIndexName)) {
                     log.info("Deleting inactive index " + indexName);
 
                     indexesToDelete.add(indexName);
@@ -350,7 +360,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
             if (!indexesToDelete.isEmpty()) {
                 log.info("Deleting indexes: " + indexesToDelete);
 
-                DeleteIndexRequestBuilder deleteIndexRequest = new DeleteIndexRequestBuilder(indicesAdminClient(), indexesToDelete.toArray(new String[indexesToDelete.size()]));
+                DeleteIndexRequestBuilder deleteIndexRequest = new DeleteIndexRequestBuilder(indicesAdminClient(),
+                    indexesToDelete.toArray(new String[indexesToDelete.size()]));
                 DeleteIndexResponse deleteResponse = deleteIndexRequest.execute().actionGet();
 
                 log.info("DeleteIndexResponse isAcknowledged: " + deleteResponse.isAcknowledged());
@@ -360,14 +371,16 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
 
     @Override
     public void createIndexAlias(String indexName, String aliasName) {
-        IndicesAliasesResponse response = indicesAdminClient().prepareAliases().addAlias(indexName, aliasName).execute().actionGet();
+        IndicesAliasesResponse response = indicesAdminClient().prepareAliases().addAlias(indexName, aliasName).execute()
+            .actionGet();
 
         log.info("Index: " + indexName + ", isAcknowledged: " + response.isAcknowledged());
     }
 
     @Override
     public void removeIndexAlias(String indexName, String aliasName) {
-        IndicesAliasesResponse response = indicesAdminClient().prepareAliases().removeAlias(indexName, aliasName).execute().actionGet();
+        IndicesAliasesResponse response = indicesAdminClient().prepareAliases().removeAlias(indexName, aliasName)
+            .execute().actionGet();
 
         log.info("Index: " + indexName + ", isAcknowledged: " + response.isAcknowledged());
     }
@@ -399,7 +412,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
 
         IndicesAliasesResponse response = builder.addAlias(indexName, aliasName).execute().actionGet();
 
-        log.info("activateIndex: [indexName=" + indexName + ", aliasName=" + aliasName + ", isAcknowledged=" + response.isAcknowledged() + "].");
+        log.info("activateIndex: [indexName=" + indexName + ", aliasName=" + aliasName + ", isAcknowledged="
+            + response.isAcknowledged() + "].");
     }
 
     /**
@@ -484,7 +498,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         Long indexerId = (Long) updateData.get(GlobalColumn.ID);
         updateData.put(SEARCH_INDEXER_COLUMN_LAST_INDEXED, DateTimes.newDate());
 
-        MongoHelper.update(MongoHelper.mongoSystemDB(), COLLECTION_SEARCH_INDEXER, new BasicDBObject(GlobalColumn.ID, Id.valueOf(indexerId)), new BasicDBObject(updateData));
+        MongoHelper.update(MongoHelper.mongoSystemDB(), COLLECTION_SEARCH_INDEXER,
+            new BasicDBObject(GlobalColumn.ID, Id.valueOf(indexerId)), new BasicDBObject(updateData));
     }
 
     @Override
@@ -492,7 +507,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         XContentBuilder mapping;
 
         try {
-            mapping = XContentFactory.jsonBuilder().startObject().startObject(name).field("date_detection", false).endObject().endObject();
+            mapping = XContentFactory.jsonBuilder().startObject().startObject(name).field("date_detection", false)
+                .endObject().endObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -505,7 +521,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
         if (attribute == null || attributeValue == null || attribute.getCode() == null)
             return;
 
-        StringBuilder attributeKey = new StringBuilder(PREFIX_ATTRIBUTE).append(Strings.slugify(attribute.getCode()).replaceAll("\\-", "_"));
+        StringBuilder attributeKey = new StringBuilder(PREFIX_ATTRIBUTE)
+            .append(Strings.slugify(attribute.getCode()).replaceAll("\\-", "_"));
         StringBuilder isOptionKey = new StringBuilder(attributeKey).append(SUFFIX_IS_OPTION);
 
         // -------------------------------------------------------------
@@ -552,8 +569,11 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
                 if (value instanceof String) {
                     json.put(rawKey.toString(), Jsoup.parse((String) value).text());
                     json.put(normalizedKey.toString(), Strings.transliterate(Jsoup.parse((String) value).text()));
-                    json.put(slugKey.toString(), new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(Jsoup.parse((String) value).text()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
-                        .append(Str.UNDERSCORE_2X).toString());
+                    json.put(slugKey.toString(),
+                        new StringBuilder(Str.UNDERSCORE_2X)
+                            .append(Strings.slugify(Jsoup.parse((String) value).text())
+                                .replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
+                            .append(Str.UNDERSCORE_2X).toString());
                 } else if (value instanceof List) {
                     List<Object> valueList = (List) value;
 
@@ -562,11 +582,14 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
 
                     for (Object obj : valueList) {
                         if (obj instanceof String) {
-                            slugs.add(new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(Jsoup.parse((String) obj).text()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
+                            slugs.add(new StringBuilder(Str.UNDERSCORE_2X)
+                                .append(Strings.slugify(Jsoup.parse((String) obj).text())
+                                    .replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
                                 .append(Str.UNDERSCORE_2X).toString());
                         } else {
-                            slugs.add(
-                                new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(String.valueOf(obj)).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE)).append(Str.UNDERSCORE_2X).toString());
+                            slugs.add(new StringBuilder(Str.UNDERSCORE_2X).append(
+                                Strings.slugify(String.valueOf(obj)).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
+                                .append(Str.UNDERSCORE_2X).toString());
                         }
                     }
 
@@ -574,18 +597,23 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
                 } else {
                     json.put(rawKey.toString(), value);
                     json.put(slugKey.toString(),
-                        new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(String.valueOf(value)).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE)).append(Str.UNDERSCORE_2X).toString());
+                        new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(String.valueOf(value))
+                            .replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE)).append(Str.UNDERSCORE_2X)
+                            .toString());
                 }
 
                 // Also store hash of value in index
-                json.put(hashKey.toString(), new StringBuilder(Str.UNDERSCORE_2X).append(Strings.hash(String.valueOf(value))).append(Str.UNDERSCORE_2X).toString().replace(Str.MINUS, Str.UNDERSCORE));
+                json.put(hashKey.toString(),
+                    new StringBuilder(Str.UNDERSCORE_2X).append(Strings.hash(String.valueOf(value)))
+                        .append(Str.UNDERSCORE_2X).toString().replace(Str.MINUS, Str.UNDERSCORE));
                 json.put(isOptionKey.toString(), false);
             }
         }
     }
 
     public void addAttributeOptions(Map<String, Object> json, Attribute attribute, AttributeValue attributeValue) {
-        StringBuilder attributeKey = new StringBuilder(PREFIX_ATTRIBUTE).append(Strings.slugify(attribute.getCode()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE));
+        StringBuilder attributeKey = new StringBuilder(PREFIX_ATTRIBUTE)
+            .append(Strings.slugify(attribute.getCode()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE));
 
         StringBuilder hashKey = new StringBuilder(attributeKey).append(SUFFIX_HASH);
         StringBuilder isOptionKey = new StringBuilder(attributeKey).append(SUFFIX_IS_OPTION);
@@ -608,7 +636,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
             if (option == null)
                 continue;
 
-            newOptionIds.add(new StringBuilder(Str.UNDERSCORE_2X).append(optionId.longValue()).append(Str.UNDERSCORE_2X).toString());
+            newOptionIds.add(new StringBuilder(Str.UNDERSCORE_2X).append(optionId.longValue()).append(Str.UNDERSCORE_2X)
+                .toString());
 
             ContextObject<String> co = option.getLabel();
 
@@ -659,13 +688,17 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
                 }
 
                 if (value instanceof String) {
-                    slugValues.add(new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(Jsoup.parse((String) value).text()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
-                        .append(Str.UNDERSCORE_2X).toString());
+                    slugValues
+                        .add(new StringBuilder(Str.UNDERSCORE_2X)
+                            .append(Strings.slugify(Jsoup.parse((String) value).text())
+                                .replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
+                            .append(Str.UNDERSCORE_2X).toString());
                     rawValues.add(Jsoup.parse((String) value).text());
                     normalizedValues.add(Strings.transliterate(Jsoup.parse((String) value).text()));
                 } else {
-                    slugValues
-                        .add(new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(String.valueOf(value)).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE)).append(Str.UNDERSCORE_2X).toString());
+                    slugValues.add(new StringBuilder(Str.UNDERSCORE_2X).append(
+                        Strings.slugify(String.valueOf(value)).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
+                        .append(Str.UNDERSCORE_2X).toString());
                     rawValues.add(value);
                 }
             }
@@ -705,7 +738,8 @@ public class DefaultElasticsearchIndexHelper implements ElasticsearchIndexHelper
             reqCtx = systemService.getRequestContext(requestContextId);
         } else {
             try {
-                reqCtx = systemService.findRequestContext(m, s, (s == null ? null : s.getDefaultLanguage()), null, null);
+                reqCtx = systemService.findRequestContext(m, s, (s == null ? null : s.getDefaultLanguage()), null,
+                    null);
 
                 if (reqCtx == null)
                     reqCtx = systemService.findRequestContext(m, s, null, null, null);

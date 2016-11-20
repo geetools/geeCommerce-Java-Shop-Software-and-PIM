@@ -74,7 +74,8 @@ public class Groovy {
     }
 
     @SuppressWarnings("unchecked")
-    public static final <T> T parseClass(String source, Class<T> returnType, boolean singleton, GroovyClassLoader gcl) throws Exception {
+    public static final <T> T parseClass(String source, Class<T> returnType, boolean singleton, GroovyClassLoader gcl)
+        throws Exception {
         if (source == null || returnType == null)
             return null;
 
@@ -136,7 +137,8 @@ public class Groovy {
             Object conditionMatches = execute(matcherCondition, bindings);
 
             if (conditionMatches == null || !(conditionMatches instanceof Boolean))
-                throw new RuntimeException("The return value of the matcherCondition '" + matcherCondition + "' cannot be null and must be of type Boolean!");
+                throw new RuntimeException("The return value of the matcherCondition '" + matcherCondition
+                    + "' cannot be null and must be of type Boolean!");
 
             return (Boolean) conditionMatches;
         } catch (Exception e) {
@@ -175,14 +177,16 @@ public class Groovy {
         return eval(expression, bindings, imports, null);
     }
 
-    public static <T> T eval(String expression, String key, Object value, Set<String> imports, GroovyClassLoader gcl) throws Exception {
+    public static <T> T eval(String expression, String key, Object value, Set<String> imports, GroovyClassLoader gcl)
+        throws Exception {
         Map<String, Object> bindings = new HashMap<>();
         bindings.put(key, value);
 
         return eval(expression, bindings, imports, gcl);
     }
 
-    public static <T> T eval(String expression, String key1, Object value1, String key2, Object value2) throws Exception {
+    public static <T> T eval(String expression, String key1, Object value1, String key2, Object value2)
+        throws Exception {
         Map<String, Object> bindings = new HashMap<>();
         bindings.put(key1, value1);
         bindings.put(key2, value2);
@@ -190,7 +194,8 @@ public class Groovy {
         return eval(expression, bindings, null, null);
     }
 
-    public static <T> T eval(String expression, String key1, Object value1, String key2, Object value2, Set<String> imports) throws Exception {
+    public static <T> T eval(String expression, String key1, Object value1, String key2, Object value2,
+        Set<String> imports) throws Exception {
         Map<String, Object> bindings = new HashMap<>();
         bindings.put(key1, value1);
         bindings.put(key2, value2);
@@ -198,7 +203,8 @@ public class Groovy {
         return eval(expression, bindings, imports, null);
     }
 
-    public static <T> T eval(String expression, String key1, Object value1, String key2, Object value2, Set<String> imports, GroovyClassLoader gcl) throws Exception {
+    public static <T> T eval(String expression, String key1, Object value1, String key2, Object value2,
+        Set<String> imports, GroovyClassLoader gcl) throws Exception {
         Map<String, Object> bindings = new HashMap<>();
         bindings.put(key1, value1);
         bindings.put(key2, value2);
@@ -215,7 +221,8 @@ public class Groovy {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T eval(String expression, Map<String, Object> bindings, Set<String> imports, GroovyClassLoader gcl) throws Exception {
+    public static <T> T eval(String expression, Map<String, Object> bindings, Set<String> imports,
+        GroovyClassLoader gcl) throws Exception {
         if (expression == null)
             return null;
 
@@ -253,7 +260,8 @@ public class Groovy {
     }
 
     private static final String buildEvalClass(String expression, Map<String, Object> bindings, Set<String> imports) {
-        StringBuilder groovyClass = new StringBuilder("import com.geecommerce.core.script.GroovyClass\n").append("import com.geecommerce.core.*\n").append("import com.geecommerce.core.type.*\n")
+        StringBuilder groovyClass = new StringBuilder("import com.geecommerce.core.script.GroovyClass\n")
+            .append("import com.geecommerce.core.*\n").append("import com.geecommerce.core.type.*\n")
             .append("import com.geecommerce.core.util.*\n").append("import com.geecommerce.core.enums.*\n")
             .append("import java.util.*\n").append("import groovy.json.JsonSlurper\n");
 
@@ -263,7 +271,8 @@ public class Groovy {
             }
         }
 
-        groovyClass.append("class GroovyEvaluation implements GroovyClass {\n\n").append("  Object execute(Map<String, Object> bindings) {\n\n");
+        groovyClass.append("class GroovyEvaluation implements GroovyClass {\n\n")
+            .append("  Object execute(Map<String, Object> bindings) {\n\n");
 
         Set<String> keys = bindings.keySet();
 
@@ -288,7 +297,8 @@ public class Groovy {
             }
         }
 
-        String cacheKey = new StringBuilder(CACHE_KEY_PREFIX_MATCHER_CONDITION).append(Str.AT).append(methodBody.hashCode()).toString();
+        String cacheKey = new StringBuilder(CACHE_KEY_PREFIX_MATCHER_CONDITION).append(Str.AT)
+            .append(methodBody.hashCode()).toString();
 
         Script parsedScript = (Script) cache.get(cacheKey);
 
@@ -309,12 +319,12 @@ public class Groovy {
         if (bindings == null)
             return;
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
         RequestContext reqCtx = appCtx.getRequestContext();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
         View view = appCtx.getView();
-        HttpServletRequest request = App.get().getServletRequest();
+        HttpServletRequest request = App.get().servletRequest();
 
         bindings.put(MERCHANT_CODE_KEY, merchant.getCode());
 

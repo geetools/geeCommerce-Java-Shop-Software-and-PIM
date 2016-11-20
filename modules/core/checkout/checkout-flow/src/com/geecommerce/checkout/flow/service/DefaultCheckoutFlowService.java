@@ -1,15 +1,15 @@
 package com.geecommerce.checkout.flow.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.geecommerce.checkout.flow.model.CheckoutFlow;
 import com.geecommerce.checkout.flow.repository.CheckoutFlows;
 import com.geecommerce.core.service.annotation.Service;
 import com.geecommerce.core.service.api.GlobalColumn;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class DefaultCheckoutFlowService implements CheckoutFlowService {

@@ -39,8 +39,10 @@ public class DefaultProductPromotionService implements ProductPromotionService {
     private final ElasticsearchHelper elasticsearchHelper;
 
     @Inject
-    public DefaultProductPromotionService(ProductPromotions productPromotions, ProductListHelper productListHelper, ProductListService productListService, ProductService productService, ElasticsearchService elasticsearchService,
-            ProductHelper productHelper, AttributeService attributeService, ElasticsearchHelper elasticsearchHelper) {
+    public DefaultProductPromotionService(ProductPromotions productPromotions, ProductListHelper productListHelper,
+        ProductListService productListService, ProductService productService,
+        ElasticsearchService elasticsearchService, ProductHelper productHelper, AttributeService attributeService,
+        ElasticsearchHelper elasticsearchHelper) {
         this.productPromotions = productPromotions;
         this.productListHelper = productListHelper;
         this.productListService = productListService;
@@ -88,7 +90,8 @@ public class DefaultProductPromotionService implements ProductPromotionService {
                 queryMap = Json.fromJson(productList.getQuery(), HashMap.class);
             }
 
-            products = getProducts(productList, productPromotion.getLimit() == null || productPromotion.getLimit() == 0 ? 100 : productPromotion.getLimit());
+            products = getProducts(productList, productPromotion.getLimit() == null || productPromotion.getLimit() == 0
+                ? 100 : productPromotion.getLimit());
         }
         return products;
     }
@@ -101,14 +104,17 @@ public class DefaultProductPromotionService implements ProductPromotionService {
             List<FilterBuilder> builders = productListHelper.getVisibilityFilters();
             builders.add(productListHelper.buildQuery(productList.getQueryNode()));
 
-            Map<String, Attribute> filterAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+            Map<String, Attribute> filterAttributes = attributeService
+                .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
-            productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null, null, new SearchParams(), 0, limit, null);
+            productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null, null,
+                new SearchParams(), 0, limit, null);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
 
-        if (productListResult != null && productListResult.getDocumentIds() != null && productListResult.getDocumentIds().size() > 0) {
+        if (productListResult != null && productListResult.getDocumentIds() != null
+            && productListResult.getDocumentIds().size() > 0) {
             Id[] productIds = elasticsearchHelper.toIds(productListResult.getDocumentIds().toArray());
             return productService.getProducts(productIds);
         }

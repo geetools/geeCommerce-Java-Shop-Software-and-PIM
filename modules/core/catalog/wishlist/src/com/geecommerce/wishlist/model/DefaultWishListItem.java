@@ -128,7 +128,8 @@ public class DefaultWishListItem extends AbstractModel implements WishListItem {
                         AttributeOption option = optionsMap.get(variantAttribute.getOptionId());
 
                         if (option != null) {
-                            variantsText.append(", ").append(attributeLabel).append(": ").append(option.getLabel().getString());
+                            variantsText.append(", ").append(attributeLabel).append(": ")
+                                .append(option.getLabel().getString());
                         }
                     }
                 }
@@ -148,7 +149,7 @@ public class DefaultWishListItem extends AbstractModel implements WishListItem {
         if (getProduct() == null)
             return null;
 
-        return app.getHelper(TargetSupportHelper.class).findURI(getProduct());
+        return app.helper(TargetSupportHelper.class).findURI(getProduct());
     }
 
     @Override

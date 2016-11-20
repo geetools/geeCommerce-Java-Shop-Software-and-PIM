@@ -23,11 +23,13 @@ public enum Salutation {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(Salutation.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(Salutation.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(Salutation.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(Salutation.class.getSimpleName()).append(".label").toString());
     }
 
     public static Salutation getSalutation(Integer id) {

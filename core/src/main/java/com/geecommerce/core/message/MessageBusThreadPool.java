@@ -4,7 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Singleton for executing asynchronous messages using the java.util.concurrent.Executors.newFixedThreadPool().
+ * Singleton for executing asynchronous messages using the
+ * java.util.concurrent.Executors.newFixedThreadPool().
  * 
  * @see com.geecommerce.core.message.MessageBus
  * 
@@ -16,16 +17,16 @@ public enum MessageBusThreadPool {
     private final ExecutorService THREAD_POOL;
 
     MessageBusThreadPool() {
-	this.THREAD_POOL = Executors.newFixedThreadPool(20);
+        this.THREAD_POOL = Executors.newFixedThreadPool(20);
     }
 
     public void run(final Subscriber subscriber, final Context ctx) {
-	Runnable asynchSubscriber = new Runnable() {
-	    public void run() {
-		subscriber.onMessage(ctx);
-	    }
-	};
+        Runnable asynchSubscriber = new Runnable() {
+            public void run() {
+                subscriber.onMessage(ctx);
+            }
+        };
 
-	THREAD_POOL.execute(asynchSubscriber);
+        THREAD_POOL.execute(asynchSubscriber);
     }
 }

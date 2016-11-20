@@ -71,23 +71,28 @@ public class DefaultProductListHelper implements ProductListHelper {
                 filterBuilders.add(buildQuery(node));
             }
             if (queryNode.getOperator().equals(AND)) {
-                FilterBuilder andFilterBuilder = FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+                FilterBuilder andFilterBuilder = FilterBuilders
+                    .andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
                 return andFilterBuilder;
             } else {
-                FilterBuilder orFilterBuilder = FilterBuilders.orFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+                FilterBuilder orFilterBuilder = FilterBuilders
+                    .orFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
                 return orFilterBuilder;
             }
         } else {
             if (queryNode.getValue() != null && queryNode.getValue().getAttribute() != null) {
-                String key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + HASH_SUFFIX;
+                String key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode())
+                    .replace(Char.MINUS, Char.UNDERSCORE) + HASH_SUFFIX;
                 if (queryNode.getValue().getOptionIds() != null && queryNode.getValue().getOptionIds().size() > 1) {
                     List<String> values = new ArrayList<>();
                     for (Id id : queryNode.getValue().getOptionIds()) {
                         values.add(Str.UNDERSCORE_2X + id + Str.UNDERSCORE_2X);
                     }
                     return FilterBuilders.termsFilter(key, values).execution(OR);
-                } else if (queryNode.getValue().getOptionIds() != null && queryNode.getValue().getOptionIds().size() > 0) {
-                    return FilterBuilders.termsFilter(key, Str.UNDERSCORE_2X + queryNode.getValue().getOptionId() + Str.UNDERSCORE_2X);
+                } else if (queryNode.getValue().getOptionIds() != null
+                    && queryNode.getValue().getOptionIds().size() > 0) {
+                    return FilterBuilders.termsFilter(key,
+                        Str.UNDERSCORE_2X + queryNode.getValue().getOptionId() + Str.UNDERSCORE_2X);
                 }
             }
         }
@@ -95,7 +100,8 @@ public class DefaultProductListHelper implements ProductListHelper {
     }
 
     @Override
-    public Map<String, Set<Object>> getFilterPartsFromParameters(Map<String, String[]> parameterMap, ProductListFilterRule navFilterURLRule, Map<String, Attribute> filterAttributes,
+    public Map<String, Set<Object>> getFilterPartsFromParameters(Map<String, String[]> parameterMap,
+        ProductListFilterRule navFilterURLRule, Map<String, Attribute> filterAttributes,
         Map<String, String> attributesAliasIndex) {
         Map<String, Set<Object>> filterPartsMap = new LinkedHashMap<>();
 
@@ -104,7 +110,8 @@ public class DefaultProductListHelper implements ProductListHelper {
         for (String paramName : keys) {
             String[] paramValue = parameterMap.get(paramName);
 
-            if (isFilterAttribute(paramName, filterAttributes, attributesAliasIndex) && paramValue != null && paramValue.length > 0) {
+            if (isFilterAttribute(paramName, filterAttributes, attributesAliasIndex) && paramValue != null
+                && paramValue.length > 0) {
                 Set<Object> values = filterPartsMap.get(paramName);
                 String attrCode = getRealAttributeCode(paramName, filterAttributes, attributesAliasIndex);
 
@@ -129,7 +136,8 @@ public class DefaultProductListHelper implements ProductListHelper {
         return filterPartsMap;
     }
 
-    protected String getRealAttributeCode(String attrCode, Map<String, Attribute> filterAttributes, Map<String, String> attributesAliasIndex) {
+    protected String getRealAttributeCode(String attrCode, Map<String, Attribute> filterAttributes,
+        Map<String, String> attributesAliasIndex) {
         if (attrCode == null || filterAttributes == null || filterAttributes.size() == 0)
             return attrCode;
 
@@ -147,7 +155,8 @@ public class DefaultProductListHelper implements ProductListHelper {
         return attrCode;
     }
 
-    protected boolean isFilterAttribute(String attrCode, Map<String, Attribute> filterAttributes, Map<String, String> attributesAliasIndex) {
+    protected boolean isFilterAttribute(String attrCode, Map<String, Attribute> filterAttributes,
+        Map<String, String> attributesAliasIndex) {
         if (attrCode == null || filterAttributes == null || filterAttributes.size() == 0)
             return false;
 
@@ -230,8 +239,10 @@ public class DefaultProductListHelper implements ProductListHelper {
             }
 
             if (filterAttribute != null) {
-                String attributeCode = (String) filterAttribute.get(ProductListFilterRule.AttributeField.ATTRIBUTE_CODE);
-                ContextObject<String> prefix = ContextObject.valueOf((List<Map<String, Object>>) filterAttribute.get(ProductListFilterRule.AttributeField.PREFIX));
+                String attributeCode = (String) filterAttribute
+                    .get(ProductListFilterRule.AttributeField.ATTRIBUTE_CODE);
+                ContextObject<String> prefix = ContextObject.valueOf(
+                    (List<Map<String, Object>>) filterAttribute.get(ProductListFilterRule.AttributeField.PREFIX));
 
                 // If the filter-part has a prefix, we remove it.
                 if (prefix != null && prefix.getStr() != null && filterPart.startsWith(prefix.getStr())) {
@@ -265,7 +276,8 @@ public class DefaultProductListHelper implements ProductListHelper {
         return filterPartsMap;
     }
 
-    protected Map<String, Object> findFilterAttributeByPrefix(String filterPart, ProductListFilterRule navFilterURLRule) {
+    protected Map<String, Object> findFilterAttributeByPrefix(String filterPart,
+        ProductListFilterRule navFilterURLRule) {
         Map<String, Object> filterAttribute = null;
 
         String[] prefixParts = MINUS_PATTERN.split(filterPart);
@@ -282,7 +294,8 @@ public class DefaultProductListHelper implements ProductListHelper {
             filterAttribute = navFilterURLRule.findAttributeByPrefix(pp.toString());
 
             if (filterAttribute != null) {
-                Boolean prefixMatchEnabled = (Boolean) filterAttribute.get(ProductListFilterRule.AttributeField.PREFIX_MATCH_ENABLED);
+                Boolean prefixMatchEnabled = (Boolean) filterAttribute
+                    .get(ProductListFilterRule.AttributeField.PREFIX_MATCH_ENABLED);
 
                 // If prefix match was not allowed, we reset the filter
                 // attribute. We do no know this before as we have

@@ -45,15 +45,17 @@ public abstract class AbstractPaymentMethod {
     public abstract boolean isEnabled();
 
     public double getRate() {
-	return 0.0;
+        return 0.0;
     };
 
     public String getFrontendFormPath() {
-	StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-	sb.append(Constant.PAYMENT_METHOD_FRONTEND_FORMS_BASE_PATH).append("/").append(Filenames.ensureSafeName(getProvider(), true)).append("/").append(Filenames.ensureSafeName(getName(), true)).append("/")
-		.append(Constant.PAYMENT_METHOD_FRONTEND_FORMS_FILE_NAME);
+        sb.append(Constant.PAYMENT_METHOD_FRONTEND_FORMS_BASE_PATH).append("/")
+            .append(Filenames.ensureSafeName(getProvider(), true)).append("/")
+            .append(Filenames.ensureSafeName(getName(), true)).append("/")
+            .append(Constant.PAYMENT_METHOD_FRONTEND_FORMS_FILE_NAME);
 
-	return sb.toString();
+        return sb.toString();
     }
 }

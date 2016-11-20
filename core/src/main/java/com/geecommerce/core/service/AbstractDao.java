@@ -71,7 +71,8 @@ public abstract class AbstractDao implements Dao {
     protected <T extends Model> boolean limitFieldsInQuery(Class<T> modelClass, QueryOptions queryOptions) {
         boolean limitFieldsInQuery = false;
 
-        if (queryOptions == null || queryOptions.fieldsToInclude() == null || queryOptions.fieldsToInclude().size() == 0)
+        if (queryOptions == null || queryOptions.fieldsToInclude() == null
+            || queryOptions.fieldsToInclude().size() == 0)
             return limitFieldsInQuery;
 
         int fieldCount = Reflect.getFieldCount(modelClass);
@@ -92,15 +93,18 @@ public abstract class AbstractDao implements Dao {
     }
 
     protected <T extends Model> Cache<String, T> modelCache(Class<T> modelClass) {
-        return cacheManager.getCache(new StringBuilder(MODEL_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
+        return cacheManager
+            .getCache(new StringBuilder(MODEL_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
     }
 
     protected <T extends Model> Cache<String, List<Id>> queryCache(Class<T> modelClass) {
-        return cacheManager.getCache(new StringBuilder(QUERY_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
+        return cacheManager
+            .getCache(new StringBuilder(QUERY_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
     }
 
     protected <T extends Model> Cache<String, Long> countCache(Class<T> modelClass) {
-        return cacheManager.getCache(new StringBuilder(COUNT_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
+        return cacheManager
+            .getCache(new StringBuilder(COUNT_CACHE_NAME_PREFIX).append(cacheableInterface(modelClass)).toString());
     }
 
     protected <T extends Model> boolean isCacheable(Class<T> modelClass) {
@@ -150,18 +154,21 @@ public abstract class AbstractDao implements Dao {
         modelCache(modelClass).put(toModelKey(modelClass, id, queryOptions), null);
     }
 
-    protected <T extends Model> boolean queryCacheHasKeyFor(Class<T> modelClass, Map<String, Object> query, QueryOptions queryOptions) {
+    protected <T extends Model> boolean queryCacheHasKeyFor(Class<T> modelClass, Map<String, Object> query,
+        QueryOptions queryOptions) {
         boolean containsKey = queryCache(modelClass).containsKey(toQueryKey(query, queryOptions));
         return containsKey;
     }
 
-    protected <T extends Model> List<Id> cacheGet(Class<T> modelClass, Map<String, Object> query, QueryOptions queryOptions) {
+    protected <T extends Model> List<Id> cacheGet(Class<T> modelClass, Map<String, Object> query,
+        QueryOptions queryOptions) {
         String key = toQueryKey(query, queryOptions);
         List<Id> ids = queryCache(modelClass).get(key);
         return ids;
     }
 
-    protected <T extends Model> void cachePut(Class<T> modelClass, Map<String, Object> query, QueryOptions queryOptions, List<Id> modelIds) {
+    protected <T extends Model> void cachePut(Class<T> modelClass, Map<String, Object> query, QueryOptions queryOptions,
+        List<Id> modelIds) {
         String key = toQueryKey(query, queryOptions);
         queryCache(modelClass).put(key, modelIds);
     }
@@ -351,7 +358,8 @@ public abstract class AbstractDao implements Dao {
     protected <T extends Model> String toModelKey(Class<T> modelClass, Id id, QueryOptions queryOptions) {
         boolean limitFieldsInQuery = limitFieldsInQuery(modelClass, queryOptions);
 
-        if (queryOptions != null && (limitFieldsInQuery || queryOptions.attributesToInclude() != null || queryOptions.attributesToExclude() != null)) {
+        if (queryOptions != null && (limitFieldsInQuery || queryOptions.attributesToInclude() != null
+            || queryOptions.attributesToExclude() != null)) {
             StringBuilder keySuffix = new StringBuilder();
 
             if (limitFieldsInQuery)
@@ -363,7 +371,8 @@ public abstract class AbstractDao implements Dao {
             if (queryOptions.attributesToExclude() != null && !queryOptions.attributesToExclude().isEmpty())
                 keySuffix.append(StringUtils.join(queryOptions.attributesToExclude(), ',').hashCode());
 
-            return new StringBuilder(CACHE_KEY_ID_PREFIX).append(id.str()).append(CACHE_KEY_SLASH_AT).append(keySuffix).toString();
+            return new StringBuilder(CACHE_KEY_ID_PREFIX).append(id.str()).append(CACHE_KEY_SLASH_AT).append(keySuffix)
+                .toString();
         } else if (queryOptions != null && queryOptions.isFetchIdsOnly()) {
             return new StringBuilder(CACHE_KEY_ID_PREFIX).append(id.str()).append(CACHE_KEY_SLASH_IDS_ONLY).toString();
         } else {
@@ -372,7 +381,8 @@ public abstract class AbstractDao implements Dao {
     }
 
     // Global interfaces cannot be used as cache-keys.
-    protected List<Class<?>> interfaceBlackList = Lists.newArrayList(Model.class, MultiContextModel.class, IdSupport.class, ProductIdSupport.class, Versionable.class, Serializable.class);
+    protected List<Class<?>> interfaceBlackList = Lists.newArrayList(Model.class, MultiContextModel.class,
+        IdSupport.class, ProductIdSupport.class, Versionable.class, Serializable.class);
 
     protected <T extends Model> String cacheableInterface(Class<T> modelClass) {
         if (modelClass == null)
@@ -381,7 +391,8 @@ public abstract class AbstractDao implements Dao {
         String interfaceName = Models.interfaceName(modelClass);
 
         if (interfaceName == null)
-            throw new IllegalArgumentException("Unable to find cacheable interface for model-class '" + modelClass.getName() + "'");
+            throw new IllegalArgumentException(
+                "Unable to find cacheable interface for model-class '" + modelClass.getName() + "'");
 
         return interfaceName;
     }
@@ -397,7 +408,8 @@ public abstract class AbstractDao implements Dao {
 
         for (final Class<Observer> observerClass : observerClasses) {
             Observer observer = app.inject(observerClass);
-            Observe declaredAnnotation = com.geecommerce.core.utils.Annotations.declaredAnnotation(observerClass, Observe.class);
+            Observe declaredAnnotation = com.geecommerce.core.utils.Annotations.declaredAnnotation(observerClass,
+                Observe.class);
 
             boolean isEnabled = isEnabledContext(declaredAnnotation, observerClass);
 
@@ -413,7 +425,8 @@ public abstract class AbstractDao implements Dao {
         // asynchronous ones.
         for (final Class<? extends Observer> observerClass : observerClasses) {
             Observer observer = app.inject(observerClass);
-            Observe declaredAnnotation = com.geecommerce.core.utils.Annotations.declaredAnnotation(observerClass, Observe.class);
+            Observe declaredAnnotation = com.geecommerce.core.utils.Annotations.declaredAnnotation(observerClass,
+                Observe.class);
 
             boolean isEnabled = isEnabledContext(declaredAnnotation, observerClass);
 
@@ -433,12 +446,13 @@ public abstract class AbstractDao implements Dao {
         // -------------------------------------------------------
         // Check configuration.
         // -------------------------------------------------------
-        Boolean isEnabled = app.cpBool_(new StringBuilder(IS_OBSERVER_ENABLED_PREFIX).append(observerClass.getName()).append(IS_OBSERVER_ENABLED_SUFFIX).toString());
+        Boolean isEnabled = app.cpBool_(new StringBuilder(IS_OBSERVER_ENABLED_PREFIX).append(observerClass.getName())
+            .append(IS_OBSERVER_ENABLED_SUFFIX).toString());
 
         if (isEnabled != null)
             return isEnabled;
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         // -------------------------------------------------------
         // Check annotation views.

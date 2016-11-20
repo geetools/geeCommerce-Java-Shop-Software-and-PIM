@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
@@ -12,6 +11,7 @@ import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.service.api.GlobalColumn;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.inject.Inject;
 
 @Cacheable
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -67,6 +67,7 @@ public class DefaultLanguage extends AbstractModel implements Language {
 
     @Override
     public String toString() {
-        return "DefaultLanguage [id=" + id + ", iso6391Code=" + iso6391Code + ", iso6392BCode=" + iso6392BCode + ", iso6392TCode=" + iso6392TCode + ", label=" + label + "]";
+        return "DefaultLanguage [id=" + id + ", iso6391Code=" + iso6391Code + ", iso6392BCode=" + iso6392BCode
+            + ", iso6392TCode=" + iso6392TCode + ", label=" + label + "]";
     }
 }

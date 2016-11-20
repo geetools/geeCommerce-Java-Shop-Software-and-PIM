@@ -1,11 +1,10 @@
 package com.geecommerce.core.system.widget.model;
 
-import com.geecommerce.core.service.AbstractModel;
+import java.util.List;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
-
-import java.util.List;
 
 public interface WidgetParameterTab extends Model {
 
@@ -23,7 +22,7 @@ public interface WidgetParameterTab extends Model {
 
     List<WidgetParameterTabItem> getItems();
 
-    WidgetParameterTab setItems(List<WidgetParameterTabItem>  items);
+    WidgetParameterTab setItems(List<WidgetParameterTabItem> items);
 
     static final class Col {
         public static final String ID = "_id";

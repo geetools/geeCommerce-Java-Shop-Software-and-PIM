@@ -89,7 +89,8 @@ public enum SystemConfig {
                 if (propertiesFile.exists()) {
                     config = new PropertiesConfiguration(propertiesFile);
                 } else {
-                    throw new RuntimeException("FATAL ERROR: System properties file '" + propertiesFile.getAbsolutePath() + "' not found.");
+                    throw new RuntimeException("FATAL ERROR: System properties file '"
+                        + propertiesFile.getAbsolutePath() + "' not found.");
                 }
             } else {
                 config = new PropertiesConfiguration("System.properties");

@@ -21,8 +21,8 @@ public interface CalculationStep extends Model {
     public CalculationStep setSortOrder(Integer sortOrder);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String SCRIPTLET_ID = "scriptlet_id";
-	public static final String SORT_ORDER = "order";
+        public static final String ID = "_id";
+        public static final String SCRIPTLET_ID = "scriptlet_id";
+        public static final String SORT_ORDER = "order";
     }
 }

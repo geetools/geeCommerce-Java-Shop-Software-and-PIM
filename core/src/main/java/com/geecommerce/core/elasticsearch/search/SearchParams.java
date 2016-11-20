@@ -1,12 +1,12 @@
 package com.geecommerce.core.elasticsearch.search;
 
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
 
 public class SearchParams {
     private String searchPhrase = null;
@@ -86,7 +86,8 @@ public class SearchParams {
     public FilterBuilder getFilterBuilder() {
         List<FilterBuilder> filterBuilders = new ArrayList<>();
 
-        return filterBuilders.size() == 0 ? null : FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+        return filterBuilders.size() == 0 ? null
+            : FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
     }
 
 }

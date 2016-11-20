@@ -37,7 +37,8 @@ public class PrintDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pSource = (TemplateModel) params.get("src");
         SimpleScalar pRoot = (SimpleScalar) params.get("root");
         SimpleScalar pRootType = (SimpleScalar) params.get("srcType");
@@ -52,7 +53,8 @@ public class PrintDirective implements TemplateDirectiveModel {
         TemplateNumberModel pTruncate = (TemplateNumberModel) params.get("truncate");
 
         if (pSource == null || pValue == null)
-            throw new IllegalArgumentException("The parameters 'source' and 'value' cannot be null [src=" + pSource + ", value=" + pValue + "].");
+            throw new IllegalArgumentException(
+                "The parameters 'source' and 'value' cannot be null [src=" + pSource + ", value=" + pValue + "].");
 
         App app = App.get();
 
@@ -195,7 +197,8 @@ public class PrintDirective implements TemplateDirectiveModel {
             }
 
             if (truncateAt != null) {
-                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(), "...");
+                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(),
+                    "...");
             }
 
             if (message != null) {
@@ -240,7 +243,7 @@ public class PrintDirective implements TemplateDirectiveModel {
 
     protected String format(Object value, String format) {
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         Locale locale = null;
 
@@ -269,7 +272,7 @@ public class PrintDirective implements TemplateDirectiveModel {
     }
 
     protected Cache<String, Object> cache() {
-        CacheManager cm = App.get().getInjectable(CacheManager.class);
+        CacheManager cm = App.get().injectable(CacheManager.class);
         return cm.getCache(PrintDirective.class.getName());
     }
 }

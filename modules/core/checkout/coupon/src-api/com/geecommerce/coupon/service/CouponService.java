@@ -20,7 +20,8 @@ public interface CouponService extends Service {
 
     public CouponCode getCouponCode(Id id);
 
-    public Boolean isCouponApplicableToCart(CouponCode couponCode, CartAttributeCollection cartAttributeCollection, boolean checkConditions);
+    public Boolean isCouponApplicableToCart(CouponCode couponCode, CartAttributeCollection cartAttributeCollection,
+        boolean checkConditions);
 
     public boolean couponCouldBeUsedCustomerWithGroups(Coupon coupon);
 
@@ -34,9 +35,11 @@ public interface CouponService extends Service {
 
     public Map<String, AttributeValue> getOrderItemAttributes(Model orderItem);
 
-    public CouponCode maintainCouponCodesList(CouponCode cartCoupon, CartAttributeCollection cartAttributeCollection, boolean useAutoCoupon);
+    public CouponCode maintainCouponCodesList(CouponCode cartCoupon, CartAttributeCollection cartAttributeCollection,
+        boolean useAutoCoupon);
 
-    public void applyDiscount(CalculationContext calculationContext, CouponCode couponCode, CartAttributeCollection cartAttributeCollection);
+    public void applyDiscount(CalculationContext calculationContext, CouponCode couponCode,
+        CartAttributeCollection cartAttributeCollection);
 
     public List<CouponCode> getAutoCoupons();
 

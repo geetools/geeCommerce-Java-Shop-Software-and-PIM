@@ -17,7 +17,8 @@ public class DefaultVacancies extends AbstractRepository implements Vacancies {
         Map<String, Object> filter = new HashMap<>();
         filter.put(Vacancy.Col.GROUP_ID, group.getId());
 
-        List<Vacancy> vacancies = find(Vacancy.class, filter, QueryOptions.builder().sortBy(Vacancy.Col.POSITION).build());
+        List<Vacancy> vacancies = find(Vacancy.class, filter,
+            QueryOptions.builder().sortBy(Vacancy.Col.POSITION).build());
         return vacancies;
     }
 }

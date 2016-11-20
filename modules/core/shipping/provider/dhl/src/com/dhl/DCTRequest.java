@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import com.dhl.datatypes.Request;
 import com.dhl.dctrequestdatatypes.BkgDetailsType;
 import com.dhl.dctrequestdatatypes.DCTDutiable;
@@ -23,7 +24,8 @@ import com.dhl.dctrequestdatatypes.DCTTo;
  * Java class for anonymous complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -87,7 +89,7 @@ public class DCTRequest {
      * 
      */
     public DCTRequest.GetQuote getGetQuote() {
-	return getQuote;
+        return getQuote;
     }
 
     /**
@@ -98,7 +100,7 @@ public class DCTRequest {
      * 
      */
     public void setGetQuote(DCTRequest.GetQuote value) {
-	this.getQuote = value;
+        this.getQuote = value;
     }
 
     /**
@@ -108,7 +110,7 @@ public class DCTRequest {
      * 
      */
     public DCTRequest.GetCapability getGetCapability() {
-	return getCapability;
+        return getCapability;
     }
 
     /**
@@ -119,7 +121,7 @@ public class DCTRequest {
      * 
      */
     public void setGetCapability(DCTRequest.GetCapability value) {
-	this.getCapability = value;
+        this.getCapability = value;
     }
 
     /**
@@ -127,7 +129,8 @@ public class DCTRequest {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -151,121 +154,121 @@ public class DCTRequest {
     @XmlType(name = "", propOrder = { "request", "from", "bkgDetails", "to", "dutiable" })
     public static class GetCapability {
 
-	@XmlElement(name = "Request", required = true)
-	protected Request request;
-	@XmlElement(name = "From", required = true)
-	protected DCTFrom from;
-	@XmlElement(name = "BkgDetails", required = true)
-	protected BkgDetailsType bkgDetails;
-	@XmlElement(name = "To", required = true)
-	protected DCTTo to;
-	@XmlElement(name = "Dutiable")
-	protected DCTDutiable dutiable;
+        @XmlElement(name = "Request", required = true)
+        protected Request request;
+        @XmlElement(name = "From", required = true)
+        protected DCTFrom from;
+        @XmlElement(name = "BkgDetails", required = true)
+        protected BkgDetailsType bkgDetails;
+        @XmlElement(name = "To", required = true)
+        protected DCTTo to;
+        @XmlElement(name = "Dutiable")
+        protected DCTDutiable dutiable;
 
-	/**
-	 * Gets the value of the request property.
-	 * 
-	 * @return possible object is {@link Request }
-	 * 
-	 */
-	public Request getRequest() {
-	    return request;
-	}
+        /**
+         * Gets the value of the request property.
+         * 
+         * @return possible object is {@link Request }
+         * 
+         */
+        public Request getRequest() {
+            return request;
+        }
 
-	/**
-	 * Sets the value of the request property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Request }
-	 * 
-	 */
-	public void setRequest(Request value) {
-	    this.request = value;
-	}
+        /**
+         * Sets the value of the request property.
+         * 
+         * @param value
+         *            allowed object is {@link Request }
+         * 
+         */
+        public void setRequest(Request value) {
+            this.request = value;
+        }
 
-	/**
-	 * Gets the value of the from property.
-	 * 
-	 * @return possible object is {@link DCTFrom }
-	 * 
-	 */
-	public DCTFrom getFrom() {
-	    return from;
-	}
+        /**
+         * Gets the value of the from property.
+         * 
+         * @return possible object is {@link DCTFrom }
+         * 
+         */
+        public DCTFrom getFrom() {
+            return from;
+        }
 
-	/**
-	 * Sets the value of the from property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTFrom }
-	 * 
-	 */
-	public void setFrom(DCTFrom value) {
-	    this.from = value;
-	}
+        /**
+         * Sets the value of the from property.
+         * 
+         * @param value
+         *            allowed object is {@link DCTFrom }
+         * 
+         */
+        public void setFrom(DCTFrom value) {
+            this.from = value;
+        }
 
-	/**
-	 * Gets the value of the bkgDetails property.
-	 * 
-	 * @return possible object is {@link BkgDetailsType }
-	 * 
-	 */
-	public BkgDetailsType getBkgDetails() {
-	    return bkgDetails;
-	}
+        /**
+         * Gets the value of the bkgDetails property.
+         * 
+         * @return possible object is {@link BkgDetailsType }
+         * 
+         */
+        public BkgDetailsType getBkgDetails() {
+            return bkgDetails;
+        }
 
-	/**
-	 * Sets the value of the bkgDetails property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BkgDetailsType }
-	 * 
-	 */
-	public void setBkgDetails(BkgDetailsType value) {
-	    this.bkgDetails = value;
-	}
+        /**
+         * Sets the value of the bkgDetails property.
+         * 
+         * @param value
+         *            allowed object is {@link BkgDetailsType }
+         * 
+         */
+        public void setBkgDetails(BkgDetailsType value) {
+            this.bkgDetails = value;
+        }
 
-	/**
-	 * Gets the value of the to property.
-	 * 
-	 * @return possible object is {@link DCTTo }
-	 * 
-	 */
-	public DCTTo getTo() {
-	    return to;
-	}
+        /**
+         * Gets the value of the to property.
+         * 
+         * @return possible object is {@link DCTTo }
+         * 
+         */
+        public DCTTo getTo() {
+            return to;
+        }
 
-	/**
-	 * Sets the value of the to property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTTo }
-	 * 
-	 */
-	public void setTo(DCTTo value) {
-	    this.to = value;
-	}
+        /**
+         * Sets the value of the to property.
+         * 
+         * @param value
+         *            allowed object is {@link DCTTo }
+         * 
+         */
+        public void setTo(DCTTo value) {
+            this.to = value;
+        }
 
-	/**
-	 * Gets the value of the dutiable property.
-	 * 
-	 * @return possible object is {@link DCTDutiable }
-	 * 
-	 */
-	public DCTDutiable getDutiable() {
-	    return dutiable;
-	}
+        /**
+         * Gets the value of the dutiable property.
+         * 
+         * @return possible object is {@link DCTDutiable }
+         * 
+         */
+        public DCTDutiable getDutiable() {
+            return dutiable;
+        }
 
-	/**
-	 * Sets the value of the dutiable property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTDutiable }
-	 * 
-	 */
-	public void setDutiable(DCTDutiable value) {
-	    this.dutiable = value;
-	}
+        /**
+         * Sets the value of the dutiable property.
+         * 
+         * @param value
+         *            allowed object is {@link DCTDutiable }
+         * 
+         */
+        public void setDutiable(DCTDutiable value) {
+            this.dutiable = value;
+        }
 
     }
 
@@ -274,7 +277,8 @@ public class DCTRequest {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -298,121 +302,121 @@ public class DCTRequest {
     @XmlType(name = "", propOrder = { "request", "from", "bkgDetails", "to", "dutiable" })
     public static class GetQuote {
 
-	@XmlElement(name = "Request", required = true)
-	protected Request request;
-	@XmlElement(name = "From", required = true)
-	protected DCTFrom from;
-	@XmlElement(name = "BkgDetails", required = true)
-	protected BkgDetailsType bkgDetails;
-	@XmlElement(name = "To", required = true)
-	protected DCTTo to;
-	@XmlElement(name = "Dutiable")
-	protected DCTDutiable dutiable;
+        @XmlElement(name = "Request", required = true)
+        protected Request request;
+        @XmlElement(name = "From", required = true)
+        protected DCTFrom from;
+        @XmlElement(name = "BkgDetails", required = true)
+        protected BkgDetailsType bkgDetails;
+        @XmlElement(name = "To", required = true)
+        protected DCTTo to;
+        @XmlElement(name = "Dutiable")
+        protected DCTDutiable dutiable;
 
-	/**
-	 * Gets the value of the request property.
-	 * 
-	 * @return possible object is {@link Request }
-	 * 
-	 */
-	public Request getRequest() {
-	    return request;
-	}
+        /**
+         * Gets the value of the request property.
+         * 
+         * @return possible object is {@link Request }
+         * 
+         */
+        public Request getRequest() {
+            return request;
+        }
 
-	/**
-	 * Sets the value of the request property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Request }
-	 * 
-	 */
-	public void setRequest(Request value) {
-	    this.request = value;
-	}
+        /**
+         * Sets the value of the request property.
+         * 
+         * @param value
+         *            allowed object is {@link Request }
+         * 
+         */
+        public void setRequest(Request value) {
+            this.request = value;
+        }
 
-	/**
-	 * Gets the value of the from property.
-	 * 
-	 * @return possible object is {@link DCTFrom }
-	 * 
-	 */
-	public DCTFrom getFrom() {
-	    return from;
-	}
+        /**
+         * Gets the value of the from property.
+         * 
+         * @return possible object is {@link DCTFrom }
+         * 
+         */
+        public DCTFrom getFrom() {
+            return from;
+        }
 
-	/**
-	 * Sets the value of the from property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTFrom }
-	 * 
-	 */
-	public void setFrom(DCTFrom value) {
-	    this.from = value;
-	}
+        /**
+         * Sets the value of the from property.
+         * 
+         * @param value
+         *            allowed object is {@link DCTFrom }
+         * 
+         */
+        public void setFrom(DCTFrom value) {
+            this.from = value;
+        }
 
-	/**
-	 * Gets the value of the bkgDetails property.
-	 * 
-	 * @return possible object is {@link BkgDetailsType }
-	 * 
-	 */
-	public BkgDetailsType getBkgDetails() {
-	    return bkgDetails;
-	}
+        /**
+         * Gets the value of the bkgDetails property.
+         * 
+         * @return possible object is {@link BkgDetailsType }
+         * 
+         */
+        public BkgDetailsType getBkgDetails() {
+            return bkgDetails;
+        }
 
-	/**
-	 * Sets the value of the bkgDetails property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BkgDetailsType }
-	 * 
-	 */
-	public void setBkgDetails(BkgDetailsType value) {
-	    this.bkgDetails = value;
-	}
+        /**
+         * Sets the value of the bkgDetails property.
+         * 
+         * @param value
+         *            allowed object is {@link BkgDetailsType }
+         * 
+         */
+        public void setBkgDetails(BkgDetailsType value) {
+            this.bkgDetails = value;
+        }
 
-	/**
-	 * Gets the value of the to property.
-	 * 
-	 * @return possible object is {@link DCTTo }
-	 * 
-	 */
-	public DCTTo getTo() {
-	    return to;
-	}
+        /**
+         * Gets the value of the to property.
+         * 
+         * @return possible object is {@link DCTTo }
+         * 
+         */
+        public DCTTo getTo() {
+            return to;
+        }
 
-	/**
-	 * Sets the value of the to property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTTo }
-	 * 
-	 */
-	public void setTo(DCTTo value) {
-	    this.to = value;
-	}
+        /**
+         * Sets the value of the to property.
+         * 
+         * @param value
+         *            allowed object is {@link DCTTo }
+         * 
+         */
+        public void setTo(DCTTo value) {
+            this.to = value;
+        }
 
-	/**
-	 * Gets the value of the dutiable property.
-	 * 
-	 * @return possible object is {@link DCTDutiable }
-	 * 
-	 */
-	public DCTDutiable getDutiable() {
-	    return dutiable;
-	}
+        /**
+         * Gets the value of the dutiable property.
+         * 
+         * @return possible object is {@link DCTDutiable }
+         * 
+         */
+        public DCTDutiable getDutiable() {
+            return dutiable;
+        }
 
-	/**
-	 * Sets the value of the dutiable property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link DCTDutiable }
-	 * 
-	 */
-	public void setDutiable(DCTDutiable value) {
-	    this.dutiable = value;
-	}
+        /**
+         * Sets the value of the dutiable property.
+         * 
+         * @param value
+         *            allowed object is {@link DCTDutiable }
+         * 
+         */
+        public void setDutiable(DCTDutiable value) {
+            this.dutiable = value;
+        }
 
     }
 

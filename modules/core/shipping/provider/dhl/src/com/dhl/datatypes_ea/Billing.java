@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Billing complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Billing">
@@ -38,7 +39,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Billing", propOrder = { "shipperAccountNumber", "shippingPaymentType", "billingAccountNumber", "dutyPaymentType", "dutyAccountNumber" })
+@XmlType(name = "Billing", propOrder = { "shipperAccountNumber", "shippingPaymentType", "billingAccountNumber",
+    "dutyPaymentType", "dutyAccountNumber" })
 public class Billing {
 
     @XmlElement(name = "ShipperAccountNumber")
@@ -57,7 +59,7 @@ public class Billing {
      * 
      */
     public long getShipperAccountNumber() {
-	return shipperAccountNumber;
+        return shipperAccountNumber;
     }
 
     /**
@@ -65,7 +67,7 @@ public class Billing {
      * 
      */
     public void setShipperAccountNumber(long value) {
-	this.shipperAccountNumber = value;
+        this.shipperAccountNumber = value;
     }
 
     /**
@@ -75,7 +77,7 @@ public class Billing {
      * 
      */
     public ShipmentPaymentType getShippingPaymentType() {
-	return shippingPaymentType;
+        return shippingPaymentType;
     }
 
     /**
@@ -86,7 +88,7 @@ public class Billing {
      * 
      */
     public void setShippingPaymentType(ShipmentPaymentType value) {
-	this.shippingPaymentType = value;
+        this.shippingPaymentType = value;
     }
 
     /**
@@ -96,7 +98,7 @@ public class Billing {
      * 
      */
     public Long getBillingAccountNumber() {
-	return billingAccountNumber;
+        return billingAccountNumber;
     }
 
     /**
@@ -107,7 +109,7 @@ public class Billing {
      * 
      */
     public void setBillingAccountNumber(Long value) {
-	this.billingAccountNumber = value;
+        this.billingAccountNumber = value;
     }
 
     /**
@@ -117,7 +119,7 @@ public class Billing {
      * 
      */
     public DutyTaxPaymentType getDutyPaymentType() {
-	return dutyPaymentType;
+        return dutyPaymentType;
     }
 
     /**
@@ -128,7 +130,7 @@ public class Billing {
      * 
      */
     public void setDutyPaymentType(DutyTaxPaymentType value) {
-	this.dutyPaymentType = value;
+        this.dutyPaymentType = value;
     }
 
     /**
@@ -138,7 +140,7 @@ public class Billing {
      * 
      */
     public Long getDutyAccountNumber() {
-	return dutyAccountNumber;
+        return dutyAccountNumber;
     }
 
     /**
@@ -149,7 +151,7 @@ public class Billing {
      * 
      */
     public void setDutyAccountNumber(Long value) {
-	this.dutyAccountNumber = value;
+        this.dutyAccountNumber = value;
     }
 
 }

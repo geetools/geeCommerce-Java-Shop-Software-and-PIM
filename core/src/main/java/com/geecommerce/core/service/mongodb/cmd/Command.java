@@ -7,5 +7,6 @@ import com.mongodb.DBObject;
 public interface Command {
     public boolean isOwner(String key, Object value);
 
-    public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value, DBObject query, QueryOptions queryOptions);
+    public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value,
+        DBObject query, QueryOptions queryOptions);
 }

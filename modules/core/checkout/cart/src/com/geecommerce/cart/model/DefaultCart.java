@@ -63,7 +63,8 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
     private final ShippingService shippingService;
 
     @Inject
-    public DefaultCart(CalculationService calculationService, CalculationHelper calculationHelper, CouponService couponService, CartService cartService, ShippingService shippingService) {
+    public DefaultCart(CalculationService calculationService, CalculationHelper calculationHelper,
+        CouponService couponService, CartService cartService, ShippingService shippingService) {
         this.calculationService = calculationService;
         this.calculationHelper = calculationHelper;
         this.couponService = couponService;
@@ -170,7 +171,7 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
     @Override
     public CouponCode getCouponCode() {
         if (couponCode == null && couponCodeId != null) {
-            CouponService couponService = app.getService(CouponService.class);
+            CouponService couponService = app.service(CouponService.class);
             couponCode = couponService.getCouponCode(couponCodeId);
         }
         return couponCode;
@@ -222,7 +223,8 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
             if (packages != null) {
                 for (ShippingPackage shippingPackage : packages) {
                     if (shippingPackage.getCalculateShipping()) {
-                        ShippingOption shippingOption = shippingService.getEstimatedShippingOptionForDefaultAddress(shippingPackage);
+                        ShippingOption shippingOption = shippingService
+                            .getEstimatedShippingOptionForDefaultAddress(shippingPackage);
 
                         if (shippingOption != null)
                             shippingAmount += shippingOption.getRate();
@@ -242,7 +244,8 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
             List<ShippingPackage> packages = toShippingPackages();
             for (ShippingPackage shippingPackage : packages) {
 
-                ShippingOption shippingOption = shippingService.getEstimatedShippingOptionForDefaultAddress(shippingPackage);
+                ShippingOption shippingOption = shippingService
+                    .getEstimatedShippingOptionForDefaultAddress(shippingPackage);
 
                 if (shippingOption != null) {
                     shippingOptions.add(shippingOption);
@@ -260,7 +263,8 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
     private CalculationResult calculateTotals(Double shippingAmount) {
         CartAttributeCollection cartAttributeCollection = toCartAttributeCollection();
 
-        CouponCode code = couponService.maintainCouponCodesList(getCouponCode(), cartAttributeCollection, getUseAutoCoupon());
+        CouponCode code = couponService.maintainCouponCodesList(getCouponCode(), cartAttributeCollection,
+            getUseAutoCoupon());
         setCouponCode(code);
 
         if (getId() != null)
@@ -324,7 +328,7 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
         }
 
         if (cartItem == null) {
-            cartItem = app.getModel(CartItem.class).setProduct(product);
+            cartItem = app.model(CartItem.class).setProduct(product);
 
             cartItems.add(cartItem);
         }
@@ -362,7 +366,7 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
 
         if (items != null && items.size() > 0) {
             for (Map<String, Object> item : items) {
-                CartItem cartItem = app.getModel(CartItem.class);
+                CartItem cartItem = app.model(CartItem.class);
                 cartItem.fromMap(item);
                 this.cartItems.add(cartItem);
             }
@@ -423,7 +427,7 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
         if (cartItems == null || cartItems.size() == 0)
             return null;
 
-        PackageSplitter packageSplitter = app.getInjectable(PackageSplitter.class);
+        PackageSplitter packageSplitter = app.injectable(PackageSplitter.class);
         List<ShippingPackage> packages = packageSplitter.toShippingPackages(this);
 
         CalculationResult calculationResult = getTotalsNoShipping();
@@ -431,8 +435,10 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
         for (ShippingPackage shippingPackage : packages) {
             Double totalAmount = 0.0;
             for (ShippingItem shippingItem : shippingPackage.getShippingItems()) {
-                if (calculationResult.getItemResult(shippingItem.getProductId()).getInteger(ResultItemKey.ITEM_QUANTITY).equals(shippingItem.getQuantity())) {
-                    totalAmount += calculationResult.getItemResult(shippingItem.getProductId()).getDouble(ResultItemKey.ITEM_GROSS_SUBTOTAL);
+                if (calculationResult.getItemResult(shippingItem.getProductId()).getInteger(ResultItemKey.ITEM_QUANTITY)
+                    .equals(shippingItem.getQuantity())) {
+                    totalAmount += calculationResult.getItemResult(shippingItem.getProductId())
+                        .getDouble(ResultItemKey.ITEM_GROSS_SUBTOTAL);
                 } else {
                     throw new UnsupportedOperationException("Doesn't support splitting shipping items");
                 }
@@ -444,8 +450,8 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
 
     @Override
     public CartAttributeCollection toCartAttributeCollection() {
-        CartAttributeCollection cartAttributeCollection = app.getModel(CartAttributeCollection.class);
-        CouponService couponService = app.getService(CouponService.class);
+        CartAttributeCollection cartAttributeCollection = app.model(CartAttributeCollection.class);
+        CouponService couponService = app.service(CouponService.class);
         cartAttributeCollection.setCartAttributes(couponService.getCartAttributes(this));
 
         Map<Id, Map<String, AttributeValue>> cartItemAttributes = new HashMap<>();

@@ -7,4 +7,3 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.dhl.com/datatypes_EA")
 package com.dhl.datatypes_ea;
-

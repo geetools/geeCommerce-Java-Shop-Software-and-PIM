@@ -1,11 +1,11 @@
 package com.geecommerce.coupon.model;
 
-import com.owlike.genson.annotation.JsonIgnore;
-import com.geecommerce.core.service.api.Model;
-import com.geecommerce.core.type.Id;
-
 import java.util.Date;
 import java.util.List;
+
+import com.geecommerce.core.service.api.Model;
+import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface CouponCode extends Model {
 
@@ -45,13 +45,13 @@ public interface CouponCode extends Model {
     public CouponCode setExportedDate(Date exportedDate);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String COUPON_ID = "coupon_id";
-	public static final String COUPON_USAGE = "coupon_usage";
-	public static final String FROM_DATE = "from_d";
-	public static final String TO_DATE = "to_d";
-	public static final String EMAIL = "email";
-	public static final String EXPORTED = "exported";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String COUPON_ID = "coupon_id";
+        public static final String COUPON_USAGE = "coupon_usage";
+        public static final String FROM_DATE = "from_d";
+        public static final String TO_DATE = "to_d";
+        public static final String EMAIL = "email";
+        public static final String EXPORTED = "exported";
     }
 }

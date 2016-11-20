@@ -29,7 +29,8 @@ public interface NavigationService extends Service {
 
     public NavigationItem getNavigationItemByTargetObject(ObjectType targetObjectType, Id targetObjectId, Id rootId);
 
-    public List<NavigationItem> getNavigationItemsByTargetObject(ObjectType targetObjectType, Id targetObjectId, Id rootId);
+    public List<NavigationItem> getNavigationItemsByTargetObject(ObjectType targetObjectType, Id targetObjectId,
+        Id rootId);
 
     public NavigationItem findRootNavigationItem();
 

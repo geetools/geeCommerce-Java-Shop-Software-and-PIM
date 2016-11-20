@@ -99,7 +99,8 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
     }
 
     @Inject
-    public DefaultCatalogMediaAsset(CatalogMedia catalogMedia, CatalogMediaHelper catalogMediaHelper, Products products) {
+    public DefaultCatalogMediaAsset(CatalogMedia catalogMedia, CatalogMediaHelper catalogMediaHelper,
+        Products products) {
         this.catalogMedia = catalogMedia;
         this.catalogMediaHelper = catalogMediaHelper;
         this.products = products;
@@ -173,7 +174,9 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
     public Set<CatalogMediaType> getMediaTypes() {
         if (mediaTypes == null && mediaTypeIds != null && mediaTypeIds.size() > 0) {
             mediaTypes = new LinkedHashSet<>();
-            mediaTypes.addAll(catalogMedia.findByIds(CatalogMediaType.class, mediaTypeIds.toArray(new Id[mediaTypeIds.size()]), QueryOptions.builder().sortBy(CatalogMediaType.Col.PRIORITY).build()));
+            mediaTypes.addAll(
+                catalogMedia.findByIds(CatalogMediaType.class, mediaTypeIds.toArray(new Id[mediaTypeIds.size()]),
+                    QueryOptions.builder().sortBy(CatalogMediaType.Col.PRIORITY).build()));
         }
 
         return mediaTypes;
@@ -184,7 +187,8 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
         if (mediaTypeKey == null)
             return this;
 
-        CatalogMediaType mediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, mediaTypeKey);
+        CatalogMediaType mediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY,
+            mediaTypeKey);
 
         if (mediaType != null) {
             getMediaTypes();
@@ -208,7 +212,8 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
         if (mediaTypeKey == null)
             return this;
 
-        CatalogMediaType mediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY, mediaTypeKey);
+        CatalogMediaType mediaType = catalogMedia.findByUniqueKey(CatalogMediaType.class, CatalogMediaType.Col.KEY,
+            mediaTypeKey);
 
         if (mediaType != null) {
             if (mediaTypes != null)
@@ -239,7 +244,8 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
             String servletPath = catalogMediaHelper.getServletPath(getMimeType(), getFirstStoreId());
 
             if (app.isExternalHost(subDomain)) {
-                webPath = new StringBuilder(Str.SLASH_2X).append(subDomain).append(servletPath).append(Char.SLASH).append(getPath()).toString();
+                webPath = new StringBuilder(Str.SLASH_2X).append(subDomain).append(servletPath).append(Char.SLASH)
+                    .append(getPath()).toString();
             } else {
                 webPath = new StringBuilder(servletPath).append(Char.SLASH).append(getPath()).toString();
             }
@@ -354,7 +360,8 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
     @Override
     public String getPreviewImageWebPath() {
         if (previewImageWebPath == null && previewImagePath != null) {
-            String servletPath = catalogMediaHelper.getServletPath(MimeType.fromFilename(getPreviewImagePath()), getFirstStoreId());
+            String servletPath = catalogMediaHelper.getServletPath(MimeType.fromFilename(getPreviewImagePath()),
+                getFirstStoreId());
             previewImageWebPath = new StringBuilder(servletPath).append("/").append(getPreviewImagePath()).toString();
         }
 
@@ -494,7 +501,8 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
 
     @Override
     public boolean isProductImage() {
-        return productId != null && (isProductMainImage() || isProductListImage1() || isProductListImage2() || isProductGalleryImage());
+        return productId != null
+            && (isProductMainImage() || isProductListImage1() || isProductListImage2() || isProductGalleryImage());
     }
 
     @Override
@@ -539,10 +547,12 @@ public class DefaultCatalogMediaAsset extends AbstractMultiContextModel implemen
 
     @Override
     public String toString() {
-        return "DefaultCatalogMediaAsset [id=" + id + ", productId=" + productId + ", productListId=" + productListId + ", mediaTypeIds=" + mediaTypeIds + ", path=" + path + ", oldPath=" + oldPath
-            + ", previewImagePath=" + previewImagePath
-            + ", mimeType=" + mimeType + ", title=" + title + ", width=" + width + ", height=" + height + ", position=" + position + ", variantMasterDefault=" + variantMasterDefault
-            + ", bundleDefault=" + bundleDefault + ", programmeDefault="
-            + programmeDefault + ", enabled=" + enabled + ", merchantIds=" + merchantIds + ", storeIds=" + storeIds + ", requestContextIds=" + requestContextIds + "]";
+        return "DefaultCatalogMediaAsset [id=" + id + ", productId=" + productId + ", productListId=" + productListId
+            + ", mediaTypeIds=" + mediaTypeIds + ", path=" + path + ", oldPath=" + oldPath + ", previewImagePath="
+            + previewImagePath + ", mimeType=" + mimeType + ", title=" + title + ", width=" + width + ", height="
+            + height + ", position=" + position + ", variantMasterDefault=" + variantMasterDefault
+            + ", bundleDefault=" + bundleDefault + ", programmeDefault=" + programmeDefault + ", enabled=" + enabled
+            + ", merchantIds=" + merchantIds + ", storeIds=" + storeIds + ", requestContextIds=" + requestContextIds
+            + "]";
     }
 }

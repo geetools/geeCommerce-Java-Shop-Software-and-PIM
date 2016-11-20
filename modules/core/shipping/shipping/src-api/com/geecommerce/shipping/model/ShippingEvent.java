@@ -1,8 +1,8 @@
 package com.geecommerce.shipping.model;
 
-import com.geecommerce.core.service.api.Model;
-
 import java.util.Date;
+
+import com.geecommerce.core.service.api.Model;
 
 public interface ShippingEvent extends Model {
 

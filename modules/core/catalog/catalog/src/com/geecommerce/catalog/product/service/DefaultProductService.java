@@ -46,9 +46,9 @@ public class DefaultProductService implements ProductService {
     protected final ProductConnectionIndexes productConnections;
 
     @Inject
-    public DefaultProductService(Products products, ProductHelper productHelper, PriceService priceService, Stocks stocks, CatalogMedia catalogMedia, ProductLinkTypes productLinkTypes,
-        UrlRewriteService urlRewriteService,
-        ProductConnectionIndexes productConnections) {
+    public DefaultProductService(Products products, ProductHelper productHelper, PriceService priceService,
+        Stocks stocks, CatalogMedia catalogMedia, ProductLinkTypes productLinkTypes,
+        UrlRewriteService urlRewriteService, ProductConnectionIndexes productConnections) {
         this.products = products;
         this.productHelper = productHelper;
         this.priceService = priceService;
@@ -97,7 +97,8 @@ public class DefaultProductService implements ProductService {
             productsList.add(product);
 
             if (productIds.size() > 0) {
-                List<Product> foundProducts = products.findByIds(Product.class, productIds.toArray(new Id[productIds.size()]));
+                List<Product> foundProducts = products.findByIds(Product.class,
+                    productIds.toArray(new Id[productIds.size()]));
                 productsList.addAll(foundProducts);
             }
 
@@ -246,7 +247,8 @@ public class DefaultProductService implements ProductService {
         Set<Id> programmeProductIds = new HashSet<>();
 
         for (Product product : productList) {
-            if (product.isProgramme() && product.getProgrammeProductIds() != null && !product.getProgrammeProductIds().isEmpty())
+            if (product.isProgramme() && product.getProgrammeProductIds() != null
+                && !product.getProgrammeProductIds().isEmpty())
                 programmeProductIds.addAll(product.getProgrammeProductIds());
         }
 
@@ -257,7 +259,8 @@ public class DefaultProductService implements ProductService {
         allProducts.addAll(productList);
 
         if (programmeProductIds.size() > 0) {
-            List<Product> foundProducts = products.findByIds(Product.class, programmeProductIds.toArray(new Id[programmeProductIds.size()]));
+            List<Product> foundProducts = products.findByIds(Product.class,
+                programmeProductIds.toArray(new Id[programmeProductIds.size()]));
             allProducts.addAll(foundProducts);
         }
 
@@ -295,10 +298,12 @@ public class DefaultProductService implements ProductService {
 
                 // Do not add an empty child list if the product is of type
                 // programme, variant-master or bundle.
-                if ((productChildIds == null || productChildIds.size() == 0) && (product.isVariantMaster() || product.isProgramme() || product.isBundle()))
+                if ((productChildIds == null || productChildIds.size() == 0)
+                    && (product.isVariantMaster() || product.isProgramme() || product.isBundle()))
                     continue;
 
-                productIdMap.put(productId, productChildIds == null ? new Id[0] : productChildIds.toArray(new Id[productChildIds.size()]));
+                productIdMap.put(productId,
+                    productChildIds == null ? new Id[0] : productChildIds.toArray(new Id[productChildIds.size()]));
             }
         }
 
@@ -364,7 +369,7 @@ public class DefaultProductService implements ProductService {
         }
 
         if (allProductIds.size() > 0) {
-            stocks.preloadStockData(allProductIds, app.getApplicationContext().getStore().getId());
+            stocks.preloadStockData(allProductIds, app.context().getStore().getId());
         }
 
         // System.out.println("*** preload stock took: " +
@@ -406,7 +411,8 @@ public class DefaultProductService implements ProductService {
         }
 
         if (allProductIds.size() > 0) {
-            List<Product> foundProducts = products.findByIds(Product.class, allProductIds.toArray(new Id[allProductIds.size()]));
+            List<Product> foundProducts = products.findByIds(Product.class,
+                allProductIds.toArray(new Id[allProductIds.size()]));
 
             if (foundProducts != null && foundProducts.size() > 0) {
                 List<UrlRewrite> urlRewrites = urlRewriteService.findUrlRewritesForProducts(ids);

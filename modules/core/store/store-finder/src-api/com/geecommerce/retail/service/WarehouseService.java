@@ -1,11 +1,10 @@
 package com.geecommerce.retail.service;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Service;
-import com.geecommerce.core.type.Id;
 import com.geecommerce.retail.model.RetailStore;
 import com.geecommerce.retail.model.Warehouse;
-
-import java.util.List;
 
 public interface WarehouseService extends Service {
 

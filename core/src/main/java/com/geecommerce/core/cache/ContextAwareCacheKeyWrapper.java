@@ -16,7 +16,7 @@ public class ContextAwareCacheKeyWrapper<T> implements Serializable, Comparable<
     public ContextAwareCacheKeyWrapper(T key) {
         this.key = key;
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null && appCtx.getRequestContext() != null) {
             RequestContext reqCtx = appCtx.getRequestContext();
@@ -35,7 +35,7 @@ public class ContextAwareCacheKeyWrapper<T> implements Serializable, Comparable<
     }
 
     public boolean isInContext() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null && appCtx.getRequestContext() != null) {
             RequestContext reqCtx = appCtx.getRequestContext();

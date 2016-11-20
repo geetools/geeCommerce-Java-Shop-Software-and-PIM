@@ -17,11 +17,13 @@ public abstract class AbstractLoginMethod {
     public abstract LoginResponse processLogin(Map<String, Object> requestParameters);
 
     public String getFrontendFormPath() {
-	StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-	sb.append(Constant.LOGIN_METHOD_FRONTEND_FORMS_BASE_PATH).append("/").append(Filenames.ensureSafeName(getProvider(), true)).append("/").append(Filenames.ensureSafeName(getLabel(), true)).append("/")
-		.append(Constant.LOGIN_METHOD_FRONTEND_FORMS_FILE_NAME);
+        sb.append(Constant.LOGIN_METHOD_FRONTEND_FORMS_BASE_PATH).append("/")
+            .append(Filenames.ensureSafeName(getProvider(), true)).append("/")
+            .append(Filenames.ensureSafeName(getLabel(), true)).append("/")
+            .append(Constant.LOGIN_METHOD_FRONTEND_FORMS_FILE_NAME);
 
-	return sb.toString();
+        return sb.toString();
     }
 }

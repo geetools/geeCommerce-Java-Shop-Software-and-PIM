@@ -37,20 +37,28 @@ public class GuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        ModuleLoader loader = App.get().getModuleLoader();
+        ModuleLoader loader = App.get().moduleLoader();
 
         Map<String, String> configuredInjectMapping = getConfiguredInjectMapping();
 
         if (loader != null) {
-            registerProvider(com.geecommerce.core.service.annotation.Model.class, Model.class, configuredInjectMapping, false);
-            registerProvider(com.geecommerce.core.service.annotation.Pojo.class, Pojo.class, configuredInjectMapping, false);
-            registerProvider(com.geecommerce.core.service.annotation.Dao.class, Dao.class, configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Repository.class, Repository.class, configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Helper.class, Helper.class, configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Service.class, Service.class, configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Injectable.class, Injectable.class, configuredInjectMapping, false);
+            registerProvider(com.geecommerce.core.service.annotation.Model.class, Model.class, configuredInjectMapping,
+                false);
+            registerProvider(com.geecommerce.core.service.annotation.Pojo.class, Pojo.class, configuredInjectMapping,
+                false);
+            registerProvider(com.geecommerce.core.service.annotation.Dao.class, Dao.class, configuredInjectMapping,
+                true);
+            registerProvider(com.geecommerce.core.service.annotation.Repository.class, Repository.class,
+                configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Helper.class, Helper.class,
+                configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Service.class, Service.class,
+                configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Injectable.class, Injectable.class,
+                configuredInjectMapping, false);
         } else {
-            throw new IllegalStateException("Unable to register Guice providers because the ModuleLoader has not been initialized");
+            throw new IllegalStateException(
+                "Unable to register Guice providers because the ModuleLoader has not been initialized");
         }
     }
 
@@ -77,8 +85,9 @@ public class GuiceModule extends AbstractModule {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected void registerProvider(Class<? extends Annotation> annotation, Class<?> interfaceType, Map<String, String> configuredInjectMapping, boolean isSingleton) {
-        ModuleLoader loader = App.get().getModuleLoader();
+    protected void registerProvider(Class<? extends Annotation> annotation, Class<?> interfaceType,
+        Map<String, String> configuredInjectMapping, boolean isSingleton) {
+        ModuleLoader loader = App.get().moduleLoader();
 
         Class<?>[] foundClasses = (Class<?>[]) loader.findAllTypesAnnotatedWith(annotation, true);
 
@@ -107,7 +116,8 @@ public class GuiceModule extends AbstractModule {
                     // for the same interface.
                     // By defining a configuration property like
                     // "inject/interface/com.geecommerce.price.dao.PriceDao/with_impl"
-                    // => "com.geecommerce.price.dao.DefaultPriceMySQLDao", we can change
+                    // => "com.geecommerce.price.dao.DefaultPriceMySQLDao", we
+                    // can change
                     // the desired implementation.
                     String implType = configuredInjectMapping.get(foundClassInterface.getName());
 
@@ -116,22 +126,28 @@ public class GuiceModule extends AbstractModule {
 
                         if (implType.equals(foundClass.getName())) {
                             if (log.isTraceEnabled()) {
-                                log.trace("Found an implementation in mongdo db to override standard binding [interface=" + foundClassInterface.getName() + ", new type=" + implType
-                                    + ", overriden type=" + foundClass.getName() + "].");
+                                log.trace(
+                                    "Found an implementation in mongdo db to override standard binding [interface="
+                                        + foundClassInterface.getName() + ", new type=" + implType
+                                        + ", overriden type=" + foundClass.getName() + "].");
                             }
 
                             boolean providersAreEnabled = Boolean.getBoolean(INJECTOR_PROVIDERS_ENABLED_KEY);
 
                             if (providersAreEnabled) {
                                 if (isSingleton) {
-                                    bind(foundClassInterface).toProvider(new GuiceProvider(foundClassInterface, foundClass)).in(Singleton.class);
+                                    bind(foundClassInterface)
+                                        .toProvider(new GuiceProvider(foundClassInterface, foundClass))
+                                        .in(Singleton.class);
                                 } else {
-                                    bind(foundClassInterface).toProvider(new GuiceProvider(foundClassInterface, foundClass));
+                                    bind(foundClassInterface)
+                                        .toProvider(new GuiceProvider(foundClassInterface, foundClass));
                                 }
                             } else {
                                 // Use the custom ApplicationContextClassLoader
                                 // to find class
-                                ClassLoader classLoader = new ApplicationContextClassLoader(foundClassInterface.getClassLoader());
+                                ClassLoader classLoader = new ApplicationContextClassLoader(
+                                    foundClassInterface.getClassLoader());
 
                                 // Load merchant or store-specific class if one
                                 // exists
@@ -145,25 +161,30 @@ public class GuiceModule extends AbstractModule {
                             }
                         }
                     } else {
-                        if (!foundClass.getSimpleName().startsWith("Default") && !foundClass.getSimpleName().startsWith("My"))
+                        if (!foundClass.getSimpleName().startsWith("Default")
+                            && !foundClass.getSimpleName().startsWith("My"))
                             continue;
 
                         if (log.isTraceEnabled()) {
-                            log.trace("Binding class [interface=" + foundClassInterface.getName() + ", type=" + foundClass.getName() + "].");
+                            log.trace("Binding class [interface=" + foundClassInterface.getName() + ", type="
+                                + foundClass.getName() + "].");
                         }
 
                         boolean providersAreEnabled = Boolean.getBoolean(INJECTOR_PROVIDERS_ENABLED_KEY);
 
                         if (providersAreEnabled) {
                             if (isSingleton) {
-                                bind(foundClassInterface).toProvider(new GuiceProvider(foundClassInterface, foundClass)).in(Singleton.class);
+                                bind(foundClassInterface).toProvider(new GuiceProvider(foundClassInterface, foundClass))
+                                    .in(Singleton.class);
                             } else {
-                                bind(foundClassInterface).toProvider(new GuiceProvider(foundClassInterface, foundClass));
+                                bind(foundClassInterface)
+                                    .toProvider(new GuiceProvider(foundClassInterface, foundClass));
                             }
                         } else {
                             // Use the custom ApplicationContextClassLoader to
                             // find class
-                            ClassLoader classLoader = new ApplicationContextClassLoader(foundClassInterface.getClassLoader());
+                            ClassLoader classLoader = new ApplicationContextClassLoader(
+                                foundClassInterface.getClassLoader());
 
                             // Load merchant or store-specific class if one
                             // exists
@@ -177,7 +198,8 @@ public class GuiceModule extends AbstractModule {
                         }
                     }
                 } catch (Throwable t) {
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX: " + interfaceType + " -> " + currentFoundClass + " -> " + currentFoundClassInterface);
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX: " + interfaceType + " -> " + currentFoundClass
+                        + " -> " + currentFoundClassInterface);
 
                     log.throwing(t);
 
@@ -192,7 +214,8 @@ public class GuiceModule extends AbstractModule {
     protected Class<?> toInterface(Class<?> clazz, Map<String, String> configuredInjectMapping) {
         String defaultType = clazz.getName();
         String interfaceType = defaultType.replace(".Default", ".");
-        String interfaceType2 = defaultType.substring(0, defaultType.lastIndexOf('.') + 1) + 'I' + defaultType.substring(defaultType.lastIndexOf('.') + 1);
+        String interfaceType2 = defaultType.substring(0, defaultType.lastIndexOf('.') + 1) + 'I'
+            + defaultType.substring(defaultType.lastIndexOf('.') + 1);
 
         Class<?>[] interfaces = clazz.getInterfaces();
         Class<?> foundInterface = null;
@@ -232,7 +255,9 @@ public class GuiceModule extends AbstractModule {
                         + "' to Guice as it was not possible to obtain an interface using the standard rules. Try optionally specifying the interface using the @Implements annotation.");
                 } else {
                     if (!implementsAnnotation.value().isInterface()) {
-                        System.out.println("Unable to bind the persistence type '" + clazz.getName() + "' to Guice because '" + implementsAnnotation.value().getName() + "' is not an interface.");
+                        System.out.println(
+                            "Unable to bind the persistence type '" + clazz.getName() + "' to Guice because '"
+                                + implementsAnnotation.value().getName() + "' is not an interface.");
                     } else {
                         foundConfiguredInterface = implementsAnnotation.value();
                     }
@@ -245,7 +270,9 @@ public class GuiceModule extends AbstractModule {
 
             if (implementsAnnotation != null) {
                 if (!implementsAnnotation.value().isInterface()) {
-                    System.out.println("Unable to bind the persistence type '" + clazz.getName() + "' to Guice because '" + implementsAnnotation.value().getName() + "' is not an interface.");
+                    System.out
+                        .println("Unable to bind the persistence type '" + clazz.getName() + "' to Guice because '"
+                            + implementsAnnotation.value().getName() + "' is not an interface.");
                 } else {
                     foundConfiguredInterface = implementsAnnotation.value();
                 }
@@ -261,11 +288,13 @@ public class GuiceModule extends AbstractModule {
         }
 
         if (foundInterface != null && !foundInterface.isInterface()) {
-            throw new IllegalStateException("The class '" + interfaceType + "' must be an interface and declared in '" + defaultType + "'");
+            throw new IllegalStateException(
+                "The class '" + interfaceType + "' must be an interface and declared in '" + defaultType + "'");
         }
 
         if (foundConfiguredInterface != null && !foundConfiguredInterface.isInterface()) {
-            throw new IllegalStateException("The class '" + foundConfiguredInterface + "' must be an interface and declared in '" + defaultType + "'");
+            throw new IllegalStateException("The class '" + foundConfiguredInterface
+                + "' must be an interface and declared in '" + defaultType + "'");
         }
 
         return foundConfiguredInterface == null ? foundInterface : foundConfiguredInterface;

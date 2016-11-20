@@ -1,5 +1,11 @@
 package com.geecommerce.guiwidgets;
 
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.web.annotation.Widget;
 import com.geecommerce.core.web.api.AbstractWidgetController;
@@ -9,11 +15,6 @@ import com.geecommerce.guiwidgets.model.Content;
 import com.geecommerce.guiwidgets.repository.Contents;
 import com.geecommerce.guiwidgets.service.ContentService;
 import com.google.inject.Inject;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Widget(name = "content")
 public class ContentWidget extends AbstractWidgetController implements WidgetController {
@@ -29,7 +30,8 @@ public class ContentWidget extends AbstractWidgetController implements WidgetCon
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
 
         String contentId = widgetCtx.getParam(PARAM_ID);
         if (contentId != null && !contentId.isEmpty()) {
@@ -47,7 +49,9 @@ public class ContentWidget extends AbstractWidgetController implements WidgetCon
 
             if (contentList != null && !contentList.isEmpty()) {
                 // Optional<Content> optional = contentList.stream().
-                // filter(x -> (x.getDateFrom() == null || x.getDateFrom().before(new Date())) && (x.getDateTo() == null || x.getDateTo().after(new
+                // filter(x -> (x.getDateFrom() == null ||
+                // x.getDateFrom().before(new Date())) && (x.getDateTo() == null
+                // || x.getDateTo().after(new
                 // Date()))).findFirst();
 
                 Content content = null;

@@ -210,7 +210,7 @@ public class DefaultContent extends AbstractAttributeSupport implements Content 
             List<Map<String, Object>> nodesList = list_(map.get(Col.CONTENT_NODES));
             if (nodesList != null) {
                 for (Map<String, Object> node : nodesList) {
-                    ContentNode n = app.getModel(ContentNode.class);
+                    ContentNode n = app.model(ContentNode.class);
                     n.fromMap(node);
                     this.contentNodes.add(n);
                 }
@@ -222,7 +222,7 @@ public class DefaultContent extends AbstractAttributeSupport implements Content 
             List<Map<String, Object>> nodesList = list_(map.get(Col.STRUCTURE_NODES));
             if (nodesList != null) {
                 for (Map<String, Object> node : nodesList) {
-                    StructureNode n = app.getModel(StructureNode.class);
+                    StructureNode n = app.model(StructureNode.class);
                     n.fromMap(node);
                     this.structureNodes.add(n);
                 }

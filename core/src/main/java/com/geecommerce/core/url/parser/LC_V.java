@@ -10,25 +10,26 @@ public class LC_V extends AbstractURLParser implements URLParser {
 
     @Override
     public boolean isMatch(String requestURL, RequestContext requestCtx) {
-	if (requestURL == null)
-	    throw new NullPointerException("Cannot parse null URL");
+        if (requestURL == null)
+            throw new NullPointerException("Cannot parse null URL");
 
-	if (requestURL.startsWith(addProtocolToUrlPrefix(requestCtx.getUrlPrefix(), requestURL))) {
-	    if (log.isTraceEnabled()) {
-		log.trace(requestURL + " matches url-prefix " + requestCtx.getUrlPrefix() + " using " + this.getClass().getSimpleName());
-	    }
+        if (requestURL.startsWith(addProtocolToUrlPrefix(requestCtx.getUrlPrefix(), requestURL))) {
+            if (log.isTraceEnabled()) {
+                log.trace(requestURL + " matches url-prefix " + requestCtx.getUrlPrefix() + " using "
+                    + this.getClass().getSimpleName());
+            }
 
-	    return true;
-	}
+            return true;
+        }
 
-	return false;
+        return false;
     }
 
     @Override
     public String stripServletPath(String servletPath, RequestContext requestCtx) {
-	// Find the first slash after the language part
-	int pos = servletPath.indexOf('/', 1);
+        // Find the first slash after the language part
+        int pos = servletPath.indexOf('/', 1);
 
-	return new StringBuilder(servletPath.substring(pos)).toString();
+        return new StringBuilder(servletPath.substring(pos)).toString();
     }
 }

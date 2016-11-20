@@ -30,7 +30,8 @@ public class Templates {
         String templatePath = SystemConfig.GET.val(SystemConfig.APPLICATION_TEMPLATE_PATH);
 
         if (templatePath == null) {
-            throw new IllegalStateException("The System.properties configuration element 'Application.Template.Path' cannot be null");
+            throw new IllegalStateException(
+                "The System.properties configuration element 'Application.Template.Path' cannot be null");
         }
 
         templatePath = templatePath.trim();
@@ -64,11 +65,12 @@ public class Templates {
         return new StringBuilder(getBaseTemplatesPath()).append("layout").toString();
     }
 
-    public static String render(String templateContent, Map<String, Object> params) throws IOException, TemplateException {
+    public static String render(String templateContent, Map<String, Object> params)
+        throws IOException, TemplateException {
         StringWriter sw = new StringWriter();
 
         App app = App.get();
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
 
         // TODO: replace quick hack with configured value!

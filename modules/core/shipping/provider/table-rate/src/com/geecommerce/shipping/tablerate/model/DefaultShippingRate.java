@@ -2,7 +2,6 @@ package com.geecommerce.shipping.tablerate.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Model;
@@ -10,6 +9,7 @@ import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.shipping.enums.ShippingType;
 import com.geecommerce.shipping.tablerate.ShippingRateType;
+import com.google.common.collect.Maps;
 
 @Cacheable
 @Model("shipping_rates")
@@ -38,154 +38,154 @@ public class DefaultShippingRate extends AbstractMultiContextModel implements Sh
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public ShippingRate setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getCountry() {
-	return country;
+        return country;
     }
 
     @Override
     public ShippingRate setCountry(String country) {
-	this.country = country;
-	return this;
+        this.country = country;
+        return this;
     }
 
     @Override
     public String getState() {
-	return state;
+        return state;
     }
 
     @Override
     public ShippingRate setState(String state) {
-	this.state = state;
-	return this;
+        this.state = state;
+        return this;
     }
 
     @Override
     public String getZip() {
-	return zip;
+        return zip;
     }
 
     @Override
     public ShippingRate setZip(String zip) {
-	this.zip = zip;
-	return this;
+        this.zip = zip;
+        return this;
     }
 
     @Override
     public Double getRate() {
-	return rate;
+        return rate;
     }
 
     @Override
     public ShippingRate setRate(Double rate) {
-	this.rate = rate;
-	return this;
+        this.rate = rate;
+        return this;
     }
 
     @Override
     public Double getLowerBound() {
-	return lowerBound;
+        return lowerBound;
     }
 
     @Override
     public ShippingRate setLowerBound(Double lowerBound) {
-	this.lowerBound = lowerBound;
-	return this;
+        this.lowerBound = lowerBound;
+        return this;
     }
 
     @Override
     public ShippingRateType getType() {
-	return type;
+        return type;
     }
 
     @Override
     public ShippingRate setType(ShippingRateType type) {
-	this.type = type;
-	return this;
+        this.type = type;
+        return this;
     }
 
     @Override
     public ShippingType getShippingType() {
-	return shippingType;
+        return shippingType;
     }
 
     @Override
     public ShippingRate setShippingType(ShippingType type) {
-	this.shippingType = type;
-	return this;
+        this.shippingType = type;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public ShippingRate setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public ContextObject<String> getDescription() {
-	return description;
+        return description;
     }
 
     @Override
     public ShippingRate setDescription(ContextObject<String> description) {
-	this.description = description;
-	return this;
+        this.description = description;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.country = str_(map.get(Column.COUNTRY));
-	this.state = str_(map.get(Column.STATE));
-	this.zip = str_(map.get(Column.ZIP));
-	this.rate = double_(map.get(Column.RATE));
-	this.lowerBound = double_(map.get(Column.LOWER_BOUND));
-	this.label = ctxObj_(map.get(Column.LABEL));
-	this.description = ctxObj_(map.get(Column.DESCRIPTION));
-	this.type = ShippingRateType.fromId(int_(map.get(Column.RATE_TYPE)));
-	this.shippingType = enum_(ShippingType.class, map.get(Column.SHIPPING_TYPE), ShippingType.DEFAULT);
+        this.id = id_(map.get(Column.ID));
+        this.country = str_(map.get(Column.COUNTRY));
+        this.state = str_(map.get(Column.STATE));
+        this.zip = str_(map.get(Column.ZIP));
+        this.rate = double_(map.get(Column.RATE));
+        this.lowerBound = double_(map.get(Column.LOWER_BOUND));
+        this.label = ctxObj_(map.get(Column.LABEL));
+        this.description = ctxObj_(map.get(Column.DESCRIPTION));
+        this.type = ShippingRateType.fromId(int_(map.get(Column.RATE_TYPE)));
+        this.shippingType = enum_(ShippingType.class, map.get(Column.SHIPPING_TYPE), ShippingType.DEFAULT);
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(Column.ID, getId());
+        map.put(Column.ID, getId());
 
-	if (getCountry() != null)
-	    map.put(Column.COUNTRY, getCountry());
+        if (getCountry() != null)
+            map.put(Column.COUNTRY, getCountry());
 
-	if (getState() != null)
-	    map.put(Column.STATE, getState());
+        if (getState() != null)
+            map.put(Column.STATE, getState());
 
-	if (getZip() != null)
-	    map.put(Column.ZIP, getZip());
+        if (getZip() != null)
+            map.put(Column.ZIP, getZip());
 
-	map.put(Column.RATE, getRate());
-	map.put(Column.LOWER_BOUND, getLowerBound());
-	map.put(Column.LABEL, getLabel());
-	map.put(Column.DESCRIPTION, getDescription());
-	map.put(Column.RATE_TYPE, getType().toId());
+        map.put(Column.RATE, getRate());
+        map.put(Column.LOWER_BOUND, getLowerBound());
+        map.put(Column.LABEL, getLabel());
+        map.put(Column.DESCRIPTION, getDescription());
+        map.put(Column.RATE_TYPE, getType().toId());
 
-	if (getShippingType() != null)
-	    map.put(Column.SHIPPING_TYPE, getShippingType().toId());
+        if (getShippingType() != null)
+            map.put(Column.SHIPPING_TYPE, getShippingType().toId());
 
-	return map;
+        return map;
     }
 }

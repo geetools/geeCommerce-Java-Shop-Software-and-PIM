@@ -1,8 +1,6 @@
 package com.geecommerce.coupon.model;
 
 import com.geecommerce.core.service.api.Model;
-import com.geecommerce.core.type.Id;
-import com.geecommerce.coupon.enums.CouponActionType;
 
 public interface CouponRangeDiscountAmount extends Model {
 
@@ -20,8 +18,8 @@ public interface CouponRangeDiscountAmount extends Model {
 
     static final class Col {
 
-	public static final String DISCOUNT_AMOUNT = "dsc_amount";
-	public static final String FROM_AMOUNT = "from_amount";
-	public static final String TO_AMOUNT = "to_amount";
+        public static final String DISCOUNT_AMOUNT = "dsc_amount";
+        public static final String FROM_AMOUNT = "from_amount";
+        public static final String TO_AMOUNT = "to_amount";
     }
 }

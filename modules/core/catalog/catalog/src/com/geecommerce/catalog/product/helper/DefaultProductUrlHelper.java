@@ -113,7 +113,8 @@ public class DefaultProductUrlHelper implements ProductUrlHelper {
 
             // Make sure that at least one of the 3 name2, product_group or
             // programme exist, otherwise continue.
-            if ((name2Map == null || name2Map.size() == 0) && (productGroupMap == null || productGroupMap.size() == 0) && (programmeMap == null || programmeMap.size() == 0))
+            if ((name2Map == null || name2Map.size() == 0) && (productGroupMap == null || productGroupMap.size() == 0)
+                && (programmeMap == null || programmeMap.size() == 0))
                 continue;
 
             String name2 = null;
@@ -135,7 +136,8 @@ public class DefaultProductUrlHelper implements ProductUrlHelper {
 
             // Make sure that at least one of the 3 name2, product_group or
             // programme exist, otherwise continue.
-            if ((name2 == null || name2.isEmpty()) && (productGroup == null || productGroup.isEmpty()) && (programme == null || programme.isEmpty()))
+            if ((name2 == null || name2.isEmpty()) && (productGroup == null || productGroup.isEmpty())
+                && (programme == null || programme.isEmpty()))
                 continue;
 
             // Optionally we can also add a color if one exists.
@@ -146,7 +148,8 @@ public class DefaultProductUrlHelper implements ProductUrlHelper {
                     color = (String) colorMap.get(ContextObject.VALUE);
             }
 
-            String productUriPrefix = app.cpStr_(CATALOG_PRODUCT_URI_BASE_URI_PREFIX_KEY, CATALOG_PRODUCT_DEFAULT_URI_PREFIX);
+            String productUriPrefix = app.cpStr_(CATALOG_PRODUCT_URI_BASE_URI_PREFIX_KEY,
+                CATALOG_PRODUCT_DEFAULT_URI_PREFIX);
 
             StringBuilder baseURI = new StringBuilder(productUriPrefix);
 

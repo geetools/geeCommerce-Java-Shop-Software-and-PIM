@@ -163,7 +163,7 @@ public class ExportProductData implements Taskable, Job {
     }
 
     private String[] buildHeaderLine1() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         List<String> languages = app.cpStrList_("catalog/cron/product_export/try_languages");
 
         if (languages == null | languages.isEmpty()) {
@@ -223,7 +223,7 @@ public class ExportProductData implements Taskable, Job {
     }
 
     private String[] buildCsvLine(Product p) {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Store store = appCtx.getStore();
         Id storeId = store.getId();
 
@@ -289,7 +289,7 @@ public class ExportProductData implements Taskable, Job {
                 visibleTo = dateFormat.format((Date) visibleToGlobal);
         }
 
-        String uri = app.getHelper(TargetSupportHelper.class).findURI(p);
+        String uri = app.helper(TargetSupportHelper.class).findURI(p);
 
         csvParts.add(p.getArticleNumber() == null ? "" : p.getArticleNumber());
         csvParts.add(p.getType().name());

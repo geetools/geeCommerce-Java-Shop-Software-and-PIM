@@ -57,7 +57,8 @@ public class WishListAction extends BaseActionBean {
             return redirect("/wishlist/view/");
         }
 
-        return new ForwardResolution("/customer/account/process-login/").addParameter("postLoginRedirect", "/wishlist/view/");
+        return new ForwardResolution("/customer/account/process-login/").addParameter("postLoginRedirect",
+            "/wishlist/view/");
     }
 
     @HandlesEvent("add-product")
@@ -126,7 +127,7 @@ public class WishListAction extends BaseActionBean {
     public Resolution createWishList() {
         if (isCustomerLoggedIn()) {
             if (getWishListJson() != null) {
-                WishList wishList = app.getModel(WishList.class);
+                WishList wishList = app.model(WishList.class);
                 wishList.setDefault(false);
                 wishList.setName(getWishListJson().getName());
                 wishList.setAccessType(WishListAccessType.valueOf(getWishListJson().getAccess()));
@@ -186,7 +187,8 @@ public class WishListAction extends BaseActionBean {
         if (getWishListId() != null && getWishListItemId() != null && getWishListToId() != null) {
             WishList wishList = wishListService.getWishList(getWishListId());
             WishList wishListTo = wishListService.getWishList(getWishListToId());
-            if (wishList != null && wishList.getWishListItems() != null && wishList.getWishListItems().size() > 0 && wishListTo != null) {
+            if (wishList != null && wishList.getWishListItems() != null && wishList.getWishListItems().size() > 0
+                && wishListTo != null) {
                 for (int i = 0; i < wishList.getWishListItems().size(); i++) {
                     if (wishList.getWishListItems().get(i).getId().equals(getWishListItemId())) {
                         WishListItem item = wishList.getWishListItems().get(i);
@@ -297,7 +299,7 @@ public class WishListAction extends BaseActionBean {
             Customer customer = getLoggedInCustomer();
             WishList defaultWishList = wishListService.getDefaultWishList(customer.getId());
             if (defaultWishList == null && createIfNotExists) {
-                WishList wishList = app.getModel(WishList.class);
+                WishList wishList = app.model(WishList.class);
                 wishList.belongsTo(customer);
                 wishList.setDefault(true);
                 wishList.setName("Default Wish List");

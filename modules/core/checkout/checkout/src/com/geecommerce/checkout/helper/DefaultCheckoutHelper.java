@@ -56,8 +56,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     protected final Stocks stocks;
 
     @Inject
-    public DefaultCheckoutHelper(Checkouts checkouts, CheckoutService checkoutService, Orders orders, CouponService couponService, MailerService mailerService, CartService cartService,
-        Stocks stocks) {
+    public DefaultCheckoutHelper(Checkouts checkouts, CheckoutService checkoutService, Orders orders,
+        CouponService couponService, MailerService mailerService, CartService cartService, Stocks stocks) {
         this.checkouts = checkouts;
         this.checkoutService = checkoutService;
         this.orders = orders;
@@ -68,14 +68,14 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     }
 
     public Order convertCartToOrder(Cart cart) throws Exception {
-        Order order = app.getModel(Order.class);
+        Order order = app.model(Order.class);
 
         List<CartItem> cartItems = cart.getActiveCartItems();
 
         List<OrderItem> orderItems = new ArrayList<>();
 
         for (CartItem cartItem : cartItems) {
-            OrderItem orderItem = app.getModel(OrderItem.class);
+            OrderItem orderItem = app.model(OrderItem.class);
             orderItem.setId(app.nextId());
             orderItem.setProductId(cartItem.getProductId());
             orderItem.setArticleNumber(cartItem.getProduct().getArticleNumber());
@@ -124,7 +124,7 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     }
 
     public OrderAddress orderAddressFromFormAddress(AddressForm addressForm) {
-        OrderAddress address = app.getModel(OrderAddress.class);
+        OrderAddress address = app.model(OrderAddress.class);
         address.setSalutation(addressForm.getSalutation());
         address.setFirstName(addressForm.getFirstName());
         address.setLastName(addressForm.getLastName());
@@ -139,7 +139,7 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     }
 
     public CheckoutAddress checkoutAddressFromFormAddress(AddressForm addressForm) {
-        CheckoutAddress address = app.getModel(CheckoutAddress.class);
+        CheckoutAddress address = app.model(CheckoutAddress.class);
         address.setSalutation(addressForm.getSalutation());
         address.setFirstName(addressForm.getFirstName());
         address.setLastName(addressForm.getLastName());
@@ -155,7 +155,7 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     }
 
     public Address customerAddressFromFormAddress(AddressForm addressForm) {
-        Address address = app.getModel(Address.class);
+        Address address = app.model(Address.class);
         address.setSalutation(addressForm.getSalutation());
         address.setForename(addressForm.getFirstName());
         address.setSurname(addressForm.getLastName());
@@ -200,8 +200,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
 
         if (checkout == null) {
 
-            checkout = app.getModel(Checkout.class);
-            checkout.fromRequestContext(app.getApplicationContext().getRequestContext()).fromCart(cart);
+            checkout = app.model(Checkout.class);
+            checkout.fromRequestContext(app.context().getRequestContext()).fromCart(cart);
 
             if (app.isCustomerLoggedIn()) {
                 Customer customer = (Customer) app.getLoggedInCustomer();
@@ -237,7 +237,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     }
 
     @Override
-    public void addShippingToCheckout(Checkout checkout, Cart cart, CheckoutForm form, ShippingService shippingService, Double totalAmount) {
+    public void addShippingToCheckout(Checkout checkout, Cart cart, CheckoutForm form, ShippingService shippingService,
+        Double totalAmount) {
         String[] codes = form.getCarrierCode().split("\\|");
         checkout.setShippingCarrier(codes[0]).setShippingOption(codes[1]);
 
@@ -247,16 +248,17 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
         ShippingPackage shippingData = ((ShippingPackageConverter) checkout).toShippingPackages().get(0);
         // shippingData.setShippingAddress(shippingDataAddress.getShippingAddress());
 
-        ShippingOption shippingOption = shippingService.getShippingOption(shippingData, checkout.getShippingCarrier(), checkout.getShippingOption());
+        ShippingOption shippingOption = shippingService.getShippingOption(shippingData, checkout.getShippingCarrier(),
+            checkout.getShippingOption());
         checkout.setShippingAmount(shippingOption.getRate());
         checkout.setShippingOptionName(shippingOption.getName());
     }
 
     @Override
     public void addShipmentToOrder(Order order, Checkout checkout) {
-        OrderShipment shipment = app.getModel(OrderShipment.class).belongsTo(order).setCarrierCode(checkout.getShippingCarrier()).setOptionCode(checkout.getShippingOption())
-            .setShippingAmount(checkout.getTotalShippingAmount())
-            .setOptionName(checkout.getShippingOptionName());
+        OrderShipment shipment = app.model(OrderShipment.class).belongsTo(order)
+            .setCarrierCode(checkout.getShippingCarrier()).setOptionCode(checkout.getShippingOption())
+            .setShippingAmount(checkout.getTotalShippingAmount()).setOptionName(checkout.getShippingOptionName());
 
         order.addOrderShipment(shipment);
     }
@@ -283,7 +285,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     @Override
     public boolean canBeAccepted(Order order) {
         if (order.getOrderStatus().equals(OrderStatus.PENDING)
-            && (order.getOrderPayment().getPaymentStatus().equals(PaymentStatus.PAID) || order.getOrderPayment().getPaymentStatus().equals(PaymentStatus.AUTHORIZED))) {
+            && (order.getOrderPayment().getPaymentStatus().equals(PaymentStatus.PAID)
+                || order.getOrderPayment().getPaymentStatus().equals(PaymentStatus.AUTHORIZED))) {
             return true;
         }
         return false;
@@ -312,7 +315,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
             if (orderItemsList != null && orderItemsList.size() > 0) {
                 for (OrderItem orderItem : orderItemsList) {
                     // decrement quantity from inventory stock
-                    stocks.decrementQty(orderItem.getProductId(), app.getApplicationContext().getStore(), orderItem.getQuantity());
+                    stocks.decrementQty(orderItem.getProductId(), app.context().getStore(),
+                        orderItem.getQuantity());
                 }
             }
         } catch (QuantityNotAvailableException e) {
@@ -333,7 +337,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
         try {
             Map<String, Object> templateParams = new HashMap<>();
             templateParams.put("order", order);
-            mailerService.sendMail("first_order_confirmation", order.getInvoiceOrderAddress().getEmail(), templateParams);
+            mailerService.sendMail("first_order_confirmation", order.getInvoiceOrderAddress().getEmail(),
+                templateParams);
         }
         // We do not want the order to fail just because there was a problem
         // sending an email. Improve.

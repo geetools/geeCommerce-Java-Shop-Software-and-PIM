@@ -18,50 +18,51 @@ public class AdditionalShipmentCalculationMethod extends AbstractShippingCalcula
     @Inject
     protected App app;
 
-    protected final AdditionalShippingRates additionalShippingRates;// = app.getService(ShippingRateService.class);
+    protected final AdditionalShippingRates additionalShippingRates;// =
+                                                                    // app.getService(ShippingRateService.class);
 
     @Inject
     public AdditionalShipmentCalculationMethod(AdditionalShippingRates additionalShippingRates) {
-	this.additionalShippingRates = additionalShippingRates;
+        this.additionalShippingRates = additionalShippingRates;
     }
 
     @Override
     public boolean isEnabled() {
-	return app.cpBool_(Key.ENABLED, false);
+        return app.cpBool_(Key.ENABLED, false);
     }
 
     @Override
     public String getCode() {
-	return "additional_rate";
+        return "additional_rate";
     }
 
     @Override
     public List<ShippingOption> getShipmentOptions(Object... data) {
-	if (data.length < 2)
-	    return null;
+        if (data.length < 2)
+            return null;
 
-	ShippingPackage shippingData = (ShippingPackage) data[0];
-	String carrierCode = (String) data[1];
+        ShippingPackage shippingData = (ShippingPackage) data[0];
+        String carrierCode = (String) data[1];
 
-	List<ShippingOption> shipmentOptions = new ArrayList<>();
+        List<ShippingOption> shipmentOptions = new ArrayList<>();
 
-	List<AdditionalShippingRate> rates = additionalShippingRates.forCarrier(carrierCode);
-	if (rates != null) {
-	    for (AdditionalShippingRate shippingRate : rates) {
-		ShippingOption option = app.getInjectable(ShippingOption.class);
-		option.setRate(shippingRate.getRate());
-		option.setCarrierCode(getCode());
-		option.setOptionCode(shippingRate.getId().toString());
-		option.setName(shippingRate.getLabel().getVal());
-		option.setDescription(shippingRate.getDescription().getVal());
-		option.setGroup(shippingRate.getGroup());
+        List<AdditionalShippingRate> rates = additionalShippingRates.forCarrier(carrierCode);
+        if (rates != null) {
+            for (AdditionalShippingRate shippingRate : rates) {
+                ShippingOption option = app.injectable(ShippingOption.class);
+                option.setRate(shippingRate.getRate());
+                option.setCarrierCode(getCode());
+                option.setOptionCode(shippingRate.getId().toString());
+                option.setName(shippingRate.getLabel().getVal());
+                option.setDescription(shippingRate.getDescription().getVal());
+                option.setGroup(shippingRate.getGroup());
 
-		shipmentOptions.add(option);
+                shipmentOptions.add(option);
 
-	    }
-	}
+            }
+        }
 
-	return shipmentOptions;
+        return shipmentOptions;
     }
 
 }

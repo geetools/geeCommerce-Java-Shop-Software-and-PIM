@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.inject.Inject;
 import com.geecommerce.checkout.repository.OrderPaymentEvents;
 import com.geecommerce.core.payment.AbstractPaymentMethod;
 import com.geecommerce.core.payment.PaymentHelper;
@@ -17,6 +16,7 @@ import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.util.Json;
+import com.google.inject.Inject;
 
 @Model("sale_order_payment")
 @XmlRootElement(name = "payment")
@@ -333,8 +333,11 @@ public class DefaultOrderPayment extends AbstractModel implements OrderPayment {
 
     @Override
     public String toString() {
-        return "DefaultOrderPayment [id=" + id + ", orderId=" + orderId + ", paymentStatus=" + paymentStatus + ", lastPaymentStatus=" + lastPaymentStatus + ", currency=" + currency + ", paidAmount=" + paidAmount + ", authorizedAmount="
-                + authorizedAmount + ", refundedAmount=" + refundedAmount + ", isAuthorized=" + isAuthorized + ", authorizationId=" + authorizationId + ", transactionId=" + transactionId + ", paidOn=" + paidOn + ", authorizedOn=" + authorizedOn
-                + ", modifiedOn=" + modifiedOn + ", paymentMethodCode=" + paymentMethodCode + ", custom=" + custom + "]";
+        return "DefaultOrderPayment [id=" + id + ", orderId=" + orderId + ", paymentStatus=" + paymentStatus
+            + ", lastPaymentStatus=" + lastPaymentStatus + ", currency=" + currency + ", paidAmount=" + paidAmount
+            + ", authorizedAmount=" + authorizedAmount + ", refundedAmount=" + refundedAmount + ", isAuthorized="
+            + isAuthorized + ", authorizationId=" + authorizationId + ", transactionId=" + transactionId
+            + ", paidOn=" + paidOn + ", authorizedOn=" + authorizedOn + ", modifiedOn=" + modifiedOn
+            + ", paymentMethodCode=" + paymentMethodCode + ", custom=" + custom + "]";
     }
 }

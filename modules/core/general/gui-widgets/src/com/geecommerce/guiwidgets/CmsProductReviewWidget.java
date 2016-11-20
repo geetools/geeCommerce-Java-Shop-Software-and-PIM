@@ -32,14 +32,16 @@ public class CmsProductReviewWidget extends AbstractWidgetController implements 
     private final CustomerReviewService customerReviewService;
 
     @Inject
-    public CmsProductReviewWidget(ProductService productService, WidgetParameters widgetParameters, CustomerReviewService customerReviewService) {
+    public CmsProductReviewWidget(ProductService productService, WidgetParameters widgetParameters,
+        CustomerReviewService customerReviewService) {
         this.productService = productService;
         this.widgetParameters = widgetParameters;
         this.customerReviewService = customerReviewService;
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String productId = widgetCtx.getParam(PARAM_PRODUCT);
         String view = widgetCtx.getParam(PARAM_VIEW);
         if (!StringUtils.isBlank(productId)) {
@@ -48,7 +50,8 @@ public class CmsProductReviewWidget extends AbstractWidgetController implements 
             widgetCtx.setParam("wProduct", product);
 
             if (STARS_TEMPLATE.equals(view)) {
-                widgetCtx.setParam("average", String.format(Locale.ENGLISH, "%.2f", customerReviewService.averageRating(id)));
+                widgetCtx.setParam("average",
+                    String.format(Locale.ENGLISH, "%.2f", customerReviewService.averageRating(id)));
                 widgetCtx.setParam("total", customerReviewService.totalReviews(id));
                 widgetCtx.setParam("stars", customerReviewService.ratingsForProductReviews(id));
             }

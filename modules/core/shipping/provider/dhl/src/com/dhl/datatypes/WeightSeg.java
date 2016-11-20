@@ -8,6 +8,7 @@
 package com.dhl.datatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for WeightSeg complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="WeightSeg">
@@ -51,7 +53,7 @@ public class WeightSeg {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -62,7 +64,7 @@ public class WeightSeg {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -72,7 +74,7 @@ public class WeightSeg {
      * 
      */
     public WeightUnit getWeightUnit() {
-	return weightUnit;
+        return weightUnit;
     }
 
     /**
@@ -83,7 +85,7 @@ public class WeightSeg {
      * 
      */
     public void setWeightUnit(WeightUnit value) {
-	this.weightUnit = value;
+        this.weightUnit = value;
     }
 
 }

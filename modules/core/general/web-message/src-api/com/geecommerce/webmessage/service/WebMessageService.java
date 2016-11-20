@@ -1,9 +1,9 @@
 package com.geecommerce.webmessage.service;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Service;
 import com.geecommerce.webmessage.model.WebMessage;
-
-import java.util.List;
 
 public interface WebMessageService extends Service {
 

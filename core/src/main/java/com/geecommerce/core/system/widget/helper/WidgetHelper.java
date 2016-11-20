@@ -55,13 +55,14 @@ public class WidgetHelper {
 
             App app = App.get();
 
-            ApplicationContext appCtx = app.getApplicationContext();
+            ApplicationContext appCtx = app.context();
 
             if (appCtx != null) {
                 // Find widget controllers in modules
-                ModuleLoader loader = app.getModuleLoader();
+                ModuleLoader loader = app.moduleLoader();
 
-                Class<WidgetController>[] types = (Class<WidgetController>[]) loader.findAllTypesAnnotatedWith(Widget.class, false);
+                Class<WidgetController>[] types = (Class<WidgetController>[]) loader
+                    .findAllTypesAnnotatedWith(Widget.class, false);
 
                 for (Class<WidgetController> type : types) {
                     WidgetController widgetControllerInstance = null;
@@ -78,7 +79,8 @@ public class WidgetHelper {
                 }
             }
 
-            List<WidgetController> cachedWidgetControllers = cache.putIfAbsent(KEY_WIDGET_CONTROLLERS, widgetControllers);
+            List<WidgetController> cachedWidgetControllers = cache.putIfAbsent(KEY_WIDGET_CONTROLLERS,
+                widgetControllers);
 
             if (cachedWidgetControllers != null)
                 widgetControllers = cachedWidgetControllers;
@@ -135,7 +137,9 @@ public class WidgetHelper {
 
         if (moduleCode != null && widgetCode != null) {
             String jsParams = JSON.serialize(ctx.getJsParams());
-            return widgetJsPath == null ? null : String.format(WIDGET_JS_SCRIPT_TAG, moduleCode, widgetCode, moduleCode, widgetCode, widgetJsPath, jsParams);
+            return widgetJsPath == null ? null
+                : String.format(WIDGET_JS_SCRIPT_TAG, moduleCode, widgetCode, moduleCode, widgetCode, widgetJsPath,
+                    jsParams);
         }
 
         // "<script>require.config({ paths: { '%s/widgets/%s' :
@@ -150,12 +154,14 @@ public class WidgetHelper {
 
         String defaultWidgetView = widgetController.getDefaultView();
         String defaultWidgetStylesPath = getWidgetStylesPath(widgetController, ctx, defaultWidgetView);
-        String defaultWidgetStyles = defaultWidgetStylesPath == null ? null : String.format(WIDGET_SKIN_STYLES_TAG, defaultWidgetStylesPath);
+        String defaultWidgetStyles = defaultWidgetStylesPath == null ? null
+            : String.format(WIDGET_SKIN_STYLES_TAG, defaultWidgetStylesPath);
 
         String widgetView = widgetController.getView(ctx);
         if (!defaultWidgetView.equals(widgetView)) {
             String widgetStylesPath = getWidgetStylesPath(widgetController, ctx, widgetView);
-            String widgetStyles = widgetStylesPath == null ? null : String.format(WIDGET_SKIN_STYLES_TAG, widgetStylesPath);
+            String widgetStyles = widgetStylesPath == null ? null
+                : String.format(WIDGET_SKIN_STYLES_TAG, widgetStylesPath);
 
             return Stream.of(defaultWidgetStyles, widgetStyles).filter(s -> s != null).collect(Collectors.joining());
         }

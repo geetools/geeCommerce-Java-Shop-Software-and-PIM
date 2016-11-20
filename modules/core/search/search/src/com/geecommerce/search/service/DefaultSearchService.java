@@ -73,7 +73,8 @@ public class DefaultSearchService implements SearchService {
     protected static final Logger LOG = LogManager.getLogger(DefaultSearchService.class);
 
     @Inject
-    public DefaultSearchService(SearchHelper searchHelper, AttributeService attributeService, AutocompleteMappings autocompleteMappings, ElasticsearchHelper elasticsearchHelper,
+    public DefaultSearchService(SearchHelper searchHelper, AttributeService attributeService,
+        AutocompleteMappings autocompleteMappings, ElasticsearchHelper elasticsearchHelper,
         ElasticsearchIndexHelper elasticsearchIndexHelper) {
         this.searchHelper = searchHelper;
         this.attributeService = attributeService;
@@ -113,17 +114,21 @@ public class DefaultSearchService implements SearchService {
         if (searchQuery.getQueryParams() != null && searchQuery.getQueryParams().size() > 0) {
             qb = searchHelper.toAndQuery(searchQuery.getQueryParams());
         } else if (searchPhrase != null && isAutocomplete) {
-            qb = QueryBuilders.boolQuery().must(QueryBuilders.queryString(Strings.transliterate(searchPhrase)).field(getAutocompleteSearchField()).field(getAutocompleteSearchField2()))
+            qb = QueryBuilders.boolQuery()
+                .must(QueryBuilders.queryString(Strings.transliterate(searchPhrase))
+                    .field(getAutocompleteSearchField()).field(getAutocompleteSearchField2()))
                 .must(new TermQueryBuilder("is_visible", true))
                 .must(new TermQueryBuilder("is_visible_in_pl", true));
         } else if (searchPhrase != null) {
             Matcher m = articleNumberPattern.matcher(searchPhrase.trim());
 
             if (m.matches()) {
-                String slugSearchPhrase = new StringBuilder(Str.UNDERSCORE_2X).append(Strings.slugify(Jsoup.parse(searchPhrase).text()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
+                String slugSearchPhrase = new StringBuilder(Str.UNDERSCORE_2X).append(
+                    Strings.slugify(Jsoup.parse(searchPhrase).text()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
                     .append(Str.UNDERSCORE_2X).toString();
 
-                qb = QueryBuilders.boolQuery().must(new TermQueryBuilder("att_article_number_slug", slugSearchPhrase)).must(new TermQueryBuilder("is_visible", true));
+                qb = QueryBuilders.boolQuery().must(new TermQueryBuilder("att_article_number_slug", slugSearchPhrase))
+                    .must(new TermQueryBuilder("is_visible", true));
             } else {
                 StringBuilder searchFor = new StringBuilder(Strings.transliterate(searchPhrase));
 
@@ -134,10 +139,12 @@ public class DefaultSearchService implements SearchService {
                 if (SynonymsHelper.isSynonymsEnabled()) {
                     queryBuilder.analyzer("synonym");
                 }
-                qb = QueryBuilders.boolQuery().must(queryBuilder).must(new TermQueryBuilder("is_visible", true)).must(new TermQueryBuilder("is_visible_in_pl", true));
+                qb = QueryBuilders.boolQuery().must(queryBuilder).must(new TermQueryBuilder("is_visible", true))
+                    .must(new TermQueryBuilder("is_visible_in_pl", true));
             }
         } else {
-            throw new IllegalArgumentException("You must provide either a search-phrase or query-parameters when searching.");
+            throw new IllegalArgumentException(
+                "You must provide either a search-phrase or query-parameters when searching.");
         }
 
         // ---------------------------------------------------------------------
@@ -150,13 +157,14 @@ public class DefaultSearchService implements SearchService {
         // Prepare search
         // ---------------------------------------------------------------------
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
 
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(indexName(merchant.getId(), store.getId())).setMinScore(0.5f).setTypes(Annotations.getIndexedCollectionName(Product.class))
-            .setSearchType(SearchType.QUERY_THEN_FETCH)
-            .setFrom(searchQuery.getOffset()).setSize(searchQuery.getLimit())
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(indexName(merchant.getId(), store.getId()))
+            .setMinScore(0.5f).setTypes(Annotations.getIndexedCollectionName(Product.class))
+            .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(searchQuery.getOffset())
+            .setSize(searchQuery.getLimit())
             // .addSort(SortBuilders.fieldSort(getSortField(searchQuery.getSort())).order(SortOrder.ASC).ignoreUnmapped(true))
             .setQuery(qb).setPostFilter(fb);
 
@@ -166,7 +174,8 @@ public class DefaultSearchService implements SearchService {
         // Build facets
         // ---------------------------------------------------------------------
 
-        Map<String, Attribute> facetAttributes = attributeService.getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+        Map<String, Attribute> facetAttributes = attributeService
+            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
 
         List<FacetBuilder> facetBuilders = searchHelper.toFacetBuilders(facetAttributes);
 
@@ -184,7 +193,7 @@ public class DefaultSearchService implements SearchService {
     }
 
     private SearchResult getSearchResult(SearchQuery searchQuery, SearchResponse response) {
-        SearchResult result = app.getInjectable(SearchResult.class);
+        SearchResult result = app.injectable(SearchResult.class);
 
         SearchHits hits = response.getHits();
 
@@ -224,14 +233,14 @@ public class DefaultSearchService implements SearchService {
     }
 
     private String getAutocompleteSearchField() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
         String auto = AUTOCOMPLETE_SEARCH_FIELD + "_" + reqCtx.getLanguage();
         return auto;
     }
 
     private String getAutocompleteSearchField2() {
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
         String auto = AUTOCOMPLETE_SEARCH_FIELD_2 + "_" + reqCtx.getLanguage();
         return auto;
@@ -258,7 +267,8 @@ public class DefaultSearchService implements SearchService {
         }
 
         if (searchQuery.getPriceFrom() != null || searchQuery.getPriceTo() != null)
-            filterBuilders.add(FilterBuilders.rangeFilter("price").from(searchQuery.getPriceFrom()).to(searchQuery.getPriceTo()));
+            filterBuilders.add(
+                FilterBuilders.rangeFilter("price").from(searchQuery.getPriceFrom()).to(searchQuery.getPriceTo()));
 
         if (searchQuery.isShowEvent()) {
             filterBuilders.add(FilterBuilders.termFilter("is_special", true));

@@ -34,12 +34,12 @@ public interface CouponCodeGeneration extends Model {
     public CouponCodeGeneration setPostfix(String postfix);
 
     static final class Col {
-	public static final String AUTO = "auto";
-	public static final String CODE = "code";
-	public static final String PATTERN = "pattern";
-	public static final String QUANTITY = "quantity";
-	public static final String LENGTH = "length";
-	public static final String PREFIX = "prefix";
-	public static final String POSTFIX = "postfix";
+        public static final String AUTO = "auto";
+        public static final String CODE = "code";
+        public static final String PATTERN = "pattern";
+        public static final String QUANTITY = "quantity";
+        public static final String LENGTH = "length";
+        public static final String PREFIX = "prefix";
+        public static final String POSTFIX = "postfix";
     }
 }

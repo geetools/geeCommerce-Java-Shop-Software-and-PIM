@@ -1,11 +1,11 @@
 package com.geecommerce.vacancy.model;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAsset;
-
-import java.util.List;
 
 public interface VacancyGroup extends Model {
     public Id getId();
@@ -39,11 +39,11 @@ public interface VacancyGroup extends Model {
     public VacancyGroup setImageId(Id imageId);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String LABEL = "label";
-	public static final String IMAGE_URL = "image_url";
-	public static final String POSITION = "pos";
-	public static final String ENABLED = "enabled";
-	public static final String IMAGE_ID = "img_id";
+        public static final String ID = "_id";
+        public static final String LABEL = "label";
+        public static final String IMAGE_URL = "image_url";
+        public static final String POSITION = "pos";
+        public static final String ENABLED = "enabled";
+        public static final String IMAGE_ID = "img_id";
     }
 }

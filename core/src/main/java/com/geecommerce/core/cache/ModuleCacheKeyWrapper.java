@@ -16,7 +16,7 @@ public class ModuleCacheKeyWrapper<T> implements Serializable {
     public ModuleCacheKeyWrapper(T key) {
         this.key = key;
 
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null && appCtx.getMerchant() != null) {
             Merchant m = appCtx.getMerchant();
@@ -35,7 +35,7 @@ public class ModuleCacheKeyWrapper<T> implements Serializable {
     }
 
     public boolean isInContext() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         if (appCtx != null && appCtx.getMerchant() != null) {
             Merchant m = appCtx.getMerchant();

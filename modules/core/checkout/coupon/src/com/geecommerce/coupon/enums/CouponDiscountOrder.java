@@ -20,7 +20,8 @@ public enum CouponDiscountOrder implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponDiscountOrder.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponDiscountOrder.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 
     public static final CouponDiscountOrder fromId(int id) {
@@ -37,7 +38,10 @@ public enum CouponDiscountOrder implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (CouponDiscountOrder couponDiscountOrder : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(CouponDiscountOrder.class.getSimpleName()).append(".").append(couponDiscountOrder.name()).toString()),
+            hrMap.put(
+                App.get()
+                    .message(new StringBuilder("enum.").append(CouponDiscountOrder.class.getSimpleName())
+                        .append(".").append(couponDiscountOrder.name()).toString()),
                 couponDiscountOrder.id);
         }
 
@@ -45,6 +49,7 @@ public enum CouponDiscountOrder implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(CouponDiscountOrder.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(CouponDiscountOrder.class.getSimpleName())
+            .append(".label").toString());
     }
 }

@@ -15,6 +15,6 @@ public @interface Column {
     String value() default "";
 
     String name() default "";
-    
+
     boolean autoPopulate() default true;
 }

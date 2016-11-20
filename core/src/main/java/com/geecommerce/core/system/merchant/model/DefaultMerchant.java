@@ -68,9 +68,10 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
         this.baseSystemPath = baseSystemPath;
     }
 
-    public DefaultMerchant(Id id, String code, String companyName, String companyAddressLine1, String companyAddressLine2, String companyCity, String companyState, String companyZipCode,
-        String companyCountry, String companyPhone, String companyFax,
-        String companyWebsite, List<Contact> contacts, List<Store> stores, List<View> views, String baseSystemPath) {
+    public DefaultMerchant(Id id, String code, String companyName, String companyAddressLine1,
+        String companyAddressLine2, String companyCity, String companyState, String companyZipCode,
+        String companyCountry, String companyPhone, String companyFax, String companyWebsite,
+        List<Contact> contacts, List<Store> stores, List<View> views, String baseSystemPath) {
         super();
         this.id = id;
         this.code = code;
@@ -158,7 +159,7 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
     @Override
     public String getAbsoluteBaseSystemPath() {
         if (absoluteBaseSystemPath == null) {
-            String appProjectsPath = app.getSystemConfig().val(SystemConfig.APPLICATION_PROJECTS_PATH);
+            String appProjectsPath = app.systemConfig().val(SystemConfig.APPLICATION_PROJECTS_PATH);
 
             File f = new File(appProjectsPath, getBaseSystemPath());
             if (f.exists()) {
@@ -261,16 +262,19 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
 
     @Override
     public String getLogPath() {
-        RequestContext requestCtx = app.getApplicationContext().getRequestContext();
+        RequestContext requestCtx = app.context().getRequestContext();
         Store store = getStoreFor(requestCtx);
 
-        return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("log").append(File.separatorChar).append(Char.UNDERSCORE)
-            .append(Filenames.ensureSafeName(store.getCode() != null ? store.getCode() : store.getName(), true)).toString();
+        return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("log")
+            .append(File.separatorChar).append(Char.UNDERSCORE)
+            .append(Filenames.ensureSafeName(store.getCode() != null ? store.getCode() : store.getName(), true))
+            .toString();
     }
 
     @Override
     public String getClassesPath() {
-        return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("custom").append(File.separatorChar).append("classes").toString();
+        return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("custom")
+            .append(File.separatorChar).append("classes").toString();
     }
 
     @Override
@@ -280,7 +284,8 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
 
     @Override
     public String getTemplatesPath() {
-        return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("custom").append(File.separatorChar).append("templates").toString();
+        return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("custom")
+            .append(File.separatorChar).append("templates").toString();
     }
 
     @Override
@@ -329,7 +334,7 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
 
         if (storeList != null && !storeList.isEmpty()) {
             for (Map storeMap : storeList) {
-                Store store = app.getModel(Store.class);
+                Store store = app.model(Store.class);
                 store.fromMap(storeMap);
                 store.belongsTo(this);
 
@@ -343,7 +348,7 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
 
         if (viewList != null && !viewList.isEmpty()) {
             for (Map viewMap : viewList) {
-                View view = app.getModel(View.class);
+                View view = app.model(View.class);
                 view.fromMap(viewMap);
                 view.belongsTo(this);
 

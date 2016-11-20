@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -41,11 +42,11 @@ public enum Type {
     HWB, INV, PNV, COO, NAF, CIN, DCL;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static Type fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

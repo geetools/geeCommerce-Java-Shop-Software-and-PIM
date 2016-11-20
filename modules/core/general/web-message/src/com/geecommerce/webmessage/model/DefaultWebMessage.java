@@ -13,39 +13,39 @@ public class DefaultWebMessage extends AbstractModel implements WebMessage {
 
     @Override
     public WebMessage setCode(String code) {
-	this.code = code;
-	return this;
+        this.code = code;
+        return this;
     }
 
     @Override
     public String getCode() {
-	return code;
+        return code;
     }
 
     @Override
     public WebMessage setMessage(String message) {
-	this.message = message;
-	return this;
+        this.message = message;
+        return this;
     }
 
     @Override
     public String getMessage() {
-	return message;
+        return message;
     }
 
     @Override
     public WebMessage setStatus(String status) {
-	this.status = status;
-	return this;
+        this.status = status;
+        return this;
     }
 
     @Override
     public String getStatus() {
-	return status;
+        return status;
     }
 
     @Override
     public Id getId() {
-	return null;
+        return null;
     }
 }

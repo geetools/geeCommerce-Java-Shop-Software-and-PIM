@@ -25,7 +25,8 @@ import com.sun.jersey.spi.inject.InjectableProvider;
 @Profile
 @Provider
 @Singleton
-public class ModelInjectableProvider extends AbstractHttpContextInjectable<Object> implements InjectableProvider<ModelParam, Type> {
+public class ModelInjectableProvider extends AbstractHttpContextInjectable<Object>
+    implements InjectableProvider<ModelParam, Type> {
     @Inject
     protected App app;
 
@@ -96,7 +97,8 @@ public class ModelInjectableProvider extends AbstractHttpContextInjectable<Objec
                     Model m = (Model) app.inject((Class<?>) genType);
 
                     // We need to create the generic type manually.
-                    ParameterizedTypeImpl genericType = new ParameterizedTypeImpl(null, List.class, new Type[] { m.getClass() });
+                    ParameterizedTypeImpl genericType = new ParameterizedTypeImpl(null, List.class,
+                        new Type[] { m.getClass() });
 
                     deserialized = request.getEntity(List.class, genericType, List.class.getAnnotations());
                 }

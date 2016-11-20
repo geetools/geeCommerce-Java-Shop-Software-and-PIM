@@ -11,28 +11,28 @@ public class ProxyModel extends AbstractModel {
     private Model m = null;
 
     public ProxyModel(Model model) {
-	this.m = model;
+        this.m = model;
     }
 
     @Override
     public Id getId() {
-	return m.getId();
+        return m.getId();
     }
 
     public Object get(String field) {
-	return Reflect.invokeGetter(m.getClass(), m, field);
+        return Reflect.invokeGetter(m.getClass(), m, field);
     }
 
     public void set(String field, Object value) {
-	Reflect.invokeSetter(m.getClass(), m, field, value);
+        Reflect.invokeSetter(m.getClass(), m, field, value);
     }
 
     public Model getModel() {
-	return m;
+        return m;
     }
 
     @Override
     public String toString() {
-	return m.toString();
+        return m.toString();
     }
 }

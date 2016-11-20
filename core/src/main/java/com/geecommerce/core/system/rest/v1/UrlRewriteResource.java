@@ -80,14 +80,16 @@ public class UrlRewriteResource extends AbstractResource {
 
     private void invalidateCache(UrlRewrite urlRewrite) {
         if (urlRewrite.getTargetObjectId() != null)
-            app.inject(CacheManager.class).invalidateWhereKeyLike(REGEX_CACHE_NAME, String.format(REGEX_QUERY_TARGET_OBJECT_ID, urlRewrite.getTargetObjectId().str()));
+            app.inject(CacheManager.class).invalidateWhereKeyLike(REGEX_CACHE_NAME,
+                String.format(REGEX_QUERY_TARGET_OBJECT_ID, urlRewrite.getTargetObjectId().str()));
 
         ContextObject<String> requestURIs = urlRewrite.getRequestURI();
 
         if (requestURIs != null) {
             for (Map<String, Object> map : requestURIs) {
                 String requestURI = (String) map.get(ContextObject.VALUE);
-                app.inject(CacheManager.class).invalidateWhereKeyLike(REGEX_CACHE_NAME, String.format(REGEX_QUERY_REQUEST_URI, requestURI.replace(Str.SLASH, Str.SLASH_ESCAPED)));
+                app.inject(CacheManager.class).invalidateWhereKeyLike(REGEX_CACHE_NAME,
+                    String.format(REGEX_QUERY_REQUEST_URI, requestURI.replace(Str.SLASH, Str.SLASH_ESCAPED)));
             }
         }
     }

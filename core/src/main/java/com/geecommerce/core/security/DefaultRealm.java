@@ -52,7 +52,7 @@ public class DefaultRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-        UserService service = App.get().getService(UserService.class);
+        UserService service = App.get().service(UserService.class);
         User user = service.getUserForRealm(userId);
 
         List<Role> roles = user.getRoles();
@@ -87,7 +87,8 @@ public class DefaultRealm extends AuthorizingRealm {
         List<PermissionAction> actions = permission.getActions();
 
         // Permission for super user - allows everything.
-        if (Str.ASTERIX.equals(permission.getRule()) && permission.getType() == null && (actions == null || actions.isEmpty())) {
+        if (Str.ASTERIX.equals(permission.getRule()) && permission.getType() == null
+            && (actions == null || actions.isEmpty())) {
             return permission.getRule();
         }
 
@@ -119,12 +120,13 @@ public class DefaultRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 
-        UserService service = App.get().getService(UserService.class);
+        UserService service = App.get().service(UserService.class);
         User user = service.getUserForRealm(upToken.getUsername());
 
         if (user == null)
             throw new UnknownAccountException("User '" + Strings.maskEmail(upToken.getUsername()) + "' not found");
 
-        return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(user.getSalt()), getName());
+        return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), new SimpleByteSource(user.getSalt()),
+            getName());
     }
 }

@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ExportDeclaration complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ExportDeclaration">
@@ -67,7 +69,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ExportDeclaration", propOrder = { "interConsignee", "isPartiesRelation", "eccn", "signatureName", "signatureTitle", "exportReason", "exportReasonCode", "sedNumber", "sedNumberType", "mxStateCode", "exportLineItem" })
+@XmlType(name = "ExportDeclaration", propOrder = { "interConsignee", "isPartiesRelation", "eccn", "signatureName",
+    "signatureTitle", "exportReason", "exportReasonCode", "sedNumber", "sedNumberType", "mxStateCode",
+    "exportLineItem" })
 public class ExportDeclaration {
 
     @XmlElement(name = "InterConsignee")
@@ -100,7 +104,7 @@ public class ExportDeclaration {
      * 
      */
     public String getInterConsignee() {
-	return interConsignee;
+        return interConsignee;
     }
 
     /**
@@ -111,7 +115,7 @@ public class ExportDeclaration {
      * 
      */
     public void setInterConsignee(String value) {
-	this.interConsignee = value;
+        this.interConsignee = value;
     }
 
     /**
@@ -121,7 +125,7 @@ public class ExportDeclaration {
      * 
      */
     public YesNo getIsPartiesRelation() {
-	return isPartiesRelation;
+        return isPartiesRelation;
     }
 
     /**
@@ -132,7 +136,7 @@ public class ExportDeclaration {
      * 
      */
     public void setIsPartiesRelation(YesNo value) {
-	this.isPartiesRelation = value;
+        this.isPartiesRelation = value;
     }
 
     /**
@@ -142,7 +146,7 @@ public class ExportDeclaration {
      * 
      */
     public String getECCN() {
-	return eccn;
+        return eccn;
     }
 
     /**
@@ -153,7 +157,7 @@ public class ExportDeclaration {
      * 
      */
     public void setECCN(String value) {
-	this.eccn = value;
+        this.eccn = value;
     }
 
     /**
@@ -163,7 +167,7 @@ public class ExportDeclaration {
      * 
      */
     public String getSignatureName() {
-	return signatureName;
+        return signatureName;
     }
 
     /**
@@ -174,7 +178,7 @@ public class ExportDeclaration {
      * 
      */
     public void setSignatureName(String value) {
-	this.signatureName = value;
+        this.signatureName = value;
     }
 
     /**
@@ -184,7 +188,7 @@ public class ExportDeclaration {
      * 
      */
     public String getSignatureTitle() {
-	return signatureTitle;
+        return signatureTitle;
     }
 
     /**
@@ -195,7 +199,7 @@ public class ExportDeclaration {
      * 
      */
     public void setSignatureTitle(String value) {
-	this.signatureTitle = value;
+        this.signatureTitle = value;
     }
 
     /**
@@ -205,7 +209,7 @@ public class ExportDeclaration {
      * 
      */
     public String getExportReason() {
-	return exportReason;
+        return exportReason;
     }
 
     /**
@@ -216,7 +220,7 @@ public class ExportDeclaration {
      * 
      */
     public void setExportReason(String value) {
-	this.exportReason = value;
+        this.exportReason = value;
     }
 
     /**
@@ -226,7 +230,7 @@ public class ExportDeclaration {
      * 
      */
     public ExportReasonCode getExportReasonCode() {
-	return exportReasonCode;
+        return exportReasonCode;
     }
 
     /**
@@ -237,7 +241,7 @@ public class ExportDeclaration {
      * 
      */
     public void setExportReasonCode(ExportReasonCode value) {
-	this.exportReasonCode = value;
+        this.exportReasonCode = value;
     }
 
     /**
@@ -247,7 +251,7 @@ public class ExportDeclaration {
      * 
      */
     public SEDNumber getSedNumber() {
-	return sedNumber;
+        return sedNumber;
     }
 
     /**
@@ -258,7 +262,7 @@ public class ExportDeclaration {
      * 
      */
     public void setSedNumber(SEDNumber value) {
-	this.sedNumber = value;
+        this.sedNumber = value;
     }
 
     /**
@@ -268,7 +272,7 @@ public class ExportDeclaration {
      * 
      */
     public SEDNumberType getSedNumberType() {
-	return sedNumberType;
+        return sedNumberType;
     }
 
     /**
@@ -279,7 +283,7 @@ public class ExportDeclaration {
      * 
      */
     public void setSedNumberType(SEDNumberType value) {
-	this.sedNumberType = value;
+        this.sedNumberType = value;
     }
 
     /**
@@ -289,7 +293,7 @@ public class ExportDeclaration {
      * 
      */
     public String getMxStateCode() {
-	return mxStateCode;
+        return mxStateCode;
     }
 
     /**
@@ -300,15 +304,17 @@ public class ExportDeclaration {
      * 
      */
     public void setMxStateCode(String value) {
-	this.mxStateCode = value;
+        this.mxStateCode = value;
     }
 
     /**
      * Gets the value of the exportLineItem property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the exportLineItem property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the exportLineItem property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -319,15 +325,16 @@ public class ExportDeclaration {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link ExportLineItem }
+     * Objects of the following type(s) are allowed in the list
+     * {@link ExportLineItem }
      * 
      * 
      */
     public List<ExportLineItem> getExportLineItem() {
-	if (exportLineItem == null) {
-	    exportLineItem = new ArrayList<ExportLineItem>();
-	}
-	return this.exportLineItem;
+        if (exportLineItem == null) {
+            exportLineItem = new ArrayList<ExportLineItem>();
+        }
+        return this.exportLineItem;
     }
 
 }

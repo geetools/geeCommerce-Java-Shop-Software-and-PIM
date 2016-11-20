@@ -40,7 +40,7 @@ public class AttributeValueConverter implements Converter<AttributeValue> {
     @SuppressWarnings("unchecked")
     @Override
     public AttributeValue deserialize(ObjectReader reader, Context ctx) throws IOException {
-        AttributeValue av = App.get().getModel(AttributeValue.class);
+        AttributeValue av = App.get().model(AttributeValue.class);
 
         ContextObjectConverter ctxObjConverter = new ContextObjectConverter();
 
@@ -139,9 +139,10 @@ public class AttributeValueConverter implements Converter<AttributeValue> {
                 writer.writeValue(av.getCode());
             }
 
-            HttpServletRequest request = App.get().getServletRequest();
+            HttpServletRequest request = App.get().servletRequest();
 
-            if (av.getAttributeId() != null && !ConvertUtil.ignoreProperty(KEY_ATTRIBUTE) && !request.getRequestURI().startsWith("/api/v1/products/")
+            if (av.getAttributeId() != null && !ConvertUtil.ignoreProperty(KEY_ATTRIBUTE)
+                && !request.getRequestURI().startsWith("/api/v1/products/")
                 && !request.getRequestURI().startsWith("/api/v1/web/")) {
                 writer.writeName(KEY_ATTRIBUTE);
                 attributeConverter.serialize(av.getAttribute(), writer, ctx);
@@ -184,7 +185,8 @@ public class AttributeValueConverter implements Converter<AttributeValue> {
                 }
             }
 
-            if (av.getOptOut() != null && !ConvertUtil.ignoreProperty(KEY_OPT_OUT) && !request.getRequestURI().startsWith("/v1/web/")) {
+            if (av.getOptOut() != null && !ConvertUtil.ignoreProperty(KEY_OPT_OUT)
+                && !request.getRequestURI().startsWith("/v1/web/")) {
                 writer.writeName(KEY_OPT_OUT);
                 ctxObjConverter.serialize(av.getOptOut(), writer, ctx);
             }

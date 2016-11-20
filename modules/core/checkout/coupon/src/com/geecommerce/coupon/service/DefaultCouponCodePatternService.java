@@ -1,15 +1,11 @@
 package com.geecommerce.coupon.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
 import com.geecommerce.core.service.annotation.Service;
-import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.model.CouponCodePattern;
 import com.geecommerce.coupon.repository.CouponCodePatterns;
-
+import com.google.inject.Inject;
 
 @Service
 public class DefaultCouponCodePatternService implements CouponCodePatternService {
@@ -17,11 +13,11 @@ public class DefaultCouponCodePatternService implements CouponCodePatternService
 
     @Inject
     public DefaultCouponCodePatternService(CouponCodePatterns couponCodePatterns) {
-	this.couponCodePatterns = couponCodePatterns;
+        this.couponCodePatterns = couponCodePatterns;
     }
 
     @Override
     public List<CouponCodePattern> getCouponCodePatterns() {
-	return couponCodePatterns.findAll(CouponCodePattern.class);
+        return couponCodePatterns.findAll(CouponCodePattern.class);
     }
 }

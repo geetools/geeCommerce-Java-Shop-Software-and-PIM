@@ -117,7 +117,8 @@ public abstract class BaseActionBean implements ActionBean {
         String templateSuffix = SystemConfig.GET.val(SystemConfig.APPLICATION_TEMPLATE_SUFFIX);
 
         if (templateSuffix == null) {
-            throw new IllegalStateException("The System.properties configuration element 'Application.Template.Suffix' cannot be null");
+            throw new IllegalStateException(
+                "The System.properties configuration element 'Application.Template.Suffix' cannot be null");
         }
 
         templateSuffix = templateSuffix.trim();
@@ -138,9 +139,11 @@ public abstract class BaseActionBean implements ActionBean {
             if (FREEMARKER_TEMPLATE_SUFFIX.equalsIgnoreCase(".ftl")) {
                 // return freemarkerTemplateStream(new
                 // StringBuilder(getPagesPath()).append("/").append(path).append(templateSuffix).toString());
-                return new ForwardResolution(new StringBuilder(getPagesPath()).append("/").append(path).append(templateSuffix).toString());
+                return new ForwardResolution(
+                    new StringBuilder(getPagesPath()).append("/").append(path).append(templateSuffix).toString());
             } else {
-                return new ForwardResolution(new StringBuilder(getPagesPath()).append("/").append(path).append(templateSuffix).toString());
+                return new ForwardResolution(
+                    new StringBuilder(getPagesPath()).append("/").append(path).append(templateSuffix).toString());
             }
         }
     }
@@ -163,7 +166,7 @@ public abstract class BaseActionBean implements ActionBean {
         }
 
         if (!Str.isEmpty(path) && !Str.SLASH.equals(path.trim())) {
-            UrlRewrite urlRewrite = app.getRepository(UrlRewrites.class).forTargetURI(path);
+            UrlRewrite urlRewrite = app.repository(UrlRewrites.class).forTargetURI(path);
 
             if (urlRewrite != null) {
                 String requestPath = ContextObjects.findCurrentLanguage(urlRewrite.getRequestURI());
@@ -193,7 +196,7 @@ public abstract class BaseActionBean implements ActionBean {
         }
 
         if (!Str.isEmpty(path) && !Str.SLASH.equals(path.trim())) {
-            UrlRewrite urlRewrite = app.getRepository(UrlRewrites.class).forTargetURI(path);
+            UrlRewrite urlRewrite = app.repository(UrlRewrites.class).forTargetURI(path);
 
             if (urlRewrite != null) {
                 String requestPath = ContextObjects.findCurrentLanguage(urlRewrite.getRequestURI());
@@ -237,12 +240,13 @@ public abstract class BaseActionBean implements ActionBean {
                 m = mcl.getModule();
             }
 
-            Configuration conf = FreemarkerHelper.newConfig(app.getServletContext(), m);
+            Configuration conf = FreemarkerHelper.newConfig(app.servletContext(), m);
 
             getResponse().setLocale(conf.getLocale());
             getResponse().setCharacterEncoding("UTF-8");
 
-            TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.getServletContext(), getRequest(), getResponse());
+            TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.servletContext(),
+                getRequest(), getResponse());
 
             app.registryPut(FreemarkerConstant.FREEMARKER_REQUEST_TEMPLATE_MODEL, tm);
 
@@ -294,20 +298,22 @@ public abstract class BaseActionBean implements ActionBean {
     }
 
     public String getStripesFormFields() {
-        return new StringBuilder().append("<input type=\"hidden\" name=\"").append(StripesConstants.URL_KEY_SOURCE_PAGE).append("\" value=\"")
-            .append(CryptoUtil.encrypt(getContext().getRequest().getServletPath())).append("\" />").toString();
+        return new StringBuilder().append("<input type=\"hidden\" name=\"").append(StripesConstants.URL_KEY_SOURCE_PAGE)
+            .append("\" value=\"").append(CryptoUtil.encrypt(getContext().getRequest().getServletPath()))
+            .append("\" />").toString();
     }
 
     public String getStripesFormQueryString() {
-        return new StringBuilder(StripesConstants.URL_KEY_SOURCE_PAGE).append(Char.EQUALS).append(CryptoUtil.encrypt(getContext().getRequest().getServletPath())).toString();
+        return new StringBuilder(StripesConstants.URL_KEY_SOURCE_PAGE).append(Char.EQUALS)
+            .append(CryptoUtil.encrypt(getContext().getRequest().getServletPath())).toString();
     }
 
     protected RequestContext getRequestContext() {
-        return app.getApplicationContext().getRequestContext();
+        return app.context().getRequestContext();
     }
 
     protected Store getStore() {
-        return app.getApplicationContext().getStore();
+        return app.context().getStore();
     }
 
     public String getSecureBasePath() {
@@ -371,7 +377,7 @@ public abstract class BaseActionBean implements ActionBean {
      * Renew session after login etc. to prevent session hijacking.
      */
     protected void renewSession() {
-        HttpSession session = app.getServletRequest().getSession(false);
+        HttpSession session = app.servletRequest().getSession(false);
 
         if (session != null && session.getAttributeNames() != null) {
             Map<String, Object> tmp = new HashMap<>();
@@ -419,11 +425,11 @@ public abstract class BaseActionBean implements ActionBean {
     }
 
     protected Merchant getMerchant() {
-        return app.getApplicationContext().getMerchant();
+        return app.context().getMerchant();
     }
 
     protected Locale currentLocale() {
-        return app.getApplicationContext().getRequestContext().getLocale();
+        return app.context().getRequestContext().getLocale();
     }
 
     public Id getId() {
@@ -811,7 +817,8 @@ public abstract class BaseActionBean implements ActionBean {
     public String getControllerCode() {
         Class<?> controllerClass = ensureNoneGuiceClass(getClass());
 
-        String controller = controllerClass.getSimpleName().replaceFirst("Controller$", Str.EMPTY).replaceFirst("Action$", Str.EMPTY);
+        String controller = controllerClass.getSimpleName().replaceFirst("Controller$", Str.EMPTY)
+            .replaceFirst("Action$", Str.EMPTY);
 
         if (controller.startsWith("My") && controllerClass.getName().startsWith("custom."))
             controller = controller.replaceFirst("^My", Str.EMPTY);
@@ -865,7 +872,7 @@ public abstract class BaseActionBean implements ActionBean {
     }
 
     public Resolution renderContent(String content) {
-        Configuration conf = FreemarkerHelper.newConfig(app.getServletContext(), null);
+        Configuration conf = FreemarkerHelper.newConfig(app.servletContext(), null);
 
         try {
             Template temp = new Template("templateName", new StringReader(content), conf);

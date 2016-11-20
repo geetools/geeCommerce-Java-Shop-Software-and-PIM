@@ -19,7 +19,8 @@ public class FormTag extends net.sourceforge.stripes.tag.FormTag {
     }
 
     protected String buildAction() {
-        String action = new UrlBuilder(pageContext.getRequest().getLocale(), getAction(), false).setEvent(null).toString();
+        String action = new UrlBuilder(pageContext.getRequest().getLocale(), getAction(), false).setEvent(null)
+            .toString();
 
         if (action.startsWith("/")) {
             HttpServletRequest request = (HttpServletRequest) getPageContext().getRequest();

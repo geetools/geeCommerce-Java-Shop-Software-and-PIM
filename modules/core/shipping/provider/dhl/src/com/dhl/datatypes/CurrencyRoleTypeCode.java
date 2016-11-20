@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for CurrencyRoleTypeCode.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * <p>
  * 
  * <pre>
@@ -38,11 +39,11 @@ public enum CurrencyRoleTypeCode {
     BILLCU, PULCL, INVCU, BASEC;
 
     public String value() {
-	return name();
+        return name();
     }
 
     public static CurrencyRoleTypeCode fromValue(String v) {
-	return valueOf(v);
+        return valueOf(v);
     }
 
 }

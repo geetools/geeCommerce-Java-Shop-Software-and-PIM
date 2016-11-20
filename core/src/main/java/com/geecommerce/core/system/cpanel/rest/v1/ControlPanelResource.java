@@ -53,7 +53,8 @@ public class ControlPanelResource extends AbstractResource {
     @Path("{id}/attribute-tabs")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response createAttributeTab(@PathParam("id") Id controlPanelId, @ModelParam AttributeTab cpanelAttributeTab) {
+    public Response createAttributeTab(@PathParam("id") Id controlPanelId,
+        @ModelParam AttributeTab cpanelAttributeTab) {
         checked(service.get(ControlPanel.class, controlPanelId));
 
         if (controlPanelId != null && cpanelAttributeTab != null) {
@@ -75,7 +76,8 @@ public class ControlPanelResource extends AbstractResource {
     @PUT
     @Path("{id}/attribute-tabs/{tabId}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void updateAttributeTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id attrTabId, Update update) {
+    public void updateAttributeTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id attrTabId,
+        Update update) {
         System.out.println("UPDATING : " + controlPanelId + " - " + attrTabId + " - " + update.getFields());
 
         if (controlPanelId != null && attrTabId != null && update != null) {
@@ -100,7 +102,8 @@ public class ControlPanelResource extends AbstractResource {
     @GET
     @Path("{id}/attribute-tabs/group/{targetObjectId}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getAttributeTabsForGroup(@PathParam("id") Id controlPanelId, @PathParam("targetObjectId") Id targetObjectId, @FilterParam Filter filter) {
+    public Response getAttributeTabsForGroup(@PathParam("id") Id controlPanelId,
+        @PathParam("targetObjectId") Id targetObjectId, @FilterParam Filter filter) {
         checked(service.get(ControlPanel.class, controlPanelId));
 
         if (targetObjectId != null) {
@@ -123,12 +126,14 @@ public class ControlPanelResource extends AbstractResource {
     @Path("{id}/attribute-tabs/{tabId}/mapping")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response createAttributeTabsMapping(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id attrTabId, @ModelParam List<AttributeTabMapping> attributeTabsMapping) {
+    public Response createAttributeTabsMapping(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id attrTabId,
+        @ModelParam List<AttributeTabMapping> attributeTabsMapping) {
         checked(service.get(ControlPanel.class, controlPanelId));
 
         List<AttributeTabMapping> createdList = new ArrayList<>();
 
-        if (controlPanelId != null && attrTabId != null && attributeTabsMapping != null && attributeTabsMapping.size() > 0) {
+        if (controlPanelId != null && attrTabId != null && attributeTabsMapping != null
+            && attributeTabsMapping.size() > 0) {
             for (AttributeTabMapping attrTabMapping : attributeTabsMapping) {
                 attrTabMapping.setTabId(attrTabId);
 
@@ -154,9 +159,11 @@ public class ControlPanelResource extends AbstractResource {
             Filter f = new Filter();
             f.append(AttributeTabMapping.Col.TAB_ID, tabId);
 
-            return ok(service.get(AttributeTabMapping.class, f.getParams(), QueryOptions.builder().sortBy(AttributeTabMapping.Col.POSITION).build()));
+            return ok(service.get(AttributeTabMapping.class, f.getParams(),
+                QueryOptions.builder().sortBy(AttributeTabMapping.Col.POSITION).build()));
         } else {
-            throwBadRequest("TabId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes");
+            throwBadRequest(
+                "TabId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes");
         }
 
         return null;
@@ -172,14 +179,17 @@ public class ControlPanelResource extends AbstractResource {
             Filter f = new Filter();
             f.append(AttributeTab.Col.CONTROL_PANEL_ID, controlPanelId);
 
-            List<AttributeTab> attributeTabs = checked(service.get(AttributeTab.class, f.getParams(), QueryOptions.builder().sortBy(AttributeTab.Col.POSITION).build()));
+            List<AttributeTab> attributeTabs = checked(service.get(AttributeTab.class, f.getParams(),
+                QueryOptions.builder().sortBy(AttributeTab.Col.POSITION).build()));
 
             f = new Filter();
             f.append(AttributeTabMapping.Col.TAB_ID, Ids.toIdList(attributeTabs));
 
-            return ok(service.get(AttributeTabMapping.class, f.getParams(), QueryOptions.builder().sortBy(AttributeTabMapping.Col.POSITION).build()));
+            return ok(service.get(AttributeTabMapping.class, f.getParams(),
+                QueryOptions.builder().sortBy(AttributeTabMapping.Col.POSITION).build()));
         } else {
-            throwBadRequest("TabId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes");
+            throwBadRequest(
+                "TabId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes");
         }
 
         return null;
@@ -188,7 +198,8 @@ public class ControlPanelResource extends AbstractResource {
     @GET
     @Path("{id}/attribute-tabs/{tabId}/notTabAttributes")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getNotTabAttributes(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id tabId, @FilterParam Filter filter) {
+    public Response getNotTabAttributes(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id tabId,
+        @FilterParam Filter filter) {
         List<Id> attributeIds = new LinkedList<>();
 
         if (tabId != null) {
@@ -198,14 +209,16 @@ public class ControlPanelResource extends AbstractResource {
             Filter attributeTabFilter = new Filter();
             attributeTabFilter.append(AttributeTabMapping.Col.TAB_ID, tabId);
 
-            List<AttributeTabMapping> attributeTabMappings = service.get(AttributeTabMapping.class, attributeTabFilter.getParams(),
+            List<AttributeTabMapping> attributeTabMappings = service.get(AttributeTabMapping.class,
+                attributeTabFilter.getParams(),
                 QueryOptions.builder().sortBy(AttributeTabMapping.Col.POSITION).build());
 
             for (AttributeTabMapping attributeTabMapping : attributeTabMappings) {
                 attributeIds.add(attributeTabMapping.getAttributeId());
             }
         } else {
-            throwBadRequest("TabId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/freeAttributes");
+            throwBadRequest(
+                "TabId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/freeAttributes");
         }
 
         Map<String, Object> attributeTabFilter = new HashMap<>();
@@ -225,7 +238,8 @@ public class ControlPanelResource extends AbstractResource {
     @PUT
     @Path("{id}/attribute-tabs/{tabId}/attributes/{attributeId}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response addAttributeToTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id tabId, @PathParam("attributeId") Id attributeId) {
+    public Response addAttributeToTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id tabId,
+        @PathParam("attributeId") Id attributeId) {
         checked(service.get(ControlPanel.class, controlPanelId));
 
         if (tabId != null && attributeId != null) {
@@ -241,13 +255,14 @@ public class ControlPanelResource extends AbstractResource {
 
             // Only add the new mapping if it does not exist yet.
             if (existingMapping == null || existingMapping.size() == 0) {
-                AttributeTabMapping attrTabMapping = app.getModel(AttributeTabMapping.class);
+                AttributeTabMapping attrTabMapping = app.model(AttributeTabMapping.class);
                 attrTabMapping.setTabId(tabId).setAttributeId(attributeId).setPosition(0);
 
                 return ok(service.create(attrTabMapping));
             }
         } else {
-            throwBadRequest("TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
+            throwBadRequest(
+                "TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
         }
         return null;
     }
@@ -255,7 +270,8 @@ public class ControlPanelResource extends AbstractResource {
     @DELETE
     @Path("{id}/attribute-tabs/{tabId}/attributes/{attributeId}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void removeAttributeFromTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id tabId, @PathParam("attributeId") Id attributeId) {
+    public void removeAttributeFromTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id tabId,
+        @PathParam("attributeId") Id attributeId) {
         checked(service.get(ControlPanel.class, controlPanelId));
 
         if (tabId != null && attributeId != null) {
@@ -277,7 +293,8 @@ public class ControlPanelResource extends AbstractResource {
                 }
             }
         } else {
-            throwBadRequest("TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
+            throwBadRequest(
+                "TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
         }
     }
 

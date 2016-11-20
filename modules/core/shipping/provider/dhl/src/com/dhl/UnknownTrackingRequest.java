@@ -9,11 +9,13 @@ package com.dhl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import com.dhl.datatypes.Reference;
 import com.dhl.datatypes.Request;
 import com.dhl.datatypes.ShipmentDate;
@@ -23,7 +25,8 @@ import com.dhl.datatypes.ShipmentDate;
  * Java class for anonymous complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -66,7 +69,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public Request getRequest() {
-	return request;
+        return request;
     }
 
     /**
@@ -77,7 +80,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public void setRequest(Request value) {
-	this.request = value;
+        this.request = value;
     }
 
     /**
@@ -87,7 +90,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public String getLanguageCode() {
-	return languageCode;
+        return languageCode;
     }
 
     /**
@@ -98,7 +101,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public void setLanguageCode(String value) {
-	this.languageCode = value;
+        this.languageCode = value;
     }
 
     /**
@@ -106,7 +109,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public long getAccountNumber() {
-	return accountNumber;
+        return accountNumber;
     }
 
     /**
@@ -114,15 +117,17 @@ public class UnknownTrackingRequest {
      * 
      */
     public void setAccountNumber(long value) {
-	this.accountNumber = value;
+        this.accountNumber = value;
     }
 
     /**
      * Gets the value of the shipperReference property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the shipperReference property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the shipperReference property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -133,15 +138,16 @@ public class UnknownTrackingRequest {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link Reference }
+     * Objects of the following type(s) are allowed in the list {@link Reference
+     * }
      * 
      * 
      */
     public List<Reference> getShipperReference() {
-	if (shipperReference == null) {
-	    shipperReference = new ArrayList<Reference>();
-	}
-	return this.shipperReference;
+        if (shipperReference == null) {
+            shipperReference = new ArrayList<Reference>();
+        }
+        return this.shipperReference;
     }
 
     /**
@@ -151,7 +157,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public ShipmentDate getShipmentDate() {
-	return shipmentDate;
+        return shipmentDate;
     }
 
     /**
@@ -162,7 +168,7 @@ public class UnknownTrackingRequest {
      * 
      */
     public void setShipmentDate(ShipmentDate value) {
-	this.shipmentDate = value;
+        this.shipmentDate = value;
     }
 
 }

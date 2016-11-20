@@ -33,7 +33,8 @@ public enum ObjectType implements ModelEnum {
         Map<String, Integer> hrMap = new LinkedHashMap<>();
 
         for (ObjectType objectType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(ObjectType.class.getSimpleName()).append(".").append(objectType.name()).toString()), objectType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(ObjectType.class.getSimpleName()).append(".")
+                .append(objectType.name()).toString()), objectType.id);
         }
 
         return hrMap;

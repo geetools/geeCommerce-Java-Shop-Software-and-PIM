@@ -26,9 +26,9 @@ public class DefaultPriceHelper implements PriceHelper {
         PricingContext pricingCtx = app.sessionGet(PricingContext.SESSION_KEY);
 
         if (pricingCtx == null && createIfNotExists) {
-            pricingCtx = app.getPojo(PricingContext.class);
+            pricingCtx = app.pojo(PricingContext.class);
 
-            if (!app.isInObserverThread() && app.getServletRequest() != null && !app.isAPIRequest())
+            if (!app.isInObserverThread() && app.servletRequest() != null && !app.isAPIRequest())
                 app.sessionSet(PricingContext.SESSION_KEY, pricingCtx);
         }
 

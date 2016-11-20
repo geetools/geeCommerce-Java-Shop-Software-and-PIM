@@ -47,7 +47,6 @@ public class DefaultCheckoutFlowHelper implements CheckoutFlowHelper {
         return getFirstFlowStep(flow);
     }
 
-
     @Override
     public CheckoutFlowStep getFirstFlowStep(CheckoutFlow flow) {
         if (flow != null) {
@@ -61,7 +60,6 @@ public class DefaultCheckoutFlowHelper implements CheckoutFlowHelper {
         return null;
     }
 
-
     @Override
     public CheckoutFlowStep getNextActiveFlowStep(boolean setAsCurrent) {
         CheckoutFlow flowDefault = getFlowActive();
@@ -73,13 +71,11 @@ public class DefaultCheckoutFlowHelper implements CheckoutFlowHelper {
         return getNextFlowStep(flowDefault, currentStep, setAsCurrent);
     }
 
-
     @Override
     public CheckoutFlowStep getNextActiveFlowStep(CheckoutFlowStep currentStep, boolean setAsCurrent) {
         CheckoutFlow flowDefault = getFlowActive();
         return getNextFlowStep(flowDefault, currentStep, setAsCurrent);
     }
-
 
     @Override
     public CheckoutFlowStep getNextFlowStep(String flowName, CheckoutFlowStep currentStep, boolean setAsCurrent) {
@@ -96,7 +92,6 @@ public class DefaultCheckoutFlowHelper implements CheckoutFlowHelper {
     public CheckoutFlowStep getCurrentStep() {
         return app.sessionGet(Key.SESSION_KEY_CURR_CHECKOUT_FLOW_STEP);
     }
-
 
     @Override
     public CheckoutFlowStep getNextFlowStep(CheckoutFlow flow, CheckoutFlowStep currentStep, boolean setAsCurrent) {
@@ -123,7 +118,6 @@ public class DefaultCheckoutFlowHelper implements CheckoutFlowHelper {
 
         return nextStep;
     }
-
 
     @Override
     public CheckoutFlowStep getPreviousActiveFlowStep(boolean setAsCurrent) {

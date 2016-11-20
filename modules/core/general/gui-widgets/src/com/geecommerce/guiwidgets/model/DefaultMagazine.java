@@ -234,7 +234,7 @@ public class DefaultMagazine extends AbstractMultiContextModel implements Magazi
         if (pagesList != null) {
             this.pages = new ArrayList<>();
             for (Map<String, Object> page : pagesList) {
-                Page p = app.getModel(Page.class);
+                Page p = app.model(Page.class);
                 p.fromMap(page);
                 this.pages.add(p);
             }

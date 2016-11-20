@@ -21,20 +21,20 @@ public class ContentLayoutResource extends AbstractResource {
 
     @Inject
     public ContentLayoutResource(RestService service) {
-	this.service = service;
+        this.service = service;
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getContentLayouts(@FilterParam Filter filter) {
-	return ok(service.get(ContentLayout.class, filter.getParams(), queryOptions(filter)));
+        return ok(service.get(ContentLayout.class, filter.getParams(), queryOptions(filter)));
     }
 
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public ContentLayout getContentLayout(@PathParam("id") Id id) {
-	return checked(service.get(ContentLayout.class, id));
+        return checked(service.get(ContentLayout.class, id));
     }
 
 }

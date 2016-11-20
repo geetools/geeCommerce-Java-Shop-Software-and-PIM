@@ -2,7 +2,6 @@ package com.geecommerce.vacancy.model;
 
 import java.util.List;
 
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
@@ -12,6 +11,7 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAsset;
 import com.geecommerce.mediaassets.service.MediaAssetService;
 import com.geecommerce.vacancy.service.VacancyService;
+import com.google.inject.Inject;
 
 @Cacheable
 @Model(collection = "vacancy_groups", fieldAccess = true)
@@ -40,7 +40,7 @@ public class DefaultVacancyGroup extends AbstractMultiContextModel implements Va
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     private final MediaAssetService mediaAssetService;
@@ -48,90 +48,90 @@ public class DefaultVacancyGroup extends AbstractMultiContextModel implements Va
 
     @Inject
     public DefaultVacancyGroup(MediaAssetService mediaAssetService, VacancyService vacancyService) {
-	this.mediaAssetService = mediaAssetService;
-	this.vacancyService = vacancyService;
+        this.mediaAssetService = mediaAssetService;
+        this.vacancyService = vacancyService;
     }
 
     @Override
     public VacancyGroup setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public ContextObject<String> getLabel() {
-	return label;
+        return label;
     }
 
     @Override
     public VacancyGroup setLabel(ContextObject<String> label) {
-	this.label = label;
-	return this;
+        this.label = label;
+        return this;
     }
 
     @Override
     public String getImageUrl() {
-	if (getImage() != null)
-	    return getImage().getUrl();
-	return imageUrl;
+        if (getImage() != null)
+            return getImage().getUrl();
+        return imageUrl;
     }
 
     @Override
     public VacancyGroup setImageUrl(String imageUrl) {
-	this.imageUrl = imageUrl;
-	return this;
+        this.imageUrl = imageUrl;
+        return this;
     }
 
     @Override
     public int getPosition() {
-	return position;
+        return position;
     }
 
     @Override
     public VacancyGroup setPosition(int position) {
-	this.position = position;
-	return this;
+        this.position = position;
+        return this;
     }
 
     @Override
     public ContextObject<Boolean> getEnabled() {
-	return enabled;
+        return enabled;
     }
 
     @Override
     public VacancyGroup setEnabled(ContextObject<Boolean> enabled) {
-	this.enabled = enabled;
-	return this;
+        this.enabled = enabled;
+        return this;
     }
 
     public List<Vacancy> getVacancyList() {
-	return vacancyService.getVacancies(this);
+        return vacancyService.getVacancies(this);
     }
 
     @Override
     public MediaAsset getImage() {
-	if (imageMediaAsset == null && imageId != null)
-	    imageMediaAsset = mediaAssetService.get(imageId);
-	return imageMediaAsset;
+        if (imageMediaAsset == null && imageId != null)
+            imageMediaAsset = mediaAssetService.get(imageId);
+        return imageMediaAsset;
     }
 
     @Override
     public VacancyGroup setImage(MediaAsset image) {
-	this.imageMediaAsset = image;
-	if (image != null)
-	    this.imageId = image.getId();
-	else
-	    this.imageId = null;
-	return this;
+        this.imageMediaAsset = image;
+        if (image != null)
+            this.imageId = image.getId();
+        else
+            this.imageId = null;
+        return this;
     }
 
     public Id getImageId() {
-	return imageId;
+        return imageId;
     }
 
     public VacancyGroup setImageId(Id imageId) {
-	this.imageId = imageId;
-	return this;
+        this.imageId = imageId;
+        return this;
     }
 
 }

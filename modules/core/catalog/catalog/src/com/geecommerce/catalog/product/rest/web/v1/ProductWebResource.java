@@ -46,8 +46,9 @@ public class ProductWebResource extends AbstractWebResource {
     private final ProductDao productDao;
 
     @Inject
-    public ProductWebResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper, ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites,
-        ProductDao productDao, UrlRewriteHelper urlRewriteHelper) {
+    public ProductWebResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
+        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+        UrlRewriteHelper urlRewriteHelper) {
         this.service = service;
         this.catalogMediaHelper = catalogMediaHelper;
         this.productHelper = productHelper;
@@ -63,7 +64,9 @@ public class ProductWebResource extends AbstractWebResource {
         QueryOptions queryOptions = queryOptions(filter);
 
         if (storeHeaderExists())
-            queryOptions = QueryOptions.builder(queryOptions).limitAttributeToStore("status_description", getStoreFromHeader()).limitAttributeToStore("status_article", getStoreFromHeader()).build();
+            queryOptions = QueryOptions.builder(queryOptions)
+                .limitAttributeToStore("status_description", getStoreFromHeader())
+                .limitAttributeToStore("status_article", getStoreFromHeader()).build();
 
         return ok(service.get(Product.class, filter.getParams(), queryOptions));
     }
@@ -111,7 +114,7 @@ public class ProductWebResource extends AbstractWebResource {
     public Response getPrices(@PathParam("id") Id productId) {
         Product p = checked(service.get(Product.class, productId));
 
-        PriceService priceService = app.getService(PriceService.class);
+        PriceService priceService = app.service(PriceService.class);
 
         List<Price> prices = null;
 
@@ -133,7 +136,7 @@ public class ProductWebResource extends AbstractWebResource {
     public Response getStockInventoryItems(@PathParam("id") Id productId) {
         Product p = checked(service.get(Product.class, productId));
 
-        StockService stockService = app.getService(StockService.class);
+        StockService stockService = app.service(StockService.class);
 
         List<InventoryItem> inventoryItems = null;
 
@@ -177,7 +180,8 @@ public class ProductWebResource extends AbstractWebResource {
 
         filter.append("productId", productIds);
 
-        mediaAssets = service.get(CatalogMediaAsset.class, filter.getParams(), QueryOptions.builder().sortBy(CatalogMediaAsset.Col.POSITION).build());
+        mediaAssets = service.get(CatalogMediaAsset.class, filter.getParams(),
+            QueryOptions.builder().sortBy(CatalogMediaAsset.Col.POSITION).build());
 
         return ok(mediaAssets);
     }
@@ -195,7 +199,7 @@ public class ProductWebResource extends AbstractWebResource {
     public Response getRewriteUrl(@PathParam("id") Id productId) {
         UrlRewrite urlRewrite = urlRewrites.forProduct(productId);
         if (urlRewrite == null) {
-            urlRewrite = app.getModel(UrlRewrite.class);
+            urlRewrite = app.model(UrlRewrite.class);
         }
         return ok(checked(urlRewrite));
     }

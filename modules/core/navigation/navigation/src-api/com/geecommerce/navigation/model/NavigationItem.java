@@ -2,11 +2,11 @@ package com.geecommerce.navigation.model;
 
 import java.util.List;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface NavigationItem extends MultiContextModel {
     public Id getId();
@@ -107,19 +107,19 @@ public interface NavigationItem extends MultiContextModel {
     public void flatten(List<NavigationItem> targetList);
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String PARENT_ID = "parent_id";
-	public static final String ROOT_ID = "root_id";
-	public static final String ID2 = "id2";
+        public static final String ID = "_id";
+        public static final String PARENT_ID = "parent_id";
+        public static final String ROOT_ID = "root_id";
+        public static final String ID2 = "id2";
 
-	public static final String KEY = "key";
-	public static final String LABEL = "label";
-	public static final String POSITION = "position";
-	public static final String LEVEL = "level";
-	public static final String TARGET_OBJECT_ID = "tar_obj";
-	public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
-	public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
-	public static final String EXTERNAL_URL = "ext_url";
-	public static final String ENABLED = "enabled";
+        public static final String KEY = "key";
+        public static final String LABEL = "label";
+        public static final String POSITION = "position";
+        public static final String LEVEL = "level";
+        public static final String TARGET_OBJECT_ID = "tar_obj";
+        public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
+        public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
+        public static final String EXTERNAL_URL = "ext_url";
+        public static final String ENABLED = "enabled";
     }
 }

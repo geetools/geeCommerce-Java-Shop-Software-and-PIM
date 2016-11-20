@@ -3,10 +3,10 @@ package com.geecommerce.core.service.mongodb.cmd;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.service.api.Model;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 public class AttrOption extends AbstractCommand {
     private static final String CMD_PREFIX = "cb.opt.";
@@ -17,27 +17,28 @@ public class AttrOption extends AbstractCommand {
 
     @Override
     public boolean isOwner(String key, Object value) {
-	return key.startsWith(CMD_PREFIX);
+        return key.startsWith(CMD_PREFIX);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value, DBObject query, QueryOptions queryOptions) {
-	DBObject dboAttributes = (DBObject) query.get(COL_ATTRIBUTES);
+    public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value,
+        DBObject query, QueryOptions queryOptions) {
+        DBObject dboAttributes = (DBObject) query.get(COL_ATTRIBUTES);
 
-	// ---------------------------------------------------------------
-	// As this may not be the first command to set an attribute query,
-	// we make sure that we always add to an existing list.
-	// ---------------------------------------------------------------
-	if (dboAttributes == null) {
-	    dboAttributes = new BasicDBObject(ALL, new ArrayList<>());
-	    query.put(COL_ATTRIBUTES, dboAttributes);
-	}
+        // ---------------------------------------------------------------
+        // As this may not be the first command to set an attribute query,
+        // we make sure that we always add to an existing list.
+        // ---------------------------------------------------------------
+        if (dboAttributes == null) {
+            dboAttributes = new BasicDBObject(ALL, new ArrayList<>());
+            query.put(COL_ATTRIBUTES, dboAttributes);
+        }
 
-	List<DBObject> allAttributes = (List<DBObject>) dboAttributes.get(ALL);
+        List<DBObject> allAttributes = (List<DBObject>) dboAttributes.get(ALL);
 
-	allAttributes.add(new BasicDBObject(ELEM_MATCH, new BasicDBObject(FIELD_OPTIONS, value)));
+        allAttributes.add(new BasicDBObject(ELEM_MATCH, new BasicDBObject(FIELD_OPTIONS, value)));
 
-	System.out.println("AttrOption: " + query);
+        System.out.println("AttrOption: " + query);
     }
 }

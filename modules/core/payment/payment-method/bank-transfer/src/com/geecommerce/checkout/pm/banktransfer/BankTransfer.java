@@ -57,7 +57,8 @@ public class BankTransfer extends AbstractPaymentMethod {
     public PaymentResponse processPayment(Map<String, Object> formData, Object... data) {
         Order order = (Order) data[0];
 
-        PaymentEventResponse eventResponse = new PaymentEventResponse(PaymentStatus.PENDING, PaymentStatus.PENDING, "ok", null, " ", " ");
+        PaymentEventResponse eventResponse = new PaymentEventResponse(PaymentStatus.PENDING, PaymentStatus.PENDING,
+            "ok", null, " ", " ");
 
         PaymentResponse response = new PaymentResponse(eventResponse, order.getTotalAmount(), null, null, null);
         // Send form to provider

@@ -37,7 +37,8 @@ public enum ObserverThreadPool {
     }
 
     public static ExecutorService newFixedThreadPool(int nThreads) {
-        return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>());
     }
 }
 
@@ -55,7 +56,7 @@ class ObserverRunnable implements Runnable {
         // the application context
         // so that the asynchronous thread does not lose this value when the
         // registry of the main thread is cleared.
-        ApplicationContext appCtx = new DefaultApplicationContext(App.get().getApplicationContext());
+        ApplicationContext appCtx = new DefaultApplicationContext(App.get().context());
         appRegistry.put(ApplicationContext.class.getName(), appCtx);
 
         this.observable = observable;
@@ -86,7 +87,8 @@ class ObserverRunnable implements Runnable {
 }
 
 class ObserverThreadPoolExecutor extends ThreadPoolExecutor {
-    public ObserverThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+    public ObserverThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
+        BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }
 

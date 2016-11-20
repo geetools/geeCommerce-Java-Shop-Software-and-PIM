@@ -1,10 +1,10 @@
 package com.geecommerce.coupon.repository;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Repository;
 import com.geecommerce.coupon.model.Coupon;
 import com.geecommerce.coupon.model.CouponCode;
-
-import java.util.List;
 
 public interface CouponCodes extends Repository {
     public CouponCode byCode(String code);

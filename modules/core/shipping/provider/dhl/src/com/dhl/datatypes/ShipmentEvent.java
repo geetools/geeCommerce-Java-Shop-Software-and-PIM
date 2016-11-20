@@ -21,7 +21,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for ShipmentEvent complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ShipmentEvent">
@@ -70,7 +71,7 @@ public class ShipmentEvent {
      * 
      */
     public XMLGregorianCalendar getDate() {
-	return date;
+        return date;
     }
 
     /**
@@ -81,7 +82,7 @@ public class ShipmentEvent {
      * 
      */
     public void setDate(XMLGregorianCalendar value) {
-	this.date = value;
+        this.date = value;
     }
 
     /**
@@ -91,7 +92,7 @@ public class ShipmentEvent {
      * 
      */
     public XMLGregorianCalendar getTime() {
-	return time;
+        return time;
     }
 
     /**
@@ -102,7 +103,7 @@ public class ShipmentEvent {
      * 
      */
     public void setTime(XMLGregorianCalendar value) {
-	this.time = value;
+        this.time = value;
     }
 
     /**
@@ -112,7 +113,7 @@ public class ShipmentEvent {
      * 
      */
     public ServiceEvent getServiceEvent() {
-	return serviceEvent;
+        return serviceEvent;
     }
 
     /**
@@ -123,7 +124,7 @@ public class ShipmentEvent {
      * 
      */
     public void setServiceEvent(ServiceEvent value) {
-	this.serviceEvent = value;
+        this.serviceEvent = value;
     }
 
     /**
@@ -133,7 +134,7 @@ public class ShipmentEvent {
      * 
      */
     public String getSignatory() {
-	return signatory;
+        return signatory;
     }
 
     /**
@@ -144,7 +145,7 @@ public class ShipmentEvent {
      * 
      */
     public void setSignatory(String value) {
-	this.signatory = value;
+        this.signatory = value;
     }
 
     /**
@@ -154,7 +155,7 @@ public class ShipmentEvent {
      * 
      */
     public ServiceArea getServiceArea() {
-	return serviceArea;
+        return serviceArea;
     }
 
     /**
@@ -165,7 +166,7 @@ public class ShipmentEvent {
      * 
      */
     public void setServiceArea(ServiceArea value) {
-	this.serviceArea = value;
+        this.serviceArea = value;
     }
 
 }

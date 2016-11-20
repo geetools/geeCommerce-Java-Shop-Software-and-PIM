@@ -14,50 +14,50 @@ public class FilterForm {
     private boolean showSale = false;
 
     public String getSort() {
-	return sort;
+        return sort;
     }
 
     public void setSort(String sort) {
-	this.sort = sort;
+        this.sort = sort;
     }
 
     public Double getPriceFrom() {
-	return priceFrom;
+        return priceFrom;
     }
 
     public void setPriceFrom(Double priceFrom) {
-	this.priceFrom = priceFrom;
+        this.priceFrom = priceFrom;
     }
 
     public Double getPriceTo() {
-	return priceTo;
+        return priceTo;
     }
 
     public void setPriceTo(Double priceTo) {
-	this.priceTo = priceTo;
+        this.priceTo = priceTo;
     }
 
     public boolean isShowAll() {
-	return showAll;
+        return showAll;
     }
 
     public void setShowAll(boolean showAll) {
-	this.showAll = showAll;
+        this.showAll = showAll;
     }
 
     public boolean isShowEvent() {
-	return showEvent;
+        return showEvent;
     }
 
     public void setShowEvent(boolean showEvent) {
-	this.showEvent = showEvent;
+        this.showEvent = showEvent;
     }
 
     public boolean isShowSale() {
-	return showSale;
+        return showSale;
     }
 
     public void setShowSale(boolean showSale) {
-	this.showSale = showSale;
+        this.showSale = showSale;
     }
 }

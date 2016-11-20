@@ -1,13 +1,12 @@
 package com.geecommerce.mediaassets.service;
 
-import com.mongodb.gridfs.GridFSDBFile;
+import java.io.InputStream;
+import java.util.List;
+
 import com.geecommerce.core.service.api.Service;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAsset;
-import com.geecommerce.mediaassets.model.MediaAssetFile;
-
-import java.io.InputStream;
-import java.util.List;
+import com.mongodb.gridfs.GridFSDBFile;
 
 public interface MediaAssetService extends Service {
     public MediaAsset create(InputStream inputStream, String filename);
@@ -20,7 +19,7 @@ public interface MediaAssetService extends Service {
 
     public MediaAsset get(Id id);
 
-/*    public MediaAssetFile getContent(Id id);*/
+    /* public MediaAssetFile getContent(Id id); */
 
     public List<MediaAsset> get(List<Id> ids);
 

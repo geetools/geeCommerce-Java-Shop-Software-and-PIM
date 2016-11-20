@@ -84,21 +84,21 @@ public interface OrderPayment extends Model {
     public List<OrderPaymentEvent> getPaymentEvents();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String ORDER_ID = "order_fk";
-	public static final String PAYMENT_METHOD_CODE = "payment_method_code";
-	public static final String TRANSACTION_ID = "transaction_id";
-	public static final String AUTHORIZATION_ID = "authorization_id";
-	public static final String IS_AUTHORIZED = "is_authorized";
-	public static final String PAYMENT_STATUS = "payment_status";
-	public static final String LAST_PAYMENT_STATUS = "last_payment_status";
-	public static final String CURRENCY = "currency";
-	public static final String RATE_AMOUNT = "rate_amount";
-	public static final String PAID_AMOUNT = "paid_amount";
-	public static final String REFUNDED_AMOUNT = "refunded_amount";
-	public static final String AUTHORIZED_AMOUNT = "authorized_amount";
-	public static final String CUSTOM = "custom";
-	public static final String PAID_ON = "paid_on";
-	public static final String AUTHORIZED_ON = "authorized_on";
+        public static final String ID = "_id";
+        public static final String ORDER_ID = "order_fk";
+        public static final String PAYMENT_METHOD_CODE = "payment_method_code";
+        public static final String TRANSACTION_ID = "transaction_id";
+        public static final String AUTHORIZATION_ID = "authorization_id";
+        public static final String IS_AUTHORIZED = "is_authorized";
+        public static final String PAYMENT_STATUS = "payment_status";
+        public static final String LAST_PAYMENT_STATUS = "last_payment_status";
+        public static final String CURRENCY = "currency";
+        public static final String RATE_AMOUNT = "rate_amount";
+        public static final String PAID_AMOUNT = "paid_amount";
+        public static final String REFUNDED_AMOUNT = "refunded_amount";
+        public static final String AUTHORIZED_AMOUNT = "authorized_amount";
+        public static final String CUSTOM = "custom";
+        public static final String PAID_ON = "paid_on";
+        public static final String AUTHORIZED_ON = "authorized_on";
     }
 }

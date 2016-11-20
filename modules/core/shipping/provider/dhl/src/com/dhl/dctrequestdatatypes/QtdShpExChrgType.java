@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for QtdShpExChrgType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdShpExChrgType">
@@ -62,7 +63,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getSpecialServiceType() {
-	return specialServiceType;
+        return specialServiceType;
     }
 
     /**
@@ -73,7 +74,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setSpecialServiceType(String value) {
-	this.specialServiceType = value;
+        this.specialServiceType = value;
     }
 
     /**
@@ -83,7 +84,7 @@ public class QtdShpExChrgType {
      * 
      */
     public String getLocalSpecialServiceType() {
-	return localSpecialServiceType;
+        return localSpecialServiceType;
     }
 
     /**
@@ -94,7 +95,7 @@ public class QtdShpExChrgType {
      * 
      */
     public void setLocalSpecialServiceType(String value) {
-	this.localSpecialServiceType = value;
+        this.localSpecialServiceType = value;
     }
 
 }

@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ServiceArea complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ServiceArea">
@@ -50,7 +51,7 @@ public class ServiceArea {
      * 
      */
     public String getServiceAreaCode() {
-	return serviceAreaCode;
+        return serviceAreaCode;
     }
 
     /**
@@ -61,7 +62,7 @@ public class ServiceArea {
      * 
      */
     public void setServiceAreaCode(String value) {
-	this.serviceAreaCode = value;
+        this.serviceAreaCode = value;
     }
 
     /**
@@ -71,7 +72,7 @@ public class ServiceArea {
      * 
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
@@ -82,7 +83,7 @@ public class ServiceArea {
      * 
      */
     public void setDescription(String value) {
-	this.description = value;
+        this.description = value;
     }
 
 }

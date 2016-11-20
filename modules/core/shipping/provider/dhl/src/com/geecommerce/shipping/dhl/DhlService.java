@@ -19,10 +19,10 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.geecommerce.core.App;
-import com.geecommerce.shipping.dhl.configuration.Key;
 import com.dhl.datatypes.Request;
 import com.dhl.datatypes.ServiceHeader;
+import com.geecommerce.core.App;
+import com.geecommerce.shipping.dhl.configuration.Key;
 import com.google.inject.Inject;
 
 public class DhlService {

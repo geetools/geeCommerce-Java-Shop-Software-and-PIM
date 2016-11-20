@@ -115,7 +115,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, null, null, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "'. Use addOrUpdateGlobal instead.");
+                throw new IllegalStateException(
+                    "Unable to update value to '" + value + "'. Use addOrUpdateGlobal instead.");
 
             updateValue(hashCode, value);
         }
@@ -138,7 +139,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, languageCode, null, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for language '" + languageCode + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for language '"
+                    + languageCode + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -161,7 +163,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, languageCode, countryCode, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for language '" + languageCode + "', country '" + countryCode + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for language '"
+                    + languageCode + "', country '" + countryCode + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -184,7 +187,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, null, country, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for country '" + country + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for country '" + country
+                    + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -207,7 +211,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, null, null, viewId, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for view '" + viewId + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for view '" + viewId
+                    + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -230,7 +235,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, languageCode, null, viewId, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for view '" + viewId + "', language '" + languageCode + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for view '" + viewId
+                    + "', language '" + languageCode + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -253,7 +259,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, storeId, null, null, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for store '" + storeId + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for store '" + storeId
+                    + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -276,7 +283,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, storeId, languageCode, null, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for store '" + storeId + "', language '" + languageCode + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for store '" + storeId
+                    + "', language '" + languageCode + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -299,7 +307,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(merchantId, null, null, null, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for merchant '" + merchantId + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for merchant '" + merchantId
+                    + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -322,7 +331,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(merchantId, null, languageCode, null, null, null, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for merchant '" + merchantId + "', language '" + languageCode + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for merchant '" + merchantId
+                    + "', language '" + languageCode + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -345,7 +355,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             add(toEntry(null, null, null, null, null, requestContextId, value));
         } else {
             if (!updateIfExists)
-                throw new IllegalStateException("Unable to update value to '" + value + "' for request-context '" + requestContextId + "'. Use addOrUpdate instead.");
+                throw new IllegalStateException("Unable to update value to '" + value + "' for request-context '"
+                    + requestContextId + "'. Use addOrUpdate instead.");
 
             updateValue(hashCode, value);
         }
@@ -376,7 +387,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
         if (entry != null) {
             entry.put(VALUE, value);
         } else {
-            throw new IllegalStateException("Unable to find entry '" + hashCode + "' for updating with new value '" + value + "'");
+            throw new IllegalStateException(
+                "Unable to find entry '" + hashCode + "' for updating with new value '" + value + "'");
         }
 
         return this;
@@ -532,7 +544,7 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
     protected T getClosestValue(final String language, final String country) {
         App app = App.get();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         RequestContext reqCtx = appCtx.getRequestContext();
         Merchant merchant = appCtx.getMerchant();
@@ -631,7 +643,7 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
     }
 
     public Map<String, Object> getClosestEntry() {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         Merchant merchant = appCtx.getMerchant();
         Store store = appCtx.getStore();
@@ -706,7 +718,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findGlobalEntry() {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null
+                && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -716,8 +729,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryFor(String language) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) != null && m.get(LANGUAGE).equals(language)
-                && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null
+                && m.get(LANGUAGE) != null && m.get(LANGUAGE).equals(language) && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -727,8 +740,9 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryFor(String language, String country) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) != null && m.get(COUNTRY).equals(country) && m.get(LANGUAGE) != null
-                && m.get(LANGUAGE).equals(language) && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) != null
+                && m.get(COUNTRY).equals(country) && m.get(LANGUAGE) != null && m.get(LANGUAGE).equals(language)
+                && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -738,8 +752,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForCountry(String country) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) != null && m.get(COUNTRY).equals(country) && m.get(LANGUAGE) == null
-                && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) != null
+                && m.get(COUNTRY).equals(country) && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -749,8 +763,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForView(Id viewId) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) != null && m.get(VIEW).equals(viewId) && m.get(COUNTRY) == null && m.get(LANGUAGE) == null
-                && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) != null && m.get(VIEW).equals(viewId)
+                && m.get(COUNTRY) == null && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -760,8 +774,9 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForView(Id viewId, String language) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) != null && m.get(VIEW).equals(viewId) && m.get(COUNTRY) == null && m.get(LANGUAGE) != null
-                && m.get(LANGUAGE).equals(language) && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) != null && m.get(VIEW).equals(viewId)
+                && m.get(COUNTRY) == null && m.get(LANGUAGE) != null && m.get(LANGUAGE).equals(language)
+                && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -771,8 +786,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForStore(Id storeId) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) != null && m.get(STORE).equals(storeId) && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) == null
-                && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) != null && m.get(STORE).equals(storeId) && m.get(VIEW) == null
+                && m.get(COUNTRY) == null && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -782,8 +797,9 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForStore(Id storeId, String language) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) != null && m.get(STORE).equals(storeId) && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) != null
-                && m.get(LANGUAGE).equals(language) && m.get(REQUEST_CONTEXT) == null) {
+            if (m.get(MERCHANT) == null && m.get(STORE) != null && m.get(STORE).equals(storeId) && m.get(VIEW) == null
+                && m.get(COUNTRY) == null && m.get(LANGUAGE) != null && m.get(LANGUAGE).equals(language)
+                && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
         }
@@ -793,7 +809,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForMerchant(Id merchantId) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) != null && m.get(MERCHANT).equals(merchantId) && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) == null
+            if (m.get(MERCHANT) != null && m.get(MERCHANT).equals(merchantId) && m.get(STORE) == null
+                && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) == null
                 && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
@@ -804,7 +821,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForMerchant(Id merchantId, String language) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) != null && m.get(MERCHANT).equals(merchantId) && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) != null
+            if (m.get(MERCHANT) != null && m.get(MERCHANT).equals(merchantId) && m.get(STORE) == null
+                && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) != null
                 && m.get(LANGUAGE).equals(language) && m.get(REQUEST_CONTEXT) == null) {
                 return m;
             }
@@ -815,7 +833,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
     public Map<String, Object> findEntryForRequestContext(Id requestContextId) {
         for (Map<String, Object> m : this) {
-            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) != null
+            if (m.get(MERCHANT) == null && m.get(STORE) == null && m.get(VIEW) == null && m.get(COUNTRY) == null
+                && m.get(LANGUAGE) == null && m.get(REQUEST_CONTEXT) != null
                 && m.get(REQUEST_CONTEXT).equals(requestContextId)) {
                 return m;
             }
@@ -1075,7 +1094,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
         return entry == null ? null : entry.get(VALUE);
     }
 
-    protected LinkedHashMap<String, Object> toEntry(Id merchantId, Id storeId, String languageCode, String countryCode, Id viewId, Id requestContextId, Object value) {
+    protected LinkedHashMap<String, Object> toEntry(Id merchantId, Id storeId, String languageCode, String countryCode,
+        Id viewId, Id requestContextId, Object value) {
         if (value == null) {
             // if (!ignoreNull)
             // {
@@ -1161,7 +1181,8 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             return null;
 
         if (!isJSON(json))
-            throw new IllegalArgumentException("The given string does not appear to be a JSON string. Expected it to start with '[{' and contain the value part 'val:'.");
+            throw new IllegalArgumentException(
+                "The given string does not appear to be a JSON string. Expected it to start with '[{' and contain the value part 'val:'.");
 
         List<Map<String, Object>> ctxValues = new ArrayList<>();
 
@@ -1235,13 +1256,15 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
             return null;
 
         if (!isXML(xml))
-            throw new IllegalArgumentException("The given string does not appear to be an XML string. Expected it to start with '<?xml' and contain the tag '<context_object>'.");
+            throw new IllegalArgumentException(
+                "The given string does not appear to be an XML string. Expected it to start with '<?xml' and contain the tag '<context_object>'.");
 
         List<Map<String, Object>> ctxValues = new ArrayList<>();
 
         try {
             XPath xPath = XPathFactory.newInstance().newXPath();
-            NodeList nodeList = (NodeList) xPath.compile("context_object/values/value").evaluate(new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+            NodeList nodeList = (NodeList) xPath.compile("context_object/values/value")
+                .evaluate(new InputSource(new StringReader(xml)), XPathConstants.NODESET);
 
             int numValues = nodeList.getLength();
 
@@ -1346,9 +1369,11 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
                     return false;
                 }
 
-                if (!(val instanceof String || val instanceof String[] || val instanceof Number || val instanceof Number[] || val instanceof Date || val instanceof Date[] || val instanceof Boolean
-                    || val instanceof Boolean[] || val instanceof Id
-                    || val instanceof Id[] || val instanceof byte[] || val instanceof UUID || val instanceof UUID[])) {
+                if (!(val instanceof String || val instanceof String[] || val instanceof Number
+                    || val instanceof Number[] || val instanceof Date || val instanceof Date[]
+                    || val instanceof Boolean || val instanceof Boolean[] || val instanceof Id
+                    || val instanceof Id[] || val instanceof byte[] || val instanceof UUID
+                    || val instanceof UUID[])) {
                     return false;
                 }
             } else {

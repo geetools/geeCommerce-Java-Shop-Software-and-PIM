@@ -2,10 +2,10 @@ package com.geecommerce.core.system.user.model;
 
 import java.util.List;
 
-import com.owlike.genson.annotation.JsonIgnore;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface Role extends Model {
     public Id getId();
@@ -34,9 +34,9 @@ public interface Role extends Model {
     public Role removePermission(Permission permission);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CODE = "code";
-	public static final String NAME = "name";
-	public static final String PERMISSONS = "permissions";
+        public static final String ID = "_id";
+        public static final String CODE = "code";
+        public static final String NAME = "name";
+        public static final String PERMISSONS = "permissions";
     }
 }

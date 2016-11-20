@@ -40,7 +40,8 @@ import com.google.inject.Inject;
 
 @Helper
 public class DefaultSearchHelper implements SearchHelper {
-    private static final Pattern ATTRIBUTE_CODE_PATTERN = Pattern.compile("^att_(.*?)_(?:option|hash|text_[a-z]{2}(?:_[A-Z]{2})?)$");
+    private static final Pattern ATTRIBUTE_CODE_PATTERN = Pattern
+        .compile("^att_(.*?)_(?:option|hash|text_[a-z]{2}(?:_[A-Z]{2})?)$");
 
     private static final Pattern LANG_COUNTRY_PATTERN = Pattern.compile("^att_.+_(?:text_([a-z]{2})(?:_([A-Z]{2}))?)$");
 
@@ -60,7 +61,8 @@ public class DefaultSearchHelper implements SearchHelper {
 
         List<Facet> facets = new ArrayList<>();
 
-        if (esHits == null || esHits.getTotalHits() == 0 || esFacets == null || esFacets.facets() == null || esFacets.facets().size() == 0) {
+        if (esHits == null || esHits.getTotalHits() == 0 || esFacets == null || esFacets.facets() == null
+            || esFacets.facets().size() == 0) {
             return facets;
         }
 
@@ -101,7 +103,8 @@ public class DefaultSearchHelper implements SearchHelper {
         }
 
         if (facetOptionIds != null && facetOptionIds.size() > 0) {
-            List<AttributeOption> attributeOptions = attributeService.getAttributeOptions(facetOptionIds.toArray(new Id[facetOptionIds.size()]));
+            List<AttributeOption> attributeOptions = attributeService
+                .getAttributeOptions(facetOptionIds.toArray(new Id[facetOptionIds.size()]));
 
             Map<String, AttributeOption> attributeOptionsMap = toAttributeOptionsMap(attributeOptions);
 
@@ -153,7 +156,8 @@ public class DefaultSearchHelper implements SearchHelper {
                 if (sourceAttributeKey.startsWith(textAttributeCode)) {
                     Map<String, String> langCountryMap = getLangCountryMap(sourceAttributeKey);
                     if (langCountryMap.size() == 2) {
-                        co.add(langCountryMap.get(ContextObject.LANGUAGE), ContextObject.COUNTRY, sourceMap.get(sourceAttributeKey));
+                        co.add(langCountryMap.get(ContextObject.LANGUAGE), ContextObject.COUNTRY,
+                            sourceMap.get(sourceAttributeKey));
                     } else if (langCountryMap.size() == 1) {
                         co.add(langCountryMap.get(ContextObject.LANGUAGE), sourceMap.get(sourceAttributeKey));
                     }
@@ -182,7 +186,8 @@ public class DefaultSearchHelper implements SearchHelper {
 
             if (sourceValue != null && sourceValue instanceof String && facetEntryId.equals(sourceValue)) {
                 documentIds.add(searchHit.getId());
-            } else if (sourceValue != null && sourceValue instanceof List<?> && ((List<?>) sourceValue).contains(facetEntryId)) {
+            } else if (sourceValue != null && sourceValue instanceof List<?>
+                && ((List<?>) sourceValue).contains(facetEntryId)) {
                 documentIds.add(searchHit.getId());
             }
         }
@@ -206,7 +211,8 @@ public class DefaultSearchHelper implements SearchHelper {
             if (sourceValue != null && sourceValue instanceof String && facetEntryId.equals(sourceValue)) {
                 isInSearchResult = true;
                 break;
-            } else if (sourceValue != null && sourceValue instanceof List<?> && ((List<?>) sourceValue).contains(facetEntryId)) {
+            } else if (sourceValue != null && sourceValue instanceof List<?>
+                && ((List<?>) sourceValue).contains(facetEntryId)) {
                 isInSearchResult = true;
                 break;
             }
@@ -279,7 +285,8 @@ public class DefaultSearchHelper implements SearchHelper {
     }
 
     protected Facet newFacet(String facetAttributeCode) {
-        AttributeTargetObject prdTargetObject = attributeService.getAttributeTargetObjectByCode(TargetObjectCode.PRODUCT);
+        AttributeTargetObject prdTargetObject = attributeService
+            .getAttributeTargetObjectByCode(TargetObjectCode.PRODUCT);
 
         Attribute attribute = null;
 
@@ -287,7 +294,8 @@ public class DefaultSearchHelper implements SearchHelper {
             attribute = attributeService.getAttribute(prdTargetObject, toAttributeCode(facetAttributeCode));
 
         if (attribute != null) {
-            return new Facet(facetAttributeCode, attribute.getFrontendLabel().getString(), attribute.getSearchFilterPosition());
+            return new Facet(facetAttributeCode, attribute.getFrontendLabel().getString(),
+                attribute.getSearchFilterPosition());
         } else {
             return new Facet(facetAttributeCode, facetAttributeCode, 0);
         }

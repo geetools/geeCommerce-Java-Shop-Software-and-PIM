@@ -22,12 +22,13 @@ public class NoCacheDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         App app = App.get();
 
-        app.getServletResponse().setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP
-                                                                                                    // 1.1.
-        app.getServletResponse().setHeader("Pragma", "no-cache"); // HTTP 1.0.
-        app.getServletResponse().setDateHeader("Expires", 0);
+        app.servletResponse().setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP
+                                                                                                 // 1.1.
+        app.servletResponse().setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        app.servletResponse().setDateHeader("Expires", 0);
     }
 }

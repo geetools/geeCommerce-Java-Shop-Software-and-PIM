@@ -104,7 +104,9 @@ public class DefaultProducts extends AbstractRepository implements Products {
         AttributeTargetObject prdTargetObject = attributeTargetObjects.forType(Product.class);
 
         if (prdTargetObject == null)
-            throw new IllegalStateException("Unable to find an attribute target object entry in database for the model type '" + Product.class.getName() + "'");
+            throw new IllegalStateException(
+                "Unable to find an attribute target object entry in database for the model type '"
+                    + Product.class.getName() + "'");
 
         appendAttributeCondition(Product.class, prdTargetObject, ATTR_CODE_ARTICLE_NUMBER, articleNumber, filter);
 

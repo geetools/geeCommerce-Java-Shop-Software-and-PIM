@@ -17,22 +17,22 @@ public class MappedObject implements Serializable {
     }
 
     public MappedObject(String key, Object value) {
-	map.put(key, value);
+        map.put(key, value);
     }
 
     public MappedObject(String key1, Object value1, String key2, Object value2) {
-	map.put(key1, value1);
-	map.put(key2, value2);
+        map.put(key1, value1);
+        map.put(key2, value2);
     }
 
     public MappedObject(String key1, Object value1, String key2, Object value2, String key3, Object value3) {
-	map.put(key1, value1);
-	map.put(key2, value2);
-	map.put(key3, value3);
+        map.put(key1, value1);
+        map.put(key2, value2);
+        map.put(key3, value3);
     }
 
     public MappedObject append(String key, Object value) {
-	map.put(key, value);
-	return this;
+        map.put(key, value);
+        return this;
     }
 }

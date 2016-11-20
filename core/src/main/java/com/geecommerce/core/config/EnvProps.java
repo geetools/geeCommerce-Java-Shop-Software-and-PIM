@@ -27,7 +27,7 @@ public enum EnvProps {
     public static final String MODE_PRODUCTION = "prod";
 
     private EnvProps() {
-        ServletContext servletCtx = App.get().getServletContext();
+        ServletContext servletCtx = App.get().servletContext();
 
         try {
             String envPropertiesPath = System.getProperty("env.properties.path");
@@ -40,7 +40,8 @@ public enum EnvProps {
                 if (propertiesFile.exists()) {
                     config = new PropertiesConfiguration(propertiesFile);
                 } else {
-                    throw new RuntimeException("FATAL ERROR: env properties file '" + propertiesFile.getAbsolutePath() + "' not found.");
+                    throw new RuntimeException(
+                        "FATAL ERROR: env properties file '" + propertiesFile.getAbsolutePath() + "' not found.");
                 }
             } else {
                 config = new PropertiesConfiguration("Environment.properties");

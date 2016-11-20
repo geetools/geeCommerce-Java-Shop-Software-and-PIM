@@ -19,69 +19,69 @@ public class DefaultShippingPackage extends AbstractModel implements ShippingPac
 
     @Override
     public ShippingAddress getShippingAddress() {
-	return shippingAddress;
+        return shippingAddress;
     }
 
     @Override
     public ShippingPackage setShippingAddress(ShippingAddress shippingAddress) {
-	this.shippingAddress = shippingAddress;
-	return this;
+        this.shippingAddress = shippingAddress;
+        return this;
     }
 
     @Override
     public List<ShippingItem> getShippingItems() {
-	return shippingItems;
+        return shippingItems;
     }
 
     @Override
     public ShippingPackage setShippingItems(List<ShippingItem> shippingItems) {
-	this.shippingItems = shippingItems;
-	return this;
+        this.shippingItems = shippingItems;
+        return this;
     }
 
     @Override
     public ShippingPackage addShippingItem(ShippingItem shippingItem) {
-	if (shippingItems == null)
-	    shippingItems = new ArrayList<>();
-	shippingItems.add(shippingItem);
-	return this;
+        if (shippingItems == null)
+            shippingItems = new ArrayList<>();
+        shippingItems.add(shippingItem);
+        return this;
     }
 
     @Override
     public Double getTotalAmount() {
-	return totalAmount;
+        return totalAmount;
     }
 
     @Override
     public ShippingPackage setTotalAmount(Double totalAmount) {
-	this.totalAmount = totalAmount;
-	return this;
+        this.totalAmount = totalAmount;
+        return this;
     }
 
     @Override
     public ShippingType getType() {
-	return type;
+        return type;
     }
 
     @Override
     public ShippingPackage setType(ShippingType type) {
-	this.type = type;
-	return this;
+        this.type = type;
+        return this;
     }
 
     @Override
     public ShippingPackage setCalculateShipping(boolean calculateShipping) {
-	this.calculateShipping = calculateShipping;
-	return this;
+        this.calculateShipping = calculateShipping;
+        return this;
     }
 
     @Override
     public boolean getCalculateShipping() {
-	return calculateShipping;
+        return calculateShipping;
     }
 
     @Override
     public Id getId() {
-	return null;
+        return null;
     }
 }

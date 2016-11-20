@@ -17,7 +17,8 @@ public class Attributes {
 
     public static Id getAttributeId(Class<? extends AttributeSupport> modelClass, String attributeCode) {
 
-        AttributeTargetObject targetObject = attributeService().getAttributeTargetObject(Reflect.getModelInterface(modelClass));
+        AttributeTargetObject targetObject = attributeService()
+            .getAttributeTargetObject(Reflect.getModelInterface(modelClass));
 
         Attribute attr = null;
 
@@ -28,6 +29,6 @@ public class Attributes {
     }
 
     private static AttributeService attributeService() {
-        return App.get().getService(AttributeService.class);
+        return App.get().service(AttributeService.class);
     }
 }

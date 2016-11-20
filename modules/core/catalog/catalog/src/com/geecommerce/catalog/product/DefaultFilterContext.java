@@ -11,29 +11,29 @@ public class DefaultFilterContext implements FilterContext {
     private Double priceTo;
 
     public String getSort() {
-	return sort;
+        return sort;
     }
 
     public FilterContext setSort(String sort) {
-	this.sort = sort;
-	return this;
+        this.sort = sort;
+        return this;
     }
 
     public Double getPriceFrom() {
-	return priceFrom;
+        return priceFrom;
     }
 
     public FilterContext setPriceFrom(Double priceFrom) {
-	this.priceFrom = priceFrom;
-	return this;
+        this.priceFrom = priceFrom;
+        return this;
     }
 
     public Double getPriceTo() {
-	return priceTo;
+        return priceTo;
     }
 
     public FilterContext setPriceTo(Double priceTo) {
-	this.priceTo = priceTo;
-	return this;
+        this.priceTo = priceTo;
+        return this;
     }
 }

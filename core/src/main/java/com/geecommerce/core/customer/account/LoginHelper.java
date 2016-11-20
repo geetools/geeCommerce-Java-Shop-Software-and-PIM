@@ -28,13 +28,14 @@ public class LoginHelper {
 
         List<AbstractLoginMethod> loginMethods = new ArrayList<>();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
 
         if (appCtx != null) {
             // Find login methods in modules
-            ModuleLoader loader = app.getModuleLoader();
+            ModuleLoader loader = app.moduleLoader();
 
-            Class<AbstractLoginMethod>[] types = (Class<AbstractLoginMethod>[]) loader.findAllTypesAnnotatedWith(LoginMethod.class, false);
+            Class<AbstractLoginMethod>[] types = (Class<AbstractLoginMethod>[]) loader
+                .findAllTypesAnnotatedWith(LoginMethod.class, false);
 
             for (Class<AbstractLoginMethod> type : types) {
                 try {
@@ -49,7 +50,8 @@ public class LoginHelper {
                 Collections.sort(loginMethods, new Comparator<AbstractLoginMethod>() {
                     @Override
                     public int compare(AbstractLoginMethod o1, AbstractLoginMethod o2) {
-                        return (o1.getSortIndex() < o2.getSortIndex() ? -1 : (o1.getSortIndex() > o2.getSortIndex() ? 1 : 0));
+                        return (o1.getSortIndex() < o2.getSortIndex() ? -1
+                            : (o1.getSortIndex() > o2.getSortIndex() ? 1 : 0));
                     }
                 });
             }

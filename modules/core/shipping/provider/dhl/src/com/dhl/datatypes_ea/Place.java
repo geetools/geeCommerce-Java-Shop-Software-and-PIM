@@ -9,6 +9,7 @@ package com.dhl.datatypes_ea;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Place complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Place">
@@ -43,7 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Place", propOrder = { "residenceOrBusiness", "companyName", "addressLine", "city", "countryCode", "divisionCode", "division", "postalCode" })
+@XmlType(name = "Place", propOrder = { "residenceOrBusiness", "companyName", "addressLine", "city", "countryCode",
+    "divisionCode", "division", "postalCode" })
 public class Place {
 
     @XmlElement(name = "ResidenceOrBusiness")
@@ -70,7 +73,7 @@ public class Place {
      * 
      */
     public ResidenceOrBusiness getResidenceOrBusiness() {
-	return residenceOrBusiness;
+        return residenceOrBusiness;
     }
 
     /**
@@ -81,7 +84,7 @@ public class Place {
      * 
      */
     public void setResidenceOrBusiness(ResidenceOrBusiness value) {
-	this.residenceOrBusiness = value;
+        this.residenceOrBusiness = value;
     }
 
     /**
@@ -91,7 +94,7 @@ public class Place {
      * 
      */
     public String getCompanyName() {
-	return companyName;
+        return companyName;
     }
 
     /**
@@ -102,15 +105,17 @@ public class Place {
      * 
      */
     public void setCompanyName(String value) {
-	this.companyName = value;
+        this.companyName = value;
     }
 
     /**
      * Gets the value of the addressLine property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the addressLine property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the addressLine property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -126,10 +131,10 @@ public class Place {
      * 
      */
     public List<String> getAddressLine() {
-	if (addressLine == null) {
-	    addressLine = new ArrayList<String>();
-	}
-	return this.addressLine;
+        if (addressLine == null) {
+            addressLine = new ArrayList<String>();
+        }
+        return this.addressLine;
     }
 
     /**
@@ -139,7 +144,7 @@ public class Place {
      * 
      */
     public String getCity() {
-	return city;
+        return city;
     }
 
     /**
@@ -150,7 +155,7 @@ public class Place {
      * 
      */
     public void setCity(String value) {
-	this.city = value;
+        this.city = value;
     }
 
     /**
@@ -160,7 +165,7 @@ public class Place {
      * 
      */
     public String getCountryCode() {
-	return countryCode;
+        return countryCode;
     }
 
     /**
@@ -171,7 +176,7 @@ public class Place {
      * 
      */
     public void setCountryCode(String value) {
-	this.countryCode = value;
+        this.countryCode = value;
     }
 
     /**
@@ -181,7 +186,7 @@ public class Place {
      * 
      */
     public String getDivisionCode() {
-	return divisionCode;
+        return divisionCode;
     }
 
     /**
@@ -192,7 +197,7 @@ public class Place {
      * 
      */
     public void setDivisionCode(String value) {
-	this.divisionCode = value;
+        this.divisionCode = value;
     }
 
     /**
@@ -202,7 +207,7 @@ public class Place {
      * 
      */
     public String getDivision() {
-	return division;
+        return division;
     }
 
     /**
@@ -213,7 +218,7 @@ public class Place {
      * 
      */
     public void setDivision(String value) {
-	this.division = value;
+        this.division = value;
     }
 
     /**
@@ -223,7 +228,7 @@ public class Place {
      * 
      */
     public String getPostalCode() {
-	return postalCode;
+        return postalCode;
     }
 
     /**
@@ -234,7 +239,7 @@ public class Place {
      * 
      */
     public void setPostalCode(String value) {
-	this.postalCode = value;
+        this.postalCode = value;
     }
 
 }

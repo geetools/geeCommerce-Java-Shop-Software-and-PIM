@@ -165,7 +165,7 @@ public class DefaultConfigurationDefinition extends AbstractMultiContextModel im
         this.editable = true;
         this.system = false;
         this.frontendInput = null;
-        
+
     }
 
     @Override

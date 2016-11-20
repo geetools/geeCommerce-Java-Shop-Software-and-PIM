@@ -43,14 +43,14 @@ public interface MailerTemplate extends MultiContextModel {
     public MailerTemplate setInlineImage(Id inlineImage);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String KEY = "key";
-	public static final String FROM = "from";
-	public static final String SUBJECT = "subject";
-	public static final String BODY_HTML = "body_html";
-	public static final String BODY_TEXT = "body_text";
-	public static final String ATTACHMENTS = "attachments";
-	public static final String INLINE_IMAGES = "inline_images";
+        public static final String ID = "_id";
+        public static final String KEY = "key";
+        public static final String FROM = "from";
+        public static final String SUBJECT = "subject";
+        public static final String BODY_HTML = "body_html";
+        public static final String BODY_TEXT = "body_text";
+        public static final String ATTACHMENTS = "attachments";
+        public static final String INLINE_IMAGES = "inline_images";
 
     }
 }

@@ -57,14 +57,16 @@ public class CreditCard extends AbstractPaymentMethod {
     @Override
     public PaymentResponse processPayment(Map<String, Object> formData, Object... data) {
         Order order = (Order) data[0];
-        PaymentEventResponse eventResponse = new PaymentEventResponse(PaymentStatus.PAID, PaymentStatus.PAID, "ok", null, " ", " ");
+        PaymentEventResponse eventResponse = new PaymentEventResponse(PaymentStatus.PAID, PaymentStatus.PAID, "ok",
+            null, " ", " ");
 
         Map<String, String> creditCardData = new HashMap<>();
         for (String key : formData.keySet()) {
             creditCardData.put(key, formData.get(key).toString());
         }
 
-        PaymentResponse response = new PaymentResponse(eventResponse, order.getTotalAmount(), null, "123", creditCardData);
+        PaymentResponse response = new PaymentResponse(eventResponse, order.getTotalAmount(), null, "123",
+            creditCardData);
         // Send form to provider
         return response;
     }

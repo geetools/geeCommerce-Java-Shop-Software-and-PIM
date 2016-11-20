@@ -9,11 +9,13 @@ package com.dhl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import com.dhl.datatypes.LevelOfDetails;
 import com.dhl.datatypes.Request;
 
@@ -22,7 +24,8 @@ import com.dhl.datatypes.Request;
  * Java class for anonymous complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -62,7 +65,8 @@ import com.dhl.datatypes.Request;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "request", "languageCode", "awbNumber", "lpNumber", "levelOfDetails", "trackBy", "piecesEnabled" })
+@XmlType(name = "", propOrder = { "request", "languageCode", "awbNumber", "lpNumber", "levelOfDetails", "trackBy",
+    "piecesEnabled" })
 @XmlRootElement(name = "KnownTrackingRequest")
 public class KnownTrackingRequest {
 
@@ -88,7 +92,7 @@ public class KnownTrackingRequest {
      * 
      */
     public Request getRequest() {
-	return request;
+        return request;
     }
 
     /**
@@ -99,7 +103,7 @@ public class KnownTrackingRequest {
      * 
      */
     public void setRequest(Request value) {
-	this.request = value;
+        this.request = value;
     }
 
     /**
@@ -109,7 +113,7 @@ public class KnownTrackingRequest {
      * 
      */
     public String getLanguageCode() {
-	return languageCode;
+        return languageCode;
     }
 
     /**
@@ -120,15 +124,17 @@ public class KnownTrackingRequest {
      * 
      */
     public void setLanguageCode(String value) {
-	this.languageCode = value;
+        this.languageCode = value;
     }
 
     /**
      * Gets the value of the awbNumber property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the awbNumber property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the awbNumber property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -144,18 +150,20 @@ public class KnownTrackingRequest {
      * 
      */
     public List<String> getAWBNumber() {
-	if (awbNumber == null) {
-	    awbNumber = new ArrayList<String>();
-	}
-	return this.awbNumber;
+        if (awbNumber == null) {
+            awbNumber = new ArrayList<String>();
+        }
+        return this.awbNumber;
     }
 
     /**
      * Gets the value of the lpNumber property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the lpNumber property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the lpNumber property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -171,10 +179,10 @@ public class KnownTrackingRequest {
      * 
      */
     public List<String> getLPNumber() {
-	if (lpNumber == null) {
-	    lpNumber = new ArrayList<String>();
-	}
-	return this.lpNumber;
+        if (lpNumber == null) {
+            lpNumber = new ArrayList<String>();
+        }
+        return this.lpNumber;
     }
 
     /**
@@ -184,7 +192,7 @@ public class KnownTrackingRequest {
      * 
      */
     public LevelOfDetails getLevelOfDetails() {
-	return levelOfDetails;
+        return levelOfDetails;
     }
 
     /**
@@ -195,7 +203,7 @@ public class KnownTrackingRequest {
      * 
      */
     public void setLevelOfDetails(LevelOfDetails value) {
-	this.levelOfDetails = value;
+        this.levelOfDetails = value;
     }
 
     /**
@@ -205,7 +213,7 @@ public class KnownTrackingRequest {
      * 
      */
     public String getTrackBy() {
-	return trackBy;
+        return trackBy;
     }
 
     /**
@@ -216,7 +224,7 @@ public class KnownTrackingRequest {
      * 
      */
     public void setTrackBy(String value) {
-	this.trackBy = value;
+        this.trackBy = value;
     }
 
     /**
@@ -226,7 +234,7 @@ public class KnownTrackingRequest {
      * 
      */
     public String getPiecesEnabled() {
-	return piecesEnabled;
+        return piecesEnabled;
     }
 
     /**
@@ -237,7 +245,7 @@ public class KnownTrackingRequest {
      * 
      */
     public void setPiecesEnabled(String value) {
-	this.piecesEnabled = value;
+        this.piecesEnabled = value;
     }
 
 }

@@ -1,14 +1,14 @@
 package com.geecommerce.core.elasticsearch.search;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import com.geecommerce.core.elasticsearch.api.search.Facet;
 import com.geecommerce.core.elasticsearch.api.search.FacetEntry;
 import com.geecommerce.core.elasticsearch.api.search.SearchResult;
 import com.geecommerce.core.service.annotation.Injectable;
 import com.google.common.collect.Sets;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 @Injectable
 public class DefaultSearchResult implements SearchResult {

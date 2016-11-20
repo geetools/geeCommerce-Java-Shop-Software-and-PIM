@@ -14,7 +14,8 @@ import com.geecommerce.price.model.PriceType;
 public class DefaultPriceTypes extends AbstractRepository implements PriceTypes {
     @Override
     public Map<String, PriceType> priceTypes() {
-        List<PriceType> priceTypes = multiContextFind(PriceType.class, new HashMap<String, Object>(), PriceType.Col.CODE, QueryOptions.builder().sortBy(PriceType.Col.PRIORITY).build());
+        List<PriceType> priceTypes = multiContextFind(PriceType.class, new HashMap<String, Object>(),
+            PriceType.Col.CODE, QueryOptions.builder().sortBy(PriceType.Col.PRIORITY).build());
 
         Map<String, PriceType> priceTypeMap = new LinkedHashMap<>();
 

@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Consignee complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Consignee">
@@ -66,7 +68,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Consignee", propOrder = { "companyName", "addressLine", "city", "division", "divisionCode", "postalCode", "countryCode", "countryName", "federalTaxId", "stateTaxId", "contact" })
+@XmlType(name = "Consignee", propOrder = { "companyName", "addressLine", "city", "division", "divisionCode",
+    "postalCode", "countryCode", "countryName", "federalTaxId", "stateTaxId", "contact" })
 public class Consignee {
 
     @XmlElement(name = "CompanyName")
@@ -99,7 +102,7 @@ public class Consignee {
      * 
      */
     public String getCompanyName() {
-	return companyName;
+        return companyName;
     }
 
     /**
@@ -110,15 +113,17 @@ public class Consignee {
      * 
      */
     public void setCompanyName(String value) {
-	this.companyName = value;
+        this.companyName = value;
     }
 
     /**
      * Gets the value of the addressLine property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the addressLine property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the addressLine property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -134,10 +139,10 @@ public class Consignee {
      * 
      */
     public List<String> getAddressLine() {
-	if (addressLine == null) {
-	    addressLine = new ArrayList<String>();
-	}
-	return this.addressLine;
+        if (addressLine == null) {
+            addressLine = new ArrayList<String>();
+        }
+        return this.addressLine;
     }
 
     /**
@@ -147,7 +152,7 @@ public class Consignee {
      * 
      */
     public String getCity() {
-	return city;
+        return city;
     }
 
     /**
@@ -158,7 +163,7 @@ public class Consignee {
      * 
      */
     public void setCity(String value) {
-	this.city = value;
+        this.city = value;
     }
 
     /**
@@ -168,7 +173,7 @@ public class Consignee {
      * 
      */
     public String getDivision() {
-	return division;
+        return division;
     }
 
     /**
@@ -179,7 +184,7 @@ public class Consignee {
      * 
      */
     public void setDivision(String value) {
-	this.division = value;
+        this.division = value;
     }
 
     /**
@@ -189,7 +194,7 @@ public class Consignee {
      * 
      */
     public String getDivisionCode() {
-	return divisionCode;
+        return divisionCode;
     }
 
     /**
@@ -200,7 +205,7 @@ public class Consignee {
      * 
      */
     public void setDivisionCode(String value) {
-	this.divisionCode = value;
+        this.divisionCode = value;
     }
 
     /**
@@ -210,7 +215,7 @@ public class Consignee {
      * 
      */
     public String getPostalCode() {
-	return postalCode;
+        return postalCode;
     }
 
     /**
@@ -221,7 +226,7 @@ public class Consignee {
      * 
      */
     public void setPostalCode(String value) {
-	this.postalCode = value;
+        this.postalCode = value;
     }
 
     /**
@@ -231,7 +236,7 @@ public class Consignee {
      * 
      */
     public String getCountryCode() {
-	return countryCode;
+        return countryCode;
     }
 
     /**
@@ -242,7 +247,7 @@ public class Consignee {
      * 
      */
     public void setCountryCode(String value) {
-	this.countryCode = value;
+        this.countryCode = value;
     }
 
     /**
@@ -252,7 +257,7 @@ public class Consignee {
      * 
      */
     public String getCountryName() {
-	return countryName;
+        return countryName;
     }
 
     /**
@@ -263,7 +268,7 @@ public class Consignee {
      * 
      */
     public void setCountryName(String value) {
-	this.countryName = value;
+        this.countryName = value;
     }
 
     /**
@@ -273,7 +278,7 @@ public class Consignee {
      * 
      */
     public String getFederalTaxId() {
-	return federalTaxId;
+        return federalTaxId;
     }
 
     /**
@@ -284,7 +289,7 @@ public class Consignee {
      * 
      */
     public void setFederalTaxId(String value) {
-	this.federalTaxId = value;
+        this.federalTaxId = value;
     }
 
     /**
@@ -294,7 +299,7 @@ public class Consignee {
      * 
      */
     public String getStateTaxId() {
-	return stateTaxId;
+        return stateTaxId;
     }
 
     /**
@@ -305,7 +310,7 @@ public class Consignee {
      * 
      */
     public void setStateTaxId(String value) {
-	this.stateTaxId = value;
+        this.stateTaxId = value;
     }
 
     /**
@@ -315,7 +320,7 @@ public class Consignee {
      * 
      */
     public Contact getContact() {
-	return contact;
+        return contact;
     }
 
     /**
@@ -326,7 +331,7 @@ public class Consignee {
      * 
      */
     public void setContact(Contact value) {
-	this.contact = value;
+        this.contact = value;
     }
 
 }

@@ -1,15 +1,14 @@
 package com.geecommerce.mediaassets.converter;
 
-import org.apache.poi.hslf.usermodel.HSLFSlide;
-import org.apache.poi.hslf.usermodel.HSLFSlideShow;
-
-import java.awt.*;
-import java.io.ByteArrayOutputStream;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-
 import java.util.List;
+
+import org.apache.poi.hslf.usermodel.HSLFSlide;
+import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 
 public class PptToPdfConverter extends SlidesToPdfConverter implements DocumentConverter {
 
@@ -18,7 +17,7 @@ public class PptToPdfConverter extends SlidesToPdfConverter implements DocumentC
 
     @Override
     public boolean canConvert(String mimeType) {
-        if(mimeType.equals("application/vnd.ms-powerpoint"))
+        if (mimeType.equals("application/vnd.ms-powerpoint"))
             return true;
         return false;
     }

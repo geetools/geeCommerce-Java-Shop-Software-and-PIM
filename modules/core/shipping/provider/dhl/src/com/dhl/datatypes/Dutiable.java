@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Dutiable complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Dutiable">
@@ -72,7 +73,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Dutiable", propOrder = { "declaredValue", "declaredCurrency", "scheduleB", "exportLicense", "shipperEIN", "shipperIDType", "consigneeIDType", "importLicense", "consigneeEIN", "termsOfTrade" })
+@XmlType(name = "Dutiable", propOrder = { "declaredValue", "declaredCurrency", "scheduleB", "exportLicense",
+    "shipperEIN", "shipperIDType", "consigneeIDType", "importLicense", "consigneeEIN", "termsOfTrade" })
 public class Dutiable {
 
     @XmlElement(name = "DeclaredValue")
@@ -103,7 +105,7 @@ public class Dutiable {
      * 
      */
     public Float getDeclaredValue() {
-	return declaredValue;
+        return declaredValue;
     }
 
     /**
@@ -114,7 +116,7 @@ public class Dutiable {
      * 
      */
     public void setDeclaredValue(Float value) {
-	this.declaredValue = value;
+        this.declaredValue = value;
     }
 
     /**
@@ -124,7 +126,7 @@ public class Dutiable {
      * 
      */
     public String getDeclaredCurrency() {
-	return declaredCurrency;
+        return declaredCurrency;
     }
 
     /**
@@ -135,7 +137,7 @@ public class Dutiable {
      * 
      */
     public void setDeclaredCurrency(String value) {
-	this.declaredCurrency = value;
+        this.declaredCurrency = value;
     }
 
     /**
@@ -145,7 +147,7 @@ public class Dutiable {
      * 
      */
     public String getScheduleB() {
-	return scheduleB;
+        return scheduleB;
     }
 
     /**
@@ -156,7 +158,7 @@ public class Dutiable {
      * 
      */
     public void setScheduleB(String value) {
-	this.scheduleB = value;
+        this.scheduleB = value;
     }
 
     /**
@@ -166,7 +168,7 @@ public class Dutiable {
      * 
      */
     public Object getExportLicense() {
-	return exportLicense;
+        return exportLicense;
     }
 
     /**
@@ -177,7 +179,7 @@ public class Dutiable {
      * 
      */
     public void setExportLicense(Object value) {
-	this.exportLicense = value;
+        this.exportLicense = value;
     }
 
     /**
@@ -187,7 +189,7 @@ public class Dutiable {
      * 
      */
     public String getShipperEIN() {
-	return shipperEIN;
+        return shipperEIN;
     }
 
     /**
@@ -198,7 +200,7 @@ public class Dutiable {
      * 
      */
     public void setShipperEIN(String value) {
-	this.shipperEIN = value;
+        this.shipperEIN = value;
     }
 
     /**
@@ -208,7 +210,7 @@ public class Dutiable {
      * 
      */
     public String getShipperIDType() {
-	return shipperIDType;
+        return shipperIDType;
     }
 
     /**
@@ -219,7 +221,7 @@ public class Dutiable {
      * 
      */
     public void setShipperIDType(String value) {
-	this.shipperIDType = value;
+        this.shipperIDType = value;
     }
 
     /**
@@ -229,7 +231,7 @@ public class Dutiable {
      * 
      */
     public String getConsigneeIDType() {
-	return consigneeIDType;
+        return consigneeIDType;
     }
 
     /**
@@ -240,7 +242,7 @@ public class Dutiable {
      * 
      */
     public void setConsigneeIDType(String value) {
-	this.consigneeIDType = value;
+        this.consigneeIDType = value;
     }
 
     /**
@@ -250,7 +252,7 @@ public class Dutiable {
      * 
      */
     public Object getImportLicense() {
-	return importLicense;
+        return importLicense;
     }
 
     /**
@@ -261,7 +263,7 @@ public class Dutiable {
      * 
      */
     public void setImportLicense(Object value) {
-	this.importLicense = value;
+        this.importLicense = value;
     }
 
     /**
@@ -271,7 +273,7 @@ public class Dutiable {
      * 
      */
     public String getConsigneeEIN() {
-	return consigneeEIN;
+        return consigneeEIN;
     }
 
     /**
@@ -282,7 +284,7 @@ public class Dutiable {
      * 
      */
     public void setConsigneeEIN(String value) {
-	this.consigneeEIN = value;
+        this.consigneeEIN = value;
     }
 
     /**
@@ -292,7 +294,7 @@ public class Dutiable {
      * 
      */
     public Object getTermsOfTrade() {
-	return termsOfTrade;
+        return termsOfTrade;
     }
 
     /**
@@ -303,7 +305,7 @@ public class Dutiable {
      * 
      */
     public void setTermsOfTrade(Object value) {
-	this.termsOfTrade = value;
+        this.termsOfTrade = value;
     }
 
 }

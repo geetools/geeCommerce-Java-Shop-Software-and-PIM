@@ -36,7 +36,8 @@ public enum AttributeGroupMappingType implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(AttributeGroupMappingType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(AttributeGroupMappingType.class.getSimpleName())
+            .append(".label").toString());
     }
 
     public final int toId() {
@@ -44,6 +45,7 @@ public enum AttributeGroupMappingType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(AttributeGroupMappingType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(AttributeGroupMappingType.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 }

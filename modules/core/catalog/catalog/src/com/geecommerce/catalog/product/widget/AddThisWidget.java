@@ -13,7 +13,8 @@ import com.geecommerce.core.web.api.WidgetController;
 public class AddThisWidget extends AbstractWidgetController implements WidgetController {
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         String enabledPlugins = app.cpStr_("product/sharebuttons");
         if (enabledPlugins != null && !enabledPlugins.equals("false") && !enabledPlugins.isEmpty()) {
             String[] enabledPluginsArray = getEnabledPluginsAsArray(enabledPlugins);

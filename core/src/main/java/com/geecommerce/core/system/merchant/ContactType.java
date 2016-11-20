@@ -6,20 +6,20 @@ public enum ContactType {
     private int id;
 
     private ContactType(int id) {
-	this.id = id;
+        this.id = id;
     }
 
     public final int toId() {
-	return this.id;
+        return this.id;
     }
 
     public static final ContactType fromId(int id) {
-	for (ContactType contactType : values()) {
-	    if (contactType.toId() == id) {
-		return contactType;
-	    }
-	}
+        for (ContactType contactType : values()) {
+            if (contactType.toId() == id) {
+                return contactType;
+            }
+        }
 
-	return null;
+        return null;
     }
 }

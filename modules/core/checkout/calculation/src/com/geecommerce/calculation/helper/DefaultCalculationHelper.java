@@ -32,7 +32,8 @@ public class DefaultCalculationHelper implements CalculationHelper {
         Collections.sort(calculationSteps, new Comparator<CalculationStep>() {
             @Override
             public int compare(CalculationStep cs1, CalculationStep cs2) {
-                return (cs1.getSortOrder() < cs2.getSortOrder() ? -1 : (cs1.getSortOrder() > cs2.getSortOrder() ? 1 : 0));
+                return (cs1.getSortOrder() < cs2.getSortOrder() ? -1
+                    : (cs1.getSortOrder() > cs2.getSortOrder() ? 1 : 0));
             }
         });
         return new ArrayList<>(calculationSteps);
@@ -47,9 +48,10 @@ public class DefaultCalculationHelper implements CalculationHelper {
         CalculationContext calcCtx = null;
 
         if (confProps == null || confProps.size() == 0) {
-            throw new RuntimeException("Cannot create new CalculationContext because no configuration properties could be found.");
+            throw new RuntimeException(
+                "Cannot create new CalculationContext because no configuration properties could be found.");
         } else {
-            calcCtx = app.getInjectable(CalculationContext.class);
+            calcCtx = app.injectable(CalculationContext.class);
 
             // Add all properties to context.
             for (ConfigurationProperty cp : confProps) {

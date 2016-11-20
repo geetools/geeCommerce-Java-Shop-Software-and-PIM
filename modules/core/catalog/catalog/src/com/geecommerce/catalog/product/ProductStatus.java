@@ -15,7 +15,8 @@ public enum ProductStatus {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ProductStatus.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(ProductStatus.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static ProductStatus fromId(int id) {
@@ -43,6 +44,7 @@ public enum ProductStatus {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(ProductStatus.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(ProductStatus.class.getSimpleName()).append(".label").toString());
     }
 }

@@ -59,7 +59,8 @@ public class AttributeModelValidator implements Validator {
                     Attribute attr = av.getAttribute();
 
                     if (attr != null) {
-                        // Attribute is mandatory and should therefore not be empty.
+                        // Attribute is mandatory and should therefore not be
+                        // empty.
                         if ((av == null || av.getVal() == null) && attr.getInputType() == InputType.MANDATORY) {
                             String fieldName = fieldName(entry.getKey(), attr, validationCtx);
 
@@ -68,8 +69,10 @@ public class AttributeModelValidator implements Validator {
                             } else {
                                 errors.add("validation.error.required", attr.getFrontendLabel());
                             }
-                        } else if ((av == null || av.getVal() == null) && attr.getInputType() == InputType.OPTOUT && !av.isOptOut()) {
-                            // Attribute is an opt-out attribute, but it has not been opted out and should therefore not be empty.
+                        } else if ((av == null || av.getVal() == null) && attr.getInputType() == InputType.OPTOUT
+                            && !av.isOptOut()) {
+                            // Attribute is an opt-out attribute, but it has not
+                            // been opted out and should therefore not be empty.
                             String fieldName = fieldName(entry.getKey(), attr, validationCtx);
 
                             if (fieldName != null) {
@@ -77,14 +80,17 @@ public class AttributeModelValidator implements Validator {
                             } else {
                                 errors.add("validation.error.required", attr.getFrontendLabel());
                             }
-                        } else if (attr.getValidationPattern() != null && !Str.isEmpty(attr.getValidationPattern().getVal())) {
+                        } else if (attr.getValidationPattern() != null
+                            && !Str.isEmpty(attr.getValidationPattern().getVal())) {
                             String pattern = attr.getValidationPattern().getVal();
 
                             Pattern p = Pattern.compile(pattern);
                             Matcher m = p.matcher(String.valueOf(av.getVal()));
 
                             if (!m.matches()) {
-                                // Attribute is an opt-out attribute, but it has not been opted out and should therefore not be empty.
+                                // Attribute is an opt-out attribute, but it has
+                                // not been opted out and should therefore not
+                                // be empty.
                                 String fieldName = fieldName(entry.getKey(), attr, validationCtx);
 
                                 if (fieldName != null) {
@@ -105,7 +111,8 @@ public class AttributeModelValidator implements Validator {
     protected String fieldName(String modelParamName, Attribute attribute, ValidationContext validationCtx) {
         Map<String, String[]> paramMap = validationCtx.requestCtx().getParameterMap();
 
-        String fieldName = new StringBuilder(modelParamName).append(Char.DOT).append("attr:").append(attribute.getCode()).toString();
+        String fieldName = new StringBuilder(modelParamName).append(Char.DOT).append("attr:")
+            .append(attribute.getCode()).toString();
 
         if (paramMap.containsKey(fieldName))
             return fieldName;
@@ -113,7 +120,8 @@ public class AttributeModelValidator implements Validator {
         fieldName = null;
 
         for (Map.Entry<String, String[]> entry : paramMap.entrySet()) {
-            if (entry.getKey().startsWith(modelParamName) && entry.getKey().endsWith(new StringBuilder("attr:").append(attribute.getCode()).toString()))
+            if (entry.getKey().startsWith(modelParamName)
+                && entry.getKey().endsWith(new StringBuilder("attr:").append(attribute.getCode()).toString()))
                 return entry.getKey();
         }
 

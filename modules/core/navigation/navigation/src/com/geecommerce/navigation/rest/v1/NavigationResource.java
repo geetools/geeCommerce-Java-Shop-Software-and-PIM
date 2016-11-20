@@ -74,7 +74,7 @@ public class NavigationResource extends AbstractResource {
             parentNavItem = service.get(NavigationItem.class, parentId);
         }
 
-        NavigationItem navItem = app.getModel(NavigationItem.class);
+        NavigationItem navItem = app.model(NavigationItem.class);
         navItem.setEnabled(false);
         navItem.setParent(parentNavItem);
         navItem.setRootId(parentNavItem.getRootId());

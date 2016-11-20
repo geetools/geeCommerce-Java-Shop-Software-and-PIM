@@ -3,8 +3,6 @@ package com.geecommerce.shipping.model;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
 
-import java.util.Map;
-
 public interface ShippingItem extends Model {
 
     public String getProductName();
@@ -44,13 +42,13 @@ public interface ShippingItem extends Model {
     public ShippingItem setPickupStoreId(String pickupStoreId);
 
     static final class FIELD {
-	public static final String ITEM_ARTICLE_ID = "article_id";
-	public static final String ITEM_QUANTITY = "qty";
-	public static final String ITEM_WIDTH = "width";
-	public static final String ITEM_HEIGHT = "height";
-	public static final String ITEM_DEPTH = "depth";
-	public static final String ITEM_WEIGHT = "weight";
-	public static final String ITEM_PRICE = "price";
-	public static final String ITEM_PICKUP_STORE = "pickup_store";
+        public static final String ITEM_ARTICLE_ID = "article_id";
+        public static final String ITEM_QUANTITY = "qty";
+        public static final String ITEM_WIDTH = "width";
+        public static final String ITEM_HEIGHT = "height";
+        public static final String ITEM_DEPTH = "depth";
+        public static final String ITEM_WEIGHT = "weight";
+        public static final String ITEM_PRICE = "price";
+        public static final String ITEM_PICKUP_STORE = "pickup_store";
     }
 }

@@ -33,14 +33,16 @@ public enum RequestType implements ModelEnum {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (RequestType requestType : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(RequestType.class.getSimpleName()).append(".").append(requestType.name()).toString()), requestType.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(RequestType.class.getSimpleName()).append(".")
+                .append(requestType.name()).toString()), requestType.id);
         }
 
         return hrMap;
     }
 
     public static final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(RequestType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(RequestType.class.getSimpleName()).append(".label").toString());
     }
 
 }

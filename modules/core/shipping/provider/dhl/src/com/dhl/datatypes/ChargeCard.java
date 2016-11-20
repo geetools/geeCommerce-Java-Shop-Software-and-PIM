@@ -8,6 +8,7 @@
 package com.dhl.datatypes;
 
 import java.math.BigInteger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for ChargeCard complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ChargeCard">
@@ -38,7 +40,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ChargeCard", propOrder = { "chargeCardNo", "chargeCardType", "chargeCardConfNo", "chargeCardExpiryDate" })
+@XmlType(name = "ChargeCard", propOrder = { "chargeCardNo", "chargeCardType", "chargeCardConfNo",
+    "chargeCardExpiryDate" })
 public class ChargeCard {
 
     @XmlElement(name = "ChargeCardNo")
@@ -55,7 +58,7 @@ public class ChargeCard {
      * 
      */
     public long getChargeCardNo() {
-	return chargeCardNo;
+        return chargeCardNo;
     }
 
     /**
@@ -63,7 +66,7 @@ public class ChargeCard {
      * 
      */
     public void setChargeCardNo(long value) {
-	this.chargeCardNo = value;
+        this.chargeCardNo = value;
     }
 
     /**
@@ -73,7 +76,7 @@ public class ChargeCard {
      * 
      */
     public ChargeCardType getChargeCardType() {
-	return chargeCardType;
+        return chargeCardType;
     }
 
     /**
@@ -84,7 +87,7 @@ public class ChargeCard {
      * 
      */
     public void setChargeCardType(ChargeCardType value) {
-	this.chargeCardType = value;
+        this.chargeCardType = value;
     }
 
     /**
@@ -94,7 +97,7 @@ public class ChargeCard {
      * 
      */
     public BigInteger getChargeCardConfNo() {
-	return chargeCardConfNo;
+        return chargeCardConfNo;
     }
 
     /**
@@ -105,7 +108,7 @@ public class ChargeCard {
      * 
      */
     public void setChargeCardConfNo(BigInteger value) {
-	this.chargeCardConfNo = value;
+        this.chargeCardConfNo = value;
     }
 
     /**
@@ -115,7 +118,7 @@ public class ChargeCard {
      * 
      */
     public BigInteger getChargeCardExpiryDate() {
-	return chargeCardExpiryDate;
+        return chargeCardExpiryDate;
     }
 
     /**
@@ -126,7 +129,7 @@ public class ChargeCard {
      * 
      */
     public void setChargeCardExpiryDate(BigInteger value) {
-	this.chargeCardExpiryDate = value;
+        this.chargeCardExpiryDate = value;
     }
 
 }

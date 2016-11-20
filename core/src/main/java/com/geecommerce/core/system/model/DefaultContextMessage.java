@@ -2,12 +2,12 @@ package com.geecommerce.core.system.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Cacheable(repository = true)
 @Model(collection = "context_messages", readCount = true, optimisticLocking = true)

@@ -98,7 +98,8 @@ public class SettingsResource extends AbstractResource {
         // Countries
         filter = new HashMap<>();
         filter.put(Country.Col.CODE, _availableCountries);
-        List<Country> availableCountries = service.get(Country.class, filter, QueryOptions.builder().sortBy(Country.Col.NAME).build());
+        List<Country> availableCountries = service.get(Country.class, filter,
+            QueryOptions.builder().sortBy(Country.Col.NAME).build());
 
         // Currencies
         filter = new HashMap<>();
@@ -106,7 +107,7 @@ public class SettingsResource extends AbstractResource {
         List<Currency> availableCurrencies = service.get(Currency.class, filter);
 
         // Request contexts
-        List<RequestContext> reqContexts = requestContexts.forMerchant(app.getApplicationContext().getMerchant());
+        List<RequestContext> reqContexts = requestContexts.forMerchant(app.context().getMerchant());
 
         // TimezoneOffset
         DateTimeZone timeZone = DateTimeZone.forID(DEFAULT_LOCAL_TIMEZONE);
@@ -121,31 +122,20 @@ public class SettingsResource extends AbstractResource {
         String loginLogoURI = app.cpStr_(ConfigurationKey.CPANEL_LOGIN_LOGO, "/img/logo-login.png");
         String loginLogoText = app.cpStr_(ConfigurationKey.CPANEL_LOGIN_LOGO_TEXT, "CommerceBoard");
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         Merchant merchant = appCtx.getMerchant();
 
         List<Merchant> merchants = new ArrayList<>();
         merchants.add(merchant);
 
-        Settings settings = new Settings()
-            .setRequestContexts(reqContexts)
-            .setAvailableUserLanguages(availableUserLanguages)
-            .setAvailableLaguages(availableLanguages)
-            .setAvailableCountries(availableCountries)
-            .setAvailableCurrencies(availableCurrencies)
-            .setDefaultEditLanguage(defaultEditLanguage)
-            .setFallbackEditLanguage(fallbackEditLanguage)
-            .setDefaultUserLanguage(defaultUserLanguage)
-            .setFallbackUserLanguage(fallbackUserLanguage)
-            .setProductImagesSubdomain(productImagesSubdomain)
-            .setProductImagesUriPrefix(productImagesUriPrefix)
-            .setPreloadAttributes(preloadAttributes)
-            .setMerchants(merchants)
-            .setStores(merchant.getStores())
-            .setTimezoneOffset(offset)
-            .setLogoURI(logoURI)
-            .setLogoText(logoText)
-            .setLoginLogoURI(loginLogoURI)
+        Settings settings = new Settings().setRequestContexts(reqContexts)
+            .setAvailableUserLanguages(availableUserLanguages).setAvailableLaguages(availableLanguages)
+            .setAvailableCountries(availableCountries).setAvailableCurrencies(availableCurrencies)
+            .setDefaultEditLanguage(defaultEditLanguage).setFallbackEditLanguage(fallbackEditLanguage)
+            .setDefaultUserLanguage(defaultUserLanguage).setFallbackUserLanguage(fallbackUserLanguage)
+            .setProductImagesSubdomain(productImagesSubdomain).setProductImagesUriPrefix(productImagesUriPrefix)
+            .setPreloadAttributes(preloadAttributes).setMerchants(merchants).setStores(merchant.getStores())
+            .setTimezoneOffset(offset).setLogoURI(logoURI).setLogoText(logoText).setLoginLogoURI(loginLogoURI)
             .setLoginLogoText(loginLogoText);
 
         return ok("settings", settings);

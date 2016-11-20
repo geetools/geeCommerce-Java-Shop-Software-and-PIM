@@ -18,9 +18,11 @@ public interface CatalogMediaHelper extends Helper {
 
     public byte[] getImage(String absSystemPath);
 
-    public String getNewAbsoluteFilePath(String originalFilename, String customFilename, String mimeType, Product product, Id forStore);
+    public String getNewAbsoluteFilePath(String originalFilename, String customFilename, String mimeType,
+        Product product, Id forStore);
 
-    public String getRelativeAssetPath(String originalFilename, String customFilename, String mimeType, Product product, Id forStore);
+    public String getRelativeAssetPath(String originalFilename, String customFilename, String mimeType, Product product,
+        Id forStore);
 
     public String toRelativeAssetPath(String absoluteFilePath);
 

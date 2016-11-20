@@ -1,12 +1,15 @@
 package com.geecommerce.retail.model;
 
-import com.google.common.collect.Maps;
+import static com.geecommerce.retail.model.GeoCoordinate.Column.ID;
+import static com.geecommerce.retail.model.GeoCoordinate.Column.LATITUDE;
+import static com.geecommerce.retail.model.GeoCoordinate.Column.LONGITUDE;
+
+import java.util.Map;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-import java.util.Map;
-
-import static com.geecommerce.retail.model.GeoCoordinate.Column.*;
+import com.google.common.collect.Maps;
 
 @Model("geodb_coordinates")
 public class DefaultGeoCoordinate extends AbstractModel implements GeoCoordinate {
@@ -18,46 +21,46 @@ public class DefaultGeoCoordinate extends AbstractModel implements GeoCoordinate
     private Double longitude;
 
     public Id getId() {
-	return id;
+        return id;
     }
 
     public void setId(Id id) {
-	this.id = id;
+        this.id = id;
     }
 
     public Double getLatitude() {
-	return latitude;
+        return latitude;
     }
 
     public void setLatitude(Double latitude) {
-	this.latitude = latitude;
+        this.latitude = latitude;
     }
 
     public Double getLongitude() {
-	return longitude;
+        return longitude;
     }
 
     public void setLongitude(Double longitude) {
-	this.longitude = longitude;
+        this.longitude = longitude;
     }
 
     public void fromMap(Map<String, Object> map) {
-	if (map != null) {
-	    super.fromMap(map);
+        if (map != null) {
+            super.fromMap(map);
 
-	    this.id = id_(map.get(ID));
-	    this.latitude = double_(map.get(LATITUDE));
-	    this.longitude = double_(map.get(LONGITUDE));
-	}
+            this.id = id_(map.get(ID));
+            this.latitude = double_(map.get(LATITUDE));
+            this.longitude = double_(map.get(LONGITUDE));
+        }
     }
 
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(ID, getId());
-	map.put(LATITUDE, getLatitude());
-	map.put(LONGITUDE, getLongitude());
+        map.put(ID, getId());
+        map.put(LATITUDE, getLatitude());
+        map.put(LONGITUDE, getLongitude());
 
-	return map;
+        return map;
     }
 }

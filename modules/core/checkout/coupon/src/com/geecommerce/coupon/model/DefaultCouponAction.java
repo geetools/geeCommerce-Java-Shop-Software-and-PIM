@@ -179,7 +179,7 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
         Map<String, Object> ff = map_(map.get(Col.FILTER));
         if (ff != null && ff.size() > 0) {
 
-            this.filter = app.getModel(CouponFilterNode.class);
+            this.filter = app.model(CouponFilterNode.class);
             this.filter.fromMap(ff);
         }
 
@@ -187,7 +187,7 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
         if (rangeDiscountAmounts != null && rangeDiscountAmounts.size() > 0) {
             this.rangeDiscountAmount = new ArrayList<>();
             for (Map<String, Object> range : rangeDiscountAmounts) {
-                CouponRangeDiscountAmount r = app.getModel(CouponRangeDiscountAmount.class);
+                CouponRangeDiscountAmount r = app.model(CouponRangeDiscountAmount.class);
                 r.fromMap(range);
                 this.rangeDiscountAmount.add(r);
             }

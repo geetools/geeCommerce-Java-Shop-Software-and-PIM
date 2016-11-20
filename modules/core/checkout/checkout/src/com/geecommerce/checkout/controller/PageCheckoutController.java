@@ -70,21 +70,13 @@ public class PageCheckoutController extends BaseCheckoutController {
     private final CheckoutFlowService flowService;
 
     @Inject
-    public PageCheckoutController(CheckoutService checkoutService,
-        CheckoutHelper checkoutHelper,
-        CustomerService customerService,
-        ShippingService shippingService,
-        PaymentService paymentService,
-        CalculationService calculationService,
-        CalculationHelper calculationHelper,
-        CartService cartService,
-        CouponService couponService,
-        FormHelper formHelper,
-        CartHelper cartHelper,
-        CountryService countryService,
-        CheckoutFlowHelper flowHelper,
-        CheckoutFlowService flowService) {
-        super(checkoutService, checkoutHelper, customerService, shippingService, paymentService, calculationService, calculationHelper, cartService, couponService, countryService);
+    public PageCheckoutController(CheckoutService checkoutService, CheckoutHelper checkoutHelper,
+        CustomerService customerService, ShippingService shippingService, PaymentService paymentService,
+        CalculationService calculationService, CalculationHelper calculationHelper, CartService cartService,
+        CouponService couponService, FormHelper formHelper, CartHelper cartHelper, CountryService countryService,
+        CheckoutFlowHelper flowHelper, CheckoutFlowService flowService) {
+        super(checkoutService, checkoutHelper, customerService, shippingService, paymentService, calculationService,
+            calculationHelper, cartService, couponService, countryService);
         this.formHelper = formHelper;
         this.cartHelper = cartHelper;
         this.flowHelper = flowHelper;
@@ -103,11 +95,8 @@ public class PageCheckoutController extends BaseCheckoutController {
 
         String actionURI = flowHelper.getOriginalURI(flowHelper.getFlowStep(getOriginalURI()));
 
-        return view("checkout/page/address_form")
-            .bind("form", getForm())
-            .bind("checkout", getCheckout())
-            .bind("countries", getAllowedCountries())
-            .bind("formAction", actionURI);
+        return view("checkout/page/address_form").bind("form", getForm()).bind("checkout", getCheckout())
+            .bind("countries", getAllowedCountries()).bind("formAction", actionURI);
     }
 
     @Request(value = "/address", method = HttpMethod.POST)
@@ -118,20 +107,18 @@ public class PageCheckoutController extends BaseCheckoutController {
         }
 
         if (bindings.hasErrors())
-            return Results.view("checkout/address_form")
-                .bind("form", form)
-                .bind("checkout", getCheckout())
-                .bind("countries", getAllowedCountries())
-                .bind("formAction", getOriginalURI());
+            return Results.view("checkout/address_form").bind("form", form).bind("checkout", getCheckout())
+                .bind("countries", getAllowedCountries()).bind("formAction", getOriginalURI());
 
         setForm(form);
         Checkout checkout = getCheckout();
         checkoutHelper.addAddressesToCheckout(checkout, form);
         checkoutService.updateCheckout(checkout);
 
-        CheckoutFlowStep nextFlowStep = flowHelper.getNextActiveFlowStep(flowHelper.getFlowStep(getOriginalURI()), true);
-        return redirect(nextFlowStep != null ? flowHelper.getOriginalURI(nextFlowStep) : flowHelper.getOriginalURI(flowHelper.getFirstActiveFlowStep()))
-            .bind("checkout", checkout);
+        CheckoutFlowStep nextFlowStep = flowHelper.getNextActiveFlowStep(flowHelper.getFlowStep(getOriginalURI()),
+            true);
+        return redirect(nextFlowStep != null ? flowHelper.getOriginalURI(nextFlowStep)
+            : flowHelper.getOriginalURI(flowHelper.getFirstActiveFlowStep())).bind("checkout", checkout);
 
     }
 
@@ -159,9 +146,7 @@ public class PageCheckoutController extends BaseCheckoutController {
         // form value update
         getForm().setPaymentMethodCode(getCheckout().getPaymentMethod());
 
-        return view("checkout/page/payment_form")
-            .bind("form", getForm())
-            .bind("paymentMethods", getPaymentMethods())
+        return view("checkout/page/payment_form").bind("form", getForm()).bind("paymentMethods", getPaymentMethods())
             .bind("formAction", flowHelper.getOriginalURI(flowHelper.getFlowStep(getOriginalURI())));
     }
 
@@ -180,14 +165,16 @@ public class PageCheckoutController extends BaseCheckoutController {
         fillCheckoutWithPayment();
         AbstractPaymentMethod paymentMethod = PaymentHelper.findPaymentMethodByCode(getForm().getPaymentMethodCode());
         Map<String, String[]> requestParameters = getRequest().getParameterMap();
-        Map<String, Object> filteredRequestParameters = PaymentHelper.filterRequestParameters(paymentMethod.getFormFieldPrefix(), requestParameters);
+        Map<String, Object> filteredRequestParameters = PaymentHelper
+            .filterRequestParameters(paymentMethod.getFormFieldPrefix(), requestParameters);
 
         checkout.setPaymentParameters(copyToStringValueMap(filteredRequestParameters));
         checkoutService.updateCheckout(checkout);
 
-        CheckoutFlowStep nextFlowStep = flowHelper.getNextActiveFlowStep(flowHelper.getFlowStep(getOriginalURI()), true);
-        return redirect(nextFlowStep != null ? flowHelper.getOriginalURI(nextFlowStep) : flowHelper.getOriginalURI(flowHelper.getFirstActiveFlowStep()))
-            .bind("nextStep", nextFlowStep);
+        CheckoutFlowStep nextFlowStep = flowHelper.getNextActiveFlowStep(flowHelper.getFlowStep(getOriginalURI()),
+            true);
+        return redirect(nextFlowStep != null ? flowHelper.getOriginalURI(nextFlowStep)
+            : flowHelper.getOriginalURI(flowHelper.getFirstActiveFlowStep())).bind("nextStep", nextFlowStep);
     }
 
     @Request(value = "/checkout", method = HttpMethod.GET)
@@ -211,12 +198,9 @@ public class PageCheckoutController extends BaseCheckoutController {
             checkoutService.updateCheckout(checkout);
         }
 
-        return view("checkout/page/preview")
-            .bind("secureBasePath", getSecureBasePath())
-            .bind("previewCheckout", getPreviewCheckout())
-            .bind("cartTotals", getCartTotals())
-            .bind("previewCart", getPreviewCart())
-            .bind("countries", getAllowedCountries())
+        return view("checkout/page/preview").bind("secureBasePath", getSecureBasePath())
+            .bind("previewCheckout", getPreviewCheckout()).bind("cartTotals", getCartTotals())
+            .bind("previewCart", getPreviewCart()).bind("countries", getAllowedCountries())
             .bind("formAction", flowHelper.getOriginalURI(flowHelper.getFlowStep(getOriginalURI())));
     }
 
@@ -238,19 +222,15 @@ public class PageCheckoutController extends BaseCheckoutController {
             completeErrors = true;
         }
         if (completeErrors)
-            return view("checkout/page/preview")
-                .bind(bindings.typedValues())
-                .bind("secureBasePath", getSecureBasePath())
-                .bind("previewCheckout", getPreviewCheckout())
-                .bind("cartTotals", getCartTotals())
-                .bind("previewCart", getPreviewCart())
+            return view("checkout/page/preview").bind(bindings.typedValues())
+                .bind("secureBasePath", getSecureBasePath()).bind("previewCheckout", getPreviewCheckout())
+                .bind("cartTotals", getCartTotals()).bind("previewCart", getPreviewCart())
                 .bind("countries", getAllowedCountries())
                 .bind("formAction", flowHelper.getOriginalURI(flowHelper.getFlowStep(getOriginalURI())));
 
         if (bindings.hasErrors()) {
             errors.add("checkout.error.agree.terms");
-            return view("checkout/page/preview")
-                .bind(bindings.typedValues());
+            return view("checkout/page/preview").bind(bindings.typedValues());
         }
 
         if (!checkCoupon(getCart(), getCheckout()))
@@ -266,7 +246,7 @@ public class PageCheckoutController extends BaseCheckoutController {
                 checkoutService.updateCheckout(getCheckout());
             } else {
                 // Creating user
-                customer = app.getModel(Customer.class);
+                customer = app.model(Customer.class);
                 customer.setId(app.nextId());
                 customer.setCustomerNumber(app.nextIncrementId("customer_number"));
 
@@ -291,8 +271,9 @@ public class PageCheckoutController extends BaseCheckoutController {
                     try {
                         byte[] randomSalt = Passwords.getRandomSalt();
 
-                        Account account = app.getModel(Account.class);
-                        account.belongsTo(customer).setUsername(checkout.getEmail()).setPassword(encryptPassword(password, randomSalt)).setSalt(randomSalt).enableAccount();
+                        Account account = app.model(Account.class);
+                        account.belongsTo(customer).setUsername(checkout.getEmail())
+                            .setPassword(encryptPassword(password, randomSalt)).setSalt(randomSalt).enableAccount();
 
                         account = customerService.createAccount(account);
                     } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
@@ -312,9 +293,7 @@ public class PageCheckoutController extends BaseCheckoutController {
         // order.setClubMember(checkout.isClubMember());
 
         // TODO : check later!!!
-        order.fromRequestContext(getRequestContext())
-            .belongsTo(customer)
-            .fromCheckout(getCheckout());
+        order.fromRequestContext(getRequestContext()).belongsTo(customer).fromCheckout(getCheckout());
         // .setId(orderId);
         // order.fromRequestContext(getRequestContext()).belongsTo(customer).fromCheckout(getCheckout()).setId(id);
 
@@ -331,11 +310,9 @@ public class PageCheckoutController extends BaseCheckoutController {
         customerService.addPayment(customer, paymentMethodCode, paymentParams);
 
         // Add payment
-        OrderPayment orderPayment = app.getModel(OrderPayment.class);
-        orderPayment.setId(app.nextId())
-            .setPaymentMethodCode(getCheckout().getPaymentMethod())
-            .setCurrency(app.getBaseCurrency())
-            .setRateAmount(getCheckout().getPaymentRateAmount())
+        OrderPayment orderPayment = app.model(OrderPayment.class);
+        orderPayment.setId(app.nextId()).setPaymentMethodCode(getCheckout().getPaymentMethod())
+            .setCurrency(app.getBaseCurrency()).setRateAmount(getCheckout().getPaymentRateAmount())
             .belongsTo(order);
 
         orderPayment.setCustom(checkout.getPaymentParameters());
@@ -359,7 +336,8 @@ public class PageCheckoutController extends BaseCheckoutController {
             oldOrder = checkoutService.getOrder(oldOrderId);
             if ((oldOrder.getOrderStatus() == OrderStatus.NEW || oldOrder.getOrderStatus() == OrderStatus.PENDING)
                 && (oldOrder.getOrderPayment() == null
-                    || (oldOrder.getOrderPayment().getPaymentStatus() != PaymentStatus.AUTHORIZED && oldOrder.getOrderPayment().getPaymentStatus() != PaymentStatus.PAID))) {
+                    || (oldOrder.getOrderPayment().getPaymentStatus() != PaymentStatus.AUTHORIZED
+                        && oldOrder.getOrderPayment().getPaymentStatus() != PaymentStatus.PAID))) {
             } else {
                 oldOrder = null;
             }
@@ -419,7 +397,8 @@ public class PageCheckoutController extends BaseCheckoutController {
         return true;
     }
 
-    private byte[] encryptPassword(String password, byte[] randomSalt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private byte[] encryptPassword(String password, byte[] randomSalt)
+        throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (password == null || randomSalt == null || randomSalt.length == 0)
             throw new NullPointerException("Password and/or random salt cannot be null");
 
@@ -443,9 +422,9 @@ public class PageCheckoutController extends BaseCheckoutController {
         List<ShippingOption> shippingOptions = checkout.getDeliveryEstimationOptions();
 
         for (ShippingOption shippingOption : shippingOptions) {
-            OrderShipment shipment = app.getModel(OrderShipment.class).belongsTo(order).setCarrierCode(shippingOption.getCarrierCode()).setOptionCode(shippingOption.getOptionCode())
-                .setShippingAmount(shippingOption.getRate())
-                .setOptionName(shippingOption.getName());
+            OrderShipment shipment = app.model(OrderShipment.class).belongsTo(order)
+                .setCarrierCode(shippingOption.getCarrierCode()).setOptionCode(shippingOption.getOptionCode())
+                .setShippingAmount(shippingOption.getRate()).setOptionName(shippingOption.getName());
 
             order.addOrderShipment(shipment);
 
@@ -453,9 +432,10 @@ public class PageCheckoutController extends BaseCheckoutController {
 
                 List<OrderShipmentItem> orderShipmentItemList = new ArrayList<>();
                 for (ShippingItem shippingItem : shippingOption.getShippingPackage().getShippingItems()) {
-                    OrderItem orderItem = order.getOrderItems().stream().filter(x -> x.getProductId().equals(shippingItem.getProductId())).findFirst().get();
+                    OrderItem orderItem = order.getOrderItems().stream()
+                        .filter(x -> x.getProductId().equals(shippingItem.getProductId())).findFirst().get();
 
-                    OrderShipmentItem orderShipmentItem = app.getModel(OrderShipmentItem.class);
+                    OrderShipmentItem orderShipmentItem = app.model(OrderShipmentItem.class);
                     orderShipmentItem.setId(app.nextId());
                     orderShipmentItem.setOrderItemId(orderItem.getId());
 
@@ -465,7 +445,7 @@ public class PageCheckoutController extends BaseCheckoutController {
             }
 
             List<OrderShipmentOption> shippingOptionList = new ArrayList<>();
-            OrderShipmentOption option = app.getModel(OrderShipmentOption.class);
+            OrderShipmentOption option = app.model(OrderShipmentOption.class);
 
             option.setName(shippingOption.getName());
             option.setCarrier(shippingOption.getCarrierCode());

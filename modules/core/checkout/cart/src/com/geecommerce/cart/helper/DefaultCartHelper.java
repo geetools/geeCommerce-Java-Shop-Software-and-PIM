@@ -132,7 +132,7 @@ public class DefaultCartHelper implements CartHelper {
     }
 
     protected Cart createNewCart() {
-        Cart cart = app.getModel(Cart.class);
+        Cart cart = app.model(Cart.class);
 
         if (app.isCustomerLoggedIn()) {
             cart.belongsTo((Customer) app.getLoggedInCustomer());

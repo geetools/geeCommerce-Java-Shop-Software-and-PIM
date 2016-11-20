@@ -67,19 +67,19 @@ public interface Price extends Model {
     public Double getFinalPrice();
 
     static final class Col {
-	public static final String ID = "_id";
-	public static final String ID2 = "id2";
-	public static final String PRODUCT_ID = "prd_id";
-	public static final String STORE_ID = "store_id";
-	public static final String CUSTOMER_ID = "cust_id";
-	public static final String CUSTOMER_GROUP_ID = "cust_grp_id";
-	public static final String CURRENCY = "currency";
-	public static final String COUNTRY = "country";
-	public static final String QTY_FROM = "qty_from";
-	public static final String TYPE_ID = "type_id";
-	public static final String TYPE_OBJECT_ID = "type_obj_id";
-	public static final String PRICE = "price";
-	public static final String VALID_FROM = "valid_from";
-	public static final String VALID_TO = "valid_to";
+        public static final String ID = "_id";
+        public static final String ID2 = "id2";
+        public static final String PRODUCT_ID = "prd_id";
+        public static final String STORE_ID = "store_id";
+        public static final String CUSTOMER_ID = "cust_id";
+        public static final String CUSTOMER_GROUP_ID = "cust_grp_id";
+        public static final String CURRENCY = "currency";
+        public static final String COUNTRY = "country";
+        public static final String QTY_FROM = "qty_from";
+        public static final String TYPE_ID = "type_id";
+        public static final String TYPE_OBJECT_ID = "type_obj_id";
+        public static final String PRICE = "price";
+        public static final String VALID_FROM = "valid_from";
+        public static final String VALID_TO = "valid_to";
     }
 }

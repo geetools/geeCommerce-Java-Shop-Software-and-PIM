@@ -1,9 +1,9 @@
 package com.geecommerce.retail.model;
 
+import java.util.Set;
+
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Set;
 
 public interface Warehouse extends Model {
 
@@ -42,13 +42,13 @@ public interface Warehouse extends Model {
     Set<String> getNumbers();
 
     class Column {
-	public static final String ID = "_id";
-	public static final String PLZ = "plz";
-	public static final String L1 = "l1";
-	public static final String L2 = "l2";
-	public static final String L3 = "l3";
-	public static final String L4 = "l4";
-	public static final String L5 = "l5";
-	public static final String L6 = "l6";
+        public static final String ID = "_id";
+        public static final String PLZ = "plz";
+        public static final String L1 = "l1";
+        public static final String L2 = "l2";
+        public static final String L3 = "l3";
+        public static final String L4 = "l4";
+        public static final String L5 = "l5";
+        public static final String L6 = "l6";
     }
 }

@@ -5,11 +5,11 @@ import com.geecommerce.test.core.reflect.CustomClassTestInterface;
 public class DefaultMerchantOverrideTestController implements CustomClassTestInterface {
     @Override
     public String test() {
-	return "default";
+        return "default";
     }
 
     @Override
     public String parentTest() {
-	return "parent-default";
+        return "parent-default";
     }
 }

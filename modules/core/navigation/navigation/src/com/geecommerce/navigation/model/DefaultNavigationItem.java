@@ -77,7 +77,8 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
     private final Contents contents;
 
     @Inject
-    public DefaultNavigationItem(NavigationItems navigationItems, UrlRewrites urlRewrites, ProductLists productLists, Products products, Contents contents) {
+    public DefaultNavigationItem(NavigationItems navigationItems, UrlRewrites urlRewrites, ProductLists productLists,
+        Products products, Contents contents) {
         this.navigationItems = navigationItems;
         this.urlRewrites = urlRewrites;
         this.productLists = productLists;
@@ -318,7 +319,8 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
     @JsonIgnore
     @Override
     public boolean hasExternalURL() {
-        return !isForProductList() && !isForProduct() && !isForCMS() && externalURL != null && externalURL.getStr() != null;
+        return !isForProductList() && !isForProduct() && !isForCMS() && externalURL != null
+            && externalURL.getStr() != null;
     }
 
     @Override
@@ -489,10 +491,11 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
 
     @Override
     public String toString() {
-        return "DefaultNavigationItem [id=" + id + ", parentId=" + parentId + ", rootId=" + rootId + ", id2=" + id2 + ", key=" + key + ", label=" + label + ", level=" + level + ", position="
-                + position + ", targetObjectId=" + targetObjectId
-                + ", targetObjectType=" + targetObjectType + ", useTargetObjectLabel=" + useTargetObjectLabel + ", externalURL=" + externalURL + ", enabled=" + enabled + ", displayLabel="
-                + getDisplayLabel() + ", displayURI=" + getDisplayURI()
-                + ", targetObject=" + getTargetObject() + ", parent=" + getParent() + "]";
+        return "DefaultNavigationItem [id=" + id + ", parentId=" + parentId + ", rootId=" + rootId + ", id2=" + id2
+            + ", key=" + key + ", label=" + label + ", level=" + level + ", position=" + position
+            + ", targetObjectId=" + targetObjectId + ", targetObjectType=" + targetObjectType
+            + ", useTargetObjectLabel=" + useTargetObjectLabel + ", externalURL=" + externalURL + ", enabled="
+            + enabled + ", displayLabel=" + getDisplayLabel() + ", displayURI=" + getDisplayURI()
+            + ", targetObject=" + getTargetObject() + ", parent=" + getParent() + "]";
     }
 }

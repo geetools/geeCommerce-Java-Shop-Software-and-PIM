@@ -9,6 +9,7 @@ package com.dhl.dctrequestdatatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for QtdShpType complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="QtdShpType">
@@ -70,7 +72,7 @@ public class QtdShpType {
      * 
      */
     public String getGlobalProductCode() {
-	return globalProductCode;
+        return globalProductCode;
     }
 
     /**
@@ -81,7 +83,7 @@ public class QtdShpType {
      * 
      */
     public void setGlobalProductCode(String value) {
-	this.globalProductCode = value;
+        this.globalProductCode = value;
     }
 
     /**
@@ -91,7 +93,7 @@ public class QtdShpType {
      * 
      */
     public String getLocalProductCode() {
-	return localProductCode;
+        return localProductCode;
     }
 
     /**
@@ -102,15 +104,17 @@ public class QtdShpType {
      * 
      */
     public void setLocalProductCode(String value) {
-	this.localProductCode = value;
+        this.localProductCode = value;
     }
 
     /**
      * Gets the value of the qtdShpExChrg property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the qtdShpExChrg property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the qtdShpExChrg property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -121,15 +125,16 @@ public class QtdShpType {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link QtdShpExChrgType }
+     * Objects of the following type(s) are allowed in the list
+     * {@link QtdShpExChrgType }
      * 
      * 
      */
     public List<QtdShpExChrgType> getQtdShpExChrg() {
-	if (qtdShpExChrg == null) {
-	    qtdShpExChrg = new ArrayList<QtdShpExChrgType>();
-	}
-	return this.qtdShpExChrg;
+        if (qtdShpExChrg == null) {
+            qtdShpExChrg = new ArrayList<QtdShpExChrgType>();
+        }
+        return this.qtdShpExChrg;
     }
 
 }

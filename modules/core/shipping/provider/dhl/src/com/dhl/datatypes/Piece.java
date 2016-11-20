@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Piece complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Piece">
@@ -44,7 +46,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Piece", propOrder = { "pieceID", "packageType", "weight", "dimWeight", "width", "height", "depth", "pieceContents" })
+@XmlType(name = "Piece", propOrder = { "pieceID", "packageType", "weight", "dimWeight", "width", "height", "depth",
+    "pieceContents" })
 public class Piece {
 
     @XmlElement(name = "PieceID")
@@ -74,7 +77,7 @@ public class Piece {
      * 
      */
     public String getPieceID() {
-	return pieceID;
+        return pieceID;
     }
 
     /**
@@ -85,7 +88,7 @@ public class Piece {
      * 
      */
     public void setPieceID(String value) {
-	this.pieceID = value;
+        this.pieceID = value;
     }
 
     /**
@@ -95,7 +98,7 @@ public class Piece {
      * 
      */
     public PackageType getPackageType() {
-	return packageType;
+        return packageType;
     }
 
     /**
@@ -106,7 +109,7 @@ public class Piece {
      * 
      */
     public void setPackageType(PackageType value) {
-	this.packageType = value;
+        this.packageType = value;
     }
 
     /**
@@ -116,7 +119,7 @@ public class Piece {
      * 
      */
     public BigDecimal getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -127,7 +130,7 @@ public class Piece {
      * 
      */
     public void setWeight(BigDecimal value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -137,7 +140,7 @@ public class Piece {
      * 
      */
     public BigDecimal getDimWeight() {
-	return dimWeight;
+        return dimWeight;
     }
 
     /**
@@ -148,7 +151,7 @@ public class Piece {
      * 
      */
     public void setDimWeight(BigDecimal value) {
-	this.dimWeight = value;
+        this.dimWeight = value;
     }
 
     /**
@@ -158,7 +161,7 @@ public class Piece {
      * 
      */
     public BigInteger getWidth() {
-	return width;
+        return width;
     }
 
     /**
@@ -169,7 +172,7 @@ public class Piece {
      * 
      */
     public void setWidth(BigInteger value) {
-	this.width = value;
+        this.width = value;
     }
 
     /**
@@ -179,7 +182,7 @@ public class Piece {
      * 
      */
     public BigInteger getHeight() {
-	return height;
+        return height;
     }
 
     /**
@@ -190,7 +193,7 @@ public class Piece {
      * 
      */
     public void setHeight(BigInteger value) {
-	this.height = value;
+        this.height = value;
     }
 
     /**
@@ -200,7 +203,7 @@ public class Piece {
      * 
      */
     public BigInteger getDepth() {
-	return depth;
+        return depth;
     }
 
     /**
@@ -211,7 +214,7 @@ public class Piece {
      * 
      */
     public void setDepth(BigInteger value) {
-	this.depth = value;
+        this.depth = value;
     }
 
     /**
@@ -221,7 +224,7 @@ public class Piece {
      * 
      */
     public String getPieceContents() {
-	return pieceContents;
+        return pieceContents;
     }
 
     /**
@@ -232,7 +235,7 @@ public class Piece {
      * 
      */
     public void setPieceContents(String value) {
-	this.pieceContents = value;
+        this.pieceContents = value;
     }
 
 }

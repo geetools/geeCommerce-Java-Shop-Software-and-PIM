@@ -1,7 +1,8 @@
 package com.geecommerce.shipping;
 
-import com.geecommerce.shipping.model.ShippingEvent;
 import java.util.List;
+
+import com.geecommerce.shipping.model.ShippingEvent;
 
 public abstract class AbstractShippingTracker {
     public abstract String getCode();

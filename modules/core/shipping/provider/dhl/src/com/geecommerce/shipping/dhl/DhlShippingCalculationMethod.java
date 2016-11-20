@@ -14,6 +14,13 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.dhl.DCTRequest;
+import com.dhl.DCTResponse;
+import com.dhl.dctrequestdatatypes.BkgDetailsType;
+import com.dhl.dctrequestdatatypes.DCTFrom;
+import com.dhl.dctrequestdatatypes.DCTTo;
+import com.dhl.dctrequestdatatypes.PieceType;
+import com.dhl.dctresponsedatatypes.QtdShpType;
 import com.geecommerce.core.App;
 import com.geecommerce.shipping.AbstractShippingCalculationMethod;
 import com.geecommerce.shipping.annotation.ShippingCalculationMethod;
@@ -25,13 +32,6 @@ import com.geecommerce.unit.converter.enums.LengthUnit;
 import com.geecommerce.unit.converter.enums.MassUnit;
 import com.geecommerce.unit.converter.service.LengthConverter;
 import com.geecommerce.unit.converter.service.MassConverter;
-import com.dhl.DCTRequest;
-import com.dhl.DCTResponse;
-import com.dhl.dctrequestdatatypes.BkgDetailsType;
-import com.dhl.dctrequestdatatypes.DCTFrom;
-import com.dhl.dctrequestdatatypes.DCTTo;
-import com.dhl.dctrequestdatatypes.PieceType;
-import com.dhl.dctresponsedatatypes.QtdShpType;
 import com.google.inject.Inject;
 
 @ShippingCalculationMethod
@@ -53,7 +53,8 @@ public class DhlShippingCalculationMethod extends AbstractShippingCalculationMet
 
     private boolean couldCalculateShipment(ShippingPackage shippingData) {
         for (ShippingItem item : shippingData.getShippingItems()) {
-            if (item.getWeight() == null || item.getWidth() == null || item.getHeight() == null || item.getDepth() == null)
+            if (item.getWeight() == null || item.getWidth() == null || item.getHeight() == null
+                || item.getDepth() == null)
                 return false;
         }
         return true;
@@ -72,11 +73,13 @@ public class DhlShippingCalculationMethod extends AbstractShippingCalculationMet
             dhlService.sendRequestToXmlPi(request, connection);
             String response = dhlService.readResponseFromXmlPi(connection);
             if (!dhlService.isErrorResponse(response, "res:ErrorResponse")) {
-                DCTResponse dctResponse = (DCTResponse) dhlService.unmarshal(response, new Class[] { DCTResponse.class });
+                DCTResponse dctResponse = (DCTResponse) dhlService.unmarshal(response,
+                    new Class[] { DCTResponse.class });
                 List<ShippingOption> options = new ArrayList<>();
-                for (com.dhl.dctresponsedatatypes.BkgDetailsType bkgDetailsType : dctResponse.getGetQuoteResponse().getBkgDetails()) {
+                for (com.dhl.dctresponsedatatypes.BkgDetailsType bkgDetailsType : dctResponse.getGetQuoteResponse()
+                    .getBkgDetails()) {
                     for (QtdShpType qtdShpType : bkgDetailsType.getQtdShp()) {
-                        ShippingOption option = app.getInjectable(ShippingOption.class);
+                        ShippingOption option = app.injectable(ShippingOption.class);
                         option.setCarrierCode(getCode());
                         option.setRate(qtdShpType.getShippingCharge().doubleValue());
                         option.setName(qtdShpType.getProductShortName());
@@ -178,7 +181,8 @@ public class DhlShippingCalculationMethod extends AbstractShippingCalculationMet
         return factory.newDurationDayTime(true, 1, 0, 0, 0); // in one day
     }
 
-    private void setPiecesInfo(BkgDetailsType bkgDetails, ShippingPackage shippingData) throws DatatypeConfigurationException {
+    private void setPiecesInfo(BkgDetailsType bkgDetails, ShippingPackage shippingData)
+        throws DatatypeConfigurationException {
         BkgDetailsType.Pieces piecesContainer = new BkgDetailsType.Pieces();
         List<PieceType> pieces = piecesContainer.getPiece();
 
@@ -217,8 +221,8 @@ public class DhlShippingCalculationMethod extends AbstractShippingCalculationMet
     private PieceType fromShippingItem(ShippingItem item) {
         PieceType piece = new PieceType();
 
-        LengthConverter lengthConverter = app.getService(LengthConverter.class);
-        MassConverter massConverter = app.getService(MassConverter.class);
+        LengthConverter lengthConverter = app.service(LengthConverter.class);
+        MassConverter massConverter = app.service(MassConverter.class);
 
         LengthUnit l_unit = getDhlLengthUnit();
         MassUnit m_unit = getDhlMassUnit();

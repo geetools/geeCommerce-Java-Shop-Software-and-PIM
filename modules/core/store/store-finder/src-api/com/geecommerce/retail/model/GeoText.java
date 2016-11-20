@@ -18,8 +18,8 @@ public interface GeoText extends Model {
     void setValue(String value);
 
     class Column {
-	public static final String ID = "loc_id";
-	public static final String TYPE = "text_type";
-	public static final String VALUE = "text_val";
+        public static final String ID = "loc_id";
+        public static final String TYPE = "text_type";
+        public static final String VALUE = "text_val";
     }
 }

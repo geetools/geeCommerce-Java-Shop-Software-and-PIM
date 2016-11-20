@@ -132,20 +132,23 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
         }
     }
 
-    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter, String distinctFieldName) {
+    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter,
+        String distinctFieldName) {
         return multiContextFind(modelClass, filter, distinctFieldName, null);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter, String distinctFieldName, QueryOptions queryOptions) {
+    public <T extends MultiContextModel> List<T> multiContextFind(Class<T> modelClass, Map<String, Object> filter,
+        String distinctFieldName, QueryOptions queryOptions) {
         List<MultiContextModel> allResults = new ArrayList<>();
 
         Cache<MultiContextCacheKey, List<ContextType>> contextsCache = multiContextQueryCtxCache(modelClass);
 
         Map<String, Object> notInClause = null;
 
-        MultiContextCacheKey contextsKey = new MultiContextCacheKey(modelClass, filter, distinctFieldName, queryOptions);
+        MultiContextCacheKey contextsKey = new MultiContextCacheKey(modelClass, filter, distinctFieldName,
+            queryOptions);
         List<ContextType> contextTypes = contextsCache.get(contextsKey);
 
         List<ContextType> existsContextTypes = new ArrayList<>();
@@ -313,14 +316,12 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
      * <p>
      * {$and: [{"status": 1}, {m:2605912398810100}, {s:null},
      * {req_ctx_id:null}]}, {$and: [{"status": 1}, {m:2605912398810100},
-     * {s:2605912398810101},
-     * {req_ctx_id:null}]}, {$and: [{"status": 1}, {m:2605912398810100},
-     * {s:null}, {req_ctx_id:2605912416310100}]},
+     * {s:2605912398810101}, {req_ctx_id:null}]}, {$and: [{"status": 1},
+     * {m:2605912398810100}, {s:null}, {req_ctx_id:2605912416310100}]},
      * <p>
      * {$and: [{"status": 1}, {m:null}, {s:2605912398810101},
      * {req_ctx_id:null}]}, {$and: [{"status": 1}, {m:null},
-     * {s:2605912398810101},
-     * {req_ctx_id:2605912416310100}]},
+     * {s:2605912398810101}, {req_ctx_id:2605912416310100}]},
      * <p>
      * {$and: [{"status": 1}, {m:null}, {s:null},
      * {req_ctx_id:2605912416310100}]} ]}
@@ -333,8 +334,9 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
      * @return
      */
     @Override
-    public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
-        ApplicationContext appCtx = app.getApplicationContext();
+    public <T extends MultiContextModel> List<T> simpleContextFind(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
 
         Map<String, Object> rootORMap = new LinkedHashMap<>();
@@ -396,13 +398,15 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
     }
 
     @Override
-    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass, Map<String, Object> filter) {
+    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
+        Map<String, Object> filter) {
         return simpleContextFindIdsOnly(modelClass, filter, null);
     }
 
     @Override
-    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
-        ApplicationContext appCtx = app.getApplicationContext();
+    public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
+        Map<String, Object> filter, QueryOptions queryOptions) {
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
 
         Map<String, Object> rootORMap = new LinkedHashMap<>();
@@ -462,8 +466,9 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
         return dao().findIds(modelClass, rootORMap, queryOptions);
     }
 
-    public <T extends MultiContextModel> List<T> contextFind(Class<T> modelClass, Map<String, Object> filter, QueryOptions queryOptions) {
-        ApplicationContext appCtx = app.getApplicationContext();
+    public <T extends MultiContextModel> List<T> contextFind(Class<T> modelClass, Map<String, Object> filter,
+        QueryOptions queryOptions) {
+        ApplicationContext appCtx = app.context();
         RequestContext reqCtx = appCtx.getRequestContext();
 
         Map<String, Object> rootORMap = new LinkedHashMap<>();
@@ -522,7 +527,8 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
         return (List<T>) ctxResults;
     }
 
-    protected <T extends MultiContextModel> Map<String, Object> getNotInClauseForAlreadyFetchedResults(List<T> resultObjects, String distinctFieldName) {
+    protected <T extends MultiContextModel> Map<String, Object> getNotInClauseForAlreadyFetchedResults(
+        List<T> resultObjects, String distinctFieldName) {
         List<Object> values = getValuesByDistinctField(resultObjects, distinctFieldName);
 
         Map<String, Object> notInClause = new LinkedHashMap<>();
@@ -534,7 +540,8 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
         return notInClause;
     }
 
-    protected <T extends MultiContextModel> List<Object> getValuesByDistinctField(List<T> resultObjects, String distinctFieldName) {
+    protected <T extends MultiContextModel> List<Object> getValuesByDistinctField(List<T> resultObjects,
+        String distinctFieldName) {
         List<Object> values = new ArrayList<>();
 
         for (MultiContextModel m : resultObjects) {
@@ -546,8 +553,10 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
     }
 
     @SuppressWarnings("unchecked")
-    public void appendAttributeCondition(AttributeTargetObject targetObject, String attributeCode, Object value, Map<String, Object> query) {
-        Map<String, Object> attributes = (Map<String, Object>) query.get(AttributeSupport.AttributeSupportColumn.ATTRIBUTES);
+    public void appendAttributeCondition(AttributeTargetObject targetObject, String attributeCode, Object value,
+        Map<String, Object> query) {
+        Map<String, Object> attributes = (Map<String, Object>) query
+            .get(AttributeSupport.AttributeSupportColumn.ATTRIBUTES);
 
         // ---------------------------------------------------------------
         // As this may not be the first command to set an attribute query,

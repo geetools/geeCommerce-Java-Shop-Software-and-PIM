@@ -43,7 +43,8 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
         Map<String, Object> filter = new LinkedHashMap<>();
         filter.put(RequestContext.Column.URL_PREFIX, Pattern.compile(new StringBuilder('^').append(host).toString()));
 
-        return find(RequestContext.class, filter, QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
+        return find(RequestContext.class, filter,
+            QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
     }
 
     @Override
@@ -57,7 +58,8 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
     @SuppressWarnings("unchecked")
     @Override
     public List<RequestContext> forScopes(List<Id> scopeIds) {
-        QueryBuilder query = new QueryBuilder().or(QueryBuilder.start(RequestContext.Column.ID).in(scopeIds).get(), QueryBuilder.start(RequestContext.Column.STORE_ID).in(scopeIds).get(),
+        QueryBuilder query = new QueryBuilder().or(QueryBuilder.start(RequestContext.Column.ID).in(scopeIds).get(),
+            QueryBuilder.start(RequestContext.Column.STORE_ID).in(scopeIds).get(),
             QueryBuilder.start(RequestContext.Column.MERCHANT_ID).in(scopeIds).get());
 
         return find(RequestContext.class, query.get().toMap());
@@ -68,7 +70,8 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
         Map<String, Object> filter = new LinkedHashMap<>();
         filter.put(RequestContext.Column.STORE_ID, store.getId());
 
-        return find(RequestContext.class, filter, QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
+        return find(RequestContext.class, filter,
+            QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
     }
 
     @Override
@@ -76,6 +79,7 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
         Map<String, Object> filter = new LinkedHashMap<>();
         filter.put(RequestContext.Column.MERCHANT_ID, merchant.getId());
 
-        return find(RequestContext.class, filter, QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
+        return find(RequestContext.class, filter,
+            QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
     }
 }

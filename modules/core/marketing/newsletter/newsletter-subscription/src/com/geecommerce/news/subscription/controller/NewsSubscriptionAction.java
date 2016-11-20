@@ -41,11 +41,12 @@ public class NewsSubscriptionAction extends BaseActionBean {
             newsSubscriberService.subscribe(email, "NEWS_SUBSCR", null);
         }
 
-        app.publish("newsletter:subscription", Context.create("email", email, "action", "subscribe").setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object response) {
-            }
-        }));
+        app.publish("newsletter:subscription",
+            Context.create("email", email, "action", "subscribe").setResponseListener(new ResponseListener() {
+                @Override
+                public void onResponse(Object response) {
+                }
+            }));
 
         return json("{}");
     }
@@ -78,11 +79,12 @@ public class NewsSubscriptionAction extends BaseActionBean {
             newsSubscriberService.unsubscribe(email, "NEWS_SUBSCR", null);
         }
 
-        app.publish("newsletter:subscription", Context.create("email", email, "action", "unsubscribe").setResponseListener(new ResponseListener() {
-            @Override
-            public void onResponse(Object response) {
-            }
-        }));
+        app.publish("newsletter:subscription",
+            Context.create("email", email, "action", "unsubscribe").setResponseListener(new ResponseListener() {
+                @Override
+                public void onResponse(Object response) {
+                }
+            }));
     }
 
     @HandlesEvent("sms-service")

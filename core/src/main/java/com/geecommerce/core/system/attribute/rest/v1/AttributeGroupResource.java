@@ -41,25 +41,26 @@ public class AttributeGroupResource extends AbstractResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getAttributeGroups(@FilterParam Filter filter) {
-        List<AttributeGroup> attributeGroups = service.get(AttributeGroup.class, filter.getParams(), queryOptions(filter));
+        List<AttributeGroup> attributeGroups = service.get(AttributeGroup.class, filter.getParams(),
+            queryOptions(filter));
         return ok(attributeGroups);
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public AttributeGroup getAttributeGroup(@PathParam("id") Id id) {
         return checked(service.get(AttributeGroup.class, id));
     }
 
     @GET
     @Path("{id}/fix")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public AttributeGroup getFixAttributeGroup(@PathParam("id") Id id) {
         List<AttributeGroup> attributeGroups = service.get(AttributeGroup.class);
-        for(AttributeGroup attrGroup: attributeGroups){
+        for (AttributeGroup attrGroup : attributeGroups) {
             service.update(attrGroup);
         }
         return null;
@@ -67,7 +68,7 @@ public class AttributeGroupResource extends AbstractResource {
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateAttributeGroup(@PathParam("id") Id id, Update update) {
         AttributeGroup attributeGroup = checked(service.get(AttributeGroup.class, id));
         attributeGroup.set(update.getFields());
@@ -75,9 +76,9 @@ public class AttributeGroupResource extends AbstractResource {
     }
 
     @POST
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createAttributeGroup(Update update) {
-        AttributeGroup attributeGroup = app.getModel(AttributeGroup.class);
+        AttributeGroup attributeGroup = app.model(AttributeGroup.class);
         attributeGroup.set(update.getFields());
         attributeGroup = service.create(attributeGroup);
         return created(attributeGroup);
@@ -102,9 +103,10 @@ public class AttributeGroupResource extends AbstractResource {
             // Check that the tab and attribute exist first.
             AttributeGroup attributeGroup = service.get(AttributeGroup.class, id);
 
-            if(attributeGroup != null && attributeGroup.getItems() != null){
-                attributeIds = attributeGroup.getItems().stream().map(AttributeGroupMapping::getId).collect(Collectors.toList());
-                /*attributeIds.addAll(attributeGroup.getAttributeIds());*/
+            if (attributeGroup != null && attributeGroup.getItems() != null) {
+                attributeIds = attributeGroup.getItems().stream().map(AttributeGroupMapping::getId)
+                    .collect(Collectors.toList());
+                /* attributeIds.addAll(attributeGroup.getAttributeIds()); */
             }
         } else {
             throwBadRequest("GroupId cannot be null in requestURI. Expecting: {id}/notGroupAttributes");
@@ -129,13 +131,15 @@ public class AttributeGroupResource extends AbstractResource {
             // Check that the tab and attribute exist first.
             AttributeGroup attributeGroup = service.get(AttributeGroup.class, id);
 
-            if(attributeGroup != null && attributeGroup.getItems() != null){
+            if (attributeGroup != null && attributeGroup.getItems() != null) {
 
-                attributeIds = attributeGroup.getItems().stream().map(AttributeGroupMapping::getId).collect(Collectors.toList());
+                attributeIds = attributeGroup.getItems().stream().map(AttributeGroupMapping::getId)
+                    .collect(Collectors.toList());
                 attributeIds.add(id);
                 /*
-                attributeIds.addAll(attributeGroup.getAttributeIds());
-                attributeIds.add(id);*/
+                 * attributeIds.addAll(attributeGroup.getAttributeIds());
+                 * attributeIds.add(id);
+                 */
             }
         } else {
             throwBadRequest("GroupId cannot be null in requestURI. Expecting: {id}/notGroupAttributes");
@@ -152,7 +156,7 @@ public class AttributeGroupResource extends AbstractResource {
 
     @PUT
     @Path("{id}/attributes/{attributeId}")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response addAttributeToGroup(@PathParam("id") Id id, @PathParam("attributeId") Id attributeId) {
         if (id != null && attributeId != null) {
             // Check that the tab and attribute exist first.
@@ -164,14 +168,15 @@ public class AttributeGroupResource extends AbstractResource {
             return ok();
 
         } else {
-            throwBadRequest("TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
+            throwBadRequest(
+                "TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
         }
         return null;
     }
 
     @PUT
     @Path("{id}/attribute-groups/{groupId}")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response addGroupToGroup(@PathParam("id") Id id, @PathParam("groupId") Id groupId) {
         if (id != null && groupId != null) {
             // Check that the tab and attribute exist first.
@@ -183,14 +188,15 @@ public class AttributeGroupResource extends AbstractResource {
             return ok();
 
         } else {
-            throwBadRequest("TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
+            throwBadRequest(
+                "TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
         }
         return null;
     }
 
     @DELETE
     @Path("{id}/items/{itemId}")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void removeAttributeFromGroup(@PathParam("id") Id id, @PathParam("itemId") Id itemId) {
         if (id != null) {
             // Check that the tab and attribute exist first.
@@ -199,13 +205,14 @@ public class AttributeGroupResource extends AbstractResource {
             service.update(attributeGroup);
 
         } else {
-            throwBadRequest("TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
+            throwBadRequest(
+                "TabId and attributeId cannot be null in requestURI. Expecting: control-panels/{id}/attribute-tabs/{tabId}/attributes/{attributeId}");
         }
     }
 
     @PUT
     @Path("{id}/positions")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateAttributeTabPositions(@PathParam("id") Id id, HashMap<String, Integer> positionsMap) {
         System.out.println(positionsMap);
 
@@ -216,9 +223,9 @@ public class AttributeGroupResource extends AbstractResource {
                 Id optionId = Id.valueOf(key);
                 Integer pos = positionsMap.get(key);
 
-
-                Optional<AttributeGroupMapping> mapping = attributeGroup.getItems().stream().filter(x -> x.getId().equals(optionId)).findFirst();
-                if(mapping.isPresent()){
+                Optional<AttributeGroupMapping> mapping = attributeGroup.getItems().stream()
+                    .filter(x -> x.getId().equals(optionId)).findFirst();
+                if (mapping.isPresent()) {
                     mapping.get().setPosition(pos);
                 }
             }

@@ -16,7 +16,8 @@ public interface AttributeService extends Service {
 
     public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface);
 
-    public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface, boolean createIfNotExists);
+    public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface,
+        boolean createIfNotExists);
 
     public Attribute createAttribute(Attribute attribute);
 
@@ -32,11 +33,13 @@ public interface AttributeService extends Service {
 
     public List<Attribute> getAttributesFor(Class<? extends AttributeSupport> targetObjectType);
 
-    public List<Attribute> getAttributesFor(Class<? extends AttributeSupport> targetObjectType, QueryOptions queryOptions);
+    public List<Attribute> getAttributesFor(Class<? extends AttributeSupport> targetObjectType,
+        QueryOptions queryOptions);
 
     public Map<Id, Map<String, String>> getAttributeCodesBeginningWith(Id attrTargetObjectId, String codePrefix);
 
-    public Map<Id, Map<String, String>> getAttributeCodesBeginningWithCode2Prefix(Id attrTargetObjectId, String code2Prefix);
+    public Map<Id, Map<String, String>> getAttributeCodesBeginningWithCode2Prefix(Id attrTargetObjectId,
+        String code2Prefix);
 
     public Map<String, Attribute> getAttributesForSearchFilter(List<Id> attrTargetObjectIds);
 

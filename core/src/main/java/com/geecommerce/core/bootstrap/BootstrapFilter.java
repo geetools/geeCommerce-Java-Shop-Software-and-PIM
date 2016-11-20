@@ -26,7 +26,8 @@ public class BootstrapFilter implements javax.servlet.Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+        throws IOException, ServletException {
         if (log.isTraceEnabled()) {
             log.trace("Starting to bootstrap for URI: " + ((HttpServletRequest) request).getRequestURI());
         }
@@ -38,7 +39,8 @@ public class BootstrapFilter implements javax.servlet.Filter {
             String initParameterValue = filterConfig.getInitParameter(initParameterName);
 
             if (log.isTraceEnabled()) {
-                log.trace("Adding bootstrap-init-param '" + initParameterName + "' with value '" + initParameterValue + "' to AppRegistry.");
+                log.trace("Adding bootstrap-init-param '" + initParameterName + "' with value '" + initParameterValue
+                    + "' to AppRegistry.");
             }
 
             App.get().registryPut(initParameterName, initParameterValue);

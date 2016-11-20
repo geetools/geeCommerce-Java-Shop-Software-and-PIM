@@ -42,7 +42,8 @@ public class BootstrapNavigation extends AbstractBootstrap {
     protected final Products products;
 
     @Inject
-    protected BootstrapNavigation(NavigationService navigationService, ProductNavigationIndexes productNavigationIndexes, Products products) {
+    protected BootstrapNavigation(NavigationService navigationService,
+        ProductNavigationIndexes productNavigationIndexes, Products products) {
         this.navigationService = navigationService;
         this.productNavigationIndexes = productNavigationIndexes;
         this.products = products;
@@ -58,7 +59,7 @@ public class BootstrapNavigation extends AbstractBootstrap {
         HttpServletRequest request = getRequest();
         String path = request.getRequestURI();
 
-        ApplicationContext appCtx = app.getApplicationContext();
+        ApplicationContext appCtx = app.context();
         UrlRewrite urlRewrite = appCtx.getUrlRewrite();
 
         if (isInBlackList(path) || (urlRewrite != null && isInBlackList(urlRewrite.getTargetURL())))
@@ -91,7 +92,7 @@ public class BootstrapNavigation extends AbstractBootstrap {
                 }
                 // The referrer may be a rewritten URI, so lets try translating
                 // it.
-                else if (!app.getHelper(UrlRewriteHelper.class).isExcludedFromURLRewriting(referrer)) {
+                else if (!app.helper(UrlRewriteHelper.class).isExcludedFromURLRewriting(referrer)) {
                     UrlRewrite referrerURLRewrite = app.getUrlRewrite(referrer);
 
                     if (referrerURLRewrite != null && referrerURLRewrite.isForProductList())
@@ -102,7 +103,8 @@ public class BootstrapNavigation extends AbstractBootstrap {
             // Unfortunately none of the standard cases above worked, so we now
             // try and locate a productList via the
             // productId.
-            if (productListId == null && (path.startsWith(PRODUCT_BASE_URI) || (urlRewrite != null && urlRewrite.isForProduct()))) {
+            if (productListId == null
+                && (path.startsWith(PRODUCT_BASE_URI) || (urlRewrite != null && urlRewrite.isForProduct()))) {
                 Id productId = null;
 
                 // Simple case - URL-rewrite already exists and it is of type
@@ -179,7 +181,8 @@ public class BootstrapNavigation extends AbstractBootstrap {
 
             // Now we try to find out the matching navItemId.
             if (rootNavItem != null) {
-                navItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productListId, rootNavItem.getId());
+                navItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productListId,
+                    rootNavItem.getId());
             } else {
                 navItems = navigationService.getNavigationItemsByTargetObject(ObjectType.PRODUCT_LIST, productListId);
             }

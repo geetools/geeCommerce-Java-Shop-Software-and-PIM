@@ -17,25 +17,25 @@ public class KeyValue implements Serializable {
     }
 
     public KeyValue(String key, Object value) {
-	this.key = key;
-	this.value = value;
+        this.key = key;
+        this.value = value;
     }
 
     public String getKey() {
-	return key;
+        return key;
     }
 
     public KeyValue setKey(String key) {
-	this.key = key;
-	return this;
+        this.key = key;
+        return this;
     }
 
     public Object getValue() {
-	return value;
+        return value;
     }
 
     public KeyValue setValue(Object value) {
-	this.value = value;
-	return this;
+        this.value = value;
+        return this;
     }
 }

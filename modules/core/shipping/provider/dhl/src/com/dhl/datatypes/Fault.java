@@ -9,6 +9,7 @@ package com.dhl.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for Fault complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Fault">
@@ -48,8 +50,10 @@ public class Fault {
      * Gets the value of the pieceFault property.
      * 
      * <p>
-     * This accessor method returns a reference to the live list, not a snapshot. Therefore any modification you make to the returned list will be
-     * present inside the JAXB object. This is why there is not a <CODE>set</CODE> method for the pieceFault property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the pieceFault property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
@@ -60,15 +64,16 @@ public class Fault {
      * 
      * 
      * <p>
-     * Objects of the following type(s) are allowed in the list {@link PieceFault }
+     * Objects of the following type(s) are allowed in the list
+     * {@link PieceFault }
      * 
      * 
      */
     public List<PieceFault> getPieceFault() {
-	if (pieceFault == null) {
-	    pieceFault = new ArrayList<PieceFault>();
-	}
-	return this.pieceFault;
+        if (pieceFault == null) {
+            pieceFault = new ArrayList<PieceFault>();
+        }
+        return this.pieceFault;
     }
 
 }

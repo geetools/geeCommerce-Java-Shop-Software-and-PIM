@@ -1,8 +1,10 @@
 package com.geecommerce.core.event;
 
 /**
- * Use this interface along with the {@link com.geecommerce.core.event.annotation.Observe} annotation in order to observe objects extending the
- * {@link com.geecommerce.core.event.Observable} class.
+ * Use this interface along with the
+ * {@link com.geecommerce.core.event.annotation.Observe} annotation in order to
+ * observe objects extending the {@link com.geecommerce.core.event.Observable}
+ * class.
  * 
  * @see com.geecommerce.core.event.Observable
  * @see com.geecommerce.core.event.annotation.Observe

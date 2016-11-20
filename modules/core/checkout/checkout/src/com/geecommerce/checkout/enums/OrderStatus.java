@@ -6,7 +6,8 @@ import com.geecommerce.core.App;
 import com.google.common.collect.Maps;
 
 public enum OrderStatus {
-    NEW(10), PENDING(20), ACCEPTED(30), CONFIRMED(40), DISPATCHED(50), DONE(60), READY(70), CANCELED(80), PARTIALLY_CANCELED(90), REJECTED(100);
+    NEW(10), PENDING(20), ACCEPTED(30), CONFIRMED(40), DISPATCHED(50), DONE(60), READY(70), CANCELED(
+        80), PARTIALLY_CANCELED(90), REJECTED(100);
 
     private int id;
 
@@ -19,7 +20,8 @@ public enum OrderStatus {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(OrderStatus.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(OrderStatus.class.getSimpleName()).append(".")
+            .append(name()).toString());
     }
 
     public static final OrderStatus fromId(int id) {
@@ -36,13 +38,15 @@ public enum OrderStatus {
         Map<String, Integer> hrMap = Maps.newTreeMap();
 
         for (OrderStatus orderStatus : values()) {
-            hrMap.put(App.get().message(new StringBuilder("enum.").append(OrderStatus.class.getSimpleName()).append(".").append(orderStatus.name()).toString()), orderStatus.id);
+            hrMap.put(App.get().message(new StringBuilder("enum.").append(OrderStatus.class.getSimpleName()).append(".")
+                .append(orderStatus.name()).toString()), orderStatus.id);
         }
 
         return hrMap;
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(OrderStatus.class.getSimpleName()).append(".label").toString());
+        return App.get().message(
+            new StringBuilder("enum.").append(OrderStatus.class.getSimpleName()).append(".label").toString());
     }
 }

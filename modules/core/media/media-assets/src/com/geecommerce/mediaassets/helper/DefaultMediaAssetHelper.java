@@ -55,7 +55,8 @@ public class DefaultMediaAssetHelper implements MediaAssetHelper {
                     return null;
 
                 Id id = app.nextId();
-                createGridFsFile(id, new ByteArrayInputStream(stream.toByteArray()), "preview_" + file.getFilename(), "application/pdf");
+                createGridFsFile(id, new ByteArrayInputStream(stream.toByteArray()), "preview_" + file.getFilename(),
+                    "application/pdf");
                 return id;
             }
         }

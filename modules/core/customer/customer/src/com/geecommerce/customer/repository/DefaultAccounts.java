@@ -44,7 +44,8 @@ public class DefaultAccounts extends AbstractRepository implements Accounts {
         List<Account> accounts = find(Account.class, filter);
 
         if (accounts != null && accounts.size() > 1) {
-            throw new IllegalStateException("There is more than one account for customer " + customer + "! Therefore not returning any account.");
+            throw new IllegalStateException("There is more than one account for customer " + customer
+                + "! Therefore not returning any account.");
         }
 
         return accounts == null || accounts.isEmpty() ? null : accounts.get(0);
@@ -56,13 +57,15 @@ public class DefaultAccounts extends AbstractRepository implements Accounts {
             return null;
 
         Map<String, Object> filter = new HashMap<>();
-        filter.put(new StringBuilder(Account.Column.EXTERNAL_IDENTIFIERS).append(".").append(externalIdKey).toString(), externalIdValue);
+        filter.put(new StringBuilder(Account.Column.EXTERNAL_IDENTIFIERS).append(".").append(externalIdKey).toString(),
+            externalIdValue);
         filter.put(Account.Column.ENABLED, true);
 
         List<Account> accounts = find(Account.class, filter);
 
         if (accounts != null && accounts.size() > 1) {
-            throw new IllegalStateException("There is more than one account for filter '" + filter + "'! Therefore not returning any account.");
+            throw new IllegalStateException(
+                "There is more than one account for filter '" + filter + "'! Therefore not returning any account.");
         }
 
         return accounts == null || accounts.isEmpty() ? null : accounts.get(0);

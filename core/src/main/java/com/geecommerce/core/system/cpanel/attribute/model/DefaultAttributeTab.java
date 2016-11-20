@@ -231,9 +231,9 @@ public class DefaultAttributeTab extends AbstractModel implements AttributeTab {
 
     @Override
     public String toString() {
-        return "DefaultAttributeTab [id=" + id + ", controlPanelId=" + controlPanelId + ", targetObjectId=" + targetObjectId + ", label=" + label + ", position=" + position + ", showInVariantMaster="
-                + showInVariantMaster + ", showInProgramme="
-                + showInProgramme
-                + ", showInProduct=" + showInProduct + ", enabled=" + enabled + "]";
+        return "DefaultAttributeTab [id=" + id + ", controlPanelId=" + controlPanelId + ", targetObjectId="
+            + targetObjectId + ", label=" + label + ", position=" + position + ", showInVariantMaster="
+            + showInVariantMaster + ", showInProgramme=" + showInProgramme + ", showInProduct=" + showInProduct
+            + ", enabled=" + enabled + "]";
     }
 }

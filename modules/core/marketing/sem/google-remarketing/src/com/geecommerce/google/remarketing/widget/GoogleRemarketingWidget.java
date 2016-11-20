@@ -68,7 +68,8 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
+        ServletContext servletContext) throws Exception {
         try {
             String conversionId = app.cpStr_(CONF_KEY_GOOGLE_REMARKETING_ID);
             String conversionLabel = app.cpStr_(CONF_KEY_GOOGLE_REMARKETING_LABEL);
@@ -97,12 +98,14 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
                     Product product = (Product) request.getAttribute("product");
 
                     if (product != null) {
-                        productId = new StringBuilder(Str.SINGLE_QUOTE).append(product.getId()).append(Str.SINGLE_QUOTE).toString();
+                        productId = new StringBuilder(Str.SINGLE_QUOTE).append(product.getId()).append(Str.SINGLE_QUOTE)
+                            .toString();
 
                         PriceResult priceResult = product.getPrice();
 
                         if (priceResult != null) {
-                            Double p = product.isVariantMaster() ? priceResult.getLowestFinalPrice() : priceResult.getFinalPrice();
+                            Double p = product.isVariantMaster() ? priceResult.getLowestFinalPrice()
+                                : priceResult.getFinalPrice();
                             totalPrice = (p == null ? 0 : p);
                         }
                     }
@@ -128,7 +131,8 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
                             PriceResult priceResult = product.getPrice();
 
                             if (priceResult != null) {
-                                Double p = product.isVariantMaster() ? priceResult.getLowestFinalPrice() : priceResult.getFinalPrice();
+                                Double p = product.isVariantMaster() ? priceResult.getLowestFinalPrice()
+                                    : priceResult.getFinalPrice();
                                 totalPrice += (p == null ? 0 : p);
                             }
 
@@ -158,7 +162,8 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
                             if (x > 0)
                                 productIds.append(Char.COMMA);
 
-                            productIds.append(Char.SINGLE_QUOTE).append(cartItem.getProductId()).append(Char.SINGLE_QUOTE);
+                            productIds.append(Char.SINGLE_QUOTE).append(cartItem.getProductId())
+                                .append(Char.SINGLE_QUOTE);
 
                             Double p = cartItem.getProductPrice();
                             totalPrice += (p == null ? 0 : (cartItem.getProductPrice() * cartItem.getQuantity()));
@@ -190,7 +195,8 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
                                 if (x > 0)
                                     productIds.append(Char.COMMA);
 
-                                productIds.append(Char.SINGLE_QUOTE).append(orderItem.getProductId()).append(Char.SINGLE_QUOTE);
+                                productIds.append(Char.SINGLE_QUOTE).append(orderItem.getProductId())
+                                    .append(Char.SINGLE_QUOTE);
 
                                 Double p = orderItem.getTotalRowPrice();
                                 totalPrice += (p == null ? 0 : p);
@@ -225,7 +231,8 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
                             PriceResult priceResult = product.getPrice();
 
                             if (priceResult != null) {
-                                Double p = product.isVariantMaster() ? priceResult.getLowestFinalPrice() : priceResult.getFinalPrice();
+                                Double p = product.isVariantMaster() ? priceResult.getLowestFinalPrice()
+                                    : priceResult.getFinalPrice();
                                 totalPrice += (p == null ? 0 : p);
                             }
 
@@ -274,21 +281,25 @@ public class GoogleRemarketingWidget extends AbstractWidgetController implements
     }
 
     private boolean isCart(HttpServletRequest request) {
-        return request.getRequestURI().startsWith(REQUEST_URI_CART) || app.getOriginalURI().startsWith(REQUEST_URI_CART) || TEMPLATE_CART_VIEW.equals(app.registryGet(RegistryKey.VIEW_PATH));
+        return request.getRequestURI().startsWith(REQUEST_URI_CART) || app.getOriginalURI().startsWith(REQUEST_URI_CART)
+            || TEMPLATE_CART_VIEW.equals(app.registryGet(RegistryKey.VIEW_PATH));
     }
 
     private boolean isProductList(HttpServletRequest request) {
-        return request.getRequestURI().startsWith(REQUEST_URI_PRODUCT_LIST) || app.getOriginalURI().startsWith(REQUEST_URI_PRODUCT_LIST)
+        return request.getRequestURI().startsWith(REQUEST_URI_PRODUCT_LIST)
+            || app.getOriginalURI().startsWith(REQUEST_URI_PRODUCT_LIST)
             || TEMPLATE_PRODUCT_LIST.equals(app.registryGet(RegistryKey.VIEW_PATH));
     }
 
     private boolean isProduct(HttpServletRequest request) {
-        return request.getRequestURI().startsWith(REQUEST_URI_PRODUCT_VIEW) || app.getOriginalURI().startsWith(REQUEST_URI_PRODUCT_VIEW)
+        return request.getRequestURI().startsWith(REQUEST_URI_PRODUCT_VIEW)
+            || app.getOriginalURI().startsWith(REQUEST_URI_PRODUCT_VIEW)
             || TEMPLATE_PRODUCT_VIEW.equals(app.registryGet(RegistryKey.VIEW_PATH));
     }
 
     private boolean isHome(HttpServletRequest request) {
-        return REQUEST_URI_SLASH.equals(app.getOriginalURI()) || REQUEST_URI_EMPTY.equals(app.getOriginalURI()) || app.getOriginalURI().startsWith(REQUEST_URI_HOME)
+        return REQUEST_URI_SLASH.equals(app.getOriginalURI()) || REQUEST_URI_EMPTY.equals(app.getOriginalURI())
+            || app.getOriginalURI().startsWith(REQUEST_URI_HOME)
             || TEMPLATE_HOME.equals(app.registryGet(RegistryKey.VIEW_PATH));
     }
 }

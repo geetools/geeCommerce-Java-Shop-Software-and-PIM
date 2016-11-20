@@ -8,6 +8,7 @@
 package com.dhl.datatypes;
 
 import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * Java class for ExportLineItem complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ExportLineItem">
@@ -70,7 +72,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ExportLineItem", propOrder = { "lineNumber", "quantity", "quantityUnit", "description", "value", "isDomestic", "commodityCode", "scheduleB", "eccn", "weight", "license", "licenseSymbol" })
+@XmlType(name = "ExportLineItem", propOrder = { "lineNumber", "quantity", "quantityUnit", "description", "value",
+    "isDomestic", "commodityCode", "scheduleB", "eccn", "weight", "license", "licenseSymbol" })
 public class ExportLineItem {
 
     @XmlElement(name = "LineNumber")
@@ -103,7 +106,7 @@ public class ExportLineItem {
      * 
      */
     public int getLineNumber() {
-	return lineNumber;
+        return lineNumber;
     }
 
     /**
@@ -111,7 +114,7 @@ public class ExportLineItem {
      * 
      */
     public void setLineNumber(int value) {
-	this.lineNumber = value;
+        this.lineNumber = value;
     }
 
     /**
@@ -119,7 +122,7 @@ public class ExportLineItem {
      * 
      */
     public int getQuantity() {
-	return quantity;
+        return quantity;
     }
 
     /**
@@ -127,7 +130,7 @@ public class ExportLineItem {
      * 
      */
     public void setQuantity(int value) {
-	this.quantity = value;
+        this.quantity = value;
     }
 
     /**
@@ -137,7 +140,7 @@ public class ExportLineItem {
      * 
      */
     public String getQuantityUnit() {
-	return quantityUnit;
+        return quantityUnit;
     }
 
     /**
@@ -148,7 +151,7 @@ public class ExportLineItem {
      * 
      */
     public void setQuantityUnit(String value) {
-	this.quantityUnit = value;
+        this.quantityUnit = value;
     }
 
     /**
@@ -158,7 +161,7 @@ public class ExportLineItem {
      * 
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
@@ -169,7 +172,7 @@ public class ExportLineItem {
      * 
      */
     public void setDescription(String value) {
-	this.description = value;
+        this.description = value;
     }
 
     /**
@@ -177,7 +180,7 @@ public class ExportLineItem {
      * 
      */
     public float getValue() {
-	return value;
+        return value;
     }
 
     /**
@@ -185,7 +188,7 @@ public class ExportLineItem {
      * 
      */
     public void setValue(float value) {
-	this.value = value;
+        this.value = value;
     }
 
     /**
@@ -195,7 +198,7 @@ public class ExportLineItem {
      * 
      */
     public YesNo getIsDomestic() {
-	return isDomestic;
+        return isDomestic;
     }
 
     /**
@@ -206,7 +209,7 @@ public class ExportLineItem {
      * 
      */
     public void setIsDomestic(YesNo value) {
-	this.isDomestic = value;
+        this.isDomestic = value;
     }
 
     /**
@@ -216,7 +219,7 @@ public class ExportLineItem {
      * 
      */
     public String getCommodityCode() {
-	return commodityCode;
+        return commodityCode;
     }
 
     /**
@@ -227,7 +230,7 @@ public class ExportLineItem {
      * 
      */
     public void setCommodityCode(String value) {
-	this.commodityCode = value;
+        this.commodityCode = value;
     }
 
     /**
@@ -237,7 +240,7 @@ public class ExportLineItem {
      * 
      */
     public String getScheduleB() {
-	return scheduleB;
+        return scheduleB;
     }
 
     /**
@@ -248,7 +251,7 @@ public class ExportLineItem {
      * 
      */
     public void setScheduleB(String value) {
-	this.scheduleB = value;
+        this.scheduleB = value;
     }
 
     /**
@@ -258,7 +261,7 @@ public class ExportLineItem {
      * 
      */
     public String getECCN() {
-	return eccn;
+        return eccn;
     }
 
     /**
@@ -269,7 +272,7 @@ public class ExportLineItem {
      * 
      */
     public void setECCN(String value) {
-	this.eccn = value;
+        this.eccn = value;
     }
 
     /**
@@ -279,7 +282,7 @@ public class ExportLineItem {
      * 
      */
     public ExportLineItem.Weight getWeight() {
-	return weight;
+        return weight;
     }
 
     /**
@@ -290,7 +293,7 @@ public class ExportLineItem {
      * 
      */
     public void setWeight(ExportLineItem.Weight value) {
-	this.weight = value;
+        this.weight = value;
     }
 
     /**
@@ -300,7 +303,7 @@ public class ExportLineItem {
      * 
      */
     public ExportLineItem.License getLicense() {
-	return license;
+        return license;
     }
 
     /**
@@ -311,7 +314,7 @@ public class ExportLineItem {
      * 
      */
     public void setLicense(ExportLineItem.License value) {
-	this.license = value;
+        this.license = value;
     }
 
     /**
@@ -321,7 +324,7 @@ public class ExportLineItem {
      * 
      */
     public String getLicenseSymbol() {
-	return licenseSymbol;
+        return licenseSymbol;
     }
 
     /**
@@ -332,7 +335,7 @@ public class ExportLineItem {
      * 
      */
     public void setLicenseSymbol(String value) {
-	this.licenseSymbol = value;
+        this.licenseSymbol = value;
     }
 
     /**
@@ -340,7 +343,8 @@ public class ExportLineItem {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -361,53 +365,53 @@ public class ExportLineItem {
     @XmlType(name = "", propOrder = { "licenseNumber", "expiryDate" })
     public static class License {
 
-	@XmlElement(name = "LicenseNumber", required = true)
-	protected String licenseNumber;
-	@XmlElement(name = "ExpiryDate", required = true)
-	@XmlSchemaType(name = "date")
-	protected XMLGregorianCalendar expiryDate;
+        @XmlElement(name = "LicenseNumber", required = true)
+        protected String licenseNumber;
+        @XmlElement(name = "ExpiryDate", required = true)
+        @XmlSchemaType(name = "date")
+        protected XMLGregorianCalendar expiryDate;
 
-	/**
-	 * Gets the value of the licenseNumber property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getLicenseNumber() {
-	    return licenseNumber;
-	}
+        /**
+         * Gets the value of the licenseNumber property.
+         * 
+         * @return possible object is {@link String }
+         * 
+         */
+        public String getLicenseNumber() {
+            return licenseNumber;
+        }
 
-	/**
-	 * Sets the value of the licenseNumber property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setLicenseNumber(String value) {
-	    this.licenseNumber = value;
-	}
+        /**
+         * Sets the value of the licenseNumber property.
+         * 
+         * @param value
+         *            allowed object is {@link String }
+         * 
+         */
+        public void setLicenseNumber(String value) {
+            this.licenseNumber = value;
+        }
 
-	/**
-	 * Gets the value of the expiryDate property.
-	 * 
-	 * @return possible object is {@link XMLGregorianCalendar }
-	 * 
-	 */
-	public XMLGregorianCalendar getExpiryDate() {
-	    return expiryDate;
-	}
+        /**
+         * Gets the value of the expiryDate property.
+         * 
+         * @return possible object is {@link XMLGregorianCalendar }
+         * 
+         */
+        public XMLGregorianCalendar getExpiryDate() {
+            return expiryDate;
+        }
 
-	/**
-	 * Sets the value of the expiryDate property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link XMLGregorianCalendar }
-	 * 
-	 */
-	public void setExpiryDate(XMLGregorianCalendar value) {
-	    this.expiryDate = value;
-	}
+        /**
+         * Sets the value of the expiryDate property.
+         * 
+         * @param value
+         *            allowed object is {@link XMLGregorianCalendar }
+         * 
+         */
+        public void setExpiryDate(XMLGregorianCalendar value) {
+            this.expiryDate = value;
+        }
 
     }
 
@@ -416,7 +420,8 @@ public class ExportLineItem {
      * Java class for anonymous complex type.
      * 
      * <p>
-     * The following schema fragment specifies the expected content contained within this class.
+     * The following schema fragment specifies the expected content contained
+     * within this class.
      * 
      * <pre>
      * &lt;complexType>
@@ -437,52 +442,52 @@ public class ExportLineItem {
     @XmlType(name = "", propOrder = { "weight", "weightUnit" })
     public static class Weight {
 
-	@XmlElement(name = "Weight", required = true)
-	protected BigDecimal weight;
-	@XmlElement(name = "WeightUnit", required = true)
-	protected WeightUnit weightUnit;
+        @XmlElement(name = "Weight", required = true)
+        protected BigDecimal weight;
+        @XmlElement(name = "WeightUnit", required = true)
+        protected WeightUnit weightUnit;
 
-	/**
-	 * Gets the value of the weight property.
-	 * 
-	 * @return possible object is {@link BigDecimal }
-	 * 
-	 */
-	public BigDecimal getWeight() {
-	    return weight;
-	}
+        /**
+         * Gets the value of the weight property.
+         * 
+         * @return possible object is {@link BigDecimal }
+         * 
+         */
+        public BigDecimal getWeight() {
+            return weight;
+        }
 
-	/**
-	 * Sets the value of the weight property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigDecimal }
-	 * 
-	 */
-	public void setWeight(BigDecimal value) {
-	    this.weight = value;
-	}
+        /**
+         * Sets the value of the weight property.
+         * 
+         * @param value
+         *            allowed object is {@link BigDecimal }
+         * 
+         */
+        public void setWeight(BigDecimal value) {
+            this.weight = value;
+        }
 
-	/**
-	 * Gets the value of the weightUnit property.
-	 * 
-	 * @return possible object is {@link WeightUnit }
-	 * 
-	 */
-	public WeightUnit getWeightUnit() {
-	    return weightUnit;
-	}
+        /**
+         * Gets the value of the weightUnit property.
+         * 
+         * @return possible object is {@link WeightUnit }
+         * 
+         */
+        public WeightUnit getWeightUnit() {
+            return weightUnit;
+        }
 
-	/**
-	 * Sets the value of the weightUnit property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link WeightUnit }
-	 * 
-	 */
-	public void setWeightUnit(WeightUnit value) {
-	    this.weightUnit = value;
-	}
+        /**
+         * Sets the value of the weightUnit property.
+         * 
+         * @param value
+         *            allowed object is {@link WeightUnit }
+         * 
+         */
+        public void setWeightUnit(WeightUnit value) {
+            this.weightUnit = value;
+        }
 
     }
 

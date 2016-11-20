@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for AWBInfo complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="AWBInfo">
@@ -56,7 +57,7 @@ public class AWBInfo {
      * 
      */
     public String getAWBNumber() {
-	return awbNumber;
+        return awbNumber;
     }
 
     /**
@@ -67,7 +68,7 @@ public class AWBInfo {
      * 
      */
     public void setAWBNumber(String value) {
-	this.awbNumber = value;
+        this.awbNumber = value;
     }
 
     /**
@@ -77,7 +78,7 @@ public class AWBInfo {
      * 
      */
     public Status getStatus() {
-	return status;
+        return status;
     }
 
     /**
@@ -88,7 +89,7 @@ public class AWBInfo {
      * 
      */
     public void setStatus(Status value) {
-	this.status = value;
+        this.status = value;
     }
 
     /**
@@ -98,7 +99,7 @@ public class AWBInfo {
      * 
      */
     public ShipmentInfo getShipmentInfo() {
-	return shipmentInfo;
+        return shipmentInfo;
     }
 
     /**
@@ -109,7 +110,7 @@ public class AWBInfo {
      * 
      */
     public void setShipmentInfo(ShipmentInfo value) {
-	this.shipmentInfo = value;
+        this.shipmentInfo = value;
     }
 
     /**
@@ -119,7 +120,7 @@ public class AWBInfo {
      * 
      */
     public TrackingPieces getPieces() {
-	return pieces;
+        return pieces;
     }
 
     /**
@@ -130,7 +131,7 @@ public class AWBInfo {
      * 
      */
     public void setPieces(TrackingPieces value) {
-	this.pieces = value;
+        this.pieces = value;
     }
 
 }

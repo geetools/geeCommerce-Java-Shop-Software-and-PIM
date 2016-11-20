@@ -1,11 +1,11 @@
 package com.geecommerce.shipping.service;
 
+import java.util.List;
+
 import com.geecommerce.core.service.api.Service;
 import com.geecommerce.shipping.AbstractShippingCalculationMethod;
-import com.geecommerce.shipping.model.ShippingPackage;
 import com.geecommerce.shipping.model.ShippingOption;
-
-import java.util.List;
+import com.geecommerce.shipping.model.ShippingPackage;
 
 public interface ShippingService extends Service {
     public List<ShippingOption> getShippingOptions(ShippingPackage shippingPackage, String carrierCode);

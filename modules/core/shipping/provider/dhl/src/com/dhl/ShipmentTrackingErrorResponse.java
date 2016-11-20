@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import com.dhl.datatypes_ea.ErrorResponse;
 
 /**
@@ -19,7 +20,8 @@ import com.dhl.datatypes_ea.ErrorResponse;
  * Java class for anonymous complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -50,7 +52,7 @@ public class ShipmentTrackingErrorResponse {
      * 
      */
     public ErrorResponse getResponse() {
-	return response;
+        return response;
     }
 
     /**
@@ -61,7 +63,7 @@ public class ShipmentTrackingErrorResponse {
      * 
      */
     public void setResponse(ErrorResponse value) {
-	this.response = value;
+        this.response = value;
     }
 
 }

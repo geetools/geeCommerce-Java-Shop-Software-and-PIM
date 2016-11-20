@@ -2,13 +2,13 @@ package com.geecommerce.core.web;
 
 import java.util.List;
 
+import com.geecommerce.core.Str;
+
 import net.sourceforge.stripes.controller.ActionResolver;
 import net.sourceforge.stripes.controller.AnnotatedClassActionResolver;
 import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.controller.UrlBinding;
 import net.sourceforge.stripes.controller.UrlBindingParameter;
-
-import com.geecommerce.core.Str;
 
 public abstract class BasePagingActionBean extends BaseActionBean {
     private int page = 1;
@@ -28,7 +28,8 @@ public abstract class BasePagingActionBean extends BaseActionBean {
         if (resolver instanceof AnnotatedClassActionResolver) {
             AnnotatedClassActionResolver aResover = (AnnotatedClassActionResolver) resolver;
 
-            UrlBinding urlBinding = aResover.getUrlBindingFactory().getBinding(getContext().getRequest().getRequestURI());
+            UrlBinding urlBinding = aResover.getUrlBindingFactory()
+                .getBinding(getContext().getRequest().getRequestURI());
 
             StringBuilder pagingURIBuilder = new StringBuilder(urlBinding.getPath());
 

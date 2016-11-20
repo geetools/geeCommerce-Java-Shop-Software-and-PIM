@@ -25,7 +25,8 @@ public class SequenceGenerator {
             DBObject change = new BasicDBObject("seq", 1);
             DBObject update = new BasicDBObject("$inc", change);
 
-            DBObject res = col.findAndModify(query, new BasicDBObject(), new BasicDBObject(), false, update, true, true);
+            DBObject res = col.findAndModify(query, new BasicDBObject(), new BasicDBObject(), false, update, true,
+                true);
 
             Object seq = res.get("seq");
 
@@ -36,7 +37,8 @@ public class SequenceGenerator {
                     return Long.parseLong((String) seq);
                 }
 
-                throw new IllegalStateException("Expecting a sequence of type Number but got " + seq.getClass().getName() + " instead");
+                throw new IllegalStateException(
+                    "Expecting a sequence of type Number but got " + seq.getClass().getName() + " instead");
             } else {
                 throw new IllegalStateException("Expecting a sequence number but got NULL instead");
             }

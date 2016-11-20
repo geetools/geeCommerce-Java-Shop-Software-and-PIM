@@ -60,7 +60,8 @@ public class DiscountPromotionResource extends AbstractResource {
     SimpleDateFormat csvDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Inject
-    public DiscountPromotionResource(RestService service, MediaAssetService mediaAssetService, DiscountPromotionSubscriptions discountPromotionSubscriptions, CouponCodes couponCodes) {
+    public DiscountPromotionResource(RestService service, MediaAssetService mediaAssetService,
+        DiscountPromotionSubscriptions discountPromotionSubscriptions, CouponCodes couponCodes) {
         this.service = service;
         this.mediaAssetService = mediaAssetService;
         this.discountPromotionSubscriptions = discountPromotionSubscriptions;
@@ -94,7 +95,7 @@ public class DiscountPromotionResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createDiscountPromotion(Update update) {
-        DiscountPromotion p = app.getModel(DiscountPromotion.class);
+        DiscountPromotion p = app.model(DiscountPromotion.class);
         try {
             p.set(update.getFields());
             setDiscountPromotionKey(p);
@@ -134,7 +135,8 @@ public class DiscountPromotionResource extends AbstractResource {
 
     @GET
     @Path("{id}/export/ordered")
-    public Response getEmailExportOrdered(@PathParam("id") Id id, @Context HttpServletResponse response) throws IOException {
+    public Response getEmailExportOrdered(@PathParam("id") Id id, @Context HttpServletResponse response)
+        throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"ordered-emails.csv\"");
         PrintWriter printWriter = response.getWriter();
@@ -153,11 +155,15 @@ public class DiscountPromotionResource extends AbstractResource {
                             if (couponCode.getCouponUsages() != null && couponCode.getCouponUsages().size() > 0) {
                                 Date fromDate = DateTimes.maxOfDates(c.getFromDate(), couponCode.getFromDate());
                                 Date toDate = DateTimes.minOfDates(c.getToDate(), couponCode.getToDate());
-                                String used = couponCode.getCouponUsages() != null && couponCode.getCouponUsages().size() > 0
-                                    ? (couponCode.getCouponUsages().get(0).getUsageDate() != null ? csvDate.format(couponCode.getCouponUsages().get(0)
-                                        .getUsageDate()) : "---")
-                                    : "";
-                                writer.writeNext(new String[] { email, fromDate == null ? "" : csvDate.format(fromDate), toDate == null ? "" : csvDate.format(toDate), used, couponCode.getCode() });
+                                String used = couponCode.getCouponUsages() != null
+                                    && couponCode.getCouponUsages().size() > 0
+                                        ? (couponCode.getCouponUsages().get(0).getUsageDate() != null
+                                            ? csvDate.format(
+                                                couponCode.getCouponUsages().get(0).getUsageDate())
+                                            : "---")
+                                        : "";
+                                writer.writeNext(new String[] { email, fromDate == null ? "" : csvDate.format(fromDate),
+                                    toDate == null ? "" : csvDate.format(toDate), used, couponCode.getCode() });
                             }
                         }
                     }
@@ -173,7 +179,8 @@ public class DiscountPromotionResource extends AbstractResource {
 
     @GET
     @Path("{id}/export/expired")
-    public Response getEmailExportExpired(@PathParam("id") Id id, @Context HttpServletResponse response) throws IOException {
+    public Response getEmailExportExpired(@PathParam("id") Id id, @Context HttpServletResponse response)
+        throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"expired-emails.csv\"");
         PrintWriter printWriter = response.getWriter();
@@ -194,7 +201,9 @@ public class DiscountPromotionResource extends AbstractResource {
                                 Date fromDate = DateTimes.maxOfDates(c.getFromDate(), couponCode.getFromDate());
                                 Date toDate = DateTimes.minOfDates(c.getToDate(), couponCode.getToDate());
                                 if (toDate != null && toDate.before(now)) {
-                                    writer.writeNext(new String[] { email, fromDate == null ? "" : csvDate.format(fromDate), csvDate.format(toDate), "", couponCode.getCode() });
+                                    writer.writeNext(
+                                        new String[] { email, fromDate == null ? "" : csvDate.format(fromDate),
+                                            csvDate.format(toDate), "", couponCode.getCode() });
                                 }
                             }
                         }
@@ -211,7 +220,8 @@ public class DiscountPromotionResource extends AbstractResource {
 
     @GET
     @Path("{id}/export/all")
-    public Response getEmailExportAll(@PathParam("id") Id id, @Context HttpServletResponse response) throws IOException {
+    public Response getEmailExportAll(@PathParam("id") Id id, @Context HttpServletResponse response)
+        throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"all.csv\"");
         PrintWriter printWriter = response.getWriter();
@@ -228,14 +238,16 @@ public class DiscountPromotionResource extends AbstractResource {
                         String code = couponCode.getCode();
                         String email = couponCode.getEmail() == null ? Str.EMPTY : couponCode.getEmail();
                         String used = couponCode.getCouponUsages() != null && couponCode.getCouponUsages().size() > 0
-                            ? (couponCode.getCouponUsages().get(0).getUsageDate() != null ? csvDate.format(couponCode.getCouponUsages().get(0).getUsageDate())
-                                : "---")
+                            ? (couponCode.getCouponUsages().get(0).getUsageDate() != null
+                                ? csvDate.format(couponCode.getCouponUsages().get(0).getUsageDate()) : "---")
                             : "";
-                        String exported = couponCode.getExportedDate() != null ? csvDate.format(couponCode.getExportedDate()) : "";
+                        String exported = couponCode.getExportedDate() != null
+                            ? csvDate.format(couponCode.getExportedDate()) : "";
                         Date fromDate = DateTimes.maxOfDates(c.getFromDate(), couponCode.getFromDate());
                         Date toDate = DateTimes.minOfDates(c.getToDate(), couponCode.getToDate());
 
-                        writer.writeNext(new String[] { email, fromDate == null ? "" : csvDate.format(fromDate), toDate == null ? "" : csvDate.format(toDate), used, code });
+                        writer.writeNext(new String[] { email, fromDate == null ? "" : csvDate.format(fromDate),
+                            toDate == null ? "" : csvDate.format(toDate), used, code });
                     }
                 }
             }
@@ -251,7 +263,8 @@ public class DiscountPromotionResource extends AbstractResource {
         if (discountPromotion.getGifts() == null)
             return "";
 
-        Optional<ActionGift> actionGift = discountPromotion.getGifts().stream().filter(item -> item.getId().equals(id)).findFirst();
+        Optional<ActionGift> actionGift = discountPromotion.getGifts().stream().filter(item -> item.getId().equals(id))
+            .findFirst();
         if (actionGift.isPresent()) {
             ActionGift gift = actionGift.get();
             return gift.getName().str();
@@ -262,7 +275,8 @@ public class DiscountPromotionResource extends AbstractResource {
 
     @GET
     @Path("{id}/export/gifts")
-    public Response getEmailExportGifts(@PathParam("id") Id id, @Context HttpServletResponse response) throws IOException {
+    public Response getEmailExportGifts(@PathParam("id") Id id, @Context HttpServletResponse response)
+        throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"gifts.csv\"");
         OutputStream os = response.getOutputStream();
@@ -271,7 +285,8 @@ public class DiscountPromotionResource extends AbstractResource {
         os.write(191); // 0xBF
         OutputStreamWriter printWriter = new OutputStreamWriter(os, "UTF-8");
         CSVWriter writer = new CSVWriter(printWriter, ';');
-        writer.writeNext(new String[] { "Code", "E-mail", "Forename", "Surname", "Address", "ZIP", "City", "Gift-ID", "Gift" });
+        writer.writeNext(
+            new String[] { "Code", "E-mail", "Forename", "Surname", "Address", "ZIP", "City", "Gift-ID", "Gift" });
 
         DiscountPromotion p = checked(service.get(DiscountPromotion.class, id));
         List<DiscountPromotionSubscription> dpSubscriptions = discountPromotionSubscriptions.subscribedOnPromotion(id);
@@ -283,15 +298,21 @@ public class DiscountPromotionResource extends AbstractResource {
                     for (DiscountPromotionSubscription dpSubscription : dpSubscriptions) {
                         String code = dpSubscription.getCouponCode();
                         String email = dpSubscription.getEmail();
-                        String firstName = dpSubscription.getForm() == null ? "" : (String) dpSubscription.getForm().get("firstName");
-                        String lastName = dpSubscription.getForm() == null ? "" : (String) dpSubscription.getForm().get("lastName");
-                        String address = dpSubscription.getForm() == null ? "" : (String) dpSubscription.getForm().get("address");
-                        String zip = dpSubscription.getForm() == null ? "" : (String) dpSubscription.getForm().get("zip");
-                        String city = dpSubscription.getForm() == null ? "" : (String) dpSubscription.getForm().get("city");
+                        String firstName = dpSubscription.getForm() == null ? ""
+                            : (String) dpSubscription.getForm().get("firstName");
+                        String lastName = dpSubscription.getForm() == null ? ""
+                            : (String) dpSubscription.getForm().get("lastName");
+                        String address = dpSubscription.getForm() == null ? ""
+                            : (String) dpSubscription.getForm().get("address");
+                        String zip = dpSubscription.getForm() == null ? ""
+                            : (String) dpSubscription.getForm().get("zip");
+                        String city = dpSubscription.getForm() == null ? ""
+                            : (String) dpSubscription.getForm().get("city");
                         String giftId = dpSubscription.getGiftId().toString();
                         String gift = getGift(dpSubscription.getGiftId(), p);
 
-                        writer.writeNext(new String[] { code, email, firstName, lastName, address, zip, city, giftId, gift });
+                        writer.writeNext(
+                            new String[] { code, email, firstName, lastName, address, zip, city, giftId, gift });
                     }
 
                 }
@@ -330,7 +351,8 @@ public class DiscountPromotionResource extends AbstractResource {
     @POST
     @Path("{id}/gifts")
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response newGift(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    public Response newGift(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream,
+        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         ActionGift gift = null;
 
         if (id != null) {
@@ -338,7 +360,7 @@ public class DiscountPromotionResource extends AbstractResource {
             FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
             MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());
 
-            gift = app.getModel(ActionGift.class);
+            gift = app.model(ActionGift.class);
             gift.setMediaAsset(newMediaAsset);
             gift.setPosition(99);
             gift.setId(app.nextId());
@@ -359,7 +381,8 @@ public class DiscountPromotionResource extends AbstractResource {
         int cnt = 0;
         while (true) {
             try {
-                DiscountPromotion discountPromotion = checked(service.get(DiscountPromotion.class, discountPromotionId));
+                DiscountPromotion discountPromotion = checked(
+                    service.get(DiscountPromotion.class, discountPromotionId));
                 discountPromotion.getGifts().add(gift);
                 service.update(discountPromotion);
                 return;
@@ -392,7 +415,8 @@ public class DiscountPromotionResource extends AbstractResource {
 
             service.update(discountPromotion);
         } else {
-            throwBadRequest("SlideShowId and slideId cannot be null in requestURI. Expecting: slide-shows/{id}/slides/{slideId}");
+            throwBadRequest(
+                "SlideShowId and slideId cannot be null in requestURI. Expecting: slide-shows/{id}/slides/{slideId}");
         }
     }
 
@@ -404,7 +428,8 @@ public class DiscountPromotionResource extends AbstractResource {
 
         if (updates != null && updates.size() > 0) {
             for (Update update : updates) {
-                if (update != null && update.getId() != null && update.getFields() != null && update.getFields().size() > 0) {
+                if (update != null && update.getId() != null && update.getFields() != null
+                    && update.getFields().size() > 0) {
                     for (ActionGift gift : discountPromotion.getGifts()) {
                         if (gift.getId().equals(update.getId())) {
                             gift.set(update.getFields());

@@ -37,7 +37,8 @@ public class SEODirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pPageModel = (TemplateModel) params.get("pageModel");
         SimpleScalar pTitle = (SimpleScalar) params.get("title");
         SimpleScalar pURI = (SimpleScalar) params.get("uri");
@@ -62,7 +63,8 @@ public class SEODirective implements TemplateDirectiveModel {
             if (beanModel instanceof PageSupport) {
                 pageModel = (PageSupport) beanModel;
 
-                if (pageModel.getTitle() != null && !Str.isEmpty(ContextObjects.findCurrentLanguageOrGlobal(pageModel.getTitle()))) {
+                if (pageModel.getTitle() != null
+                    && !Str.isEmpty(ContextObjects.findCurrentLanguageOrGlobal(pageModel.getTitle()))) {
                     title = pageModel.getTitle().getString();
                 }
 
@@ -74,7 +76,8 @@ public class SEODirective implements TemplateDirectiveModel {
                     canonicalURI = ContextObjects.findCurrentLanguageOrGlobal(pageModel.getCanonicalURI());
                 }
 
-                if (pageModel.getMetaDescription() != null && !Str.isEmpty(ContextObjects.findCurrentLanguageOrGlobal(pageModel.getMetaDescription()))) {
+                if (pageModel.getMetaDescription() != null
+                    && !Str.isEmpty(ContextObjects.findCurrentLanguageOrGlobal(pageModel.getMetaDescription()))) {
                     metaDescription = pageModel.getMetaDescription().getString();
                 }
 
@@ -104,7 +107,7 @@ public class SEODirective implements TemplateDirectiveModel {
         if (pMetaKeywords != null)
             metaKeywords = pMetaKeywords.getAsString();
 
-        HttpServletRequest request = app.getServletRequest();
+        HttpServletRequest request = app.servletRequest();
         String requestURI = app.getOriginalURI();
         String actionURI = app.getActionURI();
 
@@ -133,7 +136,8 @@ public class SEODirective implements TemplateDirectiveModel {
         String metaTitleSuffix = app.cpStr_("general/seo/meta_title_suffix", "");
 
         if (title != null)
-            html.append("<title>").append(com.geecommerce.core.util.Strings.truncateNicely(stripTags(title), 65 - metaTitleSuffix.length(), "...")).append(metaTitleSuffix).append("</title>\n");
+            html.append("<title>").append(com.geecommerce.core.util.Strings.truncateNicely(stripTags(title),
+                65 - metaTitleSuffix.length(), "...")).append(metaTitleSuffix).append("</title>\n");
 
         if (Strings.isNotEmpty(metaDescription)) {
             int maxLength = app.cpInt_(META_DESC_MAX_LENGTH_CONF_KEY, 160);
@@ -151,7 +155,9 @@ public class SEODirective implements TemplateDirectiveModel {
 
             metaDescription = metaDescription + metaTitleSuffix;
 
-            html.append("<meta name=\"description\" content=\"").append(com.geecommerce.core.util.Strings.truncateNicely(metaDescription, maxLength, "...")).append("\"/>\n");
+            html.append("<meta name=\"description\" content=\"")
+                .append(com.geecommerce.core.util.Strings.truncateNicely(metaDescription, maxLength, "..."))
+                .append("\"/>\n");
         }
 
         // if (app.isSecureRequest())
@@ -178,7 +184,8 @@ public class SEODirective implements TemplateDirectiveModel {
             html.append("<meta name=\"revisit-after\" content=\"").append("7 days").append("\"/>\n");
 
         if (canonicalURI != null && !metaRobots.startsWith("noindex")) {
-            html.append("<link rel=\"canonical\" href=\"").append(Requests.buildAbsoluteURL(request, canonicalURI.trim())).append("\"/>");
+            html.append("<link rel=\"canonical\" href=\"")
+                .append(Requests.buildAbsoluteURL(request, canonicalURI.trim())).append("\"/>");
         }
 
         env.getOut().write(html.toString());

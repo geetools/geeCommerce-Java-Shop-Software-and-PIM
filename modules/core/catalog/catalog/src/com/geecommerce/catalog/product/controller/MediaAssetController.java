@@ -58,7 +58,8 @@ public class MediaAssetController {
                 if (buf == null || buf.length <= 0) {
                     return null; // TODO 404
                 } else {
-                    Result strResult = Results.stream(MimeType.fromFilename(mediaAssetURI), new ByteArrayInputStream(buf));
+                    Result strResult = Results.stream(MimeType.fromFilename(mediaAssetURI),
+                        new ByteArrayInputStream(buf));
                     strResult.rangeSupport(true);
                     strResult.length(buf.length);
 

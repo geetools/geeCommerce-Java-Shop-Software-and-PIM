@@ -20,7 +20,8 @@ import freemarker.template.TemplateModel;
 public class AttributeExistsDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         TemplateModel pSource = (TemplateModel) params.get("src");
         SimpleScalar pCode = (SimpleScalar) params.get("code");
         TemplateBooleanModel pParent = (TemplateBooleanModel) params.get("parent");
@@ -40,14 +41,16 @@ public class AttributeExistsDirective implements TemplateDirectiveModel {
                 source = (AttributeSupport) beanModel;
 
                 if (pCode == null) {
-                    throw new IllegalArgumentException("The parameter 'code' cannot be null if source type is not an AttributeValue object");
+                    throw new IllegalArgumentException(
+                        "The parameter 'code' cannot be null if source type is not an AttributeValue object");
                 } else {
                     code = pCode.getAsString();
                 }
             } else if (beanModel instanceof AttributeValue) {
                 value = (AttributeValue) beanModel;
             } else {
-                throw new IllegalArgumentException("The source-object must be of type AttributeSupportModel or AttributeValue");
+                throw new IllegalArgumentException(
+                    "The source-object must be of type AttributeSupportModel or AttributeValue");
             }
         }
 

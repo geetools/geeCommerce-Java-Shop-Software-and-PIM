@@ -53,7 +53,8 @@ public class DefaultProductHelper implements ProductHelper {
     protected static final Logger log = LogManager.getLogger(DefaultProductHelper.class);
 
     @Inject
-    public DefaultProductHelper(AttributeService attributeService, Attributes attributes, CatalogMediaHelper catalogMediaHelper) {
+    public DefaultProductHelper(AttributeService attributeService, Attributes attributes,
+        CatalogMediaHelper catalogMediaHelper) {
         this.attributeService = attributeService;
         this.attributes = attributes;
         this.catalogMediaHelper = catalogMediaHelper;
@@ -72,7 +73,8 @@ public class DefaultProductHelper implements ProductHelper {
 
         for (Attribute attr : mandatoryAttributes) {
             // We handle these two manually for now.
-            if (ATTRIBUTE_CODE_PRODUCT_GROUP.equals(attr.getCode()) || ATTRIBUTE_CODE_PROGRAMME.equals(attr.getCode())) {
+            if (ATTRIBUTE_CODE_PRODUCT_GROUP.equals(attr.getCode())
+                || ATTRIBUTE_CODE_PROGRAMME.equals(attr.getCode())) {
                 continue;
             }
 
@@ -82,7 +84,8 @@ public class DefaultProductHelper implements ProductHelper {
                 countNumExpectedNonEmptyAttributes++;
             }
 
-            if (isAttributeAvailableForProduct && (!product.isAttributeEmpty(attr.getId(), store) || product.isAttributeOptedOut(attr.getId()))) {
+            if (isAttributeAvailableForProduct
+                && (!product.isAttributeEmpty(attr.getId(), store) || product.isAttributeOptedOut(attr.getId()))) {
                 countNumNonEmptyAttributes++;
             } else if (isAttributeAvailableForProduct) {
                 System.out.println(attr.getCode() + " - " + attr.getInputType().name());
@@ -91,9 +94,11 @@ public class DefaultProductHelper implements ProductHelper {
 
         int descStatus = NEW;
 
-        if ((productGroup != null || programme != null) && countNumExpectedNonEmptyAttributes == countNumNonEmptyAttributes) {
+        if ((productGroup != null || programme != null)
+            && countNumExpectedNonEmptyAttributes == countNumNonEmptyAttributes) {
             descStatus = COMPLETE;
-        } else if (productGroup != null || programme != null || (countNumExpectedNonEmptyAttributes > 0 && countNumNonEmptyAttributes > 0)
+        } else if (productGroup != null || programme != null
+            || (countNumExpectedNonEmptyAttributes > 0 && countNumNonEmptyAttributes > 0)
             || (countNumExpectedNonEmptyAttributes == 0 && countNumNonEmptyAttributes == 0)) {
             descStatus = IN_PROGESS;
         }
@@ -117,7 +122,8 @@ public class DefaultProductHelper implements ProductHelper {
     }
 
     @Override
-    public boolean isAttributeAvailableForProduct(Attribute attr, List<AttributeInputCondition> inputConditions, Product product) {
+    public boolean isAttributeAvailableForProduct(Attribute attr, List<AttributeInputCondition> inputConditions,
+        Product product) {
         Set<ProductType> productTypes = attr.getProductTypes();
 
         // If attribute is only for a particular product type, check to see if
@@ -243,7 +249,8 @@ public class DefaultProductHelper implements ProductHelper {
             List<AttributeValue> attrValues = productVariant.getVariantAttributes();
 
             if (attrValues == null || attrValues.size() == 0) {
-                log.warn("Variant '" + productVariant.getId() + "' (" + productVariant.getArticleNumber() + ") has no variant attributes.");
+                log.warn("Variant '" + productVariant.getId() + "' (" + productVariant.getArticleNumber()
+                    + ") has no variant attributes.");
                 continue;
             }
 
@@ -254,10 +261,12 @@ public class DefaultProductHelper implements ProductHelper {
                 allOptionIds.add(attrVal.getOptionId());
             }
 
-            String imageURL = catalogMediaHelper.toMediaAssetURL(productVariant.getMainImageURI(), mainImgWidth, mainImgHeight);
+            String imageURL = catalogMediaHelper.toMediaAssetURL(productVariant.getMainImageURI(), mainImgWidth,
+                mainImgHeight);
             data.put("variantImage", imageURL);
 
-            String zoomImageURL = catalogMediaHelper.toMediaAssetURL(productVariant.getMainImageURI(), mainImgZoomWidth, mainImgZoomHeight);
+            String zoomImageURL = catalogMediaHelper.toMediaAssetURL(productVariant.getMainImageURI(), mainImgZoomWidth,
+                mainImgZoomHeight);
             data.put("variantZoomImage", zoomImageURL);
 
             data.put("gallery", productVariant.getImagesMaps());
@@ -273,11 +282,13 @@ public class DefaultProductHelper implements ProductHelper {
         }
 
         if (allOptionIds.size() == 0) {
-            log.warn("None of the variants found for product '" + product.getId() + "' (" + product.getArticleNumber() + ") had any options.");
+            log.warn("None of the variants found for product '" + product.getId() + "' (" + product.getArticleNumber()
+                + ") had any options.");
             return variantData;
         }
 
-        List<AttributeOption> attributeOptions = attributeService.getAttributeOptions(allOptionIds.toArray(new Id[allOptionIds.size()]));
+        List<AttributeOption> attributeOptions = attributeService
+            .getAttributeOptions(allOptionIds.toArray(new Id[allOptionIds.size()]));
 
         if (attributeOptions == null || attributeOptions.size() == 0)
             return variantData;
@@ -288,7 +299,8 @@ public class DefaultProductHelper implements ProductHelper {
             allAttributeIds.add(attributeOption.getAttributeId());
         }
 
-        List<Attribute> attributes = attributeService.getAttributes(allAttributeIds.toArray(new Id[allAttributeIds.size()]));
+        List<Attribute> attributes = attributeService
+            .getAttributes(allAttributeIds.toArray(new Id[allAttributeIds.size()]));
 
         if (attributes == null || attributes.size() == 0)
             return variantData;
@@ -312,7 +324,8 @@ public class DefaultProductHelper implements ProductHelper {
                             variantMap.put("attribute_code", attribute.getCode());
                             variantMap.put("attribute_label", attribute.getFrontendLabel().getVal());
 
-                            List<Map<String, Object>> attributeOptionMaps = (List<Map<String, Object>>) variantMap.get("options");
+                            List<Map<String, Object>> attributeOptionMaps = (List<Map<String, Object>>) variantMap
+                                .get("options");
 
                             if (attributeOptionMaps == null) {
                                 attributeOptionMaps = new ArrayList<>();
@@ -333,7 +346,8 @@ public class DefaultProductHelper implements ProductHelper {
                                         attributeOptionMap.put("value", attributeOption.getLabel().getClosestValue());
                                         attributeOptionMap.put("position", attributeOption.getPosition());
 
-                                        List<String> inGroupWithOptions = findOptionsInGroupWith(attributeOption.getAttributeId(), optionId, variants);
+                                        List<String> inGroupWithOptions = findOptionsInGroupWith(
+                                            attributeOption.getAttributeId(), optionId, variants);
                                         attributeOptionMap.put("inGroupWithOptions", inGroupWithOptions);
 
                                         attributeOptionMaps.add(attributeOptionMap);
@@ -380,7 +394,9 @@ public class DefaultProductHelper implements ProductHelper {
             List<AttributeValue> attributeValues = productVariant.getVariantAttributes();
 
             for (AttributeValue attributeValue : attributeValues) {
-                if (!attributeValue.getOptionId().equals(optionId) && !attributeValue.getAttributeId().equals(attributeId) && !inGroupWithOptions.contains(attributeValue.getOptionId())) {
+                if (!attributeValue.getOptionId().equals(optionId)
+                    && !attributeValue.getAttributeId().equals(attributeId)
+                    && !inGroupWithOptions.contains(attributeValue.getOptionId())) {
                     inGroupWithOptions.add(String.valueOf(attributeValue.getOptionId()));
                 }
             }
@@ -559,7 +575,8 @@ public class DefaultProductHelper implements ProductHelper {
             reverseCurrentProductListIfNeed(currentListName, currentProductList);
 
             for (Id currentProductListElement : currentProductList) {
-                if (currentProductListElement.equals(currentProductId) && !currentProductListElement.equals(currentProductList.get(0))) {
+                if (currentProductListElement.equals(currentProductId)
+                    && !currentProductListElement.equals(currentProductList.get(0))) {
                     Id previousId = currentProductList.get(currentProductList.indexOf(currentProductListElement) - 1);
                     reverseCurrentProductListIfNeed(currentListName, currentProductList);
                     return previousId;
@@ -583,7 +600,8 @@ public class DefaultProductHelper implements ProductHelper {
             reverseCurrentProductListIfNeed(currentListName, currentProductList);
 
             for (Id currentProductListElement : currentProductList) {
-                if (currentProductListElement.equals(currentProductId) && !currentProductListElement.equals(currentProductList.get(currentProductList.size() - 1))) {
+                if (currentProductListElement.equals(currentProductId)
+                    && !currentProductListElement.equals(currentProductList.get(currentProductList.size() - 1))) {
                     Id nextId = currentProductList.get(currentProductList.indexOf(currentProductListElement) + 1);
                     reverseCurrentProductListIfNeed(currentListName, currentProductList);
                     return nextId;

@@ -56,12 +56,13 @@ public class FreemarkerServlet extends freemarker.ext.servlet.FreemarkerServlet 
                 m = app.getCurrentModule();
             }
 
-            Configuration conf = FreemarkerHelper.newConfig(app.getServletContext(), m);
+            Configuration conf = FreemarkerHelper.newConfig(app.servletContext(), m);
 
-            app.getServletResponse().setLocale(conf.getLocale());
-            app.getServletResponse().setCharacterEncoding("UTF-8");
+            app.servletResponse().setLocale(conf.getLocale());
+            app.servletResponse().setCharacterEncoding("UTF-8");
 
-            TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.getServletContext(), app.getServletRequest(), app.getServletResponse());
+            TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.servletContext(),
+                app.servletRequest(), app.servletResponse());
 
             app.registryPut(FreemarkerConstant.FREEMARKER_REQUEST_TEMPLATE_MODEL, tm);
 

@@ -13,11 +13,11 @@ public class GuiceRestServlet extends GuiceContainer {
     private static final long serialVersionUID = 8264859709024682040L;
 
     public GuiceRestServlet(Injector injector) {
-	super(injector);
+        super(injector);
     }
 
     @Override
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-	super.service(request, response);
+        super.service(request, response);
     }
 }

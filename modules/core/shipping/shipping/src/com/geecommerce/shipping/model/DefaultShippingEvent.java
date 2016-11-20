@@ -1,10 +1,10 @@
 package com.geecommerce.shipping.model;
 
+import java.util.Date;
+
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
-
-import java.util.Date;
 
 @Model
 public class DefaultShippingEvent extends AbstractModel implements ShippingEvent {
@@ -15,39 +15,40 @@ public class DefaultShippingEvent extends AbstractModel implements ShippingEvent
     private Date date;
 
     public Date getDate() {
-	return date;
+        return date;
     }
 
     public void setDate(Date date) {
-	this.date = date;
+        this.date = date;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getLocation() {
-	return location;
+        return location;
     }
 
     public void setLocation(String location) {
-	this.location = location;
+        this.location = location;
     }
 
     public String getCountry() {
-	return country;
+        return country;
     }
 
     public void setCountry(String country) {
-	this.country = country;
+        this.country = country;
     }
 
     @Override
     public Id getId() {
-	return null; // To change body of implemented methods use File | Settings | File Templates.
+        return null; // To change body of implemented methods use File |
+                     // Settings | File Templates.
     }
 }

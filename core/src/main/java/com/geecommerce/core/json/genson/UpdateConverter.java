@@ -45,7 +45,8 @@ public class UpdateConverter implements Converter<Update> {
     private static final String FIELD_PREFIX_CONTEXT_OBJECTS_ARRAY = "ctxObjArray:";
 
     // Test if the input is a valid ISO8601 JSON date.
-    private static final Pattern datePattern = Pattern.compile("[\\d]{4}\\-[\\d]{2}\\-[\\d]{2}T[\\d]{2}\\:[\\d]{2}\\:[\\d]{2}(?:\\.[\\d]{3})?(?:[\\-+]{1}[\\d]{4})?[Z]{0,1}");
+    private static final Pattern datePattern = Pattern.compile(
+        "[\\d]{4}\\-[\\d]{2}\\-[\\d]{2}T[\\d]{2}\\:[\\d]{2}\\:[\\d]{2}(?:\\.[\\d]{3})?(?:[\\-+]{1}[\\d]{4})?[Z]{0,1}");
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     static {
@@ -138,7 +139,8 @@ public class UpdateConverter implements Converter<Update> {
 
         reader.endObject();
 
-        return new Update(id, fields, vars, attributes, options, xOptions, optOuts, merchantIds, storeIds, requestContextIds, saveAsNewCopy);
+        return new Update(id, fields, vars, attributes, options, xOptions, optOuts, merchantIds, storeIds,
+            requestContextIds, saveAsNewCopy);
     }
 
     public Map<String, Object> deserializeFields(ObjectReader fieldReader) throws IOException {
@@ -300,7 +302,8 @@ public class UpdateConverter implements Converter<Update> {
 
             attributes.put(code, ctxObj);
 
-            // attributes.put(attributesReader.name(), attributesReader.valueAsString());
+            // attributes.put(attributesReader.name(),
+            // attributesReader.valueAsString());
             attributesReader.endObject();
         }
 
@@ -345,7 +348,8 @@ public class UpdateConverter implements Converter<Update> {
 
             options.put(code, optionIds);
 
-            // attributes.put(attributesReader.name(), attributesReader.valueAsString());
+            // attributes.put(attributesReader.name(),
+            // attributesReader.valueAsString());
             attributesReader.endObject();
         }
 

@@ -32,7 +32,8 @@ public class ConfigurationDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         SimpleScalar pKey = (SimpleScalar) params.get("key");
         SimpleScalar pRoot = (SimpleScalar) params.get("root");
         SimpleScalar pValue = (SimpleScalar) params.get("value");
@@ -154,7 +155,8 @@ public class ConfigurationDirective implements TemplateDirectiveModel {
             }
 
             if (truncateAt != null) {
-                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(), "...");
+                result = com.geecommerce.core.util.Strings.truncateNicely(result.toString(), truncateAt.intValue(),
+                    "...");
             }
 
             if (message != null) {
@@ -201,7 +203,7 @@ public class ConfigurationDirective implements TemplateDirectiveModel {
     }
 
     private String format(Object value, String format) {
-        ApplicationContext appCtx = App.get().getApplicationContext();
+        ApplicationContext appCtx = App.get().context();
 
         Locale locale = null;
 
@@ -225,7 +227,7 @@ public class ConfigurationDirective implements TemplateDirectiveModel {
     }
 
     protected Cache<String, Object> cache() {
-        CacheManager cm = App.get().getInjectable(CacheManager.class);
+        CacheManager cm = App.get().injectable(CacheManager.class);
         return cm.getCache(ConfigurationDirective.class.getName());
     }
 }

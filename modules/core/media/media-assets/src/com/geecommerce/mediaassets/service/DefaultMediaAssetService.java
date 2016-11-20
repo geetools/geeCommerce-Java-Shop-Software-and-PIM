@@ -66,7 +66,8 @@ public class DefaultMediaAssetService implements MediaAssetService {
     protected final MediaAssetFiles mediaAssetFiles;
 
     @Inject
-    public DefaultMediaAssetService(MediaAssets mediaAssets, MediaAssetHelper mediaAssetHelper, Connections connections, MediaAssetFiles mediaAssetFiles) {
+    public DefaultMediaAssetService(MediaAssets mediaAssets, MediaAssetHelper mediaAssetHelper, Connections connections,
+        MediaAssetFiles mediaAssetFiles) {
         this.mediaAssets = mediaAssets;
         this.mediaAssetHelper = mediaAssetHelper;
         this.connections = connections;
@@ -93,13 +94,14 @@ public class DefaultMediaAssetService implements MediaAssetService {
         filename = Strings.slugify2(basename) + "." + extension;
         String mimeType = getMimeType(filename);
 
-        MediaAssetFile mediaAssetFile = app.getModel(MediaAssetFile.class);
+        MediaAssetFile mediaAssetFile = app.model(MediaAssetFile.class);
         mediaAssetFile.setId(app.nextId());
         mediaAssetFile.setMediaAssetId(mediaAssetId);
         mediaAssetFile.setName(filename);
         mediaAssetFile.setMimeType(mimeType);
         mediaAssetFile.setActive(false);
-        mediaAssetFile.setSize(createGridFsFile(mediaAssetFile.getId(), inputStream, filename, mediaAssetFile.getMimeType()));
+        mediaAssetFile
+            .setSize(createGridFsFile(mediaAssetFile.getId(), inputStream, filename, mediaAssetFile.getMimeType()));
         GridFSDBFile file = getGridFsFile(mediaAssetFile.getId());
         mediaAssetFile.setMetadata(importMetadata(file.getInputStream()));
         mediaAssetHelper.createPreview(mediaAssetFile, file);
@@ -120,15 +122,12 @@ public class DefaultMediaAssetService implements MediaAssetService {
     }
 
     /*
-     * @Override
-     * public MediaAssetFile getContent(Id id) {
-     * MediaAsset mediaAsset = get(id);
-     * GridFSDBFile file = getGridFsFile(id);
-     * MediaAssetFile mediaAssetFile = app.getModel(MediaAssetFile.class);
+     * @Override public MediaAssetFile getContent(Id id) { MediaAsset mediaAsset
+     * = get(id); GridFSDBFile file = getGridFsFile(id); MediaAssetFile
+     * mediaAssetFile = app.getModel(MediaAssetFile.class);
      * mediaAssetFile.setName(mediaAsset.getName());
      * mediaAssetFile.setMimeType(mediaAsset.getMimeType());
-     * mediaAssetFile.setContent(file.getInputStream());
-     * return mediaAssetFile;
+     * mediaAssetFile.setContent(file.getInputStream()); return mediaAssetFile;
      * }
      */
 
@@ -148,7 +147,7 @@ public class DefaultMediaAssetService implements MediaAssetService {
         filename = Strings.slugify2(basename) + "." + extension;
         String mimeType = getMimeType(filename);
 
-        MediaAsset mediaAsset = app.getModel(MediaAsset.class);
+        MediaAsset mediaAsset = app.model(MediaAsset.class);
         mediaAsset.setEnabled(true);
         mediaAsset.setId(app.nextId());
 
@@ -156,13 +155,14 @@ public class DefaultMediaAssetService implements MediaAssetService {
         // mediaAsset.setName(mediaAsset.getId() + "-" + filename);
         mediaAsset.setMimeType(mimeType);
 
-        MediaAssetFile mediaAssetFile = app.getModel(MediaAssetFile.class);
+        MediaAssetFile mediaAssetFile = app.model(MediaAssetFile.class);
         mediaAssetFile.setId(app.nextId());
         mediaAssetFile.setMediaAssetId(mediaAsset.getId());
         mediaAssetFile.setName(filename);
         mediaAssetFile.setMimeType(mimeType);
         mediaAssetFile.setActive(true);
-        mediaAssetFile.setSize(createGridFsFile(mediaAssetFile.getId(), inputStream, filename, mediaAssetFile.getMimeType()));
+        mediaAssetFile
+            .setSize(createGridFsFile(mediaAssetFile.getId(), inputStream, filename, mediaAssetFile.getMimeType()));
         GridFSDBFile file = getGridFsFile(mediaAssetFile.getId());
         mediaAssetFile.setMetadata(importMetadata(file.getInputStream()));
         mediaAssetHelper.createPreview(mediaAssetFile, file);
@@ -259,13 +259,14 @@ public class DefaultMediaAssetService implements MediaAssetService {
 
         StringBuilder dmaURL = new StringBuilder();
 
-        HttpServletRequest request = app.getServletRequest();
+        HttpServletRequest request = app.servletRequest();
 
         String httpScheme = app.cpStr_(DMA_HTTP_SCHEME_KEY, DMA_DEFAULT_HTTP_SCHEME);
         String httpsScheme = app.cpStr_(DMA_HTTPS_SCHEME_KEY, DMA_DEFAULT_HTTPS_SCHEME);
         boolean isHttpsActive = app.cpBool_(DMA_HTTPS_ACTIVE_KEY, false);
 
-        String scheme = request != null ? (isHttpsActive && app.isSecureRequest() ? httpsScheme : httpScheme) : DMA_SCHEME_DEFAULT;
+        String scheme = request != null ? (isHttpsActive && app.isSecureRequest() ? httpsScheme : httpScheme)
+            : DMA_SCHEME_DEFAULT;
         String servletPath = app.cpStr_(DMA_SERVLET_PATH_CONFIG_KEY, DMA_SERVLET_PATH_DEFAULT);
         String subdomain = app.cpStr_(DMA_SUBDOMAIN_CONFIG_KEY, Requests.getHost(request));
         String getPath = app.cpStr_(DMA_GETPATH_KEY, DMA_GETPATH_DEFAULT);
@@ -285,8 +286,7 @@ public class DefaultMediaAssetService implements MediaAssetService {
         // TODO:FIX
         /*
          * if (!Str.isEmpty(mediaAsset.getName().)) {
-         * dmaURL.append(Char.SLASH).append(mediaAsset.getName());
-         * } else {
+         * dmaURL.append(Char.SLASH).append(mediaAsset.getName()); } else {
          * dmaURL.append(getPath).append(Char.SLASH).append(mediaAsset.getId());
          * }
          */

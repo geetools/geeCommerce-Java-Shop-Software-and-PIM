@@ -42,12 +42,12 @@ public interface WishList extends Model {
     public WishList setName(String name);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
-	public static final String CUSTOMER_ID = "customer_id";
-	public static final String DEFAULT = "default";
-	public static final String WISHLIST_ITEMS = "items";
-	public static final String ACCESS_TYPE = "ac_type";
-	public static final String NAME = "name";
+        public static final String ID = "_id";
+        public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
+        public static final String CUSTOMER_ID = "customer_id";
+        public static final String DEFAULT = "default";
+        public static final String WISHLIST_ITEMS = "items";
+        public static final String ACCESS_TYPE = "ac_type";
+        public static final String NAME = "name";
     }
 }

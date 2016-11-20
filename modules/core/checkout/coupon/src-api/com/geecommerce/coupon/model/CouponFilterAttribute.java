@@ -1,9 +1,9 @@
 package com.geecommerce.coupon.model;
 
+import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.enums.CouponFilterAttributeType;
-import com.geecommerce.core.service.api.Model;
 
 public interface CouponFilterAttribute extends Model {
 
@@ -26,10 +26,10 @@ public interface CouponFilterAttribute extends Model {
     public CouponFilterAttribute setExpression(String expression);
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String NAME = "name";
-	public static final String CODE = "code";
-	public static final String TYPE = "type";
-	public static final String EXPRESSION = "expr";
+        public static final String ID = "_id";
+        public static final String NAME = "name";
+        public static final String CODE = "code";
+        public static final String TYPE = "type";
+        public static final String EXPRESSION = "expr";
     }
 }

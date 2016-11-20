@@ -57,7 +57,8 @@ public class Invoice extends AbstractPaymentMethod {
     public PaymentResponse processPayment(Map<String, Object> formData, Object... data) {
         Order order = (Order) data[0];
 
-        PaymentEventResponse eventResponse = new PaymentEventResponse(PaymentStatus.PAID, PaymentStatus.PAID, "ok", null, " ", " ");
+        PaymentEventResponse eventResponse = new PaymentEventResponse(PaymentStatus.PAID, PaymentStatus.PAID, "ok",
+            null, " ", " ");
 
         PaymentResponse response = new PaymentResponse(eventResponse, order.getTotalAmount(), null, "123", null);
         // Send form to provider

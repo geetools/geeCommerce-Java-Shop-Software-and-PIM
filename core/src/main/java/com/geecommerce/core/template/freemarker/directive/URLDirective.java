@@ -34,7 +34,8 @@ public class URLDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         SimpleScalar pPath = (SimpleScalar) params.get("path");
         TemplateModel pTarget = (TemplateModel) params.get("target");
         SimpleScalar pVar = (SimpleScalar) params.get("var");
@@ -65,7 +66,7 @@ public class URLDirective implements TemplateDirectiveModel {
             Object target = DeepUnwrap.unwrap(pTarget);
 
             if (target instanceof TargetSupport) {
-                path = app.getHelper(TargetSupportHelper.class).findURI((TargetSupport) target);
+                path = app.helper(TargetSupportHelper.class).findURI((TargetSupport) target);
             } else if (target instanceof ContextObject) {
                 path = ContextObjects.findCurrentLanguageOrGlobal((ContextObject<String>) target);
             } else {
@@ -79,7 +80,7 @@ public class URLDirective implements TemplateDirectiveModel {
             varName = pVar.getAsString();
 
         if (path != null) {
-            HttpServletResponse response = app.getServletResponse();
+            HttpServletResponse response = app.servletResponse();
 
             if (varName != null) {
                 // Sets the result into the current template as if using

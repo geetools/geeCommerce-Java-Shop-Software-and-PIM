@@ -43,17 +43,17 @@ public class ReplacementRule {
     private String r;
 
     public ReplacementRule(String regexp, String replacement) {
-	p = Pattern.compile(regexp);
-	r = replacement;
+        p = Pattern.compile(regexp);
+        r = replacement;
     }
 
     public boolean find(String word) {
-	m = p.matcher(word);
-	return m.find();
+        m = p.matcher(word);
+        return m.find();
     }
 
     public String replace(String word) {
-	m = p.matcher(word);
-	return m.replaceAll(this.r);
+        m = p.matcher(word);
+        return m.replaceAll(this.r);
     }
 }

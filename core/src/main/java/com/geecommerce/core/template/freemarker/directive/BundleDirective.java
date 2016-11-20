@@ -38,7 +38,8 @@ public class BundleDirective implements TemplateDirectiveModel {
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+        throws TemplateException, IOException {
         long start = System.currentTimeMillis();
 
         App app = App.get();
@@ -85,7 +86,8 @@ public class BundleDirective implements TemplateDirectiveModel {
         // the newest version.
         boolean isDevMode = app.isDevMode();
 
-        String cacheKey = new StringBuilder(name == null ? "" : name).append(Char.UNDERSCORE).append(bodyStr.hashCode()).append(Char.UNDERSCORE).append(version).toString();
+        String cacheKey = new StringBuilder(name == null ? "" : name).append(Char.UNDERSCORE).append(bodyStr.hashCode())
+            .append(Char.UNDERSCORE).append(version).toString();
 
         // Cache generated HTML.
         boolean isWebCacheEnabled = app.cpBool_(KEY_WEB_CACHE_ENABLED, false);
@@ -131,17 +133,20 @@ public class BundleDirective implements TemplateDirectiveModel {
                         fis = new FileInputStream(absPath.toString());
                         bis = new BufferedInputStream(fis);
 
-                        bundledFileContent.append("\n\n/* ---------- ").append(resourcePath.trim()).append(" ---------- */\n\n");
+                        bundledFileContent.append("\n\n/* ---------- ").append(resourcePath.trim())
+                            .append(" ---------- */\n\n");
                         bundledFileContent.append(IOUtils.toString(bis, "UTF-8"));
                     }
                     // Otherwise we simply wrap each resource in a link or
                     // script tag accordingly.
                     else {
                         if (TYPE_CSS.equals(type)) {
-                            htmlBuilder.append("<link href=\"").append(resourcePath.trim()).append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
+                            htmlBuilder.append("<link href=\"").append(resourcePath.trim())
+                                .append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
                                 .append("\" type=\"text/css\" rel=\"stylesheet\" />\n");
                         } else {
-                            htmlBuilder.append("<script src=\"").append(resourcePath.trim()).append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
+                            htmlBuilder.append("<script src=\"").append(resourcePath.trim())
+                                .append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
                                 .append("\" type=\"text/javascript\"></script>\n");
                         }
                     }
@@ -150,10 +155,11 @@ public class BundleDirective implements TemplateDirectiveModel {
                 // Store the contents from all files into one bundle-file if
                 // bundling is enabled.
                 if (isBundleResourcesEnabled) {
-                    ApplicationContext appCtx = app.getApplicationContext();
+                    ApplicationContext appCtx = app.context();
                     RequestContext reqCtx = appCtx.getRequestContext();
 
-                    StringBuilder absTargetPath = new StringBuilder(targetPath).append(File.separatorChar).append("bundle_");
+                    StringBuilder absTargetPath = new StringBuilder(targetPath).append(File.separatorChar)
+                        .append("bundle_");
 
                     // Optionally add a bundle-name to the target-filename if
                     // one exists.
@@ -178,10 +184,12 @@ public class BundleDirective implements TemplateDirectiveModel {
                     // Now we create the appropriate HTML tags for the new
                     // bundle-file.
                     if (TYPE_CSS.equals(type)) {
-                        htmlBuilder.append("<link href=\"").append(toWebpath(targetFile.getAbsolutePath(), targetPath)).append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
+                        htmlBuilder.append("<link href=\"").append(toWebpath(targetFile.getAbsolutePath(), targetPath))
+                            .append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
                             .append("\" type=\"text/css\" rel=\"stylesheet\" />");
                     } else {
-                        htmlBuilder.append("<script src=\"").append(toWebpath(targetFile.getAbsolutePath(), targetPath)).append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
+                        htmlBuilder.append("<script src=\"").append(toWebpath(targetFile.getAbsolutePath(), targetPath))
+                            .append("?v=" + (isDevMode ? System.currentTimeMillis() : version))
                             .append("\" type=\"text/javascript\"></script>");
                     }
                 }

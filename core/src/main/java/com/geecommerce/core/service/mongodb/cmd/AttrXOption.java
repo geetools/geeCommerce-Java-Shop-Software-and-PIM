@@ -28,9 +28,11 @@ public class AttrXOption extends AbstractCommand {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value, DBObject query, QueryOptions queryOptions) {
+    public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value,
+        DBObject query, QueryOptions queryOptions) {
         if (!AttributeSupport.class.isAssignableFrom(modelClass))
-            throw new IllegalStateException("The model type '" + modelClass.getName() + "' must implement the interface AttributeSupport when using the mongodb CMD 'AttrXOption'.");
+            throw new IllegalStateException("The model type '" + modelClass.getName()
+                + "' must implement the interface AttributeSupport when using the mongodb CMD 'AttrXOption'.");
 
         DBObject dboAttributes = (DBObject) query.get(COL_ATTRIBUTES);
 

@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
  * Java class for SpecialService complex type.
  * 
  * <p>
- * The following schema fragment specifies the expected content contained within this class.
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="SpecialService">
@@ -39,7 +40,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "SpecialService", propOrder = { "specialServiceType", "communicationAddress", "communicationType", "chargeValue", "currencyCode", "isWaived" })
+@XmlType(name = "SpecialService", propOrder = { "specialServiceType", "communicationAddress", "communicationType",
+    "chargeValue", "currencyCode", "isWaived" })
 public class SpecialService {
 
     @XmlElement(name = "SpecialServiceType")
@@ -62,7 +64,7 @@ public class SpecialService {
      * 
      */
     public String getSpecialServiceType() {
-	return specialServiceType;
+        return specialServiceType;
     }
 
     /**
@@ -73,7 +75,7 @@ public class SpecialService {
      * 
      */
     public void setSpecialServiceType(String value) {
-	this.specialServiceType = value;
+        this.specialServiceType = value;
     }
 
     /**
@@ -83,7 +85,7 @@ public class SpecialService {
      * 
      */
     public String getCommunicationAddress() {
-	return communicationAddress;
+        return communicationAddress;
     }
 
     /**
@@ -94,7 +96,7 @@ public class SpecialService {
      * 
      */
     public void setCommunicationAddress(String value) {
-	this.communicationAddress = value;
+        this.communicationAddress = value;
     }
 
     /**
@@ -104,7 +106,7 @@ public class SpecialService {
      * 
      */
     public CommunicationType getCommunicationType() {
-	return communicationType;
+        return communicationType;
     }
 
     /**
@@ -115,7 +117,7 @@ public class SpecialService {
      * 
      */
     public void setCommunicationType(CommunicationType value) {
-	this.communicationType = value;
+        this.communicationType = value;
     }
 
     /**
@@ -125,7 +127,7 @@ public class SpecialService {
      * 
      */
     public Float getChargeValue() {
-	return chargeValue;
+        return chargeValue;
     }
 
     /**
@@ -136,7 +138,7 @@ public class SpecialService {
      * 
      */
     public void setChargeValue(Float value) {
-	this.chargeValue = value;
+        this.chargeValue = value;
     }
 
     /**
@@ -146,7 +148,7 @@ public class SpecialService {
      * 
      */
     public String getCurrencyCode() {
-	return currencyCode;
+        return currencyCode;
     }
 
     /**
@@ -157,7 +159,7 @@ public class SpecialService {
      * 
      */
     public void setCurrencyCode(String value) {
-	this.currencyCode = value;
+        this.currencyCode = value;
     }
 
     /**
@@ -167,7 +169,7 @@ public class SpecialService {
      * 
      */
     public YesNo getIsWaived() {
-	return isWaived;
+        return isWaived;
     }
 
     /**
@@ -178,7 +180,7 @@ public class SpecialService {
      * 
      */
     public void setIsWaived(YesNo value) {
-	this.isWaived = value;
+        this.isWaived = value;
     }
 
 }

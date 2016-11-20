@@ -6,10 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Lists;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Lists;
 
 @Model("customer_addresses")
 public class DefaultAddress extends AbstractModel implements Address {
@@ -280,8 +280,10 @@ public class DefaultAddress extends AbstractModel implements Address {
         this.state = str_(map.get(Column.STATE));
         this.zip = str_(map.get(Column.ZIP));
         this.country = str_(map.get(Column.COUNTRY));
-        this.isDefaultDeliveryAddress = bool_(map.get(Column.IS_DEFAULT_DELIVERY_ADDRESS)) == null ? false : bool_(map.get(Column.IS_DEFAULT_DELIVERY_ADDRESS));
-        this.isDefaultInvoiceAddress = bool_(map.get(Column.IS_DEFAULT_INVOICE_ADDRESS)) == null ? false : bool_(map.get(Column.IS_DEFAULT_INVOICE_ADDRESS));
+        this.isDefaultDeliveryAddress = bool_(map.get(Column.IS_DEFAULT_DELIVERY_ADDRESS)) == null ? false
+            : bool_(map.get(Column.IS_DEFAULT_DELIVERY_ADDRESS));
+        this.isDefaultInvoiceAddress = bool_(map.get(Column.IS_DEFAULT_INVOICE_ADDRESS)) == null ? false
+            : bool_(map.get(Column.IS_DEFAULT_INVOICE_ADDRESS));
         this.createdOn = date_(map.get(Column.CREATED_ON));
         this.modifiedOn = date_(map.get(Column.MODIFIED_ON));
 
@@ -318,8 +320,11 @@ public class DefaultAddress extends AbstractModel implements Address {
 
     @Override
     public String toString() {
-        return "DefaultAddress [id=" + id + ", customerId=" + customerId + ", salutation=" + salutation + ", forename=" + forename + ", surname=" + surname + ", company=" + company + ", telephone=" + telephone + ", mobile=" + mobile + ", fax=" + fax
-                + ", addressLines=" + addressLines + ", houseNumber=" + houseNumber + ", city=" + city + ", district=" + district + ", zip=" + zip + ", country=" + country + ", isDefaultDeliveryAddress=" + isDefaultDeliveryAddress
-                + ", isDefaultInvoiceAddress=" + isDefaultInvoiceAddress + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn + "]";
+        return "DefaultAddress [id=" + id + ", customerId=" + customerId + ", salutation=" + salutation + ", forename="
+            + forename + ", surname=" + surname + ", company=" + company + ", telephone=" + telephone + ", mobile="
+            + mobile + ", fax=" + fax + ", addressLines=" + addressLines + ", houseNumber=" + houseNumber
+            + ", city=" + city + ", district=" + district + ", zip=" + zip + ", country=" + country
+            + ", isDefaultDeliveryAddress=" + isDefaultDeliveryAddress + ", isDefaultInvoiceAddress="
+            + isDefaultInvoiceAddress + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn + "]";
     }
 }

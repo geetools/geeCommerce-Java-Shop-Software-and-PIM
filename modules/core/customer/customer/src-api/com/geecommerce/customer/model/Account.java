@@ -81,19 +81,19 @@ public interface Account extends Model {
     public boolean getRequirePasswordChange();
 
     static final class Column {
-	public static final String ID = "_id";
-	public static final String CUSTOMER_ID = "customer_id";
-	public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
-	public static final String STORE_ID = "s";
-	public static final String EXTERNAL_IDENTIFIERS = "ext_ids";
-	public static final String USERNAME = "username";
-	public static final String PASSWORD = "password";
-	public static final String SALT = "salt";
-	public static final String ENABLED = "enabled";
-	public static final String FORGOT_PASSWORD_TOKEN = "fp_token";
-	public static final String FORGOT_PASSWORD_SALT = "fp_salt";
-	public static final String FORGOT_PASSWORD_ON = "fp_on";
-	public static final String LAST_LOGGED_IN = "l_login";
-	public static final String REQUIRE_PASSWORD_CHANGE = "r_p_change";
+        public static final String ID = "_id";
+        public static final String CUSTOMER_ID = "customer_id";
+        public static final String REQUEST_CONTEXT_ID = "req_ctx_id";
+        public static final String STORE_ID = "s";
+        public static final String EXTERNAL_IDENTIFIERS = "ext_ids";
+        public static final String USERNAME = "username";
+        public static final String PASSWORD = "password";
+        public static final String SALT = "salt";
+        public static final String ENABLED = "enabled";
+        public static final String FORGOT_PASSWORD_TOKEN = "fp_token";
+        public static final String FORGOT_PASSWORD_SALT = "fp_salt";
+        public static final String FORGOT_PASSWORD_ON = "fp_on";
+        public static final String LAST_LOGGED_IN = "l_login";
+        public static final String REQUIRE_PASSWORD_CHANGE = "r_p_change";
     }
 }

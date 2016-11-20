@@ -21,11 +21,9 @@ import net.sourceforge.stripes.validation.ValidationMetadata;
 
 /**
  * This ActionBeanPropertyBinder globally makes sure that only characters
- * allowed within a configured character-set have been posted. This ensures
- * that we do not deal with characters that third party systems may not
- * understand. Whilst we are at it, we also remove any duplicate validation
- * error
- * messages.
+ * allowed within a configured character-set have been posted. This ensures that
+ * we do not deal with characters that third party systems may not understand.
+ * Whilst we are at it, we also remove any duplicate validation error messages.
  */
 public class ActionBeanPropertyBinder extends DefaultActionBeanPropertyBinder {
     @Inject
@@ -33,7 +31,8 @@ public class ActionBeanPropertyBinder extends DefaultActionBeanPropertyBinder {
 
     private static final String VALID_INPUT_CHARSET_CONFIG_KEY = "core/web/form/valid_input_charset";
 
-    protected void doPostConversionValidations(ActionBean bean, Map<ParameterName, List<Object>> convertedValues, ValidationErrors errors) {
+    protected void doPostConversionValidations(ActionBean bean, Map<ParameterName, List<Object>> convertedValues,
+        ValidationErrors errors) {
         super.doPostConversionValidations(bean, convertedValues, errors);
 
         // Do not bother with further checks if validation errors already exist.
@@ -46,7 +45,8 @@ public class ActionBeanPropertyBinder extends DefaultActionBeanPropertyBinder {
 
         // Do not do any checking if no charset has been configured.
         if (validInputCharset != null) {
-            Map<String, ValidationMetadata> validationInfos = super.getConfiguration().getValidationMetadataProvider().getValidationMetadata(bean.getClass());
+            Map<String, ValidationMetadata> validationInfos = super.getConfiguration().getValidationMetadataProvider()
+                .getValidationMetadata(bean.getClass());
 
             for (Map.Entry<ParameterName, List<Object>> entry : convertedValues.entrySet()) {
                 // Sort out what we need to validate this field
@@ -67,7 +67,8 @@ public class ActionBeanPropertyBinder extends DefaultActionBeanPropertyBinder {
                         boolean isValidCharset = Charset.forName(validInputCharset).newEncoder().canEncode(string);
 
                         if (!isValidCharset) {
-                            ValidationError error = new ScopedLocalizableError("converter.charset", "invalidCharset", validInputCharset);
+                            ValidationError error = new ScopedLocalizableError("converter.charset", "invalidCharset",
+                                validInputCharset);
                             error.setFieldValue(String.valueOf(value));
                             errors.add(name.getName(), error);
                         }

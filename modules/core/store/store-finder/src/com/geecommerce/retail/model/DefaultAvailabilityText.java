@@ -2,11 +2,11 @@ package com.geecommerce.retail.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.geecommerce.core.service.AbstractMultiContextModel;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.google.common.collect.Maps;
 
 @Model("availibility_text")
 public class DefaultAvailabilityText extends AbstractMultiContextModel implements AvailabilityText {
@@ -17,52 +17,52 @@ public class DefaultAvailabilityText extends AbstractMultiContextModel implement
 
     @Override
     public Id getId() {
-	return id;
+        return id;
     }
 
     @Override
     public AvailabilityText setId(Id id) {
-	this.id = id;
-	return this;
+        this.id = id;
+        return this;
     }
 
     @Override
     public String getText() {
-	if (text != null)
-	    return text.getString();
-	return NO_DESC;
+        if (text != null)
+            return text.getString();
+        return NO_DESC;
     }
 
     @Override
     public ContextObject<String> getTexts() {
-	return text;
+        return text;
     }
 
     @Override
     public AvailabilityText setText(ContextObject<String> text) {
-	this.text = text;
-	return this;
+        this.text = text;
+        return this;
     }
 
     @Override
     public void fromMap(Map<String, Object> map) {
-	if (map == null)
-	    return;
+        if (map == null)
+            return;
 
-	super.fromMap(map);
+        super.fromMap(map);
 
-	this.id = id_(map.get(Column.ID));
-	this.text = ctxObj_(map.get(Column.TEXT));
+        this.id = id_(map.get(Column.ID));
+        this.text = ctxObj_(map.get(Column.TEXT));
 
     }
 
     @Override
     public Map<String, Object> toMap() {
-	Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
+        Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
-	map.put(Column.ID, getId());
-	map.put(Column.TEXT, getTexts());
-	return map;
+        map.put(Column.ID, getId());
+        map.put(Column.TEXT, getTexts());
+        return map;
 
     }
 }

@@ -108,7 +108,7 @@ public class DefaultProductListQueryNode extends AbstractMultiContextModel imple
         this.operator = str_(map.get(Col.OPERATOR));
 
         if (map_(map.get(Col.VALUE)) != null && map_(map.get(Col.VALUE)).size() != 0) {
-            AttributeValue attribute = app.getModel(AttributeValue.class);
+            AttributeValue attribute = app.model(AttributeValue.class);
             attribute.fromMap(map_(map.get(Col.VALUE)));
             this.value = attribute;
         }
@@ -117,7 +117,7 @@ public class DefaultProductListQueryNode extends AbstractMultiContextModel imple
         if (nodes != null) {
             this.nodes = new ArrayList<>();
             for (Map<String, Object> node : nodes) {
-                ProductListQueryNode n = app.getModel(ProductListQueryNode.class);
+                ProductListQueryNode n = app.model(ProductListQueryNode.class);
                 n.fromMap(node);
                 this.nodes.add(n);
             }

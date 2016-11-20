@@ -20,7 +20,8 @@ public enum WidgetParameterTabItemType implements ModelEnum {
     }
 
     public final String getLabel() {
-        return App.get().message(new StringBuilder("enum.").append(WidgetParameterTabItemType.class.getSimpleName()).append(".").append(name()).toString());
+        return App.get().message(new StringBuilder("enum.").append(WidgetParameterTabItemType.class.getSimpleName())
+            .append(".").append(name()).toString());
     }
 
     public static final WidgetParameterTabItemType fromId(int id) {
@@ -44,6 +45,7 @@ public enum WidgetParameterTabItemType implements ModelEnum {
     }
 
     public static final String toHumanReadableLabel() {
-        return App.get().message(new StringBuilder("enum.").append(WidgetParameterTabItemType.class.getSimpleName()).append(".label").toString());
+        return App.get().message(new StringBuilder("enum.").append(WidgetParameterTabItemType.class.getSimpleName())
+            .append(".label").toString());
     }
 }

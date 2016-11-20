@@ -57,71 +57,78 @@ public final class CsrfGuardFilter implements Filter {
 
     @Override
     public void destroy() {
-	filterConfig = null;
+        filterConfig = null;
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-	/** only work with HttpServletRequest objects **/
-	if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
-	    HttpServletRequest httpRequest = (HttpServletRequest) request;
-	    HttpServletResponse httpResp = (HttpServletResponse) response;
-	    HttpSession session = httpRequest.getSession(false);
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
+        throws IOException, ServletException {
+        /** only work with HttpServletRequest objects **/
+        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            HttpServletResponse httpResp = (HttpServletResponse) response;
+            HttpSession session = httpRequest.getSession(false);
 
-	    httpRequest.setCharacterEncoding("UTF-8");
-	    httpResp.setCharacterEncoding("UTF-8");
+            httpRequest.setCharacterEncoding("UTF-8");
+            httpResp.setCharacterEncoding("UTF-8");
 
-	    if (session == null || isIgnoreURI(httpRequest.getRequestURI()) || Requests.isAjaxRequest(httpRequest) || Requests.isAPIRequest(httpRequest.getRequestURI()) || Requests.isCMSRequest(httpRequest.getRequestURI())
-		    || isMediaRequest(httpRequest.getRequestURI()) || !Requests.isPostRequest(httpRequest)) {
-		// If there is no session, no harm can be done
-		filterChain.doFilter(httpRequest, httpResp);
+            if (session == null || isIgnoreURI(httpRequest.getRequestURI()) || Requests.isAjaxRequest(httpRequest)
+                || Requests.isAPIRequest(httpRequest.getRequestURI())
+                || Requests.isCMSRequest(httpRequest.getRequestURI()) || isMediaRequest(httpRequest.getRequestURI())
+                || !Requests.isPostRequest(httpRequest)) {
+                // If there is no session, no harm can be done
+                filterChain.doFilter(httpRequest, httpResp);
 
-		if (session != null) {
-		    /** update tokens **/
-		    CsrfGuard csrfGuard = CsrfGuard.getInstance();
-		    csrfGuard.updateTokens(httpRequest);
-		}
+                if (session != null) {
+                    /** update tokens **/
+                    CsrfGuard csrfGuard = CsrfGuard.getInstance();
+                    csrfGuard.updateTokens(httpRequest);
+                }
 
-		return;
-	    }
+                return;
+            }
 
-	    CsrfGuard csrfGuard = CsrfGuard.getInstance();
-	    csrfGuard.getLogger().log(String.format("CsrfGuard analyzing request %s", httpRequest.getRequestURI()));
+            CsrfGuard csrfGuard = CsrfGuard.getInstance();
+            csrfGuard.getLogger().log(String.format("CsrfGuard analyzing request %s", httpRequest.getRequestURI()));
 
-	    InterceptRedirectResponse httpResponse = new InterceptRedirectResponse(httpResp, httpRequest, csrfGuard);
+            InterceptRedirectResponse httpResponse = new InterceptRedirectResponse(httpResp, httpRequest, csrfGuard);
 
-	    // if(MultipartHttpServletRequest.isMultipartRequest(httpRequest)) {
-	    // httpRequest = new MultipartHttpServletRequest(httpRequest);
-	    // }
+            // if(MultipartHttpServletRequest.isMultipartRequest(httpRequest)) {
+            // httpRequest = new MultipartHttpServletRequest(httpRequest);
+            // }
 
-	    if (session.isNew() && csrfGuard.isUseNewTokenLandingPage()) {
-		csrfGuard.writeLandingPage(httpRequest, httpResponse);
-	    } else if (csrfGuard.isValidRequest(httpRequest, httpResponse)) {
-		filterChain.doFilter(httpRequest, httpResponse);
-	    } else {
-		/** invalid request - nothing to do - actions already executed **/
-	    }
+            if (session.isNew() && csrfGuard.isUseNewTokenLandingPage()) {
+                csrfGuard.writeLandingPage(httpRequest, httpResponse);
+            } else if (csrfGuard.isValidRequest(httpRequest, httpResponse)) {
+                filterChain.doFilter(httpRequest, httpResponse);
+            } else {
+                /**
+                 * invalid request - nothing to do - actions already executed
+                 **/
+            }
 
-	    /** update tokens **/
-	    csrfGuard.updateTokens(httpRequest);
+            /** update tokens **/
+            csrfGuard.updateTokens(httpRequest);
 
-	} else {
-	    filterConfig.getServletContext().log(String.format("[WARNING] CsrfGuard does not know how to work with requests of class %s ", request.getClass().getName()));
+        } else {
+            filterConfig.getServletContext()
+                .log(String.format("[WARNING] CsrfGuard does not know how to work with requests of class %s ",
+                    request.getClass().getName()));
 
-	    filterChain.doFilter(request, response);
-	}
+            filterChain.doFilter(request, response);
+        }
     }
 
     private boolean isIgnoreURI(String requestURI) {
-	return requestURI.startsWith(IGNORE_URI);
+        return requestURI.startsWith(IGNORE_URI);
     }
 
     @Override
     public void init(@SuppressWarnings("hiding") FilterConfig filterConfig) throws ServletException {
-	this.filterConfig = filterConfig;
+        this.filterConfig = filterConfig;
     }
 
     protected boolean isMediaRequest(String uri) {
-	return uri.matches(DEFAULT_REGEX_MEDIA_EXTENSIONS) || uri.matches(DEFAULT_REGEX_MEDIA_PATHS);
+        return uri.matches(DEFAULT_REGEX_MEDIA_EXTENSIONS) || uri.matches(DEFAULT_REGEX_MEDIA_PATHS);
     }
 }

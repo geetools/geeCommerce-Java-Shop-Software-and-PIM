@@ -13,14 +13,14 @@ public class AuthenticationToken implements Serializable {
     }
 
     public AuthenticationToken(String token) {
-	this.token = token;
+        this.token = token;
     }
 
     public String getToken() {
-	return token;
+        return token;
     }
 
     public void setToken(String token) {
-	this.token = token;
+        this.token = token;
     }
 }

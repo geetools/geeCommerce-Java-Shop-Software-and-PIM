@@ -2,14 +2,14 @@ package com.geecommerce.guiwidgets.model;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAsset;
 import com.geecommerce.mediaassets.service.MediaAssetService;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
 
 @Model
 public class DefaultPage extends AbstractModel implements Page {

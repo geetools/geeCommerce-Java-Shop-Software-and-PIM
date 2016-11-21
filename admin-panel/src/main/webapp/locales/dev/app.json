@@ -155,6 +155,8 @@
 			"newVariantMasterSubtitle" : "Please select a product-group that matches best.",
 			"newVariantMasterDesc" : "The remaining product information can be added in the next step.",
 			"saveNewVariantMaster" : "Save new variant-master",
+			"importDataButton" : "Import data",
+			"exportDataButton" : "Export data",
 			"newProgrammeButton" : "Add new programme",
 			"newProgrammeTitle" : "Choose a Programme",
 			"newProgrammeSubtitle" : "Please select a product-group that matches best.",

@@ -3,9 +3,6 @@ package com.geecommerce.core.inject;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.geecommerce.core.Constant;
 import com.geecommerce.core.config.SystemConfig;
 import com.google.inject.Guice;
@@ -13,15 +10,13 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 
 public class SystemInjector {
-    private static Injector injector;
+    protected static Injector injector;
 
-    private static final Object LOCK = new Object();
+    protected static final Object LOCK = new Object();
 
-    private static final Logger log = LogManager.getLogger(SystemInjector.class);
+    protected static boolean bootstrapping = true;
 
-    private static boolean bootstrapping = true;
-
-    private SystemInjector() {
+    protected SystemInjector() {
 
     }
 
@@ -66,9 +61,7 @@ public class SystemInjector {
 
                 Module moduleObj = moduleClass.newInstance();
 
-                if (log.isInfoEnabled()) {
-                    log.info("Adding new module instance '" + moduleClass.getName() + "'.");
-                }
+                System.out.println("Adding new module instance '" + moduleClass.getName() + "'.");
 
                 systemModules.add(moduleObj);
             } catch (Throwable t) {

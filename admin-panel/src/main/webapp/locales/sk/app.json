@@ -152,6 +152,8 @@
 			"newVariantMasterSubtitle" : "Prosím, vyberte produkt-skupinu, která odpovídá nejlépe.",
 			"newVariantMasterDesc" : "Zbývající informace o výrobku mohou být přidány v následujícím kroku.",
 			"saveNewVariantMaster" : "Uložte novou variantu-master",
+			"importDataButton" : "Import data",
+			"exportDataButton" : "Export data",
 			"newProgrammeButton" : "Přidat nový program",
 			"newProgrammeTitle" : "Vyberte si program",
 			"newProgrammeSubtitle" : "Vyberte program, který odpovídá nejlépe.",

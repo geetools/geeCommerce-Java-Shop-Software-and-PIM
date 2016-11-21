@@ -201,7 +201,7 @@ input[type="radio"], input[type="checkbox"] {
     background-image: -ms-linear-gradient(top, #3EB3B3, #046666);
     background-image: -o-linear-gradient(top, #3EB3B3, #046666);
     background-image: linear-gradient(to bottom, #3EB3B3, #046666);
-    color: #E4FEFE !important;
+    color: #FFFFCC !important;
 }
 
 .bootstrap-select .btn {
@@ -1426,7 +1426,51 @@ img.disabledImage {
     margin-top: 20px;
 }
 
-#btn-new-product, #btn-new-product-programme,
+#btn-export {
+	background-color: #BBBBBB;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#AAAAAA));
+    background-image: -webkit-linear-gradient(top, #BBBBBB, #AAAAAA);
+    background-image: -moz-linear-gradient(top, #BBBBBB, #AAAAAA);
+    background-image: -ms-linear-gradient(top, #BBBBBB, #AAAAAA);
+    background-image: -o-linear-gradient(top, #BBBBBB, #AAAAAA);
+    background-image: linear-gradient(to bottom, #BBBBBB, #AAAAAA);
+}
+
+#btn-export:hover {
+	color: #FAFAFA !important;
+	background-color: #AAAAAA;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#AAAAAA), to(#999999));
+    background-image: -webkit-linear-gradient(top, #AAAAAA, #999999);
+    background-image: -moz-linear-gradient(top, #AAAAAA, #999999);
+    background-image: -ms-linear-gradient(top, #AAAAAA, #999999);
+    background-image: -o-linear-gradient(top, #AAAAAA, #999999);
+    background-image: linear-gradient(to bottom, #AAAAAA, #999999);
+}
+
+#btn-import {
+	background-color: #FF6A6A;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FF8E8E), to(#FF6A6A));
+    background-image: -webkit-linear-gradient(top, #FF8E8E, #FF6A6A);
+    background-image: -moz-linear-gradient(top, #FF8E8E, #FF6A6A);
+    background-image: -ms-linear-gradient(top, #FF8E8E, #FF6A6A);
+    background-image: -o-linear-gradient(top, #FF8E8E, #FF6A6A);
+    background-image: linear-gradient(to bottom, #FF8E8E, #FF6A6A);
+}
+
+
+#btn-import:hover {
+	color: #FFFFCC !important;
+	background-color: #FF6060;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FF7575), to(#FF6060));
+    background-image: -webkit-linear-gradient(top, #FF7575, #FF6060);
+    background-image: -moz-linear-gradient(top, #FF7575, #FF6060);
+    background-image: -ms-linear-gradient(top, #FF7575, #FF6060);
+    background-image: -o-linear-gradient(top, #FF7575, #FF6060);
+    background-image: linear-gradient(to bottom, #FF7575, #FF6060);
+}
+
+
+#btn-import, #btn-new-product, #btn-new-product-programme,
     #btn-new-product-variant-master {
     margin-bottom: 10px;
     margin-left: 10px;

@@ -5,14 +5,14 @@ var __modulesDir = modulesDir();
 var __projectsDir = projectsDir();
 
 /*
-	cb create module local/my-module
-	cb remove module local/my-module
+	geec create module local/my-module
+	geec remove module local/my-module
 
-	cb add module core/catalog/catalog to project demo
-	cb remove module core/catalog/catalog from project demo
+	geec add module core/catalog/catalog to project demo
+	geec remove module core/catalog/catalog from project demo
 
-	cb add all modules to project demo
-	cb remove all modules from project demo
+	geec add all modules to project demo
+	geec remove all modules from project demo
 */
 
 load('http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js')

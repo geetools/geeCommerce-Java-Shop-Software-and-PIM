@@ -52,8 +52,8 @@
 				<!--  Data -->            
                 <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
                     <tr>
-                        <td><a data-bind="text: row.key, attr: { href: '#/content/details/' + row.id }"></a></td>
-			<td><a data-bind="i18nText: { value: name, mode: 'any' }, attr: { href: '#/content/details/' + row.id }"></a></td>
+                        <td><a data-bind="text: row.id, attr: { href: '#/content/details/' + row.id }"></a></td>
+            			<td><a data-bind="i18nText: { value: name, mode: 'any' }, attr: { href: '#/content/details/' + row.id }"></a></td>
                     </tr>
                 </tbody>
             </table>

@@ -160,6 +160,25 @@ public class Connections {
         initMerchantConnections();
     }
 
+    public static void closeSqlConnections() {
+        ApplicationContext appCtx = App.get().context();
+
+        if (appCtx != null) {
+            Merchant m = appCtx.getMerchant();
+            String key = m.getAbsoluteBaseSystemPath();
+
+            List<ConnectionProvider> connProviders = merchantConnectionProviders.get(key);
+
+            if (connProviders != null && !connProviders.isEmpty()) {
+                for (ConnectionProvider connectionProvider : connProviders) {
+                    if (connectionProvider != null && "sql".equals(connectionProvider.group())) {
+                        connectionProvider.close();
+                    }
+                }
+            }
+        }
+    }
+
     public static void destroy() {
         // TODO
     }

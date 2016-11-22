@@ -55,17 +55,12 @@ public class DefaultAttributeService implements AttributeService {
     }
 
     @Override
-    public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface,
-        boolean createIfNotExists) {
+    public AttributeTargetObject getAttributeTargetObject(Class<? extends AttributeSupport> modelInterface, boolean createIfNotExists) {
         AttributeTargetObject targetObject = attributeTargetObjects.forType(modelInterface);
 
         if (targetObject == null && createIfNotExists) {
-            String code = StringUtils
-                .join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.UNDERSCORE)
-                .toLowerCase();
-            String name = StringUtils.capitalize(StringUtils
-                .join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.SPACE)
-                .toLowerCase());
+            String code = StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.UNDERSCORE).toLowerCase();
+            String name = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(modelInterface.getSimpleName()), Char.SPACE).toLowerCase());
 
             targetObject = attributeTargetObjects.add(app.model(AttributeTargetObject.class)
                 .setType(modelInterface.getName()).setCode(code).setName(ContextObjects.global(name)));

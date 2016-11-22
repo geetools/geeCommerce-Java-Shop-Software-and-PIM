@@ -43,9 +43,9 @@ public class DefaultProductHelper implements ProductHelper {
     protected final String DEFAULT_CURRENT_LIST_NAME = "cat";
     protected final String TOP_SELLER_PRODUCT_LIST_NAME = "ts";
 
-    protected static final int NEW = 0;
-    protected static final int IN_PROGESS = 1;
-    protected static final int COMPLETE = 2;
+    protected static final String NEW = "not_started";
+    protected static final String IN_PROGESS = "in_progress";
+    protected static final String COMPLETE = "complete";
 
     protected static final String ATTRIBUTE_CODE_PRODUCT_GROUP = "product_group";
     protected static final String ATTRIBUTE_CODE_PROGRAMME = "programme";
@@ -92,7 +92,7 @@ public class DefaultProductHelper implements ProductHelper {
             }
         }
 
-        int descStatus = NEW;
+        String descStatus = NEW;
 
         if ((productGroup != null || programme != null)
             && countNumExpectedNonEmptyAttributes == countNumNonEmptyAttributes) {
@@ -112,7 +112,7 @@ public class DefaultProductHelper implements ProductHelper {
         for (AttributeOption ao : options) {
             String label = (String) ao.getLabel().getGlobalValue();
 
-            if (label.startsWith(String.valueOf(descStatus))) {
+            if (label.equals(descStatus)) {
                 descStatusOption = ao;
                 break;
             }
@@ -195,7 +195,7 @@ public class DefaultProductHelper implements ProductHelper {
     public AttributeOption getImageStatus(Product product) {
         List<CatalogMediaAsset> images = product.getImages();
 
-        int imageStatus = NEW;
+        String imageStatus = NEW;
 
         if (images != null && images.size() > 0) {
             imageStatus = COMPLETE;
@@ -210,7 +210,7 @@ public class DefaultProductHelper implements ProductHelper {
         for (AttributeOption ao : options) {
             String label = (String) ao.getLabel().getGlobalValue();
 
-            if (label.startsWith(String.valueOf(imageStatus))) {
+            if (label.equals(imageStatus)) {
                 imageStatusOption = ao;
                 break;
             }

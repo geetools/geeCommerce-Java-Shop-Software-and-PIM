@@ -42,7 +42,7 @@
 		"removeContent" : ""
 	},
 	"navigation" : {
-		"catalogue" : "Catalogue",
+		"catalogue" : "Catalog",
 		"datamodel" : "Data model",
 		"content" : "Content",
 		"promotions" : "Promotions",
@@ -606,7 +606,8 @@
 		"content" : {
 		  "title" : "Content Management System",
 		  "subtitle" : "Management of displayed content",
-		  "gridColKey" : "Content Name"
+		  "gridColKey" : "Page Id",
+		  "gridColName" : "Page Name"
 		},
 		"search-rewrite" : {
 		  "title" : "Search Rewrites",

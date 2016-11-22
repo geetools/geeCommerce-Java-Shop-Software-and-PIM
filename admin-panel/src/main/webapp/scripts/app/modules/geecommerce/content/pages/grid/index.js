@@ -10,7 +10,7 @@ define(['durandal/app', 'knockout', 'gc/gc', 'plugins/router', 'gc-content'], fu
 	    	
 	    	// Pager columns
 			var pagerColumns = [
-				{'name' : 'key', 'label' : 'app:modules.content.gridColKey'},
+				{'name' : 'id', 'label' : 'app:modules.content.gridColKey'},
 				{'name' : 'name', 'label' : 'app:modules.content.gridColName'},
 			];
 	    	

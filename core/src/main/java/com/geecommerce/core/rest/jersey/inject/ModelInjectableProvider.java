@@ -11,7 +11,6 @@ import com.geecommerce.core.App;
 import com.geecommerce.core.reflect.Reflect;
 import com.geecommerce.core.service.annotation.Profile;
 import com.geecommerce.core.service.api.Model;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.internal.MoreTypes.ParameterizedTypeImpl;
 import com.sun.jersey.api.core.HttpContext;
@@ -25,11 +24,7 @@ import com.sun.jersey.spi.inject.InjectableProvider;
 @Profile
 @Provider
 @Singleton
-public class ModelInjectableProvider extends AbstractHttpContextInjectable<Object>
-    implements InjectableProvider<ModelParam, Type> {
-    @Inject
-    protected App app;
-
+public class ModelInjectableProvider extends AbstractHttpContextInjectable<Object> implements InjectableProvider<ModelParam, Type> {
     protected final Type type;
 
     public ModelInjectableProvider() {
@@ -70,6 +65,8 @@ public class ModelInjectableProvider extends AbstractHttpContextInjectable<Objec
 
         if (HttpMethod.POST.equals(request.getMethod()) || HttpMethod.PUT.equals(request.getMethod())) {
             if (type instanceof Class && Model.class.isAssignableFrom((Class<?>) type)) {
+                App app = App.get();
+
                 // We cannot actually use this instance with jersey, but at
                 // least we know
                 // which implementation is to be used for the given interface.
@@ -94,7 +91,7 @@ public class ModelInjectableProvider extends AbstractHttpContextInjectable<Objec
                 Class<?> genType = genTypes != null && genTypes.size() > 0 ? genTypes.get(0) : null;
 
                 if (genType != null && Model.class.isAssignableFrom(genType)) {
-                    Model m = (Model) app.inject((Class<?>) genType);
+                    Model m = (Model) App.get().inject((Class<?>) genType);
 
                     // We need to create the generic type manually.
                     ParameterizedTypeImpl genericType = new ParameterizedTypeImpl(null, List.class,

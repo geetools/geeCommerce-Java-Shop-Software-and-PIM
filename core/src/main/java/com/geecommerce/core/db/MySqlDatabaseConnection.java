@@ -13,6 +13,7 @@ import com.mchange.v2.c3p0.DataSources;
 @Persistence("mysql")
 public class MySqlDatabaseConnection implements ConnectionProvider {
     protected ComboPooledDataSource cpds;
+    protected String configurationName;
     protected Map<String, String> properties;
     private static ThreadLocal<java.sql.Connection> MYSQL_CONNECTION_THREAD_LOCAL = new ThreadLocal<java.sql.Connection>();
 
@@ -22,7 +23,13 @@ public class MySqlDatabaseConnection implements ConnectionProvider {
     }
 
     @Override
-    public void init(Map<String, String> properties) {
+    public String name() {
+        return configurationName;
+    }
+
+    @Override
+    public void init(String configurationName, Map<String, String> properties) {
+        this.configurationName = configurationName;
         this.properties = new HashMap<>(properties);
 
         String connectionKey = getConnectionKey();

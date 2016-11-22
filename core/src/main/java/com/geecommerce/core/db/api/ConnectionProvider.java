@@ -5,7 +5,9 @@ import java.util.Map;
 public interface ConnectionProvider {
     public String group();
 
-    public void init(Map<String, String> properties);
+    public String name();
+
+    public void init(String configurationName, Map<String, String> properties);
 
     public Object provide();
 

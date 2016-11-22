@@ -92,7 +92,7 @@ public class Connections {
                     if (systemConnectionProviderType != null) {
                         try {
                             systemConnectionProvider = systemConnectionProviderType.newInstance();
-                            systemConnectionProvider.init(persistenceProperties);
+                            systemConnectionProvider.init(systemPersistenceName, persistenceProperties);
                         } catch (InstantiationException | IllegalAccessException e) {
                             e.printStackTrace();
                         }
@@ -133,8 +133,7 @@ public class Connections {
                             merchantPersistenceName);
 
                         if (merchantConnectionProviderType == null) {
-                            String keyConnectionProvider = new StringBuilder(merchantPersistenceName)
-                                .append(".connection_provider").toString();
+                            String keyConnectionProvider = new StringBuilder(merchantPersistenceName).append(".connection_provider").toString();
                             String persistenceName = connProperties.get(keyConnectionProvider);
 
                             merchantConnectionProviderType = locateConnectionProviderType(persistenceName);
@@ -142,9 +141,8 @@ public class Connections {
 
                         if (merchantConnectionProviderType != null) {
                             try {
-                                ConnectionProvider merchantConnectionProvider = merchantConnectionProviderType
-                                    .newInstance();
-                                merchantConnectionProvider.init(connProperties);
+                                ConnectionProvider merchantConnectionProvider = merchantConnectionProviderType.newInstance();
+                                merchantConnectionProvider.init(merchantPersistenceName, connProperties);
                                 merchantConnectionProviderList.add(merchantConnectionProvider);
                             } catch (InstantiationException | IllegalAccessException e) {
                                 e.printStackTrace();
@@ -204,10 +202,11 @@ public class Connections {
         List<ConnectionProvider> merchantConnectionProviderList = merchantConnectionProviders.get(key);
 
         for (ConnectionProvider connectionProvider : merchantConnectionProviderList) {
-            // connectionProvider.
+            if (!Str.isEmpty(connectionProvider.name()) && connectionProvider.name().equals(persistenceName))
+                return connectionProvider.provide();
         }
 
-        return merchantConnectionProviderList.get(0).provide();
+        return null;
     }
 
     public Object getFirstConnection(String groupName) {

@@ -14,6 +14,7 @@ import com.mongodb.WriteConcern;
 @Persistence("mongodb")
 public class MongoDatabaseConnection implements ConnectionProvider {
     protected MongoClient mongoClient;
+    protected String configurationName;
     protected Map<String, String> properties;
 
     @Override
@@ -21,10 +22,16 @@ public class MongoDatabaseConnection implements ConnectionProvider {
         return "mongodb";
     }
 
+    @Override
+    public String name() {
+        return configurationName;
+    }
+
     @SuppressWarnings("deprecation")
     @Override
-    public void init(Map<String, String> properties) {
+    public void init(String configurationName, Map<String, String> properties) {
         if (mongoClient == null) {
+            this.configurationName = configurationName;
             this.properties = new HashMap<>(properties);
 
             try {

@@ -757,7 +757,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
 
 
             $('.parameters-modal').draggable({
-                handle: ".modal-header"
+                handle: ".parameters-modal-header"
             });
 
 

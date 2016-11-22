@@ -47,13 +47,13 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
                         url: '/api/v1/media-assets/update-file/' + self.tab.id + '/',
 
                     });
-                    dz.on("sending", function(file, xhr, formData) {
+/*                    dz.on("sending", function(file, xhr, formData) {
                         var activeStore = gc.app.activeStore();
 
                         if(!_.isEmpty(activeStore) && !_.isUndefined(activeStore.id)) {
                             xhr.setRequestHeader('X-CB-StoreContext', activeStore.id);
                         }
-                    });
+                    });*/
 
                     dz.on("success", function(file, data) {
                         console.log(data);

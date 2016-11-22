@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.geecommerce.core.App;
 import com.geecommerce.core.rest.AbstractResource;
 import com.geecommerce.core.rest.jersey.inject.FilterParam;
 import com.geecommerce.core.rest.pojo.Filter;
@@ -25,6 +26,9 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.guiwidgets.model.Slide;
 import com.geecommerce.guiwidgets.model.WebSlideShow;
 import com.geecommerce.mediaassets.model.MediaAsset;
+import com.geecommerce.mediaassets.model.MediaAssetDirectory;
+import com.geecommerce.mediaassets.repository.MediaAssets;
+import com.geecommerce.mediaassets.service.MediaAssetDirectoryService;
 import com.geecommerce.mediaassets.service.MediaAssetService;
 import com.google.inject.Inject;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -33,13 +37,18 @@ import com.sun.jersey.multipart.FormDataParam;
 
 @Path("/v1/slide-shows")
 public class SlideShowResource extends AbstractResource {
+    public static final String SYSTEM_PATH = "system/cms/widgets/slide_show";
     private final RestService service;
     private final MediaAssetService mediaAssetService;
+    private final MediaAssetDirectoryService mediaAssetDirectoryService;
+    private final MediaAssets mediaAssets;
 
     @Inject
-    public SlideShowResource(RestService service, MediaAssetService mediaAssetService) {
+    public SlideShowResource(RestService service, MediaAssetService mediaAssetService, MediaAssetDirectoryService mediaAssetDirectoryService, MediaAssets mediaAssets) {
         this.service = service;
         this.mediaAssetService = mediaAssetService;
+        this.mediaAssetDirectoryService = mediaAssetDirectoryService;
+        this.mediaAssets = mediaAssets;
     }
 
     @GET
@@ -115,9 +124,8 @@ public class SlideShowResource extends AbstractResource {
 
     @POST
     @Path("{id}/slides")
-    @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public Response newSlide(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream,
-        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
+    @Consumes({MediaType.MULTIPART_FORM_DATA})
+    public Response newSlide(@PathParam("id") Id id, @FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
         Slide slide = null;
 
         if (id != null) {
@@ -125,10 +133,16 @@ public class SlideShowResource extends AbstractResource {
             FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
             MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());
 
-            slide = app.model(Slide.class);
+            MediaAssetDirectory directory = mediaAssetDirectoryService.createOrGetSystem(SYSTEM_PATH);
+            if (directory != null) {
+                newMediaAsset.setDirectoryId(directory.getId());
+                mediaAssets.update(newMediaAsset);
+            }
+
+            slide = App.get().model(Slide.class);
             slide.setMediaAsset(newMediaAsset);
             slide.setPosition(99);
-            slide.setId(app.nextId());
+            slide.setId(App.get().nextId());
 
             saveSlide(slide, id);
 

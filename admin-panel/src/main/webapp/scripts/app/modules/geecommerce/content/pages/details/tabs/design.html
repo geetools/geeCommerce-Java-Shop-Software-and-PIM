@@ -82,7 +82,7 @@
     <div role="dialog" aria-hidden="true" class="parameters-modal modal fade" data-bind="modal: { show: contentVM.isShowOptions }">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header parameters-modal-header">
                     <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close" data-bind="click: contentVM.cancelOptions">&times;</button>
                     <!-- ko if:  contentVM.selectedNode().widget && contentVM.selectedTab()-->
                         <!-- ko if:  contentVM.selectedTab().parentTab -->
@@ -164,6 +164,7 @@
                                                     <div data-bind="maViewer: $data.value"></div>
                                                 </div>
                                                 <div class="col-xs-8">
+                                                    <div data-bind="mediaAssets: { value: $data.value, path: $root.contentVM.selectedNode().maSystemPath() }" ></div>
                                                     <div data-bind="maUploader: { value: $data.value, path: $root.contentVM.selectedNode().maSystemPath() }" class="dropzone dropzone-files dz-media dz-clickable">
                                                         <p class="dz-message" data-i18n="app:modules.slide-show.fileTabUploadHint">Click here or drag and drop to add file</p>
                                                     </div>

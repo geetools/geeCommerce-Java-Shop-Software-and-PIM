@@ -2381,6 +2381,10 @@ ul.ma-directories, ul.ma-directories li {
     text-align: center;
 }
 
+.ma-img-square.selected{
+    background-color: lightslategrey;
+}
+
 .media-asset-toolbar {
     
 }
@@ -2398,6 +2402,20 @@ ul.ma-directories, ul.ma-directories li {
     appearance: button;
     text-decoration: none;
     color: initial;
+}
+
+.media-assets-modal .modal-body{
+    height: 420px;
+}
+
+.media-assets-modal .media-asset-directories {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.media-assets-modal .media-asset-files {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .ma-tree-node {

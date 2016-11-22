@@ -1,0 +1,76 @@
+<div class="media-asset-widget">
+    <button data-bind="click: showMediaAssets">Select</button>
+
+    <div role="dialog" aria-hidden="true" class="media-assets-modal modal fade" data-bind="modal: { show: isShowMediaAssets }">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header media-assets-modal-header">
+                        Media Assets
+                </div>
+
+                <div class="modal-body row">
+
+                    <div class="media-asset-directories col-md-3">
+                        <ul class="ma-directories" data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
+
+                    </div>
+                    <div class="media-asset-files col-md-9">
+                        <!-- ko if: directory() -->
+                            <div class="tab-pane" data-bind="compose:{ model: 'widgets/mediaAssets/directory/index', activationData: {directory: directory() } }">
+                                <div class="tab-loading-box jumbotron">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                                            <p data-i18n="app:common.loadingContentInfo"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- /ko -->
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bind="click: cancelSelect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: saveSelect">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script id="nodeTemplate" type="text/html">
+
+        <li class="ma-tree-node">
+            <!-- ko if: open() -->
+            <span class="icon expand-icon glyphicon glyphicon-minus" data-bind="click: hide"></span>
+            <!-- /ko -->
+            <!-- ko if: !open() -->
+            <span class="icon expand-icon glyphicon glyphicon-plus" data-bind="click: show"></span>
+            <!-- /ko -->
+            <span class="icon expand-icon glyphicon glyphicon-folder-open" data-bind="click: show"></span>
+
+            <span data-bind="i18nText: { value: name, mode: 'closest' }, click: openDirectory, contextMenu: menu"></span>
+
+            <!-- ko if: open() -->
+            <ul data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
+          <!--  <ul data-bind="template: { name: 'fileTemplate', foreach: mediaAssets }"></ul>-->
+            <!-- /ko -->
+            <!-- ko if: !open() -->
+
+            <!-- /ko -->
+
+        </li>
+    </script>
+    <script id="fileTemplate" type="text/html">
+        <li class="ma-tree-node">
+            <span class="icon expand-icon glyphicon glyphicon-file"></span>
+            <span data-bind="i18nText: { value: name, mode: 'closest' }, click: openMediaAsset, contextMenu: menu"></span>
+        </li>
+    </script>
+

@@ -190,7 +190,8 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
             var new_parents = [];
 
 
-            var roots =  _.where(list, {parentId: undefined});
+            var roots =  _.filter(list, function(o) { return !o.parentId; });
+
             _.each(roots, function (dir) {
                 var dirVM = new DirectoryVM(dir, controller);
                 dirVM.loadMediaAssets();
@@ -203,7 +204,6 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
             while(!_.isEmpty(parents)) {
                 new_parents = [];
                 _.each(parents, function (dirVM) {
-                    console.log(dirVM.id)
                     var dirs = _.where(list, {parentId: dirVM.id});
 
                     if(dirs && !_.isEmpty(dirs)){
@@ -217,7 +217,6 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
 
                 })
                 parents = new_parents;
-                console.log(parents)
             }
 
             return directories;

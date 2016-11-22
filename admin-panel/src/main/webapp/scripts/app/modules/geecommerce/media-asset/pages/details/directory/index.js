@@ -51,13 +51,13 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
                 if(!self.dzInited){
                     self.dzInited = true;
                     var dz = new Dropzone($form, { url: '/api/v1/media-assets/' + self.tab.id + '/'});
-                    dz.on("sending", function(file, xhr, formData) {
+/*                    dz.on("sending", function(file, xhr, formData) {
                         var activeStore = gc.app.activeStore();
 
                         if(!_.isEmpty(activeStore) && !_.isUndefined(activeStore.id)) {
                             xhr.setRequestHeader('X-CB-StoreContext', activeStore.id);
                         }
-                    });
+                    });*/
 
                     dz.on("success", function(file, data) {
                         //self.tab.vm.files(data.mediaAsset.files);

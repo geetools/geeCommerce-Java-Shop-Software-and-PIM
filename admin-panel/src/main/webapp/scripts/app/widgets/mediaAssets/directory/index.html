@@ -1,0 +1,70 @@
+<div class="col-md-12" id="view-directory-details">
+    <div class="row">
+        <!-- ko foreach: { data: $root.directory.maPager.data, as: 'mediaAsset' } -->
+            <!-- ko if: mediaAsset.file -->
+                <div class="col-xs-12 col-sm-6 col-md-4 ma-dir-preview">
+                    <!-- ko if: mediaAsset.id == $root.mediaAssetId() -->
+                    <div class="ma-img-square selected">
+                        <div class="ma-img-wrapper">
+                            <div class="ma-table">
+                                <div class="ma-cell">
+                                    <img src="" class="img img-responsive full-width" data-bind="attr: { src: mediaAsset.file().previewImageUrl}, click: $root.selectMediaAsset"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ma-img-square-name">
+                            <span  data-bind="i18nText: { value: mediaAsset.name, mode: 'closest' }"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: mediaAsset.id != $root.mediaAssetId() -->
+                        <div class="ma-img-square">
+                            <div class="ma-img-wrapper">
+                                <div class="ma-table">
+                                    <div class="ma-cell">
+                                        <img src="" class="img img-responsive full-width" data-bind="attr: { src: mediaAsset.file().previewImageUrl}, click: $root.selectMediaAsset"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ma-img-square-name">
+                                <span  data-bind="i18nText: { value: mediaAsset.name, mode: 'closest' }"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+
+                </div>
+            <!-- /ko -->
+
+        <!-- /ko -->
+    </div>
+    <div class="row">
+        <div style="float: left;">
+            <ul class="pagination pagination-sm" data-bind="foreach: { data: $root.directory.maPager.pages, as: 'page' }">
+                <li data-bind="click: $root.directory.maPager.page, css: { active: $root.directory.maPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+            </ul>
+        </div>
+
+        <div style="float: right; width: 100px;">
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <select  class="form-control select2 form-control-small" style="display: inline-block;"
+                                 data-bind="options: $root.directory.maPager.limitOptions,
+                                                        optionsText: 'label',
+                                                        optionsValue: 'value',
+                                                        value: $root.directory.maPager.limit"></select>
+
+                        <span class="input-group-btn">
+	                        <button class="btn btn-primary" type="button"><i class="fa fa-refresh"></i></button>
+                    	</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--    <div class="col-xs-4" >
+            <img class="img-responsive img-thumbnail" data-bind="attr: { src: mediaAsset.url}, click: mediaAsset.openMediaAsset" >
+        </div>-->
+
+</div>

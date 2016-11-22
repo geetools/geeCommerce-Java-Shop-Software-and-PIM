@@ -554,6 +554,7 @@ define(function(require) {
     widget.registerKind('contextValues');
     widget.registerKind('contextEditor');
     widget.registerKind('navToolbar');
+    widget.registerKind('mediaAssets');
     kv.makeBindingHandlerValidatable("i18nValue");
 
     kv.rules['require_i18n'] = {

@@ -32,8 +32,7 @@ public class CmsProductReviewWidget extends AbstractWidgetController implements 
     private final CustomerReviewService customerReviewService;
 
     @Inject
-    public CmsProductReviewWidget(ProductService productService, WidgetParameters widgetParameters,
-        CustomerReviewService customerReviewService) {
+    public CmsProductReviewWidget(ProductService productService, WidgetParameters widgetParameters, CustomerReviewService customerReviewService) {
         this.productService = productService;
         this.widgetParameters = widgetParameters;
         this.customerReviewService = customerReviewService;

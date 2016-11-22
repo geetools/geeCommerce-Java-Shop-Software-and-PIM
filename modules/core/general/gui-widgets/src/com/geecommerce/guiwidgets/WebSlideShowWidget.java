@@ -35,8 +35,7 @@ public class WebSlideShowWidget extends AbstractWidgetController implements Widg
     private final String PARAM_NAME = "name";
 
     @Inject
-    public WebSlideShowWidget(WebSlideShowService webSlideShowService, WidgetParameters widgetParameters,
-        WebSlideShows webSlideShows) {
+    public WebSlideShowWidget(WebSlideShowService webSlideShowService, WidgetParameters widgetParameters, WebSlideShows webSlideShows) {
         this.webSlideShowService = webSlideShowService;
         this.widgetParameters = widgetParameters;
         this.webSlideShows = webSlideShows;

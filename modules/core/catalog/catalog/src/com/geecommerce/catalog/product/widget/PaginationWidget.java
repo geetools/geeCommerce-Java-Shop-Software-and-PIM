@@ -34,6 +34,7 @@ public class PaginationWidget extends AbstractWidgetController implements Widget
     private Map<String, Set<Object>> basicFilterParts;
 
     public PaginationWidget() {
+        super();
         this.filterRule = app.registryGet(ProductListConstant.FILTER_RULE);
         this.filterAttributes = app.registryGet(ProductListConstant.FILTER_ATTRIBUTES);
         this.uriFilterParts = app.registryGet(ProductListConstant.URI_FILTER_PARTS);

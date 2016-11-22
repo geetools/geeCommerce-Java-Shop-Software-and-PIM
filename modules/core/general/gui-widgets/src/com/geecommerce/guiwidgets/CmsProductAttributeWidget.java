@@ -36,8 +36,7 @@ public class CmsProductAttributeWidget extends AbstractWidgetController implemen
     private final Attributes attributes;
 
     @Inject
-    public CmsProductAttributeWidget(ProductService productService, WidgetParameters widgetParameters,
-        AttributeService attributeService, Attributes attributes) {
+    public CmsProductAttributeWidget(ProductService productService, WidgetParameters widgetParameters, AttributeService attributeService, Attributes attributes) {
         this.productService = productService;
         this.widgetParameters = widgetParameters;
         this.attributes = attributes;

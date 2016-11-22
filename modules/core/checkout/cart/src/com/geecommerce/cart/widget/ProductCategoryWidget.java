@@ -36,8 +36,7 @@ public class ProductCategoryWidget extends AbstractWidgetController implements W
     String productId = null;
 
     @Inject
-    public ProductCategoryWidget(ProductLists productLists, ProductNavigationIndexes productNavigationIndexes,
-        ProductService productService) {
+    public ProductCategoryWidget(ProductLists productLists, ProductNavigationIndexes productNavigationIndexes, ProductService productService) {
         this.productLists = productLists;
         this.productNavigationIndexes = productNavigationIndexes;
         this.productService = productService;

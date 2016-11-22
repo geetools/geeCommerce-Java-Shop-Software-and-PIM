@@ -146,11 +146,11 @@
                 }, {
                     label : 'app:navigation.datamodel',
                     group : 'datamodel',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     label : 'app:navigation.content',
                     group : 'content',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     label : 'app:navigation.promotions',
                     group : 'promotions',
@@ -199,7 +199,7 @@
                     group : 'datamodel',
                     nav : true,
                     hash : '#/attributes',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     route : 'attribute-tabs*details',
                     moduleId : 'core/attribute-tabs/pages/index',
@@ -210,7 +210,7 @@
                     group : 'datamodel',
                     nav : true,
                     hash : '#/attribute-tabs',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     route : 'attribute-groups*details',
                     moduleId : 'core/attribute-group/pages/index',
@@ -221,7 +221,7 @@
                     group : 'datamodel',
                     nav : true,
                     hash : '#/attribute-groups',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, /*
                      * { route : 'pictograms*details', moduleId : 'modules/geecommerce/pictogram/pages/index', label : 'app:navigation.pictograms', title : 'app:modules.pictogram.title', subtitle :
                      * 'app:modules.pictogram.subtitle', icon : 'fa fa-file-image-o fa-fw', group : 'datamodel', nav : true, hash : '#/pictograms', roles : [ 'admin' ] },
@@ -235,7 +235,7 @@
                     group : 'content',
                     nav : true,
                     hash : '#/content',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     route : 'navigation*details',
                     moduleId : 'modules/geecommerce/navigation/pages/index',
@@ -351,7 +351,7 @@
                     nav : true,
                     hash : '#/media-assets',
                     group : 'content',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }
                 //
                 // {

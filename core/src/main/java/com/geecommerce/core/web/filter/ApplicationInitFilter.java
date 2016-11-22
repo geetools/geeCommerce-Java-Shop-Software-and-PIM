@@ -79,12 +79,6 @@ public class ApplicationInitFilter implements Filter {
 
         Enumeration<String> headers = httpRequest.getHeaders("Accept");
 
-        while (headers.hasMoreElements()) {
-            String string = (String) headers.nextElement();
-
-            // System.out.println("HEADER: Accept=" + string);
-        }
-
         ContextAwareCacheKeyWrapper<String> key = null;
         boolean isMaintenanceRedirectActive = false;
         int originalPriority = Thread.currentThread().getPriority();
@@ -464,7 +458,7 @@ public class ApplicationInitFilter implements Filter {
             // }
             // }
 
-            // Connections.closeSQLConnection(); TODO
+            Connections.closeSqlConnections();
             ThreadClearer.clear();
         }
     }

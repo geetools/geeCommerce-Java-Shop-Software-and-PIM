@@ -44,7 +44,7 @@
 	"navigation" : {
 		"catalogue" : "Katalog",
 		"datamodel" : "Datenmodell",
-		"content" : "Inhalt",
+		"content" : "CMS",
 		"promotions" : "Promotions",
 		"customers" : "Kunden",
 		"search" : "Suche",
@@ -67,7 +67,7 @@
 		"url-rewrites" : "Freundliche URLs",
 		"moeve" : "Moeve",
 		"contextMessages" : "Nachrichten",
-		"mediaAssets" : "Medien Aktiva",
+		"mediaAssets" : "Media Assets",
 		"pictograms" : "Pictograms",
 		"search-rewrites" : "Search Rewrites",
 		"synonyms" : "Synonyms"
@@ -720,8 +720,9 @@
 		},
 		"content" : {
 		  "title" : "Content Management System",
-		  "subtitle" : "Management der angezeigte Inhalt",
-		  "gridColKey" : "Inhalt Name"
+		  "subtitle" : "CMS Seiten verwalten",
+		  "gridColKey" : "Seitennummer",
+		  "gridColName" : "Seitenname"
 		},
 		"synonym" : {
 		  "title" : "Synonyms",

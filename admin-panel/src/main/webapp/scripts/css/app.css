@@ -373,6 +373,10 @@ input[type="radio"], input[type="checkbox"] {
     height: 37px;
 }
 
+.navbar-brand>img {
+    margin-top: 5px;
+}
+
 .navbar-nav {
     margin: 0;
     padding: 0;
@@ -678,8 +682,13 @@ input:-webkit-autofill {
 }
 
 .login-box .logo-wrapper, .home-loader-box .logo-wrapper {
-    width: 70px;
+    width: 90px;
     margin: 0 auto;
+}
+
+.login-box>.logo-wrapper>img {
+    width: 90px;
+    margin-bottom: 20px;	
 }
 
 .login-box .logo-text-wrapper, .home-loader-box .logo-text-wrapper {
@@ -687,7 +696,7 @@ input:-webkit-autofill {
     margin: 0 auto;
     margin-bottom: 20px;
     font-family: 'Lato', sans-serif;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .login-box .btn {

@@ -24,7 +24,7 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs'], function (app
     	// Fields used for filtering and sorting.
 		gridHeaders: [
           {'field' : 'Label', 'label' : 'Name'},
-          {'field' : 'group', 'label' : 'Type'},
+          {'field' : 'Typ', 'label' : 'Typ'},
           {'field' : 'position', 'label' : 'Reihenfolge'},
           {'field' : 'enabled', 'label' : 'Akiviert'},
           {'field' : '', 'label' : ''}

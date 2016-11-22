@@ -57,7 +57,7 @@
                 <tbody data-bind="foreach: pager.data">
                     <tr>
                         <td><a data-bind="attr: { href: '#/attribute-tabs/details/' + $data.id }">#</a> <a data-bind="i18nText: $data.label, attr: { href: '#/attribute-tabs/details/' + $data.id }"></a></td>
-                        <td data-bind="i18n: 'app:modules.attribute.group' + $data.group"></td>
+                        <td data-bind="ctxText: $data.targetObject.name"></td>
                         <td data-bind="text: $data.position"></td>
                         <td data-bind="i18n: 'app:common.' + $data.enabled"></td>
                         <td class="actions">

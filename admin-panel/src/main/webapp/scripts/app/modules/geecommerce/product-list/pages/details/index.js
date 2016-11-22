@@ -249,7 +249,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             return obj;
         }
     }
-    }
 
     //-----------------------------------------------------------------
     // Controller

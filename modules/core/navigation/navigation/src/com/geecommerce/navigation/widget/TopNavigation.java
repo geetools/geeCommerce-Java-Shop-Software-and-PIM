@@ -21,8 +21,7 @@ public class TopNavigation extends AbstractWidgetController implements WidgetCon
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
-        ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
         // // Get top-navigation items
         // List<NavigationItem> topNavigationItems =
         // navigationService.getTopNavigationItems(widgetCtx.getMerchant(),

@@ -24,8 +24,7 @@ public class ProductListNavigation extends AbstractWidgetController implements W
     }
 
     @Override
-    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response,
-        ServletContext servletContext) throws Exception {
+    public void execute(WidgetContext widgetCtx, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
         // Fetch options
         String key = widgetCtx.getParam("key");
         Id productListId = widgetCtx.getParam("product_list_id", Id.class);

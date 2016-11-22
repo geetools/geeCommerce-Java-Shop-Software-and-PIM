@@ -18,6 +18,10 @@ public abstract class AbstractWidgetController implements WidgetController {
     protected static final String PARAM_VIEW = "view";
     protected static final String DEFAULT_VIEW = "default";
 
+    protected AbstractWidgetController() {
+        app = App.get();
+    }
+
     @Override
     public String getCode() {
         return this.getClass().getAnnotation(Widget.class).name();

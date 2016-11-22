@@ -79,8 +79,7 @@ public class WidgetHelper {
                 }
             }
 
-            List<WidgetController> cachedWidgetControllers = cache.putIfAbsent(KEY_WIDGET_CONTROLLERS,
-                widgetControllers);
+            List<WidgetController> cachedWidgetControllers = cache.putIfAbsent(KEY_WIDGET_CONTROLLERS, widgetControllers);
 
             if (cachedWidgetControllers != null)
                 widgetControllers = cachedWidgetControllers;

@@ -49,6 +49,7 @@ public class ProductListTopFilterWidget extends AbstractWidgetController impleme
     private Map<String, Set<Object>> basicFilterParts;
 
     public ProductListTopFilterWidget() {
+        super();
         this.filterRule = app.registryGet(ProductListConstant.FILTER_RULE);
         this.filterAttributes = app.registryGet(ProductListConstant.FILTER_ATTRIBUTES);
         this.uriFilterParts = app.registryGet(ProductListConstant.URI_FILTER_PARTS);

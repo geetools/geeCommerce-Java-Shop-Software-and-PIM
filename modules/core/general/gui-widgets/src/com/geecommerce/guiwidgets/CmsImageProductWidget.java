@@ -27,8 +27,7 @@ public class CmsImageProductWidget extends AbstractWidgetController implements W
     private final Products products;
 
     @Inject
-    public CmsImageProductWidget(MediaAssetService mediaAssetService, ProductService productService,
-        Products products) {
+    public CmsImageProductWidget(MediaAssetService mediaAssetService, ProductService productService, Products products) {
         this.mediaAssetService = mediaAssetService;
         this.productService = productService;
         this.products = products;

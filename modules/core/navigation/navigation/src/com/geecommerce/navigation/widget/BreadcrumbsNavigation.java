@@ -54,8 +54,7 @@ public class BreadcrumbsNavigation extends AbstractWidgetController implements W
     private final ProductNavigationIndexes productNavigationIndexes;
 
     @Inject
-    public BreadcrumbsNavigation(NavigationService navigationService, ProductLists productLists,
-        ProductNavigationIndexes productNavigationIndexes) {
+    public BreadcrumbsNavigation(NavigationService navigationService, ProductLists productLists, ProductNavigationIndexes productNavigationIndexes) {
         this.navigationService = navigationService;
         this.productLists = productLists;
         this.productNavigationIndexes = productNavigationIndexes;

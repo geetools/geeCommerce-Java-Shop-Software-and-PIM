@@ -30,8 +30,8 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
 
                     // Pager columns
                     var pagerColumns = [
-                        {'name': '!attr.article_number', 'label': 'Artikelnummer'},
-                        {'name': '!attr.name', 'label': 'Name'}
+                        {'name': '$attr.article_number', 'label': 'Artikelnummer'},
+                        {'name': '$attr.name', 'label': 'Name'}
                     ];
 
                     var pagingOptions = productAPI.pagingOptions({columns: pagerColumns, filter: [], attributes: []})
@@ -42,16 +42,16 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                     // Init the pager.
                     searchProductResults = new gc.Pager(pagingOptions);
 
-                    searchProductResults.columnValue('!attr.article_number', undefined);
-                    searchProductResults.columnValue('!attr.name', undefined);
+                    searchProductResults.columnValue('$attr.article_number', undefined);
+                    searchProductResults.columnValue('$attr.name', undefined);
 
-                    searchProductResults.columnValue('!attr.article_number', queryStr);
+                    searchProductResults.columnValue('$attr.article_number', queryStr);
                     searchProductResults.load().then(function (data) {
                         if (_.isEmpty(data.data.products)) {
                             console.log("PP:: SEARCHING FOR ARTICLE NUMBER with NO results.");
 
-                            searchProductResults.columnValue('!attr.article_number', undefined);
-                            searchProductResults.columnValue('!attr.name', queryStr);
+                            searchProductResults.columnValue('$attr.article_number', undefined);
+                            searchProductResults.columnValue('$attr.name', queryStr);
                             searchProductResults.load().then(function (data2) {
                                 if (!_.isEmpty(data2.data.products)) {
                                     //console.log("PP:: Products found by name::" + data2.data.products.length);

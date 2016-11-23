@@ -1502,7 +1502,7 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
         		// Base URI of product-API.
         		url: '/api/v1/products',
         		searchUrl: '/api/v1/search/products',
-//        		filter: options.filter || [ { name : 'visible', value : '{{val:true}}' }, { name : '!attr.name', value : '$nn' } ],
+//        		filter: options.filter || [ { name : 'visible', value : '{{val:true}}' }, { name : '$attr.name', value : '$nn' } ],
         		filter: options.filter || [],
         		// Only load specific fields for better performance.
         		fields: options.fields || [ 'id', 'id2', 'parentId', 'attributeId', 'code', 'createdOn', 'modifiedOn', 'type', 'status',

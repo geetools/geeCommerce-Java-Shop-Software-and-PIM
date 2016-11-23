@@ -296,7 +296,7 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
                     gc.ctxobj.enhance(attrOptions, [ 'label' ],  'any');
                     _.forEach(attrOptions, function(option) {
                     	if(option.label && option.label.i18n) {
-	                        computedOptions.push( { text : option.label.i18n, id : "!opt." + attr.code + "__" + option.id } );
+	                        computedOptions.push( { text : option.label.i18n, id : "$opt." + attr.code + "__" + option.id } );
                     	}
                     });
                 });
@@ -306,7 +306,7 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
 
 	    	// Pager columns
 			var pagerColumns = [
-              { 'name' : '!attr.manufacturer', 'label' : 'app:modules.product.gridColManufacturer', cookieKey : 'mf' },
+              { 'name' : '$attr.manufacturer', 'label' : 'app:modules.product.gridColManufacturer', cookieKey : 'mf' },
               { 'name' : 'type', 'label' : 'app:modules.product.gridColType', cookieKey : 't', 'selectOptions' :
             	  [
             	   { label: gc.app.i18n('app:common.choose'), value: '' },
@@ -315,11 +315,11 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
             	   { label: gc.app.i18n('app:modules.product.typePROGRAMME'), value: 4 } 
             	  ] },
               { 'name' : 'group', combined: true, 'label' : 'app:modules.product.gridColGroup', cookieKey : 'g' },
-              { 'name' : '!attr.ean', 'label' : 'app:modules.product.gridColEan', cookieKey : 'ean' },
-              { 'name' : '!attr.article_number', 'label' : 'app:modules.product.gridColArticleNo', cookieKey : 'an' },
-              { 'name' : '!attr.brand', 'label' : 'app:modules.product.gridColBrand', cookieKey : 'b' },
-              { 'name' : '!attr.name', 'label' : 'app:modules.product.gridColName', cookieKey : 'n' },
-              { 'name' : '!attr.supplier', 'label' : 'app:modules.product.gridColSupplier', cookieKey : 'sp' },
+              { 'name' : '$attr.ean', 'label' : 'app:modules.product.gridColEan', cookieKey : 'ean' },
+              { 'name' : '$attr.article_number', 'label' : 'app:modules.product.gridColArticleNo', cookieKey : 'an' },
+              { 'name' : '$attr.brand', 'label' : 'app:modules.product.gridColBrand', cookieKey : 'b' },
+              { 'name' : '$attr.name', 'label' : 'app:modules.product.gridColName', cookieKey : 'n' },
+              { 'name' : '$attr.supplier', 'label' : 'app:modules.product.gridColSupplier', cookieKey : 'sp' },
               { 'name' : 'deleted', 'label' : 'app:modules.product.gridColDeleted', cookieKey : 'd', 'selectOptions' :
             	  [
             	   { label: gc.app.i18n('app:common.no'), value: false },

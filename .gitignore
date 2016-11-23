@@ -24,6 +24,7 @@ projects/**/modules
 projects/**/log
 projects/**/cache
 *.deleted
+*.local
 
 # Logs
 *.log

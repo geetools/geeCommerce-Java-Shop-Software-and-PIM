@@ -5,7 +5,7 @@ import com.geecommerce.core.service.api.Model;
 import com.mongodb.DBObject;
 
 public class Wildcard extends AbstractCommand {
-    protected static final String CMD_WILDCARD = "$cb.wc:";
+    protected static final String CMD_WILDCARD = "$wc:";
     protected static final String REGEX_WC = ".*";
     protected static final String ASTERIX = "*";
     protected static final Character CARET = '^';

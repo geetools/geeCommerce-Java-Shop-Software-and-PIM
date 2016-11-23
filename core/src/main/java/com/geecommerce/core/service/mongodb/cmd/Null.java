@@ -5,7 +5,7 @@ import com.geecommerce.core.service.api.Model;
 import com.mongodb.DBObject;
 
 public class Null extends AbstractCommand {
-    private static final String CMD_NULL = "$cb.null";
+    private static final String CMD_NULL = "$null";
 
     @Override
     public boolean isOwner(String key, Object value) {

@@ -366,11 +366,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 			
 	    	// Pager columns
 			var pagerColumns = [
-              {'name' : '!attr.article_number', 'label' : 'Artikelnummer'},
-              {'name' : '!attr.name', 'label' : 'Name'}
+              {'name' : '$attr.article_number', 'label' : 'Artikelnummer'},
+              {'name' : '$attr.name', 'label' : 'Name'}
             ];
 			
-			var pagingOptions = productAPI.variantProductPagingOptions( { columns : pagerColumns, filter : [ { name: 'type', value: 1 /* PHYSICAL */ }, { name: '!opt.product_group', value: vm.productGroup().id } ], attributes : [] } )
+			var pagingOptions = productAPI.variantProductPagingOptions( { columns : pagerColumns, filter : [ { name: 'type', value: 1 /* PHYSICAL */ }, { name: '$opt.product_group', value: vm.productGroup().id } ], attributes : [] } )
 			
 	    	// Init the pager.
         	this.variantsPager = new gc.Pager(pagingOptions);
@@ -403,7 +403,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 					
 					if(articleNumber.length > 2) {
 						self.variantsPager.setDefaultFilter([ { name: 'type', value: 1 /* PHYSICAL */ } ]);
-			        	self.variantsPager.columnValue('!attr.article_number', articleNumber);
+			        	self.variantsPager.columnValue('$attr.article_number', articleNumber);
 						self.variantsPager.load().then(function(data) {
 							self.variantsVM.sourceContainer([]);							
 							
@@ -458,7 +458,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 					
 					// Pre-fetch possible variants according to the first part of the article-number.
 					if(!_.isEmpty(vm.articleNumber())) {
-			        	self.variantsPager.columnValue('!attr.article_number', gc.ctxobj.plain(vm.articleNumber()).substring(0,5));
+			        	self.variantsPager.columnValue('$attr.article_number', gc.ctxobj.plain(vm.articleNumber()).substring(0,5));
 			        	self.variantsPager.load().then(function(data) {
 			        		
 							// Populate drag&drop source container.

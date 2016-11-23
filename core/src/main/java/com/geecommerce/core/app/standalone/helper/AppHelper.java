@@ -44,6 +44,8 @@ public class AppHelper {
         ThreadContext.put("log.path", logPath);
 
         SystemInjector.bootstrap();
+        
+        Connections.initSystemConnection();
     }
 
     public static final void init(RequestContext reqCtx) {

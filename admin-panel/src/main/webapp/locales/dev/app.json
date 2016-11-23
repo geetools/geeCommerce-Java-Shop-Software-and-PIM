@@ -189,7 +189,8 @@
 			"fmCreateSuccessTitle" : "Product Has Been CreatedXX",
 			"fmCreateSuccessBody" : "The product \"__productName__\" has been created successfully.<br/><br/><a href=\"__productURI__\">Click here to view the product.</a>",
 			"noSefUrlExists" : "<i>No friendly URL exists yet</i>",
-			"baseFriendlyURI" : "/products"
+			"baseFriendlyURI" : "/products",
+			"newProductSelectTitle" : "Select product group"
 		},
 		"order": {
 			"title" : "Manage Orders",

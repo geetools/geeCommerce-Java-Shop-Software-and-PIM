@@ -9,7 +9,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class AttrOption extends AbstractCommand {
-    private static final String CMD_PREFIX = "cb.opt.";
+    private static final String CMD_PREFIX = "$opt.";
     private static final String COL_ATTRIBUTES = "attributes";
     private static final String FIELD_OPTIONS = "opt_id";
     private static final String ALL = "$all";

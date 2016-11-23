@@ -6,7 +6,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class NotNull extends AbstractCommand {
-    private static final String CMD_NOT_NULL = "$cb.nn";
+    private static final String CMD_NOT_NULL = "$nn";
     private static final String NOT_EQUALS = "$ne";
 
     @Override

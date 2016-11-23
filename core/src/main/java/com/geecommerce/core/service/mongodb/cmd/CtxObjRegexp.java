@@ -14,7 +14,7 @@ import com.mongodb.DBObject;
 public class CtxObjRegexp extends AbstractCommand {
     // TODO: @obj:{val:true}
 
-    private static final String CMD_PREFIX = "cb.regexp:";
+    private static final String CMD_PREFIX = "$regex:";
     private static final String CMD_OPEN_BRACKET = "[";
     private static final String CMD_CLOSE_BRACKET = "]";
 

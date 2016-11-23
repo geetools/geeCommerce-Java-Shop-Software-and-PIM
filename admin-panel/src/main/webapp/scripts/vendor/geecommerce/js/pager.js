@@ -308,18 +308,18 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                     if (!_.isEmpty(column.type) && column.type == 'ContextObject') {
                         console.log(column.useRegexp);
                         if (column.useRegexp) {
-                            self._filter[name] = '!regex:{{val:"' + val + '"}}';
+                            self._filter[name] = '$regex:{{val:"' + val + '"}}';
                         } else if (column.wildcard) {
-                            self._filter[name] = '!regex:{{val:"' + val + '.*"}}';
+                            self._filter[name] = '$regex:{{val:"' + val + '.*"}}';
                         } else {
                             self._filter[name] = '{{val:"' + val + '"}}';
                         }
-                    } else if (name.startsWith('!attr.')) {
+                    } else if (name.startsWith('$attr.')) {
                         // Add wildcard expression.
                         self._filter[name] = val + (_.has(column, 'wildcard') && !column.wildcard ? '' : '*');
                     } else if ((!isNumber && !isBoolean && column.type != 'simple') || column.type == 'wildcard') {
                         // Add wildcard expression.
-                        self._filter[name] = '!wc:' + val + '*';
+                        self._filter[name] = '$wc:' + val + '*';
                     } else {
                         self._filter[name] = val;
                     }

@@ -12,7 +12,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class AttrXOption extends AbstractCommand {
-    private static final String CMD_PREFIX = "cb.xopt.";
+    private static final String CMD_PREFIX = "$xopt.";
     private static final String COL_ATTRIBUTES = "attributes";
     private static final String FIELD_ATTR_ID = "attr_id";
     private static final String FIELD_VAL = "val";

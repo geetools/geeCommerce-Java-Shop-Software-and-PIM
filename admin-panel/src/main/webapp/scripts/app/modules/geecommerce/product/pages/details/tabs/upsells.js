@@ -83,8 +83,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			
 	    	// Pager columns
 			var pagerColumns = [
-              {'name' : '!attr.article_number', 'label' : 'Artikelnummer'},
-              {'name' : '!attr.name', 'label' : 'Name'}
+              {'name' : '$attr.article_number', 'label' : 'Artikelnummer'},
+              {'name' : '$attr.name', 'label' : 'Name'}
             ];
 			
 			var pagingOptions = productAPI.pagingOptions( { columns : pagerColumns, filter : [], attributes : [] } )
@@ -118,14 +118,14 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			self.query.subscribe(function(value) {
 					console.log('SEARCHING FOR: ', value);
 			
-	        	self.sourceUpsellProductsPager.columnValue('!attr.article_number', undefined);
-	        	self.sourceUpsellProductsPager.columnValue('!attr.name', undefined);
+	        	self.sourceUpsellProductsPager.columnValue('$attr.article_number', undefined);
+	        	self.sourceUpsellProductsPager.columnValue('$attr.name', undefined);
 				
-	        	self.sourceUpsellProductsPager.columnValue('!attr.article_number', value);
+	        	self.sourceUpsellProductsPager.columnValue('$attr.article_number', value);
 				self.sourceUpsellProductsPager.load().then(function(data) {
 					if(_.isEmpty(data.data)) {
-			        	self.sourceUpsellProductsPager.columnValue('!attr.article_number', undefined);
-			        	self.sourceUpsellProductsPager.columnValue('!attr.name', value);
+			        	self.sourceUpsellProductsPager.columnValue('$attr.article_number', undefined);
+			        	self.sourceUpsellProductsPager.columnValue('$attr.name', value);
 			        	self.sourceUpsellProductsPager.load().then(function(data2) {
 			        	});
 					}

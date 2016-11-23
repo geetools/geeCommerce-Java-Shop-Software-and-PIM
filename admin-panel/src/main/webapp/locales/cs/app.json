@@ -220,7 +220,8 @@
 			"fmCreateSuccessTitle" : "Product Has Been Created",
 			"fmCreateSuccessBody" : "The product \"__productName__\" has been created successfully.<br/><br/><a href=\"__productURI__\">Click here to view the product.</a>",
 			"noSefUrlExists" : "<i>No friendly URL exists yet</i>",
-			"baseFriendlyURI" : "/produkty"
+			"baseFriendlyURI" : "/produkty",
+			"newProductSelectTitle" : "Select product group"
 		},
 		"order": {
 			"title" : "Správa objednávek",

@@ -49,7 +49,7 @@ public class Attr extends AbstractCommand {
         // Build the actual attribute value query part.
         // ---------------------------------------------------------------
 
-        String attrCode = originalKey.substring(8);
+        String attrCode = originalKey.substring(6);
 
         DBObject dboVal = processValue(FIELD_VAL, String.valueOf(value));
 

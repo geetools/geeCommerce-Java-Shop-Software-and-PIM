@@ -290,7 +290,121 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 
 			return promise;
         },
-        
+		getCrossSellProducts: function(productId) {
+			var self = this;
+
+			var deferred = new $.Deferred();
+			var promise = deferred.promise();
+
+			promise.success = promise.done;
+			promise.error = promise.fail;
+			promise.complete = promise.done;
+
+			gc.rest.get({
+				url : '/api/v1/products/' + productId + '/cross-sells',
+				success : function(data, status, xhr) {
+					if (self._onload) {
+						self._onload(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				},
+				error : function(jqXHR, status, error) {
+					if (self._onerror) {
+						self._onerror(jqXHR, status, error);
+					}
+
+					deferred.reject(jqXHR, status, error);
+				},
+				complete : function(data, status, xhr) {
+					if (self._oncomplete) {
+						self._oncomplete(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				}
+			});
+
+			return promise;
+		},
+		addCrossSell: function(productId, crossSellProductId) {
+			var self = this;
+
+			var deferred = new $.Deferred();
+			var promise = deferred.promise();
+
+			promise.success = promise.done;
+			promise.error = promise.fail;
+			promise.complete = promise.done;
+
+			console.log('_____updateModel-addProductToCrossSells_____', productId, crossSellProductId);
+
+			gc.rest.put({
+				url : '/api/v1/products/' + productId + '/cross-sells/' + crossSellProductId,
+				success : function(data, status, xhr) {
+					if (self._onload) {
+						self._onload(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				},
+				error : function(jqXHR, status, error) {
+					if (self._onerror) {
+						self._onerror(jqXHR, status, error);
+					}
+
+					deferred.reject(jqXHR, status, error);
+				},
+				complete : function(data, status, xhr) {
+					if (self._oncomplete) {
+						self._oncomplete(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				}
+			});
+
+			return promise;
+		},
+		removeCrossSell: function(productId, crossSellProductId) {
+			var self = this;
+
+			var deferred = new $.Deferred();
+			var promise = deferred.promise();
+
+			promise.success = promise.done;
+			promise.error = promise.fail;
+			promise.complete = promise.done;
+
+			console.log('_____updateModel-removeCrossSell_____', productId, crossSellProductId);
+
+			gc.rest.del({
+				url : '/api/v1/products/' + productId + '/cross-sells/' + crossSellProductId,
+				success : function(data, status, xhr) {
+					if (self._onload) {
+						self._onload(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				},
+				error : function(jqXHR, status, error) {
+					if (self._onerror) {
+						self._onerror(jqXHR, status, error);
+					}
+
+					deferred.reject(jqXHR, status, error);
+				},
+				complete : function(data, status, xhr) {
+					if (self._oncomplete) {
+						self._oncomplete(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				}
+			});
+
+			return promise;
+		},
         getProgrammeProducts: function(productId) {
 			var self = this;
 

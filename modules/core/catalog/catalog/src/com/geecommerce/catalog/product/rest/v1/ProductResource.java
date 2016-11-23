@@ -198,6 +198,56 @@ public class ProductResource extends AbstractResource {
     }
 
     @GET
+    @Path("{id}/cross-sells")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getCrossSells(@PathParam("id") Id id) {
+        Product p = checked(service.get(Product.class, id));
+        List<Product> crossSells = p.getCrossSells();
+
+        return ok(crossSells);
+    }
+
+    @PUT
+    @Path("{productId}/cross-sells/{crossSellProductId}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void addCrossSell(@PathParam("productId") Id id, @PathParam("crossSellProductId") Id crossSellProductId) {
+        if (id != null && crossSellProductId != null) {
+            // Get main and cross-sell product.,
+            Product product = checked(service.get(Product.class, id));
+            Product crossSellProduct = checked(service.get(Product.class, crossSellProductId));
+
+            // Add child product to main product.
+            product.addCrossSellProduct(crossSellProduct);
+
+            // Save main product with the new cross-sell-productId.
+            service.update(product);
+        } else {
+            throwBadRequest(
+                    "productId and crossSellProductId cannot be null in requestURI. Expecting: products/{productId}/cross-sells/{crossSellProductId}");
+        }
+    }
+
+    @DELETE
+    @Path("{productId}/cross-sells/{crossSellProductId}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void removeCrossSell(@PathParam("productId") Id id, @PathParam("crossSellProductId") Id crossSellProductId) {
+        if (id != null && crossSellProductId != null) {
+            // Get main and child product.
+            Product product = checked(service.get(Product.class, id));
+            Product crossSellProduct = checked(service.get(Product.class, crossSellProductId));
+
+            // Remove child from main product.
+            product.removeCrossSellProduct(crossSellProduct);
+
+            // Save main product with the removed variant-productId.
+            service.update(product);
+        } else {
+            throwBadRequest(
+                    "productId and crossSellProductId cannot be null in requestURI. Expecting: products/{productId}/cross-sells/{crossSellProductId}");
+        }
+    }
+
+    @GET
     @Path("{id}/programme-products")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getProgrammeProducts(@PathParam("id") Id id) {

@@ -7,7 +7,7 @@
 	
 					<p>Diese Produkte sind bereits Artikel <b data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></b> zugeordnet.</p>
 					
-					<ul data-bind="foreach: { data: productVM().upsellProducts, as: 'prd' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableUpsellProducts">
+					<ul data-bind="foreach: { data: productVM().crossSellProducts, as: 'prd' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableCrossSellProducts">
 						<li data-bind="attr: {'data-id': prd.id}" class="droppable-list" unselectable="on">
 							<div class="col-xs-8">
 								<span data-bind="attrText: prd, code: 'name', mode: 'closest'"></span><br/>
@@ -19,7 +19,7 @@
 							</div>
 
 							<div class="col-xs-4">
-								<a href="#" data-bind="click: $root.removeUpsell" class="btn-cancel pull-right" data-placement="bottom" data-toggle="tooltip" data-original-title="Upsell löschen"><i class="fa fa-times"></i></a>
+								<a href="#" data-bind="click: $root.removeCrossSell" class="btn-cancel pull-right" data-placement="bottom" data-toggle="tooltip" data-original-title="Cross-sell löschen"><i class="fa fa-times"></i></a>
                                 <br/>
                         		<!-- Image -->
 								<span data-bind="if: prd.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prd.mainImageURI)}" border="0" vspace="10"/></span>
@@ -41,7 +41,7 @@
 					<br/>
 					<div class="row">
 						<div class="col-md-12">
-							<ul data-bind="foreach: { data: $root.sourceUpsellProductsPager.data, as: 'srcPrd' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+							<ul data-bind="foreach: { data: $root.sourceCrossSellProductsPager.data, as: 'srcPrd' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
 								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
 									<div class="col-xs-8">
 										<span data-bind="attrText: srcPrd, code: 'name', mode: 'closest'"></span><br/>
@@ -64,8 +64,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<!--  Pagination -->            
-				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceUpsellProductsPager.pages, as: 'page' }">
-				                <li data-bind="click: $root.sourceUpsellProductsPager.page, css: { active: $root.sourceUpsellProductsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceCrossSellProductsPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourceCrossSellProductsPager.page, css: { active: $root.sourceCrossSellProductsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
 				            </ul>
 						</div>
 					</div>

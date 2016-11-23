@@ -3,11 +3,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 	//-----------------------------------------------------------------
 	// Controller
 	//-----------------------------------------------------------------
-	function ProductUpsellsController(options) {
+	function ProductCrosssellsController(options) {
 		
 		// Make sure that this object is being called with the 'new' keyword.
-		if (!(this instanceof ProductUpsellsController)) {
-			throw new TypeError("ProductUpsellsController constructor cannot be called as a function.");
+		if (!(this instanceof ProductCrosssellsController)) {
+			throw new TypeError("ProductCrosssellsController constructor cannot be called as a function.");
 		}
 
 		this.gc = gc;
@@ -16,42 +16,42 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		this.query = ko.observable().extend({ rateLimit: 1000 });
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
-		_.bindAll(this, 'setupSearchListener', 'dropFromSource', 'removeUpsell', 'updatePositions', 'activate');
+		_.bindAll(this, 'setupSearchListener', 'dropFromSource', 'removeCrossSell', 'updatePositions', 'activate');
 	}
 
-	ProductUpsellsController.prototype = {
-		constructor : ProductUpsellsController,
+	ProductCrosssellsController.prototype = {
+		constructor : ProductCrosssellsController,
         // The pager takes care of filtering, sorting and paging functionality.
-        sourceUpsellProductsPager: {},
+        sourceCrossSellProductsPager: {},
         dropFromSource : function(data) {
         	var self = this;
         	var vm = self.productVM();
         	
-        	// Only add product to upsells if it does not exist yet.
-    		var foundProduct = _.findWhere(ko.unwrap(vm.upsells), { id : data.id });
+        	// Only add product to cross-sells if it does not exist yet.
+    		var foundProduct = _.findWhere(ko.unwrap(vm.crossSells), { id : data.id });
     		
     		if(_.isUndefined(foundProduct)) {
-            	productAPI.addUpsell(vm.productId(), data.id).then(function( response ) {
-                    vm.upsellProducts.push(data);
-                	self.sourceUpsellProductsPager.removeData(data);
+            	productAPI.addCrossSell(vm.productId(), data.id).then(function( response ) {
+                    vm.crossSellProducts.push(data);
+                	self.sourceCrossSellProductsPager.removeData(data);
             	});
     		}
         },
-        removeUpsell : function(data) {
+        removeCrossSell : function(data) {
         	var self = this;
         	var vm = self.productVM();
         	
-        	productAPI.removeUpsell(vm.productId(), data.id).then(function() {
+        	productAPI.removeCrossSell(vm.productId(), data.id).then(function() {
         		// See if the product is already in the source container.
-        		var foundProduct = _.findWhere(ko.unwrap(self.sourceUpsellProductsPager.data), { id : data.id });
+        		var foundProduct = _.findWhere(ko.unwrap(self.sourceCrossSellProductsPager.data), { id : data.id });
         		
         		// Only add to drag&drop source container if it does not exist yet.
         		if(_.isUndefined(foundProduct)) {
-                	self.sourceUpsellProductsPager.data.push(data);
+                	self.sourceCrossSellProductsPager.data.push(data);
         		}
         		
         		// Remove from target-container in view.
-        		vm.upsellProducts.remove(data);
+        		vm.crossSellProducts.remove(data);
         	});
         },
 		updatePositions : function(domTableRows) {
@@ -96,14 +96,14 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			pagingOptions.fields.push('mainImageURI');
 			
 	    	// Init the pager.
-        	this.sourceUpsellProductsPager = new gc.Pager(pagingOptions);
+        	this.sourceCrossSellProductsPager = new gc.Pager(pagingOptions);
         	
 			//---------------------------------------------------------------
-			// Upsell for drag&drop target-container
+			// Cross-sell for drag&drop target-container
 			//---------------------------------------------------------------
 			
-        	//  Get upsell-products that are already connected to the main product.
-			productAPI.getUpsellProducts(vm.productId()).then(function(data) {
+        	//  Get cross-sell-products that are already connected to the main product.
+			productAPI.getCrossSellProducts(vm.productId()).then(function(data) {
 				var products = data.data.products;
 
 				if(!_.isEmpty(products)) {
@@ -111,7 +111,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 					gc.attributes.appendAttributes(products);
 				
 					// Populate drag&drop target container.
-					vm.upsellProducts(products);
+					vm.crossSellProducts(products);
 				}
 			});
 		},
@@ -121,16 +121,16 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			self.query.subscribe(function(value) {
 					console.log('SEARCHING FOR: ', value);
 			
-	        	self.sourceUpsellProductsPager.columnValue('$attr.article_number', undefined);
-	        	self.sourceUpsellProductsPager.columnValue('$attr.name', undefined);
+	        	self.sourceCrossSellProductsPager.columnValue('$attr.article_number', undefined);
+	        	self.sourceCrossSellProductsPager.columnValue('$attr.name', undefined);
 				
-	        	self.sourceUpsellProductsPager.columnValue('$attr.article_number', value);
-				self.sourceUpsellProductsPager.load().then(function(data) {
+	        	self.sourceCrossSellProductsPager.columnValue('$attr.article_number', value);
+				self.sourceCrossSellProductsPager.load().then(function(data) {
 					console.log(data)
 					if(_.isEmpty(data.data)) {
-			        	self.sourceUpsellProductsPager.columnValue('$attr.article_number', undefined);
-			        	self.sourceUpsellProductsPager.columnValue('$attr.name', value);
-			        	self.sourceUpsellProductsPager.load().then(function(data2) {
+			        	self.sourceCrossSellProductsPager.columnValue('$attr.article_number', undefined);
+			        	self.sourceCrossSellProductsPager.columnValue('$attr.name', value);
+			        	self.sourceCrossSellProductsPager.load().then(function(data2) {
 							console.log(data2)
 			        	});
 					}
@@ -138,11 +138,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			});
 		},
 		attached : function(view, parent) {
-			$('#tab-prd-details-upsells').click(function() {
+			$('#tab-prd-details-cross-sells').click(function() {
 				$('#header-store-pills').hide();
 			});
 		}
 	};
 
-	return ProductUpsellsController;
+	return ProductCrosssellsController;
 });

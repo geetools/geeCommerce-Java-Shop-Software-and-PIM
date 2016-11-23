@@ -1370,6 +1370,21 @@ public class DefaultProduct extends AbstractAttributeSupport
         return this;
     }
 
+    @Override
+    public Product removeCrossSellProduct(Product product) {
+        if (product == null || product.getId() == null)
+            throw new NullPointerException("Product or its id cannot be null");
+
+        if (crossSellProductIds != null && crossSellProductIds.contains(product.getId())) {
+            crossSellProductIds.remove(product.getId());
+        }
+
+        // reset lazy-loaded list.
+        crossSellProducts = null;
+
+        return this;
+    }
+
     @JsonIgnore
     @Override
     public boolean hasCrossSells() {

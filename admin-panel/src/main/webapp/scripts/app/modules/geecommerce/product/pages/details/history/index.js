@@ -270,6 +270,10 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 			return false; //  self.productExists() && self.isCategorized() && self.isAdminOrPM();
 		});
 
+		self.showCrossSellsTab = ko.computed(function() {
+			return false; //  self.productExists() && self.isCategorized() && self.isAdminOrPM();
+		});
+
 		self.showStockTab = ko.computed(function() {
 			return false; //  self.productExists() && !self.isProgramme() && self.isCategorized() && self.isAdminOrPM();
 		});

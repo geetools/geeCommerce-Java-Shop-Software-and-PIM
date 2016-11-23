@@ -11,10 +11,9 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public abstract class AbstractCommand implements Command {
-    @Inject
-    protected App app;
+    protected App app = App.get();
 
-    protected final String ALIAS_NOT_NULL = "$cb.nn";
+    protected final String ALIAS_NOT_NULL = "$nn";
     protected final String MONGODB_NOT_EQUALS = "$ne";
     protected static final String REGEX_WC = ".*";
 

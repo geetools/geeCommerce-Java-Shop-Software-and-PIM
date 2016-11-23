@@ -21,7 +21,7 @@ public class Wildcard extends AbstractCommand {
     @Override
     public void process(Class<? extends Model> modelClass, String originalKey, String columnName, Object value,
         DBObject query, QueryOptions queryOptions) {
-        String rawValue = ((String) value).substring(7);
+        String rawValue = ((String) value).substring(4);
 
         if (rawValue.indexOf(ASTERIX) > 2) {
             query.put(columnName, toWildcardPattern(rawValue));

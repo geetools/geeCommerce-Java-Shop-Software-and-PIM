@@ -71,28 +71,33 @@ public class DefaultProductListHelper implements ProductListHelper {
                 filterBuilders.add(buildQuery(node));
             }
             if (queryNode.getOperator().equals(AND)) {
-                FilterBuilder andFilterBuilder = FilterBuilders
-                    .andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+                FilterBuilder andFilterBuilder = FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
                 return andFilterBuilder;
             } else {
-                FilterBuilder orFilterBuilder = FilterBuilders
-                    .orFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+                FilterBuilder orFilterBuilder = FilterBuilders.orFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
                 return orFilterBuilder;
             }
         } else {
             if (queryNode.getValue() != null && queryNode.getValue().getAttribute() != null) {
-                String key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode())
-                    .replace(Char.MINUS, Char.UNDERSCORE) + HASH_SUFFIX;
+                String key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + HASH_SUFFIX;
                 if (queryNode.getValue().getOptionIds() != null && queryNode.getValue().getOptionIds().size() > 1) {
                     List<String> values = new ArrayList<>();
                     for (Id id : queryNode.getValue().getOptionIds()) {
                         values.add(Str.UNDERSCORE_2X + id + Str.UNDERSCORE_2X);
                     }
                     return FilterBuilders.termsFilter(key, values).execution(OR);
-                } else if (queryNode.getValue().getOptionIds() != null
-                    && queryNode.getValue().getOptionIds().size() > 0) {
-                    return FilterBuilders.termsFilter(key,
-                        Str.UNDERSCORE_2X + queryNode.getValue().getOptionId() + Str.UNDERSCORE_2X);
+                } else if (queryNode.getValue().getOptionIds() != null && queryNode.getValue().getOptionIds().size() > 0) {
+                    return FilterBuilders.termsFilter(key, Str.UNDERSCORE_2X + queryNode.getValue().getOptionId() + Str.UNDERSCORE_2X);
+                } else if (queryNode.getValue().getVal() != null) {
+                    if(queryNode.getValue().getAttribute().isAllowMultipleValues()){
+                        key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + RAW_SUFFIX;
+                        return FilterBuilders.termsFilter(key, queryNode.getValue().getVal());
+                    } else {
+                        key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + RAW_SUFFIX;
+                        return FilterBuilders.termFilter(key, queryNode.getValue().getVal());
+                    }
+                } else {
+                    return FilterBuilders.missingFilter(key);
                 }
             }
         }

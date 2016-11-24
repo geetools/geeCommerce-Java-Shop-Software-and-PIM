@@ -21,6 +21,8 @@ import com.geecommerce.core.type.ContextObjects;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.guiwidgets.model.Content;
 import com.geecommerce.guiwidgets.repository.Contents;
+import com.geecommerce.mediaassets.model.MediaAsset;
+import com.geecommerce.mediaassets.service.MediaAssetService;
 import com.geecommerce.navigation.repository.NavigationItems;
 import com.google.inject.Inject;
 import com.owlike.genson.annotation.JsonIgnore;
@@ -59,6 +61,8 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
 
     @Column(Col.ENABLED)
     private boolean enabled = false;
+    @Column(Col.MEDIA_ASSET_ICON)
+    private Id iconId = null;
 
     // Loaded lazily
     private String displayURI = null;
@@ -70,6 +74,7 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
     private List<NavigationItem> children = null;
 
     // Repositories
+    private final MediaAssetService mediaAssetService;
     private final NavigationItems navigationItems;
     private final UrlRewrites urlRewrites;
     private final ProductLists productLists;
@@ -77,8 +82,9 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
     private final Contents contents;
 
     @Inject
-    public DefaultNavigationItem(NavigationItems navigationItems, UrlRewrites urlRewrites, ProductLists productLists,
-        Products products, Contents contents) {
+    public DefaultNavigationItem(MediaAssetService mediaAssetService, NavigationItems navigationItems, UrlRewrites urlRewrites, ProductLists productLists,
+                                 Products products, Contents contents) {
+        this.mediaAssetService = mediaAssetService;
         this.navigationItems = navigationItems;
         this.urlRewrites = urlRewrites;
         this.productLists = productLists;
@@ -238,6 +244,26 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
     public NavigationItem setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
+    }
+
+    @Override
+    public Id getIconId() {
+        return iconId;
+    }
+
+    @Override
+    public NavigationItem setIconId(Id iconId) {
+        this.iconId = iconId;
+        return this;
+    }
+
+    @JsonIgnore
+    @Override
+    public MediaAsset getIcon() {
+        if(iconId != null){
+            return mediaAssetService.get(iconId);
+        }
+        return null;
     }
 
     protected TargetSupport getTargetObject() {
@@ -439,6 +465,7 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
         this.label = ctxObj_(map.get(Col.LABEL));
         this.position = int_(map.get(Col.POSITION), 0);
         this.level = int_(map.get(Col.LEVEL), 0);
+        this.iconId = id_(map.get(Col.MEDIA_ASSET_ICON));
 
         if (map.get(Col.TARGET_OBJECT_ID) != null)
             this.targetObjectId = id_(map.get(Col.TARGET_OBJECT_ID));
@@ -472,6 +499,7 @@ public class DefaultNavigationItem extends AbstractMultiContextModel implements 
         map.put(Col.LABEL, getLabel());
         map.put(Col.POSITION, getPosition());
         map.put(Col.LEVEL, getLevel());
+        map.put(Col.MEDIA_ASSET_ICON, getIconId());
 
         if (getTargetObjectId() != null)
             map.put(Col.TARGET_OBJECT_ID, getTargetObjectId());

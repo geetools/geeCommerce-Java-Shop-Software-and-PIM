@@ -11,7 +11,7 @@
                 <div class="modal-body row">
 
                     <div class="media-asset-directories col-md-3">
-                        <ul class="ma-directories" data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
+                        <ul class="ma-directories" data-bind="template: { name: 'dirTemplate', foreach: directories }"></ul>
 
                     </div>
                     <div class="media-asset-files col-md-9">
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-    <script id="nodeTemplate" type="text/html">
+    <script id="dirTemplate" type="text/html">
 
         <li class="ma-tree-node">
             <!-- ko if: open() -->
@@ -58,7 +58,7 @@
             <span data-bind="i18nText: { value: name, mode: 'closest' }, click: openDirectory, contextMenu: menu"></span>
 
             <!-- ko if: open() -->
-            <ul data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
+            <ul data-bind="template: { name: 'dirTemplate', foreach: directories }"></ul>
           <!--  <ul data-bind="template: { name: 'fileTemplate', foreach: mediaAssets }"></ul>-->
             <!-- /ko -->
             <!-- ko if: !open() -->

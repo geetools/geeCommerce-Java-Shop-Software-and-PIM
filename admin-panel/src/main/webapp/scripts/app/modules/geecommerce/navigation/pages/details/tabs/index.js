@@ -21,7 +21,8 @@ define(
 				this.productLists = ko.observableArray();
 				this.cmsPages = ko.observableArray();
 				this.nodeTypes = ko.observableArray();
-				
+
+				this.iconSystemPath = ko.observable();
 				console.log("Navigation details index end");
 				
 				// Solves the 'this' problem when a DOM event-handler is fired.
@@ -40,6 +41,18 @@ define(
 					} else {
 						self.showNodeVM(false);
 					}
+
+					console.log(nodeVM)
+
+					if(nodeVM) {
+						var rootEl = nodeVM;
+						while(rootEl.parent()){
+							rootEl = rootEl.parent();
+						}
+
+						this.iconSystemPath("system/navigation/" + rootEl.key() + "/icons")
+					}
+					console.log(this.iconSystemPath())
 
 					self.nodeVM = nodeVM;
 					self.productLists(self.app.sessionGet('product_list'));

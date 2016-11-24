@@ -33,12 +33,13 @@ public class TestController extends BaseController {
     @Request("/create")
     public Result test_1() {
 
-        // clear everithing before
+        // clear everything before
         List<CheckoutFlow> all = flowService.getAll();
         for (CheckoutFlow checkoutFlow : all) {
             flowService.deleteCheckoutFlow(checkoutFlow);
         }
 
+        // 3 page flow
         CheckoutFlow threePageFlow = app.model(CheckoutFlow.class);
         threePageFlow.setName("3-page");
         threePageFlow.setDescription("3-page checkout");

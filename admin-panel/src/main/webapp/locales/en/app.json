@@ -76,6 +76,17 @@
 		"search-rewrites" : "Search Rewrites",
 		"synonyms" : "Synonyms"
 	},
+	"gridTable" : {
+		"menuItemSettings" : "Settings",
+		"menuItemNew" : "New",
+		"menuItemSelect" : "Select",
+		"menuItemActions" : "Actions",
+		"menuItemImport" : "Import",
+		"menuItemExport" : "Export",
+		"menuItemBookmark" : "Bookmark",
+		"menuItemRefresh" : "Refresh",
+		"menuItemDelete" : "Delete"
+	},
 	"account" : {
 		"settingsTitle" : "Account Settings",
 		"settingsSubTitle" : "Change your control panel account settings here.",

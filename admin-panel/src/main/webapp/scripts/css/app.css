@@ -394,17 +394,18 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .top-nav {
-    height: 132px;
-    background-image: url('/img/navbar_bg.jpg');
+    height: 103px;
     background-repeat: repeat-x;
     overflow: hidden;
     margin: 0;
+    background-color: #f2f2f2;
+    border-bottom: solid 1px #ccc;
 }
 
 .top-nav ul.nav {
-    list-style: none;
+list-style: none;
     margin: 0;
-    margin-top: 15px;
+    margin-top: 7px;
     padding: 0 10px;
     height: 2.95em;
     margin-bottom: -1px;
@@ -420,10 +421,8 @@ input[type="radio"], input[type="checkbox"] {
     list-style: none;
     margin: 0;
     padding: .25em .25em 0;
-    height: 2.70em;
     position: relative;
     z-index: 1;
-    border-bottom: 1px solid #FFF;
 }
 
 .top-nav>.tabs>ul>li.active {
@@ -441,23 +440,26 @@ input[type="radio"], input[type="checkbox"] {
     -webkit-border-radius: 8px 8px 0 0;
     -moz-border-radius: 8px 8px 0 0;
     border-radius: 8px 8px 0 0;
-    border: 1px solid #FFF;
-    -webkit-box-shadow: #FFF 0 0 .25em;
-    -moz-box-shadow: #FFF 0 0 .25em;
-    box-shadow: #FFF 0 0 .25em;
+    border: 1px solid #CCC;
+    -webkit-box-shadow: #CCC 0 0 .25em;
+    -moz-box-shadow: #CCC 0 0 .25em;
+    box-shadow: #CCC 0 0 .25em;
     border-bottom: 0;
+    background-color: #DADADA;
 }
 
-.top-nav>.tabs>ul>li.active>a {
-    -webkit-border-radius: 8px 8px 0 0;
-    -moz-border-radius: 8px 8px 0 0;
-    border-radius: 8px 8px 0 0;
+.top-nav>.tabs>ul>li.active>a, .top-nav>.tabs>ul>li.active>a:hover {
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
     border: 1px solid #DDDDDD;
     -webkit-box-shadow: #DDDDDD 0 0 .25em;
     -moz-box-shadow: #DDDDDD 0 0 .25em;
     box-shadow: #DDDDDD 0 0 .25em;
-    background-color: #FFF;
+    background: none;
+    background-color: #F2F2F2;
     border-bottom: 0;
+    color: #777;
 }
 
 .top-nav>.tabs>ul>li>a:hover {
@@ -468,30 +470,31 @@ input[type="radio"], input[type="checkbox"] {
     -webkit-box-shadow: #CCC 0 0 .25em;
     -moz-box-shadow: #CCC 0 0 .25em;
     box-shadow: #CCC 0 0 .25em;
-    background: -webkit-gradient(linear, 0 0, 0 70%, from(#EBEBEB), to(#FFF));
-    background: -webkit-linear-gradient(#EBEBEB, #FFF 70%);
-    background: -moz-linear-gradient(#EBEBEB, #FFF 70%);
-    background: -ms-linear-gradient(#EBEBEB, #FFF 70%);
-    background: -o-linear-gradient(#EBEBEB, #FFF 70%);
-    background: linear-gradient(#EBEBEB, #FFF 70%);
+    background: -webkit-gradient(linear, 0 0, 0 70%, from(#EEEEEE), to(#DADADA));
+    background: -webkit-linear-gradient(#EEEEEE, #DADADA 70%);
+    background: -moz-linear-gradient(#EEEEEE, #DADADA 70%);
+    background: -ms-linear-gradient#EEEEEE, #DADADA 70%);
+    background: -o-linear-gradient(#EEEEEE, #DADADA 70%);
+    background: linear-gradient(#EEEEEE, #DADADA 70%);
     border-bottom: 0;
+    color: #333;
 }
 
 .top-nav-tab-content {
     clear: left;
     position: relative;
     z-index: 2;
-    padding: 10px 10px;
+    padding: 11px 0px;
     border-top: 1px solid #CCC;
     -webkit-box-shadow: #EDEDED 0 0 .25em;
     -moz-box-shadow: #EDEDED 0 0 .25em;
     box-shadow: #EDEDED 0 0 .25em;
-    height: 77px;
 }
 
 .top-nav-tab-content ul {
-    margin-top: 5px;
+    margin-top: 0;
     padding-top: 0;
+    padding-left: 30px;
 }
 
 .top-nav-tab-content>ul>li {
@@ -499,12 +502,13 @@ input[type="radio"], input[type="checkbox"] {
     padding-top: 0;
     padding-right: 20px;
     text-align: center;
+	padding-left: 0px;
 }
 
 .top-nav-tab-content>ul>li>a>i {
-    font-size: 24px;
+    font-size: 20px;
     display: block;
-    margin: 2px auto 8px auto;
+    margin: 2px auto 4px auto;
 }
 
 .top-nav-tab-content>ul>li>a, .top-nav-tab-content>ul>li>a:visited {
@@ -512,9 +516,16 @@ input[type="radio"], input[type="checkbox"] {
     color: #777;
 }
 
-.top-nav-tab-content>ul>li>a:hover, .top-nav-tab-content>ul>li>a:active {
-    color: #555;
+.top-nav-tab-content>ul>li>a:hover {
+    color: #333 !important;
     text-decoration: none;
+    font-weight: normal;
+}
+
+.top-nav-tab-content>ul>li>a:active {
+    color: #349898 !important;
+    text-decoration: none;
+    font-weight: normal;
 }
 
 .main-content .nav-tabs>li>a {
@@ -843,7 +854,7 @@ input:-webkit-autofill {
 }
 
 .main-content {
-    padding: 15px 15px 55px 15px;
+    padding: 0px 15px 55px 15px;
     border-top: none;
 }
 
@@ -865,10 +876,11 @@ input:-webkit-autofill {
     border-bottom: 3px solid #aaa;
     padding: 8px;
     color: #555;
+    text-align: center;
 }
 
 .table>thead>tr>th:hover {
-    background-color: #aaa;
+    background-color: #bbb;
     border-bottom: 3px solid #06807F;
     color: #eee;
 }
@@ -1338,7 +1350,7 @@ img.disabledImage {
 }
 
 .form-control {
-    color: #777;
+    color: #666;
     height: 29px;
     font-size: 11px;
 }
@@ -1513,10 +1525,6 @@ img.disabledImage {
     opacity: 1.0;
     padding: 20px;
     display: block;
-    min-height: 300px;
-}
-
-.tab-content {
     min-height: 300px;
 }
 
@@ -2152,8 +2160,12 @@ a {
 }
 
 /* Highlighted items*/
-ul.nav-tabs>li.active>a, ul.sub-nav-tabs>li.active>a {
+ul.nav-tabs>li.active>a {
     font-weight: bolder;
+}
+
+ul.sub-nav-tabs>li.active>a {
+	color: #349898 !important;
 }
 
 .switch-button-label.on {
@@ -2320,11 +2332,11 @@ td>a:not(i) {
     height: 26px;
 }
 
-.navbar .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
-    outline-color: #349898;
+.dropdown-menu>li>a, .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a:active {
+    outline: none;
 }
 
-.navbar .btn-group.open .dropdown-toggle {
+.btn-group.open .dropdown-toggle {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
@@ -3075,6 +3087,150 @@ body.cms-full-mode {
 #view-product-details .tab-pane-dyn-attributes>div, #view-product-details #product-general>div {
     margin-top: 15px;
 }
+
+.grid-table-wrapper {
+	display: block;
+}
+
+.grid-menu-col {
+	min-height: 300px;
+	width: 60px;
+	background-color: #AAAAAA;
+	color: #EEE;
+	font-size: 20px;
+	float: left;
+}
+
+.grid-menu-col>ul {
+	width:100%;
+	padding: 0;
+}
+
+.grid-menu-col>ul>li {
+	list-style: none;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+.grid-menu-col>ul>li>i {
+	display: block;
+	margin-left: 22px;
+}
+
+.grid-menu-col>ul>li>span {
+	display: block;
+	text-align: center;
+    font-size: 10px;}
+
+.grid-menu-col>ul>li:hover {
+	background-color: #666;
+	color: #fff;
+}
+
+.grid-content-col {
+	display: block;
+	float: left;
+	min-width: 90%;
+}
+
+.grid-content-col>.grid-row-nav {
+	height: 40px;
+	background-color: #AAAAAA;
+	
+}
+
+.th-select {
+	border-bottom: 0 !important;
+    padding: 8px 5px !important;
+    text-align: center;
+}
+
+.td-select {
+    background-color: #CCC;
+    text-align: center;
+}
+
+.th-select:hover {
+	background-color: #CCC !important;
+	color: #000 !important;
+}
+
+.grid-row-tbl-content table>tbody>tr:first-child>.td-select {
+	border-top: none;
+}
+
+.td-select input[type="checkbox"] {
+    margin: 1px auto;
+}
+
+.grid-content-col>.grid-row-nav>.grid-search-form {
+	width: 250px;
+    padding-top: 5px;
+    float: left;
+}
+
+.grid-content-col>.grid-row-nav .form-group {
+	margin-bottom: 0px;
+}
+
+.grid-content-col>.grid-row-nav .form-control {
+	background-color: #ddd;
+}
+
+.grid-content-col>.grid-row-nav .form-control:active {
+	border: 0;
+}
+
+.grid-content-col>.grid-row-nav .form-group button {
+    background: none;
+    padding: 3px 12px 3px 9px;
+    color: #eee;
+}
+
+.grid-content-col>.grid-row-nav .form-group button:hover {
+	color: #666 !important;
+}
+
+.grid-content-col>.grid-row-nav .form-group span>button>i {
+    font-size: 20px;
+}
+
+.grid-num-results-form {
+	display: block;
+	width: 130px;
+	float: left;
+    margin-top: 5px;
+    margin-left: 7px;	
+}
+
+.context-menu ul > li > i {
+	margin-right: 5px;
+}
+
+select:focus, input:focus, select:active, input:active, button:active, button:active {
+    outline: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+
+
+.grid-num-results-form .bootstrap-select .btn-default:hover, 
+.grid-num-results-form .bootstrap-select .btn-default:focus, 
+.grid-num-results-form .bootstrap-select .btn-default:active, 
+.grid-num-results-form .bootstrap-select .btn-default.active, 
+.grid-num-results-form .bootstrap-select .open .dropdown-toggle.btn-default, 
+.grid-num-results-form .bootstrap-select .btn {
+    background-color: #ddd !important;
+    color: #666 !important;
+    border: 0;
+    outline: none;
+    height: 29px;
+}
+
+
+
+
 
 @media only screen and (min-width: 768px) {
     #product-status-infobox {

@@ -418,12 +418,36 @@ public class DefaultApp implements App {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public final <T extends Model> Class<T> modelType(final Class<T> model) {
+        if (Reflect.hasCorePackagePrefix(model)) {
+            T obj = SystemInjector.get().getInstance(model);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        } else {
+            T obj = ModuleInjector.get().getInstance(model);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        }
+    }
+
     @Override
     public final <T extends Pojo> T pojo(final Class<T> pojo) {
         if (Reflect.hasCorePackagePrefix(pojo)) {
             return SystemInjector.get().getInstance(pojo);
         } else {
             return ModuleInjector.get().getInstance(pojo);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public final <T extends Pojo> Class<T> pojoType(final Class<T> pojo) {
+        if (Reflect.hasCorePackagePrefix(pojo)) {
+            T obj = SystemInjector.get().getInstance(pojo);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        } else {
+            T obj = ModuleInjector.get().getInstance(pojo);
+            return obj == null ? null : (Class<T>) obj.getClass();
         }
     }
 
@@ -436,12 +460,36 @@ public class DefaultApp implements App {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public final <T extends Helper> Class<T> helperType(final Class<T> helper) {
+        if (Reflect.hasCorePackagePrefix(helper)) {
+            T obj = SystemInjector.get().getInstance(helper);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        } else {
+            T obj = ModuleInjector.get().getInstance(helper);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        }
+    }
+
     @Override
     public final <T extends Injectable> T injectable(final Class<T> injectable) {
         if (Reflect.hasCorePackagePrefix(injectable)) {
             return SystemInjector.get().getInstance(injectable);
         } else {
             return ModuleInjector.get().getInstance(injectable);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public final <T extends Injectable> Class<T> injectableType(final Class<T> injectable) {
+        if (Reflect.hasCorePackagePrefix(injectable)) {
+            T obj = SystemInjector.get().getInstance(injectable);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        } else {
+            T obj = ModuleInjector.get().getInstance(injectable);
+            return obj == null ? null : (Class<T>) obj.getClass();
         }
     }
 
@@ -454,12 +502,36 @@ public class DefaultApp implements App {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public final <T extends Repository> Class<T> repositoryType(final Class<T> repository) {
+        if (Reflect.hasCorePackagePrefix(repository)) {
+            T obj = SystemInjector.get().getInstance(repository);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        } else {
+            T obj = ModuleInjector.get().getInstance(repository);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        }
+    }
+
     @Override
     public final <T extends Service> T service(final Class<T> service) {
         if (Reflect.hasCorePackagePrefix(service)) {
             return SystemInjector.get().getInstance(service);
         } else {
             return ModuleInjector.get().getInstance(service);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public final <T extends Service> Class<T> serviceType(final Class<T> service) {
+        if (Reflect.hasCorePackagePrefix(service)) {
+            T obj = SystemInjector.get().getInstance(service);
+            return obj == null ? null : (Class<T>) obj.getClass();
+        } else {
+            T obj = ModuleInjector.get().getInstance(service);
+            return obj == null ? null : (Class<T>) obj.getClass();
         }
     }
 

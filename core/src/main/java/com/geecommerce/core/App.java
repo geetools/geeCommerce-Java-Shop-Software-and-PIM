@@ -191,7 +191,11 @@ public interface App {
 
     <T extends Helper> T helper(final Class<T> helper);
 
+    <T extends Helper> Class<T> helperType(final Class<T> helper);
+
     <T extends Injectable> T injectable(final Class<T> injectable);
+
+    <T extends Injectable> Class<T> injectableType(final Class<T> injectable);
 
     QueryMetadata getLastQueryMetadata();
 
@@ -205,6 +209,8 @@ public interface App {
 
     <T extends Model> T model(final Class<T> model);
 
+    <T extends Model> Class<T> modelType(final Class<T> model);
+
     Id getModelIdIfExists();
 
     ModuleLoader moduleLoader();
@@ -214,6 +220,8 @@ public interface App {
     String getOriginalURI();
 
     <T extends Pojo> T pojo(final Class<T> pojo);
+
+    <T extends Pojo> Class<T> pojoType(final Class<T> pojo);
 
     String getProjectJsPath();
 
@@ -225,6 +233,8 @@ public interface App {
 
     <T extends Repository> T repository(final Class<T> repository);
 
+    <T extends Repository> Class<T> repositoryType(final Class<T> repository);
+
     String getRewrittenURI();
 
     String getSecureBasePath();
@@ -232,6 +242,8 @@ public interface App {
     String getServer();
 
     <T extends Service> T service(final Class<T> service);
+
+    <T extends Service> Class<T> serviceType(final Class<T> service);
 
     ServletContext servletContext();
 

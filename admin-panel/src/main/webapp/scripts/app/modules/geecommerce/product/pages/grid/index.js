@@ -13,6 +13,7 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
 		this.gc = gc;
 		this.app = gc.app;
 		this.pager = {};
+		this.gridTableMenuItems = [];
         this.groupOptions = ko.observableArray([]);
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
@@ -328,6 +329,19 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
             	  ] }
             ];
 	    	
+			this.gridTableMenuItems = [
+			      {key:'menu-item-settings', icon: 'fa fa-cog', label: 'app:gridTable.menuItemSettings', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-columns" aria-hidden="true"></i>Edit columns', action: function() {}}, {text: '<i class="fa fa-filter" aria-hidden="true"></i>Apply filter', action: function() {}}]},
+	              {key:'menu-item-new', icon: 'fa fa-plus-square-o', label: 'app:gridTable.menuItemNew', target: '', targetType: '', contextMenu: [{text: gc.app.i18n('app:modules.product.newProductButton'), url: '#/products/details/new:product'}, {text: gc.app.i18n('app:modules.product.newVariantMasterButton'), url: '#/products/details/new:variant-master'}, {text: gc.app.i18n('app:modules.product.newProgrammeButton'), url: '#/products/details/new:programme'}]},
+	              {key:'menu-item-select', icon: 'fa fa-check-square-o', label: 'app:gridTable.menuItemSelect', target: '', targetType: ''},
+	              {key:'menu-item-actions', icon: 'fa fa-tasks', label: 'app:gridTable.menuItemActions', target: '', targetType: ''},
+	              {key:'menu-item-import', icon: 'fa fa-download', label: 'app:gridTable.menuItemImport', target: '', targetType: ''},
+	              {key:'menu-item-export', icon: 'fa fa-upload', label: 'app:gridTable.menuItemExport', target: '', targetType: ''},
+	              {key:'menu-item-bookmark', icon: 'fa fa-bookmark-o', label: 'app:gridTable.menuItemBookmark', target: '', targetType: ''},
+                  {key:'menu-item-refresh', icon: 'fa fa-refresh', label: 'app:gridTable.menuItemRefresh', target: '', targetType: ''},
+                  {key:'menu-item-delete', icon: 'fa fa-trash', label: 'app:gridTable.menuItemDelete', target: '', targetType: ''}
+			];
+			
+			
 	    	// Init the pager.
         	this.pager = new gc.Pager(productAPI.pagingOptions({ columns : pagerColumns, multiContext : true }));
         	

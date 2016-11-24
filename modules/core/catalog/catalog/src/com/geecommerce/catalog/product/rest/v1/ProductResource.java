@@ -31,13 +31,10 @@ import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
 import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
-import com.geecommerce.catalog.product.model.DefaultProduct;
 import com.geecommerce.catalog.product.model.Product;
-import com.geecommerce.core.App;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
-import com.geecommerce.core.cron.Environment;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractResource;
@@ -65,7 +62,6 @@ import com.geecommerce.inventory.model.InventoryItem;
 import com.geecommerce.inventory.service.StockService;
 import com.geecommerce.price.model.Price;
 import com.geecommerce.price.service.PriceService;
-import com.geemodule.Geemodule;
 import com.google.inject.Inject;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
@@ -115,7 +111,7 @@ public class ProductResource extends AbstractResource {
         try {
             Product p = Json.fromJson(
                 "{\"type\":\"PHYSICAL\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}",
-                app.model(Product.class).getClass());
+                app.modelType(Product.class));
             System.out.println("DESERIALIZED PRODUCT: " + p);
         } catch (Throwable t) {
             t.printStackTrace();
@@ -226,7 +222,7 @@ public class ProductResource extends AbstractResource {
             service.update(product);
         } else {
             throwBadRequest(
-                    "productId and crossSellProductId cannot be null in requestURI. Expecting: products/{productId}/cross-sells/{crossSellProductId}");
+                "productId and crossSellProductId cannot be null in requestURI. Expecting: products/{productId}/cross-sells/{crossSellProductId}");
         }
     }
 
@@ -246,7 +242,7 @@ public class ProductResource extends AbstractResource {
             service.update(product);
         } else {
             throwBadRequest(
-                    "productId and crossSellProductId cannot be null in requestURI. Expecting: products/{productId}/cross-sells/{crossSellProductId}");
+                "productId and crossSellProductId cannot be null in requestURI. Expecting: products/{productId}/cross-sells/{crossSellProductId}");
         }
     }
 

@@ -17,12 +17,12 @@
 		<dependency>
 			<groupId>com.geetools.geemodule</groupId>
 			<artifactId>geemodule</artifactId>
-			<version>0.9.1-SNAPSHOT</version>
+			<version>0.9.1-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.geetools.geemvc</groupId>
 			<artifactId>geemvc</artifactId>
-			<version>0.9.2-SNAPSHOT</version>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

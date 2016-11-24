@@ -9,6 +9,31 @@
 			<tr>
 				<td>
 					<div class="form-group">
+						<label for="inputNavigationItemIcon"
+							   class="col-sm-3 control-label"
+							   data-i18n="app:modules.navigation.generalTabIcon">Icon</label>
+						<div class="col-sm-9">
+							<div>
+								<div class="col-xs-4">
+									<div data-bind="maViewer: nodeVM.iconId"></div>
+								</div>
+								<div class="col-xs-8">
+									<div data-bind="mediaAssets: { value: nodeVM.iconId, path: $root.iconSystemPath() }" ></div>
+									<div data-bind="maUploader: { value: nodeVM.iconId, path: $root.iconSystemPath() }" class="dropzone dropzone-files dz-media dz-clickable">
+										<p class="dz-message" data-i18n="app:modules.slide-show.fileTabUploadHint">Click here or drag and drop to add file</p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</td>
+			</tr>
+
+
+			<tr>
+				<td>
+					<div class="form-group">
 						<label for="inputNavigationItemTargetType"
 							   class="col-sm-3 control-label"
 							   data-i18n="app:modules.navigation.generalTabTargetObject">Type</label>

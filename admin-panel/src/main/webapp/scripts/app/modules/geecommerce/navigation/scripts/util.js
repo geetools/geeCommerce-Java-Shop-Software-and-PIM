@@ -46,6 +46,7 @@ define([ 'knockout', 'gc/gc', 'gc-navigation' ], function(ko, gc, navAPI) {
 		self.targetType = ko.observable();
 		self.enabled = ko.observable(true);
 		self.level = ko.observable(0);
+		self.iconId = ko.observable();
 		self.useTargetLabel = ko.observable();
 		self.label = ko.observableArray([]);
 		self.externalURL = ko.observableArray([]);
@@ -65,6 +66,7 @@ define([ 'knockout', 'gc/gc', 'gc-navigation' ], function(ko, gc, navAPI) {
 			self.enabled(data.enabled);
 			self.level(data.level);
 			self.externalURL(data.externalURL);
+			self.iconId(data.iconId);
 		}
 
 		self.dLabel = ko.computed(function() {
@@ -162,6 +164,7 @@ define([ 'knockout', 'gc/gc', 'gc-navigation' ], function(ko, gc, navAPI) {
 
 			treeObject['tar_obj_type'] = self.targetType();
 			treeObject['enabled'] = self.enabled();
+			treeObject['ma_icon'] = self.iconId();
 			treeObject['level'] = level;
 			treeObject['key'] = self.key();
 

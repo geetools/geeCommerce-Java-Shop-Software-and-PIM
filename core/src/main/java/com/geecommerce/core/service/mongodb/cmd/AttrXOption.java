@@ -51,7 +51,7 @@ public class AttrXOption extends AbstractCommand {
         // Build the actual attribute value query part.
         // ---------------------------------------------------------------
 
-        String attrCode = originalKey.substring(9);
+        String attrCode = originalKey.substring(6);
 
         DBObject dboVal = new BasicDBObject(FIELD_VAL, value);
 

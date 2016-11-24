@@ -31,6 +31,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
         self.tabs = ko.observableArray([]);
         self.programmeProducts = ko.observableArray();
         self.upsellProducts = ko.observableArray();
+        self.crossSellProducts = ko.observableArray();
 
         self.productExists = ko.computed(function() {
             var prd = ko.unwrap(self.data);
@@ -300,6 +301,10 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
         });
 
         self.showUpsellsTab = ko.computed(function() {
+            return self.productExists() && self.isCategorized() && self.isAdminOrPM();
+        });
+
+        self.showCrossSellsTab = ko.computed(function() {
             return self.productExists() && self.isCategorized() && self.isAdminOrPM();
         });
 

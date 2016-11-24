@@ -1885,7 +1885,7 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
         Object value, DBObject query, QueryOptions queryOptions) {
         Command cmd = null;
 
-        if (value instanceof String || originalKey.startsWith("cb."))
+        if (value instanceof String || originalKey.startsWith("$"))
             cmd = CommandFactory.INSTANCE.get(originalKey, value);
 
         if (cmd == null) {

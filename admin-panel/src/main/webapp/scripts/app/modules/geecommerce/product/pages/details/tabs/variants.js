@@ -460,7 +460,9 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 					if(!_.isEmpty(vm.articleNumber())) {
 			        	self.variantsPager.columnValue('$attr.article_number', gc.ctxobj.plain(vm.articleNumber()).substring(0,5));
 			        	self.variantsPager.load().then(function(data) {
-			        		
+
+							console.log("VARIANTS")
+							console.log(data)
 							// Populate drag&drop source container.
 			        		self.variantsVM.refreshSourceContainer(data.data.products);
 			        	});

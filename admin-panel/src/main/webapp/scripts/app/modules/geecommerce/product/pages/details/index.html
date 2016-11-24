@@ -23,6 +23,9 @@
 			<!-- ko if: $root.productVM().showUpsellsTab -->
 				<li><a href="" data-target="#upsells" id="tab-prd-details-upsells" data-toggle="tab" data-i18n="app:modules.product.tabTitleUpsells">Upsells</a></li>
 			<!-- /ko -->
+			<!-- ko if: $root.productVM().showCrossSellsTab -->
+			<li><a href="" data-target="#cross-sells" id="tab-prd-details-cross-sells" data-toggle="tab" data-i18n="app:modules.product.tabTitleCrossSells">Cross-sells</a></li>
+			<!-- /ko -->
 			<!-- ko if: $root.productVM().showMediaTab -->
 				<li><a href="" data-target="#media" id="tab-prd-details-media" data-toggle="tab" data-i18n="app:modules.product.tabTitleMedia">Media</a></li>
 			<!-- /ko -->
@@ -130,6 +133,21 @@
 						</div>
 					</div>
 				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showCrossSellsTab -->
+			<div class="tab-pane" id="cross-sells" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/cross-sells', activationData: $root.productVM().productId()}">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /ko -->
 			<!-- ko if: $root.productVM().showMediaTab -->
 				<div class="tab-pane" id="media" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/media', activationData: $root.productVM().productId()}">

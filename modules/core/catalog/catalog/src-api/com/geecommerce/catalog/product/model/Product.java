@@ -255,6 +255,8 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
 
     public Product setCrossSellProductIds(List<Id> crossSellingProductIds);
 
+    public Product removeCrossSellProduct(Product product);
+
     @JsonIgnore
     public boolean hasCrossSells();
 

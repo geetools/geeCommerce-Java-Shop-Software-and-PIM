@@ -6,6 +6,7 @@ import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.geecommerce.mediaassets.model.MediaAsset;
 import com.owlike.genson.annotation.JsonIgnore;
 
 public interface NavigationItem extends MultiContextModel {
@@ -64,6 +65,13 @@ public interface NavigationItem extends MultiContextModel {
 
     public NavigationItem setEnabled(boolean enabled);
 
+    public Id getIconId();
+
+    public NavigationItem setIconId(Id iconId);
+
+    @JsonIgnore
+    public MediaAsset getIcon();
+
     public String getDisplayLabel();
 
     @JsonIgnore
@@ -119,6 +127,7 @@ public interface NavigationItem extends MultiContextModel {
         public static final String TARGET_OBJECT_ID = "tar_obj";
         public static final String TARGET_OBJECT_TYPE = "tar_obj_type";
         public static final String TARGET_OBJECT_LABEL = "tar_obj_label";
+        public static final String MEDIA_ASSET_ICON = "ma_icon";
         public static final String EXTERNAL_URL = "ext_url";
         public static final String ENABLED = "enabled";
     }

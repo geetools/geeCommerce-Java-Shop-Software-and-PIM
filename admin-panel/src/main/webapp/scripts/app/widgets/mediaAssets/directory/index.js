@@ -1,4 +1,4 @@
-define([ 'durandal/app', 'knockout', 'plugins/router', 'cb/cb', 'cb-media-asset', 'knockout-validation', 'cb-media-asset/util'  ], function(app, ko, router, cb, mediaAssetAPI, validation, mediaAssetUtil) {
+define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset', 'knockout-validation', 'gc-media-asset/util'  ], function(app, ko, router, gc, mediaAssetAPI, validation, mediaAssetUtil) {
 
     //-----------------------------------------------------------------
     // Controller
@@ -10,7 +10,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'cb/cb', 'cb-media-asset'
             throw new TypeError("MediaAssetsDirectoryController constructor cannot be called as a function.");
         }
 
-        this.app = cb.app;
+        this.app = gc.app;
         this.directory = null;
         this.mediaAssetId = ko.observable();
         /*        this.mediaAssetId = ko.observable();*/
@@ -31,13 +31,13 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'cb/cb', 'cb-media-asset'
             var self = this;
             self.directory = data.directory;
             self.directory.maPager.limit(10);
-            cb.app.sessionPut('selectedMediaAsset', null);
+            gc.app.sessionPut('selectedMediaAsset', null);
             return self.directory.maPager.load();
 
         },
         selectMediaAsset: function (mediaAsset) {
             this.mediaAssetId(mediaAsset.id);
-            cb.app.sessionPut('selectedMediaAsset', mediaAsset.id);
+            gc.app.sessionPut('selectedMediaAsset', mediaAsset.id);
         },
         attached : function() {
             var self = this;

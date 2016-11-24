@@ -42,20 +42,13 @@ public class GuiceModule extends AbstractModule {
         Map<String, String> configuredInjectMapping = getConfiguredInjectMapping();
 
         if (loader != null) {
-            registerProvider(com.geecommerce.core.service.annotation.Model.class, Model.class, configuredInjectMapping,
-                false);
-            registerProvider(com.geecommerce.core.service.annotation.Pojo.class, Pojo.class, configuredInjectMapping,
-                false);
-            registerProvider(com.geecommerce.core.service.annotation.Dao.class, Dao.class, configuredInjectMapping,
-                true);
-            registerProvider(com.geecommerce.core.service.annotation.Repository.class, Repository.class,
-                configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Helper.class, Helper.class,
-                configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Service.class, Service.class,
-                configuredInjectMapping, true);
-            registerProvider(com.geecommerce.core.service.annotation.Injectable.class, Injectable.class,
-                configuredInjectMapping, false);
+            registerProvider(com.geecommerce.core.service.annotation.Model.class, Model.class, configuredInjectMapping, false);
+            registerProvider(com.geecommerce.core.service.annotation.Pojo.class, Pojo.class, configuredInjectMapping, false);
+            registerProvider(com.geecommerce.core.service.annotation.Dao.class, Dao.class, configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Repository.class, Repository.class, configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Helper.class, Helper.class, configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Service.class, Service.class, configuredInjectMapping, true);
+            registerProvider(com.geecommerce.core.service.annotation.Injectable.class, Injectable.class, configuredInjectMapping, false);
         } else {
             throw new IllegalStateException(
                 "Unable to register Guice providers because the ModuleLoader has not been initialized");
@@ -85,8 +78,7 @@ public class GuiceModule extends AbstractModule {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected void registerProvider(Class<? extends Annotation> annotation, Class<?> interfaceType,
-        Map<String, String> configuredInjectMapping, boolean isSingleton) {
+    protected void registerProvider(Class<? extends Annotation> annotation, Class<?> interfaceType, Map<String, String> configuredInjectMapping, boolean isSingleton) {
         ModuleLoader loader = App.get().moduleLoader();
 
         Class<?>[] foundClasses = (Class<?>[]) loader.findAllTypesAnnotatedWith(annotation, true);
@@ -198,9 +190,6 @@ public class GuiceModule extends AbstractModule {
                         }
                     }
                 } catch (Throwable t) {
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX: " + interfaceType + " -> " + currentFoundClass
-                        + " -> " + currentFoundClassInterface);
-
                     log.throwing(t);
 
                     t.printStackTrace();

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.javers.common.properties.PropertyConfiguration;
+
 import com.geecommerce.core.App;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
@@ -35,6 +37,8 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
     protected static final String KEY_PERSISTENCE_MODEL = "persistence/model:%s/use";
     protected static final String KEY_PERSISTENCE_MODEL_REGEX = "persistence\\/model:\\^";
     protected static final String KEY_PERSISTENCE_MODULE = "persistence/module:%s/use";
+
+    protected static final String CONFIG_PROPERTY_TYPE_NAME = ConfigurationProperty.class.getName();
 
     protected Set<Class<?>> persistenceTypes() {
         return Reflect.getTypesAnnotatedWith(Persistence.class, false);
@@ -140,7 +144,9 @@ public class DefaultPersistenceProvider implements PersistenceProvider {
         String persistenceName = modelPersistenceMapping.get(modelClass.getName());
 
         if (persistenceName == null) {
-            if (!ConfigurationProperty.class.isAssignableFrom(modelClass)) {
+            
+            if (!CONFIG_PROPERTY_TYPE_NAME.equals(modelClass.getName())) {
+                
                 persistenceName = app.cpStr_(String.format(KEY_PERSISTENCE_MODEL, modelClass.getName()));
 
                 if (persistenceName == null) {

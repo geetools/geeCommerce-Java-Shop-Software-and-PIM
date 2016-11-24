@@ -33,9 +33,11 @@ import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
 import com.geecommerce.catalog.product.model.DefaultProduct;
 import com.geecommerce.catalog.product.model.Product;
+import com.geecommerce.core.App;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
+import com.geecommerce.core.cron.Environment;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractResource;
@@ -63,6 +65,7 @@ import com.geecommerce.inventory.model.InventoryItem;
 import com.geecommerce.inventory.service.StockService;
 import com.geecommerce.price.model.Price;
 import com.geecommerce.price.service.PriceService;
+import com.geemodule.Geemodule;
 import com.google.inject.Inject;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
@@ -112,7 +115,7 @@ public class ProductResource extends AbstractResource {
         try {
             Product p = Json.fromJson(
                 "{\"type\":\"PHYSICAL\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}",
-                DefaultProduct.class);
+                app.model(Product.class).getClass());
             System.out.println("DESERIALIZED PRODUCT: " + p);
         } catch (Throwable t) {
             t.printStackTrace();

@@ -154,6 +154,7 @@
 			"saveNewVariantMaster" : "Uložte novou variantu-master",
 			"importDataButton" : "Import data",
 			"exportDataButton" : "Export data",
+			"newBundleButton" : "Add new bundle",
 			"newProgrammeButton" : "Přidat nový program",
 			"newProgrammeTitle" : "Vyberte si program",
 			"newProgrammeSubtitle" : "Vyberte program, který odpovídá nejlépe.",

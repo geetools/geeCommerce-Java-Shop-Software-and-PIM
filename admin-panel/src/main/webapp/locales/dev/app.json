@@ -157,6 +157,7 @@
 			"saveNewVariantMaster" : "Save new variant-master",
 			"importDataButton" : "Import data",
 			"exportDataButton" : "Export data",
+			"newBundleButton" : "Add new bundle",
 			"newProgrammeButton" : "Add new programme",
 			"newProgrammeTitle" : "Choose a Programme",
 			"newProgrammeSubtitle" : "Please select a product-group that matches best.",

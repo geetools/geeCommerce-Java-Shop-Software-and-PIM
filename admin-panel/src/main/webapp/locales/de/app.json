@@ -192,6 +192,7 @@
 			"importDataButton" : "Artikeldaten importieren",
 			"exportDataButton" : "Artikeldaten exportieren",
 			"newProductButton" : "Neuen Artikel anlegen",
+			"newBundleButton" : "Neuen Bündelartikel anlegen",
 			"newProgrammeButton" : "Neues Programm anlegen",
 			"newProgrammeTitle" : "Programm auswählen",
 			"newProgrammeSubtitle" : "Bitte wählen Sie zunächst ein passendes Programm aus.",

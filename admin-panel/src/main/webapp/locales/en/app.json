@@ -191,6 +191,7 @@
 			"importDataButton" : "Import data",
 			"exportDataButton" : "Export data",
 			"newProgrammeButton" : "Add new programme",
+			"newBundleButton" : "Add new bundle",
 			"newProgrammeTitle" : "Choose a Programme",
 			"newProgrammeSubtitle" : "Please select a product-group that matches best.",
 			"newProgrammeDesc" : "The remaining product information can be added in the next step.",

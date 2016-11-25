@@ -3203,7 +3203,7 @@ body.cms-full-mode {
     margin-left: 7px;	
 }
 
-.context-menu ul > li > i {
+.context-menu ul>li>i, .context-menu ul>li>a>i {
 	margin-right: 5px;
 }
 

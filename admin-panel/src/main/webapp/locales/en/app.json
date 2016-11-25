@@ -83,7 +83,7 @@
 		"menuItemActions" : "Actions",
 		"menuItemImport" : "Import",
 		"menuItemExport" : "Export",
-		"menuItemBookmark" : "Bookmark",
+		"menuItemFavorites" : "Favorites",
 		"menuItemRefresh" : "Refresh",
 		"menuItemDelete" : "Delete"
 	},

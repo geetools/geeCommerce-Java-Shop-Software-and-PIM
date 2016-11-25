@@ -331,16 +331,15 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
 	    	
 			this.gridTableMenuItems = [
 			      {key:'menu-item-settings', icon: 'fa fa-cog', label: 'app:gridTable.menuItemSettings', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-columns" aria-hidden="true"></i>Edit columns', action: function() {}}, {text: '<i class="fa fa-filter" aria-hidden="true"></i>Apply filter', action: function() {}}]},
-	              {key:'menu-item-new', icon: 'fa fa-plus-square-o', label: 'app:gridTable.menuItemNew', target: '', targetType: '', contextMenu: [{text: gc.app.i18n('app:modules.product.newProductButton'), url: '#/products/details/new:product'}, {text: gc.app.i18n('app:modules.product.newVariantMasterButton'), url: '#/products/details/new:variant-master'}, {text: gc.app.i18n('app:modules.product.newProgrammeButton'), url: '#/products/details/new:programme'}]},
-	              {key:'menu-item-select', icon: 'fa fa-check-square-o', label: 'app:gridTable.menuItemSelect', target: '', targetType: ''},
-	              {key:'menu-item-actions', icon: 'fa fa-tasks', label: 'app:gridTable.menuItemActions', target: '', targetType: ''},
-	              {key:'menu-item-import', icon: 'fa fa-download', label: 'app:gridTable.menuItemImport', target: '', targetType: ''},
-	              {key:'menu-item-export', icon: 'fa fa-upload', label: 'app:gridTable.menuItemExport', target: '', targetType: ''},
-	              {key:'menu-item-bookmark', icon: 'fa fa-bookmark-o', label: 'app:gridTable.menuItemBookmark', target: '', targetType: ''},
-                  {key:'menu-item-refresh', icon: 'fa fa-refresh', label: 'app:gridTable.menuItemRefresh', target: '', targetType: ''},
-                  {key:'menu-item-delete', icon: 'fa fa-trash', label: 'app:gridTable.menuItemDelete', target: '', targetType: ''}
+	              {key:'menu-item-new', icon: 'fa fa-plus-square-o', label: 'app:gridTable.menuItemNew', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-cube" aria-hidden="true"></i>' + gc.app.i18n('app:modules.product.newProductButton'), url: '#/products/details/new:product'}, {text: '<i class="fa fa-cubes" aria-hidden="true"></i>' + gc.app.i18n('app:modules.product.newVariantMasterButton'), url: '#/products/details/new:variant-master'}, {text: '<i class="fa fa-cubes" aria-hidden="true"></i>' + gc.app.i18n('app:modules.product.newProgrammeButton'), url: '#/products/details/new:programme'}]},
+	              {key:'menu-item-select', icon: 'fa fa-check-square-o', label: 'app:gridTable.menuItemSelect', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-check-square-o" aria-hidden="true"></i>Select all rows on this page', action: function() {}}, {text: '<i class="fa fa-check-square-o" aria-hidden="true"></i>Select rows on all pages', action: function() {}}, {text: '<i class="fa fa-square-o" aria-hidden="true"></i>Deselect all rows', action: function() {}}]},
+	              {key:'menu-item-actions', icon: 'fa fa-tasks', label: 'app:gridTable.menuItemActions', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-puzzle-piece" aria-hidden="true"></i>Batch update attributes', action: function() {}}]},
+	              {key:'menu-item-import', icon: 'fa fa-download', label: 'app:gridTable.menuItemImport', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-download" aria-hidden="true"></i>Import data', action: function() {}}]},
+	              {key:'menu-item-export', icon: 'fa fa-upload', label: 'app:gridTable.menuItemExport', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-upload" aria-hidden="true"></i>Export selected rows', action: function() {}}, {text: '<i class="fa fa-upload" aria-hidden="true"></i>Export wizard', action: function() {}}]},
+	              {key:'menu-item-bookmark', icon: 'fa fa-star-o', label: 'app:gridTable.menuItemFavorites', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-star-o" aria-hidden="true"></i>Save as favorite', action: function() {}}, {text: '<i class="fa fa-star" aria-hidden="true"></i>Favorites', action: function() {}}]},
+                  {key:'menu-item-refresh', icon: 'fa fa-refresh', label: 'app:gridTable.menuItemRefresh', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-refresh" aria-hidden="true"></i>Refresh data', action: function() {}}]},
+                  {key:'menu-item-delete', icon: 'fa fa-trash', label: 'app:gridTable.menuItemDelete', target: '', targetType: '', contextMenu: [{text: '<i class="fa fa-trash" aria-hidden="true"></i>Delete selected rows', action: function() {}}, {text: '<i class="fa fa-trash" aria-hidden="true"></i>Delete wizard', action: function() {}}]}
 			];
-			
 			
 	    	// Init the pager.
         	this.pager = new gc.Pager(productAPI.pagingOptions({ columns : pagerColumns, multiContext : true }));

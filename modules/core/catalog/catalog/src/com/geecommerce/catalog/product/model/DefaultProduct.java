@@ -20,7 +20,6 @@ import org.apache.logging.log4j.util.Strings;
 
 import com.geecommerce.catalog.product.MediaType;
 import com.geecommerce.catalog.product.ProductConstant;
-import com.geecommerce.catalog.product.ProductStatus;
 import com.geecommerce.catalog.product.elasticsearch.helper.ElasticsearchProductHelper;
 import com.geecommerce.catalog.product.repository.CatalogMedia;
 import com.geecommerce.catalog.product.repository.ProductConnectionIndexes;
@@ -84,9 +83,6 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Column(Col.TYPE)
     protected ProductType type = null;
 
-    @Column(Col.STATUS)
-    protected ProductStatus status = null;
-
     @Column(Col.SALEABLE)
     protected ContextObject<Boolean> saleable = null;
 
@@ -122,20 +118,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
     @Column(Col.INCLUDE_IN_FEEDS)
     protected ContextObject<Boolean> includeInFeeds = null;
-
-    /*
-     * @Column(Col.SHOW_CART_BUTTON) private ContextObject<Boolean>
-     * showCartButton = null;
-     */
-
-    @Column(Col.SPECIAL)
-    protected ContextObject<Boolean> special = null;
-
-    @Column(Col.SALE)
-    protected ContextObject<Boolean> sale = null;
-
-    @Column(Col.LAST_SOLD)
-    protected Date lastSold = null;
 
     @Column(Col.DELETED)
     protected Boolean deleted = null;
@@ -267,29 +249,9 @@ public class DefaultProduct extends AbstractAttributeSupport
         return this;
     }
 
-    @Override
-    @XmlAttribute
-    public ProductStatus getStatus() {
-        return status;
-    }
-
-    @Override
-    public Product setStatus(ProductStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isEnabled() {
-        return this.status != null && ProductStatus.ENABLED.equals(this.status);
-    }
-
     @JsonIgnore
     @Override
     public boolean isValidForSelling() {
-        // long start = System.currentTimeMillis();
-
         Boolean isValid = threadGet(this, "isValidForSelling");
 
         if (isValid == null) {
@@ -301,9 +263,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
             threadPut(this, "isValidForSelling", isValid);
         }
-
-        // System.out.println("isValidForSelling() TIME: " +
-        // (System.currentTimeMillis() - start));
 
         return isValid;
     }
@@ -445,16 +404,10 @@ public class DefaultProduct extends AbstractAttributeSupport
             // variant is visible.
             if (isVariantMaster()) {
                 isVisible = hasValidVariants() && hasVariantsValidForSelling();
-
-                // System.out.println("////////////////// isVisible-#1: " +
-                // (System.currentTimeMillis() - start));
             }
             // If this product is a programme, make sure that at least one
             // linked product is visible.
             else if (isProgramme()) {
-                // System.out.println("////////////////// isVisible-#2 AA: " +
-                // (System.currentTimeMillis() - start));
-
                 // If the programme has no child-products, there is no
                 // child-status to be dependant on, so we just
                 // return
@@ -479,9 +432,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
                 if (!visibleProductExists)
                     isVisible = false;
-
-                // System.out.println("////////////////// isVisible-#2 BBB: " +
-                // (System.currentTimeMillis() - start));
             }
             // If this product is a bundle, make sure that at least one linked
             // product is visible.
@@ -502,9 +452,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
                 if (!visibleProductExists)
                     isVisible = false;
-
-                // System.out.println("////////////////// isVisible-#3: " +
-                // (System.currentTimeMillis() - start));
             }
             // Otherwise just check 'this' product which must be a single
             // product or variant.
@@ -512,10 +459,7 @@ public class DefaultProduct extends AbstractAttributeSupport
                 isVisible = visibilityFlagsOK(true);
             }
 
-            // System.out.println("////////////////// isVisible-#5: " +
-            // (System.currentTimeMillis() - start));
-
-            boolean retIsVisible = isEnabled() && !isDeleted() && visibilityFlagsOK(false) && isVisible;
+            boolean retIsVisible = !isDeleted() && visibilityFlagsOK(false) && isVisible;
 
             threadPut(this, "isVisible", retIsVisible);
 
@@ -536,8 +480,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
         if (!isVisible)
             return isVisible;
-
-        ApplicationContext appCtx = app.context();
 
         // Check article status.
         AttributeValue statusArticle = getAttribute("status_article");
@@ -569,54 +511,6 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public Product setIncludeInFeeds(ContextObject<Boolean> includeInFeeds) {
         this.includeInFeeds = includeInFeeds;
-        return this;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isSpecial() {
-        Boolean isSpecial = ContextObjects.findCurrentStoreOrGlobal(getSpecial());
-        return isSpecial == null ? false : isSpecial.booleanValue();
-    }
-
-    @Override
-    public ContextObject<Boolean> getSpecial() {
-        return special;
-    }
-
-    @Override
-    public Product setSpecial(ContextObject<Boolean> special) {
-        this.special = special;
-        return this;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isSale() {
-        Boolean isSale = ContextObjects.findCurrentStoreOrGlobal(getSale());
-        return isSale == null ? false : isSale.booleanValue();
-    }
-
-    @Override
-    public ContextObject<Boolean> getSale() {
-        return sale;
-    }
-
-    @Override
-    public Product setSale(ContextObject<Boolean> sale) {
-        this.sale = sale;
-        return this;
-    }
-
-    @Override
-    @XmlAttribute
-    public Date getLastSold() {
-        return lastSold;
-    }
-
-    @Override
-    public Product setLastSold(Date lastSold) {
-        this.lastSold = lastSold;
         return this;
     }
 
@@ -1997,9 +1891,6 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (map.get(Col.TYPE) != null)
             this.type = enum_(ProductType.class, map.get(Col.TYPE));
 
-        if (map.get(Col.STATUS) != null)
-            this.status = enum_(ProductStatus.class, map.get(Col.STATUS));
-
         if (map.get(Col.SALEABLE) != null)
             this.saleable = ctxObj_(map.get(Col.SALEABLE));
         else {
@@ -2025,20 +1916,11 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (map.get(Col.DELETED_NOTE) != null)
             this.deletedNote = str_(map.get(Col.DELETED_NOTE));
 
-        if (map.get(Col.LAST_SOLD) != null)
-            this.lastSold = date_(map.get(Col.LAST_SOLD));
-
         if (map.get(Col.PARENT_ID) != null)
             this.parentId = id_(map.get(Col.PARENT_ID));
 
         if (map.get(Col.INCLUDE_IN_FEEDS) != null)
             this.includeInFeeds = ctxObj_(map.get(Col.INCLUDE_IN_FEEDS));
-
-        if (map.get(Col.SPECIAL) != null)
-            this.special = ctxObj_(map.get(Col.SPECIAL));
-
-        if (map.get(Col.SALE) != null)
-            this.sale = ctxObj_(map.get(Col.SALE));
 
         this.variantProductIds = idList_(map.get(Col.VARIANTS));
         this.upsellProductIds = idList_(map.get(Col.UPSELL_PRODUCTS));
@@ -2072,7 +1954,6 @@ public class DefaultProduct extends AbstractAttributeSupport
             map.put(Col.EAN, getEan());
 
         map.put(Col.TYPE, getType().toId());
-        map.put(Col.STATUS, getStatus().toId());
 
         if (getSaleable() != null)
             map.put(Col.SALEABLE, getSaleable());
@@ -2092,20 +1973,11 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (getIncludeInFeeds() != null)
             map.put(Col.INCLUDE_IN_FEEDS, getIncludeInFeeds());
 
-        if (special != null)
-            map.put(Col.SPECIAL, special);
-
-        if (sale != null)
-            map.put(Col.SALE, sale);
-
         if (getDeletedNote() != null)
             map.put(Col.DELETED, getDeleted());
 
         if (getDeletedNote() != null)
             map.put(Col.DELETED_NOTE, getDeletedNote());
-
-        if (getLastSold() != null)
-            map.put(Col.LAST_SOLD, getLastSold());
 
         map.put(Col.PARENT_ID, getParentId());
 
@@ -2250,12 +2122,9 @@ public class DefaultProduct extends AbstractAttributeSupport
         p.id2 = id2;
         p.ean = ean;
         p.type = type;
-        p.status = status;
         p.visibleInProductList = visibleInProductList;
         p.parentId = parentId;
         p.includeInFeeds = includeInFeeds;
-        p.special = special;
-        p.sale = sale;
         p.attributes = copyOfAttributes();
 
         // Needs to be set manually by product admin.

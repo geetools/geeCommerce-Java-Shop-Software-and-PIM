@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.geecommerce.catalog.product.ProductStatus;
 import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.Product.Col;
@@ -58,7 +57,6 @@ public class DefaultProducts extends AbstractRepository implements Products {
     @Override
     public List<Product> enabledForContext() {
         Map<String, Object> filter = new LinkedHashMap<>();
-        filter.put(Product.Col.STATUS, ProductStatus.ENABLED.toId());
         filter.put(Product.Col.DELETED, false);
 
         return simpleContextFind(Product.class, filter);
@@ -67,7 +65,6 @@ public class DefaultProducts extends AbstractRepository implements Products {
     @Override
     public List<Id> enabledIdsForContext() {
         Map<String, Object> filter = new LinkedHashMap<>();
-        filter.put(Product.Col.STATUS, ProductStatus.ENABLED.toId());
         filter.put(Product.Col.DELETED, false);
 
         return simpleContextFindIdsOnly(Product.class, filter);
@@ -125,7 +122,6 @@ public class DefaultProducts extends AbstractRepository implements Products {
 
         Map<String, Object> filter = new LinkedHashMap<>();
         filter.put(Col.PROGRAMME_PRODUCTS, in);
-        filter.put(Product.Col.STATUS, ProductStatus.ENABLED.toId());
         filter.put(Product.Col.DELETED, false);
         filter.put(Product.Col.TYPE, ProductType.PROGRAMME.toId());
 

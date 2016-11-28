@@ -86,81 +86,73 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
         json.put(FIELD_KEY_QTY, qty);
 
         if (isVisible) {
-            boolean isSale = product.isSale();
+            boolean isSale = false;
 
-            if (isSale) {
-                json.put(FIELD_KEY_IS_SALE, isSale);
-            } else {
-                String isSaleMatcherScript = app.cpStr_(IS_SALE_PRODUCT_SCRIPT_KEY);
+            String isSaleMatcherScript = app.cpStr_(IS_SALE_PRODUCT_SCRIPT_KEY);
 
-                if (isSaleMatcherScript != null) {
-                    try {
-                        isSale = Groovy.conditionMatches(isSaleMatcherScript, KEY_PRODUCT, product);
+            if (isSaleMatcherScript != null) {
+                try {
+                    isSale = Groovy.conditionMatches(isSaleMatcherScript, KEY_PRODUCT, product);
 
-                        if (!isSale && (product.isVariantMaster() || product.isProgramme() || product.isBundle())) {
-                            Set<Id> childProductIds = product.getAllChildProductIds();
+                    if (!isSale && (product.isVariantMaster() || product.isProgramme() || product.isBundle())) {
+                        Set<Id> childProductIds = product.getAllChildProductIds();
 
-                            if (childProductIds != null && !childProductIds.isEmpty()) {
-                                List<Product> childProducts = products.findByIds(Product.class,
-                                    childProductIds.toArray(new Id[childProductIds.size()]));
+                        if (childProductIds != null && !childProductIds.isEmpty()) {
+                            List<Product> childProducts = products.findByIds(Product.class,
+                                childProductIds.toArray(new Id[childProductIds.size()]));
 
-                                for (Product childProduct : childProducts) {
-                                    if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling())
-                                        && childProduct.isVisible()) {
-                                        isSale = Groovy.conditionMatches(isSaleMatcherScript, KEY_PRODUCT,
-                                            childProduct);
+                            for (Product childProduct : childProducts) {
+                                if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling())
+                                    && childProduct.isVisible()) {
+                                    isSale = Groovy.conditionMatches(isSaleMatcherScript, KEY_PRODUCT,
+                                        childProduct);
 
-                                        if (isSale)
-                                            break;
-                                    }
+                                    if (isSale)
+                                        break;
                                 }
                             }
                         }
-
-                        json.put(FIELD_KEY_IS_SALE, isSale);
-                    } catch (Throwable t) {
-                        t.printStackTrace();
                     }
+
+                    json.put(FIELD_KEY_IS_SALE, isSale);
+                } catch (Throwable t) {
+                    t.printStackTrace();
                 }
             }
 
-            boolean isSpecial = product.isSpecial();
+            boolean isSpecial = false;
 
-            if (isSpecial) {
-                json.put(FIELD_KEY_IS_SPECIAL, isSpecial);
-            } else {
-                String isSpecialMatcherScript = app.cpStr_(IS_SPECIAL_PRODUCT_SCRIPT_KEY);
+            String isSpecialMatcherScript = app.cpStr_(IS_SPECIAL_PRODUCT_SCRIPT_KEY);
 
-                if (isSpecialMatcherScript != null) {
-                    try {
-                        isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT, product);
+            if (isSpecialMatcherScript != null) {
+                try {
+                    isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT, product);
 
-                        if (!isSpecial && (product.getType() == ProductType.VARIANT_MASTER
-                            || product.getType() == ProductType.PROGRAMME
-                            || product.getType() == ProductType.BUNDLE)) {
-                            Set<Id> childProductIds = product.getAllChildProductIds();
+                    if (!isSpecial && (product.getType() == ProductType.VARIANT_MASTER
+                        || product.getType() == ProductType.PROGRAMME
+                        || product.getType() == ProductType.BUNDLE)) {
+                        Set<Id> childProductIds = product.getAllChildProductIds();
 
-                            if (childProductIds != null && !childProductIds.isEmpty()) {
-                                List<Product> childProducts = products.findByIds(Product.class,
-                                    childProductIds.toArray(new Id[childProductIds.size()]));
+                        if (childProductIds != null && !childProductIds.isEmpty()) {
+                            List<Product> childProducts = products.findByIds(Product.class,
+                                childProductIds.toArray(new Id[childProductIds.size()]));
 
-                                for (Product childProduct : childProducts) {
-                                    if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling())
-                                        && childProduct.isVisible()) {
-                                        isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT,
-                                            childProduct);
+                            for (Product childProduct : childProducts) {
+                                if ((childProduct.isValidForSelling() || childProduct.hasVariantsValidForSelling())
+                                    && childProduct.isVisible()) {
+                                    isSpecial = Groovy.conditionMatches(isSpecialMatcherScript, KEY_PRODUCT,
+                                        childProduct);
 
-                                        if (isSpecial)
-                                            break;
-                                    }
+                                    if (isSpecial)
+                                        break;
                                 }
                             }
                         }
-
-                        json.put(FIELD_KEY_IS_SPECIAL, isSpecial);
-                    } catch (Throwable t) {
-                        t.printStackTrace();
                     }
+
+                    json.put(FIELD_KEY_IS_SPECIAL, isSpecial);
+                } catch (Throwable t) {
+                    t.printStackTrace();
                 }
             }
         }

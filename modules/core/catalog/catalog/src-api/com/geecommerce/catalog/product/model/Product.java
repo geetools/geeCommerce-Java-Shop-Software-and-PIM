@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.geecommerce.catalog.product.ProductStatus;
 import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
 import com.geecommerce.core.enums.ProductType;
 import com.geecommerce.core.service.AttributeSupport;
@@ -35,13 +34,6 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     public ProductType getType();
 
     public Product setType(ProductType type);
-
-    public ProductStatus getStatus();
-
-    public Product setStatus(ProductStatus status);
-
-    @JsonIgnore
-    public boolean isEnabled();
 
     @JsonIgnore
     public boolean isValidForSelling();
@@ -90,24 +82,6 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     public ContextObject<Boolean> getIncludeInFeeds();
 
     public Product setIncludeInFeeds(ContextObject<Boolean> includeInFeeds);
-
-    @JsonIgnore
-    public boolean isSpecial();
-
-    public ContextObject<Boolean> getSpecial();
-
-    public Product setSpecial(ContextObject<Boolean> special);
-
-    @JsonIgnore
-    public boolean isSale();
-
-    public ContextObject<Boolean> getSale();
-
-    public Product setSale(ContextObject<Boolean> sale);
-
-    public Date getLastSold();
-
-    public Product setLastSold(Date lastSold);
 
     public boolean isDeleted();
 
@@ -352,19 +326,14 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
         public static final String EAN = "ean";
         public static final String TYPE = "type";
         public static final String GROUP = "group";
-        public static final String STATUS = "status";
         public static final String SALEABLE = "saleable";
         public static final String VISIBLE = "visible";
         public static final String VISIBLE_FROM = "visible_from";
         public static final String VISIBLE_TO = "visible_to";
         public static final String VISIBLE_IN_PRODUCT_LIST = "pl_visible";
         public static final String INCLUDE_IN_FEEDS = "feeds_inc";
-        public static final String SPECIAL = "special";
-        public static final String SALE = "sale";
-        public static final String SHOW_CART_BUTTON = "cart_btn";
         public static final String DELETED = "del";
         public static final String DELETED_NOTE = "del_note";
-        public static final String LAST_SOLD = "last_sold";
         public static final String PARENT_ID = "parent_id";
         public static final String VARIANTS = "variants";
         public static final String UPSELL_PRODUCTS = "upsells";

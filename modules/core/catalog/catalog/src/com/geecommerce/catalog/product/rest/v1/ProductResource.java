@@ -24,7 +24,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.geecommerce.catalog.product.ProductStatus;
 import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
@@ -432,7 +431,7 @@ public class ProductResource extends AbstractResource {
         System.out.println("CREATE product :::::::::::::::: " + product + ", " + product.getType() + ", att-size: "
             + product.getAttributes().size());
 
-        product.setStatus(ProductStatus.ENABLED).setVisible(ContextObjects.global(false))
+        product.setVisible(ContextObjects.global(false))
             .setVisibleInProductList(ContextObjects.global(true));
 
         setStatuses(product);

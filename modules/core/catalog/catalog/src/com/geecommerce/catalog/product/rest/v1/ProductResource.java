@@ -29,6 +29,7 @@ import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
+import com.geecommerce.catalog.product.model.BundleProductItem;
 import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
 import com.geecommerce.catalog.product.model.Product;
@@ -271,8 +272,6 @@ public class ProductResource extends AbstractResource {
 
             // Save main product with the new child-productId.
             service.update(programmeProduct);
-            // Save child-product with the new parent-productId.
-            service.update(childProduct);
         } else {
             throwBadRequest(
                 "programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
@@ -299,6 +298,57 @@ public class ProductResource extends AbstractResource {
                 "programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
         }
     }
+
+    @GET
+    @Path("{id}/bundle-products")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getBundleProducts(@PathParam("id") Id id) {
+        Product p = checked(service.get(Product.class, id));
+        List<BundleProductItem> bundleProducts = p.getBundleProductItems();
+
+        return ok(bundleProducts);
+    }
+
+    @PUT
+    @Path("{bundleProductId}/bundle-products/{childProductId}/{qty}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void addProductToBundle(@PathParam("bundleProductId") Id id, @PathParam("childProductId") Id childProductId, @PathParam("qty") int quantity) {
+        if (id != null && childProductId != null) {
+            // Get main and child product.,
+            Product bundleProduct = checked(service.get(Product.class, id));
+            Product childProduct = checked(service.get(Product.class, childProductId));
+
+            // Add child product to main product.
+            bundleProduct.addBundleProduct(childProduct, quantity);
+
+            // Save main product with the new child-productId.
+            service.update(bundleProduct);
+        } else {
+            throwBadRequest(
+                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}/{qty}");
+        }
+    }
+
+    @DELETE
+    @Path("{bundleProductId}/bundle-products/{childProductId}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void removeProductFromBundle(@PathParam("bundleProductId") Id bundleProductId, @PathParam("childProductId") Id childProductId) {
+        if (bundleProductId != null && childProductId != null) {
+            // Get main and child product.
+            Product bundleProduct = checked(service.get(Product.class, bundleProductId));
+            Product childProduct = checked(service.get(Product.class, childProductId));
+
+            // Remove child from main product.
+            bundleProduct.removeBundleProduct(childProduct);
+
+            // Save main product with the removed variant-productId.
+            service.update(bundleProduct);
+        } else {
+            throwBadRequest(
+                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}");
+        }
+    }
+
 
     @GET
     @Path("{id}/prices")

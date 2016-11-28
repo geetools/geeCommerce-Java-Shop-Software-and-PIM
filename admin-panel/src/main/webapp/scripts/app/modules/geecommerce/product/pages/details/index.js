@@ -29,6 +29,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
         self.statusVM = new StatusVM(self);
         self.tabs = ko.observableArray([]);
+        self.bundleProducts = ko.observableArray();
         self.programmeProducts = ko.observableArray();
         self.upsellProducts = ko.observableArray();
         self.crossSellProducts = ko.observableArray();

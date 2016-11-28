@@ -92,7 +92,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			pagingOptions.fields.push('attributeOptions');
 			pagingOptions.fields.push('properties');
 			pagingOptions.fields.push('sortOrder');
-			pagingOptions.fields.push('sortOrder');
 			pagingOptions.fields.push('mainImageURI');
 			
 	    	// Init the pager.

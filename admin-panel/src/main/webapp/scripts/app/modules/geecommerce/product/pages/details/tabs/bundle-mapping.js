@@ -118,8 +118,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         	//  Get programme-products that are already connected to the main product.
 			productAPI.getBundleProducts(vm.productId()).then(function(data) {
 
-				console.log("BUNDLES-BUNDLES")
-				console.log(data)
 				if(!_.isEmpty(data.data.bundleProductItems)) {
 					var productItems = [];
 					_.each(data.data.bundleProductItems, function (productItem) {

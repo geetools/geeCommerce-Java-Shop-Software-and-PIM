@@ -135,7 +135,18 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
 			return type == 'PROGRAMME';
 		});
-		
+
+        self.isBundle = ko.computed(function() {
+            var prd = ko.unwrap(self.data);
+            var type = '';
+
+            if(!_.isUndefined(prd)) {
+                type = prd.type;
+            }
+
+            return type == 'BUNDLE';
+        });
+
 		self.isVariantMaster = ko.computed(function() {
 			var prd = ko.unwrap(self.data);
 			var type = '';
@@ -290,7 +301,12 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 			return false; //  self.productExists() && self.isCategorized() && self.isProgramme() && self.isAdminOrPM();
 		});
 
-		self.showPictogramTab = ko.computed(function() {
+        self.showBundleTab = ko.computed(function() {
+            return false; //  self.productExists() && self.isCategorized() && self.isBundle() && self.isAdminOrPM();
+        });
+
+
+        self.showPictogramTab = ko.computed(function() {
 			return false; //  self.productExists() && self.isCategorized() && self.isAdminOrPM();
 		});
 		

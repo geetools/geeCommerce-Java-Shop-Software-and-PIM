@@ -1,10 +1,17 @@
 define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko, gc, productAPI ) {
 
-	function ProductBundleVM(product, quantity) {
+	function ProductBundleVM(vm, product, quantity) {
         var self = this;
+        self.vm = vm;
         self.id = product.id;
         self.product = product;
         self.quantity = ko.observable(quantity);
+
+        self.quantity.subscribe(function (val) {
+        	if(val > 0){
+                productAPI.addProductToBundle(self.vm.productId(), self.id, val);
+			}
+    	})
     }
 	
 	//-----------------------------------------------------------------
@@ -39,7 +46,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         	
     		//if(_.isUndefined(foundProduct)) {
             	productAPI.addProductToBundle(vm.productId(), data.id, 1).then(function( response ) {
-                    vm.bundleProducts.push(new ProductBundleVM(data, 1));
+                    vm.bundleProducts.push(new ProductBundleVM(vm, data, 1));
                 	self.sourceBundleProductsPager.removeData(data);
             	});
     		//}
@@ -117,7 +124,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 					var productItems = [];
 					_.each(data.data.bundleProductItems, function (productItem) {
                         gc.attributes.appendAttributes(productItem.product);
-                        productItems.push(new ProductBundleVM(productItem.product, productItem.quantity))
+                        productItems.push(new ProductBundleVM(vm, productItem.product, productItem.quantity))
                     });
 					vm.bundleProducts(productItems);
 

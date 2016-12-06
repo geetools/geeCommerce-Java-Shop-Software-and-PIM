@@ -9,8 +9,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 //			console.timeEnd("cache-put-" + key);
 		},
 		get : function(key, options) {
-//			console.log(key + '-options: ', options);
-		
 //			console.time("cache-get-" + key);
 
 			options = options || {};

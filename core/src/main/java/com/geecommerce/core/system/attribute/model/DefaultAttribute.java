@@ -40,160 +40,160 @@ import com.owlike.genson.annotation.JsonIgnore;
 public class DefaultAttribute extends AbstractMultiContextModel implements Attribute {
     private static final long serialVersionUID = -4134855355218367101L;
     @Column(Col.ID)
-    private Id id = null;
+    protected Id id = null;
     @Column(Col.ID2)
-    private Id id2 = null;
+    protected Id id2 = null;
     @Column(Col.CODE)
-    private String code = null;
+    protected String code = null;
     @Column(Col.CODE2)
-    private String code2 = null;
+    protected String code2 = null;
     @Column(Col.TARGET_OBJECT_ID)
-    private Id targetObjectId = null;
+    protected Id targetObjectId = null;
     @Column(Col.TYPE)
-    private AttributeType type = null;
+    protected AttributeType type = null;
     @Column(Col.SCOPES)
-    private List<Scope> scopes = null;
+    protected List<Scope> scopes = null;
     @Column(Col.EDITABLE)
-    private boolean editable = false;
+    protected boolean editable = false;
     @Column(Col.ENABLED)
-    private boolean enabled = false;
+    protected boolean enabled = false;
 
     // Display settings
     @Column(Col.SEARCHABLE)
-    private boolean searchable = false;
+    protected boolean searchable = false;
     @Column(Col.INCLUDE_IN_SEARCH_INDEX)
-    private boolean includeInSearchIndex = false;
+    protected boolean includeInSearchIndex = false;
     @Column(Col.SHOW_IN_PRODUCT_DETAILS)
-    private boolean showInProductDetails = false;
+    protected boolean showInProductDetails = false;
 
     // Virtual attribute setting
     @Column(Col.LINKED_ATTRIBUTE_IDS)
-    private List<Id> linkedAttributeIds = null;
+    protected List<Id> linkedAttributeIds = null;
 
     // Admin panel settings
     @Column(Col.FRONTEND_INPUT)
-    private FrontendInput frontendInput = null;
+    protected FrontendInput frontendInput = null;
     @Column(Col.FRONTEND_OUTPUT)
-    private FrontendOutput frontendOutput = null;
+    protected FrontendOutput frontendOutput = null;
     @Column(Col.FRONTEND_LABEL)
-    private ContextObject<String> frontendLabel = null;
+    protected ContextObject<String> frontendLabel = null;
     @Column(Col.FRONTEND_FORMAT)
-    private ContextObject<String> frontendFormat = null;
+    protected ContextObject<String> frontendFormat = null;
     @Column(Col.FRONTEND_STYLE)
-    private String frontendStyle = null;
+    protected String frontendStyle = null;
     @Column(Col.FRONTEND_CLASS)
-    private String frontendClass = null;
+    protected String frontendClass = null;
     @Column(Col.BACKEND_LABEL)
-    private ContextObject<String> backendLabel = null;
+    protected ContextObject<String> backendLabel = null;
     @Column(Col.BACKEND_TYPE)
-    private BackendType backendType = null;
+    protected BackendType backendType = null;
     @Column(Col.BACKEND_NOTE)
-    private ContextObject<String> backendNote = null;
+    protected ContextObject<String> backendNote = null;
     @Column(Col.DEFAULT_VALUE)
-    private ContextObject<?> defaultValue = null;
+    protected ContextObject<?> defaultValue = null;
     @Column(Col.INPUT_TYPE)
-    private InputType inputType = null;
+    protected InputType inputType = null;
     @Column(Col.IS_OPTION_ATTRIBUTE)
-    private boolean optionAttribute = false;
+    protected boolean optionAttribute = false;
     @Column(Col.IS_MULTIPLE_ALLOWED)
-    private boolean allowMultipleValues = false;
+    protected boolean allowMultipleValues = false;
     @Column(Col.IS_I18N)
-    private boolean i18n = false;
+    protected boolean i18n = false;
 
     // Validation settings
     @Column(Col.VALIDATION_MIN)
-    private ContextObject<Double> validationMin = null;
+    protected ContextObject<Double> validationMin = null;
     @Column(Col.VALIDATION_MAX)
-    private ContextObject<Double> validationMax = null;
+    protected ContextObject<Double> validationMax = null;
     @Column(Col.VALIDATION_MIN_LENGTH)
-    private ContextObject<Integer> validationMinLength = null;
+    protected ContextObject<Integer> validationMinLength = null;
     @Column(Col.VALIDATION_MAX_LENGTH)
-    private ContextObject<Integer> validationMaxLength = null;
+    protected ContextObject<Integer> validationMaxLength = null;
     @Column(Col.VALIDATION_FUTURE)
-    private ContextObject<Boolean> validationFuture = null;
+    protected ContextObject<Boolean> validationFuture = null;
     @Column(Col.VALIDATION_PAST)
-    private ContextObject<Boolean> validationPast = null;
+    protected ContextObject<Boolean> validationPast = null;
     @Column(Col.VALIDATION_ASSERT_TRUE)
-    private ContextObject<Boolean> validationAssertTrue = null;
+    protected ContextObject<Boolean> validationAssertTrue = null;
     @Column(Col.VALIDATION_ASSERT_FALSE)
-    private ContextObject<Boolean> validationAssertFalse = null;
+    protected ContextObject<Boolean> validationAssertFalse = null;
     @Column(Col.VALIDATION_PATTERN)
-    private ContextObject<String> validationPattern = null;
+    protected ContextObject<String> validationPattern = null;
     @Column(Col.VALIDATION_SCRIPT)
-    private ContextObject<String> validationScript = null;
+    protected ContextObject<String> validationScript = null;
     @Column(Col.VALIDATION_MESSAGE)
-    private ContextObject<String> validationMessage = null;
+    protected ContextObject<String> validationMessage = null;
 
     // Product settings
     @Column(Col.PRODUCT_TYPES)
-    private Set<ProductType> productTypes = null;
+    protected Set<ProductType> productTypes = null;
 
     // Product list settings
     @Column(Col.INCLUDE_IN_PRODUCT_LIST_FILTER)
-    private Boolean includeInProductListFilter = null;
+    protected Boolean includeInProductListFilter = null;
     @Column(Col.PRODUCT_LIST_FILTER_TYPE)
-    private FilterType productListFilterType = null;
+    protected FilterType productListFilterType = null;
     @Column(Col.PRODUCT_LIST_FILTER_INDEX_FIELDS)
-    private List<FilterIndexField> productListFilterIndexFields = null;
+    protected List<FilterIndexField> productListFilterIndexFields = null;
     @Column(Col.PRODUCT_LIST_FILTER_KEY_ALIAS)
-    private ContextObject<String> productListFilterKeyAlias = null;
+    protected ContextObject<String> productListFilterKeyAlias = null;
     @Column(Col.PRODUCT_LIST_FILTER_FORMAT_LABEL)
-    private ContextObject<String> productListFilterFormatLabel = null;
+    protected ContextObject<String> productListFilterFormatLabel = null;
     @Column(Col.PRODUCT_LIST_FILTER_FORMAT_VALUE)
-    private ContextObject<String> productListFilterFormatValue = null;
+    protected ContextObject<String> productListFilterFormatValue = null;
     @Column(Col.PRODUCT_LIST_FILTER_PARSE_VALUE)
-    private ContextObject<String> productListFilterParseValue = null;
+    protected ContextObject<String> productListFilterParseValue = null;
     @Column(Col.PRODUCT_LIST_FILTER_MULTI)
-    private boolean productListFilterMulti = false;
+    protected boolean productListFilterMulti = false;
     @Column(Col.PRODUCT_LIST_FILTER_INHERIT_FROM_PARENT)
-    private boolean productListFilterInheritFromParent = false;
+    protected boolean productListFilterInheritFromParent = false;
     @Column(Col.PRODUCT_LIST_FILTER_INCLUDE_CHILDREN)
-    private boolean productListFilterIncludeChildren = false;
+    protected boolean productListFilterIncludeChildren = false;
     @Column(Col.PRODUCT_LIST_FILTER_POSITION)
-    private int productListFilterPosition = 0;
+    protected int productListFilterPosition = 0;
 
     @Column(Col.INCLUDE_IN_PRODUCT_LIST_QUERY)
-    private Boolean includeInProductListQuery = null;
+    protected Boolean includeInProductListQuery = null;
 
     // Search settings
     @Column(Col.INCLUDE_IN_SEARCH_FILTER)
-    private Boolean includeInSearchFilter = null;
+    protected Boolean includeInSearchFilter = null;
     @Column(Col.SEARCH_FILTER_TYPE)
-    private FilterType searchFilterType = null;
+    protected FilterType searchFilterType = null;
     @Column(Col.SEARCH_FILTER_INDEX_FIELDS)
-    private List<FilterIndexField> searchFilterIndexFields = null;
+    protected List<FilterIndexField> searchFilterIndexFields = null;
     @Column(Col.SEARCH_FILTER_KEY_ALIAS)
-    private ContextObject<String> searchFilterKeyAlias = null;
+    protected ContextObject<String> searchFilterKeyAlias = null;
     @Column(Col.SEARCH_FILTER_FORMAT_LABEL)
-    private ContextObject<String> searchFilterFormatLabel = null;
+    protected ContextObject<String> searchFilterFormatLabel = null;
     @Column(Col.SEARCH_FILTER_FORMAT_VALUE)
-    private ContextObject<String> searchFilterFormatValue = null;
+    protected ContextObject<String> searchFilterFormatValue = null;
     @Column(Col.SEARCH_FILTER_PARSE_VALUE)
-    private ContextObject<String> searchFilterParseValue = null;
+    protected ContextObject<String> searchFilterParseValue = null;
     @Column(Col.SEARCH_FILTER_MULTI)
-    private boolean searchFilterMulti = false;
+    protected boolean searchFilterMulti = false;
     @Column(Col.SEARCH_FILTER_POSITION)
-    private int searchFilterPosition = 0;
+    protected int searchFilterPosition = 0;
     @Column(Col.DIMENSION_ATTRIBUTE)
-    private boolean dimensionAttribute = false;
+    protected boolean dimensionAttribute = false;
 
     // Lazy loaded attribute options
-    private transient List<AttributeOption> options = null;
+    protected transient List<AttributeOption> options = null;
 
     // Lazy loaded attribute links
-    private transient List<Attribute> linkedAttributes = null;
+    protected transient List<Attribute> linkedAttributes = null;
 
     // Lazy loaded attribute target object
-    private transient AttributeTargetObject targetObject = null;
+    protected transient AttributeTargetObject targetObject = null;
 
     // Attributes repository
-    private final transient Attributes attributes;
+    protected final transient Attributes attributes;
 
     // Attribute options repository
-    private final transient AttributeOptions attributeOptions;
+    protected final transient AttributeOptions attributeOptions;
 
     // Attribute target objects repository
-    private final transient AttributeTargetObjects attributeTargetObjects;
+    protected final transient AttributeTargetObjects attributeTargetObjects;
 
     public DefaultAttribute() {
         this(i(Attributes.class), i(AttributeOptions.class), i(AttributeTargetObjects.class));

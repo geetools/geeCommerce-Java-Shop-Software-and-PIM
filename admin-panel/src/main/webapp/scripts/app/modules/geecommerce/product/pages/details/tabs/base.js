@@ -377,7 +377,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
             var attrProductGroup;
             var attrProgramme;
 
-            attrAPI.getAttributes({
+            attrAPI.getAttributes('product', {
                 filter : {
                     code : 'status_article'
                 }
@@ -385,7 +385,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 attrStatusArticle = data.data.attributes[0];
             });
 
-            attrAPI.getAttributes({
+            attrAPI.getAttributes('product', {
                 filter : {
                     code : 'status_description'
                 }
@@ -393,7 +393,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 attrStatusDescription = data.data.attributes[0];
             });
 
-            attrAPI.getAttributes({
+            attrAPI.getAttributes('product', {
                 filter : {
                     code : 'product_group'
                 }
@@ -401,7 +401,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 attrProductGroup = data.data.attributes[0];
             });
 
-            attrAPI.getAttributes({
+            attrAPI.getAttributes('product', {
                 filter : {
                     code : 'programme'
                 }

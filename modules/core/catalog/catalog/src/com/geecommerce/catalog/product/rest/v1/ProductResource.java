@@ -24,16 +24,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
+import com.geecommerce.catalog.product.helper.ImportHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
-import com.geecommerce.catalog.product.helper.ProductUrlHelper;
 import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
+import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
+import com.geecommerce.core.batch.service.ImportExportService;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractResource;
@@ -46,6 +47,7 @@ import com.geecommerce.core.service.CopySupport;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
+import com.geecommerce.core.system.attribute.service.AttributeService;
 import com.geecommerce.core.system.helper.UrlRewriteHelper;
 import com.geecommerce.core.system.merchant.model.Merchant;
 import com.geecommerce.core.system.merchant.model.Store;
@@ -68,25 +70,28 @@ import com.sun.jersey.multipart.FormDataParam;
 
 @Path("/v1/products")
 public class ProductResource extends AbstractResource {
-    private final RestService service;
-    private final CatalogMediaHelper catalogMediaHelper;
-    private final ProductHelper productHelper;
-    private final ProductUrlHelper productUrlHelper;
-    private final UrlRewrites urlRewrites;
-    private final UrlRewriteHelper urlRewriteHelper;
-    private final ProductDao productDao;
+    protected final RestService service;
+    protected final AttributeService attributeService;
+    protected final CatalogMediaHelper catalogMediaHelper;
+    protected final ProductHelper productHelper;
+    protected final UrlRewrites urlRewrites;
+    protected final UrlRewriteHelper urlRewriteHelper;
+    protected final ImportExportService importExportService;
+    protected final ImportHelper importHelper;
+    protected final ImportTokens importTokens;
 
     @Inject
-    public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
-        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
-        UrlRewriteHelper urlRewriteHelper) {
+    public ProductResource(RestService service, AttributeService attributeService, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
+        UrlRewrites urlRewrites, UrlRewriteHelper urlRewriteHelper, ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens) {
         this.service = service;
+        this.attributeService = attributeService;
         this.catalogMediaHelper = catalogMediaHelper;
         this.productHelper = productHelper;
-        this.productUrlHelper = productUrlHelper;
         this.urlRewrites = urlRewrites;
-        this.productDao = productDao;
         this.urlRewriteHelper = urlRewriteHelper;
+        this.importExportService = importExportService;
+        this.importHelper = importHelper;
+        this.importTokens = importTokens;
     }
 
     @GET
@@ -428,9 +433,6 @@ public class ProductResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createProduct(@ModelParam Product product) {
-        System.out.println("CREATE product :::::::::::::::: " + product + ", " + product.getType() + ", att-size: "
-            + product.getAttributes().size());
-
         product.setVisible(ContextObjects.global(false))
             .setVisibleInProductList(ContextObjects.global(true));
 
@@ -444,8 +446,6 @@ public class ProductResource extends AbstractResource {
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Id updateProduct(@PathParam("id") Id id, Update update) {
-        System.out.println("UPDATE product :::::::::::::::: " + update);
-
         if (id != null && update != null) {
             Product p = checked(service.get(Product.class, id, QueryOptions.builder().refresh(true).build()));
 
@@ -1068,49 +1068,4 @@ public class ProductResource extends AbstractResource {
         }
         return ok(checked(urlRewrite));
     }
-
-    // @SuppressWarnings("unchecked")
-    // @PUT
-    // @Path("{id}/url")
-    // @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    // public Response updateRewriteUrl(@PathParam("id") Id productId, Update
-    // update) {
-    // boolean autoGenerate = Boolean.parseBoolean((String)
-    // update.getFields().get("auto"));
-    // boolean empty = autoGenerate ? false : true;
-    // ContextObject<String> urls = (ContextObject<String>)
-    // update.getFields().get("rewriteUrl");
-    //
-    // Product product = checked(service.get(Product.class, productId));
-    // UrlRewrite urlRewrite = urlRewrites.forProduct(productId);
-    // if (urlRewrite == null) {
-    // urlRewrite = app.getModel(UrlRewrite.class);
-    // urlRewrite.setRequestURI(new ContextObject<String>());
-    // urlRewrite.setEnabled(true);
-    // urlRewrite.setRequestMethod("GET");
-    // urlRewrite.setTargetObjectId(productId);
-    // urlRewrite.setTargetObjectType(ObjectType.PRODUCT);
-    // urlRewrite.setTargetURL("/catalog/product/view/" + productId);
-    // }
-    //
-    // urlRewrite.setRequestURI(urls);
-    //
-    // if (urlRewrite.getRequestURI() == null)
-    // urlRewrite.setRequestURI(new ContextObject<String>());
-    //
-    // productUrlHelper.generateUniqueUri(product, urlRewrite, empty);
-    //
-    // if (urlRewrite.getId() == null)
-    // urlRewrites.add(urlRewrite);
-    // else
-    // urlRewrites.update(urlRewrite);
-    //
-    // if (urlRewrite != null && (urlRewrite.getRequestURI() == null ||
-    // urlRewrite.getRequestURI().size() == 0) && urlRewrite.getId() != null) {
-    // urlRewrites.remove(urlRewrite);
-    // }
-    //
-    // return ok(checked(urlRewrite));
-    // }
-
 }

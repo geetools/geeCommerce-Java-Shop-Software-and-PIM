@@ -1,0 +1,40 @@
+<div class="content-panel" id="product-import">
+	<form class="form-horizontal" role="form">
+
+		<ul class="nav nav-tabs">
+			<li class="active" id="tab-prd-import-base"><a href="javascript:void(0)" data-target="#product-import-base" data-toggle="tab" data-i18n="app:modules.product.tabTitleGeneral">General</a></li>
+            <li id="tab-prd-import-mapping"><a href="javascript:void(0)" data-target="#product-import-mapping" data-toggle="tab" data-i18n="app:modules.product.tabTitleMapping">Mapping</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="product-import-base" data-bind="compose:{ model: 'modules/geecommerce/product/pages/import/tabs/base' }">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="tab-pane" id="product-import-mapping" data-bind="compose:{ model: 'modules/geecommerce/product/pages/import/tabs/mapping' }">
+              <div class="tab-loading-box jumbotron">
+                <div class="row">
+                  <div class="col-md-2">
+                    <h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+                  </div>
+                  <div class="col-md-10">
+                    <h1 data-i18n="app:common.loadingContentTitle"></h1>
+                    <p data-i18n="app:common.loadingContentInfo"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+		</div>
+
+	</form>
+
+</div>

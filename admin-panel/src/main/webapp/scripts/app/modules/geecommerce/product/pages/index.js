@@ -11,12 +11,18 @@ define([ 'durandal/app', 'gc/childRouter', 'knockout', 'gc/gc' ], function( app,
 		route : 'details/history/tabs/base',
 		moduleId : 'details/history/tabs/base',
 	}, {
-		route : 'details/:id',
-		moduleId : 'details/index',
-	}, {
-		route : 'details/tabs/base',
-		moduleId : 'details/tabs/base',
-	} ]);
+        route : 'details/:id',
+        moduleId : 'details/index',
+    }, {
+        route : 'details/tabs/base',
+        moduleId : 'details/tabs/base',
+    }, {
+        route : 'import',
+        moduleId : 'import/index',
+    }, {
+        route : 'import/tabs/base',
+        moduleId : 'import/tabs/base',
+    } ]);
 	childRouter.buildNavigationModel();
 	childRouter.setMetadata({
 		pageTitle : gc.app.i18n('app:modules.product.title'),

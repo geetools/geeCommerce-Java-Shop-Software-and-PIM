@@ -61,7 +61,8 @@
         'atmosphere' : '../vendor/atmosphere/atmosphere',
         'geegrid' : '../vendor/geegrid/geegrid',
         'focusable' : '../vendor/focusable/focus-element-overlay.min',
-        'speakingurl' : '../vendor/speakingurl-10.0.0/speakingurl.min'
+        'speakingurl' : '../vendor/speakingurl-10.0.0/speakingurl.min',
+        'socket.io' : '../vendor/socket.io/socket.io-1.4.5'
     },
     shim : {
         'jquery' : {
@@ -258,6 +259,10 @@
     }, {
         name : 'gc-attribute-tabs',
         location : 'core/attribute-tabs/scripts',
+        main : 'api'
+    }, {
+        name : 'gc-import',
+        location : 'core/import/scripts',
         main : 'api'
     }, {
         name : 'gc-product',
@@ -511,6 +516,7 @@ define(function(require) {
     ko.bindingHandlers.attrValue = require('gc/bindings/attrValue');
     ko.bindingHandlers.bindIframe = require('gc/bindings/bindIframe');
     ko.bindingHandlers.attrText = require('gc/bindings/attrText');
+    ko.bindingHandlers.attrLabelText = require('gc/bindings/attrLabelText');
     ko.bindingHandlers.attrHtml = require('gc/bindings/attrHtml');
     ko.bindingHandlers.popover = require('gc/bindings/popover');
     ko.bindingHandlers.datepicker = require('gc/bindings/datepicker');
@@ -556,6 +562,7 @@ define(function(require) {
     widget.registerKind('navToolbar');
     widget.registerKind('mediaAssets');
     widget.registerKind('gridTable');
+    widget.registerKind('attrSelect');
     kv.makeBindingHandlerValidatable("i18nValue");
 
     kv.rules['require_i18n'] = {

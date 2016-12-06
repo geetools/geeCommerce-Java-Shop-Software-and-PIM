@@ -1,0 +1,64 @@
+<div>
+
+  <div id="prd-import-form">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="prd-import-step-label" data-i18n="app:modules.product.importTab1Step1Label"></h3>
+            <form id="prd-import-upload-form" action="#" class="dropzone dz-media">
+              <p class="dz-message">
+                <i class="fa fa-cloud-download" aria-hidden="true"></i> <span data-i18n="app:common.uploadHintDragAndDrop">Drag&drop files here</span><span class="upload-text-or"
+                  data-i18n="app:common.or">or</span><span class="btn-upload" data-i18n="app:common.uploadHintChooseFile">click to upload</span>
+              </p>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="prd-import-step-label" data-i18n="app:modules.product.importTab1Step2Label"></h3>
+            <select class="selectpicker" title="auswählen" name="importProfile" data-bind="select: importVM.profileId, data: [{id: 1, text: 'noch kein Profil vorhanden'}]">
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="prd-import-step-label" data-i18n="app:modules.product.importTab1Step3Label"></h3>
+            <select class="selectpicker" title="auswählen" name="importProfile" data-bind="select: importVM.whenExists, data: [{id: 'ignore', text: 'ignorieren'}, {id: 'overwrite', text: 'überschreiben'}]">
+            </select>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h3 class="prd-import-step-label" data-i18n="app:modules.product.importTab1Step4Label"></h3>
+            <select class="selectpicker" title="auswählen" name="importProfile" data-bind="select: importVM.onError, data: [{id: 'cancel', text: 'sofort abbrechen'}, {id: 'continue', text: 'fortfahren und anschließend im Protokoll prüfen'}]">
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 gc-btn-wrapper">
+            <a href="javascript:void(0)" class="gc-btn" data-bind="click: nextTab">Continue</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6 import-export-teaser-col">
+        <img class="import-export-teaser" src="img/import-export/import.jpg" />
+      </div>
+      
+    </div>
+
+  </div>
+
+
+
+
+</div>

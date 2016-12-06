@@ -158,7 +158,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute/util
                             }).then(
                                     function(data) {
 
-                                        return attrAPI.getAttributes(
+                                        return attrAPI.getAttributes('product',
                                                 {
                                                     fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n',
                                                             'options', 'tags', 'label', 'productTypes', 'scopes' ],

@@ -350,7 +350,7 @@ input[type="radio"], input[type="checkbox"] {
 
 .navbar {
     position: fixed;
-    background-color: #349898;
+    background-color: #21a199;
     height: 37px;
     min-height: 37px;
     float: none;
@@ -1238,19 +1238,108 @@ span.attrValue {
 }
 
 .dz-media {
-    background-color: #FFF7F7;
-    border: dashed 2px #FFBBBB;
+	background-color: #fff;
+    border: dashed 2px #ddd;
     display: block;
     margin-bottom: 15px;
     cursor: pointer;
     border-radius: 7px;
 }
 
-.dz-media p {
+.dz-media:hover {
+	background: #fcfcfc;
+}
+
+.dz-media>p {
     margin: 0 0 0px;
     padding: 10px;
     text-align: center;
+    vertical-align: middle;
 }
+
+.dz-media>p>i {
+	font-size: 30px;
+	vertical-align: middle;
+}	
+
+.dz-media>p>span {
+	margin-left: 7px;
+}
+
+.dz-media>p>span.btn-upload {
+    border: solid 1px #4badce;
+    color: #4badce;
+    padding: 10px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.dz-media>p>span.upload-text-or {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #ccc;
+    font-size: 13px;
+}
+
+.dropzone.dz-drag-hover {
+  	background: #fafafa;
+	border-color: none !important;
+}
+
+.dropzone.dz-drag-hover .dz-message {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+
+
+#prd-import-form .dz-media>p>span {
+	display: block;
+	padding-top: 7px;
+	margin-left: 0px;
+}
+
+#prd-import-form .dz-media>p>span.btn-upload {
+	display: inline-block;
+	margin-top: 7px;
+	padding: 10px;
+}
+
+#prd-import-form .dz-media>p>i {
+    font-size: 40px;
+}
+
+.gc-btn-wrapper {
+	text-align: center;	
+}
+
+.gc-btn {
+    border: solid 1px #4badce;
+    color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    background: #4badce;
+    -webkit-border-radius: 3;
+    -moz-border-radius: 3;
+    border-radius: 3px;
+    font-family: Arial;
+    color: #ffffff;
+    padding: 15px 40px;
+	margin-top: 20px;
+	font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.gc-btn:hover {
+	color: #fff;
+	background-color: #3AA6C9;
+    text-decoration: none;
+}
+
 
 /*
 #media .dropzone-image-preview {
@@ -2325,7 +2414,7 @@ td>a:not(i) {
 
 .navbar .bootstrap-select .btn-default:hover, .bootstrap-select .btn-default:focus, .bootstrap-select .btn-default:active, .bootstrap-select .btn-default.active, .bootstrap-select .open .dropdown-toggle.btn-default, 
 .navbar .bootstrap-select .btn {
-    background: #349898;
+    background: #21a199;
     color: #fff !important;
     border: 1px solid #fff;
     outline: none;
@@ -3229,7 +3318,24 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
 }
 
 
+.import-arrow-icon {
+    font-size: 30px;
+    color: #97D0E3;
+}
 
+.import-export-teaser {
+	width: 80%;
+    float: right;
+}
+
+.import-export-teaser-col {
+	visibility: hidden;
+}
+
+#prd-import-form .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th,
+#prd-import-mapping-form .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	vertical-align: middle;
+}
 
 
 @media only screen and (min-width: 768px) {
@@ -3301,6 +3407,12 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
         margin-top: 30px;
         margin-right: 7px;
     }
+}
+
+@media only screen and (min-width: 992px) {
+	.import-export-teaser-col {
+		visibility: visible;
+	}
 }
 
 @media only screen and (min-width: 1200px) {

@@ -369,7 +369,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
         },
         loadAttributes: function(vm){
             var self = this;
-            attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'includeInProductListQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
+            attrAPI.getAttributes('product', { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'includeInProductListQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
 
                 var attributes = response.data.attributes;
              //   vm.attributes(attributes);

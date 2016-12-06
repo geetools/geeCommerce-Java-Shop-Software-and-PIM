@@ -189,7 +189,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-pictogram', 
             var vm = new PictogramVM(data);
             self.pictogramVM = vm;
 
-            attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'includeInProductListQuery', 'group', 'includeInProductListFilter', 'dimensionAttribute'] } ).then(function( response ) {
+            attrAPI.getAttributes('product', { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'includeInProductListQuery', 'group', 'includeInProductListFilter', 'dimensionAttribute'] } ).then(function( response ) {
 
                 var attributes = response.data.attributes;
 

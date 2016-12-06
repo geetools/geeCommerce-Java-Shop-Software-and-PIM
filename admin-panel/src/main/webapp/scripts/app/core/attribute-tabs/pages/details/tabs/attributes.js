@@ -105,7 +105,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-tabs
 	            	var attributeIds = _.pluck(attributeTabMappings, 'attributeId');
 	            	
 	            	if(!_.isEmpty(attributeIds)) {
-	                	return attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel' ], filter: { id : attributeIds.join() } } ).then(function( response ) {
+	                	return attrAPI.getAttributes('product', { fields : [ 'code', 'code2', 'backendLabel' ], filter: { id : attributeIds.join() } } ).then(function( response ) {
                             
 	                		var attributes = response.data.attributes;
 

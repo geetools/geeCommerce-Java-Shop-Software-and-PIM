@@ -39,7 +39,10 @@
 		"remainingTime" : "Sitzung endet in",
 		"refreshData" : "",
 		"saveEdits" : "",
-		"removeContent" : ""
+		"removeContent" : "",
+		"uploadHintDragAndDrop" : "Dateien hierher ziehen",
+		"uploadHintChooseFile" : "Dateien auswählen",
+		"or" : "oder"
 	},
 	"navigation" : {
 		"catalogue" : "Katalog",
@@ -226,7 +229,11 @@
 			"fmCreateSuccessBody" : "The product \"__productName__\" has been created successfully.<br/><br/><a href=\"__productURI__\">Click here to view the product.</a>",
 			"noSefUrlExists" : "<i>No friendly URL exists yet</i>",
 			"baseFriendlyURI" : "/produkte",
-			"newProductSelectTitle" : "Warengruppe auswählen"
+			"newProductSelectTitle" : "Warengruppe auswählen",
+			"importTab1Step1Label" : "1. Importdatei hochladen",
+			"importTab1Step2Label" : "2. Profil auswählen",
+			"importTab1Step3Label" : "3. Bereits vorhandene Artikel ...",
+			"importTab1Step4Label" : "4. Wenn Fehler entdeckt werden ..."
 		},
 	  "ext-product": {
 			"title" : "Produkte anderer Anbieter verwalten",

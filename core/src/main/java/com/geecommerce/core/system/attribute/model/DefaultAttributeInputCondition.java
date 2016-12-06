@@ -24,22 +24,22 @@ public class DefaultAttributeInputCondition extends AbstractModel implements Att
     private static final long serialVersionUID = 5996844565715870568L;
 
     @Column(Col.ID)
-    private Id id = null;
+    protected Id id = null;
 
     @Column(Col.WHEN_ATTRIBUTE_ID)
-    private Id whenAttributeId = null;
+    protected Id whenAttributeId = null;
 
     @Column(Col.HAS_OPTION_IDS)
-    private List<Id> hasOptionIds = null;
+    protected List<Id> hasOptionIds = null;
 
     @Column(Col.SHOW_ATTRIBUTE_ID)
-    private Id showAttributeId = null;
+    protected Id showAttributeId = null;
 
     @Column(Col.SHOW_OPTIONS_HAVING_TAG)
-    private String showOptionsHavingTag = null;
+    protected String showOptionsHavingTag = null;
 
     @Column(Col.APPLY_TO_PRODUCT_TYPES)
-    private Set<ProductType> applyToProductTypes = null;
+    protected Set<ProductType> applyToProductTypes = null;
 
     public DefaultAttributeInputCondition() {
     }

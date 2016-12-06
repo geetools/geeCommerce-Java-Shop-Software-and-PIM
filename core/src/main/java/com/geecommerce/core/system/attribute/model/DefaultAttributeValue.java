@@ -37,40 +37,40 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     private static final long serialVersionUID = -8455439478707707968L;
 
     @Column(Col.ATTRIBUTE_ID)
-    private Id attributeId = null;
+    protected Id attributeId = null;
 
     @Column(Col.VALUE)
-    private ContextObject<?> value = null;
+    protected ContextObject<?> value = null;
 
     @Column(Col.OPTION_ID)
-    private List<Id> optionIds = null;
+    protected List<Id> optionIds = null;
 
     @Column(Col.VALUE)
-    private ContextObject<List<Id>> xOptionIds = null;
+    protected ContextObject<List<Id>> xOptionIds = null;
 
     @Column(Col.SORT_ORDER)
-    private int sortOrder = 0;
+    protected int sortOrder = 0;
 
     @Column(Col.PROPERTIES)
-    private Map<String, Object> properties = null;
+    protected Map<String, Object> properties = null;
 
     @Column(Col.OPT_OUT)
-    private ContextObject<Boolean> optOut = null;
+    protected ContextObject<Boolean> optOut = null;
 
     // Lazy-loaded objects
     @JsonIgnore
-    private transient Attribute attribute = null;
+    protected transient Attribute attribute = null;
 
     @JsonIgnore(serialize = true)
-    private transient Map<Id, AttributeOption> attributeOptionsMap = null;
+    protected transient Map<Id, AttributeOption> attributeOptionsMap = null;
 
     // Attributes repository
     @JsonIgnore
-    private final transient Attributes attributes;
+    protected final transient Attributes attributes;
 
     // AttributeOptions repository
     @JsonIgnore
-    private final transient AttributeOptions attributeOptions;
+    protected final transient AttributeOptions attributeOptions;
 
     public DefaultAttributeValue() {
         this(i(Attributes.class), i(AttributeOptions.class));

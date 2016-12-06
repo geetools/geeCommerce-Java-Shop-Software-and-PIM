@@ -118,11 +118,28 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			return promise;
         },
-        getAttributes: function(options) {
+        getAttributes: function(arg1, arg2) {
 			self = this;
+			
+            var targetObjCode;
+            var options;
+            
+			if(!_.isUndefined(arg1) && _.isObject(arg1) && _.isUndefined(arg2)) {
+			    options = arg1;
+			} else if(!_.isUndefined(arg1) && _.isString(arg1) && _.isUndefined(arg2)) {
+			    targetObjCode = arg1;
+			} else if(!_.isUndefined(arg1) && !_.isUndefined(arg2)) {
+                targetObjCode = arg1;
+                options = arg2;
+			}
+			
+            var options = options || {};
+            var filter = options.filter || {};
 
-			var options = options || {};
-
+			if(!_.isUndefined(targetObjCode) && _.isUndefined(filter.targetObjectId)) {
+			    filter.targetObjectId = self.targetObjectId(targetObjCode);
+			}
+			
 			if(!options.nocache) {
 				var cachedAttributes = gc.cache.get('attributes', options);
 				
@@ -170,55 +187,69 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			return promise;
         },
         getAttributeTargetObjects: function(options) {
-			self = this;
+            self = this;
 
-			var options = options || {};
+            var options = options || {};
 
-			if(!options.nocache) {
-				var cachedAttributeTargetObjects = gc.cache.get('attributeTargetObjects', options);
-				
-				if(!_.isEmpty(cachedAttributeTargetObjects ) && cachedAttributeTargetObjects[0]) {
-					return $.when({ isFromCache : true, data : { attributeTargetObjects : cachedAttributeTargetObjects } });
-				}
-			}
-			
-			var deferred = new $.Deferred();
-			var promise = deferred.promise();
+            if(!options.nocache) {
+                var cachedAttributeTargetObjects = gc.cache.get('attributeTargetObjects', options);
+                
+                if(!_.isEmpty(cachedAttributeTargetObjects ) && cachedAttributeTargetObjects[0]) {
+                    return $.when({ isFromCache : true, data : { attributeTargetObjects : cachedAttributeTargetObjects } });
+                }
+            }
+            
+            var deferred = new $.Deferred();
+            var promise = deferred.promise();
 
-			promise.success = promise.done;
-			promise.error = promise.fail;
-			promise.complete = promise.done;
+            promise.success = promise.done;
+            promise.error = promise.fail;
+            promise.complete = promise.done;
 
-			gc.rest.get({
-				url : '/api/v1/attribute-target-objects',
-				filter : options.filter,
-				fields : options.fields,
-				sort : options.sort,
-				nocache : options.nocache || false,
-				success : function(data, status, xhr) {
-					if (self._onload) {
-						self._onload(data, status, xhr);
-					}
+            gc.rest.get({
+                url : '/api/v1/attribute-target-objects',
+                filter : options.filter,
+                fields : options.fields,
+                sort : options.sort,
+                nocache : options.nocache || false,
+                success : function(data, status, xhr) {
+                    if (self._onload) {
+                        self._onload(data, status, xhr);
+                    }
 
-					deferred.resolve(data, status, xhr);
-				},
-				error : function(jqXHR, status, error) {
-					if (self._onerror) {
-						self._onerror(jqXHR, status, error);
-					}
+                    deferred.resolve(data, status, xhr);
+                },
+                error : function(jqXHR, status, error) {
+                    if (self._onerror) {
+                        self._onerror(jqXHR, status, error);
+                    }
 
-					deferred.reject(jqXHR, status, error);
-				},
-				complete : function(data, status, xhr) {
-					if (self._oncomplete) {
-						self._oncomplete(data, status, xhr);
-					}
+                    deferred.reject(jqXHR, status, error);
+                },
+                complete : function(data, status, xhr) {
+                    if (self._oncomplete) {
+                        self._oncomplete(data, status, xhr);
+                    }
 
-					deferred.resolve(data, status, xhr);
-				}
-			});
+                    deferred.resolve(data, status, xhr);
+                }
+            });
 
-			return promise;
+            return promise;
+        },
+        targetObjectId: function(targetObjectCode) {
+            self = this;
+
+            var options = options || {};
+            var filter = options.filter || {};
+
+            if(!_.isEmpty(targetObjectCode)) {
+                
+                var cachedAttributeTargetObjects = gc.cache.get('attributeTargetObjects', {filter: {code: targetObjectCode}});
+                if(!_.isEmpty(cachedAttributeTargetObjects) && cachedAttributeTargetObjects.length === 1) {
+                    return cachedAttributeTargetObjects[0].id;
+                }
+            }
         },
         getOptionAttributes: function(options) {
 			var self = this;

@@ -168,7 +168,7 @@
                 // console.log('router.routes#2a: ', router.routes);
 
                 self.routes = [ {
-                    route : [ '', 'products*details' ],
+                    route : [ '', 'products*details', 'products*import' ],
                     moduleId : 'modules/geecommerce/product/pages/index',
                     label : 'app:navigation.products',
                     title : 'app:modules.product.title',

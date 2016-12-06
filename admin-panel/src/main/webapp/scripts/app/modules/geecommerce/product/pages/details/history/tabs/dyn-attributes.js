@@ -95,7 +95,7 @@ console.log('????????????????? ', ko.toJS(self.product), self.productId, self.at
             	var attributeIds = _.pluck(attributeTabMappings, 'attributeId');
             	
             	if(!_.isEmpty(attributeIds)) {
-	                	return attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'productTypes', 'scopes' ], filter: { id : attributeIds.join() } } ).then(function( response ) {
+	                	return attrAPI.getAttributes('product', { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'productTypes', 'scopes' ], filter: { id : attributeIds.join() } } ).then(function( response ) {
 	                		var attributes = response.data.attributes;
 
 	                		// The attributes come unsorted, so we make sure that we restore the tab-mapping-order again.

@@ -12,6 +12,24 @@ import org.apache.shiro.realm.Realm;
 
 import com.geecommerce.core.App;
 import com.geecommerce.core.DefaultApp;
+import com.geecommerce.core.batch.dataimport.helper.DefaultImportHelper;
+import com.geecommerce.core.batch.dataimport.helper.ImportHelper;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportField;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportFieldScriptlet;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportProfile;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportToken;
+import com.geecommerce.core.batch.dataimport.model.ImportField;
+import com.geecommerce.core.batch.dataimport.model.ImportFieldScriptlet;
+import com.geecommerce.core.batch.dataimport.model.ImportProfile;
+import com.geecommerce.core.batch.dataimport.model.ImportToken;
+import com.geecommerce.core.batch.dataimport.repository.DefaultImportFieldScriptlets;
+import com.geecommerce.core.batch.dataimport.repository.DefaultImportProfiles;
+import com.geecommerce.core.batch.dataimport.repository.DefaultImportTokens;
+import com.geecommerce.core.batch.dataimport.repository.ImportFieldScriptlets;
+import com.geecommerce.core.batch.dataimport.repository.ImportProfiles;
+import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
+import com.geecommerce.core.batch.service.DefaultImportExportService;
+import com.geecommerce.core.batch.service.ImportExportService;
 import com.geecommerce.core.cache.Cache;
 import com.geecommerce.core.cache.CacheManager;
 import com.geecommerce.core.cache.DefaultCache;
@@ -174,10 +192,8 @@ public class SystemModule extends AbstractModule {
         super.bind(RestService.class).to(DefaultRestService.class).in(Singleton.class);
 
         // Interceptors
-        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Transactional.class),
-            new TransactionInterceptor());
-        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Interceptable.class),
-            new GuiceMethodInterceptor());
+        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Transactional.class), new TransactionInterceptor());
+        super.bindInterceptor(Matchers.any(), Matchers.annotatedWith(Interceptable.class), new GuiceMethodInterceptor());
 
         // super.bindInterceptor(Matchers.annotatedWith(Service.class),
         // Matchers.any(), new ProfilerInterceptor());
@@ -194,11 +210,9 @@ public class SystemModule extends AbstractModule {
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(GET.class), permissionInterceptor);
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(PUT.class), permissionInterceptor);
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(POST.class), permissionInterceptor);
-        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(DELETE.class),
-            permissionInterceptor);
+        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(DELETE.class), permissionInterceptor);
         bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(HEAD.class), permissionInterceptor);
-        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(OPTIONS.class),
-            permissionInterceptor);
+        bindInterceptor(Matchers.annotatedWith(Path.class), Matchers.annotatedWith(OPTIONS.class), permissionInterceptor);
 
         // PermissionInterceptor permissionInterceptor = new
         // PermissionInterceptor();
@@ -319,6 +333,20 @@ public class SystemModule extends AbstractModule {
         super.bind(ControlPanel.class).to(DefaultControlPanel.class);
         super.bind(AttributeTab.class).to(DefaultAttributeTab.class);
         super.bind(AttributeTabMapping.class).to(DefaultAttributeTabMapping.class);
+
+        // ----------------------------------------------------
+        // Import / Export
+        // ----------------------------------------------------
+        super.bind(ImportToken.class).to(DefaultImportToken.class);
+        super.bind(ImportTokens.class).to(DefaultImportTokens.class);
+        super.bind(ImportProfile.class).to(DefaultImportProfile.class);
+        super.bind(ImportProfiles.class).to(DefaultImportProfiles.class);
+        super.bind(ImportField.class).to(DefaultImportField.class);
+        super.bind(ImportFieldScriptlet.class).to(DefaultImportFieldScriptlet.class);
+        super.bind(ImportFieldScriptlets.class).to(DefaultImportFieldScriptlets.class);
+        super.bind(ImportExportService.class).to(DefaultImportExportService.class);
+        super.bind(ImportHelper.class).to(DefaultImportHelper.class);
+
     }
 
     // @Provides

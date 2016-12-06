@@ -111,7 +111,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 
             self.setupSearchListener();
 
-			console.log("-111111111111111111")
 			console.log(attributeGroupId);
 
 			if(!_.isEmpty(attributeGroupId) && attributeGroupId != 'new') {
@@ -132,7 +131,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 					{'name' : 'label', 'label' : 'Label', 'type': 'ContextObject', 'useRegexp' : true}
 				];
 
-				console.log("000000000000000");
 		    	// Init the pagers.
 	        	this.sourceAttributesPager = new gc.Pager(attrGroupsAPI.getAttrPagingOptions(attributeGroupId, {columns: pagerColumns, fields : [ 'code', 'code2', 'backendLabel' ], filter: { group : 'PRODUCT' }, sort : [ 'code' ] }));
 				this.sourceAttributeGroupsPager = new gc.Pager(attrGroupsAPI.getAttrGroupPagingOptions(attributeGroupId, {columns: pagerGroupColumns, fields : [ 'code', 'label' ], sort : [ 'code' ] }));
@@ -141,11 +139,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 //				this.sourceAttributesPager.load();
 //				this.sourceAttributeGroupsPager.load();
 
-				console.log("111111111111");
-				return attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel' ],/* filter: { id : attributeIds.join() }*/ } ).then(function( response ) {
-					console.log("222222222222");
+				return attrAPI.getAttributes( 'product', { fields : [ 'code', 'code2', 'backendLabel' ],/* filter: { id : attributeIds.join() }*/ } ).then(function( response ) {
 					return attrGroupsAPI.getAttributeGroups().then(function(response2){
-						console.log("3333333333");
 						var itemsGroupMappings = self.attributeGroupVM.items();
 
 						var attributes = response.data.attributes;
@@ -185,7 +180,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 
 					});
 				}).then(function() {
-					console.log("lllllllllllllllllllllllll");
 					if (!_.isEmpty(self.attributeGroupId)) {
 						return self.sourceAttributesPager.load().then(function(data) {
 							return self.sourceAttributeGroupsPager.load().then(function(data) {

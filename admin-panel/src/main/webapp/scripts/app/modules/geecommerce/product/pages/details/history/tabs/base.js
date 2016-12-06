@@ -249,23 +249,23 @@ console.log('foundValue::::: ----> ', foundValue, self.$root.descriptionStatuses
 			var attrProductGroup;
 			var attrProgramme;
 
-			attrAPI.getAttributes({filter: { code: 'status_article' }}).then(function(data) {
+			attrAPI.getAttributes('product', { filter: { code: 'status_article' }}).then(function(data) {
 //				console.log('status_article---------------------> ', data);
 				attrStatusArticle = data.data.attributes[0];
 //				console.log('status_article---------------------> ', attrStatusArticle);
 			});
 			
-			attrAPI.getAttributes({filter: { code: 'status_description' }}).then(function(data) {
+			attrAPI.getAttributes('product', { filter: { code: 'status_description' }}).then(function(data) {
 				attrStatusDescription = data.data.attributes[0];
 //				console.log('status_description---------------------> ', attrStatusDescription);
 			});
 			
-			attrAPI.getAttributes({filter: { code: 'product_group' }}).then(function(data) {
+			attrAPI.getAttributes('product', { filter: { code: 'product_group' }}).then(function(data) {
 				attrProductGroup = data.data.attributes[0];
 //				console.log('product_group---------------------> ', attrProductGroup);
 			});
 			
-			attrAPI.getAttributes({filter: { code: 'programme' }}).then(function(data) {
+			attrAPI.getAttributes('product', { filter: { code: 'programme' }}).then(function(data) {
 				attrProgramme = data.data.attributes[0];
 //				console.log('programme---------------------> ', attrProgramme);
 			});

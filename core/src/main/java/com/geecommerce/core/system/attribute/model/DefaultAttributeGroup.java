@@ -21,22 +21,22 @@ public class DefaultAttributeGroup extends AbstractMultiContextModel implements 
 
     private static final long serialVersionUID = -4134855355218367102L;
     @Column(Col.ID)
-    private Id id = null;
+    protected Id id = null;
     @Column(Attribute.Col.CODE)
-    private String code = null;
+    protected String code = null;
     @Column(Col.LABEL)
-    private ContextObject<String> label = null;
+    protected ContextObject<String> label = null;
     @Column(Col.ATTRIBUTES)
-    private List<Id> attributeIds = null;
+    protected List<Id> attributeIds = null;
     @Column(Col.POSITION)
-    private Integer position = null;
+    protected Integer position = null;
     @Column(Col.COLUMN)
-    private Integer column = null;
+    protected Integer column = null;
     @Column(Col.TARGET_OBJECT_ID)
-    private Id targetObjectId = null;
+    protected Id targetObjectId = null;
 
     @Column(name = Col.ITEMS, autoPopulate = false)
-    private List<AttributeGroupMapping> items = new ArrayList<>();;
+    protected List<AttributeGroupMapping> items = new ArrayList<>();;
 
     @Override
     public AttributeGroup setId(Id id) {

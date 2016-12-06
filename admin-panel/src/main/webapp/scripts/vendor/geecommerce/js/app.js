@@ -484,8 +484,7 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
             // Preload attribute-target-objects.
             // -----------------------------------------------------------
             promises.push(attrAPI.getAttributeTargetObjects().then(function(data) {
-                var attributeTargetObjects = data.data.attributeTabs;
-                // console.log('Adding attribute-tabs to cache');
+                var attributeTargetObjects = data.data.attributeTargetObjects;
                 gc.cache.put('attributeTargetObjects', attributeTargetObjects);
             }));
 

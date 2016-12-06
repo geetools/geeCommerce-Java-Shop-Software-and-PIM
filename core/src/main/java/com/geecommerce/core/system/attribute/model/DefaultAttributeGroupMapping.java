@@ -14,13 +14,13 @@ public class DefaultAttributeGroupMapping extends AbstractModel implements Attri
     private static final long serialVersionUID = 5996844565715870568L;
 
     @Column(Col.ID)
-    private Id id = null;
+    protected Id id = null;
 
     @Column(Col.POSITION)
-    private int position = 0;
+    protected int position = 0;
 
     @Column(Col.TYPE)
-    private AttributeGroupMappingType type;
+    protected AttributeGroupMappingType type;
 
     public DefaultAttributeGroupMapping() {
     }

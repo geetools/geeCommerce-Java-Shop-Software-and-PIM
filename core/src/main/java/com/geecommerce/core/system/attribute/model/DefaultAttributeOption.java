@@ -27,34 +27,34 @@ public class DefaultAttributeOption extends AbstractModel implements AttributeOp
     private static final long serialVersionUID = -474967354073929013L;
 
     @Column(Col.ID)
-    private Id id = null;
+    protected Id id = null;
 
     @Column(Col.ID2)
-    private Id id2 = null;
+    protected Id id2 = null;
 
     @Column(Col.ATTRIBUTE_ID)
-    private Id attributeId = null;
+    protected Id attributeId = null;
 
     @Column(Col.LABEL)
-    private ContextObject<String> label = null;
+    protected ContextObject<String> label = null;
 
     @Column(Col.TAGS)
-    private List<String> tags = null;
+    protected List<String> tags = null;
 
     @Column(Col.THUMBNAIL_COLOR)
-    private String thumbnailColor = null;
+    protected String thumbnailColor = null;
 
     @Column(Col.THUMBNAIL_STYLE)
-    private String thumbnailStyle = null;
+    protected String thumbnailStyle = null;
 
     @Column(Col.POSITION)
-    private int position = 0;
+    protected int position = 0;
 
     // Loaded lazily if it does not exist
-    private transient Attribute belongsToAttribute = null;
+    protected transient Attribute belongsToAttribute = null;
 
     // Attribute repository
-    private final transient Attributes attributes;
+    protected final transient Attributes attributes;
 
     public DefaultAttributeOption() {
         this(i(Attributes.class));

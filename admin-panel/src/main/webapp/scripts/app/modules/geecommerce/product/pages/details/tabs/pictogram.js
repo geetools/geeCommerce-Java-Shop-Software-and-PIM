@@ -513,7 +513,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 							self.attributeInputConditions = response.data.attributeInputConditions;
 						}).then(function (data) {
 
-							return attrAPI.getAttributes({fields: ['code', 'code2', 'backendLabel', 'frontendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'productTypes', 'scopes', 'dimensionAttribute']}).then(function (response) {
+							return attrAPI.getAttributes('product', {fields: ['code', 'code2', 'backendLabel', 'frontendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'productTypes', 'scopes', 'dimensionAttribute']}).then(function (response) {
 								var attributes = response.data.attributes;
 
 								// The attributes come unsorted, so we make sure that we restore the tab-mapping-order again.

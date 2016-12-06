@@ -24,9 +24,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ImportHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
+import com.geecommerce.catalog.product.helper.ProductUrlHelper;
 import com.geecommerce.catalog.product.model.BundleProductItem;
 import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
@@ -94,28 +96,23 @@ public class ProductResource extends AbstractResource {
     private final Products productRepository;
 
     @Inject
-<<<<<<< .mine
-    public ProductResource(RestService service, AttributeService attributeService, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
-        UrlRewrites urlRewrites, UrlRewriteHelper urlRewriteHelper, ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens) {
-
-=======
     public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
                            ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
-                           UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository) {
->>>>>>> .theirs
+                           UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository, AttributeService attributeService, CatalogMediaHelper catalogMediaHelper1, ProductHelper productHelper1, UrlRewrites urlRewrites1, UrlRewriteHelper urlRewriteHelper1, ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens, QueryHelper queryHelper1, ElasticsearchService elasticsearchService1, ElasticsearchHelper elasticsearchHelper1, Products productRepository1) {
         this.service = service;
+
         this.attributeService = attributeService;
-        this.catalogMediaHelper = catalogMediaHelper;
-        this.productHelper = productHelper;
-        this.urlRewrites = urlRewrites;
-        this.urlRewriteHelper = urlRewriteHelper;
-        this.queryHelper = queryHelper;
-        this.elasticsearchService = elasticsearchService;
-        this.elasticsearchHelper = elasticsearchHelper;
-        this.productRepository = productRepository;
+        this.catalogMediaHelper = catalogMediaHelper1;
+        this.productHelper = productHelper1;
+        this.urlRewrites = urlRewrites1;
+        this.urlRewriteHelper = urlRewriteHelper1;
         this.importExportService = importExportService;
         this.importHelper = importHelper;
         this.importTokens = importTokens;
+        this.queryHelper = queryHelper1;
+        this.elasticsearchService = elasticsearchService1;
+        this.elasticsearchHelper = elasticsearchHelper1;
+        this.productRepository = productRepository1;
     }
 
     @GET

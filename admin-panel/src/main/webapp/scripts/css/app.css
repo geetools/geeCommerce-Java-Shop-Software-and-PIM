@@ -3345,15 +3345,11 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
 .query-builder .remove-query-node {
     color: red;
     cursor: pointer;
+}
+
 .import-export-teaser-col {
 	visibility: hidden;
 }
-<<<<<<< .mine
-
-=======
-}
->>>>>>> .theirs
-
 
 .query-builder .add-query-node {
     color: green;

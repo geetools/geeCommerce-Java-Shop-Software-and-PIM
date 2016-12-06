@@ -1,0 +1,205 @@
+<!-- ko if: displayMode == 'inline' -->
+
+
+<!-- /ko -->
+
+
+<div class="query-builder form-horizontal">
+
+    <!-- ko if: displayMode == 'inline' -->
+        <div class="form-group">
+            <div class="col-sm-9">
+                <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
+            </div>
+        </div>
+        <button data-bind="click: apply">Apply</button>
+    <!-- /ko -->
+
+
+
+    <!-- ko if: displayMode == 'modal' -->
+        <!-- ko if: showFilterButton -->
+            <button data-bind="click: showQueryBuilder">Filter</button>
+        <!-- /ko -->
+        <div role="dialog" aria-hidden="true" class="query-builder-modal modal fade" data-bind="modal: { show: isShowQueryBuilder }">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header query-builder-modal-header">
+                        Query Builder
+                    </div>
+
+                    <div class="modal-body row">
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-bind="click: cancelQuery" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bind="click: applyQuery">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- /ko -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ko if: simpleQueryMode() -->
+
+    <!-- /ko -->
+
+
+    <!-- ko ifnot: simpleQueryMode() -->
+        <div class="form-group">
+            <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.conditionsTabConditions">Conditions</label>
+            <div class="col-sm-9">
+                <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
+            </div>
+        </div>
+
+    <!-- /ko -->
+
+
+    <script id='queryNode' type='text/html'>
+        <!-- ko if: $data && $data.type() === 'BOOLEAN' -->
+        <div   data-bind='template: {name:"queryBooleanNode", data: $data}'></div>
+        <!-- /ko -->
+        <!-- ko if:  $data && $data.type() === 'ATTRIBUTE' -->
+        <li   data-bind='template: {name:"queryAttributeNode", data: $data}'> </li>
+        <!-- /ko -->
+    </script>
+
+
+    <script id='queryAttributeNode' type='text/html'>
+        <!-- ko ifnot: attrVal() -->
+        <span  class="form-control form-control-small"
+              data-bind="editable: attrCode, editableOptions:{type:'select', showbuttons: false, options: root.attributeValues,
+                    optionsText: 'label',
+                    optionsValue: 'code'}"></span>
+        <!-- /ko -->
+        <!-- ko if: attrVal() -->
+        <!-- ko if: attrVal().isEditable -->
+
+        <!-- ko if: attrVal().isOption && !_.isEmpty(attrVal().selectOptions()) && !attrVal().isMultiple -->
+        <div  class="form-group">
+            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
+            <div class="col-xs-9">
+                <select class="selectpicker" title="auswählen" data-bind="select: attrVal().value, data: attrVal().selectOptions">
+                </select>
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+            </div>
+
+        </div>
+        <!-- /ko -->
+        <!-- ko if: attrVal().isOption && !_.isEmpty(attrVal().selectOptions()) && attrVal().isMultiple -->
+        <div class="form-group">
+            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
+            <div class="col-xs-9">
+                <select class="selectpicker show-tick" multiple data-bind="select: attrVal().value, data: attrVal().selectOptions, selectOptions: { size: 10 }">
+                </select>
+                <i class="fa fa-check-square"></i><i class="fa fa-check-square" ></i>
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+            </div>
+
+        </div>
+        <!-- /ko -->
+        <!-- ko if: attrVal().frontendInput == 'BOOLEAN' && attrVal().isShowField -->
+        <div  class="form-group">
+            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
+            <div class="col-xs-9 switch-wrapper">
+                <input type="checkbox" data-bind="i18nBool: attrVal().value" />
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: attrVal().frontendInput == 'RICHTEXT' && attrVal().isShowField -->
+        <div class="form-group">
+            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
+            <div  class="col-xs-9 switch-wrapper">
+                <div data-bind="i18nEditor: {value: attrVal().value, id: 'inpAttr_' + attrVal().code, preBind: attrVal().unjsonDescriptionPanels, enabled: attrVal.isEnabled, editable: attrVal.isEditable}"></div>
+            </div>
+            <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: !attrVal().isOption && attrVal().frontendInput != 'BOOLEAN' && attrVal().frontendInput != 'RICHTEXT' && attrVal().isShowField -->
+        <div class="form-group">
+            <label  data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
+            <div  class="col-xs-9">
+                <!-- ko if: attrVal().isI18n -->
+                <div class="input-group">
+                    <span    class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                    <input  data-bind="i18nValue: attrVal().value" class="form-control" type="text" required />
+                    <div   data-bind="click: deleteNode">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: !attrVal().isI18n -->
+                <input class="form-control" type="text" data-bind="ctxValue: attrVal().value" />
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+                <!-- /ko -->
+            </div>
+
+        </div>
+        <!-- /ko -->
+
+        <!-- /ko -->
+
+        <!-- ko if: !attrVal().isEditable && attrVal().isShowField -->
+        <div    class="form-group">
+            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
+            <div  class="col-xs-9">
+                <!-- ko if: attrVal().isI18n -->
+                <div    class="input-group">
+                    <span    class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                    <input    class="dynattr-readonly" data-bind="i18nValue: attrVal().value" class="form-control" type="text" readonly />
+                </div>
+                <!-- /ko -->
+                <!-- ko if: !attrVal().isI18n -->
+                <input class="form-control dynattr-readonly" data-bind="ctxValue: attrVal().value" readonly />
+                <!-- /ko -->
+            </div>
+            <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+        </div>
+        <!-- /ko -->                <!-- /ko -->
+
+    </script>
+
+
+    <script id='queryBooleanNode' type='text/html'>
+        <div class="query-condition-node">
+        <span data-bind="text: $data.root.ofTheseConditionsAreP1"></span> <span  class="form-control  form-control-small"
+                                                                                 data-bind="editable: operator,  editableOptions:{type:'select', showbuttons: false, options: root.operatorChoice,
+				optionsText: 'label',
+				optionsValue: 'value'}"></span> <span data-bind="text: root.ofTheseConditionsAreP2"> </span> True <span data-bind="text: root.ofTheseConditionsAreP3"></span>
+        <!-- ko if: parent() !== null -->
+        <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+        <!-- /ko -->
+        </div>
+        <ul>
+            <div data-bind='template: {name:"queryNode", foreach: nodes}'>
+
+            </div>
+            <div data-bind="editable: newNodeType,  editableOptions:{type:'select', options: root.nodeTypeChoice,
+				optionsText: 'label', optionsValue: 'value', hidden: addNode, noHTML:'true'}">
+                <i class="glyphicon glyphicon-plus add-query-node"></i>
+            </div>
+        </ul>
+
+    </script>
+
+</div>

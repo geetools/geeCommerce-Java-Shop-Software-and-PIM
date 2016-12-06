@@ -89,6 +89,12 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
 
     public void setDeleted(Boolean deleted);
 
+    public boolean isBundleAsSingleProduct();
+
+    public Boolean getBundleAsSingleProduct();
+
+    public void setBundleAsSingleProduct(Boolean bundleAsSingleProduct);
+
     public String getDeletedNote();
 
     public Product setDeletedNote(String deletedNote);
@@ -342,5 +348,6 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
         public static final String PROGRAMME_PRODUCTS = "prog_products";
         public static final String PRODUCT_LINKS = "prd_links";
         public static final String ASSETS = "assets";
+        public static final String BUNDLE_AS_SINGLE_PRODUCT = "bundle_single_prd";
     }
 }

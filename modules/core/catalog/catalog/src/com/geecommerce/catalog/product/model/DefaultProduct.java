@@ -122,6 +122,9 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Column(Col.DELETED)
     protected Boolean deleted = null;
 
+    @Column(Col.BUNDLE_AS_SINGLE_PRODUCT)
+    protected Boolean bundleAsSingleProduct = null;
+
     @Column(Col.DELETED_NOTE)
     protected String deletedNote = null;
 
@@ -529,6 +532,23 @@ public class DefaultProduct extends AbstractAttributeSupport
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+
+    @Override
+    public boolean isBundleAsSingleProduct() {
+        return bundleAsSingleProduct == null ? false : bundleAsSingleProduct;
+    }
+
+    @Override
+    @XmlAttribute
+    public Boolean getBundleAsSingleProduct() {
+        return bundleAsSingleProduct;
+    }
+
+    @Override
+    public void setBundleAsSingleProduct(Boolean bundleAsSingleProduct) {
+        this.bundleAsSingleProduct = bundleAsSingleProduct;
+    }
+
 
     @Override
     @XmlAttribute
@@ -1913,6 +1933,9 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (map.get(Col.DELETED) != null)
             this.deleted = bool_(map.get(Col.DELETED));
 
+        if (map.get(Col.BUNDLE_AS_SINGLE_PRODUCT) != null)
+            this.bundleAsSingleProduct = bool_(map.get(Col.BUNDLE_AS_SINGLE_PRODUCT));
+
         if (map.get(Col.DELETED_NOTE) != null)
             this.deletedNote = str_(map.get(Col.DELETED_NOTE));
 
@@ -1973,8 +1996,11 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (getIncludeInFeeds() != null)
             map.put(Col.INCLUDE_IN_FEEDS, getIncludeInFeeds());
 
-        if (getDeletedNote() != null)
+        if (getDeleted() != null)
             map.put(Col.DELETED, getDeleted());
+
+        if (getBundleAsSingleProduct() != null)
+            map.put(Col.BUNDLE_AS_SINGLE_PRODUCT, getBundleAsSingleProduct());
 
         if (getDeletedNote() != null)
             map.put(Col.DELETED_NOTE, getDeletedNote());
@@ -2125,6 +2151,7 @@ public class DefaultProduct extends AbstractAttributeSupport
         p.visibleInProductList = visibleInProductList;
         p.parentId = parentId;
         p.includeInFeeds = includeInFeeds;
+        p.bundleAsSingleProduct = bundleAsSingleProduct;
         p.attributes = copyOfAttributes();
 
         // Needs to be set manually by product admin.

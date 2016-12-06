@@ -25,4 +25,6 @@ public interface ElasticsearchService {
 
     public <T extends Model> SearchResult findItems(Class<T> modelClass, String query, SearchParams searchParams,
         List<Id> attributeTargetObjectIds);
+
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, SearchParams searchParams);
 }

@@ -556,6 +556,7 @@ define(function(require) {
     widget.registerKind('navToolbar');
     widget.registerKind('mediaAssets');
     widget.registerKind('gridTable');
+    widget.registerKind('queryBuilder');
     kv.makeBindingHandlerValidatable("i18nValue");
 
     kv.rules['require_i18n'] = {

@@ -348,6 +348,10 @@ input[type="radio"], input[type="checkbox"] {
     transition: none;
 }
 
+.form-control-small {
+    width: auto !important;
+}
+
 .navbar {
     position: fixed;
     background-color: #349898;
@@ -1541,7 +1545,7 @@ img.disabledImage {
 }
 
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-    width: 100%;
+    width: 96%;
 }
 
 .grid-table-container {
@@ -3229,8 +3233,32 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
 }
 
 
+.query-builder .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 220px;
+}
+.query-builder imput.form-control {
+    width: 220px;
+    display: inline-block;
+}
+
+.query-builder li {
+    list-style: none;
+}
+
+.query-builder .remove-query-node {
+    color: red;
+    cursor: pointer;
+}
 
 
+.query-builder .add-query-node {
+    color: green;
+    cursor: pointer;
+}
+
+.query-builder .editable-click {
+    border-bottom: none;
+}
 
 @media only screen and (min-width: 768px) {
     #product-status-infobox {

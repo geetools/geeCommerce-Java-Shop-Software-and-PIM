@@ -19,6 +19,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
         this._url = options.url;
         this._searchUrl = options.searchUrl;
+        this._queryUrl = options.queryUrl;
         this._mapping = options.mapping;
         this._fields = options.fields;
         this._attributes = options.attributes;
@@ -39,6 +40,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         this._onerror = options.onerror;
         this._oncomplete = options.oncomplete;
         this._isSearch = false;
+        this._isQuery = false;
         this._busy = false;
         this._isInitialized = false;
         this._isMultiContext = options.multiContext;
@@ -53,6 +55,9 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 timeout : 400
             }
         });
+
+        this.query = ko.observable();
+        this._query = "";
 
         this.limitOptions = ko.observableArray([ {
             value : 10,
@@ -211,6 +216,35 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                     self._isSearch = false;
                 } else {
                     self._isSearch = true;
+                }
+
+                self.load();
+            });
+
+            self.query.subscribe(function(newValue) {
+                console.log(newValue)
+                if (_.isEmpty(newValue)) {
+                    self._isQuery = false;
+                    self._query = "";
+                } else {
+                    self._isQuery = true;
+                    self._query = newValue;
+                }
+
+                self.load();
+            });
+        },
+        activateQuerySubscriber : function() {
+            var self = this;
+
+            self.query.subscribe(function(newValue) {
+                console.log(newValue)
+                if (_.isEmpty(newValue)) {
+                    self._isQuery = false;
+                    self._query = "";
+                } else {
+                    self._isQuery = true;
+                    self._query = newValue;
                 }
 
                 self.load();
@@ -463,6 +497,13 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 url = self._searchUrl + '/' + encodeURI(self.searchKeyword());
             }
 
+            if (self._isQuery && !_.isUndefined(self._queryUrl)) {
+                url = self._queryUrl;
+            }
+
+           console.log(self._query);
+
+
             gc.rest.get({
                 url : url,
                 filter : filter,
@@ -470,6 +511,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 attributes : self._attributes,
                 sort : self._sort,
                 offset : self._offset,
+                query: self._query,
                 limit : self._limit,
                 success : function(data, status, xhr) {
                     // Job done.

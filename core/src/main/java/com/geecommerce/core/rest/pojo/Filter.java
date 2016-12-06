@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.type.TypeConverter;
 
@@ -24,6 +25,7 @@ public class Filter implements Serializable {
     private Integer limit = null;
     private Boolean noCache = null;
     private Map<String, Object> params = new HashMap<>();
+    private QueryNode query = null;
 
     public Filter() {
 
@@ -99,6 +101,14 @@ public class Filter implements Serializable {
     public Filter setNoCache(Boolean noCache) {
         this.noCache = noCache;
         return this;
+    }
+
+    public QueryNode getQuery() {
+        return query;
+    }
+
+    public void setQuery(QueryNode query) {
+        this.query = query;
     }
 
     public Map<String, Object> getParams() {

@@ -1730,6 +1730,7 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
         	return {
         		// Base URI of product-API.
         		url: '/api/v1/products',
+                queryUrl: '/api/v1/products/query',
         		searchUrl: '/api/v1/search/products',
 //        		filter: options.filter || [ { name : 'visible', value : '{{val:true}}' }, { name : '$attr.name', value : '$nn' } ],
         		filter: options.filter || [],

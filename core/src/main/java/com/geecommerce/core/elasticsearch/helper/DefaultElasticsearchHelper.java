@@ -96,43 +96,50 @@ public class DefaultElasticsearchHelper implements ElasticsearchHelper {
     public QueryBuilder buildQuery(List<FilterBuilder> builders, Map<String, FilterValue> filterParams) {
         List<FilterBuilder> filterBuilders = new ArrayList<>();
 
-        for (String key : filterParams.keySet()) {
-            FilterValue filterValue = filterParams.get(key);
-            FilterType filterType = filterValue.getFilterType();
-            Set<Object> value = filterValue.getValues();
+        if(filterParams != null) {
+            for (String key : filterParams.keySet()) {
+                FilterValue filterValue = filterParams.get(key);
+                FilterType filterType = filterValue.getFilterType();
+                Set<Object> value = filterValue.getValues();
 
-            if (filterType == FilterType.RANGE) {
-                RangeFilterBuilder rangeFilterBuilder = FilterBuilders.rangeFilter(key);
+                if (filterType == FilterType.RANGE) {
+                    RangeFilterBuilder rangeFilterBuilder = FilterBuilders.rangeFilter(key);
 
-                Object[] values = value.toArray();
+                    Object[] values = value.toArray();
 
-                if (value.size() > 1) {
-                    rangeFilterBuilder.from(Double.parseDouble((String) values[0]));
-                    rangeFilterBuilder.to(Double.parseDouble((String) values[1]));
-                } else if (value.size() > 0) {
-                    rangeFilterBuilder.from(Double.parseDouble((String) values[0]));
+                    if (value.size() > 1) {
+                        rangeFilterBuilder.from(Double.parseDouble((String) values[0]));
+                        rangeFilterBuilder.to(Double.parseDouble((String) values[1]));
+                    } else if (value.size() > 0) {
+                        rangeFilterBuilder.from(Double.parseDouble((String) values[0]));
+                    } else {
+                        rangeFilterBuilder.from(0);
+                    }
+
+                    filterBuilders.add(rangeFilterBuilder);
                 } else {
-                    rangeFilterBuilder.from(0);
+                    if (value.size() > 1) {
+                        filterBuilders.add(FilterBuilders.termsFilter(key, value.toArray()).execution("or"));
+                    } else if (value.size() > 0) {
+                        filterBuilders.add(FilterBuilders.termsFilter(key, value.iterator().next()));
+                    }
                 }
 
-                filterBuilders.add(rangeFilterBuilder);
-            } else {
-                if (value.size() > 1) {
-                    filterBuilders.add(FilterBuilders.termsFilter(key, value.toArray()).execution("or"));
-                } else if (value.size() > 0) {
-                    filterBuilders.add(FilterBuilders.termsFilter(key, value.iterator().next()));
-                }
             }
-
         }
 
         if (builders != null && !builders.isEmpty())
             filterBuilders.addAll(builders);
 
-        FilterBuilder andFilterBuilder = FilterBuilders
-            .andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+        if(filterBuilders.size() > 1){
+            FilterBuilder andFilterBuilder = FilterBuilders
+                    .andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
 
-        return QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), andFilterBuilder);
+            return QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), andFilterBuilder);
+        } else {
+            return QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), filterBuilders.get(0));
+        }
+
     }
 
     @Override

@@ -32,9 +32,14 @@ import com.geecommerce.catalog.product.model.BundleProductItem;
 import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
 import com.geecommerce.catalog.product.model.Product;
+import com.geecommerce.catalog.product.repository.Products;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
+import com.geecommerce.core.elasticsearch.api.search.SearchResult;
+import com.geecommerce.core.elasticsearch.helper.ElasticsearchHelper;
+import com.geecommerce.core.elasticsearch.search.SearchParams;
+import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractResource;
@@ -44,6 +49,7 @@ import com.geecommerce.core.rest.pojo.Filter;
 import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.service.CopySupport;
+import com.geecommerce.core.service.QueryMetadata;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
@@ -51,6 +57,7 @@ import com.geecommerce.core.system.helper.UrlRewriteHelper;
 import com.geecommerce.core.system.merchant.model.Merchant;
 import com.geecommerce.core.system.merchant.model.Store;
 import com.geecommerce.core.system.model.UrlRewrite;
+import com.geecommerce.core.system.query.helper.QueryHelper;
 import com.geecommerce.core.system.repository.UrlRewrites;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.ContextObjects;
@@ -66,6 +73,7 @@ import com.google.inject.Inject;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
+import org.elasticsearch.index.query.FilterBuilder;
 
 @Path("/v1/products")
 public class ProductResource extends AbstractResource {
@@ -76,11 +84,15 @@ public class ProductResource extends AbstractResource {
     private final UrlRewrites urlRewrites;
     private final UrlRewriteHelper urlRewriteHelper;
     private final ProductDao productDao;
+    private final QueryHelper queryHelper;
+    private final ElasticsearchService elasticsearchService;
+    private final ElasticsearchHelper elasticsearchHelper;
+    private final Products productRepository;
 
     @Inject
     public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
-        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
-        UrlRewriteHelper urlRewriteHelper) {
+                           ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+                           UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository) {
         this.service = service;
         this.catalogMediaHelper = catalogMediaHelper;
         this.productHelper = productHelper;
@@ -88,6 +100,10 @@ public class ProductResource extends AbstractResource {
         this.urlRewrites = urlRewrites;
         this.productDao = productDao;
         this.urlRewriteHelper = urlRewriteHelper;
+        this.queryHelper = queryHelper;
+        this.elasticsearchService = elasticsearchService;
+        this.elasticsearchHelper = elasticsearchHelper;
+        this.productRepository = productRepository;
     }
 
     @GET
@@ -102,6 +118,36 @@ public class ProductResource extends AbstractResource {
 
         return ok(service.get(Product.class, filter.getParams(), queryOptions));
     }
+
+    @GET
+    @Path("query")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getProductsByQuery(@FilterParam Filter filter) {
+
+        QueryOptions queryOptions = queryOptions(filter);
+
+        if (storeHeaderExists())
+            queryOptions = QueryOptions.builder(queryOptions)
+                    .limitAttributeToStore("status_description", getStoreFromHeader())
+                    .limitAttributeToStore("status_article", getStoreFromHeader()).build();
+
+
+        FilterBuilder filterBuilder = queryHelper.buildQuery(filter.getQuery());
+        List<FilterBuilder> builders = new ArrayList<>();
+        builders.add(filterBuilder);
+        SearchParams searchParams = new SearchParams();
+        searchParams.setLimit(filter.getLimit());
+        searchParams.setOffset(filter.getOffset().intValue());
+        SearchResult productsResult = elasticsearchService.findItems(Product.class, builders, searchParams);
+
+        Id[] ids = elasticsearchHelper.toIds(productsResult.getDocumentIds().toArray());
+
+        List<Product> products = productRepository.findByIds(Product.class, ids, queryOptions);
+
+        app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
+        return ok(products);
+    }
+
 
     @GET
     @Path("{id}")

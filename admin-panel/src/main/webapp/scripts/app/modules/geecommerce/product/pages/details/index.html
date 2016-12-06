@@ -17,6 +17,9 @@
 			<!-- ko if: $root.productVM().showProgrammeTab -->
 				<li><a href="" data-target="#programme-mapping" id="tab-prd-details-programme-mapping" data-toggle="tab" data-i18n="app:modules.product.tabTitleProgrammeMapping">Programme</a></li>
 			<!-- /ko -->
+			<!-- ko if: $root.productVM().showBundleTab -->
+			<li><a href="" data-target="#bundle-mapping" id="tab-prd-details-bundle-mapping" data-toggle="tab" data-i18n="app:modules.product.tabTitleBundleMapping">Bundle</a></li>
+			<!-- /ko -->
 			<!-- ko if: $root.productVM().showVariantsTab -->
 				<li><a href="" data-target="#variants" id="tab-prd-details-variants" data-toggle="tab" data-i18n="app:modules.product.tabTitleVariants">Variants</a></li>
 			<!-- /ko -->
@@ -103,6 +106,21 @@
 						</div>
 					</div>
 				</div>
+			<!-- /ko -->
+			<!-- ko if: $root.productVM().showBundleTab -->
+			<div class="tab-pane" id="bundle-mapping" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/bundle-mapping', activationData: $root.productVM().productId()}">
+				<div class="tab-loading-box jumbotron">
+					<div class="row">
+						<div class="col-md-2">
+							<h1><img src="/img/ajax-loader-m.gif" border="0" width="54" height="55"/></h1>
+						</div>
+						<div class="col-md-10">
+							<h1 data-i18n="app:common.loadingContentTitle"></h1>
+							<p data-i18n="app:common.loadingContentInfo"></p>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /ko -->
 			<!-- ko if: $root.productVM().showVariantsTab -->
 				<div class="tab-pane" id="variants" data-bind="compose:{ model: 'modules/geecommerce/product/pages/details/tabs/variants', activationData: $root.productVM().productId()}">

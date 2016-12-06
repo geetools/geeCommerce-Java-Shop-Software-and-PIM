@@ -8,6 +8,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
+import com.geecommerce.core.system.query.helper.DefaultQueryHelper;
+import com.geecommerce.core.system.query.model.DefaultQuery;
+import com.geecommerce.core.system.query.model.DefaultQueryNode;
+import com.geecommerce.core.system.query.helper.QueryHelper;
+import com.geecommerce.core.system.query.model.Query;
+import com.geecommerce.core.system.query.model.QueryNode;
 import org.apache.shiro.realm.Realm;
 
 import com.geecommerce.core.App;
@@ -287,6 +293,12 @@ public class SystemModule extends AbstractModule {
         // AttributeTargetObject
         super.bind(AttributeTargetObject.class).to(DefaultAttributeTargetObject.class);
         super.bind(AttributeTargetObjects.class).to(DefaultAttributeTargetObjects.class).in(Singleton.class);
+
+
+        // Query
+        super.bind(QueryHelper.class).to(DefaultQueryHelper.class).in(Singleton.class);
+        super.bind(QueryNode.class).to(DefaultQueryNode.class);
+        super.bind(Query.class).to(DefaultQuery.class);
 
         // Widget
         super.bind(Widget.class).to(DefaultWidget.class);

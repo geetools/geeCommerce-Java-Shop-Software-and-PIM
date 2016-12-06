@@ -491,6 +491,12 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     attributeId : attrProductGroup.id,
                     "optionIds" : self.editVM.productGroup()
                 } ];
+            } else if (vm.isBundle() && !_.isUndefined(self.editVM.productGroup())) {
+                newProduct.type = 'BUNDLE';
+                newProduct.attributes = [ {
+                    attributeId : attrProductGroup.id,
+                    "optionIds" : self.editVM.productGroup()
+                } ];
             } else if (!_.isUndefined(self.editVM.productGroup())) {
                 newProduct.type = 'PHYSICAL';
                 newProduct.attributes = [ {
@@ -601,7 +607,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                  }
              });
         },
-        addDynamicFormAttributes(updateModel) {
+        addDynamicFormAttributes: function(updateModel) {
             var self = this;
             var vm = self.productVM();
             var formAttributes = ko.gc.unwrap(vm.formAttributeValues());

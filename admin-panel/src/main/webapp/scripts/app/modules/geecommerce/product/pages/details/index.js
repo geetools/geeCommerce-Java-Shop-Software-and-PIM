@@ -29,6 +29,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
         self.statusVM = new StatusVM(self);
         self.tabs = ko.observableArray([]);
+        self.bundleProducts = ko.observableArray();
         self.programmeProducts = ko.observableArray();
         self.upsellProducts = ko.observableArray();
         self.crossSellProducts = ko.observableArray();
@@ -160,6 +161,26 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
             return type == 'PROGRAMME';
         });
+
+        self.isBundle = ko.computed(function() {
+
+            console.log("IS BUNDLE")
+            if (self.isNew() && self.productId() == 'new:bundle') {
+                return true;
+            }
+
+            var prd = ko.unwrap(self.data);
+            var type = '';
+
+            if (!_.isUndefined(prd)) {
+                type = prd.type;
+            }
+
+            console.log(type)
+
+            return type == 'BUNDLE';
+        });
+
 
         self.isVariantMaster = ko.computed(function() {
 
@@ -323,6 +344,17 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
         self.showProgrammeTab = ko.computed(function() {
             return self.productExists() && self.isCategorized() && self.isProgramme() && self.isAdminOrPM();
         });
+
+        self.showBundleTab = ko.computed(function() {
+
+            console.log("SHOW BUNDLE TAB")
+            console.log(self.productExists())
+            console.log(self.isCategorized() )
+            console.log(self.isBundle())
+            console.log(self.isAdminOrPM())
+            return self.productExists() && self.isCategorized() && self.isBundle() && self.isAdminOrPM();
+        });
+
 
         self.showPictogramTab = ko.computed(function() {
             return self.productExists() && self.isCategorized() && self.isAdminOrPM();

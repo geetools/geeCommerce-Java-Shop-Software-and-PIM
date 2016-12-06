@@ -11,10 +11,8 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-media
 
 		return mediaAssetAPI.getMediaAssetDirectories().then(
 			function (data) {
-				console.log("DDDDDDDDDDDDDDDIIIIIIIIIIIIIIIIRSSSSSSSSS")
 				var dirs = mediaAssetUtil.toTree(data.data.mediaAssetDirectories, self);
 				self.directories(dirs);
-				console.log(dirs)
 			});
 	};
 

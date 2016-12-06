@@ -329,6 +329,62 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         return result;// return searchRequestBuilder.execute().actionGet();
     }
 
+    @Override
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, SearchParams searchParams) {
+            Client client = ElasticSearch.CLIENT.get();
+
+        // ---------------------------------------------------------------------
+        // Search filters
+        // ---------------------------------------------------------------------
+
+        FilterBuilder fb = searchParams.getFilterBuilder();
+
+        QueryBuilder searchQuery = elasticsearchHelper.buildQuery(filterBuilders, null);
+
+        // ---------------------------------------------------------------------
+        // Prepare search
+        // ---------------------------------------------------------------------
+
+        ApplicationContext appCtx = app.context();
+        Merchant merchant = appCtx.getMerchant();
+        Store store = appCtx.getStore();
+
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass))
+                .setMinScore(0.5f).setTypes(Annotations.getIndexedCollectionName(modelClass))
+                .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(searchParams.getOffset())
+                .setSize(searchParams.getLimit()).setQuery(searchQuery).setPostFilter(fb);
+
+        // ---------------------------------------------------------------------
+        // Execute search
+        // ---------------------------------------------------------------------
+
+        SearchResponse response = searchRequestBuilder.execute().actionGet();
+
+        SearchHits hits = response.getHits();
+
+        SearchResult result = app.injectable(SearchResult.class);
+
+        if (hits != null && hits.totalHits() > 0) {
+            Set<String> uniqueDocumentIds = Sets.newLinkedHashSet();
+
+            for (SearchHit searchHit : hits) {
+                uniqueDocumentIds.add((String) searchHit.getId());
+            }
+
+            result.setTotalNumResults(uniqueDocumentIds.size());
+
+            int x = 0;
+            for (String docId : uniqueDocumentIds) {
+                if (x >= searchParams.getOffset() && x < (searchParams.getOffset() + searchParams.getLimit())) {
+                    result.addDocumentId(docId);
+                }
+                x++;
+            }
+        }
+
+        return result;
+    }
+
     protected Map<String, Set<Object>> getNonMultipleFilterParts(Map<String, Set<Object>> allFilterParts,
         Map<String, Attribute> filterAttributes) {
         if (allFilterParts == null || filterAttributes == null)

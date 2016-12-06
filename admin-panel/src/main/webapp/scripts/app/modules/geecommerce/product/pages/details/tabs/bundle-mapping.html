@@ -5,25 +5,31 @@
 				<div class="variantsTargetContainer">
 					<h3>Produkte</h3>
 	
-					<p>Diese Produkte sind bereits Programm <b data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></b> zugeordnet.</p>
+					<p>Diese Produkte sind bereits Bundle <b data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></b> zugeordnet.</p>
 					
-					<ul data-bind="foreach: { data: productVM().programmeProducts, as: 'prd' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableProgrammeProducts">
-						<li data-bind="attr: {'data-id': prd.id}" class="droppable-list" unselectable="on">
+					<ul data-bind="foreach: { data: productVM().bundleProducts, as: 'prdItem' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableBundleProducts">
+						<li data-bind="attr: {'data-id': prdItem.id}" class="droppable-list" unselectable="on">
 							<div class="col-xs-8">
-								<span data-bind="attrText: prd, code: 'name', mode: 'closest'"></span><br/>
-								<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel(prd.attributes, 'product_group')"></span><br/>
+								<span data-bind="attrText: prdItem.product, code: 'name', mode: 'closest'"></span><br/>
+								<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel(prdItem.product.attributes, 'product_group')"></span><br/>
 								<div class="attribute-info-row">
-									<span data-bind="attrText: prd, code: 'article_number', mode: 'closest'"></span>
+									<span data-bind="attrText: prdItem.product, code: 'article_number', mode: 'closest'"></span>
 								</div>
 
 							</div>
-
-							<div class="col-xs-4">
-								<a href="javascript:void(0)" data-bind="click: $root.removeProductFromProgramme" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
-								<a class="pull-right" target="_blank" data-bind=" attr: { href: '#/products/details/' + prd.id}"><i class="fa fa-pencil-times"></i></a>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label  class="col-sm-6 control-label">Quantity</label>
+									<div class="col-sm-6">
+										<input type="number" class="form-control" data-bind="value: prdItem.quantity, attr:{min: 0, step: 1}">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-1">
+								<a href="javascript:void(0)" data-bind="click: $root.removeProductFromBundle" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
 								<br/>
 								<!-- Image -->
-								<span data-bind="if: prd.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prd.mainImageURI)}" border="0" vspace="10"/></span>
+								<span data-bind="if: prdItem.product.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prdItem.product.mainImageURI)}" border="0" vspace="10"/></span>
 							</div>
 							<div class="clearfix"></div>
 						</li>
@@ -42,7 +48,7 @@
 					<br/>
 					<div class="row">
 						<div class="col-md-12">
-							<ul data-bind="foreach: { data: $root.sourceProgrammeProductsPager.data, as: 'srcPrd' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+							<ul data-bind="foreach: { data: $root.sourceBundleProductsPager.data, as: 'srcPrd' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
 								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
 									<div class="col-xs-8">
 										<span data-bind="attrText: srcPrd, code: 'name', mode: 'closest'"></span><br/>
@@ -65,8 +71,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<!--  Pagination -->            
-				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceProgrammeProductsPager.pages, as: 'page' }">
-				                <li data-bind="click: $root.sourceProgrammeProductsPager.page, css: { active: $root.sourceProgrammeProductsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceBundleProductsPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourceBundleProductsPager.page, css: { active: $root.sourceBundleProductsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
 				            </ul>
 						</div>
 					</div>

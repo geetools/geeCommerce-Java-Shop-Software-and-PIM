@@ -79,9 +79,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			var vm = self.productVM();
 
 			
-			self.setupSearchListener();
-			
-			
 	    	// Pager columns
 			var pagerColumns = [
               {'name' : '$attr.article_number', 'label' : 'Artikelnummer'},
@@ -92,12 +89,12 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			pagingOptions.fields.push('attributeOptions');
 			pagingOptions.fields.push('properties');
 			pagingOptions.fields.push('sortOrder');
-			pagingOptions.fields.push('sortOrder');
 			pagingOptions.fields.push('mainImageURI');
 			
 	    	// Init the pager.
         	this.sourceCrossSellProductsPager = new gc.Pager(pagingOptions);
-        	
+
+            self.setupSearchListener();
 			//---------------------------------------------------------------
 			// Cross-sell for drag&drop target-container
 			//---------------------------------------------------------------
@@ -117,21 +114,21 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		},
 		setupSearchListener : function() {
 			var self = this;
-			
+
+            self.sourceCrossSellProductsPager.activateQuerySubscriber();
+
 			self.query.subscribe(function(value) {
-					console.log('SEARCHING FOR: ', value);
 			
 	        	self.sourceCrossSellProductsPager.columnValue('$attr.article_number', undefined);
 	        	self.sourceCrossSellProductsPager.columnValue('$attr.name', undefined);
 				
 	        	self.sourceCrossSellProductsPager.columnValue('$attr.article_number', value);
 				self.sourceCrossSellProductsPager.load().then(function(data) {
-					console.log(data)
 					if(_.isEmpty(data.data)) {
 			        	self.sourceCrossSellProductsPager.columnValue('$attr.article_number', undefined);
 			        	self.sourceCrossSellProductsPager.columnValue('$attr.name', value);
 			        	self.sourceCrossSellProductsPager.load().then(function(data2) {
-							console.log(data2)
+
 			        	});
 					}
 				});

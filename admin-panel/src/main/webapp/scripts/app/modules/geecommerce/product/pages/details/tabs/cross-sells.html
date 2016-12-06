@@ -36,6 +36,7 @@
 							<h3>Produkte suchen</h3>
 							<p>Suchen Sie nach Attribute, um sie per drag&drop zur Attributgruppe <span data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></span> hinzuzufügen.</p>
 							<input data-bind="value: query, valueUpdate:'afterkeyup'" class="form-control" type="text" placeholder="Produkt suchen ...">
+							<div data-bind="queryBuilder: { value: $root.sourceCrossSellProductsPager.query, displayMode: 'modal'}"> </div>
 						</div>
 					</div>
 					<br/>

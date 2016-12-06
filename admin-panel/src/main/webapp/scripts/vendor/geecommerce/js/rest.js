@@ -9,6 +9,7 @@ define([ 'plugins/router', 'knockout', 'gc/gc' ], function(router, ko, gc) {
         var sortFields = options.sort;
         var offset = options.offset;
         var limit = options.limit;
+        var query = options.query;
         var nocache = options.nocache;
 
         // ---------------------------------------------------
@@ -69,6 +70,14 @@ define([ 'plugins/router', 'knockout', 'gc/gc' ], function(router, ko, gc) {
         if (!_.isUndefined(nocache)) {
             requestData.nocache = nocache;
         }
+
+        // ---------------------------------------------------
+        // Offset
+        // ---------------------------------------------------
+        if (!_.isUndefined(query)) {
+            requestData.query = query;
+        }
+
 
         return requestData;
     }

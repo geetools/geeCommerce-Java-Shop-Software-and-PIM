@@ -348,6 +348,10 @@ input[type="radio"], input[type="checkbox"] {
     transition: none;
 }
 
+.form-control-small {
+    width: auto !important;
+}
+
 .navbar {
     position: fixed;
     background-color: #21a199;
@@ -1630,7 +1634,7 @@ img.disabledImage {
 }
 
 .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-    width: 100%;
+    width: 96%;
 }
 
 .grid-table-container {
@@ -3318,18 +3322,46 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
 }
 
 
+.query-builder .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 220px;
+}
+.query-builder imput.form-control {
+    width: 220px;
+    display: inline-block;
+}
 .import-arrow-icon {
     font-size: 30px;
     color: #97D0E3;
 }
 
+.query-builder li {
+    list-style: none;
+}
 .import-export-teaser {
 	width: 80%;
     float: right;
 }
 
+.query-builder .remove-query-node {
+    color: red;
+    cursor: pointer;
 .import-export-teaser-col {
 	visibility: hidden;
+}
+<<<<<<< .mine
+
+=======
+}
+>>>>>>> .theirs
+
+
+.query-builder .add-query-node {
+    color: green;
+    cursor: pointer;
+}
+
+.query-builder .editable-click {
+    border-bottom: none;
 }
 
 #prd-import-form .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th,

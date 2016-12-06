@@ -1,9 +1,7 @@
 package com.geecommerce.core.rest.jersey.inject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.Provider;
@@ -13,7 +11,9 @@ import com.geecommerce.core.rest.RestHelper;
 import com.geecommerce.core.rest.pojo.Filter;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.service.annotation.Profile;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.TypeConverter;
+import com.geecommerce.core.util.Json;
 import com.google.inject.Singleton;
 import com.sun.jersey.api.core.HttpContext;
 import com.sun.jersey.api.core.HttpRequestContext;
@@ -22,6 +22,7 @@ import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.server.impl.inject.AbstractHttpContextInjectable;
 import com.sun.jersey.spi.inject.Injectable;
 import com.sun.jersey.spi.inject.InjectableProvider;
+import org.apache.commons.lang.StringUtils;
 
 @Profile
 @Provider
@@ -34,7 +35,7 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
     }
 
     protected static enum FilterKey {
-        FIELDS, ATTRIBUTES, SORT, LIMIT, OFFSET, NOCACHE;
+        FIELDS, ATTRIBUTES, SORT, LIMIT, OFFSET, NOCACHE, QUERY;
     }
 
     @Override
@@ -91,6 +92,14 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
                 filter.setOffset(TypeConverter.asLong(parameters.getFirst(key)));
             } else if (FilterKey.NOCACHE.name().equalsIgnoreCase(key)) {
                 filter.setNoCache(TypeConverter.asBoolean(parameters.getFirst(key)));
+            } else if (FilterKey.QUERY.name().equalsIgnoreCase(key)) {
+                String queryString = parameters.getFirst(key);
+                if(!StringUtils.isEmpty(queryString)){
+                    Map<String, Object> queryNodeMap = Json.fromJson(queryString, HashMap.class);
+                    QueryNode queryNode = App.get().model(QueryNode.class);
+                    queryNode.fromMap(queryNodeMap);
+                    filter.setQuery(queryNode);
+                }
             } else {
                 List<Object> valueList = toTypedList(parameters.get(key));
                 filter.append(key, valueList.size() == 1 ? valueList.get(0) : valueList);

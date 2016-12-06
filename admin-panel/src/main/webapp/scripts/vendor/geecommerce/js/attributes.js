@@ -47,11 +47,10 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function(ko, gc, attrAPI) {
             var attr = self.find(attributes, code);
             var label = '';
             lang = lang || gc.app.currentUserLang();
-            
             if(!_.isEmpty(attr) && !_.isEmpty(attr.attributeOptions)) {
+            	console.log(attr.attributeOptions)
                 label = gc.ctxobj.val(attr.attributeOptions[0].label, lang, mode);
             }
-            
             return label;
         },  
 		havingProperty : function(name, attributes) {

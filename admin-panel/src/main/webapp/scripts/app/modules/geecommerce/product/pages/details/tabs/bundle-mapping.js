@@ -1,57 +1,71 @@
 define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko, gc, productAPI ) {
 
+	function ProductBundleVM(vm, product, quantity) {
+        var self = this;
+        self.vm = vm;
+        self.id = product.id;
+        self.product = product;
+        self.quantity = ko.observable(quantity);
+
+        self.quantity.subscribe(function (val) {
+        	if(val > 0){
+                productAPI.addProductToBundle(self.vm.productId(), self.id, val);
+			}
+    	})
+    }
+	
 	//-----------------------------------------------------------------
 	// Controller
 	//-----------------------------------------------------------------
-	function ProductProgrammesController(options) {
+	function ProductBundlesController(options) {
 		
 		// Make sure that this object is being called with the 'new' keyword.
-		if (!(this instanceof ProductProgrammesController)) {
-			throw new TypeError("ProductProgrammesController constructor cannot be called as a function.");
+		if (!(this instanceof ProductBundlesController)) {
+			throw new TypeError("ProductBundlesController constructor cannot be called as a function.");
 		}
 
 		this.app = gc.app;
-        this.gc = gc;
+		this.gc = gc;
 		this.productVM = {};
 		this.query = ko.observable().extend({ rateLimit: 1000 });
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
-		_.bindAll(this, 'setupSearchListener', 'dropFromSource', 'removeProductFromProgramme', 'updatePositions', 'activate');
+		_.bindAll(this, 'setupSearchListener', 'dropFromSource', 'removeProductFromBundle', 'updatePositions', 'activate');
 	}
 
-	ProductProgrammesController.prototype = {
-		constructor : ProductProgrammesController,
+    ProductBundlesController.prototype = {
+		constructor : ProductBundlesController,
         // The pager takes care of filtering, sorting and paging functionality.
-        sourceProgrammeProductsPager: {},
+        sourceBundleProductsPager: {},
         dropFromSource : function(data) {
         	var self = this;
         	var vm = self.productVM();
 
         	// Only add product to programme if it does not exist yet.
-    		var foundProduct = _.findWhere(ko.unwrap(vm.programmes), { id : data.id });
+    		//var foundProduct = _.findWhere(ko.unwrap(vm.programmes), { id : data.id });
         	
-    		if(_.isUndefined(foundProduct)) {
-            	productAPI.addProductToProgramme(vm.productId(), data.id).then(function( response ) {
-                    vm.programmeProducts.push(data);
-                	self.sourceProgrammeProductsPager.removeData(data);
+    		//if(_.isUndefined(foundProduct)) {
+            	productAPI.addProductToBundle(vm.productId(), data.id, 1).then(function( response ) {
+                    vm.bundleProducts.push(new ProductBundleVM(vm, data, 1));
+                	self.sourceBundleProductsPager.removeData(data);
             	});
-    		}
+    		//}
         },
-        removeProductFromProgramme : function(data) {
+        removeProductFromBundle : function(data) {
         	var self = this;
         	var vm = self.productVM();
         	
-        	productAPI.removeProductFromProgramme(vm.productId(), data.id).then(function() {
+        	productAPI.removeProductFromBundle(vm.productId(), data.id).then(function() {
         		// See if the product is already in the source container.
-        		var foundProduct = _.findWhere(ko.unwrap(self.sourceProgrammeProductsPager.data), { id : data.id });
+        		var foundProduct = _.findWhere(ko.unwrap(self.sourceBundleProductsPager.data), { id : data.id });
         		
         		// Only add to drag&drop source container if it does not exist yet.
         		if(_.isUndefined(foundProduct)) {
-                	self.sourceProgrammeProductsPager.data.push(data);
+                	self.sourceBundleProductsPager.data.push(data.product);
         		}
         		
         		// Remove from target-container in view.
-        		vm.programmeProducts.remove(data);
+        		vm.bundleProducts.remove(data);
         	});
         },
 		updatePositions : function(domTableRows) {
@@ -95,17 +109,26 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
             pagingOptions.fields.push('mainImageURI');
 			
 	    	// Init the pager.
-        	this.sourceProgrammeProductsPager = new gc.Pager(pagingOptions);
+        	this.sourceBundleProductsPager = new gc.Pager(pagingOptions);
         	
 			//---------------------------------------------------------------
 			// Programmes for drag&drop target-container
 			//---------------------------------------------------------------
 			
         	//  Get programme-products that are already connected to the main product.
-			productAPI.getProgrammeProducts(vm.productId()).then(function(data) {
-				if(!_.isEmpty(data.data.products)) {
+			productAPI.getBundleProducts(vm.productId()).then(function(data) {
+
+				if(!_.isEmpty(data.data.bundleProductItems)) {
+					var productItems = [];
+					_.each(data.data.bundleProductItems, function (productItem) {
+                        gc.attributes.appendAttributes(productItem.product);
+                        productItems.push(new ProductBundleVM(vm, productItem.product, productItem.quantity))
+                    });
+					vm.bundleProducts(productItems);
+
+
 					// Populate drag&drop target container.
-					vm.programmeProducts(data.data.products);
+					//vm.bundleProducts(data.data.products);
 				}
 			});
 		},
@@ -113,26 +136,26 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			var self = this;
 			
 			self.query.subscribe(function(value) {
-	        	self.sourceProgrammeProductsPager.columnValue('$attr.article_number', undefined);
-	        	self.sourceProgrammeProductsPager.columnValue('$attr.name', undefined);
+	        	self.sourceBundleProductsPager.columnValue('$attr.article_number', undefined);
+	        	self.sourceBundleProductsPager.columnValue('$attr.name', undefined);
 				
-	        	self.sourceProgrammeProductsPager.columnValue('$attr.article_number', value);
-				self.sourceProgrammeProductsPager.load().then(function(data) {
+	        	self.sourceBundleProductsPager.columnValue('$attr.article_number', value);
+				self.sourceBundleProductsPager.load().then(function(data) {
 					if(_.isEmpty(data.data)) {
-			        	self.sourceProgrammeProductsPager.columnValue('$attr.article_number', undefined);
-			        	self.sourceProgrammeProductsPager.columnValue('$attr.name', value);
-			        	self.sourceProgrammeProductsPager.load().then(function(data2) {
+			        	self.sourceBundleProductsPager.columnValue('$attr.article_number', undefined);
+			        	self.sourceBundleProductsPager.columnValue('$attr.name', value);
+			        	self.sourceBundleProductsPager.load().then(function(data2) {
 			        	});
 					}
 				});
 			});
 		},
 		attached : function(view, parent) {
-			$('#tab-prd-details-programme-mapping').click(function() {
+			$('#tab-prd-details-bundle-mapping').click(function() {
 				$('#header-store-pills').hide();
 			});
 		}
 	};
 
-	return ProductProgrammesController;
+	return ProductBundlesController;
 });

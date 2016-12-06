@@ -176,6 +176,7 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
         this.showSaveIcon = ko.observable(false);
         this.showSaveModal = ko.observable(false);
         this.showFlashMessageModal = ko.observable(false);
+        this.showQueryBuilderModal = ko.observable(false);
         this.flashMsg;
         this._toolbarSaveSubscription = null;
         this.navToolbar = ko.observable(false);
@@ -357,7 +358,7 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
             self.saveContextModel(ctxModel);
             self.startOnChangeListener();
         },
-        clearSaveEvent() {
+        clearSaveEvent: function() {
             var self = this;
             self.stopOnChangeListener();
             self.unsubscribeAll(self.saveSubscriptions());

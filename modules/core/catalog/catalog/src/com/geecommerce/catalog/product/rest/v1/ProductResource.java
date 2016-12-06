@@ -27,12 +27,18 @@ import javax.ws.rs.core.Response.Status;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ImportHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
+import com.geecommerce.catalog.product.model.BundleProductItem;
 import com.geecommerce.catalog.product.model.CatalogMediaAsset;
 import com.geecommerce.catalog.product.model.CatalogMediaType;
 import com.geecommerce.catalog.product.model.Product;
+import com.geecommerce.catalog.product.repository.Products;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
+import com.geecommerce.core.elasticsearch.api.search.SearchResult;
+import com.geecommerce.core.elasticsearch.helper.ElasticsearchHelper;
+import com.geecommerce.core.elasticsearch.search.SearchParams;
+import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
 import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
 import com.geecommerce.core.batch.service.ImportExportService;
 import com.geecommerce.core.enums.ObjectType;
@@ -44,6 +50,7 @@ import com.geecommerce.core.rest.pojo.Filter;
 import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.service.CopySupport;
+import com.geecommerce.core.service.QueryMetadata;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
@@ -52,6 +59,7 @@ import com.geecommerce.core.system.helper.UrlRewriteHelper;
 import com.geecommerce.core.system.merchant.model.Merchant;
 import com.geecommerce.core.system.merchant.model.Store;
 import com.geecommerce.core.system.model.UrlRewrite;
+import com.geecommerce.core.system.query.helper.QueryHelper;
 import com.geecommerce.core.system.repository.UrlRewrites;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.ContextObjects;
@@ -67,6 +75,7 @@ import com.google.inject.Inject;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
+import org.elasticsearch.index.query.FilterBuilder;
 
 @Path("/v1/products")
 public class ProductResource extends AbstractResource {
@@ -79,16 +88,31 @@ public class ProductResource extends AbstractResource {
     protected final ImportExportService importExportService;
     protected final ImportHelper importHelper;
     protected final ImportTokens importTokens;
+    private final QueryHelper queryHelper;
+    private final ElasticsearchService elasticsearchService;
+    private final ElasticsearchHelper elasticsearchHelper;
+    private final Products productRepository;
 
     @Inject
+<<<<<<< .mine
     public ProductResource(RestService service, AttributeService attributeService, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
         UrlRewrites urlRewrites, UrlRewriteHelper urlRewriteHelper, ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens) {
+
+=======
+    public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
+                           ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+                           UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository) {
+>>>>>>> .theirs
         this.service = service;
         this.attributeService = attributeService;
         this.catalogMediaHelper = catalogMediaHelper;
         this.productHelper = productHelper;
         this.urlRewrites = urlRewrites;
         this.urlRewriteHelper = urlRewriteHelper;
+        this.queryHelper = queryHelper;
+        this.elasticsearchService = elasticsearchService;
+        this.elasticsearchHelper = elasticsearchHelper;
+        this.productRepository = productRepository;
         this.importExportService = importExportService;
         this.importHelper = importHelper;
         this.importTokens = importTokens;
@@ -106,6 +130,36 @@ public class ProductResource extends AbstractResource {
 
         return ok(service.get(Product.class, filter.getParams(), queryOptions));
     }
+
+    @GET
+    @Path("query")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getProductsByQuery(@FilterParam Filter filter) {
+
+        QueryOptions queryOptions = queryOptions(filter);
+
+        if (storeHeaderExists())
+            queryOptions = QueryOptions.builder(queryOptions)
+                    .limitAttributeToStore("status_description", getStoreFromHeader())
+                    .limitAttributeToStore("status_article", getStoreFromHeader()).build();
+
+
+        FilterBuilder filterBuilder = queryHelper.buildQuery(filter.getQuery());
+        List<FilterBuilder> builders = new ArrayList<>();
+        builders.add(filterBuilder);
+        SearchParams searchParams = new SearchParams();
+        searchParams.setLimit(filter.getLimit());
+        searchParams.setOffset(filter.getOffset().intValue());
+        SearchResult productsResult = elasticsearchService.findItems(Product.class, builders, searchParams);
+
+        Id[] ids = elasticsearchHelper.toIds(productsResult.getDocumentIds().toArray());
+
+        List<Product> products = productRepository.findByIds(Product.class, ids, queryOptions);
+
+        app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
+        return ok(products);
+    }
+
 
     @GET
     @Path("{id}")
@@ -275,8 +329,6 @@ public class ProductResource extends AbstractResource {
 
             // Save main product with the new child-productId.
             service.update(programmeProduct);
-            // Save child-product with the new parent-productId.
-            service.update(childProduct);
         } else {
             throwBadRequest(
                 "programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
@@ -303,6 +355,57 @@ public class ProductResource extends AbstractResource {
                 "programmeProductId and childProductId cannot be null in requestURI. Expecting: products/{programmeProductId}/programme-products/{childProductId}");
         }
     }
+
+    @GET
+    @Path("{id}/bundle-products")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getBundleProducts(@PathParam("id") Id id) {
+        Product p = checked(service.get(Product.class, id));
+        List<BundleProductItem> bundleProducts = p.getBundleProductItems();
+
+        return ok(bundleProducts);
+    }
+
+    @PUT
+    @Path("{bundleProductId}/bundle-products/{childProductId}/{qty}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void addProductToBundle(@PathParam("bundleProductId") Id id, @PathParam("childProductId") Id childProductId, @PathParam("qty") int quantity) {
+        if (id != null && childProductId != null) {
+            // Get main and child product.,
+            Product bundleProduct = checked(service.get(Product.class, id));
+            Product childProduct = checked(service.get(Product.class, childProductId));
+
+            // Add child product to main product.
+            bundleProduct.addBundleProduct(childProduct, quantity);
+
+            // Save main product with the new child-productId.
+            service.update(bundleProduct);
+        } else {
+            throwBadRequest(
+                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}/{qty}");
+        }
+    }
+
+    @DELETE
+    @Path("{bundleProductId}/bundle-products/{childProductId}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void removeProductFromBundle(@PathParam("bundleProductId") Id bundleProductId, @PathParam("childProductId") Id childProductId) {
+        if (bundleProductId != null && childProductId != null) {
+            // Get main and child product.
+            Product bundleProduct = checked(service.get(Product.class, bundleProductId));
+            Product childProduct = checked(service.get(Product.class, childProductId));
+
+            // Remove child from main product.
+            bundleProduct.removeBundleProduct(childProduct);
+
+            // Save main product with the removed variant-productId.
+            service.update(bundleProduct);
+        } else {
+            throwBadRequest(
+                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}");
+        }
+    }
+
 
     @GET
     @Path("{id}/prices")

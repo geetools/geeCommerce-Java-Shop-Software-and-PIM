@@ -562,6 +562,7 @@ define(function(require) {
     widget.registerKind('navToolbar');
     widget.registerKind('mediaAssets');
     widget.registerKind('gridTable');
+    widget.registerKind('queryBuilder');
     widget.registerKind('attrSelect');
     kv.makeBindingHandlerValidatable("i18nValue");
 

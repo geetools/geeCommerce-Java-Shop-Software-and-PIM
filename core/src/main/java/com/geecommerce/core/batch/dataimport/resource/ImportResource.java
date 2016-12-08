@@ -158,13 +158,12 @@ public class ImportResource extends AbstractResource {
                 Set<String> headers = importHelper.fetchHeaders(uploadedFilePath);
 
                 // First attempt to create default profile automatically.
-                importExportService.newDefaultImportProfile(headers, targetObj, token);
+                ImportProfile importProfile = importExportService.newDefaultImportProfile(headers, targetObj, token);
 
                 System.out.println("GOT HEADERS ::::: " + headers);
                 
-                importHelper.createImportPlan(uploadedFilePath);
+                importHelper.createImportPlan(uploadedFilePath, importProfile);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

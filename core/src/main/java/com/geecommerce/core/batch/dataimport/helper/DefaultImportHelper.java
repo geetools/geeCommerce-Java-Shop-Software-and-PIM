@@ -21,6 +21,11 @@ import org.zeroturnaround.zip.ZipUtil;
 import com.geecommerce.core.App;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
+import com.geecommerce.core.adapter.annotation.Adapter;
+import com.geecommerce.core.batch.dataimport.ImportAdapter;
+import com.geecommerce.core.batch.dataimport.model.ImportPlan;
+import com.geecommerce.core.batch.dataimport.model.ImportProfile;
+import com.geecommerce.core.reflect.Reflect;
 import com.geecommerce.core.service.annotation.Helper;
 import com.geecommerce.core.system.merchant.model.Merchant;
 import com.google.inject.Inject;
@@ -94,6 +99,7 @@ public class DefaultImportHelper implements ImportHelper {
         }
     }
 
+    @SuppressWarnings("resource")
     @Override
     public Set<String> fetchHeaders(String csvPath) throws IOException {
         File csvFilePath = new File(csvPath);
@@ -145,9 +151,23 @@ public class DefaultImportHelper implements ImportHelper {
         return headers;
     }
 
-    @Override
-    public void createImportPlan(String uploadedFilePath) {
-        // TODO Auto-generated method stub
+    public ImportAdapter locateImportAdapter() {
+        Set<Class<?>> types = Reflect.getTypesAnnotatedWith(Adapter.class, false);
 
+        for (Class<?> type : types) {
+            if (ImportAdapter.class.isAssignableFrom(type))
+                return (ImportAdapter) app.inject(type);
+        }
+
+        return null;
+    }
+
+    @Override
+    public ImportPlan createImportPlan(String csvPath, ImportProfile importProfile) {
+        ImportAdapter importAdapter = locateImportAdapter();
+        
+        System.out.println("FOUND IMPORT ADAPTER :::: " + importAdapter);
+        
+        return importAdapter.plan(csvPath, importProfile);
     }
 }

@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import com.geecommerce.core.batch.dataimport.model.ImportPlan;
+import com.geecommerce.core.batch.dataimport.model.ImportProfile;
 import com.geecommerce.core.service.api.Helper;
 
 public interface ImportHelper extends Helper {
@@ -17,6 +19,6 @@ public interface ImportHelper extends Helper {
 
     Set<String> fetchHeaders(String csvPath) throws IOException;
 
-    void createImportPlan(String uploadedFilePath);
+    ImportPlan createImportPlan(String uploadedFilePath, ImportProfile importProfile);
 
 }

@@ -7,12 +7,13 @@
 <div class="query-builder form-horizontal">
 
     <!-- ko if: displayMode == 'inline' -->
-        <div class="form-group">
-            <div class="col-sm-9">
-                <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
+                </div>
             </div>
-        </div>
-        <button data-bind="click: apply">Apply</button>
+            <button data-bind="click: apply">Apply</button>
+
     <!-- /ko -->
 
 
@@ -86,10 +87,13 @@
 
     <script id='queryAttributeNode' type='text/html'>
         <!-- ko ifnot: attrVal() -->
-        <span  class="form-control form-control-small"
+<!--        <span  class="form-control form-control-small"
               data-bind="editable: attrCode, editableOptions:{type:'select', showbuttons: false, options: root.attributeValues,
                     optionsText: 'label',
-                    optionsValue: 'code'}"></span>
+                    optionsValue: 'code'}"></span>-->
+
+        <span  class="form-control form-control-small"
+               data-bind="attrSelect: {value: attrCode, forType: root.forType, valueKey: 'code'}"></span>
         <!-- /ko -->
         <!-- ko if: attrVal() -->
         <!-- ko if: attrVal().isEditable -->
@@ -194,10 +198,18 @@
             <div data-bind='template: {name:"queryNode", foreach: nodes}'>
 
             </div>
-            <div data-bind="editable: newNodeType,  editableOptions:{type:'select', options: root.nodeTypeChoice,
-				optionsText: 'label', optionsValue: 'value', hidden: addNode, noHTML:'true'}">
-                <i class="glyphicon glyphicon-plus add-query-node"></i>
-            </div>
+
+            <!-- ko if: root.simpleQueryMode() -->
+                <i class="glyphicon glyphicon-plus add-query-node" data-bind="click: addAttributeNode"></i>
+            <!-- /ko -->
+
+            <!-- ko ifnot: root.simpleQueryMode() -->
+                <div data-bind="editable: newNodeType,  editableOptions:{type:'select', options: root.nodeTypeChoice,
+                    optionsText: 'label', optionsValue: 'value', hidden: addNode, noHTML:'true'}">
+                    <i class="glyphicon glyphicon-plus add-query-node"></i>
+                </div>
+            <!-- /ko -->
+
         </ul>
 
     </script>

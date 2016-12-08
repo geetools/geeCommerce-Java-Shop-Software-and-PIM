@@ -151,7 +151,10 @@ public class ProductResource extends AbstractResource {
 
         Id[] ids = elasticsearchHelper.toIds(productsResult.getDocumentIds().toArray());
 
-        List<Product> products = productRepository.findByIds(Product.class, ids, queryOptions);
+        List<Product> products = new ArrayList<>();
+        if(ids != null && ids.length > 0) {
+            products = productRepository.findByIds(Product.class, ids, queryOptions);
+        }
 
         app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
         return ok(products);

@@ -74,7 +74,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         self.type = ko.observable();
         self.operator = ko.observable();
         self.attrVal = ko.observable();
-        self.attrCode = ko.observable();
+        self.attrCode = ko.observable('');
         self.attrCode.subscribe(function (code) {
             var attr = _.findWhere(root.attributeValues(), { code : code });
 
@@ -112,26 +112,27 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             self.parent().nodes.remove(self);
         };
 
-        self.addSimpleNode = function (target, reason) {
-            if( !(reason === 'nochange' || reason === 'save')) return;
+        self.addAttributeNode = function () {
             var nodeVM = new QueryNodeVM(self, self.root);
             nodeVM.type('ATTRIBUTE');
+            self.nodes.push(nodeVM);
+        }
+
+        self.addConditionalNode = function () {
+            var nodeVM = new QueryNodeVM(self, self.root);
+            nodeVM.type('BOOLEAN');
+            nodeVM.operator('AND');
             self.nodes.push(nodeVM);
         }
 
         self.addNode = function(target, reason){
             if( !(reason === 'nochange' || reason === 'save')) return;
 
-            var nodeVM = new QueryNodeVM(self, self.root);
-
             if(self.newNodeType() === 'BOOLEAN'){
-                nodeVM.type('BOOLEAN');
-                nodeVM.operator('AND');
+                self.addConditionalNode()
             } else {
-                nodeVM.type('ATTRIBUTE');
-
+                self.addAttributeNode()
             }
-            self.nodes.push(nodeVM);
         }
 
         self.convertNode = function () {
@@ -165,6 +166,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 		//this.directories = ko.observableArray([]);
 		//this.directory = ko.observable();
 		this.displayMode = "inline";
+		this.forType = "product";
 		this.simpleQueryMode = true;
         this.showFilterButton = true;
         this.operatorChoice = ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]);
@@ -184,8 +186,10 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 
 		if(settings.displayMode){
             this.displayMode = settings.displayMode
-        } else {
-            this.displayMode = "inline";
+        }
+
+        if(settings.forType) {
+            this.forType = settings.forType;
         }
 
         if(settings.show){

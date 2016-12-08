@@ -3360,6 +3360,11 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
     border-bottom: none;
 }
 
+.query-builder-modal .modal-body{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 #prd-import-form .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th,
 #prd-import-mapping-form .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
 	vertical-align: middle;

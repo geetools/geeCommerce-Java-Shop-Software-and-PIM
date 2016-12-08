@@ -25,7 +25,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
             _.forEach(attributes, function(attr) {
                 self.options.push({
                     id : attr[self.valueKey],
-                    text : gc.ctxobj.val(attr[self.labelKey], gc.app.currentUserLang(), self.mode)
+                    text : gc.ctxobj.val(attr[self.labelKey], gc.app.currentUserLang(), self.mode) || ""
                 });
             });
         });

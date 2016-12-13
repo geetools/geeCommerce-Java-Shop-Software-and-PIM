@@ -117,7 +117,7 @@ public class MediaAssetResource extends AbstractResource {
     public void updateMediaAsset(@PathParam("id") Id id, Update update) {
         MediaAsset mediaAsset = checked(mediaAssets.findById(MediaAsset.class, id));
         mediaAsset.set(update.getFields());
-        mediaAsset.setAttributes(update.getAttributes());
+        mediaAsset.putAttributes(update.getAttributes());
         mediaAsset.setOptionAttributes(update.getOptions());
         mediaAssets.update(mediaAsset);
     }

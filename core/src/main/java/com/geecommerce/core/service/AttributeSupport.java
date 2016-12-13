@@ -100,7 +100,7 @@ public interface AttributeSupport extends MultiContextModel {
     public boolean attributeValueEquals(String attributeCode, Object value, boolean allowParentLookup,
         ChildSupport.Lookup allowChildLookup);
 
-    public AttributeSupport setAttributes(Map<String, ContextObject<?>> attributes);
+    public AttributeSupport putAttributes(Map<String, ContextObject<?>> attributes);
 
     public AttributeSupport setOptionAttributes(Map<String, List<Id>> attributesMap);
 

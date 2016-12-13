@@ -270,10 +270,6 @@ public interface Attribute extends MultiContextModel {
 
     public Attribute setEnabled(boolean enabled);
 
-    public boolean isDimensionAttribute();
-
-    public Attribute setDimensionAttribute(boolean dimensionAttribute);
-
     public InputType getInputType();
 
     public Attribute setInputType(InputType inputType);
@@ -285,10 +281,6 @@ public interface Attribute extends MultiContextModel {
     public boolean isIncludeInSearchIndex();
 
     public Attribute setIncludeInSearchIndex(boolean includeInSearchIndex);
-
-    public boolean isShowInProductDetails();
-
-    public Attribute setShowInProductDetails(boolean showInProductDetails);
 
     public List<Id> getLinkedAttributeIds();
 

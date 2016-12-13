@@ -316,17 +316,6 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     }
 
     @Override
-    public boolean isShowInProductDetails() {
-        Attribute attr = getAttribute();
-
-        if (attr != null) {
-            return attr.isShowInProductDetails();
-        } else {
-            return false;
-        }
-    }
-
-    @Override
     public Object getVal() {
         return getValue() == null ? null : getValue().getClosestValue();
     }

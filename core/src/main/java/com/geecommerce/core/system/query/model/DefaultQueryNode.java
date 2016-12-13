@@ -20,6 +20,8 @@ public class DefaultQueryNode extends AbstractMultiContextModel implements Query
     private QueryNodeType type = null;
     @Column(Col.OPERATOR)
     private String operator = null;
+    @Column(Col.COMPARATOR)
+    private String comparator = null;
     @Column(Col.NODES)
     private List<QueryNode> nodes = null;
     @Column(Col.VALUE)
@@ -55,6 +57,17 @@ public class DefaultQueryNode extends AbstractMultiContextModel implements Query
     @Override
     public QueryNode setOperator(String operator) {
         this.operator = operator;
+        return this;
+    }
+
+    @Override
+    public String getComparator() {
+        return comparator;
+    }
+
+    @Override
+    public QueryNode setComparator(String comparator) {
+        this.comparator = comparator;
         return this;
     }
 
@@ -106,6 +119,7 @@ public class DefaultQueryNode extends AbstractMultiContextModel implements Query
         this.type = enum_(QueryNodeType.class, map.get(Col.TYPE));
 
         this.operator = str_(map.get(Col.OPERATOR));
+        this.comparator = str_(map.get(Col.COMPARATOR));
 
         if (map_(map.get(Col.VALUE)) != null && map_(map.get(Col.VALUE)).size() != 0) {
             AttributeValue attribute = app.model(AttributeValue.class);
@@ -130,6 +144,7 @@ public class DefaultQueryNode extends AbstractMultiContextModel implements Query
 
         map.put(Col.TYPE, getType().toId());
         map.put(Col.OPERATOR, getOperator());
+        map.put(Col.COMPARATOR, getComparator());
 
         if (getValue() != null) {
             map.put(Col.VALUE, getValue().toMap());

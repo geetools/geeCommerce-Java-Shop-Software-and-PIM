@@ -29,8 +29,6 @@ public interface AttributeValue extends Model {
 
     public ContextObject<String> getBackendLabel();
 
-    public boolean isShowInProductDetails();
-
     @JsonIgnore(serialize = true)
     public Map<Id, AttributeOption> getAttributeOptions();
 

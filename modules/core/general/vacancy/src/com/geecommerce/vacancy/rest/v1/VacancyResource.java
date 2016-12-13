@@ -62,7 +62,7 @@ public class VacancyResource extends AbstractResource {
     public Response createVacancy(Update update) {
         Vacancy model = app.model(Vacancy.class);
         model.set(update.getFields());
-        model.setAttributes(update.getAttributes());
+        model.putAttributes(update.getAttributes());
         model.setOptionAttributes(update.getOptions());
 
         model = service.create(model);
@@ -78,7 +78,7 @@ public class VacancyResource extends AbstractResource {
         if (id != null) {
             Vacancy v = checked(service.get(Vacancy.class, id));
             v.set(update.getFields());
-            v.setAttributes(update.getAttributes());
+            v.putAttributes(update.getAttributes());
             v.setOptionAttributes(update.getOptions());
             service.update(v);
         }

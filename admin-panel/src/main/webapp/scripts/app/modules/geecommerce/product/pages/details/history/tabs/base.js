@@ -121,6 +121,7 @@ console.log('foundValue::::: ----> ', foundValue, self.$root.descriptionStatuses
         self.isVariant = ko.observable(false);
         self.isVariantMaster = ko.observable(false);
         self.isProgramme = ko.observable(false);
+        self.isBundle = ko.observable(false);
 
         self.showLinkToMaster = ko.computed(function() {
             return self.isVariant() && !self.isVariantMaster();
@@ -207,6 +208,7 @@ console.log('foundValue::::: ----> ', foundValue, self.$root.descriptionStatuses
 		self.name2 = ko.observableArray();
 		self.productGroup = ko.observableArray([]);
 		self.programme = ko.observableArray([]);
+        self.bundleGroup = ko.observableArray([]);
 
 		self.ean = ko.observableArray();
 		self.brand = ko.observableArray();

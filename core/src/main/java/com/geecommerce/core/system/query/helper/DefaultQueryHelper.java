@@ -9,6 +9,7 @@ import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.util.Strings;
 import com.google.inject.Inject;
+import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 
@@ -72,8 +73,24 @@ public class DefaultQueryHelper implements QueryHelper {
                         key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + RAW_SUFFIX;
                         return FilterBuilders.termsFilter(key, queryNode.getValue().getVal());
                     } else {
-                        key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + RAW_SUFFIX;
-                        return FilterBuilders.termFilter(key, queryNode.getValue().getVal());
+                        if(StringUtils.isEmpty(queryNode.getComparator()) || "is".equals(queryNode.getComparator())){
+                            key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + RAW_SUFFIX;
+                            return FilterBuilders.termFilter(key, queryNode.getValue().getVal());
+                        } else {
+                            key = ATT_PREFIX + Strings.slugify(queryNode.getValue().getAttribute().getCode()).replace(Char.MINUS, Char.UNDERSCORE) + RAW_SUFFIX;
+                            if(queryNode.getComparator().equals("gt")){
+                                return FilterBuilders.rangeFilter(key).gt(queryNode.getValue().getVal());
+                            }
+                            if(queryNode.getComparator().equals("gte")){
+                                return FilterBuilders.rangeFilter(key).gte(queryNode.getValue().getVal());
+                            }
+                            if(queryNode.getComparator().equals("lt")){
+                                return FilterBuilders.rangeFilter(key).lt(queryNode.getValue().getVal());
+                            }
+                            if(queryNode.getComparator().equals("lte")){
+                                return FilterBuilders.rangeFilter(key).lte(queryNode.getValue().getVal());
+                            }
+                        }
                     }
                 } else {
                     return FilterBuilders.missingFilter(key);

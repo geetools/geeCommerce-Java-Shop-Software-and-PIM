@@ -73,6 +73,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         self.root = root;
         self.type = ko.observable();
         self.operator = ko.observable();
+        self.comparator = ko.observable();
         self.attrVal = ko.observable();
         self.attrCode = ko.observable('');
         self.attrCode.subscribe(function (code) {
@@ -115,6 +116,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         self.addAttributeNode = function () {
             var nodeVM = new QueryNodeVM(self, self.root);
             nodeVM.type('ATTRIBUTE');
+            nodeVM.comparator('is');
             self.nodes.push(nodeVM);
         }
 
@@ -139,6 +141,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             var obj = {};
             obj["type"] = self.type();
             obj["operator"] = self.operator();
+            obj["comparator"] = self.comparator();
             if(self.attrVal()){
                 var attr_obj = {}
                 obj["val"] = attr_obj;
@@ -171,6 +174,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         this.showFilterButton = true;
         this.operatorChoice = ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]);
         this.nodeTypeChoice = ko.observableArray([{value:"BOOLEAN", label:"Condition Combination"}, {value:"ATTRIBUTE", label:"Attribute"}]);
+        this.comparatorChoice = ko.observableArray([{value:"is", label:"="}, {value:"gt", label:">"}, {value:"gte", label:"≥"}, {value:"lt", label:"<"}, {value:"lte", label:"≤"}]);
         this.attributeValues = ko.observableArray([]);
         this.queryNode = ko.observable();
 
@@ -212,7 +216,12 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 		if(settings.displayMode)
 			this.displayMode = settings.displayMode;
 
-        this.queryNode(setQueryNode(null, null, this.attributeValues));
+
+		if(settings.value()){
+            this.queryNode(setQueryNode(settings.value(), null, this.attributeValues));
+        } else {
+            this.queryNode(setQueryNode(null, null, this.attributeValues));
+        }
 
         function setQueryNode( node, parent){
             if(node == null && parent != null)
@@ -226,6 +235,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             var nodeVM = new QueryNodeVM(parent, self);
             nodeVM.type(node.type);
             nodeVM.operator(node.operator);
+            nodeVM.comparator(node.comparator || "is");
             nodeVM.value(node.value);
             if(node.nodes && node.nodes.length > 0){
                 node.nodes.each(function(elem, index) {
@@ -301,6 +311,11 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         var savedNode = this.queryNode().convertNode();
         this.settings.value(JSON.stringify(savedNode));
     }
+
+    ctor.prototype.switchToExpertMode = function () {
+        this.simpleQueryMode(false);
+    }
+
 
     ctor.prototype.showQueryBuilder = function() {
         this.isShowQueryBuilder(true);

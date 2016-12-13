@@ -91,6 +91,23 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
             return undefined;
         });
 
+        self.bundleGroup = ko.computed(function() {
+            if (!self.productExists()) {
+                return undefined;
+            }
+
+            var prd = ko.unwrap(self.data);
+            var bundleGroup = gc.attributes.find(prd.attributes, 'bundle_group');
+
+            if (!_.isEmpty(bundleGroup.attributeOptions)) {
+                return bundleGroup.attributeOptions[0];
+            } else if (!_.isEmpty(bundleGroup.optionIds)) {
+                return bundleGroup.optionIds[0];
+            }
+
+            return undefined;
+        });
+
         self.isCategorized = ko.computed(function() {
             if (!self.productExists()) {
                 return false;
@@ -100,16 +117,21 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
             var productGroup = gc.attributes.find(prd.attributes, 'product_group').optionIds;
             var programme = gc.attributes.find(prd.attributes, 'programme').optionIds;
+            var bundleGroup = gc.attributes.find(prd.attributes, 'bundle_group').optionIds;
 
             if (self.isProgramme() && _.isEmpty(programme)) {
                 return false;
             }
 
-            if (!self.isProgramme() && _.isEmpty(productGroup)) {
+            if (self.isBundle() && _.isEmpty(bundleGroup)) {
                 return false;
             }
 
-            if (_.isEmpty(programme) && _.isEmpty(productGroup)) {
+            if (!self.isProgramme() && !self.isBundle() && _.isEmpty(productGroup)) {
+                return false;
+            }
+
+            if (_.isEmpty(programme) && _.isEmpty(productGroup) && _.isEmpty(bundleGroup)) {
                 return false;
             }
 
@@ -164,7 +186,6 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
         self.isBundle = ko.computed(function() {
 
-            console.log("IS BUNDLE")
             if (self.isNew() && self.productId() == 'new:bundle') {
                 return true;
             }
@@ -176,7 +197,6 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
                 type = prd.type;
             }
 
-            console.log(type)
 
             return type == 'BUNDLE';
         });
@@ -227,6 +247,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
                 var name2 = gc.attributes.find(prd.attributes, 'name2').value;
                 var productGroup = gc.attributes.find(prd.attributes, 'product_group').optionIds;
                 var programme = gc.attributes.find(prd.attributes, 'programme').optionIds;
+                var bundleGroup = gc.attributes.find(prd.attributes, 'bundle_group').optionIds;
 
                 if (!_.isEmpty(name)) {
                     pageTitle += gc.ctxobj.closest(name);
@@ -334,7 +355,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
         });
 
         self.showPricesTab = ko.computed(function() {
-            return self.productExists() && (self.isProgramme() || self.isProduct()) && self.isCategorized() && self.isAdminOrPM();
+            return self.productExists() && (self.isProgramme() || self.isBundle() || self.isProduct()) && self.isCategorized() && self.isAdminOrPM();
         });
 
         self.showVariantsTab = ko.computed(function() {
@@ -346,12 +367,6 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
         });
 
         self.showBundleTab = ko.computed(function() {
-
-            console.log("SHOW BUNDLE TAB")
-            console.log(self.productExists())
-            console.log(self.isCategorized() )
-            console.log(self.isBundle())
-            console.log(self.isAdminOrPM())
             return self.productExists() && self.isCategorized() && self.isBundle() && self.isAdminOrPM();
         });
 
@@ -438,6 +453,11 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
             return tab.showInProgramme;
         }
 
+        self.isShowInBundle = function() {
+            var tab = ko.unwrap(self.data);
+            return tab.showInBundle;
+        }
+
         self.isShowInVariantMaster = function() {
             var tab = ko.unwrap(self.data);
             return tab.showInVariantMaster;
@@ -450,6 +470,8 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
             if (self.productVM.isProgramme()) {
                 showForProductType = self.isShowInProgramme();
+            } else if (self.productVM.isBundle()) {
+                showForProductType = self.isShowInBundle();
             } else if (self.productVM.isVariantMaster()) {
                 showForProductType = self.isShowInVariantMaster();
             } else {

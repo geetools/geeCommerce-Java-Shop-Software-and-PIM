@@ -29,6 +29,32 @@
         </div>
         <!-- /ko -->
 
+        <!-- ko if: productVM().isBundle() -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="header-title" data-i18n="app:modules.product.newBundleTitle"></h3>
+                <p class="header-info" data-i18n="app:modules.product.newBundleSubtitle"></p>
+                <p class="header-info" data-i18n="app:modules.product.newBundleDesc"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAttrTabGroup" class="col-xs-1 control-label">&nbsp;</label>
+            <div class="col-xs-4">
+                <select class="selectpicker" data-live-search="true" data-size="15"
+                        data-bind="select: editVM.bundleGroup, data: $root.bundleGroups, sort: true, selectOptions: {title: app.i18n('app:modules.product.newBundleGroupSelectTitle'), header: app.i18n('app:modules.product.newBundleGroupSelectTitle')}">
+                </select> <span data-bind="if: !editVM.bundleGroup()"> &nbsp;&nbsp;<a href="#/products" class="btn-nude" data-i18n="app:common.cancel">Cancel</a>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-1 control-label">&nbsp;</label>
+            <div class="col-xs-11" id="new-bundle-buttons" data-bind="if: editVM.bundleGroup()">
+                <a id="save-new-bundle-btn" class="btn btn-primary" data-bind="i18n: 'app:modules.product.saveNewBundle'">Save bundle</a> <a href="#/products" class="btn-nude" data-i18n="app:common.cancel">Cancel</a>
+            </div>
+            <div data-bind="loader: { src: '/img/ajax-loader.gif', css: 'col-sm-11', event: 'click:#save-new-bundle-btn', toggle: '#new-bundle-buttons', run: $root.createProduct }"></div>
+        </div>
+        <!-- /ko -->
+
         <!-- ko if: productVM().isVariantMaster() -->
         <div class="row">
             <div class="col-xs-12">
@@ -57,7 +83,7 @@
         <!-- /ko -->
 
 
-        <!-- ko if: !productVM().isProgramme() && !productVM().isVariantMaster() -->
+        <!-- ko if: !productVM().isProgramme() && !productVM().isVariantMaster() && !productVM().isBundle() -->
         <div class="row">
             <div class="col-xs-12">
                 <h3 class="header-title" data-i18n="app:modules.product.newProductTitle"></h3>
@@ -114,7 +140,19 @@
                 </div>
                 <!-- /ko -->
 
-                <!-- ko if: !productVM().isProgramme() -->
+                <!-- ko if: productVM().isBundle() -->
+
+                <div class="form-group">
+                    <label for="inputAttrTabGroup" class="col-xs-12 col-sm-3 control-label" data-i18n="app:modules.product.baseTabBundleGroup">Bundle Group</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <select class="selectpicker" title="auswählen" data-bind="select: editVM.bundleGroup, data: $root.bundleGroups, sort: true">
+                        </select>
+                    </div>
+                </div>
+                <!-- /ko -->
+
+
+                <!-- ko if: !productVM().isProgramme() && !productVM().isBundle()-->
 
                 <div class="form-group">
                     <label for="inputAttrTabGroup" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabProuctGroup">Product Group</label>

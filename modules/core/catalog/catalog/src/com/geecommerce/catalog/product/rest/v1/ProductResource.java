@@ -556,7 +556,7 @@ public class ProductResource extends AbstractResource {
                 Product copy = ((CopySupport<Product>) p).makeCopy();
 
                 copy.set(update.getFields());
-                copy.setAttributes(update.getAttributes());
+                copy.putAttributes(update.getAttributes());
                 copy.setOptionAttributes(update.getOptions());
                 copy.setXOptionAttributes(update.getXOptions());
                 copy.setOptOuts(update.getOptOuts());
@@ -574,7 +574,7 @@ public class ProductResource extends AbstractResource {
                 return copy.getId();
             } else {
                 p.set(update.getFields());
-                p.setAttributes(update.getAttributes());
+                p.putAttributes(update.getAttributes());
                 p.setOptionAttributes(update.getOptions());
                 p.setXOptionAttributes(update.getXOptions());
                 p.setOptOuts(update.getOptOuts());

@@ -7,6 +7,9 @@
 <div class="query-builder form-horizontal">
 
     <!-- ko if: displayMode == 'inline' -->
+            <!-- ko if: simpleQueryMode() -->
+            <button data-bind="click: switchToExpertMode">Expert mode</button>
+            <!-- /ko -->
             <div class="form-group">
                 <div class="col-sm-9">
                     <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
@@ -32,6 +35,9 @@
                     <div class="modal-body row">
                         <div class="form-group">
                             <div class="col-sm-9">
+                                <!-- ko if: simpleQueryMode() -->
+                                <button data-bind="click: switchToExpertMode">Expert mode</button>
+                                <!-- /ko -->
                                 <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
                             </div>
                         </div>
@@ -42,33 +48,6 @@
                         <button type="button" class="btn btn-primary" data-bind="click: applyQuery">Apply</button>
                     </div>
                 </div>
-            </div>
-        </div>
-
-    <!-- /ko -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- ko if: simpleQueryMode() -->
-
-    <!-- /ko -->
-
-
-    <!-- ko ifnot: simpleQueryMode() -->
-        <div class="form-group">
-            <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.conditionsTabConditions">Conditions</label>
-            <div class="col-sm-9">
-                <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
             </div>
         </div>
 
@@ -96,7 +75,6 @@
                data-bind="attrSelect: {value: attrCode, forType: root.forType, valueKey: 'code'}"></span>
         <!-- /ko -->
         <!-- ko if: attrVal() -->
-        <!-- ko if: attrVal().isEditable -->
 
         <!-- ko if: attrVal().isOption && !_.isEmpty(attrVal().selectOptions()) && !attrVal().isMultiple -->
         <div  class="form-group">
@@ -130,19 +108,13 @@
             </div>
         </div>
         <!-- /ko -->
-        <!-- ko if: attrVal().frontendInput == 'RICHTEXT' && attrVal().isShowField -->
-        <div class="form-group">
-            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
-            <div  class="col-xs-9 switch-wrapper">
-                <div data-bind="i18nEditor: {value: attrVal().value, id: 'inpAttr_' + attrVal().code, preBind: attrVal().unjsonDescriptionPanels, enabled: attrVal.isEnabled, editable: attrVal.isEditable}"></div>
-            </div>
-            <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
-        </div>
-        <!-- /ko -->
-        <!-- ko if: !attrVal().isOption && attrVal().frontendInput != 'BOOLEAN' && attrVal().frontendInput != 'RICHTEXT' && attrVal().isShowField -->
+        <!-- ko if: !attrVal().isOption && attrVal().frontendInput != 'BOOLEAN' && attrVal().isShowField -->
         <div class="form-group">
             <label  data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
             <div  class="col-xs-9">
+                 <span  class="form-control  form-control-small"
+                        data-bind="editable: comparator,  editableOptions:{type:'select', showbuttons: false, options: root.comparatorChoice, optionsText: 'label', optionsValue: 'value'}"></span>
+
                 <!-- ko if: attrVal().isI18n -->
                 <div class="input-group">
                     <span    class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
@@ -162,24 +134,6 @@
         <!-- /ko -->
 
         <!-- /ko -->
-
-        <!-- ko if: !attrVal().isEditable && attrVal().isShowField -->
-        <div    class="form-group">
-            <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
-            <div  class="col-xs-9">
-                <!-- ko if: attrVal().isI18n -->
-                <div    class="input-group">
-                    <span    class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
-                    <input    class="dynattr-readonly" data-bind="i18nValue: attrVal().value" class="form-control" type="text" readonly />
-                </div>
-                <!-- /ko -->
-                <!-- ko if: !attrVal().isI18n -->
-                <input class="form-control dynattr-readonly" data-bind="ctxValue: attrVal().value" readonly />
-                <!-- /ko -->
-            </div>
-            <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
-        </div>
-        <!-- /ko -->                <!-- /ko -->
 
     </script>
 

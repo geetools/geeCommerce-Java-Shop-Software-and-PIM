@@ -43,6 +43,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
                 newAttribute.includeInProductListQuery = self.attributeVM.includeInProductListQuery();
 				newAttribute.includeInSearchFilter = self.attributeVM.includeInSearchFilter();
 				newAttribute.productTypes = self.attributeVM.productTypes();
+                newAttribute.allowNewOptionsViaImport = self.attributeVM.allowNewOptionsViaImport();
 				
 				if(self.attributeVM.isVirtual()) {
 					newAttribute.editable = false;
@@ -85,7 +86,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 	                self.attributeVM.allowMultipleValues(savedAttribute.allowMultipleValues);
 					self.attributeVM.i18n(savedAttribute.i18n);
 					self.attributeVM.linkedAttributeIds(savedAttribute.linkedAttributeIds);
-					self.attributeVM.productTypes(savedAttribute.productTypes);
+                    self.attributeVM.productTypes(savedAttribute.productTypes);
+                    self.attributeVM.allowNewOptionsViaImport(savedAttribute.allowNewOptionsViaImport);
 					self.attributeVM.frontendFormat(savedAttribute.frontendFormat);
                     self.attributeVM.validationMin(savedAttribute.validationMin);
                     self.attributeVM.validationMax(savedAttribute.validationMax);
@@ -125,7 +127,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
                 updateModel.field('includeInProductListQuery', self.attributeVM.includeInProductListQuery());
 				updateModel.field('includeInSearchFilter', self.attributeVM.includeInSearchFilter());
 				updateModel.field('productTypes', self.attributeVM.productTypes());
-				
+                updateModel.field('allowNewOptionsViaImport', self.attributeVM.allowNewOptionsViaImport());
+								
 				if(self.attributeVM.isVirtual()) {
 					updateModel.field('editable', false);
 					updateModel.field('inputType', 'READ_ONLY');

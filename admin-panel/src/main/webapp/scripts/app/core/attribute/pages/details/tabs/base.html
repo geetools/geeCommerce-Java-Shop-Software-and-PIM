@@ -2,7 +2,7 @@
 	<form id="attributeBaseForm">
 
 		<div class="form-group row">
-			<label for="inputAttrGroup" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAttributeGroup">Bereich</label>
+			<label for="inputAttrGroup" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAttributeGroup">For Object Type</label>
 			<div class="col-sm-3">
 <!-- 
 			
@@ -16,7 +16,7 @@
 
 		<!-- ko if: attributeVM.isProductAttribute() -->
 			<div class="form-group row">
-				<label for="inputProductType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabProductType">Produkttypen</label>
+				<label for="inputProductType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabProductType">Product Types</label>
 				<div class="col-sm-3">
 		           	<select class="selectpicker show-tick" multiple data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.productTypes, data: [
 		           		{ id: 'PRODUCT', text: 'Produkt' },
@@ -40,7 +40,7 @@
 		</div>
 		
 		<div class="form-group row">
-			<label for="inputAttrType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAttributeType">Typ</label>
+			<label for="inputAttrType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAttributeType">Type</label>
 			<div class="col-sm-3">
 	           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.type, data: [
 	           		{ id: 'DEFAULT', text: 'Standard' }
@@ -49,7 +49,7 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="inputAttrBackendLabel" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabNameBackend">Bezeichnung (Backend)</label>
+			<label for="inputAttrBackendLabel" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabNameBackend">Label (Backend)</label>
 			<div class="col-sm-3">
 				<div class="input-group">
 					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="inputAttrFrontendLabel" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabNameFrontend">Bezeichnung (Shop)</label>
+			<label for="inputAttrFrontendLabel" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabNameFrontend">Label (Shop)</label>
 			<div class="col-sm-3">
 				<div class="input-group">
 					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
@@ -94,14 +94,14 @@
 		<!-- ko if: !attributeVM.isVirtual() -->
 		
 			<div class="form-group row">
-				<label for="inputAttrEditable" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabEditable">Editierbar</label>
+				<label for="inputAttrEditable" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabEditable">Editable</label>
 				<div class="col-sm-3 switch-wrapper">
 					<input type="checkbox" data-bind="bool: attributeVM.editable" />
 				</div>
 			</div>
 		
 			<div class="form-group row">
-				<label for="inputAttrFrontendInput" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabFrontendInput">Eingabetyp</label>
+				<label for="inputAttrFrontendInput" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabFrontendInput">Input Type</label>
 				<div class="col-sm-3">
 		           	<select class="selectpicker" data-bind="select: attributeVM.frontendInput, enable: attributeVM.isNew, data: [
 		           		{ id: 'TEXT', text: 'Freitext' },
@@ -115,7 +115,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="inputAttrFrontendOutput" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabFrontendOutput">Frontend Output</label>
+				<label for="inputAttrFrontendOutput" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabFrontendOutput">Output Format</label>
 				<div class="col-sm-3">
 					<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.frontendOutput, data: [
 							{ id: 'TEXT', text: 'Freitext' },
@@ -127,7 +127,7 @@
 
 
 			<div class="form-group row">
-				<label for="inputAttrBackendType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabBackendType">Backend-Typ</label>
+				<label for="inputAttrBackendType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabBackendType">Backend Type</label>
 				<div class="col-sm-3">
 		           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.backendType, data: [
 		           		{ id: 'STRING', text: 'Text' },
@@ -216,21 +216,21 @@
 
 			<!-- ko if: attributeVM.frontendInput() == 'TEXT' -->
 				<div class="form-group row">
-					<label for="inputAttrValidationPattern" class="col-sm-2 control-label">Validate using regular expression</label>
+					<label for="inputAttrValidationPattern" class="col-sm-2 control-label">Validate Using Regular Expression</label>
 					<div class="col-sm-3">
 						<input data-bind="ctxValue: attributeVM.validationPattern, enable: true" class="form-control" id="inputAttrValidationPattern" placeholder="Enter pattern" type="text">
 					</div>
 					<div class="col-sm-3" data-bind="contextInfo"></div>
 				</div>
 				<div class="form-group row">
-					<label for="inputAttrValidationScript" class="col-sm-2 control-label">Validate using script</label>
+					<label for="inputAttrValidationScript" class="col-sm-2 control-label">Validate Using Script</label>
 					<div class="col-sm-3">
 						<input data-bind="ctxValue: attributeVM.validationScript, enable: true" class="form-control" id="inputAttrValidationScript" placeholder="Enter script" type="text">
 					</div>
 					<div class="col-sm-3" data-bind="contextInfo"></div>
 				</div>
 				<div class="form-group row">
-					<label for="inputAttrValidationMessage" class="col-sm-2 control-label">Error message</label>
+					<label for="inputAttrValidationMessage" class="col-sm-2 control-label">Error Message</label>
 					<div class="col-sm-3">
 						<input data-bind="ctxValue: attributeVM.validationMessage, enable: true" class="form-control" id="inputAttrValidationMessage" placeholder="Enter error message" type="text">
 					</div>
@@ -240,7 +240,7 @@
 			
 			<!-- ko if: attributeVM.isEditable() -->
 			<div class="form-group row">
-				<label for="inputAttrInputType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidation">Validierung</label>
+				<label for="inputAttrInputType" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabValidation">Validation</label>
 				<div class="col-sm-3">
 		           	<select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.inputType, enable: attributeVM.editable, data: [
 			           	{ id: 'OPTOUT', text: 'Opt-out' },
@@ -251,6 +251,13 @@
 				</div>
 			</div>
 			<!-- /ko -->
+
+            <div class="form-group row">
+              <label for="inputAttrAllowImportOfOptions" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAllowImportOfOptions">Add missing options during import</label>
+              <div class="col-sm-3 switch-wrapper">
+                <input type="checkbox" data-bind="bool: attributeVM.allowNewOptionsViaImport" />
+              </div>
+            </div>
 
 			<div class="form-group row">
 				<label class="col-sm-2 control-label" data-i18n="app:modules.attribute.baseFrontendFormat">Frontend Format</label>
@@ -266,7 +273,7 @@
 			</div>
 			
 			<div class="form-group row">
-				<label for="inputAttrI18n" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabI18n">Mehrsprachig</label>
+				<label for="inputAttrI18n" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabI18n">Multiple Languages</label>
 				<div class="col-sm-3 switch-wrapper">
 					<input type="checkbox" data-bind="bool: attributeVM.i18n" />
 				</div>
@@ -274,7 +281,7 @@
 			
 			<!-- ko if: attributeVM.isEditable() -->			
 		        <div class="form-group row">
-		            <label for="inputAttrMultipleValues" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAllowMultipleValues">Mehrfacheingabe möglich</label>
+		            <label for="inputAttrMultipleValues" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabAllowMultipleValues">Multiple Values</label>
 		            <div class="col-sm-3 switch-wrapper">
 		                <input type="checkbox" data-bind="bool: attributeVM.allowMultipleValues" />
 		            </div>
@@ -282,7 +289,7 @@
 			<!-- /ko -->
 
 			<div class="form-group row">
-				<label for="inputAttrProductListFilter" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabProductListFilter">Als Filter im Shop-Frontend</label>
+				<label for="inputAttrProductListFilter" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabProductListFilter">Include in Shop Category Filter</label>
 				<div class="col-sm-3 switch-wrapper">
 					<input type="checkbox" data-bind="bool: attributeVM.includeInProductListFilter" />
 				</div>
@@ -294,13 +301,13 @@
                 </div>
             </div>
 			<div class="form-group row">
-				<label for="inputAttrSearchFilter" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabSearchFilter">Als Filter in der Erweiterten Suche</label>
+				<label for="inputAttrSearchFilter" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabSearchFilter">Include in Advanced Search Filter</label>
 				<div class="col-sm-3 switch-wrapper">
 					<input type="checkbox" data-bind="bool: attributeVM.includeInSearchFilter" />
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputAttrSearchable" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabSearchable">Relevant für Freitext-Suche</label>
+				<label for="inputAttrSearchable" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabSearchable">Include in Text Search</label>
 				<div class="col-sm-3 switch-wrapper">
 					<input type="checkbox" data-bind="bool: attributeVM.searchable" />
 				</div>
@@ -309,7 +316,7 @@
 		<!-- /ko -->
 
 		<div class="form-group row">
-			<label for="inputAttrEnabled" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabEnabled">Aktiviert</label>
+			<label for="inputAttrEnabled" class="col-sm-2 control-label" data-i18n="app:modules.attribute.generalTabEnabled">Enabled</label>
 			<div class="col-sm-3 switch-wrapper">
 				<input type="checkbox" data-bind="bool: attributeVM.enabled" />
 			</div>

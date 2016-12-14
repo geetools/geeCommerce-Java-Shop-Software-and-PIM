@@ -67,8 +67,9 @@ public class CreateProduct implements ImportAction {
 
             return;
         }
-        
+
         productBeanHelper.setProductKeys(p, importContext.data());
+        productBeanHelper.setTypeAndGroup(p, importContext.data());
         productBeanHelper.setSaleable(p, importContext.data());
         productBeanHelper.setVisibility(p, importContext.data());
 

@@ -167,6 +167,14 @@ public interface Attribute extends MultiContextModel {
     public Attribute addProductTypes(ProductType... productTypes);
 
     // -------------------------------------------------------------------
+    // Import settings
+    // -------------------------------------------------------------------
+
+    public boolean isAllowNewOptionsViaImport();
+
+    public Attribute setAllowNewOptionsViaImport(boolean allowNewOptionsViaImport);
+
+    // -------------------------------------------------------------------
     // ProductList filter settings
     // -------------------------------------------------------------------
 
@@ -374,6 +382,9 @@ public interface Attribute extends MultiContextModel {
 
         // Product settings
         public static final String PRODUCT_TYPES = "prd_types";
+
+        // Product settings
+        public static final String ALLOW_NEW_OPTIONS_VIA_IMPORT = "new_options_via_import";
 
         // ProductList filter settings
         public static final String INCLUDE_IN_PRODUCT_LIST_FILTER = "pl_filter_enabled";

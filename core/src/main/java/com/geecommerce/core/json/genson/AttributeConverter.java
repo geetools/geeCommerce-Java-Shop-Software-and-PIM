@@ -40,7 +40,6 @@ public class AttributeConverter implements Converter<Attribute> {
     private static final String KEY_ENABLED = "enabled";
     private static final String KEY_SEARCHABLE = "searchable";
     private static final String KEY_INCLUDE_IN_SEARCH_INDEX = "includeInSearchIndex";
-    private static final String KEY_SHOW_IN_PRODUCT_DETAILS = "showInProductDetails";
     private static final String KEY_FRONTEND_INPUT = "frontendInput";
     private static final String KEY_FRONTEND_OUTPUT = "frontendOutput";
     private static final String KEY_FRONTEND_LABEL = "frontendLabel";
@@ -58,7 +57,7 @@ public class AttributeConverter implements Converter<Attribute> {
     private static final String KEY_OPTIONS = "options";
     private static final String KEY_LINKED_ATTRIBUTE_IDS = "linkedAttributeIds";
     private static final String KEY_PRODUCT_TYPES = "productTypes";
-    private static final String KEY_DIMENSION_ATTRIBUTE = "dimensionAttribute";
+    private static final String KEY_ALLOW_NEW_OPTIONS_VIA_IMPORT = "allowNewOptionsViaImport";
 
     // Validation settings
     public static final String KEY_VALIDATION_MIN = "validationMin";
@@ -258,6 +257,8 @@ public class AttributeConverter implements Converter<Attribute> {
 
                 if (productTypes.size() > 0)
                     attr.setProductTypes(productTypes);
+            } else if (KEY_ALLOW_NEW_OPTIONS_VIA_IMPORT.equals(obj.name())) {
+                attr.setAllowNewOptionsViaImport(obj.valueAsBoolean());
             }
         }
 
@@ -335,7 +336,6 @@ public class AttributeConverter implements Converter<Attribute> {
                 writer.writeName(KEY_INCLUDE_IN_SEARCH_INDEX);
                 writer.writeValue(attr.isIncludeInSearchIndex());
             }
-
 
             if (attr.getFrontendInput() != null && !ConvertUtil.ignoreProperty(KEY_FRONTEND_INPUT)) {
                 writer.writeName(KEY_FRONTEND_INPUT);
@@ -470,6 +470,11 @@ public class AttributeConverter implements Converter<Attribute> {
             if (attr.getProductListFilterType() != null && !ConvertUtil.ignoreProperty(KEY_PRODUCT_LIST_FILTER_TYPE)) {
                 writer.writeName(KEY_PRODUCT_LIST_FILTER_TYPE);
                 writer.writeValue(attr.getProductListFilterType().name());
+            }
+
+            if (!ConvertUtil.ignoreProperty(KEY_ALLOW_NEW_OPTIONS_VIA_IMPORT)) {
+                writer.writeName(KEY_ALLOW_NEW_OPTIONS_VIA_IMPORT);
+                writer.writeValue(attr.isAllowNewOptionsViaImport());
             }
 
             List<FilterIndexField> indexFields = attr.getProductListFilterIndexFields();

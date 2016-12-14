@@ -370,7 +370,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
               {'name' : '$attr.name', 'label' : 'Name'}
             ];
 			
-			var pagingOptions = productAPI.variantProductPagingOptions( { columns : pagerColumns, filter : [ { name: 'type', value: 1 /* PHYSICAL */ }, { name: '$opt.product_group', value: vm.productGroup().id } ], attributes : [] } )
+			var pagingOptions = productAPI.variantProductPagingOptions( { columns : pagerColumns, filter : [ { name: 'type', value: 1 /* PRODUCT */ }, { name: '$opt.product_group', value: vm.productGroup().id } ], attributes : [] } )
 			
 	    	// Init the pager.
         	this.variantsPager = new gc.Pager(pagingOptions);
@@ -402,7 +402,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 					var emptySourceContainer = true;
 					
 					if(articleNumber.length > 2) {
-						self.variantsPager.setDefaultFilter([ { name: 'type', value: 1 /* PHYSICAL */ } ]);
+						self.variantsPager.setDefaultFilter([ { name: 'type', value: 1 /* PRODUCT */ } ]);
 			        	self.variantsPager.columnValue('$attr.article_number', articleNumber);
 						self.variantsPager.load().then(function(data) {
 							self.variantsVM.sourceContainer([]);							

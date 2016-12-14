@@ -53,7 +53,7 @@
 							<!-- ko if: $root.attributeVM.group() == 'PRODUCT' -->
 								<td>
 									<select class="selectpicker show-tick" multiple data-bind="select: newInputCondition.applyToProductTypes, data: [
-											{ id: 'PHYSICAL', text: 'Produkt' },
+											{ id: 'PRODUCT', text: 'Produkt' },
 											{ id: 'VARIANT_MASTER', text: 'Variantenmaster' },
 											{ id: 'PROGRAMME', text: 'Programm' }
 										]">
@@ -93,7 +93,7 @@
 							<!-- ko if: $root.attributeVM.group() == 'PRODUCT' -->
 							<td>
 								<select class="selectpicker show-tick" multiple data-bind="select: inputConditionVM.applyToProductTypes, data: [
-						           		{ id: 'PHYSICAL', text: 'Produkt' },
+						           		{ id: 'PRODUCT', text: 'Produkt' },
 						           		{ id: 'VARIANT_MASTER', text: 'Variantenmaster' },
 						           		{ id: 'PROGRAMME', text: 'Programm' }
 		           					]">

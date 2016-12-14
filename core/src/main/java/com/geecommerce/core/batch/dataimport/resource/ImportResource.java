@@ -2,6 +2,8 @@ package com.geecommerce.core.batch.dataimport.resource;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,6 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.geecommerce.core.batch.dataimport.helper.ImportHelper;
+import com.geecommerce.core.batch.dataimport.model.ImportMessage;
+import com.geecommerce.core.batch.dataimport.model.ImportPlan;
 import com.geecommerce.core.batch.dataimport.model.ImportProfile;
 import com.geecommerce.core.batch.dataimport.model.ImportToken;
 import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
@@ -154,15 +158,23 @@ public class ImportResource extends AbstractResource {
                 });
             } else {
                 String token = importToken.getToken();
-                
+
                 Set<String> headers = importHelper.fetchHeaders(uploadedFilePath);
 
                 // First attempt to create default profile automatically.
                 ImportProfile importProfile = importExportService.newDefaultImportProfile(headers, targetObj, token);
 
                 System.out.println("GOT HEADERS ::::: " + headers);
+
+                List<ImportMessage> importMessages = new ArrayList<>();
+
+                ImportPlan importPlan = importHelper.createImportPlan(uploadedFilePath, importProfile, importMessages);
                 
-                importHelper.createImportPlan(uploadedFilePath, importProfile);
+                
+                System.out.println("importPlan: " + importPlan);
+                
+                System.out.println("importMessages: " + importMessages);
+                
             }
         } catch (IOException e) {
             e.printStackTrace();

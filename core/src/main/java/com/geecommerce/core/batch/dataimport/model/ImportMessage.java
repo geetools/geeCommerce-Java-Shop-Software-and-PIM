@@ -1,5 +1,8 @@
 package com.geecommerce.core.batch.dataimport.model;
 
+import java.util.Set;
+
+import com.geecommerce.core.batch.dataimport.enums.ImportStage;
 import com.geecommerce.core.batch.dataimport.enums.MessageLevel;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
@@ -17,9 +20,13 @@ public interface ImportMessage extends Model {
 
     ImportMessage setMessage(String message);
 
-    MessageLevel getMessageType();
+    MessageLevel getMessageLevel();
 
-    ImportMessage setMessageType(MessageLevel messageType);
+    ImportMessage setMessageLevel(MessageLevel messageLevel);
+
+    ImportStage getImportStage();
+
+    ImportMessage setImportStage(ImportStage importStage);
 
     String getFileName();
 
@@ -28,6 +35,14 @@ public interface ImportMessage extends Model {
     Long getLineNumber();
 
     ImportMessage setLineNumber(Long lineNumber);
+
+    Set<String> getArgs();
+
+    ImportMessage setArgs(Set<String> args);
+
+    ImportMessage setArgs(String... args);
+
+    ImportMessage addArg(String arg);
 
     // ---------------------------------------------------------------------
     // Column names
@@ -40,5 +55,6 @@ public interface ImportMessage extends Model {
         public static final String IMPORT_STAGE = "stage";
         public static final String FILE_NAME = "fn";
         public static final String LINE_NUMBER = "ln";
+        public static final String ARGS = "args";
     }
 }

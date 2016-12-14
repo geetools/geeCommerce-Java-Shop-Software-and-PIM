@@ -31,4 +31,20 @@ public interface Products extends Repository {
     public Map<String, Id> allArticleNumbers();
 
     public Map<Id, String> idArticleNumberMap();
+
+    public void buildProductIdsCollection();
+
+    public void buildTmpProductIdsCollection(String collectionName);
+
+    public void dropTmpProductIdsCollection(String collectionName);
+
+    public Product havingIds(String collectionName, Map<String, Object> havingIds);
+
+    public Product havingIds(String collectionName, String id2, String articleNumber, Long ean);
+
+    public Map<String, Object> productIds(String collectionName, Map<String, Object> havingIds);
+
+    public Map<String, Object> productIds(String collectionName, String id2, String articleNumber, Long ean);
+
+    public boolean contains(String collectionName, Id id);
 }

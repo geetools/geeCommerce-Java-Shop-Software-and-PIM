@@ -1,6 +1,11 @@
 package com.geecommerce.core.batch.dataimport.model;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import com.geecommerce.core.App;
+import com.geecommerce.core.Str;
 import com.geecommerce.core.batch.dataimport.enums.ImportStage;
 import com.geecommerce.core.batch.dataimport.enums.MessageLevel;
 import com.geecommerce.core.service.AbstractModel;
@@ -23,7 +28,7 @@ public class DefaultImportMessage extends AbstractModel implements ImportMessage
     protected String message = null;
 
     @Column(Col.MESSAGE_LEVEL)
-    protected MessageLevel messageType = null;
+    protected MessageLevel messageLevel = null;
 
     @Column(Col.IMPORT_STAGE)
     protected ImportStage importStage = null;
@@ -33,6 +38,9 @@ public class DefaultImportMessage extends AbstractModel implements ImportMessage
 
     @Column(Col.LINE_NUMBER)
     protected Long lineNumber = null;
+
+    @Column(Col.ARGS)
+    protected Set<String> args = null;
 
     @Inject
     protected App app;
@@ -71,13 +79,24 @@ public class DefaultImportMessage extends AbstractModel implements ImportMessage
     }
 
     @Override
-    public MessageLevel getMessageType() {
-        return messageType;
+    public MessageLevel getMessageLevel() {
+        return messageLevel;
     }
 
     @Override
-    public ImportMessage setMessageType(MessageLevel messageType) {
-        this.messageType = messageType;
+    public ImportMessage setMessageLevel(MessageLevel messageLevel) {
+        this.messageLevel = messageLevel;
+        return this;
+    }
+
+    @Override
+    public ImportStage getImportStage() {
+        return importStage;
+    }
+
+    @Override
+    public ImportMessage setImportStage(ImportStage importStage) {
+        this.importStage = importStage;
         return this;
     }
 
@@ -104,8 +123,38 @@ public class DefaultImportMessage extends AbstractModel implements ImportMessage
     }
 
     @Override
+    public Set<String> getArgs() {
+        return args;
+    }
+
+    @Override
+    public ImportMessage setArgs(Set<String> args) {
+        this.args = args;
+        return this;
+    }
+
+    @Override
+    public ImportMessage setArgs(String... args) {
+        this.args = new LinkedHashSet<String>(Arrays.asList(args));
+        return this;
+    }
+
+    @Override
+    public ImportMessage addArg(String arg) {
+        if (Str.isEmpty(arg))
+            return this;
+
+        if (this.args == null)
+            this.args = new LinkedHashSet<>();
+
+        this.args.add(arg);
+
+        return this;
+    }
+
+    @Override
     public String toString() {
-        return "DefaultImportMessage [id=" + id + ", token=" + token + ", message=" + message + ", messageType=" + messageType + ", importStage=" + importStage + ", fileName=" + fileName
-            + ", lineNumber=" + lineNumber + "]";
+        return "DefaultImportMessage [id=" + id + ", token=" + token + ", message=" + message + ", messageLevel=" + messageLevel + ", importStage=" + importStage + ", fileName=" + fileName
+            + ", lineNumber=" + lineNumber + ", args=" + args + "]";
     }
 }

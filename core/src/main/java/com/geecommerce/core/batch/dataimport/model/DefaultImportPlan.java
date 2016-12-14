@@ -1,8 +1,6 @@
 package com.geecommerce.core.batch.dataimport.model;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.geecommerce.core.App;
@@ -22,8 +20,11 @@ public class DefaultImportPlan extends AbstractModel implements ImportPlan {
     @Column(Col.TOKEN)
     protected String token;
 
-    @Column(Col.PLAN)
-    protected List<ImportPlanInfo> importPlanInfos = new ArrayList<>();
+    @Column(Col.ACTIONS)
+    protected Map<String, Integer> actions = new LinkedHashMap<>();
+
+    @Column(Col.ACTION_STATUSES)
+    protected Map<String, Integer> actionStatuses = new LinkedHashMap<>();
 
     @Inject
     protected App app;
@@ -51,34 +52,51 @@ public class DefaultImportPlan extends AbstractModel implements ImportPlan {
     }
 
     @Override
-    public void fromMap(Map<String, Object> map) {
-        List<Map<String, Object>> _importPlan = list_(map.get(Col.PLAN));
-
-        for (Map<String, Object> innerMap : _importPlan) {
-            ImportPlanInfo importPlanInfo = app.model(ImportPlanInfo.class);
-            importPlanInfo.fromMap(innerMap);
-
-            importPlanInfos.add(importPlanInfo);
-        }
+    public Map<String, Integer> getActions() {
+        return actions;
     }
 
     @Override
-    public Map<String, Object> toMap() {
-        Map<String, Object> data = new LinkedHashMap<>(super.toMap());
+    public ImportPlan setActions(Map<String, Integer> actions) {
+        this.actions = actions;
+        return this;
+    }
 
-        List<Map<String, Object>> _importPlan = new ArrayList<>();
+    @Override
+    public ImportPlan addAction(String action) {
+        Integer count = actions.get(action);
 
-        for (ImportPlanInfo planInfo : importPlanInfos) {
-            _importPlan.add(planInfo.toMap());
+        if (count == null) {
+            actions.put(action, 1);
+            actionStatuses.put(action, 0);
+        } else {
+            actions.put(action, count + 1);
         }
 
-        data.put(Col.PLAN, _importPlan);
+        return this;
+    }
 
-        return data;
+    @Override
+    public ImportPlan addAction(String action, int count) {
+        actions.put(action, count);
+        actionStatuses.put(action, 0);
+        return this;
+    }
+
+    @Override
+    public ImportPlan setActionComplete(String action) {
+        actionStatuses.put(action, 1);
+        return this;
+    }
+
+    @Override
+    public ImportPlan setActionError(String action) {
+        actionStatuses.put(action, -1);
+        return this;
     }
 
     @Override
     public String toString() {
-        return "DefaultImportPlan [id=" + id + ", token=" + token + ", importPlanInfos=" + importPlanInfos + "]";
+        return "DefaultImportPlan [id=" + id + ", token=" + token + ", actions=" + actions + ", actionStatuses=" + actionStatuses + "]";
     }
 }

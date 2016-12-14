@@ -8,12 +8,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
-import com.geecommerce.core.system.query.helper.DefaultQueryHelper;
-import com.geecommerce.core.system.query.model.DefaultQuery;
-import com.geecommerce.core.system.query.model.DefaultQueryNode;
-import com.geecommerce.core.system.query.helper.QueryHelper;
-import com.geecommerce.core.system.query.model.Query;
-import com.geecommerce.core.system.query.model.QueryNode;
 import org.apache.shiro.realm.Realm;
 
 import com.geecommerce.core.App;
@@ -22,10 +16,16 @@ import com.geecommerce.core.batch.dataimport.helper.DefaultImportHelper;
 import com.geecommerce.core.batch.dataimport.helper.ImportHelper;
 import com.geecommerce.core.batch.dataimport.model.DefaultImportField;
 import com.geecommerce.core.batch.dataimport.model.DefaultImportFieldScriptlet;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportMessage;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportPlan;
+import com.geecommerce.core.batch.dataimport.model.DefaultImportPlanInfo;
 import com.geecommerce.core.batch.dataimport.model.DefaultImportProfile;
 import com.geecommerce.core.batch.dataimport.model.DefaultImportToken;
 import com.geecommerce.core.batch.dataimport.model.ImportField;
 import com.geecommerce.core.batch.dataimport.model.ImportFieldScriptlet;
+import com.geecommerce.core.batch.dataimport.model.ImportMessage;
+import com.geecommerce.core.batch.dataimport.model.ImportPlan;
+import com.geecommerce.core.batch.dataimport.model.ImportPlanInfo;
 import com.geecommerce.core.batch.dataimport.model.ImportProfile;
 import com.geecommerce.core.batch.dataimport.model.ImportToken;
 import com.geecommerce.core.batch.dataimport.repository.DefaultImportFieldScriptlets;
@@ -125,6 +125,12 @@ import com.geecommerce.core.system.model.DefaultUrlRewrite;
 import com.geecommerce.core.system.model.Language;
 import com.geecommerce.core.system.model.RequestContext;
 import com.geecommerce.core.system.model.UrlRewrite;
+import com.geecommerce.core.system.query.helper.DefaultQueryHelper;
+import com.geecommerce.core.system.query.helper.QueryHelper;
+import com.geecommerce.core.system.query.model.DefaultQuery;
+import com.geecommerce.core.system.query.model.DefaultQueryNode;
+import com.geecommerce.core.system.query.model.Query;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.system.repository.Configurations;
 import com.geecommerce.core.system.repository.ContextMessages;
 import com.geecommerce.core.system.repository.DefaultConfigurations;
@@ -294,7 +300,6 @@ public class SystemModule extends AbstractModule {
         super.bind(AttributeTargetObject.class).to(DefaultAttributeTargetObject.class);
         super.bind(AttributeTargetObjects.class).to(DefaultAttributeTargetObjects.class).in(Singleton.class);
 
-
         // Query
         super.bind(QueryHelper.class).to(DefaultQueryHelper.class).in(Singleton.class);
         super.bind(QueryNode.class).to(DefaultQueryNode.class);
@@ -358,6 +363,9 @@ public class SystemModule extends AbstractModule {
         super.bind(ImportFieldScriptlets.class).to(DefaultImportFieldScriptlets.class);
         super.bind(ImportExportService.class).to(DefaultImportExportService.class);
         super.bind(ImportHelper.class).to(DefaultImportHelper.class);
+        super.bind(ImportPlan.class).to(DefaultImportPlan.class);
+        super.bind(ImportPlanInfo.class).to(DefaultImportPlanInfo.class);
+        super.bind(ImportMessage.class).to(DefaultImportMessage.class);
 
     }
 

@@ -134,7 +134,7 @@
 			"gridColEan" : "EAN",
 			"gridColBrand" : "Marke",
 			"gridColSupplier" : "Lieferant",
-			"typePHYSICAL" : "Artikel",
+			"typePRODUCT" : "Artikel",
 			"typePROGRAMME" : "Programm",
 			"typeVARIANT_MASTER" : "Varianten-Master",
 			"article" : "Artikel",

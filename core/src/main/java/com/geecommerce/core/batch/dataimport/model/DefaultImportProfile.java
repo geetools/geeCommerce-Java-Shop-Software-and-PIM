@@ -1,8 +1,10 @@
 package com.geecommerce.core.batch.dataimport.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,7 +45,7 @@ public class DefaultImportProfile extends AbstractModel implements ImportProfile
     protected Set<Id> dataScopeIds;
 
     @Column(Col.FIELD_MAPPING)
-    protected Map<String, ImportField> fieldMapping = new LinkedHashMap<>();
+    protected List<ImportField> fieldMapping = new ArrayList<>();
 
     @Inject
     protected App app;
@@ -100,18 +102,18 @@ public class DefaultImportProfile extends AbstractModel implements ImportProfile
             .setDestFieldExpression(destFieldExpression)
             .setAttribute(isAttribute);
 
-        fieldMapping.put(sourceColumnHeader, field);
+        fieldMapping.add( field);
 
         return this;
     }
 
     @Override
-    public Map<String, ImportField> getFieldMapping() {
+    public List<ImportField> getFieldMapping() {
         return fieldMapping;
     }
 
     @Override
-    public ImportProfile setFieldMapping(Map<String, ImportField> fieldMapping) {
+    public ImportProfile setFieldMapping(List<ImportField> fieldMapping) {
         this.fieldMapping = fieldMapping;
         return this;
     }
@@ -206,14 +208,15 @@ public class DefaultImportProfile extends AbstractModel implements ImportProfile
 
     @Override
     public void fromMap(Map<String, Object> map) {
-        Map<String, Map<String, Object>> _fieldMapping = map_(map.get(Col.FIELD_MAPPING));
+        List<Map<String, Object>> _fieldMapping = list_(map.get(Col.FIELD_MAPPING));
 
-        for (Map.Entry<String, Map<String, Object>> entry : _fieldMapping.entrySet()) {
-            Map<String, Object> innerMap = entry.getValue();
+        fieldMapping.clear();
+
+        for (Map<String, Object> innerMap : _fieldMapping) {
             ImportField importField = app.model(ImportField.class);
             importField.fromMap(innerMap);
 
-            fieldMapping.put(entry.getKey(), importField);
+            fieldMapping.add(importField);
         }
     }
 
@@ -221,10 +224,10 @@ public class DefaultImportProfile extends AbstractModel implements ImportProfile
     public Map<String, Object> toMap() {
         Map<String, Object> data = new LinkedHashMap<>(super.toMap());
 
-        Map<String, Map<String, Object>> _fieldMapping = new LinkedHashMap<>();
+        List<Map<String, Object>> _fieldMapping = new ArrayList<>();
 
-        for (Map.Entry<String, ImportField> entry : fieldMapping.entrySet()) {
-            _fieldMapping.put(entry.getKey(), entry.getValue().toMap());
+        for (ImportField importField : fieldMapping) {
+            _fieldMapping.add(importField.toMap());
         }
 
         data.put(Col.FIELD_MAPPING, _fieldMapping);

@@ -39,6 +39,8 @@ public interface Merchant extends Model {
 
     public Store getStore(Id storeId);
 
+    public Store getStore(String storeCode);
+
     public Store getStoreFor(RequestContext requestCtx);
 
     public List<View> getViews();

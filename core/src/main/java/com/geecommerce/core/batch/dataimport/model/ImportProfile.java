@@ -1,5 +1,6 @@
 package com.geecommerce.core.batch.dataimport.model;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,9 +27,9 @@ public interface ImportProfile extends Model {
 
     ImportProfile addField(String sourceColumnHeader, ContextObject<String> sourceColumnLabel, String destFieldExpression, boolean isAttribute);
 
-    Map<String, ImportField> getFieldMapping();
+    List<ImportField> getFieldMapping();
 
-    ImportProfile setFieldMapping(Map<String, ImportField> fieldMapping);
+    ImportProfile setFieldMapping(List<ImportField> fieldMapping);
 
     Map<String, String> getSettings();
 
@@ -64,7 +65,7 @@ public interface ImportProfile extends Model {
         public static final String TARGET_OBJECT_ID = "tar_obj";
         public static final String TOKEN = "token";
         public static final String NAME = "name";
-        public static final String FIELD_MAPPING = "field_map";
+        public static final String FIELD_MAPPING = "fields";
         public static final String SETTINGS = "settings";
         public static final String TO_SCOPES = "to_scopes";
         public static final String DATA_LANGUAGES = "data_languages";

@@ -24,9 +24,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.elasticsearch.index.query.FilterBuilder;
+
 import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
-import com.geecommerce.catalog.product.helper.ImportHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
 import com.geecommerce.catalog.product.model.BundleProductItem;
@@ -37,12 +38,13 @@ import com.geecommerce.catalog.product.repository.Products;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
+import com.geecommerce.core.batch.dataimport.helper.ImportHelper;
+import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
+import com.geecommerce.core.batch.service.ImportExportService;
 import com.geecommerce.core.elasticsearch.api.search.SearchResult;
 import com.geecommerce.core.elasticsearch.helper.ElasticsearchHelper;
 import com.geecommerce.core.elasticsearch.search.SearchParams;
 import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
-import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
-import com.geecommerce.core.batch.service.ImportExportService;
 import com.geecommerce.core.enums.ObjectType;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractResource;
@@ -77,7 +79,6 @@ import com.google.inject.Inject;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
-import org.elasticsearch.index.query.FilterBuilder;
 
 @Path("/v1/products")
 public class ProductResource extends AbstractResource {
@@ -165,7 +166,7 @@ public class ProductResource extends AbstractResource {
 
         try {
             Product p = Json.fromJson(
-                "{\"type\":\"PHYSICAL\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}",
+                "{\"type\":\"PRODUCT\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}",
                 app.modelType(Product.class));
             System.out.println("DESERIALIZED PRODUCT: " + p);
         } catch (Throwable t) {

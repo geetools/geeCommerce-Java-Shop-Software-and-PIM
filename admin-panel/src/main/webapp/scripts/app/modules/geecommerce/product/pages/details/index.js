@@ -143,7 +143,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
                 type = prd.type;
             }
 
-            return type == 'PHYSICAL';
+            return type == 'PRODUCT';
         });
 
         self.isProgramme = ko.computed(function() {
@@ -207,7 +207,7 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
                 type = prd.type;
             }
 
-            return type == 'PHYSICAL' && !_.isUndefined(prd) && !_.isUndefined(prd.parentId);
+            return type == 'PRODUCT' && !_.isUndefined(prd) && !_.isUndefined(prd.parentId);
         });
 
         self.initTabs = function(data) {

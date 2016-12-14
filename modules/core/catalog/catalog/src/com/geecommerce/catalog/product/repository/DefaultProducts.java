@@ -137,4 +137,44 @@ public class DefaultProducts extends AbstractRepository implements Products {
     public Map<Id, String> idArticleNumberMap() {
         return productDao.fetchIdArticleNumberMap();
     }
+
+    @Override
+    public void buildProductIdsCollection() {
+        buildTmpProductIdsCollection("product_ids");
+    }
+
+    @Override
+    public void buildTmpProductIdsCollection(String collectionName) {
+        productDao.buildTmpProductIdsCollection(collectionName);
+    }
+
+    @Override
+    public void dropTmpProductIdsCollection(String collectionName) {
+        productDao.dropTmpProductIdsCollection(collectionName);
+    }
+
+    @Override
+    public Product havingIds(String collectionName, Map<String, Object> havingIds) {
+        return havingIds(collectionName, (String) havingIds.get("id2"), (String) havingIds.get("article_number"), (Long) havingIds.get("ean"));
+    }
+
+    @Override
+    public Product havingIds(String collectionName, String id2, String articleNumber, Long ean) {
+        return productDao.findProductByIds(collectionName, id2, articleNumber, ean);
+    }
+
+    @Override
+    public Map<String, Object> productIds(String collectionName, Map<String, Object> havingIds) {
+        return productIds(collectionName, (String) havingIds.get("id2"), (String) havingIds.get("article_number"), (Long) havingIds.get("ean"));
+    }
+
+    @Override
+    public Map<String, Object> productIds(String collectionName, String id2, String articleNumber, Long ean) {
+        return productDao.fetchProductIds(collectionName, id2, articleNumber, ean);
+    }
+
+    @Override
+    public boolean contains(String collectionName, Id id) {
+        return productDao.productIdExists(collectionName, id);
+    }
 }

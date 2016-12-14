@@ -42,9 +42,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 				newAttribute.includeInProductListFilter = self.attributeVM.includeInProductListFilter();
                 newAttribute.includeInProductListQuery = self.attributeVM.includeInProductListQuery();
 				newAttribute.includeInSearchFilter = self.attributeVM.includeInSearchFilter();
-				newAttribute.showInProductDetails = self.attributeVM.showInProductDetails();
 				newAttribute.productTypes = self.attributeVM.productTypes();
-/*				newAttribute.dimensionAttribute = self.attributeVM.dimensionAttribute();*/
 				
 				if(self.attributeVM.isVirtual()) {
 					newAttribute.editable = false;
@@ -84,12 +82,10 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 					self.attributeVM.includeInProductListFilter(savedAttribute.includeInProductListFilter);
                     self.attributeVM.includeInProductListQuery(savedAttribute.includeInProductListQuery);
 					self.attributeVM.includeInSearchFilter(savedAttribute.includeInSearchFilter);
-					self.attributeVM.showInProductDetails(savedAttribute.showInProductDetails);
 	                self.attributeVM.allowMultipleValues(savedAttribute.allowMultipleValues);
 					self.attributeVM.i18n(savedAttribute.i18n);
 					self.attributeVM.linkedAttributeIds(savedAttribute.linkedAttributeIds);
 					self.attributeVM.productTypes(savedAttribute.productTypes);
-				/*	self.attributeVM.dimensionAttribute(savedAttribute.dimensionAttribute);*/
 					self.attributeVM.frontendFormat(savedAttribute.frontendFormat);
                     self.attributeVM.validationMin(savedAttribute.validationMin);
                     self.attributeVM.validationMax(savedAttribute.validationMax);
@@ -128,8 +124,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 				updateModel.field('includeInProductListFilter', self.attributeVM.includeInProductListFilter());
                 updateModel.field('includeInProductListQuery', self.attributeVM.includeInProductListQuery());
 				updateModel.field('includeInSearchFilter', self.attributeVM.includeInSearchFilter());
-				updateModel.field('showInProductDetails', self.attributeVM.showInProductDetails());
-/*				updateModel.field('dimensionAttribute', self.attributeVM.dimensionAttribute());*/
 				updateModel.field('productTypes', self.attributeVM.productTypes());
 				
 				if(self.attributeVM.isVirtual()) {

@@ -114,7 +114,7 @@ public class ProductListResource extends AbstractResource {
         p.setQueryNode(queryNode);
         productListHelper.fixProductListQuery(p);
 
-        p.setAttributes(update.getAttributes());
+        p.putAttributes(update.getAttributes());
         p.setOptionAttributes(update.getOptions());
 
         p.setQuery(toQuery(p));
@@ -141,7 +141,7 @@ public class ProductListResource extends AbstractResource {
             p.set(update.getFields());
             p.setQueryNode(queryNode);
             productListHelper.fixProductListQuery(p);
-            p.setAttributes(update.getAttributes());
+            p.putAttributes(update.getAttributes());
             p.setOptionAttributes(update.getOptions());
             p.setQuery(toQuery(p));
 

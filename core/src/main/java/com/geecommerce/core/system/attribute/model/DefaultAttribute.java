@@ -63,8 +63,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     protected boolean searchable = false;
     @Column(Col.INCLUDE_IN_SEARCH_INDEX)
     protected boolean includeInSearchIndex = false;
-    @Column(Col.SHOW_IN_PRODUCT_DETAILS)
-    protected boolean showInProductDetails = false;
 
     // Virtual attribute setting
     @Column(Col.LINKED_ATTRIBUTE_IDS)
@@ -174,8 +172,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     protected boolean searchFilterMulti = false;
     @Column(Col.SEARCH_FILTER_POSITION)
     protected int searchFilterPosition = 0;
-    @Column(Col.DIMENSION_ATTRIBUTE)
-    protected boolean dimensionAttribute = false;
 
     // Lazy loaded attribute options
     protected transient List<AttributeOption> options = null;
@@ -852,17 +848,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     }
 
     @Override
-    public boolean isDimensionAttribute() {
-        return dimensionAttribute;
-    }
-
-    @Override
-    public Attribute setDimensionAttribute(boolean dimensionAttribute) {
-        this.dimensionAttribute = dimensionAttribute;
-        return this;
-    }
-
-    @Override
     public InputType getInputType() {
         return inputType;
     }
@@ -892,17 +877,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     @Override
     public Attribute setIncludeInSearchIndex(boolean includeInSearchIndex) {
         this.includeInSearchIndex = includeInSearchIndex;
-        return this;
-    }
-
-    @Override
-    public boolean isShowInProductDetails() {
-        return showInProductDetails;
-    }
-
-    @Override
-    public Attribute setShowInProductDetails(boolean showInProductDetails) {
-        this.showInProductDetails = showInProductDetails;
         return this;
     }
 
@@ -1260,7 +1234,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
         this.searchable = bool_(map.get(Col.SEARCHABLE), false);
         this.includeInSearchIndex = bool_(map.get(Col.INCLUDE_IN_SEARCH_INDEX), false);
-        this.showInProductDetails = bool_(map.get(Col.SHOW_IN_PRODUCT_DETAILS), false);
         this.allowMultipleValues = bool_(map.get(Col.IS_MULTIPLE_ALLOWED), false);
         this.optionAttribute = bool_(map.get(Col.IS_OPTION_ATTRIBUTE), false);
         this.i18n = bool_(map.get(Col.IS_I18N), false);
@@ -1300,7 +1273,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         // Search filter settings
         this.includeInSearchFilter = bool_(map.get(Col.INCLUDE_IN_SEARCH_FILTER));
         this.searchFilterMulti = bool_(map.get(Col.SEARCH_FILTER_MULTI), false);
-        this.dimensionAttribute = bool_(map.get(Col.DIMENSION_ATTRIBUTE), false);
         this.searchFilterPosition = int_(map.get(Col.SEARCH_FILTER_POSITION), 0);
 
         if (map.get(Col.SEARCH_FILTER_KEY_ALIAS) != null)
@@ -1430,10 +1402,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
             map.put(Col.INPUT_TYPE, getInputType().toId());
 
         map.put(Col.IS_MULTIPLE_ALLOWED, isAllowMultipleValues());
-        map.put(Col.DIMENSION_ATTRIBUTE, isDimensionAttribute());
         map.put(Col.SEARCHABLE, isSearchable());
         map.put(Col.INCLUDE_IN_SEARCH_INDEX, isIncludeInSearchIndex());
-        map.put(Col.SHOW_IN_PRODUCT_DETAILS, isShowInProductDetails());
         map.put(Col.IS_I18N, isI18n());
 
         // Product settings
@@ -1485,7 +1455,7 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         return "DefaultAttribute [id=" + id + ", id2=" + id2 + ", code=" + code + ", code2=" + code2
             + ", targetObjectId=" + targetObjectId + ", scopes=" + scopes + ", editable=" + editable + ", enabled="
             + enabled + ", searchable=" + searchable + ", includeInSearchIndex=" + includeInSearchIndex
-            + ", showInProductDetails=" + showInProductDetails + ", frontendInput=" + frontendInput
+            + ", frontendInput=" + frontendInput
             + ", frontendLabel=" + frontendLabel + ", backendLabel=" + backendLabel + ", inputType=" + inputType
             + ", optionAttribute=" + optionAttribute + ", allowMultipleValues=" + allowMultipleValues
             + ", includeInNavigationFilter=" + includeInProductListFilter + ", includeInSearchFilter="

@@ -16,6 +16,10 @@ public interface QueryNode extends Model {
 
     public QueryNode setOperator(String operator);
 
+    public String getComparator();
+
+    public QueryNode setComparator(String comparator);
+
     public List<QueryNode> getNodes();
 
     public QueryNode setNodes(List<QueryNode> nodes);
@@ -31,6 +35,7 @@ public interface QueryNode extends Model {
         public static final String NODES = "nodes";
         public static final String TYPE = "type";
         public static final String OPERATOR = "operator";
+        public static final String COMPARATOR = "comparator";
         public static final String VALUE = "val";
     }
 

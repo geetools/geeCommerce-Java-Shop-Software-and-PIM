@@ -135,8 +135,6 @@ public class AttributeConverter implements Converter<Attribute> {
                 attr.setSearchable(obj.valueAsBoolean());
             } else if (KEY_INCLUDE_IN_SEARCH_INDEX.equals(obj.name())) {
                 attr.setIncludeInSearchIndex(obj.valueAsBoolean());
-            } else if (KEY_SHOW_IN_PRODUCT_DETAILS.equals(obj.name())) {
-                attr.setShowInProductDetails(obj.valueAsBoolean());
             } else if (KEY_FRONTEND_INPUT.equals(obj.name())) {
                 attr.setFrontendInput(FrontendInput.valueOf(obj.valueAsString()));
             } else if (KEY_FRONTEND_OUTPUT.equals(obj.name())) {
@@ -185,8 +183,6 @@ public class AttributeConverter implements Converter<Attribute> {
                 attr.setOptionAttribute(obj.valueAsBoolean());
             } else if (KEY_IS_MULTIPLE_ALLOWED.equals(obj.name())) {
                 attr.setAllowMultipleValues(obj.valueAsBoolean());
-            } else if (KEY_DIMENSION_ATTRIBUTE.equals(obj.name())) {
-                attr.setDimensionAttribute(obj.valueAsBoolean());
             } else if (KEY_IS_I18N.equals(obj.name())) {
                 attr.setI18n(obj.valueAsBoolean());
             } else if (KEY_INCLUDE_IN_PRODUCT_LIST_FILTER.equals(obj.name())) {
@@ -340,10 +336,6 @@ public class AttributeConverter implements Converter<Attribute> {
                 writer.writeValue(attr.isIncludeInSearchIndex());
             }
 
-            if (!ConvertUtil.ignoreProperty(KEY_SHOW_IN_PRODUCT_DETAILS)) {
-                writer.writeName(KEY_SHOW_IN_PRODUCT_DETAILS);
-                writer.writeValue(attr.isShowInProductDetails());
-            }
 
             if (attr.getFrontendInput() != null && !ConvertUtil.ignoreProperty(KEY_FRONTEND_INPUT)) {
                 writer.writeName(KEY_FRONTEND_INPUT);
@@ -463,11 +455,6 @@ public class AttributeConverter implements Converter<Attribute> {
             if (!ConvertUtil.ignoreProperty(KEY_IS_MULTIPLE_ALLOWED)) {
                 writer.writeName(KEY_IS_MULTIPLE_ALLOWED);
                 writer.writeValue(attr.isAllowMultipleValues());
-            }
-
-            if (!ConvertUtil.ignoreProperty(KEY_DIMENSION_ATTRIBUTE)) {
-                writer.writeName(KEY_DIMENSION_ATTRIBUTE);
-                writer.writeValue(attr.isDimensionAttribute());
             }
 
             if (!ConvertUtil.ignoreProperty(KEY_IS_I18N)) {

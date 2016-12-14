@@ -82,7 +82,7 @@ public class MediaAssetDirectoryResource extends AbstractResource {
             MediaAssetDirectory directory = service.get(MediaAssetDirectory.class, id);
 
             directory.set(update.getFields());
-            directory.setAttributes(update.getAttributes());
+            directory.putAttributes(update.getAttributes());
             directory.setOptionAttributes(update.getOptions());
 
             service.update(directory);

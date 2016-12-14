@@ -41,6 +41,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         self.isVariant = ko.observable(false);
         self.isVariantMaster = ko.observable(false);
         self.isProgramme = ko.observable(false);
+        self.isBundle = ko.observable(false);
 
         self.showLinkToMaster = ko.computed(function() {
             return self.isVariant() && !self.isVariantMaster();
@@ -49,7 +50,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         self.descriptionText = ko.computed(function() {
             if (self.isProgramme()) {
                 return gc.app.i18n('app:modules.product.baseTabDescProgramme', {}, gc.app.currentUserLang);
-            } else if (self.isVariantMaster()) {
+            } else if (self.isBundle()) {
+                return gc.app.i18n('app:modules.product.baseTabDescBundle', {}, gc.app.currentUserLang);
+            }
+            else if (self.isVariantMaster()) {
                 return gc.app.i18n('app:modules.product.baseTabDescVariantMaster', {}, gc.app.currentUserLang);
             } else if (self.isVariant()) {
                 return gc.app.i18n('app:modules.product.baseTabDescVariant', {}, gc.app.currentUserLang) + ' <a href="#/products/details/' + self.parentId() + '" target="_blank">' + self.parentName()
@@ -93,6 +97,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         self.name2 = ko.observableArray();
         self.productGroup = ko.observableArray([]);
         self.programme = ko.observableArray([]);
+        self.bundleGroup = ko.observableArray([]);
 
         self.ean = ko.observableArray();
         self.brand = ko.observableArray();
@@ -146,6 +151,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
 
         this.productGroups = ko.observableArray([]);
         this.programmes = ko.observableArray([]);
+        this.bundleGroups = ko.observableArray([]);
         this.articleStatuses = ko.observableArray([]);
         this.descriptionStatuses = ko.observableArray([]);
         this.editVM = new EditVM(this);
@@ -180,6 +186,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.isVariant(vm.isVariant());
                 self.editVM.isVariantMaster(vm.isVariantMaster());
                 self.editVM.isProgramme(vm.isProgramme());
+                self.editVM.isBundle(vm.isBundle());
                 self.editVM.parentId(prdData.parentId);
 
                 if (vm.isVariant()) {
@@ -208,6 +215,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.name2(gc.attributes.find(prdData.attributes, 'name2').value);
                 self.editVM.productGroup(gc.attributes.find(prdData.attributes, 'product_group').optionIds);
                 self.editVM.programme(gc.attributes.find(prdData.attributes, 'programme').optionIds);
+                self.editVM.bundleGroup(gc.attributes.find(prdData.attributes, 'bundle_group').optionIds);
                 
                 self.editVM.articleStatus(gc.attributes.find(prdData.attributes, 'status_article').xOptionIds);
                 self.editVM.descriptionStatus(gc.attributes.find(prdData.attributes, 'status_description').xOptionIds);
@@ -227,20 +235,22 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 // Here we listen for possible changes from observables that are used for creating the search engine friendly URL.
                 ko.computed(function() {
                     var isProgramme = self.editVM.isProgramme();
+                    var isBundle = self.editVM.isBundle();
                     var brand = self.editVM.brand();
                     var name = self.editVM.name();
                     var productGroup = self.editVM.productGroup();
                     var programme = self.editVM.programme();
+                    var bundleGroup = self.editVM.bundleGroup();
                     var defaultLang = gc.app.defaultLanguage();
 
                     // No data to work with here, so we just return.
-                    if((_.isEmpty(productGroup) && _.isEmpty(programme)) || _.isEmpty(name))
+                    if((_.isEmpty(productGroup) && _.isEmpty(programme) && _.isEmpty(bundleGroup)) || _.isEmpty(name))
                         return;
                     
                     var requestContexts = gc.app.availableRequestContexts();
                     var activeContext = gc.app.sessionGet('activeContext');            
                     
-                    if(isProgramme === true) {
+                    if(isProgramme === true || isBundle === true) {
                         
                     } else {
                         // We do not want to override already saved values as they may have been indexed by search engines.
@@ -376,6 +386,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
             var attrStatusDescription;
             var attrProductGroup;
             var attrProgramme;
+            var attrBundleGroup;
 
             attrAPI.getAttributes('product', {
                 filter : {
@@ -407,6 +418,14 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 }
             }).then(function(data) {
                 attrProgramme = data.data.attributes[0];
+            });
+
+            attrAPI.getAttributes('product', {
+                filter : {
+                    code : 'bundle_group'
+                }
+            }).then(function(data) {
+                attrBundleGroup = data.data.attributes[0];
             });
 
             if (!_.isEmpty(attrStatusArticle) && !_.isEmpty(attrStatusArticle.options)) {
@@ -466,6 +485,25 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     }
                 });
             }
+
+            if (!_.isEmpty(attrBundleGroup) && !_.isEmpty(attrBundleGroup.options)) {
+                self.bundleGroups.push({
+                    id : '',
+                    text : function() {
+                        return gc.app.i18n('app:modules.product.newBundleGroupSelectTitle', {}, gc.app.currentLang);
+                    }
+                });
+                _.forEach(attrBundleGroup.options, function(option) {
+                    if (option && option.id && option.label) {
+                        console.log("----")
+                        console.log(option.label.i18n)
+                        self.bundleGroups.push({
+                            id : option.id,
+                            text : option.label.i18n
+                        });
+                    }
+                });
+            }
         },
         createProduct : function(view, parent, loader) {
             var self = this;
@@ -478,6 +516,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
 
             var attrProductGroup = gc.app.dataGet('attr:product_group');
             var attrProgramme = gc.app.dataGet('attr:programme');
+            var attrBundleGroup = gc.app.dataGet('attr:bundle_group');
 
             if (vm.isProgramme() && !_.isUndefined(self.editVM.programme())) {
                 newProduct.type = 'PROGRAMME';
@@ -491,11 +530,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     attributeId : attrProductGroup.id,
                     "optionIds" : self.editVM.productGroup()
                 } ];
-            } else if (vm.isBundle() && !_.isUndefined(self.editVM.productGroup())) {
+            } else if (vm.isBundle() && !_.isUndefined(self.editVM.bundleGroup())) {
                 newProduct.type = 'BUNDLE';
                 newProduct.attributes = [ {
-                    attributeId : attrProductGroup.id,
-                    "optionIds" : self.editVM.productGroup()
+                    attributeId : attrBundleGroup.id,
+                    "optionIds" : self.editVM.bundleGroup()
                 } ];
             } else if (!_.isUndefined(self.editVM.productGroup())) {
                 newProduct.type = 'PRODUCT';
@@ -522,6 +561,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.sale(data.sale);
                 self.editVM.productGroup(gc.attributes.find(data.attributes, 'product_group').optionIds);
                 self.editVM.programme(gc.attributes.find(data.attributes, 'programme').optionIds);
+                self.editVM.bundleGroup(gc.attributes.find(data.attributes, 'bundle_group').optionIds);
 
                 gc.app.updateProgressBar(100);
                 
@@ -569,7 +609,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 updateModel.options('programme', self.editVM.programme());
             }
 
-            if (!vm.isProgramme() && !_.isEmpty(self.editVM.productGroup())) {
+            if (vm.isBundle() && !_.isEmpty(self.editVM.bundleGroup())) {
+                updateModel.options('bundle_group', self.editVM.bundleGroup());
+            }
+
+            if (!vm.isProgramme() && !vm.isBundle() && !_.isEmpty(self.editVM.productGroup())) {
                 updateModel.options('product_group', self.editVM.productGroup());
             }
 

@@ -1389,7 +1389,7 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public List<Product> getBundleProducts() {
         if (bundleProductItems != null && bundleProductItems.size() > 0) {
-            List<Id> bundleProductIds = new ArrayList<>();
+            List<Id> bundleProductIds = bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList());
 
             bundleProducts = products.findByIds(Product.class,  bundleProductIds.toArray(new Id[bundleProductIds.size()]));
         }

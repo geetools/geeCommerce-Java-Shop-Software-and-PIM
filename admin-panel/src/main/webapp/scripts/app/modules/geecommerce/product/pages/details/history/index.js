@@ -15,9 +15,11 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 
 		self.statusVM = new StatusVM(self);
 		self.tabs = ko.observableArray([]);
-		self.programmeProducts = ko.observableArray();
-		self.upsellProducts = ko.observableArray();
-		
+        self.bundleProducts = ko.observableArray();
+        self.programmeProducts = ko.observableArray();
+        self.upsellProducts = ko.observableArray();
+        self.crossSellProducts = ko.observableArray();
+
 		self.productExists = ko.computed(function() {
 			var prd = ko.unwrap(self.data);
 			return !_.isUndefined(prd);
@@ -76,28 +78,33 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 		});
 		
 		self.isCategorized = ko.computed(function() {
-			if(!self.productExists()) {
-				return false;
-			}
-			
-			var prd = ko.unwrap(self.data);
-			
-			var productGroup = gc.attributes.find(prd.attributes, 'product_group').optionIds;
-			var programme = gc.attributes.find(prd.attributes, 'programme').optionIds;
+            if (!self.productExists()) {
+                return false;
+            }
 
-			if(self.isProgramme() && _.isEmpty(programme)) {
-				return false;
-			}
+            var prd = ko.unwrap(self.data);
 
-			if(!self.isProgramme() && _.isEmpty(productGroup)) {
-				return false;
-			}
+            var productGroup = gc.attributes.find(prd.attributes, 'product_group').optionIds;
+            var programme = gc.attributes.find(prd.attributes, 'programme').optionIds;
+            var bundleGroup = gc.attributes.find(prd.attributes, 'bundle_group').optionIds;
 
-			if(_.isEmpty(programme) && _.isEmpty(productGroup)) {
-				return false;
-			}
-			
-			return true;
+            if (self.isProgramme() && _.isEmpty(programme)) {
+                return false;
+            }
+
+            if (self.isBundle() && _.isEmpty(bundleGroup)) {
+                return false;
+            }
+
+            if (!self.isProgramme() && !self.isBundle() && _.isEmpty(productGroup)) {
+                return false;
+            }
+
+            if (_.isEmpty(programme) && _.isEmpty(productGroup) && _.isEmpty(bundleGroup)) {
+                return false;
+            }
+
+            return true;
 		});
 		
 		self.isDeleted = ko.computed(function() {

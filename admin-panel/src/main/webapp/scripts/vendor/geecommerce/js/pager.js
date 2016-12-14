@@ -217,22 +217,11 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 } else {
                     self._isSearch = true;
                 }
-
+                self._offset = 0;
                 self.load();
             });
 
-            self.query.subscribe(function(newValue) {
-                console.log(newValue)
-                if (_.isEmpty(newValue)) {
-                    self._isQuery = false;
-                    self._query = "";
-                } else {
-                    self._isQuery = true;
-                    self._query = newValue;
-                }
-
-                self.load();
-            });
+            self.activateQuerySubscriber();
         },
         activateQuerySubscriber : function() {
             var self = this;
@@ -247,6 +236,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                     self._query = newValue;
                 }
 
+                self._offset = 0;
                 self.load();
             });
         },

@@ -222,7 +222,7 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
     }
 
     @Override
-    public AttributeSupport setAttributes(Map<String, ContextObject<?>> attributesMap) {
+    public AttributeSupport putAttributes(Map<String, ContextObject<?>> attributesMap) {
         if (attributesMap == null || attributesMap.size() == 0)
             return this;
 

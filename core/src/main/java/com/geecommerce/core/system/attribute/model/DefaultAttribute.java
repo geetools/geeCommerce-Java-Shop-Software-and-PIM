@@ -154,8 +154,8 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     @Column(Col.PRODUCT_LIST_FILTER_POSITION)
     protected int productListFilterPosition = 0;
 
-    @Column(Col.INCLUDE_IN_PRODUCT_LIST_QUERY)
-    protected Boolean includeInProductListQuery = null;
+    @Column(Col.SHOW_IN_QUERY)
+    protected Boolean showInQuery = null;
 
     // Search settings
     @Column(Col.INCLUDE_IN_SEARCH_FILTER)
@@ -610,13 +610,13 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     }
 
     @Override
-    public Boolean getIncludeInProductListQuery() {
-        return includeInProductListQuery == null ? false : includeInProductListQuery;
+    public Boolean getShowInQuery() {
+        return showInQuery == null ? false : showInQuery;
     }
 
     @Override
-    public Attribute setIncludeInProductListQuery(Boolean includeInProductListQuery) {
-        this.includeInProductListQuery = includeInProductListQuery;
+    public Attribute setShowInQuery(Boolean showInQuery) {
+        this.showInQuery = showInQuery;
         return this;
     }
 
@@ -1286,7 +1286,7 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         if (map.get(Col.PRODUCT_LIST_FILTER_TYPE) != null)
             this.productListFilterType = enum_(FilterType.class, map.get(Col.PRODUCT_LIST_FILTER_TYPE));
 
-        this.includeInProductListQuery = bool_(map.get(Col.INCLUDE_IN_PRODUCT_LIST_QUERY));
+        this.showInQuery = bool_(map.get(Col.SHOW_IN_QUERY));
 
         // Search filter settings
         this.includeInSearchFilter = bool_(map.get(Col.INCLUDE_IN_SEARCH_FILTER));
@@ -1459,7 +1459,7 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
             map.put(Col.SEARCH_FILTER_POSITION, getSearchFilterPosition());
         }
 
-        map.put(Col.INCLUDE_IN_PRODUCT_LIST_QUERY, getIncludeInProductListQuery());
+        map.put(Col.SHOW_IN_QUERY, getShowInQuery());
         return map;
     }
 

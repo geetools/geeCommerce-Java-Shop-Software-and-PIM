@@ -7,9 +7,13 @@
 <div class="query-builder form-horizontal">
 
     <!-- ko if: displayMode == 'inline' -->
-            <!-- ko if: simpleQueryMode() -->
-            <button data-bind="click: switchToExpertMode">Expert mode</button>
-            <!-- /ko -->
+
+            <div class="form-group">
+                <label class="control-label switch-label col-xs-3">Expert mode</label>
+                <div class="col-xs-9 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: simpleQueryMode" />
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-9">
                     <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
@@ -33,19 +37,22 @@
                     </div>
 
                     <div class="modal-body row">
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <!-- ko if: simpleQueryMode() -->
-                                <button data-bind="click: switchToExpertMode">Expert mode</button>
-                                <!-- /ko -->
+<!--                        <div class="form-group">
+                            <div class="col-sm-9">-->
+                                <div class="form-group">
+                                    <label class="control-label switch-label col-xs-3">Expert mode</label>
+                                    <div class="col-xs-9 switch-wrapper">
+                                        <input type="checkbox" data-bind="bool: simpleQueryMode" />
+                                    </div>
+                                </div>
                                 <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
-                            </div>
-                        </div>
+<!--                            </div>
+                        </div>-->
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-bind="click: cancelQuery" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" data-bind="click: applyQuery">Apply</button>
+                        <button type="button" class="gc-btn gc-btn-cancel"  data-bind="click: cancelQuery" data-dismiss="modal">CANCEL</button>
+                        <button type="button" class="gc-btn" data-bind="click: applyQuery">APPLY</button>
                     </div>
                 </div>
             </div>
@@ -72,7 +79,7 @@
                     optionsValue: 'code'}"></span>-->
 
         <span  class="form-control form-control-small"
-               data-bind="attrSelect: {value: attrCode, forType: root.forType, valueKey: 'code'}"></span>
+               data-bind="attrSelect: {value: attrCode, forType: root.forType, valueKey: 'code', apiOptions : {filter: { showInQuery : true}}}"></span>
         <!-- /ko -->
         <!-- ko if: attrVal() -->
 

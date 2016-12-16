@@ -204,7 +204,7 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
             Attribute attr = attributeValue.getAttribute();
 
             if (attr != null && (attr.isIncludeInSearchIndex() || attr.isSearchable()
-                || attr.getIncludeInProductListFilter() || attr.getIncludeInProductListQuery())) {
+                || attr.getIncludeInProductListFilter() || attr.getShowInQuery())) {
                 // Only index text values when product is visible.
                 if (!isVisible && BackendType.STRING == attr.getBackendType())
                     continue;

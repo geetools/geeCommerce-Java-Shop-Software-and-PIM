@@ -1,108 +1,108 @@
-define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko, gc, attrAPI) {
-
-	function AttributeVM(attributeId) {
-		var self = this;
-		
-        self.id = ko.observable(attributeId);
-        
-        //--------------------------------------------------------
-        // General tab
-        //--------------------------------------------------------
-		self.code = ko.observable();
-		self.code2 = ko.observable();
-		self.editable = ko.observable();
-		self.enabled = ko.observable();
-		self.targetObjectId = ko.observable();
-		self.targetObject = ko.observable(); // fetched in separate call.
-		self.type = ko.observable();
-		self.scopes = ko.observableArray([]);
-		self.backendLabel = ko.observableArray([]);
-		self.frontendLabel = ko.observableArray([]);
-		self.frontendFormat = ko.observableArray([]);
-		self.options = ko.observableArray([]);
-		self.searchable = ko.observable();
-		self.frontendInput = ko.observable();
-		self.frontendOutput = ko.observable();
-		self.inputType = ko.observable();
-		self.backendType = ko.observable();
-		self.includeInProductListFilter = ko.observable();
-        self.includeInProductListQuery = ko.observable();
-		self.includeInSearchFilter = ko.observable();
-		self.showInProductDetails = ko.observable();
-        self.allowMultipleValues = ko.observable();
-		self.i18n = ko.observable();
-		self.linkedAttributeIds = ko.observableArray([]);
-		self.productTypes = ko.observableArray([]);
-		self.dimensionAttribute = ko.observable();
-        self.allowNewOptionsViaImport = ko.observable();
-		
-        //--------------------------------------------------------
-        // Validation properties
-        //--------------------------------------------------------
-		
-		self.validationMin = ko.observableArray([]);
-		self.validationMax = ko.observableArray([]);
-		self.validationMinLength = ko.observableArray([]);
-		self.validationMaxLength = ko.observableArray([]);
-		self.validationFuture = ko.observableArray([]);
-		self.validationPast = ko.observableArray([]);
-		self.validationAssertTrue = ko.observableArray([]);
-		self.validationAssertFalse = ko.observableArray([]);
-		self.validationPattern = ko.observableArray([]);
-		self.validationScript = ko.observableArray([]);
-		self.validationMessage = ko.observableArray([]);
-		
-        //--------------------------------------------------------
-        // Product list filter tab
-        //--------------------------------------------------------
-		self.productListFilterType = ko.observable();
-		self.productListFilterIndexFields = ko.observableArray([]);
-		self.productListFilterKeyAlias = ko.observable();
-		self.productListFilterFormatLabel = ko.observable();
-		self.productListFilterFormatValue = ko.observable();
-		self.productListFilterParseValue = ko.observable();
-		self.productListFilterMulti = ko.observable();
-		self.productListFilterInheritFromParent = ko.observable();
-		self.productListFilterIncludeChildren = ko.observable();
-		self.productListFilterPosition = ko.observable();
-
-			
-		self.isNew = ko.computed(function() {
-			return self.id() == 'new';
-		});
-
-		self.isEditable = ko.computed(function() {
-			return self.editable() == true;
-		});
-
-        self.isCodeEditable = ko.observable(true);
-		
-		self.isVirtual = ko.computed(function() {
-			return self.type() == 'VIRTUAL';
-		});
-		
-		self.isProductAttribute = ko.computed(function() {
-			console.log('_____________ IS PRODUCT!!!?? ', (self.targetObject.code == 'product'));
-			
-			return self.targetObject.code == 'product';
-		});
-		
-		self.isOptionsAttribute = ko.computed(function() {
-			return self.frontendInput() == 'SELECT';
-		});
-		
-		self.showOptionsTab = ko.computed(function() {
-			return !self.isNew() && !self.isVirtual() && self.isOptionsAttribute();
-		});
-		
-		self.showProductListFilterTab = ko.computed(function() {
-			return !self.isNew() && self.isProductAttribute() && self.includeInProductListFilter() == true;
-		});		
-		
-		self.showInputConditionsTab = ko.computed(function() {
-			return !self.isNew() && !self.isVirtual() && self.isProductAttribute();
-		});		
-	}	
+define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-vm' ], function(app, ko, gc, attrAPI, attributeVM) {
+//
+//	function AttributeVM(attributeId) {
+//		var self = this;
+//		
+//        self.id = ko.observable(attributeId);
+//        
+//        //--------------------------------------------------------
+//        // General tab
+//        //--------------------------------------------------------
+//		self.code = ko.observable();
+//		self.code2 = ko.observable();
+//		self.editable = ko.observable();
+//		self.enabled = ko.observable();
+//		self.targetObjectId = ko.observable();
+//		self.targetObject = ko.observable(); // fetched in separate call.
+//		self.type = ko.observable();
+//		self.scopes = ko.observableArray([]);
+//		self.backendLabel = ko.observableArray([]);
+//		self.frontendLabel = ko.observableArray([]);
+//		self.frontendFormat = ko.observableArray([]);
+//		self.options = ko.observableArray([]);
+//		self.searchable = ko.observable();
+//		self.frontendInput = ko.observable();
+//		self.frontendOutput = ko.observable();
+//		self.inputType = ko.observable();
+//		self.backendType = ko.observable();
+//		self.includeInProductListFilter = ko.observable();
+//        self.includeInProductListQuery = ko.observable();
+//		self.includeInSearchFilter = ko.observable();
+//		self.showInProductDetails = ko.observable();
+//        self.allowMultipleValues = ko.observable();
+//		self.i18n = ko.observable();
+//		self.linkedAttributeIds = ko.observableArray([]);
+//		self.productTypes = ko.observableArray([]);
+//		self.dimensionAttribute = ko.observable();
+//        self.allowNewOptionsViaImport = ko.observable();
+//		
+//        //--------------------------------------------------------
+//        // Validation properties
+//        //--------------------------------------------------------
+//		
+//		self.validationMin = ko.observableArray([]);
+//		self.validationMax = ko.observableArray([]);
+//		self.validationMinLength = ko.observableArray([]);
+//		self.validationMaxLength = ko.observableArray([]);
+//		self.validationFuture = ko.observableArray([]);
+//		self.validationPast = ko.observableArray([]);
+//		self.validationAssertTrue = ko.observableArray([]);
+//		self.validationAssertFalse = ko.observableArray([]);
+//		self.validationPattern = ko.observableArray([]);
+//		self.validationScript = ko.observableArray([]);
+//		self.validationMessage = ko.observableArray([]);
+//		
+//        //--------------------------------------------------------
+//        // Product list filter tab
+//        //--------------------------------------------------------
+//		self.productListFilterType = ko.observable();
+//		self.productListFilterIndexFields = ko.observableArray([]);
+//		self.productListFilterKeyAlias = ko.observable();
+//		self.productListFilterFormatLabel = ko.observable();
+//		self.productListFilterFormatValue = ko.observable();
+//		self.productListFilterParseValue = ko.observable();
+//		self.productListFilterMulti = ko.observable();
+//		self.productListFilterInheritFromParent = ko.observable();
+//		self.productListFilterIncludeChildren = ko.observable();
+//		self.productListFilterPosition = ko.observable();
+//
+//			
+//		self.isNew = ko.computed(function() {
+//			return self.id() == 'new';
+//		});
+//
+//		self.isEditable = ko.computed(function() {
+//			return self.editable() == true;
+//		});
+//
+//        self.isCodeEditable = ko.observable(true);
+//		
+//		self.isVirtual = ko.computed(function() {
+//			return self.type() == 'VIRTUAL';
+//		});
+//		
+//		self.isProductAttribute = ko.computed(function() {
+//			console.log('_____________ IS PRODUCT!!!?? ', (self.targetObject.code == 'product'));
+//			
+//			return self.targetObject.code == 'product';
+//		});
+//		
+//		self.isOptionsAttribute = ko.computed(function() {
+//			return self.frontendInput() == 'SELECT';
+//		});
+//		
+//		self.showOptionsTab = ko.computed(function() {
+//			return !self.isNew() && !self.isVirtual() && self.isOptionsAttribute();
+//		});
+//		
+//		self.showProductListFilterTab = ko.computed(function() {
+//			return !self.isNew() && self.isProductAttribute() && self.includeInProductListFilter() == true;
+//		});		
+//		
+//		self.showInputConditionsTab = ko.computed(function() {
+//			return !self.isNew() && !self.isVirtual() && self.isProductAttribute();
+//		});		
+//	}	
 
 	//-----------------------------------------------------------------
 	// Controller
@@ -156,7 +156,9 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 		activate : function(attributeId) {
 			var self = this;
 
-			self.attributeVM = new AttributeVM(attributeId);
+	        var AttributeVM = require('gc-attribute-vm');       
+	        self.attributeVM = new AttributeVM(attributeId);
+			
 			gc.app.sessionPut('attributeVM', self.attributeVM);
 			
 			if(attributeId == 'new') {

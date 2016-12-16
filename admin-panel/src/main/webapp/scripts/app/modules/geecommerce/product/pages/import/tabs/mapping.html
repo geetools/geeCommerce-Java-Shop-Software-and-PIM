@@ -24,6 +24,7 @@
                   <td class="text-left" data-bind="text: fieldMapping.sourceColumnHeader"></td>
                   <td class="text-left import-arrow-icon"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></td>
                   <td class="text-left" data-bind="attrSelect: {value: fieldMapping.sourceColumnHeader, forType: 'product', valueKey: 'code'}"></td>
+                  <td class="text-left" data-bind="newAttributeForm: {value: fieldMapping.sourceColumnHeader, valueKey: 'code', as: 'layer'}"></td>
                 </tr>
               </tbody>
             </table>
@@ -40,7 +41,7 @@
 
         <div class="row">
           <div class="col-xs-12 gc-btn-wrapper">
-            <a href="javascript:void(0)" class="gc-btn" data-bind="click: nextTab">Continue</a>
+            <a href="javascript:void(0)" class="gc-btn gc-btn-xl" data-bind="click: nextTab">Continue</a>
           </div>
         </div>
 

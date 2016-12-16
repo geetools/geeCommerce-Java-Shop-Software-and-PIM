@@ -75,8 +75,8 @@ body {
 
 select:focus, input:focus, select:active, input:active, button:active,
     button:active {
-    outline-color: #49C0C0 !important;
-    border-color: #49C0C0 !important;
+    outline-color: none !important;
+    border-color: #999 !important;
 }
 
 .dropdown-menu {
@@ -101,15 +101,15 @@ p {
 }
 
 a, a:visited {
-    
+    color: #49C0C0;
+}
+
+a:hover, a:focus {
+    color: #339BBD;
 }
 
 a:active {
-    color: #9A1452;
-}
-
-a:hover {
-    color: #055783;
+    color: #FF8E8E;
 }
 
 a>img {
@@ -1317,8 +1317,8 @@ span.attrValue {
 	text-align: center;	
 }
 
-.gc-btn {
-    border: solid 1px #4badce;
+.gc-btn, .gc-btn:focus, .gc-btn:active {
+    border: solid 1px #4badce !important;
     color: #fff;
     padding: 10px;
     border-radius: 3px;
@@ -1328,22 +1328,46 @@ span.attrValue {
     border-radius: 3px;
     font-family: Arial;
     color: #ffffff;
-    padding: 15px 40px;
-	margin-top: 20px;
-	font-size: 14px;
+    padding: 10px 20px;
+    font-size: 10px;
     text-decoration: none;
     text-transform: uppercase;
     display: inline-block;
     text-align: center;
     letter-spacing: 2px;
+    outline: none;
+}
+
+.gc-btn-xl, .gc-btn-xl:focus, .gc-btn-xl:active {
+    padding: 10px;
+    padding: 15px 40px;
+	margin-top: 20px;
+	font-size: 14px;
 }
 
 .gc-btn:hover {
 	color: #fff;
-	background-color: #3AA6C9;
+	background-color: #339BBD;
     text-decoration: none;
 }
 
+.gc-btn-cancel, .gc-btn-cancel:focus, .gc-btn-cancel:active {
+    color: #aaa;
+    background-color: #eee;
+    text-decoration: none;
+    border: solid 1px #eee !important;
+    padding: 8px 16px;
+    font-size: 9px;
+}
+
+.gc-btn-cancel:hover {
+    color: #777;
+    background-color: #e5e5e5;
+    text-decoration: none;
+    border: solid 1px #e5e5e5;
+    padding: 8px 16px;
+    font-size: 9px;
+}
 
 /*
 #media .dropzone-image-preview {
@@ -2416,7 +2440,18 @@ td>a:not(i) {
     width: 150px;
 }
 
-.navbar .bootstrap-select .btn-default:hover, .bootstrap-select .btn-default:focus, .bootstrap-select .btn-default:active, .bootstrap-select .btn-default.active, .bootstrap-select .open .dropdown-toggle.btn-default, 
+.bootstrap-select .btn-default:focus,
+.bootstrap-select .btn-default:active,
+.bootstrap-select .btn-default.active,
+.bootstrap-select .open .dropdown-toggle.btn-default {
+    outline: none !important;
+}
+
+.navbar .bootstrap-select .btn-default:hover,
+.navbar .bootstrap-select .btn-default:focus,
+.navbar .bootstrap-select .btn-default:active,
+.navbar .bootstrap-select .btn-default.active,
+.navbar .bootstrap-select .open .dropdown-toggle.btn-default,
 .navbar .bootstrap-select .btn {
     background: #21a199;
     color: #fff !important;
@@ -3049,6 +3084,12 @@ body.cms-full-mode {
     background-color: #ddd;
 }
 
+.modal-dialog .save-progress-bar {
+    position: relative;
+	top: 0px;
+}
+
+
 .save-progress-bar.progress {
     height: 2px;
     margin-bottom: 0px;
@@ -3302,10 +3343,12 @@ body.cms-full-mode {
 
 select:focus, input:focus, select:active, input:active, button:active, button:active {
     outline: 0 !important;
-    border: 0 !important;
     box-shadow: none !important;
 }
 
+select:focus, select:active, button:active, button:active {
+    border: 0 !important;
+}
 
 
 .grid-num-results-form .bootstrap-select .btn-default:hover, 
@@ -3369,6 +3412,66 @@ select:focus, input:focus, select:active, input:active, button:active, button:ac
 #prd-import-mapping-form .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
 	vertical-align: middle;
 }
+
+
+.new-attribute-form-widget .modal-dialog {
+	width: 500px;
+}
+
+.new-attribute-form-widget .new-attr-icon {
+	color: #4badce;
+    font-size: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.new-attribute-form-widget .new-attr-icon:hover {
+    color: #3AA6C9;
+    text-decoration: none;
+}
+
+.new-attribute-form-widget .new-attribute-form-container {
+	margin: 20px;
+}
+
+.new-attribute-form-widget .switch-button-background {
+	float: right;
+}
+
+.new-attribute-form-widget .form-horizontal .control-label {
+	text-align: left;
+	padding-top: 7px;
+    margin-bottom: 0;
+}
+
+.new-attribute-form-widget .form-horizontal .control-label.switch-label {
+	text-align: left;
+	padding-top: 2px;
+    margin-bottom: 0;
+}
+
+.new-attribute-form-widget .form-group .switch-wrapper {
+	padding-right: 0;
+	top: 0;
+}
+
+.new-attribute-form-widget .switch-button-background {
+	margin: 1px 2px;
+}
+
+.new-attribute-form-widget .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 100%;
+}
+
+.new-attribute-form-widget .form-group {
+	border-bottom: solid 1px #ddd;
+    padding-bottom: 10px;
+}
+
+.attr_form_ext_validation_link {
+	float: right;
+    margin-top: 3px;
+}
+
 
 
 @media only screen and (min-width: 768px) {

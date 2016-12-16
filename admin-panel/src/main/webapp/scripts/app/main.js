@@ -245,6 +245,10 @@
         location : 'core/attribute/scripts',
         main : 'api'
     }, {
+        name : 'gc-attribute-vm',
+        location : 'core/attribute/models',
+        main : 'model'
+    }, {
         name : 'gc-attribute-group',
         location : 'core/attribute-group/scripts',
         main : 'api'
@@ -482,7 +486,10 @@ define(function(require) {
     var gcSecurity = require('gc/security');
     var App = require('gc/app');
     var BaseViewModel = require('gc/baseViewModel');
+    var AttributeVM = require('gc-attribute-vm');
 
+        
+    
     gc.cache = gcCache;
     gc.utils = gcUtils;
     gc.contexts = gcContexts;
@@ -564,6 +571,7 @@ define(function(require) {
     widget.registerKind('gridTable');
     widget.registerKind('queryBuilder');
     widget.registerKind('attrSelect');
+    widget.registerKind('newAttributeForm');
     kv.makeBindingHandlerValidatable("i18nValue");
 
     kv.rules['require_i18n'] = {

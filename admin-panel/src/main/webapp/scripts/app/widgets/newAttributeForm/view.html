@@ -1,0 +1,173 @@
+<div class="new-attribute-form-widget">
+  <a href="javascript:void(0)" class="new-attr-icon" data-bind="click: showModal"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+  <div role="dialog" class="modal fade new-attr-dialog" data-bind="modal: { show: showModal }">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">
+            <i class="fa fa-puzzle-piece" aria-hidden="true"></i><span data-bind="i18n: title"></span>
+          </h4>
+        </div>
+        <div class="save-progress-bar progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="modal-body">
+
+          <!-- ko if: attributeVM.targetObject -->
+
+          <div class="new-attribute-form-container">
+            <form class="form-horizontal">
+              <!-- ko if: attributeVM.isProductAttribute() -->
+              <div class="form-group">
+                <label for="inputProductType" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabProductType">Product Types</label>
+                <div class="col-xs-7 input-group">
+                  <select class="selectpicker show-tick" multiple data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.productTypes, data: productTypes">
+                  </select>
+                </div>
+              </div>
+              <!-- /ko -->
+
+              <div class="form-group">
+                <label for="inputAttrFrontendLabel" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabNameFrontend">Label</label>
+                <div class="input-group col-xs-7">
+                  <span class="input-group-addon" data-bind="text: app.defaultLanguage()"></span> <input data-bind="i18nValue: attributeVM.frontendLabel, lang: app.defaultLanguage()"
+                    class="form-control" id="inputAttrFrontendLabel" type="text" required>
+                </div>
+              </div>
+
+              <!-- ko if: !attributeVM.isVirtual() -->
+
+              <div class="form-group">
+                <label for="inputAttrEditable" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabEditable">Editable</label>
+                <div class="switch-wrapper col-xs-7">
+                  <input type="checkbox" data-bind="bool: attributeVM.editable" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputAttrFrontendInput" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabFrontendInput">Frontend Input</label>
+                <div class="col-xs-7 input-group">
+                  <select class="selectpicker" data-bind="select: attributeVM.frontendInput, data: frontendInputs">
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" data-bind="visible: attributeVM.showBackendType">
+                <label for="inputAttrBackendType" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabBackendType">Backend Type</label>
+                <div class="col-xs-7 input-group">
+                  <select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.backendType, data: backendTypes">
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label for="inputAttrInputType" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabValidation">Input Type</label>
+                <div class="col-xs-7 input-group">
+                  <select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.inputType, data: inputTypes">
+                  </select>
+                </div>
+
+                <a href="javascript:void(0)" class="attr_form_ext_validation_link" data-toggle="collapse" data-target="#extended_validation">Advanced validation</a>
+              </div>
+
+              <div id="extended_validation" class="collapse">
+
+                <div class="form-group" data-bind="visible: attributeVM.showLengthValidation">
+                  <label for="inputAttrValidationMinLength" class="control-label col-xs-5">Minimum Allowed Length</label>
+                  <div class="col-xs-7 input-group">
+                    <input data-bind="ctxValue: attributeVM.validationMinLength" class="form-control" id="inputAttrValidationMinLength" placeholder="Enter minimum length" type="number">
+                  </div>
+                </div>
+                <div class="form-group" data-bind="visible: attributeVM.showLengthValidation">
+                  <label for="inputAttrValidationMaxLength" class="control-label col-xs-5">Maximum Allowed Length</label>
+                  <div class="col-xs-7 input-group">
+                    <input data-bind="ctxValue: attributeVM.validationMaxLength" class="form-control" id="inputAttrValidationMaxLength" placeholder="Enter maximum length" type="number">
+                  </div>
+                </div>
+
+                <div class="form-group" data-bind="visible: attributeVM.showMinMaxValidation">
+                  <label for="inputAttrValidationMin" class="control-label col-xs-5">Minimum Allowed Number</label>
+                  <div class="col-xs-7 input-group">
+                    <input data-bind="ctxValue: attributeVM.validationMin, enable: true" class="form-control" id="inputAttrValidationMin" placeholder="Enter minimum number" type="number">
+                  </div>
+                </div>
+                <div class="form-group" data-bind="visible: attributeVM.showMinMaxValidation">
+                  <label for="inputAttrValidationMax" class="control-label col-xs-5">Maximum Allowed Number</label>
+                  <div class="col-xs-7 input-group">
+                    <input data-bind="ctxValue: attributeVM.validationMax, enable: true" class="form-control" id="inputAttrValidationMax" placeholder="Enter maximum number" type="number">
+                  </div>
+                </div>
+
+                <div class="form-group" data-bind="visible: attributeVM.showBooleanValidation">
+                  <label for="inputAttrValidationAssertTrue" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabValidationAssertTrue">Value must be true</label>
+                  <div class="col-xs-7 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeVM.validationAssertTrue" />
+                  </div>
+                </div>
+
+                <div class="form-group" data-bind="visible: attributeVM.showBooleanValidation">
+                  <label for="inputAttrValidationAssertFalse" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabValidationAssertFalse">Value must be false</label>
+                  <div class="col-xs-7 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeVM.validationAssertFalse" />
+                  </div>
+                </div>
+
+                <div class="form-group" data-bind="visible: attributeVM.showDateValidation">
+                  <label for="inputAttrValidationFuture" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabValidationFuture">Date must lie in the future</label>
+                  <div class="col-xs-7 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeVM.validationFuture" />
+                  </div>
+                </div>
+
+                <div class="form-group" data-bind="visible: attributeVM.showDateValidation">
+                  <label for="inputAttrValidationPast" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabValidationPast">Date must lie in the past</label>
+                  <div class="col-xs-7 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeVM.validationPast" />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label for="inputAttrAllowImportOfOptions" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabAllowImportOfOptions">Import missing options</label>
+                <div class="col-xs-7 switch-wrapper">
+                  <input type="checkbox" data-bind="bool: attributeVM.allowNewOptionsViaImport" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputAttrI18n" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabI18n">Multiple Languages</label>
+                <div class="col-xs-7 switch-wrapper">
+                  <input type="checkbox" data-bind="bool: attributeVM.i18n" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputAttrMultipleValues" class="control-label switch-label col-xs-5" data-i18n="app:modules.attribute.generalTabAllowMultipleValues">Multiple Values</label>
+                <div class="col-xs-7 switch-wrapper">
+                  <input type="checkbox" data-bind="bool: attributeVM.allowMultipleValues" />
+                </div>
+              </div>
+
+              <!-- /ko -->
+            </form>
+          </div>
+
+          <!-- /ko -->
+          <!-- ko if: !attributeVM.targetObject -->
+          Unable to show attribute form. Please make sure that you have specified the correct attribute target object (forType).
+          <!-- /ko -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="gc-btn gc-btn-cancel" data-dismiss="modal">CANCEL</button>
+          <button type="button" class="gc-btn" data-bind="click: saveAndClose, visible: attributeVM.targetObject">SAVE & CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@ package com.geecommerce.core.type;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.xml.sax.InputSource;
 
 import com.geecommerce.core.App;
 import com.geecommerce.core.ApplicationContext;
+import com.geecommerce.core.Str;
 import com.geecommerce.core.rest.jersey.adapter.ContextObjectAdapter;
 import com.geecommerce.core.system.ConfigurationKey;
 import com.geecommerce.core.system.merchant.model.Merchant;
@@ -1092,6 +1094,21 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
         Map<String, Object> entry = findEntryForRequestContext(reqCtxId);
 
         return entry == null ? null : entry.get(VALUE);
+    }
+
+    public Set<String> specifiedLanguages() {
+        Set<String> languages = new HashSet<>();
+
+        if (size() > 0) {
+            for (Map<String, Object> entry : this) {
+                String lang = (String) entry.get(LANGUAGE);
+
+                if (!Str.isEmpty(lang) && !languages.contains(lang))
+                    languages.add(lang);
+            }
+        }
+
+        return languages;
     }
 
     protected LinkedHashMap<String, Object> toEntry(Id merchantId, Id storeId, String languageCode, String countryCode,

@@ -268,6 +268,8 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     @JsonIgnore
     public List<Product> getBundleProducts();
 
+    public List<Id> getBundleProductIds();
+
     @JsonIgnore
     public boolean isProgramme();
 

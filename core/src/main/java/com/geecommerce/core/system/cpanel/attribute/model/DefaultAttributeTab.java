@@ -41,6 +41,9 @@ public class DefaultAttributeTab extends AbstractModel implements AttributeTab {
     @Column(Col.SHOW_IN_PROGRAMME)
     private boolean showInProgramme = true;
 
+    @Column(Col.SHOW_IN_BUNDLE)
+    private boolean showInBundle = true;
+
     @Column(Col.SHOW_IN_PRODUCT)
     private boolean showInProduct = true;
 
@@ -160,6 +163,17 @@ public class DefaultAttributeTab extends AbstractModel implements AttributeTab {
     @Override
     public AttributeTab setShowInProgramme(boolean showInProgramme) {
         this.showInProgramme = showInProgramme;
+        return this;
+    }
+
+    @Override
+    public boolean isShowInBundle() {
+        return showInBundle;
+    }
+
+    @Override
+    public AttributeTab setShowInBundle(boolean showInBundle) {
+        this.showInBundle = showInBundle;
         return this;
     }
 

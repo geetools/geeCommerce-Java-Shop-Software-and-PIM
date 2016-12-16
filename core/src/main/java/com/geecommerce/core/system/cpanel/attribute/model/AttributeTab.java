@@ -36,6 +36,10 @@ public interface AttributeTab extends Model {
 
     public AttributeTab setShowInProgramme(boolean showInProgramme);
 
+    public boolean isShowInBundle();
+
+    public AttributeTab setShowInBundle(boolean showInBundle);
+
     public boolean isShowInProduct();
 
     public AttributeTab setShowInProduct(boolean showInProduct);
@@ -68,6 +72,7 @@ public interface AttributeTab extends Model {
         public static final String POSITION = "pos";
         public static final String SHOW_IN_VARIANT_MASTER = "showInVM";
         public static final String SHOW_IN_PROGRAMME = "ShowInPG";
+        public static final String SHOW_IN_BUNDLE = "ShowInBL";
         public static final String SHOW_IN_PRODUCT = "showInPD";
         public static final String PRE_RENDER_CALLBACK = "preRenderCallback";
         public static final String POST_RENDER_CALLBACK = "postRenderCallback";

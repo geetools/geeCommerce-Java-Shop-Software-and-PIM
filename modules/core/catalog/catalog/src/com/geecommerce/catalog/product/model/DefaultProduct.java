@@ -1355,7 +1355,7 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public boolean hasValidBundleProducts() {
-        if (isBundle() || !hasBundleProducts())
+        if (isBundle() && !hasBundleProducts())
             return false;
 
         boolean hasValidBundleProducts = false;
@@ -1396,6 +1396,16 @@ public class DefaultProduct extends AbstractAttributeSupport
 
         return bundleProducts;
     }
+
+    @Override
+    public List<Id> getBundleProductIds() {
+        if (bundleProductItems != null && bundleProductItems.size() > 0) {
+            List<Id> bundleProductIds = bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList());
+            return bundleProductIds;
+        }
+        return null;
+    }
+
     @Override
     public Product addBundleProduct(Product product) {
         return addBundleProduct(product, 1);

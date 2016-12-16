@@ -35,6 +35,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs', 'gc-attribute
                 newAttributeTab.position = self.attributeTabVM.position();
                 newAttributeTab.showInVariantMaster = self.attributeTabVM.showInVariantMaster();
                 newAttributeTab.showInProgramme = self.attributeTabVM.showInProgramme();
+                newAttributeTab.showInBundle = self.attributeTabVM.showInBundle();
                 newAttributeTab.showInProduct = self.attributeTabVM.showInProduct();
                 newAttributeTab.enabled = self.attributeTabVM.enabled();
 
@@ -51,6 +52,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs', 'gc-attribute
                     self.attributeTabVM.position(savedAttributeTab.position);
                     self.attributeTabVM.showInVariantMaster(savedAttributeTab.showInVariantMaster);
                     self.attributeTabVM.showInProgramme(savedAttributeTab.showInProgramme);
+                    self.attributeTabVM.showInBundle(savedAttributeTab.showInBundle);
                     self.attributeTabVM.showInProduct(savedAttributeTab.showInProduct);
                     self.attributeTabVM.enabled(savedAttributeTab.enabled);
 
@@ -69,6 +71,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs', 'gc-attribute
                 updateModel.field('position', self.attributeTabVM.position());
                 updateModel.field('showInVariantMaster', self.attributeTabVM.showInVariantMaster());
                 updateModel.field('showInProgramme', self.attributeTabVM.showInProgramme());
+                updateModel.field('showInBundle', self.attributeTabVM.showInBundle());
                 updateModel.field('showInProduct', self.attributeTabVM.showInProduct());
                 updateModel.field('enabled', self.attributeTabVM.enabled());
 

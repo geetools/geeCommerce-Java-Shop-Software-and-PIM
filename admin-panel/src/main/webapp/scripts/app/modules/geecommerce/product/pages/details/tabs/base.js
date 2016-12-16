@@ -52,8 +52,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 return gc.app.i18n('app:modules.product.baseTabDescProgramme', {}, gc.app.currentUserLang);
             } else if (self.isBundle()) {
                 return gc.app.i18n('app:modules.product.baseTabDescBundle', {}, gc.app.currentUserLang);
-            }
-            else if (self.isVariantMaster()) {
+            } else if (self.isVariantMaster()) {
                 return gc.app.i18n('app:modules.product.baseTabDescVariantMaster', {}, gc.app.currentUserLang);
             } else if (self.isVariant()) {
                 return gc.app.i18n('app:modules.product.baseTabDescVariant', {}, gc.app.currentUserLang) + ' <a href="#/products/details/' + self.parentId() + '" target="_blank">' + self.parentName()

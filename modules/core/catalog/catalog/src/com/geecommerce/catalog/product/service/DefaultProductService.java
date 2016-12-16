@@ -92,6 +92,9 @@ public class DefaultProductService implements ProductService {
             if (product.hasCrossSells())
                 productIds.addAll(product.getCrossSellProductIds());
 
+            if (product.hasBundleProducts())
+                productIds.addAll(product.getBundleProductIds());
+
             // Preload prices to make later retrieval faster.
             List<Product> productsList = new ArrayList<>();
             productsList.add(product);

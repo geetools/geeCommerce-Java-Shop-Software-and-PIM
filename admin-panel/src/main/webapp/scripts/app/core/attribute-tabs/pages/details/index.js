@@ -9,6 +9,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs', 'gc-attribute
         self.position = ko.observable();
         self.showInVariantMaster = ko.observable();
         self.showInProgramme = ko.observable();
+        self.showInBundle = ko.observable();
         self.showInProduct = ko.observable();
         self.enabled = ko.observable();
         self.attributes = ko.observableArray();
@@ -92,6 +93,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs', 'gc-attribute
                     self.attributeTabVM.position(attributeTab.position);
                     self.attributeTabVM.showInVariantMaster(attributeTab.showInVariantMaster);
                     self.attributeTabVM.showInProgramme(attributeTab.showInProgramme);
+                    self.attributeTabVM.showInBundle(attributeTab.showInBundle);
                     self.attributeTabVM.showInProduct(attributeTab.showInProduct);
                     self.attributeTabVM.enabled(attributeTab.enabled);
 

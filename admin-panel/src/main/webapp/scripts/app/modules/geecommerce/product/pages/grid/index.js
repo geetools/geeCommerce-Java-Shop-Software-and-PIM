@@ -311,7 +311,7 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
               { 'name' : 'type', 'label' : 'app:modules.product.gridColType', cookieKey : 't', 'selectOptions' :
             	  [
             	   { label: gc.app.i18n('app:common.choose'), value: '' },
-            	   { label: gc.app.i18n('app:modules.product.typePHYSICAL'), value: 1 },
+            	   { label: gc.app.i18n('app:modules.product.typePRODUCT'), value: 1 },
             	   { label: gc.app.i18n('app:modules.product.typeVARIANT_MASTER'), value: 2 },
             	   { label: gc.app.i18n('app:modules.product.typePROGRAMME'), value: 4 } 
             	  ] },

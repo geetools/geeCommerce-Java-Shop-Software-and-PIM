@@ -7,7 +7,7 @@ import com.geecommerce.core.service.api.ModelEnum;
 import com.google.common.collect.Maps;
 
 public enum ProductType implements ModelEnum {
-    PHYSICAL(1), VARIANT_MASTER(2), BUNDLE(3), PROGRAMME(4), VIRTUAL(5), DOWNLOADABLE(6);
+    PRODUCT(1), VARIANT_MASTER(2), BUNDLE(3), PROGRAMME(4), VIRTUAL(5), DOWNLOADABLE(6);
 
     private int id;
 

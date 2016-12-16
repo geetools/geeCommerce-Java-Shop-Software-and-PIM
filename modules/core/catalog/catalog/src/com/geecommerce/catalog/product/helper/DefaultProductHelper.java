@@ -49,6 +49,7 @@ public class DefaultProductHelper implements ProductHelper {
 
     protected static final String ATTRIBUTE_CODE_PRODUCT_GROUP = "product_group";
     protected static final String ATTRIBUTE_CODE_PROGRAMME = "programme";
+    protected static final String ATTRIBUTE_CODE_BUNDLE_GROUP = "bundle_group";
 
     protected static final Logger log = LogManager.getLogger(DefaultProductHelper.class);
 

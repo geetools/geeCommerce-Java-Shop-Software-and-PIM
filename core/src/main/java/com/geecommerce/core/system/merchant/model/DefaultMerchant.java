@@ -203,6 +203,22 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
     }
 
     @Override
+    public Store getStore(String storeCode) {
+        if (storeCode == null)
+            return null;
+
+        if (stores != null) {
+            for (Store store : stores) {
+                if (store.getCode().equals(storeCode)) {
+                    return store;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    @Override
     public Store getStoreFor(RequestContext requestCtx) {
         if (requestCtx == null)
             return null;

@@ -34,7 +34,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 		self.linkedAttributeIds = ko.observableArray([]);
 		self.productTypes = ko.observableArray([]);
 		self.dimensionAttribute = ko.observable();
-
+        self.allowNewOptionsViaImport = ko.observable();
+		
         //--------------------------------------------------------
         // Validation properties
         //--------------------------------------------------------
@@ -195,6 +196,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 					self.attributeVM.i18n(attribute.i18n);
 					self.attributeVM.linkedAttributeIds(attribute.linkedAttributeIds || []);
 					self.attributeVM.productTypes(attribute.productTypes || []);
+                    self.attributeVM.allowNewOptionsViaImport(attribute.allowNewOptionsViaImport);
 					self.attributeVM.validationMin(attribute.validationMin || []);
 					self.attributeVM.validationMax(attribute.validationMax || []);
 					self.attributeVM.validationMinLength(attribute.validationMinLength || []);

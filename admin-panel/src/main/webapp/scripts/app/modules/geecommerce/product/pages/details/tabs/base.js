@@ -536,7 +536,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     "optionIds" : self.editVM.bundleGroup()
                 } ];
             } else if (!_.isUndefined(self.editVM.productGroup())) {
-                newProduct.type = 'PHYSICAL';
+                newProduct.type = 'PRODUCT';
                 newProduct.attributes = [ {
                     attributeId : attrProductGroup.id,
                     "optionIds" : self.editVM.productGroup()

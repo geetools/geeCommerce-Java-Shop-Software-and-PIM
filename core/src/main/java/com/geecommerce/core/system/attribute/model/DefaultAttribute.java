@@ -122,6 +122,10 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     @Column(Col.VALIDATION_MESSAGE)
     protected ContextObject<String> validationMessage = null;
 
+    // Import settings
+    @Column(Col.ALLOW_NEW_OPTIONS_VIA_IMPORT)
+    protected boolean allowNewOptionsViaImport = false;
+
     // Product settings
     @Column(Col.PRODUCT_TYPES)
     protected Set<ProductType> productTypes = null;
@@ -591,6 +595,17 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
         this.productTypes.addAll(Arrays.asList(productTypes));
 
+        return this;
+    }
+
+    @Override
+    public boolean isAllowNewOptionsViaImport() {
+        return allowNewOptionsViaImport;
+    }
+
+    @Override
+    public Attribute setAllowNewOptionsViaImport(boolean allowNewOptionsViaImport) {
+        this.allowNewOptionsViaImport = allowNewOptionsViaImport;
         return this;
     }
 
@@ -1242,6 +1257,9 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         if (map.get(Col.PRODUCT_TYPES) != null)
             this.productTypes = enumSet_(ProductType.class, map.get(Col.PRODUCT_TYPES));
 
+        // Import settings
+        this.allowNewOptionsViaImport = bool_(map.get(Col.ALLOW_NEW_OPTIONS_VIA_IMPORT), false);
+
         // ProductList filter settings
         this.includeInProductListFilter = bool_(map.get(Col.INCLUDE_IN_PRODUCT_LIST_FILTER));
         this.productListFilterMulti = bool_(map.get(Col.PRODUCT_LIST_FILTER_MULTI), false);
@@ -1409,6 +1427,9 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
         // Product settings
         if (getProductTypes() != null)
             map.put(Col.PRODUCT_TYPES, getProductTypes());
+
+        // Import settings
+        map.put(Col.ALLOW_NEW_OPTIONS_VIA_IMPORT, isAllowNewOptionsViaImport());
 
         // ProductList filter settings
         if (getIncludeInProductListFilter() != null && getProductListFilterType() != null) {

@@ -88,8 +88,6 @@ define([
             var label = gc.ctxobj.val(newValue, defLang);
             var labelSlug = getSlug(label).replace(/\-/g, '_');
             self.code(labelSlug);
-
-            console.log('------------------------->>> ', defLang, self.backendLabel(), self.code());
         });
 
         self.isNew = ko.computed(function() {
@@ -151,7 +149,7 @@ define([
             return self.backendType() == 'DATE';
         });
 
-        self.productTypes = [
+        self.productTypeValues = [
                 {
                     id : 'PRODUCT',
                     text : 'Produkt'
@@ -167,7 +165,7 @@ define([
                 }
         ];
 
-        self.frontendInputs = [
+        self.frontendInputValues = [
                 {
                     id : 'TEXT',
                     text : 'Freitext'
@@ -186,7 +184,7 @@ define([
                 }
         ];
 
-        self.backendTypes = [
+        self.backendTypeValues = [
                 {
                     id : 'STRING',
                     text : 'Text'
@@ -214,7 +212,7 @@ define([
                 }
         ];
 
-        self.inputTypes = [
+        self.inputTypeValues = [
                 {
                     id : 'OPTOUT',
                     text : 'Opt-out'
@@ -227,8 +225,10 @@ define([
                 }
         ];
 
-        // Set default
+        // Set default values.
         self.frontendInput('TEXT');
+        self.frontendOutput('TEXT');
+        self.type('DEFAULT');
 
         self.containsMinimumData = function() {
             if (_.isEmpty(self.targetObjectId())) {
@@ -274,7 +274,7 @@ define([
             if (self.allowNewOptionsViaImport() !== true && self.allowNewOptionsViaImport() !== false) {
                 return false;
             }
-            
+
             return true;
         }
     };

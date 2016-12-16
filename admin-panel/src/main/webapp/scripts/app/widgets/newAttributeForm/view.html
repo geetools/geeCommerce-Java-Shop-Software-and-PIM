@@ -25,7 +25,7 @@
               <div class="form-group">
                 <label for="inputProductType" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabProductType">Product Types</label>
                 <div class="col-xs-7 input-group">
-                  <select class="selectpicker show-tick" multiple data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.productTypes, data: productTypes">
+                  <select class="selectpicker show-tick" multiple data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.productTypes, data: productTypeValues">
                   </select>
                 </div>
               </div>
@@ -51,7 +51,7 @@
               <div class="form-group">
                 <label for="inputAttrFrontendInput" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabFrontendInput">Frontend Input</label>
                 <div class="col-xs-7 input-group">
-                  <select class="selectpicker" data-bind="select: attributeVM.frontendInput, data: frontendInputs">
+                  <select class="selectpicker" data-bind="select: attributeVM.frontendInput, data: frontendInputValues">
                   </select>
                 </div>
               </div>
@@ -59,7 +59,7 @@
               <div class="form-group" data-bind="visible: attributeVM.showBackendType">
                 <label for="inputAttrBackendType" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabBackendType">Backend Type</label>
                 <div class="col-xs-7 input-group">
-                  <select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.backendType, data: backendTypes">
+                  <select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.backendType, data: backendTypeValues">
                   </select>
                 </div>
               </div>
@@ -68,7 +68,7 @@
               <div class="form-group">
                 <label for="inputAttrInputType" class="control-label col-xs-5" data-i18n="app:modules.attribute.generalTabValidation">Input Type</label>
                 <div class="col-xs-7 input-group">
-                  <select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.inputType, data: inputTypes">
+                  <select class="selectpicker" data-bind="attr: { title: app.i18n('app:common.choose') }, select: attributeVM.inputType, data: inputTypeValues">
                   </select>
                 </div>
 

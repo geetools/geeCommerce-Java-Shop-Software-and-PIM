@@ -60,20 +60,60 @@ define([
         var self = this;
         console.log('----------------- saveAndClose: ', viewModel, event);
 
-        if(self.attributeVM.containsMinimumData()) {
-            
+        if (self.attributeVM.containsMinimumData()) {
+            self.initProgressBar();
+
+            var newAttribute = self.toRestObject(self.attributeVM);
+
+            gc.app.updateProgressBar(50);
+
+            attrAPI.createAttribute(newAttribute).then(function(savedAttribute) {
+                gc.app.updateProgressBar(100);
+                gc.app.resetProgressBar();
+                
+                self.attributeVM.id(savedAttribute.id);
+                gc.app.channel.publish('attribute.created', savedAttribute);
+            });
         }
     };
-    
-    
+
+    ctor.prototype.toRestObject = function(attributeVM) {
+        var newAttribute = {};
+        newAttribute.targetObjectId = attributeVM.targetObjectId();
+        newAttribute.type = attributeVM.type();
+        newAttribute.backendLabel = attributeVM.backendLabel();
+        newAttribute.productTypes = attributeVM.productTypes();
+        newAttribute.frontendLabel = attributeVM.frontendLabel();
+        newAttribute.code = attributeVM.code();
+        newAttribute.enabled = true;
+        newAttribute.searchable = false;
+        newAttribute.includeInProductListFilter = false;
+        newAttribute.includeInProductListQuery = false;
+        newAttribute.includeInSearchFilter = false;
+        newAttribute.allowNewOptionsViaImport = attributeVM.allowNewOptionsViaImport();
+        newAttribute.editable = attributeVM.editable();
+        newAttribute.frontendInput = attributeVM.frontendInput();
+        newAttribute.frontendOutput = attributeVM.frontendOutput();
+        newAttribute.inputType = attributeVM.inputType();
+        newAttribute.backendType = attributeVM.backendType();
+        newAttribute.allowMultipleValues = attributeVM.allowMultipleValues();
+        newAttribute.i18n = attributeVM.i18n();
+        return newAttribute;
+    };
+
+    ctor.prototype.initProgressBar = function(view, parent) {
+        gc.app.initProgressBar();
+        gc.app.updateProgressBar(25);
+    };
+
     ctor.prototype.attached = function(view, parent) {
         var self = this;
 
         console.log('%%%%%%%%%%%%%%%%%%%% ATTACHED::: ', view, parent);
-        
-//        $(view).on('show.bs.modal', '.modal', function(e) {
-//            self.initData();
-//        });
+
+        // $(view).on('show.bs.modal', '.modal', function(e) {
+        // self.initData();
+        // });
     };
 
     ctor.prototype.detached = function() {

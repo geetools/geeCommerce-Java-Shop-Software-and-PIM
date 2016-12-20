@@ -47,13 +47,13 @@ define([
     ctor.prototype.initData = function() {
         var self = this;
 
-        self.productTypes = self.options.productTypes || self.attributeVM.productTypes;
+        self.productTypeValues = self.options.productTypes || self.attributeVM.productTypeValues;
 
-        self.frontendInputs = self.options.frontendInputs || self.attributeVM.frontendInputs;
+        self.frontendInputValues = self.options.frontendInputs || self.attributeVM.frontendInputValues;
 
-        self.backendTypes = self.options.backendTypes || self.attributeVM.backendTypes;
+        self.backendTypeValues = self.options.backendTypes || self.attributeVM.backendTypeValues;
 
-        self.inputTypes = self.options.inputTypes || self.attributeVM.inputTypes;
+        self.inputTypeValues = self.options.inputTypes || self.attributeVM.inputTypeValues;
     };
 
     ctor.prototype.saveAndClose = function(viewModel, event) {

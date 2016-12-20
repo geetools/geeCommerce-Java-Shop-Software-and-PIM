@@ -400,7 +400,7 @@ public interface Attribute extends MultiContextModel {
         public static final String PRODUCT_LIST_FILTER_POSITION = "pl_filter_pos";
 
         // ProductList query settings
-        public static final String SHOW_IN_QUERY = "show_in_query";
+        public static final String SHOW_IN_QUERY = "pl_query_enabled";
 
         // Search filter settings
         public static final String INCLUDE_IN_SEARCH_FILTER = "s_filter_enabled";

@@ -33,7 +33,7 @@ define([
         self.inputType = ko.observable();
         self.backendType = ko.observable();
         self.includeInProductListFilter = ko.observable();
-        self.includeInProductListQuery = ko.observable();
+        self.showInQuery = ko.observable();
         self.includeInSearchFilter = ko.observable();
         self.showInProductDetails = ko.observable();
         self.allowMultipleValues = ko.observable();

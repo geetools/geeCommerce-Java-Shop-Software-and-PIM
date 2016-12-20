@@ -40,7 +40,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 				newAttribute.enabled = self.attributeVM.enabled();
 				newAttribute.searchable = self.attributeVM.searchable();
 				newAttribute.includeInProductListFilter = self.attributeVM.includeInProductListFilter();
-                newAttribute.includeInProductListQuery = self.attributeVM.includeInProductListQuery();
+                newAttribute.showInQuery = self.attributeVM.showInQuery();
 				newAttribute.includeInSearchFilter = self.attributeVM.includeInSearchFilter();
 				newAttribute.productTypes = self.attributeVM.productTypes();
                 newAttribute.allowNewOptionsViaImport = self.attributeVM.allowNewOptionsViaImport();
@@ -81,7 +81,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 					self.attributeVM.inputType(savedAttribute.inputType);
 					self.attributeVM.backendType(savedAttribute.backendType);
 					self.attributeVM.includeInProductListFilter(savedAttribute.includeInProductListFilter);
-                    self.attributeVM.includeInProductListQuery(savedAttribute.includeInProductListQuery);
+                    self.attributeVM.showInQuery(savedAttribute.showInQuery);
 					self.attributeVM.includeInSearchFilter(savedAttribute.includeInSearchFilter);
 	                self.attributeVM.allowMultipleValues(savedAttribute.allowMultipleValues);
 					self.attributeVM.i18n(savedAttribute.i18n);
@@ -124,7 +124,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 				updateModel.field('enabled', self.attributeVM.enabled());
 				updateModel.field('searchable', self.attributeVM.searchable());
 				updateModel.field('includeInProductListFilter', self.attributeVM.includeInProductListFilter());
-                updateModel.field('includeInProductListQuery', self.attributeVM.includeInProductListQuery());
+                updateModel.field('showInQuery', self.attributeVM.showInQuery());
 				updateModel.field('includeInSearchFilter', self.attributeVM.includeInSearchFilter());
 				updateModel.field('productTypes', self.attributeVM.productTypes());
                 updateModel.field('allowNewOptionsViaImport', self.attributeVM.allowNewOptionsViaImport());

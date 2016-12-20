@@ -226,9 +226,9 @@ public interface Attribute extends MultiContextModel {
     // ProductList query settings
     // -------------------------------------------------------------------
 
-    public Boolean getIncludeInProductListQuery();
+    public Boolean getShowInQuery();
 
-    public Attribute setIncludeInProductListQuery(Boolean includeInProductListQuery);
+    public Attribute setShowInQuery(Boolean showInQuery);
 
     // -------------------------------------------------------------------
     // Search filter settings
@@ -400,7 +400,7 @@ public interface Attribute extends MultiContextModel {
         public static final String PRODUCT_LIST_FILTER_POSITION = "pl_filter_pos";
 
         // ProductList query settings
-        public static final String INCLUDE_IN_PRODUCT_LIST_QUERY = "pl_query_enabled";
+        public static final String SHOW_IN_QUERY = "pl_query_enabled";
 
         // Search filter settings
         public static final String INCLUDE_IN_SEARCH_FILTER = "s_filter_enabled";

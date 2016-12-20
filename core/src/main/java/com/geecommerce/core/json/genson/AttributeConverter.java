@@ -85,7 +85,7 @@ public class AttributeConverter implements Converter<Attribute> {
     public static final String KEY_PRODUCT_LIST_FILTER_INCLUDE_CHILDREN = "productListFilterIncludeChildren";
     public static final String KEY_PRODUCT_LIST_FILTER_POSITION = "productListFilterPosition";
 
-    public static final String KEY_INCLUDE_IN_PRODUCT_LIST_QUERY = "includeInProductListQuery";
+    public static final String KEY_SHOW_IN_QUERY = "showInQuery";
 
     @SuppressWarnings("unchecked")
     @Override
@@ -219,8 +219,8 @@ public class AttributeConverter implements Converter<Attribute> {
                 attr.setProductListFilterIncludeChildren(obj.valueAsBoolean());
             } else if (KEY_PRODUCT_LIST_FILTER_POSITION.equals(obj.name())) {
                 attr.setProductListFilterPosition(obj.valueAsInt());
-            } else if (KEY_INCLUDE_IN_PRODUCT_LIST_QUERY.equals(obj.name())) {
-                attr.setIncludeInProductListQuery(obj.valueAsBoolean());
+            } else if (KEY_SHOW_IN_QUERY.equals(obj.name())) {
+                attr.setShowInQuery(obj.valueAsBoolean());
             } else if (KEY_LINKED_ATTRIBUTE_IDS.equals(obj.name())) {
                 List<Id> linkedAttributeIds = new ArrayList<>();
 
@@ -535,9 +535,9 @@ public class AttributeConverter implements Converter<Attribute> {
                 writer.writeValue(attr.getProductListFilterPosition());
             }
 
-            if (!ConvertUtil.ignoreProperty(KEY_INCLUDE_IN_PRODUCT_LIST_QUERY)) {
-                writer.writeName(KEY_INCLUDE_IN_PRODUCT_LIST_QUERY);
-                writer.writeValue(attr.getIncludeInProductListQuery());
+            if (!ConvertUtil.ignoreProperty(KEY_SHOW_IN_QUERY)) {
+                writer.writeName(KEY_SHOW_IN_QUERY);
+                writer.writeValue(attr.getShowInQuery());
             }
 
             if (attr.getLinkedAttributeIds() != null && !ConvertUtil.ignoreProperty(KEY_LINKED_ATTRIBUTE_IDS)) {

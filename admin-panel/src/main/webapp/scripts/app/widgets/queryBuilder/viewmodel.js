@@ -249,13 +249,13 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         console.log("QUERY NODE")
         console.log(this.queryNode())
 
-        return attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'includeInProductListQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
+        return attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'showInQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
 
             var attributes = response.data.attributes;
             //   vm.attributes(attributes);
             var fAV = [];
             _.each(attributes, function(attr) {
-                if(attr.includeInProductListQuery){
+                if(attr.showInQuery){
                     attr.label = gc.ctxobj.val(attr.backendLabel, gc.app.currentUserLang(), 'closest');
                     fAV.push(attr);
                 }

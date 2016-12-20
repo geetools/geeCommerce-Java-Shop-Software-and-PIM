@@ -190,7 +190,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-vm' 
 					self.attributeVM.inputType(attribute.inputType);
 					self.attributeVM.backendType(attribute.backendType);
 					self.attributeVM.includeInProductListFilter(attribute.includeInProductListFilter);
-                    self.attributeVM.includeInProductListQuery(attribute.includeInProductListQuery);
+                    self.attributeVM.showInQuery(attribute.showInQuery);
 					self.attributeVM.includeInSearchFilter(attribute.includeInSearchFilter);
 					self.attributeVM.showInProductDetails(attribute.showInProductDetails);
 	                self.attributeVM.allowMultipleValues(attribute.allowMultipleValues);

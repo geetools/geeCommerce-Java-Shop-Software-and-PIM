@@ -3472,7 +3472,15 @@ select:focus, select:active, button:active, button:active {
     margin-top: 3px;
 }
 
+.prd-info-image{
+    float: left;
+    width: 100px;
+}
 
+.prd-info-details{
+    margin-left: 120px;
+    padding-top: 10px;
+}
 
 @media only screen and (min-width: 768px) {
     #product-status-infobox {

@@ -9,28 +9,53 @@
 					
 					<ul data-bind="foreach: { data: productVM().bundleProducts, as: 'prdItem' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableBundleProducts">
 						<li data-bind="attr: {'data-id': prdItem.id}" class="droppable-list" unselectable="on">
-							<div class="col-xs-8">
-								<span data-bind="attrText: prdItem.product, code: 'name', mode: 'closest'"></span><br/>
-								<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel(prdItem.product.attributes, 'product_group')"></span><br/>
-								<div class="attribute-info-row">
-									<span data-bind="attrText: prdItem.product, code: 'article_number', mode: 'closest'"></span>
+							<div class="row">
+								<div class="col-xs-2" >
+									<!-- Image -->
+									<span data-bind="if: prdItem.product.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prdItem.product.mainImageURI)}" border="0" vspace="10"/></span>
 								</div>
+								<div class="col-xs-6">
+									<span data-bind="attrText: prdItem.product, code: 'name', mode: 'closest'"></span><br/>
+									<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel(prdItem.product.attributes, 'product_group')"></span><br/>
+									<div class="attribute-info-row">
+										<span data-bind="attrText: prdItem.product, code: 'article_number', mode: 'closest'"></span>
+									</div>
 
-							</div>
-							<div class="col-xs-3">
-								<div class="form-group">
-									<label  class="col-sm-6 control-label">Quantity</label>
-									<div class="col-sm-6">
-										<input type="number" class="form-control" data-bind="value: prdItem.quantity, attr:{min: 0, step: 1}">
+									<!-- ko if: prdItem.isVariantMaster() -->
+									<div>
+										<div class="attr-select-wrapper">
+											<select class="selectpicker" data-live-search="true" data-size="15" data-bind="select: prdItem.defaultVariant, data: prdItem.variantOptions, sort: true"></select>
+										</div>
+									</div>
+									<!-- /ko -->
+
+								</div>
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label  class="col-sm-6 control-label">Quantity</label>
+										<div class="col-sm-6">
+											<input type="number" class="form-control" data-bind="value: prdItem.quantity, attr:{min: 0, step: 1}">
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-xs-1">
-								<a href="javascript:void(0)" data-bind="click: $root.removeProductFromBundle" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
-								<br/>
-								<!-- Image -->
-								<span data-bind="if: prdItem.product.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prdItem.product.mainImageURI)}" border="0" vspace="10"/></span>
-							</div>
+								<div class="col-xs-1">
+									<a href="javascript:void(0)" data-bind="click: $root.removeProductFromBundle" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+									<br/>
+								</div>
+							</row>
+							<row>
+								<div class="col-xs-3"></div>
+								<div class="col-xs-6"></div>
+
+								<div class="col-xs-3">
+									<div class="form-group">
+										<label  class="col-xs-6 control-label">Optional</label>
+										<div class="col-xs-6 switch-wrapper">
+											<input type="checkbox" data-bind="bool: prdItem.optional" />
+										</div>
+									</div>
+								</div>
+							</row>
 							<div class="clearfix"></div>
 						</li>
 					</ul>

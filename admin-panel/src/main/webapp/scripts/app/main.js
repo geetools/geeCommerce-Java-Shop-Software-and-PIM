@@ -573,6 +573,8 @@ define(function(require) {
     widget.registerKind('productFinder');
     widget.registerKind('attrSelect');
     widget.registerKind('newAttributeForm');
+    widget.registerKind('productInfo');
+
     kv.makeBindingHandlerValidatable("i18nValue");
 
     kv.rules['require_i18n'] = {

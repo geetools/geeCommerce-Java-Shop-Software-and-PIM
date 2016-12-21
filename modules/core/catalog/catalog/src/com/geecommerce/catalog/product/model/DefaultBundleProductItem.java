@@ -110,7 +110,7 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
         m.put(Col.PRODUCT_ID, getProductId());
         m.put(Col.QUANTITY, getQuantity());
         m.put(Col.DEFAULT_PRODUCT_ID, getProductId());
-        m.put(Col.OPTIONAL, getDefaultProductId());
+        m.put(Col.OPTIONAL, isOptional());
 
         return m;
     }

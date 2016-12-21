@@ -7,6 +7,49 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         self.product = product;
         self.quantity = ko.observable(quantity);
 
+        self.optional = ko.observable(false);
+        self.defaultVariant = ko.observable();
+        self.isVariantMaster = ko.observable(false);
+        self.variants = ko.observableArray([]);
+        self.variantOptions = ko.observableArray([])
+
+
+        if(product.type == "VARIANT_MASTER"){
+        	self.isVariantMaster(true);
+
+            productAPI.getVariants(self.id).then(function(data) {
+
+                if(!_.isEmpty(data.data.products)) {
+
+                    // Add all products to the variants array.
+                    var variants =  data.data.products;
+
+                    // Add the attribute meta data.
+                    gc.attributes.appendAttributes(variants);
+
+                    // Populate drag&drop target container.
+                    self.variants(variants)
+
+                    _.forEach(variants, function(variant) {
+                        var name = gc.attributes.find(variant.attributes, "name");
+                        var number = gc.attributes.find(variant.attributes, "article_number");
+
+                        var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
+                        var numberVal = gc.ctxobj.val(number.value, gc.app.currentUserLang(), "closest");
+
+                        self.variantOptions.push({
+                            id : variant.id,
+                            text : numberVal + " - " + nameVal || ""
+                        });
+                    });
+                } else {
+                	self.variants([]);
+                    self.variantOptions([]);
+				}
+            });
+		}
+
+
         self.quantity.subscribe(function (val) {
         	if(val > 0){
                 productAPI.addProductToBundle(self.vm.productId(), self.id, val);

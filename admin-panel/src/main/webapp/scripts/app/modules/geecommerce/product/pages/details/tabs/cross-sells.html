@@ -9,20 +9,12 @@
 					
 					<ul data-bind="foreach: { data: productVM().crossSellProducts, as: 'prd' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableCrossSellProducts">
 						<li data-bind="attr: {'data-id': prd.id}" class="droppable-list" unselectable="on">
-							<div class="col-xs-8">
-								<span data-bind="attrText: prd, code: 'name', mode: 'closest'"></span><br/>
-								<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel(prd.attributes, 'product_group')"></span><br/>
-								<div class="attribute-info-row">
-									<span data-bind="attrText: prd, code: 'article_number', mode: 'closest'"></span>
-								</div>
-
+							<div class="col-xs-10">
+								<div data-bind="productInfo: {product: prd}"></div>
 							</div>
 
-							<div class="col-xs-4">
+							<div class="col-xs-2">
 								<a href="#" data-bind="click: $root.removeCrossSell" class="btn-cancel pull-right" data-placement="bottom" data-toggle="tooltip" data-original-title="Cross-sell löschen"><i class="fa fa-times"></i></a>
-                                <br/>
-                        		<!-- Image -->
-								<span data-bind="if: prd.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prd.mainImageURI)}" border="0" vspace="10"/></span>
 							</div>
 							<div class="clearfix"></div>
 						</li>
@@ -44,19 +36,7 @@
 						<div class="col-md-12">
 							<ul data-bind="foreach: { data: $root.sourceCrossSellProductsPager.data, as: 'srcPrd' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
 								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
-									<div class="col-xs-8">
-										<span data-bind="attrText: srcPrd, code: 'name', mode: 'closest'"></span><br/>
-										<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel(srcPrd.attributes, 'product_group')"></span><br/>
-										<div class="attribute-info-row">
-											<span data-bind="attrText: srcPrd, code: 'article_number', mode: 'closest'"></span>
-										</div>
-
-									</div>
-
-									<div class="col-xs-4">
-										<!-- Image -->
-										<span data-bind="if: srcPrd.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(srcPrd.mainImageURI)}" border="0" vspace="10"/></span>
-									</div>
+									<div data-bind="productInfo: {product: srcPrd}"></div>
 									<div class="clearfix"></div>
 								</li>
 							</ul>

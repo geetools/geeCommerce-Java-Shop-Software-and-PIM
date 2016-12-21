@@ -871,6 +871,13 @@ input:-webkit-autofill {
     padding: 5px;
 }
 
+.modal-dialog .table>thead>tr>th, .modal-dialog .table>tbody>tr>th, .modal-dialog .table>tfoot>tr>th, .modal-dialog .table>thead>tr>td,
+    .modal-dialog .table>tbody>tr>td, .modal-dialog .table>tfoot>tr>td {
+    padding: 0px;
+    vertical-align: middle;
+}
+
+
 .table>thead>tr>td.td-filter {
     padding: 0;
 }

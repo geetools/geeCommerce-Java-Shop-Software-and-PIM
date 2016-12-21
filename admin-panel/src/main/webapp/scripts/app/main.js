@@ -570,6 +570,7 @@ define(function(require) {
     widget.registerKind('mediaAssets');
     widget.registerKind('gridTable');
     widget.registerKind('queryBuilder');
+    widget.registerKind('productFinder');
     widget.registerKind('attrSelect');
     widget.registerKind('newAttributeForm');
     kv.makeBindingHandlerValidatable("i18nValue");

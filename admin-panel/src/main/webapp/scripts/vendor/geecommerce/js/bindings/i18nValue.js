@@ -6,7 +6,10 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			var valueUnwrapped = _.isUndefined(value) ? [] : ko.unwrap(value);
             var allBindings = allBindingsAccessor();
             var lang = allBindings.lang || gc.app.currentLang();
-			
+	
+            console.log('INIT allBindings.lang=', allBindings.lang, ' gc.app.currentLang()=', gc.app.currentLang());
+            
+            
 			var ctxVal = gc.ctxobj.val(valueUnwrapped, lang);
 
 			if (!_.isUndefined(ctxVal) && !_.isNull(ctxVal)) {
@@ -18,6 +21,8 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			// Make sure that any edits are passed onto the ko-observable.
 			$(element).change(function() {
 				valueUnwrapped = ko.unwrap(value) || [];
+				
+	            var lang = allBindings.lang || gc.app.currentLang();
 				
 				console.log('USING LANG ________________ ', lang);
 				
@@ -36,6 +41,8 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             var allBindings = allBindingsAccessor();
             var lang = allBindings.lang || gc.app.currentLang();
 			
+            console.log('UPDATE allBindings.lang=', allBindings.lang, ' gc.app.currentLang()=', gc.app.currentLang());
+            
 			var ctxVal = gc.ctxobj.val(valueUnwrapped, lang);
 
 			if (!_.isUndefined(ctxVal) && !_.isNull(ctxVal)) {

@@ -1741,7 +1741,9 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
         		// Optionally pre-sort the results.
         		sort: options.sort || ['-createdOn'],
         		columns: options.columns,
-        		multiContext: options.multiContext,
+                multiContext: options.multiContext,
+                limit: options.limit || 25,
+                cookieName: options.cookieName,
         		// Returns an array that the pager can add to the
 				// ko.observableArray.
         		getArray: function(data) {

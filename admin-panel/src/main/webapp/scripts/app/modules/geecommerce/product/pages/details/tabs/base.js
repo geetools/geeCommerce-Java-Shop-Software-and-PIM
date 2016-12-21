@@ -392,7 +392,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     code : 'status_article'
                 }
             }).then(function(data) {
-                attrStatusArticle = data.data.attributes[0];
+                if(_.isEmpty(data.data.attributes) || data.data.attributes.length > 1 || data.data.attributes[0].code != 'status_article') {
+                    console.log('An error occured because either no "status_article" attribute could be found or more than 1 was returned.');
+                } else {
+                    attrStatusArticle = data.data.attributes[0];
+                }
             });
 
             attrAPI.getAttributes('product', {
@@ -400,7 +404,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     code : 'status_description'
                 }
             }).then(function(data) {
-                attrStatusDescription = data.data.attributes[0];
+                if(_.isEmpty(data.data.attributes) || data.data.attributes.length > 1 || data.data.attributes[0].code != 'status_description') {
+                    console.log('An error occured because either no "status_description" attribute could be found or more than 1 was returned.');
+                } else {
+                    attrStatusDescription = data.data.attributes[0];
+                }
             });
 
             attrAPI.getAttributes('product', {
@@ -408,7 +416,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     code : 'product_group'
                 }
             }).then(function(data) {
-                attrProductGroup = data.data.attributes[0];
+                if(_.isEmpty(data.data.attributes) || data.data.attributes.length > 1 || data.data.attributes[0].code != 'product_group') {
+                    console.log('An error occured because either no "product_group" attribute could be found or more than 1 was returned.');
+                } else {
+                    attrProductGroup = data.data.attributes[0];
+                }
             });
 
             attrAPI.getAttributes('product', {
@@ -416,7 +428,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     code : 'programme'
                 }
             }).then(function(data) {
-                attrProgramme = data.data.attributes[0];
+                if(_.isEmpty(data.data.attributes) || data.data.attributes.length > 1 || data.data.attributes[0].code != 'programme') {
+                    console.log('An error occured because either no "programme" attribute could be found or more than 1 was returned.');
+                } else {
+                    attrProgramme = data.data.attributes[0];
+                }
             });
 
             attrAPI.getAttributes('product', {
@@ -424,7 +440,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     code : 'bundle_group'
                 }
             }).then(function(data) {
-                attrBundleGroup = data.data.attributes[0];
+                if(_.isEmpty(data.data.attributes) || data.data.attributes.length > 1 || data.data.attributes[0].code != 'bundle_group') {
+                    console.log('An error occured because either no "bundle_group" attribute could be found or more than 1 was returned.');
+                } else {
+                    attrBundleGroup = data.data.attributes[0];
+                }
             });
 
             if (!_.isEmpty(attrStatusArticle) && !_.isEmpty(attrStatusArticle.options)) {

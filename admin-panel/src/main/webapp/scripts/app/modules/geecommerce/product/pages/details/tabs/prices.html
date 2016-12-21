@@ -49,6 +49,11 @@
 								<td><span data-bind="ifnot: $data.country">Alle</span><span data-bind="text: $data.country"></span></td>
 								<td><span data-bind="text: $parent.customerGroup($data.customerGroupId).label"></span></td>
 								<td><span data-bind="text: $parent.priceType($data.typeId).label"></span></td>
+                                <td>
+                                  <div>
+                                    <div data-bind="productFinder: { value: $data.whenProductsInCart, displayMode: 'modal' }"> </div>
+                                  </div>                                  
+                                </td>
 								<td>
 									<div data-bind="attr: {id: 'action-price-container-' + $data.id()}">
 										<a title="Save" data-bind="click: $root.updatePrice, attr: {id: 'update-price-btn-' + $data.id()}" href="#"><i class="fa fa-save"></i></a>

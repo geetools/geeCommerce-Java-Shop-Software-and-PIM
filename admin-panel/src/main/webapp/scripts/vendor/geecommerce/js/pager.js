@@ -17,6 +17,8 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         // console.log(options);
         options = options || {};
 
+        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options);
+        
         this._url = options.url;
         this._searchUrl = options.searchUrl;
         this._queryUrl = options.queryUrl;
@@ -27,10 +29,10 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         this._filter = {};
         this._sort = options.sort;
         this._sortDirection = 'ASC', this._offset = 0;
-        this._showNumPages = 10;
+        this._showNumPages = options.showNumPages || 10;
         this._currentPage = 1;
-        this._limit = 25;
-        this._totalCount = 0;
+        this._limit = options.limit || 25;
+        this._totalCount = options.totalCount || 0;
         this._getArray = options.getArray;
 
         if (typeof options.onload === "function") {
@@ -44,6 +46,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         this._busy = false;
         this._isInitialized = false;
         this._isMultiContext = options.multiContext;
+        this._cookieName = options.cookieName;
 
         this.columns = ko.observableArray();
         this.data = ko.observableArray();
@@ -94,10 +97,18 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         // Solves the 'this' problem when a DOM event-handler is fired.
         _.bindAll(this, 'registerObservableColumns', 'activateSubscribers', 'columnValue', 'sort', 'applyFilter', 'page', 'refresh', 'load', 'removeData', 'getData', 'setDefaultFilter', 'resetDefaultFilter', 'loadState', 'saveState');
 
+        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this._limit);
+        
         self.loadState();
 
+        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this._limit);
+        
         this.limit = ko.observable(this._limit);
 
+        
+        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this.limit());
+        
+        
     }
 
     Pager.prototype = {
@@ -380,14 +391,18 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         },
         cookieName : function() {
             var self = this;
+            
+            if(_.isEmpty(self._cookieName)) {
+                var key = 'pgr_' + self._url.replace(/\/api\/v[0-9]+\//g, '');
+                key = key.replace(/[\-\/]/g, '_');
 
-            var key = 'pgr_' + self._url.replace(/\/api\/v[0-9]+\//g, '');
-            key = key.replace(/[\-\/]/g, '_');
+                while (key.indexOf('__') != -1)
+                    key = key.replace(/__/g, '_');
 
-            while (key.indexOf('__') != -1)
-                key = key.replace(/__/g, '_');
-
-            return key;
+                return key;
+            } else {
+                return self._cookieName;
+            }
         },
         loadState : function() {
             var self = this;

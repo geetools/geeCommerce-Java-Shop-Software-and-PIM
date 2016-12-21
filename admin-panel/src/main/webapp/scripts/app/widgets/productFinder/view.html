@@ -1,0 +1,27 @@
+<div class="product-finder">
+
+  <!-- ko if: showModalLink -->
+      <a href="javascript:void(0)" data-bind="click: showProductFinder">Product Finder</a>
+  <!-- /ko -->
+
+  <div role="dialog" aria-hidden="true" class="product-finder-modal modal fade" data-bind="modal: { show: visible }">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header query-builder-modal-header">Product Finder</div>
+
+        <div class="modal-body row">
+
+          <!--  search field -->
+          <div data-bind="queryBuilder: { value: pager.query, displayMode: 'inline'}"></div>
+          <div data-bind="compose: { model: 'widgets/productFinder/result', activationData: { pager: pager, checked: value } }"></div>
+          <div class="modal-footer">
+            <button type="button" class="gc-btn gc-btn-cancel" data-bind="click: cancelProductFinder" data-dismiss="modal">CANCEL</button>
+            <button type="button" class="gc-btn" data-bind="click: useCheckedProducts">APPLY</button>
+            <button type="button" class="gc-btn" data-bind="click: useCheckedProductsAndClose">APPLY & CLOSE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

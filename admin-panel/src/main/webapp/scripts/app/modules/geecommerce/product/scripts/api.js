@@ -19,46 +19,127 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			return gc.attributes.havingProperty('variant', attributes);
 		},
         getProduct: function(productId) {
-			var self = this;
+            var self = this;
 
-			var deferred = new $.Deferred();
-			var promise = deferred.promise();
+            var deferred = new $.Deferred();
+            var promise = deferred.promise();
 
-			promise.success = promise.done;
-			promise.error = promise.fail;
-			promise.complete = promise.done;
+            promise.success = promise.done;
+            promise.error = promise.fail;
+            promise.complete = promise.done;
 
-			gc.rest.get({
-				url : '/api/v1/products/' + productId,
-				fields: [ '-attribute' ],
-				success : function(data, status, xhr) {
+            gc.rest.get({
+                url : '/api/v1/products/' + productId,
+                fields: [ '-attribute' ],
+                success : function(data, status, xhr) {
 
-					// append attribute info from cache
-					gc.attributes.appendAttributes(data);
+                    // append attribute info from cache
+                    gc.attributes.appendAttributes(data);
 
-					if (self._onload) {
-						self._onload(data, status, xhr);
-					}
+                    if (self._onload) {
+                        self._onload(data, status, xhr);
+                    }
 
-					deferred.resolve(data, status, xhr);
-				},
-				error : function(jqXHR, status, error) {
-					if (self._onerror) {
-						self._onerror(jqXHR, status, error);
-					}
+                    deferred.resolve(data, status, xhr);
+                },
+                error : function(jqXHR, status, error) {
+                    if (self._onerror) {
+                        self._onerror(jqXHR, status, error);
+                    }
 
-					deferred.reject(jqXHR, status, error);
-				},
-				complete : function(data, status, xhr) {
-					if (self._oncomplete) {
-						self._oncomplete(data, status, xhr);
-					}
+                    deferred.reject(jqXHR, status, error);
+                },
+                complete : function(data, status, xhr) {
+                    if (self._oncomplete) {
+                        self._oncomplete(data, status, xhr);
+                    }
 
-					deferred.resolve(data, status, xhr);
-				}
-			});
+                    deferred.resolve(data, status, xhr);
+                }
+            });
 
-			return promise;
+            return promise;
+        },
+        getProducts: function(productIds, options) {
+            var self = this;
+
+            var deferred = new $.Deferred();
+            var promise = deferred.promise();
+
+            promise.success = promise.done;
+            promise.error = promise.fail;
+            promise.complete = promise.done;
+            
+            options = options || {};
+
+            var pagingOptions = self.pagingOptions();
+            
+            var fields = options.fields;
+            var attributes = options.attributes;
+            
+            if(_.isEmpty(fields)) {
+                fields = pagingOptions.fields;
+            }
+            
+            if(fields.length === 1 && fields[0] === '*') {
+                fields = [ '-attribute' ];
+            }            
+            
+            if(_.isEmpty(attributes)) {
+                attributes = pagingOptions.attributes;
+            }
+            
+            if(attributes.length === 1 && attributes[0] === '*') {
+                attributes = [];
+            }            
+            
+            var ids = '';
+            var _ids = ko.unwrap(productIds);
+            
+            console.log('unwrapped products ids ___________________ ', _ids);
+            
+            
+            if(!_.isEmpty(_ids) && _.isArray(_ids)) {
+                ids = _ids.join();
+            }
+            console.log('joined products ids ___________________ ', ids);
+
+            var attributes = options.attributes || [];
+            
+            gc.rest.get({
+                url : '/api/v1/products/?id=' + ids,
+                fields: fields,
+                attributes: attributes,
+                success : function(data, status, xhr) {
+
+                    var productsArr = data.products;                    
+                    
+                    // append attribute info from cache
+                    gc.attributes.appendAttributes(productsArr);
+
+                    if (self._onload) {
+                        self._onload(data, status, xhr);
+                    }
+
+                    deferred.resolve(data, status, xhr);
+                },
+                error : function(jqXHR, status, error) {
+                    if (self._onerror) {
+                        self._onerror(jqXHR, status, error);
+                    }
+
+                    deferred.reject(jqXHR, status, error);
+                },
+                complete : function(data, status, xhr) {
+                    if (self._oncomplete) {
+                        self._oncomplete(data, status, xhr);
+                    }
+
+                    deferred.resolve(data, status, xhr);
+                }
+            });
+
+            return promise;
         },
         getVariants: function(productId) {
 			var self = this;

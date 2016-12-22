@@ -76,10 +76,12 @@ import com.geecommerce.inventory.service.StockService;
 import com.geecommerce.price.model.Price;
 import com.geecommerce.price.service.PriceService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
 
+@Singleton
 @Path("/v1/products")
 public class ProductResource extends AbstractResource {
     protected final RestService service;
@@ -91,15 +93,20 @@ public class ProductResource extends AbstractResource {
     protected final ImportExportService importExportService;
     protected final ImportHelper importHelper;
     protected final ImportTokens importTokens;
-    private final QueryHelper queryHelper;
-    private final ElasticsearchService elasticsearchService;
-    private final ElasticsearchHelper elasticsearchHelper;
-    private final Products productRepository;
+    protected final QueryHelper queryHelper;
+    protected final ElasticsearchService elasticsearchService;
+    protected final ElasticsearchHelper elasticsearchHelper;
+    protected final Products productRepository;
+
+    protected final Map<String, Class<?>> defaultParamHints = new HashMap<>();
 
     @Inject
     public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
-                           ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
-                           UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository, AttributeService attributeService, CatalogMediaHelper catalogMediaHelper1, ProductHelper productHelper1, UrlRewrites urlRewrites1, UrlRewriteHelper urlRewriteHelper1, ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens, QueryHelper queryHelper1, ElasticsearchService elasticsearchService1, ElasticsearchHelper elasticsearchHelper1, Products productRepository1) {
+        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+        UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository,
+        AttributeService attributeService, CatalogMediaHelper catalogMediaHelper1, ProductHelper productHelper1, UrlRewrites urlRewrites1, UrlRewriteHelper urlRewriteHelper1,
+        ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens, QueryHelper queryHelper1, ElasticsearchService elasticsearchService1,
+        ElasticsearchHelper elasticsearchHelper1, Products productRepository1) {
         this.service = service;
 
         this.attributeService = attributeService;
@@ -114,6 +121,8 @@ public class ProductResource extends AbstractResource {
         this.elasticsearchService = elasticsearchService1;
         this.elasticsearchHelper = elasticsearchHelper1;
         this.productRepository = productRepository1;
+
+        defaultParamHints.put("ids", List.class);
     }
 
     @GET
@@ -138,9 +147,8 @@ public class ProductResource extends AbstractResource {
 
         if (storeHeaderExists())
             queryOptions = QueryOptions.builder(queryOptions)
-                    .limitAttributeToStore("status_description", getStoreFromHeader())
-                    .limitAttributeToStore("status_article", getStoreFromHeader()).build();
-
+                .limitAttributeToStore("status_description", getStoreFromHeader())
+                .limitAttributeToStore("status_article", getStoreFromHeader()).build();
 
         FilterBuilder filterBuilder = queryHelper.buildQuery(filter.getQuery());
         List<FilterBuilder> builders = new ArrayList<>();
@@ -153,14 +161,13 @@ public class ProductResource extends AbstractResource {
         Id[] ids = elasticsearchHelper.toIds(productsResult.getDocumentIds().toArray());
 
         List<Product> products = new ArrayList<>();
-        if(ids != null && ids.length > 0) {
+        if (ids != null && ids.length > 0) {
             products = productRepository.findByIds(Product.class, ids, queryOptions);
         }
 
         app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
         return ok(products);
     }
-
 
     @GET
     @Path("{id}")
@@ -383,7 +390,7 @@ public class ProductResource extends AbstractResource {
             service.update(bundleProduct);
         } else {
             throwBadRequest(
-                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}/{qty}");
+                "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}/{qty}");
         }
     }
 
@@ -403,10 +410,9 @@ public class ProductResource extends AbstractResource {
             service.update(bundleProduct);
         } else {
             throwBadRequest(
-                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}");
+                "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}");
         }
     }
-
 
     @GET
     @Path("{id}/prices")

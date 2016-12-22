@@ -34,6 +34,7 @@
 								<th data-i18n="app:modules.product.priceTabCountry">Country</th>
 								<th data-i18n="app:modules.product.priceTabCustomerGroup">Customer Group</th>
 								<th data-i18n="app:modules.product.priceTabPriceType">Price-Type</th>
+                                <th data-i18n="app:modules.product.priceTabWithProduct">With Product</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -51,7 +52,7 @@
 								<td><span data-bind="text: $parent.priceType($data.typeId).label"></span></td>
                                 <td>
                                   <div>
-                                    <div data-bind="productFinder: { value: $data.whenProductsInCart, displayMode: 'modal' }"> </div>
+                                    <div data-bind="productFinder: { value: $data.whenProductIdsInCart, displayMode: 'modal', products: $data.whenProductsInCart, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
                                   </div>                                  
                                 </td>
 								<td>

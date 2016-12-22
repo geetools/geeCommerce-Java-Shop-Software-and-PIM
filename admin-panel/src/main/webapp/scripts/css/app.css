@@ -3489,6 +3489,14 @@ select:focus, select:active, button:active, button:active {
     padding-top: 10px;
 }
 
+.product-finder-query-builder {
+	padding: 20px;	
+}
+
+.product-finder-results {
+	padding: 0px;	
+}
+
 @media only screen and (min-width: 768px) {
     #product-status-infobox {
         background-color: #f6f6f6;

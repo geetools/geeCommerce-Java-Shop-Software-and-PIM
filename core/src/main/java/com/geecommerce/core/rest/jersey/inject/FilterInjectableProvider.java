@@ -1,10 +1,16 @@
 package com.geecommerce.core.rest.jersey.inject;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.Provider;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.geecommerce.core.App;
 import com.geecommerce.core.rest.RestHelper;
@@ -22,7 +28,6 @@ import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.server.impl.inject.AbstractHttpContextInjectable;
 import com.sun.jersey.spi.inject.Injectable;
 import com.sun.jersey.spi.inject.InjectableProvider;
-import org.apache.commons.lang.StringUtils;
 
 @Profile
 @Provider
@@ -52,6 +57,7 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Filter getValue(HttpContext ctx) {
         HttpRequestContext request = ctx.getRequest();
@@ -94,7 +100,7 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
                 filter.setNoCache(TypeConverter.asBoolean(parameters.getFirst(key)));
             } else if (FilterKey.QUERY.name().equalsIgnoreCase(key)) {
                 String queryString = parameters.getFirst(key);
-                if(!StringUtils.isEmpty(queryString)){
+                if (!StringUtils.isEmpty(queryString)) {
                     Map<String, Object> queryNodeMap = Json.fromJson(queryString, HashMap.class);
                     QueryNode queryNode = App.get().model(QueryNode.class);
                     queryNode.fromMap(queryNodeMap);
@@ -106,11 +112,48 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
             }
         }
 
-        App.get().registryPut(QUERY_OPTIONS_KEY,
-            QueryOptions.builder().fetchFields(filter.getFields()).sortBy(filter.getSort())
-                .limitTo(filter.getLimit()).fromOffset(filter.getOffset()).noCache(filter.isNoCache()).build());
+        List<String> checkedFields = checkFields(filter.getFields(), filter.getAttributes());
+
+        QueryOptions queryOptions = QueryOptions.builder().fetchFields(checkedFields).sortBy(filter.getSort())
+            .limitTo(filter.getLimit()).fromOffset(filter.getOffset()).noCache(filter.isNoCache()).build();
+
+        App.get().registryPut(QUERY_OPTIONS_KEY, queryOptions);
 
         return filter;
+    }
+
+    protected List<String> checkFields(List<String> fields, List<String> attributes) {
+        if (attributes != null && !attributes.isEmpty()) {
+            if (fields == null)
+                fields = new ArrayList<>();
+
+            if (!fields.contains("attributes")) {
+                fields.add("attributes");
+
+                if (!fields.contains("attributeId"))
+                    fields.add("attributeId");
+
+                if (!fields.contains("optOut"))
+                    fields.add("optOut");
+
+                if (!fields.contains("optionIds"))
+                    fields.add("optionIds");
+
+                if (!fields.contains("properties"))
+                    fields.add("properties");
+
+                if (!fields.contains("sortOrder"))
+                    fields.add("sortOrder");
+
+                if (!fields.contains("value"))
+                    fields.add("value");
+
+                if (!fields.contains("xOptionIds"))
+                    fields.add("xOptionIds");
+            }
+        }
+
+        return fields;
     }
 
     public List<String> toStringList(List<String> value) {

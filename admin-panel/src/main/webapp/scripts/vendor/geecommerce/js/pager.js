@@ -34,13 +34,20 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         this._limit = options.limit || 25;
         this._totalCount = options.totalCount || 0;
         this._getArray = options.getArray;
+        this._onloadSubscribers = [];
+        this._onpageclickSubscribers = [];
 
         if (typeof options.onload === "function") {
-            this._onload = options.onload;
+            this._onloadSubscribers.push(options.onload);
+        }
+
+        if (typeof options.onpageclick === "function") {
+            this._onpageclickSubscribers.push(options.onpageclick);
         }
 
         this._onerror = options.onerror;
         this._oncomplete = options.oncomplete;
+//        this._onpageclick = options.onpageclick;
         this._isSearch = false;
         this._isQuery = false;
         this._busy = false;
@@ -107,8 +114,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
         
         console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this.limit());
-        
-        
     }
 
     Pager.prototype = {
@@ -125,8 +130,10 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             this._setPages();
 
             self.saveState();
-
-            return this.load();
+            
+            console.log('_____ CHANING PAGE ____ ', self._onpageclick, { page: page, event: event });
+            
+            return this.load(self._onpageclickSubscribers, { page: page, event: event });
         },
         isActive : function(page) {
             return page.num == this._currentPage;
@@ -250,6 +257,16 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 self._offset = 0;
                 self.load();
             });
+        },
+        addOnLoadListener : function(onloadFunction) {
+            if (typeof onloadFunction === "function") {
+                this._onloadSubscribers.push(onloadFunction);
+            }
+        },
+        addOnPageClickListener : function(onpageclickFunction) {
+            if (typeof onpageclickFunction === "function") {
+                this._onpageclickSubscribers.push(onpageclickFunction);
+            }
         },
         columnValue : function(name, value) {
             var column = _.findWhere(ko.unwrap(this.columns), {
@@ -444,7 +461,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         // -----------------------------------------------------------------------------------------
         // Loads data from rest-API.
         // -----------------------------------------------------------------------------------------
-        load : function() {
+        load : function(callbacks, ctx) {
             var self = this;
 
             // We are already in the process of loading data.
@@ -508,7 +525,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
            console.log(self._query);
 
-
             gc.rest.get({
                 url : url,
                 filter : filter,
@@ -532,9 +548,31 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                     // self.activateSubscribers();
                     self._isInitialized = true;
 
-                    // if (self._onload) {
-                    if (typeof self._onload === "function") {
-                        self._onload(data, status, xhr);
+                    if(self._onloadSubscribers && !_.isEmpty(self._onloadSubscribers)) {
+                        for(var i=0; i<self._onloadSubscribers.length; i++) {
+                            var onloadfunc = self._onloadSubscribers[i];
+                            
+                            if (onloadfunc && typeof onloadfunc === "function") {
+                                onloadfunc(data, status, xhr);
+                            }
+                        }
+                    }
+
+                    console.log("callbackcallbackcallbackcallbackcallback ", callbacks);
+
+                    if(callbacks && !_.isEmpty(callbacks)) {
+                        for(var i=0; i<callbacks.length; i++) {
+                            var callbackfunc = callbacks[i];
+                            
+                            if (callbackfunc && typeof callbackfunc === "function") {
+                                var _ctx = ctx || {};
+                                
+                                _ctx.status = status;
+                                _ctx.xhr = xhr;
+                                
+                                callbackfunc(data, _ctx);
+                            }
+                        }
                     }
 
                     if (!_.isUndefined(self.toggleSelector1)) {

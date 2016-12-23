@@ -16,7 +16,7 @@
             <div data-bind="queryBuilder: { value: pager.query, displayMode: 'inline'}"></div>
           </div>
           <div class="product-finder-results">
-            <div data-bind="compose: { model: 'widgets/productFinder/result', activationData: { pager: pager, checked: value } }"></div>
+            <div data-bind="compose: { model: 'widgets/productFinder/result', activationData: { pager: pager, checked: value, collector: currentlyCheckedValues } }"></div>
           </div>
         </div>
         <div class="modal-footer">

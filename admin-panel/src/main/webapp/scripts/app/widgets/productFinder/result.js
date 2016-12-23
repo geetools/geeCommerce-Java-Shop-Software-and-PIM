@@ -19,7 +19,8 @@ define([
         this.groupOptions = ko.observableArray([]);
 
         // Solves the 'this' problem when a DOM event-handler is fired.
-        _.bindAll(this, 'activate', 'computeStatus');
+        _.bindAll(this, 'activate', 'attached', 'compositionComplete', 'computeStatus', 'initCheckboxes', 'refreshCheckboxes', 'checkAll', 'optionsText', 'group', 'statusArticle',
+                'statusDescription', 'statusImages', 'startCheckboxListeners');
     }
 
     ProductFinderResultController.prototype = {
@@ -293,9 +294,14 @@ define([
 
             var self = this;
 
+            self.currentlyCheckedValues = data.collector;
+
             self.value = data.value;
             self.allChecked = false;
-            self.initialValues = data.checked;
+
+            if (data.checked && _.isFunction(data.checked) && !_.isEmpty(data.checked())) {
+                self.currentlyCheckedValues(data.checked() || []);
+            }
 
             var computedOptions = [];
             computedOptions.push({
@@ -338,21 +344,64 @@ define([
         },
         attached : function(view, parent) {
             var self = this;
+
+            self.view = view;
+            self.parent = parent;
+
+            self.pager.addOnLoadListener(function(response, status, xhr) {
+                self.refreshCheckboxes(response, status, xhr);
+                self.startCheckboxListeners();
+            });
+
             self.initCheckboxes(view, parent);
+
+            self.startCheckboxListeners();
         },
         compositionComplete : function() {
             var self = this;
         },
+        startCheckboxListeners : function() {
+            var self = this;
+
+            var checkboxEL = $(self.view).find('table>tbody th.td-select>input');
+            if (checkboxEL) {
+                checkboxEL.on('change', function() {
+                    var checkedValues = self.currentlyCheckedValues();
+                    var isChecked = $(this).is(':checked');
+                    var idx = checkedValues.indexOf($(this).val());
+                    
+                    if (idx === -1 && isChecked === true) {
+                        checkedValues.push($(this).val());
+                    } else if (idx !== -1 && isChecked === false) {
+                        checkedValues.splice(idx, 1);
+                    }
+                    
+                    self.currentlyCheckedValues(checkedValues);
+                });
+            }
+        },
         initCheckboxes : function(view, parent) {
             var self = this;
-            var productIds = self.initialValues();
+            var productIds = self.currentlyCheckedValues();
 
             for (var i = 0; i < productIds.length; i++) {
                 var productId = productIds[i];
 
                 var checkboxEL = $(view).find('table>tbody th.td-select>input[value=' + productId + ']');
                 if (checkboxEL) {
-                    console.log('INIT CHECKBOX::: ', checkboxEL);
+                    checkboxEL.prop('checked', true);
+                }
+            }
+        },
+        refreshCheckboxes : function(response, context) {
+            var self = this;
+            var productIds = self.currentlyCheckedValues();
+
+            for (var i = 0; i < productIds.length; i++) {
+                var productId = productIds[i];
+
+                var checkboxEL = $(self.view).find('table>tbody th.td-select>input[value=' + productId + ']');
+                if (checkboxEL && checkboxEL.val() === productId) {
                     checkboxEL.prop('checked', true);
                 }
             }

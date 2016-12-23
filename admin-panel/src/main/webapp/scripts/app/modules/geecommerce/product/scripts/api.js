@@ -1825,6 +1825,7 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
                 multiContext: options.multiContext,
                 limit: options.limit || 25,
                 cookieName: options.cookieName,
+                onpageclick: options.onpageclick,
         		// Returns an array that the pager can add to the
 				// ko.observableArray.
         		getArray: function(data) {

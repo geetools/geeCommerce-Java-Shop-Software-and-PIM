@@ -14,13 +14,13 @@ define([
         var self = this;
 
         self.value = settings.value;
+        self.currentlyCheckedValues = ko.observableArray([]);
         
         if(!_.isEmpty(settings.products)) {
             self.products = settings.products;
             self.productAs = settings.productAs || {};
             
             self.value.subscribe(function(newValue) {
-                
                 if(_.isEmpty(newValue)) {
                     self.products([]);
                 } else {
@@ -88,7 +88,7 @@ define([
             cookieName : 'pgr_products_fndr'
         }));
     };
-
+    
     ctor.prototype.compositionComplete = function() {
         var self = this;
         self.pager.activateSubscribers();
@@ -109,37 +109,16 @@ define([
         self.visible(false);
     };
     
-    ctor.prototype.processCheckedProducts = function(model, event) {
-        var self = this;
-        var tableEL = $(event.target).closest('.modal-content');
-        var checkboxesEL = $(tableEL).find('table>tbody th.td-select>input');
-        var productIds = self.value.removeAll();
-        
-        checkboxesEL.each(function(idx, checkbox) {
-            var isChecked = $(checkbox).is(':checked');
-            var idx = productIds.indexOf($(checkbox).val());
-            
-            if(idx === -1 && isChecked === true) {
-                productIds.push($(checkbox).val());
-            } else if(idx !== -1 && isChecked === false) {
-                productIds.splice(idx);
-            }
-        });
-        
-        self.value(productIds);
-    };
-
     ctor.prototype.useCheckedProducts = function(model, event) {
         var self = this;
-        self.processCheckedProducts(model, event);
+        self.value(self.currentlyCheckedValues());
     };
 
     ctor.prototype.useCheckedProductsAndClose = function(model, event) {
         var self = this;
-        self.processCheckedProducts(model, event);
+        self.value(self.currentlyCheckedValues());
         self.visible(false);
     };
-    
     
     return ctor;
 });

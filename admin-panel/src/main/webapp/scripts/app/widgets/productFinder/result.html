@@ -14,15 +14,11 @@
       <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
         <tr>
           <th class="td-select" align="center"><input type="checkbox" class="checkbox" data-bind="attr: {value: row.id}" /></th>
-          <td data-bind="attrText: row, code: 'manufacturer', scope: 'global'"></td>
           <td><a data-bind="i18n: 'app:modules.product.type' + row.type, attr: { href: '#/products/details/' + row.id }"></a></td>
           <td data-bind="text:  $root.group(row)"></td>
           <td><a data-bind="attrText: row, code: 'ean', scope: 'global', attr: { href: '#/products/details/' + row.id }"></a></td>
           <td><a data-bind="attrText: row, code: 'article_number', scope: 'global', attr: { href: '#/products/details/' + row.id }"></a></td>
-          <td data-bind="attrText: row, code: 'brand', scope: 'global'"></td>
           <td data-bind="attrText: row, code: 'name', mode: 'closest'"></td>
-          <td data-bind="attrText: row, code: 'supplier', scope: 'global'"></td>
-          <td class="actions">&nbsp;</td>
         </tr>
       </tbody>
     </table>

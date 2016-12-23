@@ -1,5 +1,6 @@
 package com.geecommerce.core.rest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -254,25 +255,44 @@ public abstract class AbstractResource {
 
     protected QueryOptions queryOptions(List<String> fields, List<String> attributes, List<String> sortBy, Long offset,
         Integer limit, Boolean noCache) {
-        // List<Id> allowedScopes = getAllowedScopes();
-        //
-        // List<Id> allowedMerchants =
-        // Contexts.getAllowedMerchants(allowedScopes);
-        // List<Id> allowedStores = Contexts.getAllowedStores(allowedScopes);
-        // List<Id> allowedRequestContexts =
-        // Contexts.getAllowedRequestContexts(allowedScopes);
 
-        // System.out.println("ALLOWED-MERCHANTS ::: " + allowedMerchants);
-        // System.out.println("ALLOWED-STORES ::: " + allowedStores);
-        // System.out.println("ALLOWED-REQUEST-CONTEXTS ::: " +
-        // allowedRequestContexts);
-
-        if (fields == null && attributes == null && sortBy == null && offset == null && limit == null && !noCache)
+        if (fields == null && attributes == null && sortBy == null && offset == null && limit == null && !noCache) {
             return null;
 
-        else
-            return QueryOptions.builder().fetchFields(fields).fetchAttributes(attributes).sortBy(sortBy)
-                .fromOffset(offset).limitTo(limit).noCache(noCache).provideCount(true).build();
+        } else {
+            if (attributes != null && !attributes.isEmpty()) {
+                if (fields == null)
+                    fields = new ArrayList<>();
+
+                if (!fields.contains("attributes")) {
+                    fields.add("attributes");
+
+                    if (!fields.contains("attributeId"))
+                        fields.add("attributeId");
+
+                    if (!fields.contains("optOut"))
+                        fields.add("optOut");
+
+                    if (!fields.contains("optionIds"))
+                        fields.add("optionIds");
+
+                    if (!fields.contains("properties"))
+                        fields.add("properties");
+
+                    if (!fields.contains("sortOrder"))
+                        fields.add("sortOrder");
+
+                    if (!fields.contains("value"))
+                        fields.add("value");
+
+                    if (!fields.contains("xOptionIds"))
+                        fields.add("xOptionIds");
+                }
+            }
+        }
+
+        return QueryOptions.builder().fetchFields(fields).fetchAttributes(attributes).sortBy(sortBy)
+            .fromOffset(offset).limitTo(limit).noCache(noCache).provideCount(true).build();
 
         // .setLimitToMerchants(allowedMerchants)
         // .setLimitToStores(allowedStores)

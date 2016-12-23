@@ -45,7 +45,7 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Column(Col.OPTION_ID)
     protected List<Id> optionIds = null;
 
-    @Column(Col.VALUE)
+    @Column(Col.XOPTION_ID)
     protected ContextObject<List<Id>> xOptionIds = null;
 
     @Column(Col.SORT_ORDER)

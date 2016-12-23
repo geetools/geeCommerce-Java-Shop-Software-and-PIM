@@ -26,11 +26,16 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-price', 'gc-cust
 		self.validTo = ko.observable();
 		
 		// Query builder for price rule-set.
-		self.whenProductsInCart = ko.observableArray(["12292780042910101", "12292355724910101"]);
+		self.whenProductIdsInCart = ko.observableArray([]);
+		self.whenProductsInCart = ko.observableArray([]);
 		self.showProductfinderModal = ko.observable(false);
         
         self.showProductfinderModal.subscribe(function(newValue) {
             console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! @@showProductfinderModal ', newValue);
+        });
+
+        self.whenProductIdsInCart.subscribe(function(newValue) {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! @@whenProductIdsInCart ', newValue);
         });
         
         self.whenProductsInCart.subscribe(function(newValue) {

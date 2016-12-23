@@ -113,6 +113,9 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Column(Col.BUNDLE_PRODUCTS)
     protected List<BundleProductItem> bundleProductItems = null;
 
+    @Column(Col.BUNDLE_GROUPS)
+    protected List<BundleGroupItem> bundleGroups = null;
+
     @Column(Col.PROGRAMME_PRODUCTS)
     protected List<Id> programmeProductIds = null;
 
@@ -1407,6 +1410,17 @@ public class DefaultProduct extends AbstractAttributeSupport
     }
 
     @Override
+    public List<BundleGroupItem> getBundleGroups() {
+        return bundleGroups;
+    }
+
+    @Override
+    public Product setBundleGroups(List<BundleGroupItem> bundleGroups) {
+        this.bundleGroups = bundleGroups;
+        return this;
+    }
+
+    @Override
     public Product addBundleProduct(Product product) {
         return addBundleProduct(product, 1);
     }
@@ -1959,13 +1973,13 @@ public class DefaultProduct extends AbstractAttributeSupport
         this.upsellProductIds = idList_(map.get(Col.UPSELL_PRODUCTS));
         this.crossSellProductIds = idList_(map.get(Col.CROSS_SELL_PRODUCTS));
 
-        List<Map<String, Object>> items = list_(map.get(Col.BUNDLE_PRODUCTS));
+        List<Map<String, Object>> items = list_(map.get(Col.BUNDLE_GROUPS));
         if (items != null && items.size() > 0) {
-            this.bundleProductItems = new ArrayList<>();
+            this.bundleGroups = new ArrayList<>();
             for (Map<String, Object> item : items) {
-                BundleProductItem bundleProductItem = app.model(BundleProductItem.class);
-                bundleProductItem.fromMap(item);
-                this.bundleProductItems.add(bundleProductItem);
+                BundleGroupItem bundleGroupItem = app.model(BundleGroupItem.class);
+                bundleGroupItem.fromMap(item);
+                this.bundleGroups.add(bundleGroupItem);
             }
         }
 
@@ -2026,14 +2040,14 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (getUpsellProductIds() != null && getUpsellProductIds().size() > 0)
             map.put(Col.UPSELL_PRODUCTS, getUpsellProductIds());
 
-        if (getBundleProductItems() != null && getBundleProductItems().size() > 0){
-            List<Map<String, Object>> items = new ArrayList<>();
-            for (BundleProductItem bundleProductItem : bundleProductItems) {
-                items.add(bundleProductItem.toMap());
+        if (getBundleGroups() != null && getBundleGroups().size() > 0){
+            List<Map<String, Object>> bundleGroups = new ArrayList<>();
+            for (BundleGroupItem bundleGroupItem : getBundleGroups()) {
+                bundleGroups.add(bundleGroupItem.toMap());
             }
-            map.put(Col.BUNDLE_PRODUCTS, items);
+            map.put(Col.BUNDLE_GROUPS, bundleGroups);
         } else {
-            map.put(Col.BUNDLE_PRODUCTS, null);
+            map.put(Col.BUNDLE_GROUPS, null);
         }
 
         if (getProgrammeProductIds() != null && getProgrammeProductIds().size() > 0)

@@ -3489,6 +3489,25 @@ select:focus, select:active, button:active, button:active {
     padding-top: 10px;
 }
 
+.bundle-groups{
+    padding-bottom: 5px;
+}
+
+.bundle-group{
+    background-color: #f5f5f5;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bundle-item{
+    background-color: white;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 @media only screen and (min-width: 768px) {
     #product-status-infobox {
         background-color: #f6f6f6;

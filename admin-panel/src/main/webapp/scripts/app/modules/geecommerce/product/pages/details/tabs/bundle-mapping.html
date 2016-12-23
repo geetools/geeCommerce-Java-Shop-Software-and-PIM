@@ -1,8 +1,98 @@
 <div>
 	<div>
 		<div class="row">
-			<div class="col-md-6">
-				<div class="variantsTargetContainer">
+			<div class="col-xs-8">
+				<div class="bundlesTargetContainer">
+
+					<button data-bind="click: addBundleGroup">+</button>
+					<button data-bind="click: saveData">save</button>
+
+					<div  data-bind="sortable: bundleGroups"  class="bundle-groups"><!-- data-bind="foreach: { data: bundleGroups, as: 'bundleGroup' }" >-->
+						<div class="bundle-group row">
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label for="inputPrdListLabel" class="col-xs-3 control-label"  data-i18n="app:modules.product-list.baseTabName">Label</label>
+									<div class="col-xs-9">
+										<div class="input-group">
+											<span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+											<input data-bind="i18nValue: label" class="form-control" id="inputPrdListLabel" placeholder="Enter name" type="text" required>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="col-xs-2">
+								<div class="form-group">
+									<label  class="col-xs-6 control-label">Display</label>
+									<div class="col-xs-6">
+										<select id="inputType" class="selectpicker"  data-bind="select: type, data: [
+										{ id: 'SELECT', text: 'Select' },
+										{ id: 'MULTISELECT', text: 'Multi-select' },
+										{ id: 'CHECKBOX', text: 'Checkbox' },
+										{ id: 'RADIOBUTTON', text: 'Radio' },
+										{ id: 'VARIANT', text: 'Variant' }]">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-2">
+								<div class="form-group">
+									<label  class="col-xs-6 control-label">Optional</label>
+									<div class="col-xs-6 switch-wrapper">
+										<input type="checkbox" data-bind="bool: optional" />
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-xs-2">
+								<div data-bind="productFinder: { value: newProducts, displayMode: 'modal' }"> </div>
+							</div>
+
+
+							<div  data-bind="sortable: bundleItems" class="bundle-items col-xs-12" >  <!-- data-bind="foreach: { data: bundleItems, as: 'bundleItem' }"-->
+								<div class="bundle-item row">
+									<div class="col-xs-2" >
+										<span data-bind="if: $data.product.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail($data.product.mainImageURI)}" border="0" vspace="10"/></span>
+									</div>
+									<div class="col-xs-6">
+										<span data-bind="attrText: $data.product, code: 'name', mode: 'closest'"></span><br/>
+										<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel($data.product.attributes, 'product_group')"></span><br/>
+										<div class="attribute-info-row">
+											<span data-bind="attrText: $data.product, code: 'article_number', mode: 'closest'"></span>
+										</div>
+
+										<!-- ko if: $data.isVariantMaster() -->
+										<div>
+											<div class="attr-select-wrapper">
+												<select class="selectpicker" data-live-search="true" data-size="15" data-bind="select: $data.defaultVariant, data: $data.variantOptions, sort: true"></select>
+											</div>
+										</div>
+										<!-- /ko -->
+
+									</div>
+									<div class="col-xs-3">
+										<div class="form-group">
+											<label  class="col-sm-6 control-label">Quantity</label>
+											<div class="col-sm-6">
+												<input type="number" class="form-control" data-bind="value: $data.quantity, attr:{min: 0, step: 1}">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-1">
+										<a href="javascript:void(0)" data-bind="click: $root.removeProductFromBundle" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+										<br/>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+
+<!--
+
 					<h3>Produkte</h3>
 	
 					<p>Diese Produkte sind bereits Bundle <b data-bind="attrText: productVM().data, code: 'name', mode: 'closest'"></b> zugeordnet.</p>
@@ -11,7 +101,7 @@
 						<li data-bind="attr: {'data-id': prdItem.id}" class="droppable-list" unselectable="on">
 							<div class="row">
 								<div class="col-xs-2" >
-									<!-- Image -->
+									&lt;!&ndash; Image &ndash;&gt;
 									<span data-bind="if: prdItem.product.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(prdItem.product.mainImageURI)}" border="0" vspace="10"/></span>
 								</div>
 								<div class="col-xs-6">
@@ -21,13 +111,13 @@
 										<span data-bind="attrText: prdItem.product, code: 'article_number', mode: 'closest'"></span>
 									</div>
 
-									<!-- ko if: prdItem.isVariantMaster() -->
+									&lt;!&ndash; ko if: prdItem.isVariantMaster() &ndash;&gt;
 									<div>
 										<div class="attr-select-wrapper">
 											<select class="selectpicker" data-live-search="true" data-size="15" data-bind="select: prdItem.defaultVariant, data: prdItem.variantOptions, sort: true"></select>
 										</div>
 									</div>
-									<!-- /ko -->
+									&lt;!&ndash; /ko &ndash;&gt;
 
 								</div>
 								<div class="col-xs-3">
@@ -59,9 +149,10 @@
 							<div class="clearfix"></div>
 						</li>
 					</ul>
-				</div>
+
+		-->		</div>
 			</div>
-			<div class="col-md-6">
+<!--			<div class="col-md-6">
 				<div class="variantsSourceContainer">
 					<div class="row">
 						<div class="col-md-12">
@@ -85,7 +176,7 @@
 									</div>
 
 									<div class="col-xs-4">
-										<!-- Image -->
+										&lt;!&ndash; Image &ndash;&gt;
 										<span data-bind="if: srcPrd.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail(srcPrd.mainImageURI)}" border="0" vspace="10"/></span>
 									</div>
 									<div class="clearfix"></div>
@@ -95,14 +186,14 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<!--  Pagination -->            
+							&lt;!&ndash;  Pagination &ndash;&gt;
 				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceBundleProductsPager.pages, as: 'page' }">
 				                <li data-bind="click: $root.sourceBundleProductsPager.page, css: { active: $root.sourceBundleProductsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
 				            </ul>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</div>
 </div>

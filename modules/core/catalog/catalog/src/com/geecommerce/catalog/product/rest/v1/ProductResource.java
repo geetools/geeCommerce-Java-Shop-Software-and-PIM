@@ -24,16 +24,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.geecommerce.catalog.product.model.*;
 import org.elasticsearch.index.query.FilterBuilder;
 
 import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
-import com.geecommerce.catalog.product.model.BundleProductItem;
-import com.geecommerce.catalog.product.model.CatalogMediaAsset;
-import com.geecommerce.catalog.product.model.CatalogMediaType;
-import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.repository.Products;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
@@ -358,27 +355,23 @@ public class ProductResource extends AbstractResource {
     }
 
     @GET
-    @Path("{id}/bundle-products")
+    @Path("{id}/bundle-groups")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getBundleProducts(@PathParam("id") Id id) {
+    public Response getBundleGroups(@PathParam("id") Id id) {
         Product p = checked(service.get(Product.class, id));
-        List<BundleProductItem> bundleProducts = p.getBundleProductItems();
-
-        return ok(bundleProducts);
+        List<BundleGroupItem> bundleGroups = p.getBundleGroups();
+        return ok(bundleGroups);
     }
 
-    @PUT
-    @Path("{bundleProductId}/bundle-products/{childProductId}/{qty}")
+
+    @POST
+    @Path("{bundleProductId}/bundle-groups")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void addProductToBundle(@PathParam("bundleProductId") Id id, @PathParam("childProductId") Id childProductId, @PathParam("qty") int quantity) {
-        if (id != null && childProductId != null) {
+    public void setBundleGroups(@PathParam("bundleProductId") Id id, @ModelParam List<BundleGroupItem> bundleGroupItems) {
+        if (id != null ) {
             // Get main and child product.,
             Product bundleProduct = checked(service.get(Product.class, id));
-            Product childProduct = checked(service.get(Product.class, childProductId));
-
-            // Add child product to main product.
-            bundleProduct.addBundleProduct(childProduct, quantity);
-
+            bundleProduct.setBundleGroups(bundleGroupItems);
             // Save main product with the new child-productId.
             service.update(bundleProduct);
         } else {
@@ -387,25 +380,6 @@ public class ProductResource extends AbstractResource {
         }
     }
 
-    @DELETE
-    @Path("{bundleProductId}/bundle-products/{childProductId}")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void removeProductFromBundle(@PathParam("bundleProductId") Id bundleProductId, @PathParam("childProductId") Id childProductId) {
-        if (bundleProductId != null && childProductId != null) {
-            // Get main and child product.
-            Product bundleProduct = checked(service.get(Product.class, bundleProductId));
-            Product childProduct = checked(service.get(Product.class, childProductId));
-
-            // Remove child from main product.
-            bundleProduct.removeBundleProduct(childProduct);
-
-            // Save main product with the removed variant-productId.
-            service.update(bundleProduct);
-        } else {
-            throwBadRequest(
-                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}");
-        }
-    }
 
 
     @GET

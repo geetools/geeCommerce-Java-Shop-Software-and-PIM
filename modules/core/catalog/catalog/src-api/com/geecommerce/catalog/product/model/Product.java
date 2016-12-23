@@ -270,6 +270,10 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
 
     public List<Id> getBundleProductIds();
 
+    public List<BundleGroupItem> getBundleGroups();
+
+    public Product setBundleGroups(List<BundleGroupItem> bundleGroups);
+
     @JsonIgnore
     public boolean isProgramme();
 
@@ -347,6 +351,7 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
         public static final String UPSELL_PRODUCTS = "upsells";
         public static final String CROSS_SELL_PRODUCTS = "cross_sells";
         public static final String BUNDLE_PRODUCTS = "bundle_products";
+        public static final String BUNDLE_GROUPS = "bundle_groups";
         public static final String PROGRAMME_PRODUCTS = "prog_products";
         public static final String PRODUCT_LINKS = "prd_links";
         public static final String ASSETS = "assets";

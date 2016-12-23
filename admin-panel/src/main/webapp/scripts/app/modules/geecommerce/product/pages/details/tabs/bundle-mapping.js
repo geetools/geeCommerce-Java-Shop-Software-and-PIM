@@ -1,5 +1,32 @@
 define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko, gc, productAPI ) {
 
+	function GroupBundleVM(vm) {
+		var self = this;
+
+		self.vm = vm;
+
+		self.label = ko.observable();
+        self.optional = ko.observable(false);
+        self.type = ko.observable("SELECT");
+
+        self.bundleItems = ko.observableArray([]);
+
+        self.newProducts = ko.observableArray([]);
+
+        self.newProducts.subscribe(function (newData) {
+			console.log(newData)
+			
+			_.each(newData, function (productId) {
+				productAPI.getProduct(productId).then(function (data) {
+                    var productBundleVM = new ProductBundleVM(vm, data, 1);
+					self.bundleItems.push(productBundleVM);
+                });
+
+
+            })
+        })
+    }
+
 	function ProductBundleVM(vm, product, quantity) {
         var self = this;
         self.vm = vm;
@@ -50,11 +77,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		}
 
 
-        self.quantity.subscribe(function (val) {
+/*        self.quantity.subscribe(function (val) {
         	if(val > 0){
                 productAPI.addProductToBundle(self.vm.productId(), self.id, val);
 			}
-    	})
+    	})*/
     }
 	
 	//-----------------------------------------------------------------
@@ -71,16 +98,22 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		this.gc = gc;
 		this.productVM = {};
 		this.query = ko.observable().extend({ rateLimit: 1000 });
+		this.bundleGroups = ko.observableArray([]);
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
-		_.bindAll(this, 'setupSearchListener', 'dropFromSource', 'removeProductFromBundle', 'updatePositions', 'activate');
+		_.bindAll(this, 'saveData', 'activate', 'addBundleGroup');
 	}
 
     ProductBundlesController.prototype = {
 		constructor : ProductBundlesController,
         // The pager takes care of filtering, sorting and paging functionality.
         sourceBundleProductsPager: {},
-        dropFromSource : function(data) {
+		addBundleGroup : function () {
+            var vm = this.productVM();
+			var bundleGroup = new GroupBundleVM(vm);
+			this.bundleGroups.push(bundleGroup);
+        },
+/*        dropFromSource : function(data) {
         	var self = this;
         	var vm = self.productVM();
 
@@ -127,7 +160,36 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 //            attrTabsAPI.updateOptionPositions(self.attributeTabId, optionPositions).then(function(data) {
 ////                self.pager.refresh();
 //            });
-		},
+		},*/
+		saveData: function () {
+            var self = this;
+            var vm = self.productVM();
+			
+            var bundleGroups = [];
+
+            _.each(self.bundleGroups(), function (bundleGroupVM) {
+				var bundleGroup = {};
+                bundleGroup.label = bundleGroupVM.label();
+				bundleGroup.optional = bundleGroupVM.optional();
+                bundleGroup.type = bundleGroupVM.type();
+				bundleGroup.bundle_items = [];
+                
+				_.each(bundleGroupVM.bundleItems(), function (bundleItemVM) {
+					var bundleItem = {};
+
+                    bundleItem.prd_id = bundleItemVM.id;
+                    bundleItem.qty = bundleItemVM.quantity();
+					bundleItem.def_prd_id = bundleItemVM.defaultVariant();
+
+                    bundleGroup.bundle_items.push(bundleItem)
+                });
+
+				bundleGroups.push(bundleGroup);
+            })
+
+
+			productAPI.saveBundleGroups(vm.productId(), bundleGroups);
+        },
 		activate : function(productId) {
 			var self = this;
 
@@ -135,7 +197,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			
 			var vm = self.productVM();
 
-			
+		/*
 			self.setupSearchListener();
 			
 			
@@ -173,9 +235,9 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 					// Populate drag&drop target container.
 					//vm.bundleProducts(data.data.products);
 				}
-			});
+			});*/
 		},
-		setupSearchListener : function() {
+		/*setupSearchListener : function() {
 			var self = this;
 			
 			self.query.subscribe(function(value) {
@@ -192,7 +254,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 					}
 				});
 			});
-		},
+		},*/
 		attached : function(view, parent) {
 			$('#tab-prd-details-bundle-mapping').click(function() {
 				$('#header-store-pills').hide();

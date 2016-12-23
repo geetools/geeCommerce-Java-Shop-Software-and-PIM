@@ -170,7 +170,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 		//this.directory = ko.observable();
 		this.displayMode = "inline";
 		this.forType = "product";
-		this.simpleQueryMode = true;
+		this.expertQueryMode = false;
         this.showFilterButton = true;
         this.operatorChoice = ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]);
         this.nodeTypeChoice = ko.observableArray([{value:"BOOLEAN", label:"Condition Combination"}, {value:"ATTRIBUTE", label:"Attribute"}]);
@@ -201,7 +201,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             this.showFilterButton = false;
         }
 
-        this.simpleQueryMode = ko.observable(true);
+        this.expertQueryMode = ko.observable(false);
         this.operatorChoice = ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]);
         this.nodeTypeChoice = ko.observableArray([{value:"BOOLEAN", label:"Condition Combination"}, {value:"ATTRIBUTE", label:"Attribute"}]);
         this.attributeValues = ko.observableArray([]);
@@ -310,10 +310,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
     ctor.prototype.apply = function () {
         var savedNode = this.queryNode().convertNode();
         this.settings.value(JSON.stringify(savedNode));
-    }
-
-    ctor.prototype.switchToExpertMode = function () {
-        this.simpleQueryMode(false);
     }
 
 

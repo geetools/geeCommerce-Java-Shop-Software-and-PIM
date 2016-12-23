@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label class="control-label switch-label col-xs-3">Expert mode</label>
                 <div class="col-xs-9 switch-wrapper">
-                    <input type="checkbox" data-bind="bool: simpleQueryMode" />
+                    <input type="checkbox" data-bind="bool: expertQueryMode" />
                 </div>
             </div>
             <div class="form-group">
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label class="control-label switch-label col-xs-3">Expert mode</label>
                                     <div class="col-xs-9 switch-wrapper">
-                                        <input type="checkbox" data-bind="bool: simpleQueryMode" />
+                                        <input type="checkbox" data-bind="bool: expertQueryMode" />
                                     </div>
                                 </div>
                                 <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
@@ -147,10 +147,12 @@
 
     <script id='queryBooleanNode' type='text/html'>
         <div class="query-condition-node">
+            <!-- ko if: root.expertQueryMode() -->
         <span data-bind="text: $data.root.ofTheseConditionsAreP1"></span> <span  class="form-control  form-control-small"
                                                                                  data-bind="editable: operator,  editableOptions:{type:'select', showbuttons: false, options: root.operatorChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span> <span data-bind="text: root.ofTheseConditionsAreP2"> </span> True <span data-bind="text: root.ofTheseConditionsAreP3"></span>
+            <!-- /ko -->
         <!-- ko if: parent() !== null -->
         <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
         <!-- /ko -->
@@ -160,11 +162,11 @@
 
             </div>
 
-            <!-- ko if: root.simpleQueryMode() -->
+            <!-- ko ifnot: root.expertQueryMode() -->
                 <i class="glyphicon glyphicon-plus add-query-node" data-bind="click: addAttributeNode"></i>
             <!-- /ko -->
 
-            <!-- ko ifnot: root.simpleQueryMode() -->
+            <!-- ko if: root.expertQueryMode() -->
                 <div data-bind="editable: newNodeType,  editableOptions:{type:'select', options: root.nodeTypeChoice,
                     optionsText: 'label', optionsValue: 'value', hidden: addNode, noHTML:'true'}">
                     <i class="glyphicon glyphicon-plus add-query-node"></i>

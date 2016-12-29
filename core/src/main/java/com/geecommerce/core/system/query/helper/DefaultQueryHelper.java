@@ -47,15 +47,17 @@ public class DefaultQueryHelper implements QueryHelper {
             return null;
         if (queryNode.getType().equals(QueryNodeType.BOOLEAN)) {
             List<FilterBuilder> filterBuilders = new ArrayList<>();
-            for (QueryNode node : queryNode.getNodes()) {
-                filterBuilders.add(buildQuery(node));
-            }
-            if (queryNode.getOperator().equals(AND)) {
-                FilterBuilder andFilterBuilder = FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
-                return andFilterBuilder;
-            } else {
-                FilterBuilder orFilterBuilder = FilterBuilders.orFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
-                return orFilterBuilder;
+            if(queryNode.getNodes() != null) {
+                for (QueryNode node : queryNode.getNodes()) {
+                    filterBuilders.add(buildQuery(node));
+                }
+                if (queryNode.getOperator().equals(AND)) {
+                    FilterBuilder andFilterBuilder = FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+                    return andFilterBuilder;
+                } else {
+                    FilterBuilder orFilterBuilder = FilterBuilders.orFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
+                    return orFilterBuilder;
+                }
             }
         } else {
             if (queryNode.getValue() != null && queryNode.getValue().getAttribute() != null) {

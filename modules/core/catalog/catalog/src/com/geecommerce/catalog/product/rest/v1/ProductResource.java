@@ -367,8 +367,19 @@ public class ProductResource extends AbstractResource {
     @POST
     @Path("{bundleProductId}/bundle-groups")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void setBundleGroups(@PathParam("bundleProductId") Id id, @ModelParam List<BundleGroupItem> bundleGroupItems) {
+    public void setBundleGroups(@PathParam("bundleProductId") Id id,  List<Map<String, Object>> mapBundleGroupItems) {
         if (id != null ) {
+            List<BundleGroupItem> bundleGroupItems = null;
+            if (mapBundleGroupItems != null && mapBundleGroupItems.size() > 0) {
+                bundleGroupItems = new ArrayList<>();
+                int counter = 0;
+                for (Map<String, Object> item : mapBundleGroupItems) {
+                    BundleGroupItem bundleGroupItem = app.model(BundleGroupItem.class);
+                    bundleGroupItem.fromMap(item);
+                    bundleGroupItem.setId(Id.toId(counter++));
+                    bundleGroupItems.add(bundleGroupItem);
+                }
+            }
             // Get main and child product.,
             Product bundleProduct = checked(service.get(Product.class, id));
             bundleProduct.setBundleGroups(bundleGroupItems);

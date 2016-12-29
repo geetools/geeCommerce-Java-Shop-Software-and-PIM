@@ -25,14 +25,18 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
     @Column(Col.QUANTITY)
     protected int quantity = 1;
 
-    @Column(Col.OPTIONAL)
-    protected boolean optional = false;
+    @Column(Col.SELECTED)
+    protected boolean selected = false;
 
     protected Product product = null;
 
     @Inject
     public DefaultBundleProductItem(ProductService productService) {
         this.productService = productService;
+    }
+
+    public DefaultBundleProductItem(){
+        productService = app.service(ProductService.class);
     }
 
     @Override
@@ -78,14 +82,14 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
     }
 
     @Override
-    public BundleProductItem setOptional(boolean optional) {
-        this.optional = optional;
+    public BundleProductItem setSelected(boolean selected) {
+        this.selected = selected;
         return this;
     }
 
     @Override
-    public boolean isOptional() {
-        return optional;
+    public boolean isSelected() {
+        return selected;
     }
 
     @Override
@@ -101,7 +105,7 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
         this.productId = id_(map.get(Col.PRODUCT_ID));
         this.quantity = int_(map.get(Col.QUANTITY), 1);
         this.defaultProductId = id_(map.get(Col.DEFAULT_PRODUCT_ID));
-        this.optional = bool_(map.get(Col.OPTIONAL), false);
+        this.selected = bool_(map.get(Col.SELECTED), false);
     }
 
     @Override
@@ -110,7 +114,7 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
         m.put(Col.PRODUCT_ID, getProductId());
         m.put(Col.QUANTITY, getQuantity());
         m.put(Col.DEFAULT_PRODUCT_ID, getProductId());
-        m.put(Col.OPTIONAL, isOptional());
+        m.put(Col.SELECTED, isSelected());
 
         return m;
     }

@@ -18,15 +18,14 @@ public interface BundleProductItem extends Model {
 
     public Product getProduct();
 
-    public BundleProductItem setOptional(boolean optional);
+    public BundleProductItem setSelected(boolean selected);
 
-    public boolean isOptional();
-
+    public boolean isSelected();
 
     static final class Col {
         public static final String PRODUCT_ID = "prd_id";
         public static final String QUANTITY = "qty";
-        public static final String OPTIONAL = "optional";
+        public static final String SELECTED = "selected";
         public static final String DEFAULT_PRODUCT_ID = "def_prd_id";
 
     }

@@ -17,6 +17,9 @@ import java.util.Map;
 @Model
 public class DefaultBundleGroupItem extends AbstractModel implements BundleGroupItem {
 
+    @Column(Col.ID)
+    protected Id id = null;
+
     @Column(Col.LABEL)
     protected ContextObject<String> label = null;
 
@@ -26,8 +29,18 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     @Column(Col.OPTIONAL)
     protected boolean optional = false;
 
+    @Column(Col.SHOW_IN_PRODUCT_DETAILS)
+    protected boolean showInProductDetails = true;
+
+
     protected List<BundleProductItem> bundleProductItems = null;
 
+
+    @Override
+    public BundleGroupItem setId(Id id) {
+        this.id = id;
+        return this;
+    }
 
     @Override
     public ContextObject<String> getLabel() {
@@ -63,6 +76,17 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     }
 
     @Override
+    public BundleGroupItem setShowInProductDetails(boolean showInProductDetails) {
+        this.showInProductDetails = showInProductDetails;
+        return this;
+    }
+
+    @Override
+    public Boolean getShowInProductDetails() {
+        return showInProductDetails;
+    }
+
+    @Override
     public BundleGroupItem setType(BundleGroupType type) {
         this.type = type;
         return this;
@@ -75,7 +99,7 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
 
     @Override
     public Id getId() {
-        return null;
+        return id;
     }
 
     @Override
@@ -83,9 +107,12 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
         if (map == null)
             return;
         super.fromMap(map);
+        this.id = id_(map.get(Col.ID));
         this.label = ctxObj_(map.get(Col.LABEL));
         this.type = enum_(BundleGroupType.class, map.get(Col.TYPE));
         this.optional = bool_(map.get(Col.OPTIONAL), false);
+        this.showInProductDetails = bool_(map.get(Col.SHOW_IN_PRODUCT_DETAILS), true);
+
 
         List<Map<String, Object>> items = list_(map.get(Col.BUNDLE_ITEMS));
         if (items != null && items.size() > 0) {
@@ -102,9 +129,11 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new LinkedHashMap<>();
+        map.put(Col.ID, getId());
         map.put(Col.LABEL, getLabel());
         map.put(Col.TYPE, getType());
         map.put(Col.OPTIONAL, isOptional());
+        map.put(Col.SHOW_IN_PRODUCT_DETAILS, getShowInProductDetails());
 
         if (getBundleItems() != null && getBundleItems().size() > 0){
             List<Map<String, Object>> items = new ArrayList<>();

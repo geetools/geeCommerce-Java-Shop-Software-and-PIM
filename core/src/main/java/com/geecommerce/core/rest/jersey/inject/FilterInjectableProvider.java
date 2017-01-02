@@ -150,6 +150,12 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
 
                 if (!fields.contains("xOptionIds"))
                     fields.add("xOptionIds");
+
+                if (!fields.contains("attributeOptions"))
+                    fields.add("attributeOptions");
+
+                if (!fields.contains("label"))
+                    fields.add("label");
             }
         }
 

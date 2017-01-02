@@ -62,7 +62,9 @@
         'geegrid' : '../vendor/geegrid/geegrid',
         'focusable' : '../vendor/focusable/focus-element-overlay.min',
         'speakingurl' : '../vendor/speakingurl-10.0.0/speakingurl.min',
-        'socket.io' : '../vendor/socket.io/socket.io-1.4.5'
+        'socket.io' : '../vendor/socket.io/socket.io-1.4.5',
+        'slick' : '../vendor/slick-1.6.0/slick/slick.min'
+            
     },
     shim : {
         'jquery' : {
@@ -574,6 +576,7 @@ define(function(require) {
     widget.registerKind('attrSelect');
     widget.registerKind('newAttributeForm');
     widget.registerKind('productInfo');
+    widget.registerKind('noImage');
 
     kv.makeBindingHandlerValidatable("i18nValue");
 

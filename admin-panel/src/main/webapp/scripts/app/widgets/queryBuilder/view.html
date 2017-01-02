@@ -9,17 +9,23 @@
     <!-- ko if: displayMode == 'inline' -->
 
             <div class="form-group">
-                <label class="control-label switch-label col-xs-3">Expert mode</label>
-                <div class="col-xs-9 switch-wrapper">
+                <label class="switch-label">Expert mode</label>
+                <div class="switch-wrapper">
                     <input type="checkbox" data-bind="bool: expertQueryMode" />
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-9">
+                <div>
                     <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
                 </div>
             </div>
-            <button data-bind="click: apply">Apply</button>
+            <button class="gc-btn query-builder-apply-button" data-bind="click: apply">
+              <!-- ko if: buttonIconClass -->
+                <span data-bind="attr: {class: buttonIconClass}"></span>
+              <!-- /ko -->
+              
+              <span data-bind="text: buttonLabel">Apply</span>
+            </button>
 
     <!-- /ko -->
 
@@ -89,7 +95,7 @@
             <div class="col-xs-9">
                 <select class="selectpicker" title="auswählen" data-bind="select: attrVal().value, data: attrVal().selectOptions">
                 </select>
-                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove-circle remove-query-node"></span>
             </div>
 
         </div>
@@ -100,8 +106,8 @@
             <div class="col-xs-9">
                 <select class="selectpicker show-tick" multiple data-bind="select: attrVal().value, data: attrVal().selectOptions, selectOptions: { size: 10 }">
                 </select>
-                <i class="fa fa-check-square"></i><i class="fa fa-check-square" ></i>
-                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+                <i class="fa fa-th-list"></i>
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove-circle remove-query-node"></span>
             </div>
 
         </div>
@@ -111,7 +117,7 @@
             <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-xs-3 control-label"></label>
             <div class="col-xs-9 switch-wrapper">
                 <input type="checkbox" data-bind="i18nBool: attrVal().value" />
-                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove-circle remove-query-node"></span>
             </div>
         </div>
         <!-- /ko -->
@@ -127,13 +133,13 @@
                     <span    class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
                     <input  data-bind="i18nValue: attrVal().value" class="form-control" type="text" required />
                     <div   data-bind="click: deleteNode">
-                        <i class="glyphicon glyphicon-remove"></i>
+                        <i class="glyphicon glyphicon-remove-circle"></i>
                     </div>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: !attrVal().isI18n -->
                 <input class="form-control" type="text" data-bind="ctxValue: attrVal().value" />
-                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+                <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove-circle remove-query-node"></span>
                 <!-- /ko -->
             </div>
 
@@ -154,7 +160,7 @@
 				optionsValue: 'value'}"></span> <span data-bind="text: root.ofTheseConditionsAreP2"> </span> True <span data-bind="text: root.ofTheseConditionsAreP3"></span>
             <!-- /ko -->
         <!-- ko if: parent() !== null -->
-        <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove remove-query-node"></span>
+        <span data-bind="click: deleteNode" class="glyphicon glyphicon-remove-circle remove-query-node"></span>
         <!-- /ko -->
         </div>
         <ul>
@@ -163,13 +169,13 @@
             </div>
 
             <!-- ko ifnot: root.expertQueryMode() -->
-                <i class="glyphicon glyphicon-plus add-query-node" data-bind="click: addAttributeNode"></i>
+                <i class="glyphicon glyphicon-plus-sign add-query-node" data-bind="click: addAttributeNode"></i>
             <!-- /ko -->
 
             <!-- ko if: root.expertQueryMode() -->
                 <div data-bind="editable: newNodeType,  editableOptions:{type:'select', options: root.nodeTypeChoice,
                     optionsText: 'label', optionsValue: 'value', hidden: addNode, noHTML:'true'}">
-                    <i class="glyphicon glyphicon-plus add-query-node"></i>
+                    <i class="glyphicon glyphicon-plus-sign add-query-node"></i>
                 </div>
             <!-- /ko -->
 

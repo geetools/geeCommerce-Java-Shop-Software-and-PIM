@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -575,7 +573,6 @@ public class DefaultProduct extends AbstractAttributeSupport
         this.bundleAsSingleProduct = bundleAsSingleProduct;
     }
 
-
     @Override
     @XmlAttribute
     public String getDeletedNote() {
@@ -1021,6 +1018,12 @@ public class DefaultProduct extends AbstractAttributeSupport
     }
 
     @Override
+    public String getMainThumbnailURI() {
+        CatalogMediaAsset image = getMainImage();
+        return image == null ? null : image.getWebThumbnailPath();
+    }
+
+    @Override
     public CatalogMediaAsset getMainImage() {
         CatalogMediaAsset image = null;
 
@@ -1419,7 +1422,7 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (bundleProductItems != null && bundleProductItems.size() > 0) {
             List<Id> bundleProductIds = bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList());
 
-            bundleProducts = products.findByIds(Product.class,  bundleProductIds.toArray(new Id[bundleProductIds.size()]));
+            bundleProducts = products.findByIds(Product.class, bundleProductIds.toArray(new Id[bundleProductIds.size()]));
         }
 
         return bundleProducts;
@@ -1462,9 +1465,9 @@ public class DefaultProduct extends AbstractAttributeSupport
             bundleProductItems = new ArrayList<>();
 
         BundleProductItem bundleProductItem = bundleProductItems.stream().filter(bundleProductItem1 -> bundleProductItem1.getProductId()
-                .equals(product.getId())).findFirst().orElse(null);
+            .equals(product.getId())).findFirst().orElse(null);
 
-        if(bundleProductItem == null){
+        if (bundleProductItem == null) {
             bundleProductItem = app.model(BundleProductItem.class);
             bundleProductItem.setProductId(product.getId());
             bundleProductItem.setQuantity(quantity);
@@ -1484,11 +1487,11 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (product == null || product.getId() == null)
             throw new NullPointerException("Product or its id cannot be null");
 
-        if (bundleProductItems != null){
+        if (bundleProductItems != null) {
 
             BundleProductItem bundleProductItem = bundleProductItems.stream().filter(bundleProductItem1 -> bundleProductItem1.getProductId()
-                    .equals(product.getId())).findFirst().orElse(null);
-            if(bundleProductItem != null){
+                .equals(product.getId())).findFirst().orElse(null);
+            if (bundleProductItem != null) {
                 bundleProductItems.remove(bundleProductItem);
             }
         }
@@ -1905,8 +1908,9 @@ public class DefaultProduct extends AbstractAttributeSupport
                 }
             } else if (isBundle() && bundleProductItems != null && bundleProductItems.size() > 0) {
                 List<Map<String, Object>> bundleProducts = products.findDataByIds(Product.class,
-                        bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList())
-                                .toArray(new Id[bundleProductItems.size()]), QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
+                    bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList())
+                        .toArray(new Id[bundleProductItems.size()]),
+                    QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : bundleProducts) {
                     ProductType type = enum_(ProductType.class, data.get(Col.TYPE));
@@ -2065,7 +2069,7 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (getUpsellProductIds() != null && getUpsellProductIds().size() > 0)
             map.put(Col.UPSELL_PRODUCTS, getUpsellProductIds());
 
-        if (getBundleGroups() != null && getBundleGroups().size() > 0){
+        if (getBundleGroups() != null && getBundleGroups().size() > 0) {
             List<Map<String, Object>> bundleGroups = new ArrayList<>();
             for (BundleGroupItem bundleGroupItem : getBundleGroups()) {
                 bundleGroups.add(bundleGroupItem.toMap());

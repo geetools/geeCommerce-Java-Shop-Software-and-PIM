@@ -179,6 +179,8 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
 
     public String getMainImageURI();
 
+    public String getMainThumbnailURI();
+    
     public CatalogMediaAsset getMainImage();
 
     @JsonIgnore

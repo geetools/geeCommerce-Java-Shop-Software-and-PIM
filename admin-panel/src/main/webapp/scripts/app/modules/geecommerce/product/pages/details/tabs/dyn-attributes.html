@@ -21,7 +21,7 @@
 									<div class="input-group qwe123">
 										<span class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
 										<input class="form-control" data-bind="i18nJqAuto: { minLength: 3 }, jqAutoSource: attrVal.srcOptions, jqAutoQuery: attrVal.getOptions, jqAutoValue: attrVal.comboboxValue, jqAutoValueId: attrVal.comboboxValueId, jqAutoSourceLabel: 'label', jqAutoSourceInputValue: 'label', jqAutoSourceValue: 'id', disable: attrVal.isOptOut, event: {keypress: attrVal.addOptionKey13}" />
-										<span class="input-group-btn"><button class="btn btn-primary" type="button" data-bind="click: attrVal.addOption, disable: attrVal.isOptOut"><i class="fa fa-plus"></i></button></span>
+										<span class="input-group-btn"><button class="btn btn-primary" type="button" data-bind="click: attrVal.addOption, disable: attrVal.isOptOut"><i class="fa fa-th-list"></i></button></span>
 									</div>
 									
 								</div>
@@ -64,7 +64,7 @@
 							<div data-bind="css: { 'selectpicker-disabled' : attrVal.isOptOut }">
 	                            <select class="selectpicker show-tick" multiple data-bind="select: attrVal.value, data: attrVal.selectOptions, sort: true, selectOptions: { size: 10 }, disable: attrVal.isOptOut">
 	                            </select>
-                            	<i class="fa fa-plus" style="margin-left:5px;"></i>
+                            	<i class="fa fa-th-list" style="margin-left:5px;"></i>
                             </div>
                         </div>
 						<div class="col-sm-3 optout-group checkbox checkbox-info checkbox-circle" data-bind="css: { 'optout-on' : attrVal.isOptOut }">

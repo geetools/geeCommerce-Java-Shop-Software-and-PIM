@@ -1,10 +1,14 @@
 define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
 	return {
-		thumbnail : function(mainImagePath) {
-			var self = this;
-			return _.isEmpty(mainImagePath) ? undefined : self.buildImageURL(mainImagePath, 70);
-		},
+        thumbnailXS : function(mainImagePath) {
+            var self = this;
+            return _.isEmpty(mainImagePath) ? undefined : self.buildImageURL(mainImagePath, 50);
+        },
+        thumbnail : function(mainImagePath) {
+            var self = this;
+            return _.isEmpty(mainImagePath) ? undefined : self.buildImageURL(mainImagePath, 70);
+        },
 		buildImageURL : function(imgURI, width, height, defaultURI) {
 		
 			if(_.isUndefined(imgURI) && !_.isUndefined(defaultURI)) {

@@ -112,7 +112,9 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
                 attributes: attributes,
                 success : function(data, status, xhr) {
 
-                    var productsArr = data.products;                    
+                    var productsArr = data.data.products;                    
+                    
+                    console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;productsArr;;  ', data, productsArr);
                     
                     // append attribute info from cache
                     gc.attributes.appendAttributes(productsArr);

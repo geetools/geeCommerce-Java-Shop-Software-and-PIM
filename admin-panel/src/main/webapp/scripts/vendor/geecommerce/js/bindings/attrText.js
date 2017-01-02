@@ -8,7 +8,8 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
 			var code = allBindings.get('code');
 			var scope = allBindings.get('scope');
-			var mode = allBindings.get('mode');
+            var mode = allBindings.get('mode');
+            var def = allBindings.get('default');
 			
 			var attribute = gc.attributes.find(srcObjUnwrapped.attributes, code);
 
@@ -23,7 +24,11 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 					$(element).text(gc.ctxobj.val(attribute.value, gc.app.currentUserLang(), mode));
 				}
 			} else {
-				$(element).text('');
+			    if(!_.isEmpty(def)) {
+	                $(element).text(def);
+			    } else {
+	                $(element).text('');
+			    }
 			}
 		},
 		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -33,6 +38,8 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			var code = allBindings.get('code');
 			var scope = allBindings.get('scope');
 			var mode = allBindings.get('mode');
+            var def = allBindings.get('default');
+			
 			var attribute = gc.attributes.find(srcObj.attributes, code);
 
 			if (!_.isUndefined(attribute) && !_.isNull(attribute)) {
@@ -42,7 +49,11 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 					$(element).text(gc.ctxobj.val(attribute.value, gc.app.currentUserLang(), mode));
 				}
 			} else {
-				$(element).text('');
+                if(!_.isEmpty(def)) {
+                    $(element).text(def);
+                } else {
+                    $(element).text('');
+                }
 			}
 		}
 	};

@@ -201,6 +201,12 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             this.showFilterButton = false;
         }
 
+        this.buttonIconClass = undefined;
+        if(settings.buttonIconClass) {
+            this.buttonIconClass = settings.buttonIconClass;        
+        }
+
+        this.buttonLabel = settings.buttonLabel || 'apply';
         this.expertQueryMode = ko.observable(false);
         this.operatorChoice = ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]);
         this.nodeTypeChoice = ko.observableArray([{value:"BOOLEAN", label:"Condition Combination"}, {value:"ATTRIBUTE", label:"Attribute"}]);

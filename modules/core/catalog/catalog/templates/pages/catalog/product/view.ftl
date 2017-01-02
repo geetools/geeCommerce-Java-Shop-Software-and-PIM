@@ -19,6 +19,8 @@
 			<div id="prd-desc" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cat-hidden-xs">
 				<#include "view_description.ftl"/>
 				<@cms_product_variants />
+
+				<#include "view_bundle.ftl"/>
 			</div>
 
 			<div id="prd-cart" class="col-xs-12 col-sm-3 col-md-3 col-lg-3">

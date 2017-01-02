@@ -7,7 +7,7 @@
 					<button data-bind="click: addBundleGroup">+</button>
 					<button data-bind="click: saveData">save</button>
 
-					<div  data-bind="sortable: bundleGroups"  class="bundle-groups"><!-- data-bind="foreach: { data: bundleGroups, as: 'bundleGroup' }" >-->
+					<div  data-bind="sortable: {data: bundleGroups,  connectClass: 'groups'}"  class="bundle-groups"><!-- data-bind="foreach: { data: bundleGroups, as: 'bundleGroup' }" >-->
 						<div class="bundle-group row">
 							<div class="col-xs-6">
 								<div class="form-group">
@@ -42,6 +42,12 @@
 										<input type="checkbox" data-bind="bool: optional" />
 									</div>
 								</div>
+								<div class="form-group">
+									<label  class="col-xs-6 control-label">Show in Prd Details</label>
+									<div class="col-xs-6 switch-wrapper">
+										<input type="checkbox" data-bind="bool: showInProductDetails" />
+									</div>
+								</div>
 
 							</div>
 
@@ -50,12 +56,12 @@
 							</div>
 
 
-							<div  data-bind="sortable: bundleItems" class="bundle-items col-xs-12" >  <!-- data-bind="foreach: { data: bundleItems, as: 'bundleItem' }"-->
+							<div  data-bind="sortable: {data: bundleItems,  connectClass: 'products', afterMove: dropCallback}" class="bundle-items col-xs-12" >  <!-- data-bind="foreach: { data: bundleItems, as: 'bundleItem' }"-->
 								<div class="bundle-item row">
 									<div class="col-xs-2" >
 										<span data-bind="if: $data.product.mainImageURI"><img class="pull-right" data-bind="attr: {src: $root.gc.images.thumbnail($data.product.mainImageURI)}" border="0" vspace="10"/></span>
 									</div>
-									<div class="col-xs-6">
+									<div class="col-xs-5">
 										<span data-bind="attrText: $data.product, code: 'name', mode: 'closest'"></span><br/>
 										<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: $root.gc.attributes.optionLabel($data.product.attributes, 'product_group')"></span><br/>
 										<div class="attribute-info-row">
@@ -71,11 +77,24 @@
 										<!-- /ko -->
 
 									</div>
-									<div class="col-xs-3">
+									<div class="col-xs-2">
 										<div class="form-group">
 											<label  class="col-sm-6 control-label">Quantity</label>
 											<div class="col-sm-6">
 												<input type="number" class="form-control" data-bind="value: $data.quantity, attr:{min: 0, step: 1}">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-2">
+										<div class="form-group">
+											<label  class="col-sm-6 control-label">Default</label>
+											<div class="col-sm-6">
+												<!-- ko if: $parent.isMultiselect() -->
+													<input type="checkbox" class="form-control" data-bind="checked: $data.selected">
+												<!-- /ko -->
+												<!-- ko ifnot: $parent.isMultiselect() -->
+													<input type="radio" class="form-control" data-bind="checked: $parent.selected, attr: {value: $data.id}">
+												<!-- /ko -->
 											</div>
 										</div>
 									</div>

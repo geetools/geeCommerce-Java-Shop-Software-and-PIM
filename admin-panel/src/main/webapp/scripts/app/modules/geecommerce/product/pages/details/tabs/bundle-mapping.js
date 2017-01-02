@@ -7,6 +7,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
 		self.label = ko.observable();
         self.optional = ko.observable(false);
+        self.showInProductDetails = ko.observable(true);
         self.type = ko.observable("SELECT");
 
         self.bundleItems = ko.observableArray([]);
@@ -17,14 +18,49 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			console.log(newData)
 			
 			_.each(newData, function (productId) {
-				productAPI.getProduct(productId).then(function (data) {
-                    var productBundleVM = new ProductBundleVM(vm, data, 1);
-					self.bundleItems.push(productBundleVM);
-                });
+                var prd = _.findWhere(self.bundleItems(), { id : productId });
 
+				if(!prd) {
+                    productAPI.getProduct(productId).then(function (data) {
+                        var productBundleVM = new ProductBundleVM(vm, data, 1);
+                        self.bundleItems.push(productBundleVM);
+                    });
+                }
 
             })
         })
+
+        self.allowDrop  = function (parent) {
+            console.log(this);
+            console.log(parent());
+        };
+
+        self.isMultiselect = ko.computed(function() {
+            return self.type() == "MULTISELECT" || self.type() == "CHECKBOX";
+        });
+
+        self.selected = ko.observable('');
+
+        self.selected.subscribe(function (newValue) {
+            _.each(self.bundleItems(), function (bundleItem) {
+                if(bundleItem.id == newValue){
+                    bundleItem.selected(true);
+                } else {
+                    bundleItem.selected(false);
+                }
+            })
+        })
+
+        self.type.subscribe(function (newValue) {
+            _.each(self.bundleItems(), function (bundleItem) {
+                bundleItem.selected(false)
+            })
+        })
+
+        self.dropCallback = function (arg) {
+            arg.item.selected(false);
+        }
+
     }
 
 	function ProductBundleVM(vm, product, quantity) {
@@ -34,7 +70,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         self.product = product;
         self.quantity = ko.observable(quantity);
 
-        self.optional = ko.observable(false);
+        self.selected = ko.observable(false);
         self.defaultVariant = ko.observable();
         self.isVariantMaster = ko.observable(false);
         self.variants = ko.observableArray([]);
@@ -108,59 +144,15 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		constructor : ProductBundlesController,
         // The pager takes care of filtering, sorting and paging functionality.
         sourceBundleProductsPager: {},
+        allowDrop : function (parent) {
+            console.log(this);
+            console.log(parent);
+        },
 		addBundleGroup : function () {
             var vm = this.productVM();
 			var bundleGroup = new GroupBundleVM(vm);
 			this.bundleGroups.push(bundleGroup);
         },
-/*        dropFromSource : function(data) {
-        	var self = this;
-        	var vm = self.productVM();
-
-        	// Only add product to programme if it does not exist yet.
-    		//var foundProduct = _.findWhere(ko.unwrap(vm.programmes), { id : data.id });
-        	
-    		//if(_.isUndefined(foundProduct)) {
-            	productAPI.addProductToBundle(vm.productId(), data.id, 1).then(function( response ) {
-                    vm.bundleProducts.push(new ProductBundleVM(vm, data, 1));
-                	self.sourceBundleProductsPager.removeData(data);
-            	});
-    		//}
-        },
-        removeProductFromBundle : function(data) {
-        	var self = this;
-        	var vm = self.productVM();
-        	
-        	productAPI.removeProductFromBundle(vm.productId(), data.id).then(function() {
-        		// See if the product is already in the source container.
-        		var foundProduct = _.findWhere(ko.unwrap(self.sourceBundleProductsPager.data), { id : data.id });
-        		
-        		// Only add to drag&drop source container if it does not exist yet.
-        		if(_.isUndefined(foundProduct)) {
-                	self.sourceBundleProductsPager.data.push(data.product);
-        		}
-        		
-        		// Remove from target-container in view.
-        		vm.bundleProducts.remove(data);
-        	});
-        },
-		updatePositions : function(domTableRows) {
-			var self = this;
-			
-			var optionPositions = {};
-
-            domTableRows.each(function(index, elem) {
-                var row = $(elem),
-                    pos = row.index()+1,
-                    optionId = $(row).attr('data-id');
-
-                optionPositions[optionId] = pos;
-            });
-
-//            attrTabsAPI.updateOptionPositions(self.attributeTabId, optionPositions).then(function(data) {
-////                self.pager.refresh();
-//            });
-		},*/
 		saveData: function () {
             var self = this;
             var vm = self.productVM();
@@ -171,6 +163,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 				var bundleGroup = {};
                 bundleGroup.label = bundleGroupVM.label();
 				bundleGroup.optional = bundleGroupVM.optional();
+				bundleGroup.show_in_prd_details = bundleGroupVM.showInProductDetails();
                 bundleGroup.type = bundleGroupVM.type();
 				bundleGroup.bundle_items = [];
                 
@@ -180,6 +173,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                     bundleItem.prd_id = bundleItemVM.id;
                     bundleItem.qty = bundleItemVM.quantity();
 					bundleItem.def_prd_id = bundleItemVM.defaultVariant();
+                    bundleItem.selected = bundleItemVM.selected();
 
                     bundleGroup.bundle_items.push(bundleItem)
                 });
@@ -191,70 +185,44 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 			productAPI.saveBundleGroups(vm.productId(), bundleGroups);
         },
 		activate : function(productId) {
-			var self = this;
+            var self = this;
 
-			self.productVM = gc.app.sessionKGet('productVM');			
-			
-			var vm = self.productVM();
+            self.productVM = gc.app.sessionKGet('productVM');
 
-		/*
-			self.setupSearchListener();
-			
-			
-	    	// Pager columns
-			var pagerColumns = [
-              {'name' : '$attr.article_number', 'label' : 'Artikelnummer'},
-              {'name' : '$attr.name', 'label' : 'Name'}
-            ];
-			
-			var pagingOptions = productAPI.pagingOptions( { columns : pagerColumns, filter : [], attributes : [] } )
-            pagingOptions.fields.push('attributeOptions');
-            pagingOptions.fields.push('properties');
-            pagingOptions.fields.push('sortOrder');
-            pagingOptions.fields.push('mainImageURI');
-			
-	    	// Init the pager.
-        	this.sourceBundleProductsPager = new gc.Pager(pagingOptions);
-        	
-			//---------------------------------------------------------------
-			// Programmes for drag&drop target-container
-			//---------------------------------------------------------------
-			
-        	//  Get programme-products that are already connected to the main product.
-			productAPI.getBundleProducts(vm.productId()).then(function(data) {
+            var vm = self.productVM();
 
-				if(!_.isEmpty(data.data.bundleProductItems)) {
-					var productItems = [];
-					_.each(data.data.bundleProductItems, function (productItem) {
-                        gc.attributes.appendAttributes(productItem.product);
-                        productItems.push(new ProductBundleVM(vm, productItem.product, productItem.quantity))
-                    });
-					vm.bundleProducts(productItems);
+            productAPI.getBundleGroups(vm.productId()).then(function (data) {
 
+                if (data.data.bundleGroupItems) {
+                    _.each(data.data.bundleGroupItems, function (bundleGroupItem) {
+                        var bundleGroupItemVM = new GroupBundleVM(vm);
+                        bundleGroupItemVM.label(bundleGroupItem.label);
+                        bundleGroupItemVM.type(bundleGroupItem.type);
+                        bundleGroupItemVM.optional(bundleGroupItem.optional);
+                        bundleGroupItemVM.showInProductDetails(bundleGroupItem.showInProductDetails);
 
-					// Populate drag&drop target container.
-					//vm.bundleProducts(data.data.products);
-				}
-			});*/
-		},
-		/*setupSearchListener : function() {
-			var self = this;
-			
-			self.query.subscribe(function(value) {
-	        	self.sourceBundleProductsPager.columnValue('$attr.article_number', undefined);
-	        	self.sourceBundleProductsPager.columnValue('$attr.name', undefined);
-				
-	        	self.sourceBundleProductsPager.columnValue('$attr.article_number', value);
-				self.sourceBundleProductsPager.load().then(function(data) {
-					if(_.isEmpty(data.data)) {
-			        	self.sourceBundleProductsPager.columnValue('$attr.article_number', undefined);
-			        	self.sourceBundleProductsPager.columnValue('$attr.name', value);
-			        	self.sourceBundleProductsPager.load().then(function(data2) {
-			        	});
-					}
-				});
-			});
-		},*/
+                        if (bundleGroupItem.bundleItems) {
+                            _.each(bundleGroupItem.bundleItems, function (bundleItem) {
+                                var productBundleVM = new ProductBundleVM(vm, bundleItem.product, bundleItem.quantity);
+                                productBundleVM.selected(bundleItem.selected);
+                                bundleGroupItemVM.bundleItems.push(productBundleVM);
+                            });
+                        }
+
+                        if(!bundleGroupItemVM.isMultiselect()){
+                            _.each(bundleGroupItemVM.bundleItems(), function (bundleItem) {
+                                if(bundleItem.selected()){
+                                    bundleGroupItemVM.selected(bundleItem.id);
+                                }
+                            });
+                        }
+
+                        self.bundleGroups.push(bundleGroupItemVM);
+                    })
+                }
+
+            });
+        },
 		attached : function(view, parent) {
 			$('#tab-prd-details-bundle-mapping').click(function() {
 				$('#header-store-pills').hide();

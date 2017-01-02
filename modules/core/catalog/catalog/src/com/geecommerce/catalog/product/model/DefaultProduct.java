@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.geecommerce.catalog.product.enums.BundleGroupType;
 import org.apache.logging.log4j.util.Strings;
 
 import com.geecommerce.catalog.product.MediaType;
@@ -261,10 +262,32 @@ public class DefaultProduct extends AbstractAttributeSupport
         Boolean isValid = threadGet(this, "isValidForSelling");
 
         if (isValid == null) {
-            if (!isVariantMaster() && !isProgramme()) {
-                isValid = isSalable() && isInStock() && visibilityFlagsOK(true) && hasValidPrice();
+            if(isBundle()){
+
+                //Main product should be sellable and visible
+                isValid = isSalable() /*&& isInStock()*/ && visibilityFlagsOK(true) /*&& hasValidPrice()*/;
+
+                //All mandatory items should be sellable
+
+                for(BundleGroupItem group: bundleGroups){
+                    if(!group.isOptional()){
+
+                        isValid  = isValid && group.hasItemsValidForSelling();
+                        if(group.getType().equals(BundleGroupType.LIST)) {
+                            isValid  = isValid && group.allItemsValidForSelling();
+                        } else {
+                            isValid  = isValid && group.hasItemsValidForSelling();
+                        }
+                        if(!isValid)
+                            break;
+                    }
+                }
             } else {
-                isValid = false;
+                if (!isVariantMaster() && !isProgramme()) {
+                    isValid = isSalable() && isInStock() && visibilityFlagsOK(true) && hasValidPrice();
+                } else {
+                    isValid = false;
+                }
             }
 
             threadPut(this, "isValidForSelling", isValid);
@@ -947,6 +970,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public Map<String, Object> getStockData() {
+
+
         return stocks.getStockData(getId(), app.context().getStore());
     }
 

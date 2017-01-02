@@ -98,6 +98,69 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     }
 
     @Override
+    public boolean hasItemsValidForSelling() {
+
+        //TODO : for variant masters
+            boolean hasItemsValidForSelling = false;
+
+            if (getBundleItems() != null && getBundleItems().size() > 0)
+            {
+                for (BundleProductItem item : getBundleItems())
+                {
+                    if(item.getProduct() != null) {
+                        if(item.getProduct().isValidForSelling()){
+                            hasItemsValidForSelling = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return hasItemsValidForSelling;
+
+
+    }
+
+    @Override
+    public boolean allItemsValidForSelling() {
+        boolean allItemsValidForSelling = true;
+
+        if (getBundleItems() != null && getBundleItems().size() > 0)
+        {
+            for (BundleProductItem item : getBundleItems())
+            {
+                if(item.getProduct() != null) {
+                    if(!item.getProduct().isValidForSelling()){
+                        allItemsValidForSelling = false;
+                        break;
+                    }
+                }
+            }
+        } else {
+            allItemsValidForSelling = false;
+        }
+
+        return allItemsValidForSelling;
+    }
+
+    @Override
+    public List<BundleProductItem> getValidBundleItems() {
+        List<BundleProductItem> validItems = new ArrayList<>();
+        if (getBundleItems() != null && getBundleItems().size() > 0)
+        {
+            for (BundleProductItem item : getBundleItems())
+            {
+                if(item.getProduct() != null) {
+                    if(item.getProduct().isValidForSelling()){
+                        validItems.add(item);
+                    }
+                }
+            }
+        }
+        return validItems;
+    }
+
+    @Override
     public Id getId() {
         return id;
     }

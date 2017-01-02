@@ -31,6 +31,12 @@ public interface BundleGroupItem extends Model {
 
     public BundleGroupType getType();
 
+    public boolean hasItemsValidForSelling();
+
+    public boolean allItemsValidForSelling();
+
+    public List<BundleProductItem> getValidBundleItems();
+
     static final class Col {
         public static final String ID = "_id";
         public static final String LABEL = "label";

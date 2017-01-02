@@ -1,5 +1,5 @@
 define([
-        'durandal/app', 'durandal/composition', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-attribute/util'
+        'durandal/app', 'durandal/composition', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-attribute/util', 'slick'
 ], function(app, composition, ko, gc, productAPI, attrAPI, attrUtil) {
 
     var ctor = function() {
@@ -15,17 +15,55 @@ define([
 
         self.value = settings.value;
         self.currentlyCheckedValues = ko.observableArray([]);
-        
-        if(!_.isEmpty(settings.products)) {
+        self.currentProducts = ko.observableArray([]);
+        self.isSlicked = false;
+        self.linkText = ko.observable(settings.linkText || 'Product Finder');
+
+        self.currentlyCheckedValues.subscribe(function(checkedProductIds) {
+            productAPI.getProducts(checkedProductIds, {
+                fields : [
+                        'id', 'id2', 'ean', 'mainImageURI'
+                ],
+                attributes : [
+                        'name', 'name2', 'article_number', 'product_group', 'programme', 'bundle_group'
+                ]
+            }).then(function(response) {
+                var el = $(self.view).find('.product-finder-carousel');
+
+                if (self.isSlicked === true) {
+                    $(el).slick('unslick');
+                }
+
+                if (self.currentProducts() && self.currentProducts().length > 0) {
+                    self.currentProducts([]);
+                }
+
+                el.empty();
+
+                self.currentProducts(response.data.products);
+
+                if (self.isSlicked === true) {
+                    // $(el).slick('unslick');
+                    $(el).slick();
+                } else {
+                    $(el).slick();
+                    self.isSlicked = true;
+                }
+            });
+        });
+
+        if (!_.isEmpty(settings.products)) {
             self.products = settings.products;
             self.productAs = settings.productAs || {};
-            
+
             self.value.subscribe(function(newValue) {
-                if(_.isEmpty(newValue)) {
+                if (_.isEmpty(newValue)) {
                     self.products([]);
+                    self.setLinkText();
                 } else {
                     productAPI.getProducts(newValue, self.productAs).then(function(response) {
                         self.products(response.data.products);
+                        self.setLinkText(response.data.products);
                     });
                 }
             });
@@ -88,7 +126,55 @@ define([
             cookieName : 'pgr_products_fndr'
         }));
     };
-    
+
+    ctor.prototype.setLinkText = function(prdArray) {
+        var self = this;
+        
+        if (!_.isEmpty(prdArray)) {
+            var _linkText = '';
+            
+            if (prdArray.length > 1) {
+                var x = 0;
+                for (var i = 0; i < prdArray.length; i++) {
+                    var prd = prdArray[i];
+
+                    console.log('currentProducts ################################################## ', prd);
+
+                    var artNo = gc.attributes.find(prd.attributes, 'article_number').value;
+                    console.log('artNo ################################################## ', artNo);
+
+                    if(!_.isEmpty(artNo)) {
+                        if (x > 0) {
+                            _linkText += ', ';
+                        }
+
+                        _linkText += gc.ctxobj.global(artNo);
+                    }
+
+                    if(i > 10)
+                        break;
+                    
+                    x++;
+                }
+            } else {
+                var prd = prdArray[0];
+
+                console.log('currentProducts ################################################## ', prd);
+
+                var artNo = gc.attributes.find(prd.attributes, 'article_number').value;
+                _linkText = artNo;
+            }
+            
+            if(!_.isEmpty(_linkText)) {
+                self.linkText(_linkText);
+            } else {
+                self.linkText('Product Finder');
+            }         
+        } else {
+            self.linkText('Product Finder');
+        }
+    };
+
     ctor.prototype.compositionComplete = function() {
         var self = this;
         self.pager.activateSubscribers();
@@ -96,19 +182,26 @@ define([
 
     ctor.prototype.attached = function(view, parent) {
         var self = this;
-    };
+        self.view = view;
+        self.parent = parent;
 
+    };
 
     ctor.prototype.showProductFinder = function() {
         var self = this;
         self.visible(true);
+
+        if (self.isSlicked === true) {
+            var el = $(self.view).find('.product-finder-carousel');
+            $(el).slick();
+        }
     };
-    
+
     ctor.prototype.cancelProductFinder = function() {
         var self = this;
         self.visible(false);
     };
-    
+
     ctor.prototype.useCheckedProducts = function(model, event) {
         var self = this;
         self.value(self.currentlyCheckedValues());
@@ -119,6 +212,6 @@ define([
         self.value(self.currentlyCheckedValues());
         self.visible(false);
     };
-    
+
     return ctor;
 });

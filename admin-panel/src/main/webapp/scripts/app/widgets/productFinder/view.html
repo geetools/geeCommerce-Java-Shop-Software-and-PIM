@@ -1,7 +1,7 @@
-<div class="product-finder">
+<div class="product-finder-widget">
 
   <!-- ko if: showModalLink -->
-  <a href="javascript:void(0)" data-bind="click: showProductFinder">Product Finder</a>
+  <a href="javascript:void(0)" data-bind="click: showProductFinder, text: linkText">Product Finder</a>
   <!-- /ko -->
 
   <div role="dialog" aria-hidden="true" class="product-finder-modal modal fade" data-bind="modal: { show: visible }">
@@ -13,8 +13,22 @@
 
           <!--  search field -->
           <div class="product-finder-query-builder">
-            <div data-bind="queryBuilder: { value: pager.query, displayMode: 'inline'}"></div>
+            <div data-bind="queryBuilder: { value: pager.query, displayMode: 'inline', buttonLabel: 'filter', buttonIconClass: 'glyphicon glyphicon-filter'}"></div>
           </div>
+
+          <div class="product-finder-checked-products">
+
+            <div class="product-finder-carousel" data-slick='{"slidesToShow": 7, "slidesToScroll": 1, "variableWidth": true}' data-bind="foreach: { data: currentProducts, as: 'currentProduct' }">
+              <!-- ko if: $index() === 0 -->
+              <div class="product-finder-carousel-item" data-bind="productInfo: { product: currentProduct }"></div>
+              <!-- /ko -->
+              <!-- ko if: $index() > 0 -->
+              <div class="product-finder-carousel-item" data-bind="productInfo: { product: currentProduct }"></div>
+              <!-- /ko -->
+            </div>
+            
+          </div>
+
           <div class="product-finder-results">
             <div data-bind="compose: { model: 'widgets/productFinder/result', activationData: { pager: pager, checked: value, collector: currentlyCheckedValues } }"></div>
           </div>

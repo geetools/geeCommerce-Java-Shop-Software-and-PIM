@@ -1,12 +1,20 @@
 <div>
-	<div class="prd-info-image" >
-		<span data-bind="if: product.mainImageURI"><img class="pull-right" data-bind="attr: {src: gc.images.thumbnail(product.mainImageURI)}" border="0" vspace="10"/></span>
-	</div>
-	<div class="prd-info-details" >
-		<span data-bind="attrText: product, code: 'name', mode: 'closest'"></span><br/>
-		<span data-i18n="app:modules.product.productGroupLabel"></span>: <span data-bind="text: gc.attributes.optionLabel(product.attributes, 'product_group')"></span><br/>
-		<div class="attribute-info-row">
-			<span data-bind="attrText: product, code: 'article_number', mode: 'closest'"></span>
-		</div>
-	</div>
+  <div class="prd-info-image">
+    <!--  ko if: product.mainImageURI  -->
+      <img data-bind="attr: {src: gc.images.thumbnailXS(product.mainImageURI)}" border="0" />
+    <!-- /ko -->
+    <!--  ko if: !product.mainImageURI  -->
+      <div data-bind="noImage:"></div>    
+    <!-- /ko -->
+  </div>
+  <div class="prd-info-details">
+    <div class="prd-info-details-name-row">
+      <strong class="prd-info-details-name" data-bind="attrText: product, code: 'name', mode: 'closest'"></strong> <strong class="prd-info-details-name2"
+        data-bind="attrText: product, code: 'name2', mode: 'closest'"></strong>
+    </div>
+    <div class="prd-info-details-extra-row">
+      <span class="prd-info-details-artno" data-bind="attrText: product, code: 'article_number', mode: 'closest'"></span> <span class="prd-info-details-group"
+        data-bind="text: gc.attributes.optionLabel(product.attributes, 'product_group')"></span>
+    </div>
+  </div>
 </div>

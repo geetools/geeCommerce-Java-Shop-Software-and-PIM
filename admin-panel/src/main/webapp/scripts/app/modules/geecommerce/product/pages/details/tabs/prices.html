@@ -52,7 +52,7 @@
 								<td><span data-bind="text: $parent.priceType($data.typeId).label"></span></td>
                                 <td>
                                   <div>
-                                    <div data-bind="productFinder: { value: $data.whenProductIdsInCart, displayMode: 'modal', products: $data.whenProductsInCart, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
+                                    <div data-bind="productFinder: { value: $data.withProductIds, displayMode: 'modal', products: $data.withProducts, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
                                   </div>
                                 </td>
 								<td>

@@ -452,6 +452,7 @@ public class ProductResource extends AbstractResource {
             if (price != null && productId.equals(price.getProductId())) {
                 Price dbPrice = priceService.getPrice(priceId);
                 dbPrice.setPrice(price.getPrice());
+                dbPrice.setWithProductIds(price.getWithProductIds());
 
                 priceService.updatePrice(dbPrice);
 

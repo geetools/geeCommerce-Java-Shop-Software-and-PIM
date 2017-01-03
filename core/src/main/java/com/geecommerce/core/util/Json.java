@@ -2,6 +2,7 @@ package com.geecommerce.core.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.geecommerce.core.json.genson.DefaultGensonBundle;
 import com.geecommerce.core.json.genson.DefaultMutatorAccessorResolver;
 import com.geecommerce.core.json.genson.IdConverter;
 import com.geecommerce.core.json.genson.UpdateConverter;
+import com.geecommerce.core.type.Id;
 import com.owlike.genson.Genson;
 import com.owlike.genson.GensonBuilder;
 import com.owlike.genson.reflect.BeanMutatorAccessorResolver;
@@ -123,5 +125,47 @@ public class Json {
         }
 
         return list;
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static List<Object> toList(String jsonArray) throws JSONException {
+        List<Object> list = new ArrayList<>();
+
+        JSONArray ja = new JSONArray(jsonArray);
+
+        int len = ja.length();
+
+        for (int i = 0; i < len; i++) {
+            list.add(ja.getString(i));
+        }
+
+        return list;
+    }
+
+    public static String toJsonArray(List<Object> list) {
+        JSONArray ja = new JSONArray(list);
+        return ja.toString();
+    }
+
+    public static void main(String[] args) throws JSONException {
+        System.out.println(toJson(Arrays.asList("1234567.01", "1234567.01", "1234567.01", "1234567.01", "1234567.01")));
+        System.out.println(toList(toJson(Arrays.asList("1234567.01", "1234567.01", "1234567.01", "1234567.01", "1234567.01"))));
+        System.out.println();
+        
+        System.out.println(toJson(Arrays.asList(1, 2, 3, 4, 5)));
+        System.out.println(toList(toJson(Arrays.asList(1, 2, 3, 4, 5))));
+        System.out.println();
+
+        System.out.println(toJson(Arrays.asList(true, false, true, false)));
+        System.out.println(toList(toJson(Arrays.asList(true, false, true, false))));
+        System.out.println();
+
+        System.out.println(toJson(Arrays.asList(Id.valueOf(1), Id.valueOf(2), Id.valueOf(3), Id.valueOf(4), Id.valueOf(5))));
+        System.out.println(toList(toJson(Arrays.asList(Id.valueOf(1), Id.valueOf(2), Id.valueOf(3), Id.valueOf(4), Id.valueOf(5)))));
+        System.out.println();
+
+        System.out.println(toJson(Arrays.asList(1.1, 2.2, 3.0, 4.4, 5.5)));
+        System.out.println(toList(toJson(Arrays.asList(1.1, 2.2, 3.0, 4.4, 5.5))));
+
     }
 }

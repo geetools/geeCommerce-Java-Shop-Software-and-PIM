@@ -1,6 +1,9 @@
 package com.geecommerce.price.pojo;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.geecommerce.core.service.api.Pojo;
@@ -40,4 +43,16 @@ public interface PricingContext extends Pojo {
     public PricingContext removePriceTypeToExclude(PriceType priceType);
 
     public boolean isPriceAvailable(Price price);
+    
+    public Map<Id, List<Id>> getLinkedProductIds();
+
+    public List<Id> getLinkedProductIds(Id productId);
+
+    public boolean hasLinkedProductIds(Id productId);
+    
+    public PricingContext setLinkedProductIds(Map<Id, List<Id>> linkedProductIds);
+
+    public PricingContext setLinkedProductIds(Id productId, Id... linkedProductIds);
+
+    public PricingContext setLinkedProductIds(Id productId, List<Id> linkedProductIds);
 }

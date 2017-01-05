@@ -182,6 +182,7 @@
 			"priceTabCountry" : "Land",
 			"priceTabCustomerGroup" : "Kundengruppe",
 			"priceTabPriceType" : "Preistyp",
+			"priceTabWithProduct" : "In Kombin. mit Produkten",
 			"imagesTabUploadHint" : "Hier klicken oder Bild hierher schieben, um es hochzuladen",
 			"variantsTabTargetTitle" : "Varianten",
 			"variantsTabTargetDesc" : "Diese Varianten sind bereits diesem Artikel zugeordnet.",

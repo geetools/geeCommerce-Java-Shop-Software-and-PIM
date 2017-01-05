@@ -29,10 +29,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-price', 'gc-cust
 		self.withProductIds = ko.observableArray([]);
 		self.withProducts = ko.observableArray([]);
 		self.showProductfinderModal = ko.observable(false);
-
-        self.withProductIds.subscribe(function(newValue) {
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! @@whenProductIdsInCart ', newValue);
-        });
 	}
 
 	//-----------------------------------------------------------------

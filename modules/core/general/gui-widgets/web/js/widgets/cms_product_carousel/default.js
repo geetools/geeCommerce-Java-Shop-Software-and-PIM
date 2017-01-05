@@ -58,7 +58,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                     // Subscribe to change variant message
                     gc.app.channel.subscribe('product.variants', function (data) {
-                        if (!_.isUndefined(data)) {
+                        if (!_.isUndefined(data) && productVM.id == data.variantMasterId) {
                             console.log('CAROUSEL:: got the variants message ' + data.origImage);
                             self.moveToImage(data.origImage, mediaElement);
                         }

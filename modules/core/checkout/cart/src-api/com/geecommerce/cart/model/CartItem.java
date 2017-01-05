@@ -15,6 +15,14 @@ public interface CartItem extends Model {
 
     public CartItem setProduct(Product product);
 
+    public Id getBundleId();
+
+    public CartItem setBundleId(Id bundleId);
+
+    public Product getBundle();
+
+    public CartItem setBundle(Product bundle);
+
     public String getProductName();
 
     public String getProductURI();
@@ -81,6 +89,7 @@ public interface CartItem extends Model {
 
     static final class Column {
         public static final String PRODUCT_ID = "prd_id";
+        public static final String BUNDLE_ID = "bundle_id";
         public static final String PRODUCT_NAME = "prd_name";
         public static final String PRODUCT_PRICE = "prd_price";
         public static final String PRODUCT_PRICE_TYPE_ID = "prd_price_type_id";

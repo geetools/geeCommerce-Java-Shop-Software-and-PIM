@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.geecommerce.catalog.product.enums.BundleGroupType;
 import org.apache.logging.log4j.util.Strings;
 
 import com.geecommerce.catalog.product.MediaType;
@@ -107,9 +108,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
     @Column(Col.CROSS_SELL_PRODUCTS)
     protected List<Id> crossSellProductIds = null;
-
-    @Column(Col.BUNDLE_PRODUCTS)
-    protected List<BundleProductItem> bundleProductItems = null;
 
     @Column(Col.BUNDLE_GROUPS)
     protected List<BundleGroupItem> bundleGroups = null;
@@ -259,10 +257,32 @@ public class DefaultProduct extends AbstractAttributeSupport
         Boolean isValid = threadGet(this, "isValidForSelling");
 
         if (isValid == null) {
-            if (!isVariantMaster() && !isProgramme()) {
-                isValid = isSalable() && isInStock() && visibilityFlagsOK(true) && hasValidPrice();
+            if(isBundle()){
+
+                //Main product should be sellable and visible
+                isValid = isSalable() /*&& isInStock() && visibilityFlagsOK(true)*/ /*&& hasValidPrice()*/;
+
+                //All mandatory items should be sellable
+
+                for(BundleGroupItem group: bundleGroups){
+                    if(!group.isOptional()){
+
+                        isValid  = isValid && group.hasItemsValidForSelling();
+                        if(group.getType().equals(BundleGroupType.LIST)) {
+                            isValid  = isValid && group.allItemsValidForSelling();
+                        } else {
+                            isValid  = isValid && group.hasItemsValidForSelling();
+                        }
+                        if(!isValid)
+                            break;
+                    }
+                }
             } else {
-                isValid = false;
+                if (!isVariantMaster() && !isProgramme()) {
+                    isValid = isSalable() && isInStock() && visibilityFlagsOK(true) && hasValidPrice();
+                } else {
+                    isValid = false;
+                }
             }
 
             threadPut(this, "isValidForSelling", isValid);
@@ -440,22 +460,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             // If this product is a bundle, make sure that at least one linked
             // product is visible.
             else if (isBundle()) {
-                List<Product> bundleProducts = getBundleProducts();
 
-                boolean visibleProductExists = false;
-
-                for (Product bp : bundleProducts) {
-                    if (bp == null || getId().equals(bp.getId()))
-                        continue;
-
-                    if (bp.isVisible()) {
-                        visibleProductExists = true;
-                        break;
-                    }
-                }
-
-                if (!visibleProductExists)
-                    isVisible = false;
+                isVisible = isValidForSelling();
             }
             // Otherwise just check 'this' product which must be a single
             // product or variant.
@@ -944,6 +950,8 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public Map<String, Object> getStockData() {
+
+
         return stocks.getStockData(getId(), app.context().getStore());
     }
 
@@ -1355,7 +1363,7 @@ public class DefaultProduct extends AbstractAttributeSupport
     @JsonIgnore
     @Override
     public boolean hasBundleProducts() {
-        return bundleProductItems != null && bundleProductItems.size() > 0;
+        return getBundleProductIds() != null && getBundleProductIds().size() > 0;
     }
 
     @JsonIgnore
@@ -1378,25 +1386,11 @@ public class DefaultProduct extends AbstractAttributeSupport
         return hasValidBundleProducts;
     }
 
-    @Override
-    @XmlAttribute
-    public List<BundleProductItem> getBundleProductItems() {
-        return bundleProductItems;
-    }
-
-    @Override
-    public Product setBundleProductItems(List<BundleProductItem> bundleProductItems) {
-        this.bundleProductItems = bundleProductItems;
-        this.bundleProducts = null;
-        return this;
-    }
-
     @JsonIgnore
     @Override
     public List<Product> getBundleProducts() {
-        if (bundleProductItems != null && bundleProductItems.size() > 0) {
-            List<Id> bundleProductIds = bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList());
-
+        if (bundleProducts == null) {
+            List<Id> bundleProductIds = getBundleProductIds();
             bundleProducts = products.findByIds(Product.class, bundleProductIds.toArray(new Id[bundleProductIds.size()]));
         }
 
@@ -1405,11 +1399,15 @@ public class DefaultProduct extends AbstractAttributeSupport
 
     @Override
     public List<Id> getBundleProductIds() {
-        if (bundleProductItems != null && bundleProductItems.size() > 0) {
-            List<Id> bundleProductIds = bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList());
-            return bundleProductIds;
+        List<Id> bundleProductIds = new ArrayList<>();
+        if (bundleGroups != null && bundleGroups.size() > 0) {
+            for (BundleGroupItem groupItem : bundleGroups) {
+                if(groupItem.getBundleItems() != null){
+                    bundleProductIds.addAll(groupItem.getBundleItems().stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList()));
+                }
+            }
         }
-        return null;
+        return bundleProductIds;
     }
 
     @Override
@@ -1420,60 +1418,6 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public Product setBundleGroups(List<BundleGroupItem> bundleGroups) {
         this.bundleGroups = bundleGroups;
-        return this;
-    }
-
-    @Override
-    public Product addBundleProduct(Product product) {
-        return addBundleProduct(product, 1);
-    }
-
-    @Override
-    public Product addBundleProduct(Product product, int quantity) {
-        if (product == null || product.getId() == null)
-            throw new NullPointerException("Product or product.id cannot be null");
-
-        if (getId().equals(product.getId()))
-            return this;
-
-        if (bundleProductItems == null)
-            bundleProductItems = new ArrayList<>();
-
-        BundleProductItem bundleProductItem = bundleProductItems.stream().filter(bundleProductItem1 -> bundleProductItem1.getProductId()
-            .equals(product.getId())).findFirst().orElse(null);
-
-        if (bundleProductItem == null) {
-            bundleProductItem = app.model(BundleProductItem.class);
-            bundleProductItem.setProductId(product.getId());
-            bundleProductItem.setQuantity(quantity);
-            bundleProductItems.add(bundleProductItem);
-        } else {
-            bundleProductItem.setQuantity(quantity);
-        }
-
-        // reset lazy-loaded list.
-        bundleProducts = null;
-
-        return this;
-    }
-
-    @Override
-    public Product removeBundleProduct(Product product) {
-        if (product == null || product.getId() == null)
-            throw new NullPointerException("Product or its id cannot be null");
-
-        if (bundleProductItems != null) {
-
-            BundleProductItem bundleProductItem = bundleProductItems.stream().filter(bundleProductItem1 -> bundleProductItem1.getProductId()
-                .equals(product.getId())).findFirst().orElse(null);
-            if (bundleProductItem != null) {
-                bundleProductItems.remove(bundleProductItem);
-            }
-        }
-
-        // reset lazy-loaded list.
-        bundleProducts = null;
-
         return this;
     }
 
@@ -1881,10 +1825,9 @@ public class DefaultProduct extends AbstractAttributeSupport
                         productIds.add(id_(data.get(Col.ID)));
                     }
                 }
-            } else if (isBundle() && bundleProductItems != null && bundleProductItems.size() > 0) {
+            } else if (isBundle() && getBundleProductIds() != null && getBundleProductIds().size() > 0) {
                 List<Map<String, Object>> bundleProducts = products.findDataByIds(Product.class,
-                    bundleProductItems.stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList())
-                        .toArray(new Id[bundleProductItems.size()]),
+                        getBundleProductIds().toArray(new Id[getBundleProductIds().size()]),
                     QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : bundleProducts) {
@@ -2203,11 +2146,12 @@ public class DefaultProduct extends AbstractAttributeSupport
         if (crossSellProductIds != null)
             p.crossSellProductIds = new ArrayList<>(crossSellProductIds);
 
-        if (bundleProductItems != null)
-            p.bundleProductItems = new ArrayList<>(bundleProductItems);
-
         if (programmeProductIds != null)
             p.programmeProductIds = new ArrayList<>(programmeProductIds);
+
+        if (bundleGroups != null)
+            p.bundleGroups = new ArrayList<>(bundleGroups);
+
 
         if (assets != null)
             p.assets = new ArrayList<>(assets);

@@ -4,10 +4,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
         return {
             init: function (widgetParams) {
 
-                console.log("VARIANTS WIDGET PARAMS!!!")
-                console.log(widgetParams);
-                console.log($('#' + widgetParams.widgetId));
-
                 var self = this;
                 var wdContainer = '#' + widgetParams.widgetId;
 
@@ -78,7 +74,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                         var optionLabel = $el.data('label');
                                         self.setSelectedOptionLabel($el, optionLabel);
 
-                                        self.deactivateUnavailableOptions($el, variantVM, variantOptions);
+                                        self.deactivateUnavailableOptions($el, variantVM, variantOptions, wdContainer);
                                     });
 
                                     self.highlightSelectedOption(preselectedOptionElements);
@@ -102,7 +98,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                                 self.highlightSelectedOption($(this));
 
-                                self.deactivateUnavailableOptions($(this), variantVM, variantOptions);
+                                self.deactivateUnavailableOptions($(this), variantVM, variantOptions, wdContainer);
 
                                 self.setSelectedOptionLabel($(this), optionLabel);
 
@@ -117,10 +113,15 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                     $('.prd-cart-btn button').removeClass("disabled");
                                     self.setPreselectedVariantInURI(selectedProductVariant.id);
 
+
+                                    $(wdContainer).find("#selected-prd-variant").val(selectedProductVariant.id);
+
                                     var variantImages = self.getVariantImages(selectedProductVariant);
 
+                                    console.log(variantImages)
+
                                     // publish message to move to image
-                                    gc.app.channel.publish('product.variants', {origImage: variantImages[0].origImage});
+                                    gc.app.channel.publish('product.variants', {variantMasterId: productVM.id, origImage: variantImages[0].origImage});
 
                                 } else {
                                     $('.prd-cart-btn button').addClass("disabled");
@@ -177,16 +178,17 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                 var foundElements = [];
 
-                _.each(variantProduct.options, function (option) {
-                    _.each(variantOptions, function (variantOption) {
-                        var foundOption = _.findWhere(variantOption.options, {id: option});
+                if(variantProduct) {
+                    _.each(variantProduct.options, function (option) {
+                        _.each(variantOptions, function (variantOption) {
+                            var foundOption = _.findWhere(variantOption.options, {id: option});
 
-                        if (!_.isUndefined(foundOption)) {
-                            foundElements.push($('#wd_option_' + variantOption.attribute_code + '_' + option));
-                        }
+                            if (!_.isUndefined(foundOption)) {
+                                foundElements.push($('#wd_option_' + variantOption.attribute_code + '_' + option));
+                            }
+                        });
                     });
-                });
-
+                }
                 return foundElements;
             },
             // -----------------------------------------------------------------------------
@@ -239,12 +241,12 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
             // -----------------------------------------------------------------------------
             // Deactivates options that are not compatible with the currently selected one.
             // -----------------------------------------------------------------------------
-            deactivateUnavailableOptions: function (element, variantVM, variantOptions) {
+            deactivateUnavailableOptions: function (element, variantVM, variantOptions, wdContainer) {
                 var selectedAttrCode = $(element).data('attr');
                 var selectedOptionId = $(element).data('option').toString();
 
                 // Iterate though all options.
-                $('.wd-variant-options>ul>li>a').each(function (index) {
+                $(wdContainer + ' .wd-variant-options>ul>li>a').each(function (index) {
                     var attrCode = $(this).data('attr');
                     var optionId = $(this).data('option').toString();
 
@@ -271,6 +273,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                 var variantImages = [];
                 var idx = 0;
 
+                console.log(variantProduct)
+
+
                 if (!_.isEmpty(variantProduct.gallery)) {
                     _.each(variantProduct.gallery, function (image) {
                         variantImages.push({
@@ -280,6 +285,15 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             zoomImage: mediaUtil.buildImageURL(image.path, 1024, 1024),
                             index: idx++
                         });
+                    });
+                } else if(variantProduct.originalVariantImage) {
+                    var image = variantProduct.originalVariantImage;
+                    variantImages.push({
+                        origImage: image.path,
+                        largeImage: mediaUtil.buildImageURL(image.path, 330, 330),
+                        thumbnail: mediaUtil.buildImageURL(image.path, 50, 50),
+                        zoomImage: mediaUtil.buildImageURL(image.path, 1024, 1024),
+                        index: idx++
                     });
                 }
 

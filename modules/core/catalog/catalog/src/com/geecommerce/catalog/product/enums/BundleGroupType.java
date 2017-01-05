@@ -7,7 +7,7 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 public enum BundleGroupType implements ModelEnum {
-    SELECT(1), MULTISELECT(2), CHECKBOX(3), RADIOBUTTON(4), VARIANT(5);
+    SELECT(1), MULTISELECT(2), CHECKBOX(3), RADIOBUTTON(4), LIST(5);
 
     private int id;
 

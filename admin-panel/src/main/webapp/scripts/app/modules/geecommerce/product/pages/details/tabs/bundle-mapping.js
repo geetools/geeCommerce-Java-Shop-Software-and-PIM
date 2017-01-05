@@ -22,8 +22,13 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
 				if(!prd) {
                     productAPI.getProduct(productId).then(function (data) {
-                        var productBundleVM = new ProductBundleVM(vm, data, 1);
-                        self.bundleItems.push(productBundleVM);
+
+                        //we don't add programme and bundles to bundles
+                        if(!(data.type == "PROGRAMME" || data.type == "BUNDLE")) {
+                            var productBundleVM = new ProductBundleVM(vm, data, 1);
+
+                            self.bundleItems.push(productBundleVM);
+                        }
                     });
                 }
 
@@ -59,6 +64,10 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
         self.dropCallback = function (arg) {
             arg.item.selected(false);
+        }
+        
+        self.removeItem = function (data) {
+            self.bundleItems.remove(data);
         }
 
     }
@@ -137,13 +146,16 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		this.bundleGroups = ko.observableArray([]);
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
-		_.bindAll(this, 'saveData', 'activate', 'addBundleGroup');
+		_.bindAll(this, 'saveData', 'activate', 'addBundleGroup', 'removeBundleGroup');
 	}
 
     ProductBundlesController.prototype = {
 		constructor : ProductBundlesController,
         // The pager takes care of filtering, sorting and paging functionality.
         sourceBundleProductsPager: {},
+        removeBundleGroup: function (group) {
+            this.bundleGroups.remove(group);
+        },
         allowDrop : function (parent) {
             console.log(this);
             console.log(parent);

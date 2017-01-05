@@ -100,7 +100,9 @@ public class AddBundleProduct implements ImportAction {
             return;
         }
 
-        p.addBundleProduct(bundleProduct);
+        //TODO: fix - function was removed
+        // p.addBundleProduct(bundleProduct);
+
     }
 
     @Override

@@ -264,6 +264,8 @@ public class DefaultProductHelper implements ProductHelper {
 
             String imageURL = catalogMediaHelper.toMediaAssetURL(productVariant.getMainImageURI(), mainImgWidth,
                 mainImgHeight);
+            data.put("originalVariantImage", productVariant.getMainImageURI());
+
             data.put("variantImage", imageURL);
 
             String zoomImageURL = catalogMediaHelper.toMediaAssetURL(productVariant.getMainImageURI(), mainImgZoomWidth,

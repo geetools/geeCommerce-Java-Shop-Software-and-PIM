@@ -122,6 +122,11 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
     }
 
     @Override
+    public CartItem addProduct(Product product, Product bundle) {
+        return addProduct(product, bundle, null, true);
+    }
+
+    @Override
     public List<CartItem> getCartItems() {
         return cartItems;
     }
@@ -313,11 +318,13 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
 
     @Override
     public CartItem addProduct(Product product) {
-        return addProduct(product, null, true);
+        return addProduct(product, null, null, true);
     }
 
     @Override
-    public CartItem addProduct(Product product, String pickupStoreId, Boolean active) {
+    public CartItem addProduct(Product product, Product bundle, String pickupStoreId, Boolean active) {
+         //TODO: bundle support
+
         if (product == null || product.getId() == null)
             return null;
 
@@ -325,10 +332,12 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
 
         if (cartItems != null) {
             cartItems.forEach((CartItem item) -> item.setLast(false));
+
+            cartItems.forEach((CartItem item) -> item.setBundle(bundle));
         }
 
         if (cartItem == null) {
-            cartItem = app.model(CartItem.class).setProduct(product);
+            cartItem = app.model(CartItem.class).setProduct(product).setBundle(bundle);
 
             cartItems.add(cartItem);
         }

@@ -33,9 +33,11 @@ public interface Cart extends Model {
 
     public Date getModifiedOn();
 
+    public CartItem addProduct(Product product, Product bundle);
+
     public CartItem addProduct(Product product);
 
-    public CartItem addProduct(Product product, String pickupStore, Boolean active);
+    public CartItem addProduct(Product product, Product bundle, String pickupStore, Boolean active);
 
     public int getTotalQuantity();
 

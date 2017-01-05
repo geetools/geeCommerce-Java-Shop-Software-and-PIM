@@ -257,16 +257,6 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     @JsonIgnore
     public boolean hasValidBundleProducts();
 
-    public List<BundleProductItem> getBundleProductItems();
-
-    public Product setBundleProductItems(List<BundleProductItem> bundleProductItems);
-
-    public Product addBundleProduct(Product product);
-
-    public Product addBundleProduct(Product product, int quantity);
-
-    public Product removeBundleProduct(Product product);
-
     @JsonIgnore
     public List<Product> getBundleProducts();
 

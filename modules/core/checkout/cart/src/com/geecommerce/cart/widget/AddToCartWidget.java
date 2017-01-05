@@ -9,7 +9,7 @@ import com.geecommerce.core.web.api.AbstractWidgetController;
 import com.geecommerce.core.web.api.WidgetContext;
 import com.geecommerce.core.web.api.WidgetController;
 
-@Widget(name = "add_to_cart")
+@Widget(name = "add_to_cart", js = true)
 public class AddToCartWidget extends AbstractWidgetController implements WidgetController {
     private final String PARAM_PRODUCT_ID = "product_id";
     private final String PARAM_PICKUP_STORE = "pickup_store";
@@ -26,8 +26,10 @@ public class AddToCartWidget extends AbstractWidgetController implements WidgetC
             widgetCtx.setParam("productId", productIdParam);
             widgetCtx.setParam("pickupStore", pickupStore);
             widgetCtx.setParam("pickupZip", pickupZip);
+
+            widgetCtx.setJsParam("productId", productIdParam);
         }
 
-        widgetCtx.render("cart/add_to_cart");
+        widgetCtx.render();
     }
 }

@@ -108,9 +108,16 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
                 for (BundleProductItem item : getBundleItems())
                 {
                     if(item.getProduct() != null) {
-                        if(item.getProduct().isValidForSelling()){
-                            hasItemsValidForSelling = true;
-                            break;
+                        if(item.getProduct().isVariantMaster()){
+                            if (item.getProduct().hasVariantsValidForSelling()) {
+                                hasItemsValidForSelling = true;
+                                break;
+                            }
+                        } else {
+                            if (item.getProduct().isValidForSelling()) {
+                                hasItemsValidForSelling = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -130,9 +137,16 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
             for (BundleProductItem item : getBundleItems())
             {
                 if(item.getProduct() != null) {
-                    if(!item.getProduct().isValidForSelling()){
-                        allItemsValidForSelling = false;
-                        break;
+                    if(item.getProduct().isVariantMaster()){
+                        if (!item.getProduct().hasVariantsValidForSelling()) {
+                            allItemsValidForSelling = false;
+                            break;
+                        }
+                    } else {
+                        if(!item.getProduct().isValidForSelling()){
+                            allItemsValidForSelling = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -144,15 +158,22 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     }
 
     @Override
-    public List<BundleProductItem> getValidBundleItems() {
+    public List<BundleProductItem> getValidBundleItemsForSelling() {
         List<BundleProductItem> validItems = new ArrayList<>();
         if (getBundleItems() != null && getBundleItems().size() > 0)
         {
             for (BundleProductItem item : getBundleItems())
             {
                 if(item.getProduct() != null) {
-                    if(item.getProduct().isValidForSelling()){
-                        validItems.add(item);
+
+                    if(item.getProduct().isVariantMaster()){
+                        if (item.getProduct().hasVariantsValidForSelling()) {
+                            validItems.add(item);
+                        }
+                    } else {
+                        if (item.getProduct().isValidForSelling()) {
+                            validItems.add(item);
+                        }
                     }
                 }
             }

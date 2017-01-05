@@ -1,11 +1,6 @@
 package com.geecommerce.cart.controller;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import com.geecommerce.calculation.helper.CalculationHelper;
 import com.geecommerce.calculation.service.CalculationService;
@@ -16,6 +11,8 @@ import com.geecommerce.cart.model.CartItem;
 import com.geecommerce.cart.service.CartService;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
+import com.geecommerce.catalog.product.model.BundleGroupItem;
+import com.geecommerce.catalog.product.model.BundleProductItem;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.service.ProductService;
 import com.geecommerce.checkout.flow.helper.CheckoutFlowHelper;
@@ -119,7 +116,7 @@ public class CartController extends BaseController {
                     if (p.isVariant())
                         p = p.getParent();
 
-                    if (p == null || p.getId() == null || !p.isVisible() || p.isDeleted()) {
+                    if (p == null || p.getId() == null /*|| !p.isVisible() || p.isDeleted()*/) {
                         cartItemsToRemove.add(cartItem);
                         continue;
                     }
@@ -174,6 +171,57 @@ public class CartController extends BaseController {
 
         return redirect("/cart/view/");
     }
+
+    @Request(value = "add2", method = HttpMethod.POST)
+    public Result add(@Param("productId") Id bundleId, @Param("productIds") String productIds, @Param("quantities") String quantities) {
+        Cart cart = cartHelper.getCart(true);
+
+        cart.getCartItems().clear();
+
+        Product bundle = productService.getProduct(bundleId);
+
+        Iterator<String> iterProducts =  new ArrayList<String>(Arrays.asList(productIds.split(","))).iterator(); //productIds.split(",")).iterator();
+        Iterator<String> iterQuantities = new ArrayList<String>(Arrays.asList(quantities.split(","))).iterator(); //quantities.split(",")).iterator();
+
+        while(iterProducts.hasNext() && iterQuantities.hasNext())
+        {
+            Id productId = Id.parseId(iterProducts.next());
+            Integer quantity = Integer.parseInt(iterQuantities.next());
+
+            if (quantity == null || quantity < 1)
+                quantity = 1;
+
+            for (int i = 0; i < quantity; i++)
+                cart.addProduct(productService.getProduct(productId), bundle);
+
+        }
+
+        for(BundleGroupItem bundleGroup: bundle.getBundleGroups()){
+            if(!bundleGroup.getShowInProductDetails()){
+                for(BundleProductItem productItem: bundleGroup.getValidBundleItemsForSelling()){
+                    if(productItem.isSelected()){
+                        Id productId = productItem.getProductId();
+                        Integer quantity = productItem.getQuantity();
+
+                        if (quantity == null || quantity < 1)
+                            quantity = 1;
+
+                        for (int i = 0; i < quantity; i++)
+                            cart.addProduct(productItem.getProduct(), bundle);
+                    }
+                }
+
+            }
+
+
+        }
+
+        cartService.updateCart(cart);
+
+
+        return redirect("/cart/view/");
+    }
+
 
     @Request("remove")
     public Result remove(@Param("productId") Id productId) {

@@ -40,6 +40,9 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
     private Double packageHeight = null;
     private Double packageDepth = null;
 
+    private Id bundleId = null;
+    private Product bundle;
+
     private Boolean last = null;
 
     // Product repository
@@ -83,6 +86,34 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
         this.product = product;
         this.productId = product.getId();
 
+        return this;
+    }
+
+    @Override
+    public Id getBundleId() {
+        return this.bundleId;
+    }
+
+    @Override
+    public CartItem setBundleId(Id bundleId) {
+        this.bundleId = bundleId;
+        this.bundle = null;
+        return this;
+    }
+
+    @Override
+    public Product getBundle() {
+        if (this.bundle == null && getBundleId() != null) {
+            this.bundle = products.findById(Product.class, getBundleId());
+        }
+
+        return this.bundle;
+    }
+
+    @Override
+    public CartItem setBundle(Product bundle) {
+        this.bundle = bundle;
+        this.bundleId = bundle.getId();
         return this;
     }
 

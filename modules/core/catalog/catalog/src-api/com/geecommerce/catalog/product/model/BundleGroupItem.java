@@ -35,7 +35,7 @@ public interface BundleGroupItem extends Model {
 
     public boolean allItemsValidForSelling();
 
-    public List<BundleProductItem> getValidBundleItems();
+    public List<BundleProductItem> getValidBundleItemsForSelling();
 
     static final class Col {
         public static final String ID = "_id";

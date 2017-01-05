@@ -2,18 +2,22 @@
 
 	<#list product.bundleGroups as bundleGroup>
 		<#if bundleGroup.showInProductDetails >
-			<div class="bundle-group" group-type="${bundleGroup.type}">
+			<div class="bundle-group row" group-type="${bundleGroup.type}">
 				<div class="bundle-group-label"><@print src=bundleGroup value="bundleGroup.label.str" /></div>
 
 		<#--		cms_product_variants-->
 
 			<#if bundleGroup.type?string == 'LIST' >
 				<#list bundleGroup.bundleItems as bundleItem>
-					<div>
+					<div class="row">
 						<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
 						<#if bundleItem.product.variantMaster>
-							<@cms_product_carousel product_id="${bundleItem.product.id}" />
-							<@cms_product_variants product_id="${bundleItem.product.id}" />
+							<div class="col-xs-12 col-sm-7">
+								<@cms_product_carousel product_id="${bundleItem.product.id}" />
+                            </div>
+                        	<div class="col-xs-12 col-sm-5">
+								<@cms_product_variants product_id="${bundleItem.product.id}" />
+                            </div>
 						<#else>
 						</#if>
 

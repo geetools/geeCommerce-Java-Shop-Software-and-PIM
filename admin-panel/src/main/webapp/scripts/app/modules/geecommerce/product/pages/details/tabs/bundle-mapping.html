@@ -1,11 +1,17 @@
 <div>
-	<div>
+	<div data-bind="toolbar: {
+								targetId: 'product-bundle-mapping-' + productVM.id,
+								i18n: 'app:modules.product.mediaAssetToolbarSaveMsg',
+								saveCallback: $root.saveData,
+								passthru: { productId: productVM.id },
+								dirtyFlag: $root.app.showToolbar}"></div>
+	<div  data-bind="attr: { id: 'product-bundle-mapping-' + productVM.id }">
 		<div class="row">
 			<div class="col-xs-8">
 				<div class="bundlesTargetContainer">
 
 					<button data-bind="click: addBundleGroup">+</button>
-					<button data-bind="click: saveData">save</button>
+<!--					<button data-bind="click: saveData">save</button>-->
 
 					<div  data-bind="sortable: {data: bundleGroups,  connectClass: 'groups'}"  class="bundle-groups"><!-- data-bind="foreach: { data: bundleGroups, as: 'bundleGroup' }" >-->
 						<div class="bundle-group row">
@@ -36,12 +42,16 @@
 								</div>
 							</div>
 							<div class="col-xs-2">
-								<div class="form-group">
-									<label  class="col-xs-6 control-label">Optional</label>
-									<div class="col-xs-6 switch-wrapper">
-										<input type="checkbox" data-bind="bool: optional" />
+
+								<!-- ko ifnot: isList() -->
+									<div class="form-group">
+										<label  class="col-xs-6 control-label">Optional</label>
+										<div class="col-xs-6 switch-wrapper">
+											<input type="checkbox" data-bind="bool: optional" />
+										</div>
 									</div>
-								</div>
+								<!-- /ko -->
+
 								<div class="form-group">
 									<label  class="col-xs-6 control-label">Show in Prd Details</label>
 									<div class="col-xs-6 switch-wrapper">
@@ -90,17 +100,19 @@
 										</div>
 									</div>
 									<div class="col-xs-2">
-										<div class="form-group">
-											<label  class="col-sm-6 control-label">Default</label>
-											<div class="col-sm-6">
-												<!-- ko if: $parent.isMultiselect() -->
-													<input type="checkbox" class="form-control" data-bind="checked: $data.selected">
-												<!-- /ko -->
-												<!-- ko ifnot: $parent.isMultiselect() -->
-													<input type="radio" class="form-control" data-bind="checked: $parent.selected, attr: {value: $data.id}">
-												<!-- /ko -->
+										<!-- ko ifnot: $parent.isList() -->
+											<div class="form-group">
+												<label  class="col-sm-6 control-label">Default</label>
+												<div class="col-sm-6">
+													<!-- ko if: $parent.isMultiselect() -->
+														<input type="checkbox" class="form-control" data-bind="checked: $data.selected">
+													<!-- /ko -->
+													<!-- ko ifnot: $parent.isMultiselect() -->
+														<input type="radio" class="form-control" data-bind="checked: $parent.selected, attr: {value: $data.id}">
+													<!-- /ko -->
+												</div>
 											</div>
-										</div>
+										<!-- /ko -->
 									</div>
 									<div class="col-xs-1">
 										<a href="javascript:void(0)" data-bind="click: $parent.removeItem" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>

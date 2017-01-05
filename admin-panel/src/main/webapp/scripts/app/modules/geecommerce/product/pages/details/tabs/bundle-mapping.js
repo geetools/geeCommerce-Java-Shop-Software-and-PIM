@@ -15,14 +15,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         self.newProducts = ko.observableArray([]);
 
         self.newProducts.subscribe(function (newData) {
-			console.log(newData)
-			
 			_.each(newData, function (productId) {
                 var prd = _.findWhere(self.bundleItems(), { id : productId });
 
 				if(!prd) {
                     productAPI.getProduct(productId).then(function (data) {
-
                         //we don't add programme and bundles to bundles
                         if(!(data.type == "PROGRAMME" || data.type == "BUNDLE")) {
                             var productBundleVM = new ProductBundleVM(vm, data, 1);
@@ -33,6 +30,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                 }
 
             })
+            
+            gc.app.showToolbar(true);
         })
 
         self.allowDrop  = function (parent) {
@@ -41,7 +40,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         };
 
         self.isMultiselect = ko.computed(function() {
-            return self.type() == "MULTISELECT" || self.type() == "CHECKBOX";
+            return self.type() == "MULTISELECT" || self.type() == "CHECKBOX" || self.type() == "LIST";
         });
 
         self.selected = ko.observable('');
@@ -54,21 +53,43 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                     bundleItem.selected(false);
                 }
             })
+
+            gc.app.showToolbar(true);
         })
 
-        self.type.subscribe(function (newValue) {
-            _.each(self.bundleItems(), function (bundleItem) {
-                bundleItem.selected(false)
-            })
+        self.type.subscribe(function (newType) {
+            if(newType == 'LIST'){
+                self.optional(false);
+
+                _.each(self.bundleItems(), function (bundleItem) {
+                    if(!bundleItem.selected()) {
+                        bundleItem.selected(true);
+                    }
+                });
+            } else {
+                _.each(self.bundleItems(), function (bundleItem) {
+                    bundleItem.selected(false)
+                })
+            }
+
+            gc.app.showToolbar(true);
         })
 
         self.dropCallback = function (arg) {
             arg.item.selected(false);
+
+            gc.app.showToolbar(true);
         }
         
         self.removeItem = function (data) {
             self.bundleItems.remove(data);
+
+            gc.app.showToolbar(true);
         }
+
+        self.isList = ko.computed(function () {
+            return self.type() == 'LIST';
+        })
 
     }
 
@@ -155,6 +176,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         sourceBundleProductsPager: {},
         removeBundleGroup: function (group) {
             this.bundleGroups.remove(group);
+
+            gc.app.showToolbar(true);
         },
         allowDrop : function (parent) {
             console.log(this);
@@ -164,8 +187,10 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
             var vm = this.productVM();
 			var bundleGroup = new GroupBundleVM(vm);
 			this.bundleGroups.push(bundleGroup);
+
+            gc.app.showToolbar(true);
         },
-		saveData: function () {
+		saveData: function (view, parent, toolbar, args) {
             var self = this;
             var vm = self.productVM();
 			
@@ -174,7 +199,13 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
             _.each(self.bundleGroups(), function (bundleGroupVM) {
 				var bundleGroup = {};
                 bundleGroup.label = bundleGroupVM.label();
-				bundleGroup.optional = bundleGroupVM.optional();
+
+                if(bundleGroupVM.type() == 'LIST'){
+                    bundleGroup.optional = false;
+                } else {
+                    bundleGroup.optional = bundleGroupVM.optional();
+                }
+
 				bundleGroup.show_in_prd_details = bundleGroupVM.showInProductDetails();
                 bundleGroup.type = bundleGroupVM.type();
 				bundleGroup.bundle_items = [];
@@ -185,7 +216,12 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                     bundleItem.prd_id = bundleItemVM.id;
                     bundleItem.qty = bundleItemVM.quantity();
 					bundleItem.def_prd_id = bundleItemVM.defaultVariant();
-                    bundleItem.selected = bundleItemVM.selected();
+
+                    if(bundleGroupVM.type() == 'LIST'){
+                        bundleItem.selected = true;
+                    } else {
+                        bundleItem.selected = bundleItemVM.selected();
+                    }
 
                     bundleGroup.bundle_items.push(bundleItem)
                 });
@@ -194,7 +230,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
             })
 
 
-			productAPI.saveBundleGroups(vm.productId(), bundleGroups);
+			productAPI.saveBundleGroups(vm.productId(), bundleGroups).then(function () {
+                toolbar.hide();
+
+              //  gc.app.channel.publish('product.changed', self.productId);
+            });
         },
 		activate : function(productId) {
             var self = this;

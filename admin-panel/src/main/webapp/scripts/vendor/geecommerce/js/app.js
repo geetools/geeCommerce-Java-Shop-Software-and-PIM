@@ -167,6 +167,8 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
             }
         };
 
+        this.showToolbar = ko.observable(false);
+
         this.setupChannels();
         this.setupEditListener();
         this.saveSubscriptions = ko.observableArray([]);

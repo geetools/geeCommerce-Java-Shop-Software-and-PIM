@@ -609,7 +609,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
 
         if (pricingCtx == null)
             pricingCtx = priceHelper.getPricingContext();
-
+        
         String currency = pricingCtx.getCurrency();
 
         if (currency == null)
@@ -627,6 +627,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             Long visitorCustomerGroupId = app.cpLong_(CustomerConstant.CUSTOMER_GROUP_DEFAULT_VISITOR_CONFIG_KEY);
             customerGroupIds.add(Id.valueOf(visitorCustomerGroupId));
         }
+
+        Map<Id, List<Id>> linkedProductIds = pricingCtx.getLinkedProductIds();
 
         PriceKey priceKey = new PriceKey(type, forQty, pricingCtx, storeId, customerId, customerGroupIds);
 
@@ -651,6 +653,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
 
         Integer tierQtyDiff = null;
 
+        List<Price> preFilteredPriceList = new ArrayList<>();
+
         for (Price p : priceList) {
             if (!type.equals(p.getPriceType().getCode()) || !currency.equals(p.getCurrency()))
                 continue;
@@ -658,157 +662,241 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             if (pricingCtx != null && !pricingCtx.isPriceAvailable(p))
                 continue;
 
-            if (p != null)
-                return p;
-
-            // --------------------------------------------------------------------------------
-            // Tier-price
-            // --------------------------------------------------------------------------------
-
-            // See if there is a tier price for the given quantity.
-            if (forQty != null && p.getQtyFrom() != null && p.getQtyFrom() > 0 && forQty >= p.getQtyFrom()
-                && (tierQtyDiff == null || (forQty - p.getQtyFrom()) <= tierQtyDiff)) {
-                tierQtyDiff = forQty - p.getQtyFrom();
-
-                // Is there a customer-specific tier price?
-                if (p.getCustomerId() != null && p.getCustomerId().equals(customerId)) {
-                    // Are there different prices for various contexts?
-                    if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
-                        tierPriceForCustomerAndStore = p;
-                    } else if (p.getStoreId() == null) {
-                        tierPriceForCustomer = p;
-                    }
-                }
-                // Is there a customer-group-specific tier price?
-                else if (p.getCustomerGroupId() != null && p.getCustomerGroupId().longValue() != 0
-                    && customerGroupIds != null && customerGroupIds.contains(p.getCustomerGroupId())) {
-                    // Are there different prices for various contexts?
-                    if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
-                        tierPriceForCustomerGroupAndStore = p;
-                    } else if (p.getStoreId() == null) {
-                        tierPriceForCustomerGroup = p;
-                    }
-                } else if (p.getCustomerId() == null
-                    && (p.getCustomerGroupId() == null || p.getCustomerGroupId().longValue() == 0)) {
-                    // Are there different prices for various contexts?
-                    if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
-                        tierPriceForReqCtx = p;
-                    }
-                    // A tier price for all exists.
-                    else if (p.getStoreId() == null) {
-                        tierPrice = p;
-                    }
-                }
-            }
-
-            // --------------------------------------------------------------------------------
-            // None tier-price
-            // --------------------------------------------------------------------------------
-            else if (p.getQtyFrom() == null || p.getQtyFrom() == 0) {
-                // Is there a customer-specific price?
-                if (p.getCustomerId() != null && p.getCustomerId().equals(customerId)) {
-                    // Are there different prices for various contexts?
-                    if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
-                        priceForCustomerAndStore = p;
-                    } else if (p.getStoreId() == null) {
-                        priceForCustomer = p;
-                    }
-                }
-                // Is there a customer-group-specific price?
-                else if (p.getCustomerGroupId() != null && p.getCustomerGroupId().longValue() != 0
-                    && customerGroupIds != null && customerGroupIds.contains(p.getCustomerGroupId())) {
-                    // Are there different prices for various contexts?
-                    if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
-                        priceForCustomerGroupAndStore = p;
-                    } else if (p.getStoreId() == null) {
-                        priceForCustomerGroup = p;
-                    }
-                } else if (p.getCustomerId() == null
-                    && (p.getCustomerGroupId() == null || p.getCustomerGroupId().longValue() == 0)) {
-                    // Are there different prices for various contexts?
-                    if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
-                        priceForStore = p;
-                    }
-                    // A tier price for all exists.
-                    else if (p.getStoreId() == null) {
-                        price = p;
-                    }
-                }
-            }
+            preFilteredPriceList.add(p);
         }
 
-        if (1 == 1)
+        if (preFilteredPriceList.isEmpty())
             return null;
 
-        // Most specific price: tier-price for customer and store.
-        if (tierPriceForCustomerAndStore != null) {
-            localCache.put(priceKey, tierPriceForCustomerAndStore);
-            return tierPriceForCustomerAndStore;
+        boolean hasCombinedProductPrice = hasCombinedProductPrice(preFilteredPriceList, linkedProductIds);
+
+        if (!hasCombinedProductPrice) {
+            preFilteredPriceList = removeCombinedProductPrices(preFilteredPriceList);
+
+            if (preFilteredPriceList.isEmpty())
+                return null;
+
+            return preFilteredPriceList.get(0);
+        } else {
+            return findCombinedPrice(preFilteredPriceList, linkedProductIds);
         }
 
-        // Second most specific price: tier-price for customer.
-        if (tierPriceForCustomer != null) {
-            localCache.put(priceKey, tierPriceForCustomer);
-            return tierPriceForCustomer;
+        // TODO: implement customer and tier prices.
+        // for (Price p : preFilteredPriceList) {
+        // if (p != null)
+        // return p;
+        //
+        // //
+        // --------------------------------------------------------------------------------
+        // // Tier-price
+        // //
+        // --------------------------------------------------------------------------------
+        //
+        // // See if there is a tier price for the given quantity.
+        // if (forQty != null && p.getQtyFrom() != null && p.getQtyFrom() > 0 &&
+        // forQty >= p.getQtyFrom()
+        // && (tierQtyDiff == null || (forQty - p.getQtyFrom()) <= tierQtyDiff))
+        // {
+        // tierQtyDiff = forQty - p.getQtyFrom();
+        //
+        // // Is there a customer-specific tier price?
+        // if (p.getCustomerId() != null &&
+        // p.getCustomerId().equals(customerId)) {
+        // // Are there different prices for various contexts?
+        // if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
+        // tierPriceForCustomerAndStore = p;
+        // } else if (p.getStoreId() == null) {
+        // tierPriceForCustomer = p;
+        // }
+        // }
+        // // Is there a customer-group-specific tier price?
+        // else if (p.getCustomerGroupId() != null &&
+        // p.getCustomerGroupId().longValue() != 0
+        // && customerGroupIds != null &&
+        // customerGroupIds.contains(p.getCustomerGroupId())) {
+        // // Are there different prices for various contexts?
+        // if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
+        // tierPriceForCustomerGroupAndStore = p;
+        // } else if (p.getStoreId() == null) {
+        // tierPriceForCustomerGroup = p;
+        // }
+        // } else if (p.getCustomerId() == null
+        // && (p.getCustomerGroupId() == null ||
+        // p.getCustomerGroupId().longValue() == 0)) {
+        // // Are there different prices for various contexts?
+        // if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
+        // tierPriceForReqCtx = p;
+        // }
+        // // A tier price for all exists.
+        // else if (p.getStoreId() == null) {
+        // tierPrice = p;
+        // }
+        // }
+        // }
+        //
+        // //
+        // --------------------------------------------------------------------------------
+        // // None tier-price
+        // //
+        // --------------------------------------------------------------------------------
+        // else if (p.getQtyFrom() == null || p.getQtyFrom() == 0) {
+        // // Is there a customer-specific price?
+        // if (p.getCustomerId() != null &&
+        // p.getCustomerId().equals(customerId)) {
+        // // Are there different prices for various contexts?
+        // if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
+        // priceForCustomerAndStore = p;
+        // } else if (p.getStoreId() == null) {
+        // priceForCustomer = p;
+        // }
+        // }
+        // // Is there a customer-group-specific price?
+        // else if (p.getCustomerGroupId() != null &&
+        // p.getCustomerGroupId().longValue() != 0
+        // && customerGroupIds != null &&
+        // customerGroupIds.contains(p.getCustomerGroupId())) {
+        // // Are there different prices for various contexts?
+        // if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
+        // priceForCustomerGroupAndStore = p;
+        // } else if (p.getStoreId() == null) {
+        // priceForCustomerGroup = p;
+        // }
+        // } else if (p.getCustomerId() == null
+        // && (p.getCustomerGroupId() == null ||
+        // p.getCustomerGroupId().longValue() == 0)) {
+        // // Are there different prices for various contexts?
+        // if (p.getStoreId() != null && p.getStoreId().equals(storeId)) {
+        // priceForStore = p;
+        // }
+        // // A tier price for all exists.
+        // else if (p.getStoreId() == null) {
+        // price = p;
+        // }
+        // }
+        // }
+        // }
+        //
+        // if (1 == 1)
+        // return null;
+        //
+        // // Most specific price: tier-price for customer and store.
+        // if (tierPriceForCustomerAndStore != null) {
+        // localCache.put(priceKey, tierPriceForCustomerAndStore);
+        // return tierPriceForCustomerAndStore;
+        // }
+        //
+        // // Second most specific price: tier-price for customer.
+        // if (tierPriceForCustomer != null) {
+        // localCache.put(priceKey, tierPriceForCustomer);
+        // return tierPriceForCustomer;
+        // }
+        //
+        // // Third most specific price: tier-price for customer-group and
+        // store.
+        // if (tierPriceForCustomerGroupAndStore != null) {
+        // localCache.put(priceKey, tierPriceForCustomerGroupAndStore);
+        // return tierPriceForCustomerGroupAndStore;
+        // }
+        //
+        // // Tier-price for customer-group.
+        // if (tierPriceForCustomerGroup != null) {
+        // localCache.put(priceKey, tierPriceForCustomerGroup);
+        // return tierPriceForCustomerGroup;
+        // }
+        //
+        // // Tier-price for request-context.
+        // if (tierPriceForReqCtx != null) {
+        // localCache.put(priceKey, tierPriceForReqCtx);
+        // return tierPriceForReqCtx;
+        // }
+        //
+        // // Tier-price for no particular customer, customer-group or store.
+        // if (tierPrice != null) {
+        // localCache.put(priceKey, tierPrice);
+        // return tierPrice;
+        // }
+        //
+        // // Price for customer and request-context.
+        // if (priceForCustomerAndStore != null) {
+        // localCache.put(priceKey, priceForCustomerAndStore);
+        // return priceForCustomerAndStore;
+        // }
+        //
+        // // Price for customer.
+        // if (priceForCustomer != null) {
+        // localCache.put(priceKey, priceForCustomer);
+        // return priceForCustomer;
+        // }
+        //
+        // // Price for customer-group and store.
+        // if (priceForCustomerGroupAndStore != null) {
+        // localCache.put(priceKey, priceForCustomerGroupAndStore);
+        // return priceForCustomerGroupAndStore;
+        // }
+        //
+        // // Price for customer-group.
+        // if (priceForCustomerGroup != null) {
+        // localCache.put(priceKey, priceForCustomerGroup);
+        // return priceForCustomerGroup;
+        // }
+        //
+        // // Price for store.
+        // if (priceForStore != null) {
+        // localCache.put(priceKey, priceForStore);
+        // return priceForStore;
+        // }
+        //
+        // localCache.put(priceKey, price);
+        //
+        // // If none of the above exist, then just return the standard price.
+        // return price;
+    }
+
+    protected List<Price> removeCombinedProductPrices(List<Price> preFilteredPriceList) {
+        List<Price> newPriceList = new ArrayList<>();
+
+        for (Price price : preFilteredPriceList) {
+            if (price.getWithProductIds() == null || price.getWithProductIds().isEmpty()) {
+                newPriceList.add(price);
+            }
         }
 
-        // Third most specific price: tier-price for customer-group and store.
-        if (tierPriceForCustomerGroupAndStore != null) {
-            localCache.put(priceKey, tierPriceForCustomerGroupAndStore);
-            return tierPriceForCustomerGroupAndStore;
+        return newPriceList;
+    }
+
+    protected Price findCombinedPrice(List<Price> preFilteredPriceList, Map<Id, List<Id>> linkedProductIds) {
+        Price p = null;
+
+        for (Price price : preFilteredPriceList) {
+            if (isValidCombinedProductPrice(price, linkedProductIds.get(price.getProductId()))) {
+                p = price;
+                break;
+            }
         }
 
-        // Tier-price for customer-group.
-        if (tierPriceForCustomerGroup != null) {
-            localCache.put(priceKey, tierPriceForCustomerGroup);
-            return tierPriceForCustomerGroup;
+        return p;
+    }
+
+    protected boolean hasCombinedProductPrice(List<Price> preFilteredPriceList, Map<Id, List<Id>> linkedProductIds) {
+        for (Price price : preFilteredPriceList) {
+            if (isValidCombinedProductPrice(price, linkedProductIds.get(price.getProductId())))
+                return true;
         }
 
-        // Tier-price for request-context.
-        if (tierPriceForReqCtx != null) {
-            localCache.put(priceKey, tierPriceForReqCtx);
-            return tierPriceForReqCtx;
+        return false;
+    }
+
+    protected boolean isValidCombinedProductPrice(Price price, List<Id> linkedProductIds) {
+        List<Id> withProductIds = price.getWithProductIds();
+
+        if (linkedProductIds == null || linkedProductIds.isEmpty() || withProductIds == null || withProductIds.isEmpty())
+            return false;
+
+        for (Id withProductId : withProductIds) {
+            if (!linkedProductIds.contains(withProductId))
+                return false;
         }
 
-        // Tier-price for no particular customer, customer-group or store.
-        if (tierPrice != null) {
-            localCache.put(priceKey, tierPrice);
-            return tierPrice;
-        }
-
-        // Price for customer and request-context.
-        if (priceForCustomerAndStore != null) {
-            localCache.put(priceKey, priceForCustomerAndStore);
-            return priceForCustomerAndStore;
-        }
-
-        // Price for customer.
-        if (priceForCustomer != null) {
-            localCache.put(priceKey, priceForCustomer);
-            return priceForCustomer;
-        }
-
-        // Price for customer-group and store.
-        if (priceForCustomerGroupAndStore != null) {
-            localCache.put(priceKey, priceForCustomerGroupAndStore);
-            return priceForCustomerGroupAndStore;
-        }
-
-        // Price for customer-group.
-        if (priceForCustomerGroup != null) {
-            localCache.put(priceKey, priceForCustomerGroup);
-            return priceForCustomerGroup;
-        }
-
-        // Price for store.
-        if (priceForStore != null) {
-            localCache.put(priceKey, priceForStore);
-            return priceForStore;
-        }
-
-        localCache.put(priceKey, price);
-
-        // If none of the above exist, then just return the standard price.
-        return price;
+        return true;
     }
 }

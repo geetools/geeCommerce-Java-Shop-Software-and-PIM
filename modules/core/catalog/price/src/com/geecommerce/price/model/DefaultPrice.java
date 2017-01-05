@@ -1,11 +1,15 @@
 package com.geecommerce.price.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.geecommerce.core.Str;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
@@ -63,6 +67,9 @@ public class DefaultPrice extends AbstractModel implements Price {
 
     @Column(Col.VALID_TO)
     private Date validTo = null;
+
+    @Column(name = Col.WITH_PRODUCT_IDS, autoPopulate = false)
+    private List<Id> withProductIds = null;
 
     // Repository.
     private final transient PriceTypes priceTypes;
@@ -282,9 +289,54 @@ public class DefaultPrice extends AbstractModel implements Price {
     }
 
     @Override
+    public List<Id> getWithProductIds() {
+        return withProductIds;
+    }
+
+    @Override
+    public Price setWithProductIds(List<Id> withProductIds) {
+        this.withProductIds = withProductIds;
+        return this;
+    }
+
+    @Override
+    public Price addWithProductId(Id productId) {
+        if (this.withProductIds == null)
+            this.withProductIds = new ArrayList<>();
+
+        if (!withProductIds.contains(productId))
+            this.withProductIds.add(productId);
+
+        return this;
+    }
+
+    @Override
+    public void fromMap(Map<String, Object> map) {
+        super.fromMap(map);
+
+        String json = str_(map.get(Col.WITH_PRODUCT_IDS));
+
+        if (!Str.isEmpty(json))
+            withProductIds = json2list_(json, Id.class);
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = super.toMap();
+
+        if (withProductIds == null || withProductIds.isEmpty()) {
+            map.put(Col.WITH_PRODUCT_IDS, null);
+        } else {
+            map.put(Col.WITH_PRODUCT_IDS, list2json_(withProductIds));
+        }
+
+        return map;
+    }
+
+    @Override
     public String toString() {
-        return "DefaultPrice [id=" + id + ", productId=" + productId + ", country=" + country + ", currency=" + currency
-            + ", storeId=" + storeId + ", qtyFrom=" + qtyFrom + ", typeId=" + typeId + ", price=" + price
-            + ", validFrom=" + validFrom + ", validTo=" + validTo + "]";
+        return "DefaultPrice [id=" + id + ", id2=" + id2 + ", productId=" + productId + ", country=" + country + ", currency=" + currency + ", storeId=" + storeId + ", customerId=" + customerId
+            + ", customerGroupId=" + customerGroupId + ", qtyFrom=" + qtyFrom + ", typeId=" + typeId + ", typeObjId=" + typeObjId + ", price=" + price + ", validFrom=" + validFrom + ", validTo="
+            + validTo + ", withProductIds=" + withProductIds + ", priceType=" + priceType + "]";
     }
 }

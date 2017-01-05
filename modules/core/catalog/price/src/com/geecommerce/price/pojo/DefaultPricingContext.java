@@ -1,7 +1,11 @@
 package com.geecommerce.price.pojo;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.geecommerce.core.App;
@@ -23,6 +27,7 @@ public class DefaultPricingContext implements PricingContext {
     protected String currency = null;
     protected Set<String> includePriceTypes = new HashSet<String>();
     protected Set<String> excludePriceTypes = new HashSet<String>();
+    protected Map<Id, List<Id>> linkedProductIds = new LinkedHashMap<>();
 
     @Override
     public Id getCustomerId() {
@@ -146,6 +151,47 @@ public class DefaultPricingContext implements PricingContext {
     }
 
     @Override
+    public Map<Id, List<Id>> getLinkedProductIds() {
+        return linkedProductIds;
+    }
+
+    @Override
+    public boolean hasLinkedProductIds(Id productId) {
+        return linkedProductIds == null ? false : linkedProductIds.containsKey(productId);
+    }
+
+    @Override
+    public List<Id> getLinkedProductIds(Id productId) {
+        return linkedProductIds == null ? null : linkedProductIds.get(productId);
+    }
+
+    @Override
+    public PricingContext setLinkedProductIds(Map<Id, List<Id>> linkedProductIds) {
+        this.linkedProductIds = linkedProductIds;
+        return this;
+    }
+
+    @Override
+    public PricingContext setLinkedProductIds(Id productId, Id... linkedProductIds) {
+        if (this.linkedProductIds == null)
+            this.linkedProductIds = new HashMap<>();
+
+        this.linkedProductIds.put(productId, Arrays.asList(linkedProductIds));
+
+        return this;
+    }
+
+    @Override
+    public PricingContext setLinkedProductIds(Id productId, List<Id> linkedProductIds) {
+        if (this.linkedProductIds == null)
+            this.linkedProductIds = new HashMap<>();
+
+        this.linkedProductIds.put(productId, linkedProductIds);
+
+        return this;
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -154,6 +200,7 @@ public class DefaultPricingContext implements PricingContext {
         result = prime * result + ((getCurrency() == null) ? 0 : getCurrency().hashCode());
         result = prime * result + ((excludePriceTypes == null) ? 0 : excludePriceTypes.hashCode());
         result = prime * result + ((includePriceTypes == null) ? 0 : includePriceTypes.hashCode());
+        result = prime * result + ((linkedProductIds == null) ? 0 : linkedProductIds.hashCode());
         return result;
     }
 
@@ -200,15 +247,12 @@ public class DefaultPricingContext implements PricingContext {
         } else if (!includePriceTypes.equals(other.includePriceTypes))
             return false;
 
+        if (linkedProductIds == null) {
+            if (other.linkedProductIds != null)
+                return false;
+        } else if (!linkedProductIds.equals(other.linkedProductIds))
+            return false;
+
         return true;
     }
-
-    // @Override
-    // public String toString()
-    // {
-    // return "DefaultPricingContext [customerId=" + customerId + ",
-    // customerGroupIds=" + customerGroupIds + ", currency=" + getCurrency() +
-    // ", includePriceTypes=" + includePriceTypes + ", excludePriceTypes=" +
-    // excludePriceTypes + "]";
-    // }
 }

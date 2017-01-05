@@ -18,8 +18,10 @@ define([
         self.currentProducts = ko.observableArray([]);
         self.isSlicked = false;
         self.linkText = ko.observable(settings.linkText || 'Product Finder');
-
+        
         self.currentlyCheckedValues.subscribe(function(checkedProductIds) {
+            console.log('?????????????????????????? SUBSCRIPTION ???? ', checkedProductIds);
+            
             productAPI.getProducts(checkedProductIds, {
                 fields : [
                         'id', 'id2', 'ean', 'mainImageURI'
@@ -52,10 +54,20 @@ define([
             });
         });
 
-        if (!_.isEmpty(settings.products)) {
+        if (!_.isUndefined(settings.products)) {
+            console.log('Settings.products NOT EMPTY !!!!!!!!!!!!!!!!!! ', settings.products);
+            
             self.products = settings.products;
             self.productAs = settings.productAs || {};
 
+            var initialValues = ko.unwrap(self.value);
+            if(!_.isEmpty(initialValues)) {
+                productAPI.getProducts(initialValues, self.productAs).then(function(response) {
+                    self.products(response.data.products);
+                    self.setLinkText(response.data.products);
+                });
+            }
+            
             self.value.subscribe(function(newValue) {
                 if (_.isEmpty(newValue)) {
                     self.products([]);
@@ -67,6 +79,8 @@ define([
                     });
                 }
             });
+        } else {
+            console.log('Settings.products IS EMPTY !!!!!!!!!!!!!!!!!! ', settings.products);
         }
 
         if (settings.visible) {
@@ -137,11 +151,7 @@ define([
                 var x = 0;
                 for (var i = 0; i < prdArray.length; i++) {
                     var prd = prdArray[i];
-
-                    console.log('currentProducts ################################################## ', prd);
-
                     var artNo = gc.attributes.find(prd.attributes, 'article_number').value;
-                    console.log('artNo ################################################## ', artNo);
 
                     if(!_.isEmpty(artNo)) {
                         if (x > 0) {
@@ -159,10 +169,8 @@ define([
             } else {
                 var prd = prdArray[0];
 
-                console.log('currentProducts ################################################## ', prd);
-
                 var artNo = gc.attributes.find(prd.attributes, 'article_number').value;
-                _linkText = artNo;
+                _linkText = gc.ctxobj.global(artNo);
             }
             
             if(!_.isEmpty(_linkText)) {

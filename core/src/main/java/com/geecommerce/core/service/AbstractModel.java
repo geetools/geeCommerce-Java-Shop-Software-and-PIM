@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jettison.json.JSONException;
+
 import com.geecommerce.core.App;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
@@ -35,6 +37,7 @@ import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.type.IdSupport;
 import com.geecommerce.core.type.TypeConverter;
+import com.geecommerce.core.util.Json;
 import com.google.inject.Inject;
 import com.owlike.genson.annotation.JsonIgnore;
 
@@ -469,6 +472,36 @@ public abstract class AbstractModel implements Model {
 
     public static <T> ContextObject<T> ctxObj_(Object object, boolean containsIdList) {
         return TypeConverter.asContextObject(object, containsIdList);
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public <T> String list2json_(List<T> list) {
+        return Json.toJsonArray((List) list);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> List<T> json2list_(String json) {
+        try {
+            return (List<T>) Json.toList(json);
+        } catch (JSONException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> List<T> json2list_(String json, Class<T> elementType) {
+        try {
+            List<Object> typedList = new ArrayList<>();
+
+            List<Object> list = Json.toList(json);
+            for (Object obj : list) {
+                typedList.add(TypeConverter.convert(elementType, obj));
+            }
+
+            return (List<T>) typedList;
+        } catch (JSONException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     public static void main(String[] args) {

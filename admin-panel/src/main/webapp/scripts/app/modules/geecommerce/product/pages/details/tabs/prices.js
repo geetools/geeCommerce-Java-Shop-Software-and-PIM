@@ -26,20 +26,12 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-price', 'gc-cust
 		self.validTo = ko.observable();
 		
 		// Query builder for price rule-set.
-		self.whenProductIdsInCart = ko.observableArray([]);
-		self.whenProductsInCart = ko.observableArray([]);
+		self.withProductIds = ko.observableArray([]);
+		self.withProducts = ko.observableArray([]);
 		self.showProductfinderModal = ko.observable(false);
-        
-        self.showProductfinderModal.subscribe(function(newValue) {
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! @@showProductfinderModal ', newValue);
-        });
 
-        self.whenProductIdsInCart.subscribe(function(newValue) {
+        self.withProductIds.subscribe(function(newValue) {
             console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! @@whenProductIdsInCart ', newValue);
-        });
-        
-        self.whenProductsInCart.subscribe(function(newValue) {
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! @@whenProductsInCart ', newValue);
         });
 	}
 
@@ -113,6 +105,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-price', 'gc-cust
 				_price.validTo = gc.utils.toServerTime(gc.utils.startOfTheDay(price.validTo()));	
 			}
 			
+            delete _price.withProducts;
+			
 			productAPI.saveNewPrice(_price).then(function(newId) {
 				// Move from new list to normal update list.
 				self.newPrices.remove(price);
@@ -152,7 +146,9 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-price', 'gc-cust
 			
 		    // Convert nicely formatted price back to raw number.
             _price.price = numeral(_price.price).value();
-			
+
+            delete _price.withProducts;
+            
 			productAPI.updatePrice(_price).then(function(data) {
 				_price.$gc.resetLoader();
 			});
@@ -205,6 +201,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-price', 'gc-cust
 							priceVM.qtyTo(price.qtyTo);
 							priceVM.validFrom(gc.utils.fromServerTime(price.validFrom));
 							priceVM.validTo(gc.utils.fromServerTime(price.validTo));
+							priceVM.withProductIds(price.withProductIds);
 							
 							self.prices.push(priceVM);
 						});

@@ -16,8 +16,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
         // console.log(options);
         options = options || {};
-
-        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options);
         
         this._url = options.url;
         this._searchUrl = options.searchUrl;
@@ -103,17 +101,10 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
         // Solves the 'this' problem when a DOM event-handler is fired.
         _.bindAll(this, 'registerObservableColumns', 'activateSubscribers', 'columnValue', 'sort', 'applyFilter', 'page', 'refresh', 'load', 'removeData', 'getData', 'setDefaultFilter', 'resetDefaultFilter', 'loadState', 'saveState');
-
-        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this._limit);
         
         self.loadState();
-
-        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this._limit);
         
         this.limit = ko.observable(this._limit);
-
-        
-        console.log('@@@@@@@@@@@@@@@@@@@@AAA options: ', options, this.limit());
     }
 
     Pager.prototype = {
@@ -130,8 +121,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             this._setPages();
 
             self.saveState();
-            
-            console.log('_____ CHANING PAGE ____ ', self._onpageclick, { page: page, event: event });
             
             return this.load(self._onpageclickSubscribers, { page: page, event: event });
         },

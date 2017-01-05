@@ -1,6 +1,7 @@
 package com.geecommerce.price.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
@@ -66,6 +67,12 @@ public interface Price extends Model {
 
     public Double getFinalPrice();
 
+    public List<Id> getWithProductIds();
+
+    public Price setWithProductIds(List<Id> withProductIds);
+
+    public Price addWithProductId(Id productId);
+
     static final class Col {
         public static final String ID = "_id";
         public static final String ID2 = "id2";
@@ -81,5 +88,6 @@ public interface Price extends Model {
         public static final String PRICE = "price";
         public static final String VALID_FROM = "valid_from";
         public static final String VALID_TO = "valid_to";
+        public static final String WITH_PRODUCT_IDS = "with_prd_ids";
     }
 }

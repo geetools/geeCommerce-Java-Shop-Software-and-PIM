@@ -177,6 +177,7 @@
 			"priceTabCountry" : "Country",
 			"priceTabCustomerGroup" : "Customer Group",
 			"priceTabPriceType" : "Price-Type",
+			"priceTabWithProduct" : "In Combin. with Products",
 			"imagesTabUploadHint" : "Click here or drag and drop to add images",
 			"variantsTabTargetTitle" : "Variants",
 			"variantsTabTargetDesc" : "These variants have already been assigned to this product.",

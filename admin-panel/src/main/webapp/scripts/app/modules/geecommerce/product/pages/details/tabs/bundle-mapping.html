@@ -121,15 +121,15 @@
 										<br/>
 									</div>
 
-
+									<!--											{ id: 'VALID', text: 'Valid' },-->
 									<!-- ko ifnot: $parent.isList() -->
-										<div class="col-xs-6">
-											<select id="inputType" class="selectpicker"  data-bind="select: conditionType, data: [
-											{ id: 'VALID', text: 'Valid' },
+										<div class="col-xs-5 pull-right">
+											<span>Condition: </span>
+											<select id="inputType" class="selectpicker bundle-condition"  data-bind="select: conditionType, data: [
 											{ id: 'NOT_VALID', text: 'Not valid' }]">
 											</select>
-											<span> with:</span>
-											<div data-bind="productFinder: { value: withProductIds, displayMode: 'modal', products: withProducts, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
+											<span> with </span>
+											<div class="bundle-with-products" data-bind="productFinder: { value: withProductIds, displayMode: 'modal', products: withProducts, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
 										</div>
 									<!-- /ko -->
 

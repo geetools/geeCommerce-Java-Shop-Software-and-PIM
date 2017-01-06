@@ -53,68 +53,77 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
         initBundleConditions();
         function initBundleConditions() {
             $(".bundle-item").on("change", function () {
-                var products = collectSelectedOptions()
-
-                var productsToDisable = [];
-                _.each(products, function (product) {
-                    var condition = _.findWhere(conditions, {product: product});
-                    if (condition) {
-
-                        productsToDisable = productsToDisable.concat(condition.withProducts)
-                    }
-
-                    _.each(conditions, function (condition) {
-
-                        if (condition.withProducts.includes(product)) {
-                            productsToDisable.push(condition.product);
-                        }
-                    });
-                })
-
-				disableOptions(productsToDisable);
-
+                handleConditions();
             })
 
-
+            handleConditions();
         }
 
+        function handleConditions() {
+            var products = collectSelectedOptions();
+
+            var productsToDisable = [];
+            _.each(products, function (product) {
+                var condition = _.findWhere(conditions, {product: product});
+                if (condition) {
+
+                    productsToDisable = productsToDisable.concat(condition.withProducts)
+                }
+
+                _.each(conditions, function (condition) {
+
+                    if (condition.withProducts.includes(product)) {
+                        productsToDisable.push(condition.product);
+                    }
+                });
+            })
+
+			console.log('DISABLE', productsToDisable)
+            console.log('PRODUCTS', products)
+            disableOptions(productsToDisable);
+
+        }
+        
         function disableOptions(productsToDisable) {
-        	console.log("DISABLE", productsToDisable)
-
-        //    if (productsToDisable && productsToDisable.length > 0) {
                 var productsToEnable = [];
-
-                console.log("DISABLE2", productsToDisable)
 
                 _.each($(".bundle-group"), function (bundleGroup) {
                     if ($(bundleGroup).attr("group-type") == "RADIOBUTTON" || $(bundleGroup).attr("group-type") == "CHECKBOX") {
-                        console.log("BUNDLE-GROUP R + C")
                         $(bundleGroup).find("input").each(function () {
-                        	var product =$(this).val();
+                        	var product = $(this).val();
+                        	var masterProduct =  $(this).attr('bundle_master_option');
 
                             if($(this).is(":disabled")) {
-								if(!productsToDisable.includes(product)){
+								if(!productsToDisable.includes(product) && !productsToDisable.includes(masterProduct)){
 									productsToEnable.push(product)
 								}
                             } else {
-                                if(productsToDisable.includes(product)){
+                                if(productsToDisable.includes(product) || productsToDisable.includes(masterProduct) ){
                                     $(this).prop('disabled', true);
+                                    if($(this).is(":checked")) {
+                                        $(this).prop('checked', false);
+                                    }
                                 }
 							}
                         });
                     }
 
                     if($(bundleGroup).attr("group-type") == "SELECT" || $(bundleGroup).attr("group-type") == "MULTISELECT" ){
-                        console.log("BUNDLE-GROUP S + M")
                         $(bundleGroup).find('option').each(function(){
-                            var product =$(this).val();
+
+                            var product = $(this).val();
+                            var masterProduct =  $(this).attr('bundle_master_option');
+
                             if($(this).is(":disabled")) {
-                                if(!productsToDisable.includes(product)){
-                                    productsToEnable.push(product)
+                                if(!productsToDisable.includes(product) && !productsToDisable.includes(masterProduct)){
+									productsToEnable.push(product)
                                 }
                             } else {
-                                if(productsToDisable.includes(product)){
+                                if(productsToDisable.includes(product) || productsToDisable.includes(masterProduct)){
                                     $(this).prop('disabled', true);
+                                    if($(this).is(":checked")) {
+                                        $(this).prop('checked', false);
+                                    }
                                 }
                             }
                         });
@@ -123,7 +132,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
                 })
 
-				console.log("ENABLE", productsToEnable)
 
                 _.each(productsToEnable, function (productToEnable) {
                     $("[bundle_option=" + productToEnable + "]").prop('disabled', false);
@@ -137,8 +145,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
             if ($(".bundle-config").length) {
 
-                var qtys = [];
-
                 _.each($(".bundle-group"), function (bundleGroup) {
 
                     if ($(bundleGroup).attr("group-type") == "LIST") {
@@ -146,7 +152,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
-                                qtys.push(1);//qtys.push($productItem.attr("qty"));
+
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
                             }
                         })
                     }
@@ -157,7 +166,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
                         if ($productItem.val()) {
                             products.push($productItem.val());
-                            qtys.push($productItem.attr("qty"));
+                            if($productItem.attr('bundle_master_option')){
+                                products.push($productItem.attr('bundle_master_option'));
+                            }
                         }
                     }
 
@@ -168,7 +179,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(productItem);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
-                                qtys.push($productItem.attr("qty"));
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
                             }
                         })
                     }
@@ -178,7 +191,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
-                                qtys.push($productItem.attr("qty"));
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
                             }
                         });
 
@@ -190,7 +205,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
-                                qtys.push($productItem.attr("qty"));
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
                             }
                         });
 

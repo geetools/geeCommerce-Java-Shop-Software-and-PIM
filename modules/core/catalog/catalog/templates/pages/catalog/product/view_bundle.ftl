@@ -38,11 +38,11 @@
 								<#list  bundleItem.product.variants as variantProduct>
 									<#if variantProduct.validForSelling >
 										<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
-                                            <option bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" selected qty="${bundleItem.quantity}">
+                                            <option bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" selected qty="${bundleItem.quantity}">
 												<@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" />
                                             </option>
 										<#else>
-                                            <option bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" qty="${bundleItem.quantity}">
+                                            <option bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" qty="${bundleItem.quantity}">
 												<@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" />
                                             </option>
 										</#if>
@@ -71,11 +71,11 @@
 								<#list  bundleItem.product.variants as variantProduct>
 									<#if variantProduct.validForSelling >
 										<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
-                                            <option bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" selected qty="${bundleItem.quantity}">
+                                            <option bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" selected qty="${bundleItem.quantity}">
 												<@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" />
                                             </option>
 										<#else>
-                                            <option bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" qty="${bundleItem.quantity}">
+                                            <option bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" qty="${bundleItem.quantity}">
 												<@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" />
                                             </option>
 										</#if>
@@ -106,9 +106,9 @@
 							<#list  bundleItem.product.variants as variantProduct>
 								<#if variantProduct.validForSelling >
 									<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
-                                        <input type="radio" class="bundle-item" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
+                                        <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
 									<#else>
-                                        <input type="radio" class="bundle-item" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
+                                        <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
 									</#if>
 								</#if>
 							</#list>
@@ -130,9 +130,9 @@
 							<#list  bundleItem.product.variants as variantProduct>
 								<#if variantProduct.validForSelling >
 									<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
-                                        <input type="checkbox" class="bundle-item" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
+                                        <input type="checkbox" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
 									<#else>
-                                        <input type="checkbox" class="bundle-item" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
+                                        <input type="checkbox" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
 									</#if>
 								</#if>
 							</#list>

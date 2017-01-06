@@ -91,6 +91,8 @@
 										<!-- /ko -->
 
 									</div>
+
+
 									<div class="col-xs-2">
 										<div class="form-group">
 											<label  class="col-sm-6 control-label">Quantity</label>
@@ -118,6 +120,19 @@
 										<a href="javascript:void(0)" data-bind="click: $parent.removeItem" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
 										<br/>
 									</div>
+
+
+									<!-- ko ifnot: $parent.isList() -->
+										<div class="col-xs-6">
+											<select id="inputType" class="selectpicker"  data-bind="select: conditionType, data: [
+											{ id: 'VALID', text: 'Valid' },
+											{ id: 'NOT_VALID', text: 'Not valid' }]">
+											</select>
+											<span> with:</span>
+											<div data-bind="productFinder: { value: withProductIds, displayMode: 'modal', products: withProducts, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
+										</div>
+									<!-- /ko -->
+
 								</div>
 
 							</div>

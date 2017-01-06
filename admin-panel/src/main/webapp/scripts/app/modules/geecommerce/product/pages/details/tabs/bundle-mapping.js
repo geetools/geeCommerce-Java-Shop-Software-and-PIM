@@ -104,8 +104,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         self.defaultVariant = ko.observable();
         self.isVariantMaster = ko.observable(false);
         self.variants = ko.observableArray([]);
-        self.variantOptions = ko.observableArray([])
+        self.variantOptions = ko.observableArray([]);
 
+        self.conditionType = ko.observable("NOT_VALID");
+        self.withProductIds = ko.observableArray([]);
+        self.withProducts = ko.observableArray([]);
 
         if(product.type == "VARIANT_MASTER"){
         	self.isVariantMaster(true);
@@ -216,11 +219,14 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                     bundleItem.prd_id = bundleItemVM.id;
                     bundleItem.qty = bundleItemVM.quantity();
 					bundleItem.def_prd_id = bundleItemVM.defaultVariant();
+					bundleItem.condition_type = bundleItemVM.conditionType();
 
                     if(bundleGroupVM.type() == 'LIST'){
                         bundleItem.selected = true;
+                        bundleItem.with_products = [];
                     } else {
                         bundleItem.selected = bundleItemVM.selected();
+                        bundleItem.with_products = bundleItemVM.withProductIds();
                     }
 
                     bundleGroup.bundle_items.push(bundleItem)
@@ -257,6 +263,9 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                             _.each(bundleGroupItem.bundleItems, function (bundleItem) {
                                 var productBundleVM = new ProductBundleVM(vm, bundleItem.product, bundleItem.quantity);
                                 productBundleVM.selected(bundleItem.selected);
+                                productBundleVM.withProductIds(bundleItem.withProductIds);
+                                productBundleVM.conditionType(bundleItem.conditionType);
+
                                 bundleGroupItemVM.bundleItems.push(productBundleVM);
                             });
                         }

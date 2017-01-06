@@ -154,7 +154,7 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
         Map<String, Object> m = new LinkedHashMap<>();
         m.put(Col.PRODUCT_ID, getProductId());
         m.put(Col.QUANTITY, getQuantity());
-        m.put(Col.DEFAULT_PRODUCT_ID, getProductId());
+        m.put(Col.DEFAULT_PRODUCT_ID, getDefaultProductId());
         m.put(Col.SELECTED, isSelected());
         m.put(Col.WITH_PRODUCTS, getWithProductIds());
         m.put(Col.CONDITION_TYPE, getConditionType());

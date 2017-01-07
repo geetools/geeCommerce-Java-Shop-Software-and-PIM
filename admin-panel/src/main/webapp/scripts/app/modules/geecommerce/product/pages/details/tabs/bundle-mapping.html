@@ -62,7 +62,7 @@
 							</div>
 
 							<div class="col-xs-2">
-								<div data-bind="productFinder: { value: newProducts, displayMode: 'modal' }"> </div>
+								<div data-bind="productFinder: { value: productIds, displayMode: 'modal' }"> </div>
 							</div>
 
 							<div class="col-xs-1">
@@ -107,10 +107,10 @@
 												<label  class="col-sm-6 control-label">Default</label>
 												<div class="col-sm-6">
 													<!-- ko if: $parent.isMultiselect() -->
-														<input type="checkbox" class="form-control" data-bind="checked: $data.selected">
+														<input type="checkbox" class="form-control bundle-form-control" data-bind="checked: $data.selected">
 													<!-- /ko -->
 													<!-- ko ifnot: $parent.isMultiselect() -->
-														<input type="radio" class="form-control" data-bind="checked: $parent.selected, attr: {value: $data.id}">
+														<input type="radio" class="form-control bundle-form-control" data-bind="checked: $parent.selected, attr: {value: $data.id}">
 													<!-- /ko -->
 												</div>
 											</div>

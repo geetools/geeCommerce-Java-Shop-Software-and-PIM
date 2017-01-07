@@ -1,6 +1,6 @@
 define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko, gc, productAPI ) {
 
-	function GroupBundleVM(vm) {
+	function GroupBundleVM(vm, root) {
 		var self = this;
 
 		self.vm = vm;
@@ -12,13 +12,14 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
         self.bundleItems = ko.observableArray([]);
 
-        self.newProducts = ko.observableArray([]);
+        self.productIds = ko.observableArray([]);
+        //self.products = ko.observableArray([]);
 
-        self.newProducts.subscribe(function (newData) {
+        self.productIds.subscribe(function (newData) {
 			_.each(newData, function (productId) {
                 var prd = _.findWhere(self.bundleItems(), { id : productId });
 
-				if(!prd) {
+				if(!prd && !root.allProductIds().includes(productId)) {
                     productAPI.getProduct(productId).then(function (data) {
                         //we don't add programme and bundles to bundles
                         if(!(data.type == "PROGRAMME" || data.type == "BUNDLE")) {
@@ -128,6 +129,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
                     _.forEach(variants, function(variant) {
                         var name = gc.attributes.find(variant.attributes, "name");
+                        var name2 = gc.attributes.find(variant.attributes, "name2");
                         var number = gc.attributes.find(variant.attributes, "article_number");
 
                         var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
@@ -146,18 +148,13 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		}
 
 
-/*        self.quantity.subscribe(function (val) {
-        	if(val > 0){
-                productAPI.addProductToBundle(self.vm.productId(), self.id, val);
-			}
-    	})*/
     }
 	
 	//-----------------------------------------------------------------
 	// Controller
 	//-----------------------------------------------------------------
 	function ProductBundlesController(options) {
-		
+		var self = this;
 		// Make sure that this object is being called with the 'new' keyword.
 		if (!(this instanceof ProductBundlesController)) {
 			throw new TypeError("ProductBundlesController constructor cannot be called as a function.");
@@ -168,6 +165,20 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		this.productVM = {};
 		this.query = ko.observable().extend({ rateLimit: 1000 });
 		this.bundleGroups = ko.observableArray([]);
+		this.allProductIds = ko.computed(function () {
+            var allIds = [];
+		    _.each(self.bundleGroups(), function (bundleGroup) {
+                _.each(bundleGroup.bundleItems(), function (bundleItem) {
+                    allIds.push(bundleItem.id);
+                    if(bundleItem.isVariantMaster()){
+                        _.each(bundleItem.variants(), function (variant) {
+                            allIds.push(variant.id);
+                        })
+                    }
+                });
+            });
+		    return allIds;
+        })
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
 		_.bindAll(this, 'saveData', 'activate', 'addBundleGroup', 'removeBundleGroup');
@@ -188,7 +199,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
         },
 		addBundleGroup : function () {
             var vm = this.productVM();
-			var bundleGroup = new GroupBundleVM(vm);
+			var bundleGroup = new GroupBundleVM(vm, this);
 			this.bundleGroups.push(bundleGroup);
 
             gc.app.showToolbar(true);
@@ -216,7 +227,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 				_.each(bundleGroupVM.bundleItems(), function (bundleItemVM) {
 					var bundleItem = {};
 
-                    bundleItem.prd_id = bundleItemVM.id;
+					bundleItem.prd_id = bundleItemVM.id;
                     bundleItem.qty = bundleItemVM.quantity();
 					bundleItem.def_prd_id = bundleItemVM.defaultVariant();
 					bundleItem.condition_type = bundleItemVM.conditionType();
@@ -229,7 +240,9 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                         bundleItem.with_products = bundleItemVM.withProductIds();
                     }
 
-                    bundleGroup.bundle_items.push(bundleItem)
+                    bundleGroup.bundle_items.push(bundleItem);
+
+                    bundleGroupVM.productIds.push(bundleItemVM.id);
                 });
 
 				bundleGroups.push(bundleGroup);
@@ -253,7 +266,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
                 if (data.data.bundleGroupItems) {
                     _.each(data.data.bundleGroupItems, function (bundleGroupItem) {
-                        var bundleGroupItemVM = new GroupBundleVM(vm);
+                        var bundleGroupItemVM = new GroupBundleVM(vm, self);
                         bundleGroupItemVM.label(bundleGroupItem.label);
                         bundleGroupItemVM.type(bundleGroupItem.type);
                         bundleGroupItemVM.optional(bundleGroupItem.optional);

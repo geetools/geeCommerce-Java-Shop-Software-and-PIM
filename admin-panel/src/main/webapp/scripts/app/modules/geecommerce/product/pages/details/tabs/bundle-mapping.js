@@ -4,6 +4,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		var self = this;
 
 		self.vm = vm;
+		self.root = root;
 
 		self.label = ko.observable();
         self.optional = ko.observable(false);
@@ -129,7 +130,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 
                     _.forEach(variants, function(variant) {
                         var name = gc.attributes.find(variant.attributes, "name");
-                        var name2 = gc.attributes.find(variant.attributes, "name2");
                         var number = gc.attributes.find(variant.attributes, "article_number");
 
                         var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
@@ -177,9 +177,54 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                     }
                 });
             });
+		    console.log(allIds);
 		    return allIds;
-        })
-		
+        });
+
+        this.allConditionalProducts = ko.computed(function () {
+            var allOptions = [];
+            _.each(self.bundleGroups(), function (bundleGroup) {
+                if(bundleGroup.type() != 'LIST') {
+                    _.each(bundleGroup.bundleItems(), function (bundleItem) {
+                        var name = gc.attributes.find(bundleItem.product.attributes, "name");
+                        var number = gc.attributes.find(bundleItem.product.attributes, "article_number");
+
+                        var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
+                        var numberVal = gc.ctxobj.val(number.value, gc.app.currentUserLang(), "closest");
+
+                        allOptions.push({
+                            id : bundleItem.product.id,
+                            text : numberVal + " - " + nameVal || ""
+                        });
+
+
+                        /*
+                         var name = gc.attributes.find(variant.attributes, "name");
+                         var number = gc.attributes.find(variant.attributes, "article_number");
+
+                         var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
+                         var numberVal = gc.ctxobj.val(number.value, gc.app.currentUserLang(), "closest");
+
+                         self.variantOptions.push({
+                         id : variant.id,
+                         text : numberVal + " - " + nameVal || ""
+                         });
+                         });
+
+                        * */
+
+                        if (bundleItem.isVariantMaster()) {
+                            _.each(bundleItem.variantOptions(), function (variantOption) {
+                                allOptions.push(variantOption);
+                            })
+                        }
+                    });
+                }
+            });
+
+            return allOptions;
+        });
+
 		// Solves the 'this' problem when a DOM event-handler is fired.
 		_.bindAll(this, 'saveData', 'activate', 'addBundleGroup', 'removeBundleGroup');
 	}
@@ -276,7 +321,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
                             _.each(bundleGroupItem.bundleItems, function (bundleItem) {
                                 var productBundleVM = new ProductBundleVM(vm, bundleItem.product, bundleItem.quantity);
                                 productBundleVM.selected(bundleItem.selected);
-                                productBundleVM.withProductIds(bundleItem.withProductIds);
+                                if(bundleItem.withProductIds)
+                                    productBundleVM.withProductIds(bundleItem.withProductIds);
                                 productBundleVM.conditionType(bundleItem.conditionType);
 
                                 bundleGroupItemVM.bundleItems.push(productBundleVM);

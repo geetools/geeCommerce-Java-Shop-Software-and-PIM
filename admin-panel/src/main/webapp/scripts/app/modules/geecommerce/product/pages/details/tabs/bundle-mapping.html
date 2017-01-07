@@ -129,7 +129,11 @@
 											{ id: 'NOT_VALID', text: 'Not valid' }]">
 											</select>
 											<span> with </span>
+											<select class="selectpicker bundle-condition-products" multiple data-live-search="true" data-size="15" data-bind="select: withProductIds, data: $parent.root.allConditionalProducts, sort: true"></select>
+
+<!--
 											<div class="bundle-with-products" data-bind="productFinder: { value: withProductIds, displayMode: 'modal', products: withProducts, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number'] } }"> </div>
+-->
 										</div>
 									<!-- /ko -->
 

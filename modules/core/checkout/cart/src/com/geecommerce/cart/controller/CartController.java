@@ -1,6 +1,7 @@
 package com.geecommerce.cart.controller;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.geecommerce.calculation.helper.CalculationHelper;
 import com.geecommerce.calculation.service.CalculationService;
@@ -237,6 +238,23 @@ public class CartController extends BaseController {
 
         return redirect("/cart/view/");
     }
+
+    @Request("remove-bundle")
+    public Result removeBundle(@Param("bundleId") Id bundleId) {
+        Cart cart = cartHelper.getCart(true);
+        List<CartItem> forDelete = cart.getCartItems().stream().filter(i -> i.getBundleId().equals(bundleId)).collect(Collectors.toList());
+
+        if (forDelete != null && forDelete.size() > 0) {
+            for (CartItem item: forDelete) {
+                cart.getCartItems().remove(item);
+            }
+            cart.clearTotals();
+            cartService.updateCart(cart);
+        }
+
+        return redirect("/cart/view/");
+    }
+
 
     @Request("edit")
     public Result edit(@Param("productId") Id productId, @Param("variantId") Id variantId,

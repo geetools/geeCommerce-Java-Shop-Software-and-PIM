@@ -67,7 +67,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                 var condition = _.findWhere(conditions, {product: product});
                 if (condition) {
 
-                    productsToDisable = productsToDisable.concat(condition.withProducts)
+                    //productsToDisable = productsToDisable.concat(condition.withProducts)
                 }
 
                 _.each(conditions, function (condition) {
@@ -120,8 +120,8 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             } else {
                                 if(productsToDisable.includes(product) || productsToDisable.includes(masterProduct)){
                                     $(this).prop('disabled', true);
-                                    if($(this).is(":checked")) {
-                                        $(this).prop('checked', false);
+                                    if($(this).is(":selected")) {
+                                        $(this).prop('selected', false);
                                     }
                                 }
                             }
@@ -274,7 +274,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                         if($(this).is(":disabled")) {
                             $(".bundle-item-price[bundle_option=" + product +"]").html("");
                         } else {
-                            $(".bundle-item-price[bundle_option=" + product +"]").html(priceUtil.formatPrice(groupPriceResult[product]));
+                            $(".bundle-item-price[bundle_option=" + product +"]").html(priceUtil.formatPriceWithSign(groupPriceResult[product]));
                         }
                     });
                 }
@@ -286,7 +286,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                         if($(this).is(":disabled")) {
                             $(this).text($(this).attr('original-text'));
                         } else {
-                            $(this).text($(this).attr('original-text') + " " + priceUtil.formatPrice(groupPriceResult[product]));
+                            $(this).text($(this).attr('original-text') + " " + priceUtil.formatPriceWithSign(groupPriceResult[product]));
                         }
                     });
 

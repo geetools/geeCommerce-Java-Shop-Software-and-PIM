@@ -16,8 +16,10 @@ define(['jquery', 'bootstrap', 'gc/gc'], function ($, Bootstrap, gc) {
                     _.each($(".bundle-group"), function (bundleGroup) {
 
                         if($(bundleGroup).attr("group-type") == "LIST"){
-                            $(bundleGroup).find('input[name=selectedVariant]', 'input[name=bundleProduct]').each(function () {
+
+                            $(bundleGroup).find('input[name=selectedVariant], input[name=bundleProduct]').each(function () {
                                 var $productItem = $(this);
+
                                 if($productItem.val()){
                                     products.push($productItem.val());
                                     qtys.push(1);//qtys.push($productItem.attr("qty"));

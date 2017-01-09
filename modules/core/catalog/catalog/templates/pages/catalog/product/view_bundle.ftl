@@ -23,10 +23,24 @@
 								<@cms_product_carousel product_id="${bundleItem.product.id}" />
                             </div>
                             <div class="col-xs-12 col-sm-5">
-								<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
+                                <div id="prd-details-artno" class="prd-text">
+									<@message text="Article No." lang="en" text2="Artikel-Nr." lang2="de" />
+                                    <span><@attribute src=bundleItem.product code="article_number" /></span>
+                                </div>
+                                <div id="prd-details-shortdesc" class="prd-text">
+									<@attribute_exists src=product code="short_description" parent=true>
+										<@attribute src=bundleItem.product code="short_description" make="list" parent=true/>
+									</@attribute_exists>
+								</div>
+
+								<div id="prd-details-desc" class="prd-text">
+									<@attribute_exists src=product code="description" parent=true>
+										<@attribute src=bundleItem.product code="description" parent=true />
+									</@attribute_exists>
+								</div>
                             </div>
 
-							<input type="hidden" name="bundleProduct" value="${bundleItem.product.id}" qty="${bundleItem.quantity}">
+							<input type="hidden" name="bundleProduct" value="${bundleItem.product.id?string}" qty="${bundleItem.quantity}">
 						</#if>
 					</div>
 				</#list>

@@ -35,3 +35,10 @@
     </#if>
 
 </#if>
+
+<#if product.bundle >
+	<#assign bundlePrice=product.estimatedBundlePrice>
+	<#if bundlePrice?? >
+		<span class="cat-item-retail-price">${bundlePrice?string.currency}</span>
+	</#if>
+</#if>

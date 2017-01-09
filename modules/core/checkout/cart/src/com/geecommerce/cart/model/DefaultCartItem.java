@@ -2,6 +2,7 @@ package com.geecommerce.cart.model;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.geecommerce.calculation.model.CalculationItem;
@@ -17,6 +18,7 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.price.model.Price;
 import com.geecommerce.price.model.PriceType;
 import com.geecommerce.price.pojo.PriceResult;
+import com.geecommerce.price.pojo.PricingContext;
 import com.geecommerce.shipping.converter.ShippingItemConverter;
 import com.geecommerce.shipping.model.ShippingItem;
 import com.geecommerce.tax.TaxClassType;
@@ -307,6 +309,24 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
         PriceResult pr = getProduct().getPrice();
         if (pr != null) {
             Price price = pr.getFinalPriceFor(quantity);
+            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
+            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
+        }
+
+        m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, getProductPrice());
+        m.put(CalculationItem.FIELD.ITEM_TAX_RATE, getProductTaxRate());
+
+        return m;
+    }
+
+    @Override
+    public Map<String, Object> toCalculationItem(PricingContext pricingContext) {
+        Map<String, Object> m = new HashMap<>();
+        m.put(CalculationItem.FIELD.ITEM_ARTICLE_ID, getProductId());
+        m.put(CalculationItem.FIELD.ITEM_QUANTITY, getQuantity());
+        PriceResult pr = getProduct().getPrice();
+        if (pr != null) {
+            Price price = pr.getFinalPriceFor(quantity, pricingContext);
             m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
             m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
         }

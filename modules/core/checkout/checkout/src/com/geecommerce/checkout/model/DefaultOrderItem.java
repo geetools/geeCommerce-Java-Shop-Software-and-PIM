@@ -15,6 +15,7 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.price.model.Price;
 import com.geecommerce.price.model.PriceType;
 import com.geecommerce.price.pojo.PriceResult;
+import com.geecommerce.price.pojo.PricingContext;
 import com.geecommerce.price.repository.PriceTypes;
 import com.geecommerce.shipping.converter.ShippingItemConverter;
 import com.geecommerce.shipping.model.ShippingItem;
@@ -242,6 +243,24 @@ public class DefaultOrderItem extends AbstractModel implements OrderItem, Calcul
         PriceResult pr = getProduct().getPrice();
         if (pr != null) {
             Price price = pr.getFinalPriceFor(quantity);
+            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
+            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
+        }
+
+        return m;
+    }
+
+    @Override
+    public Map<String, Object> toCalculationItem(PricingContext pricingContext) {
+        Map<String, Object> m = new HashMap<>();
+        m.put(CalculationItem.FIELD.ITEM_ARTICLE_ID, getProductId());
+        m.put(CalculationItem.FIELD.ITEM_QUANTITY, getQuantity());
+        m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, getPrice());
+        m.put(CalculationItem.FIELD.ITEM_TAX_RATE, getTaxRate());
+
+        PriceResult pr = getProduct().getPrice();
+        if (pr != null) {
+            Price price = pr.getFinalPriceFor(quantity, pricingContext);
             m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
             m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
         }

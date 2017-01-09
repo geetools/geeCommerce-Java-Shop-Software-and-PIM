@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.geecommerce.price.helper.PriceHelper;
+import com.geecommerce.price.pojo.PricingContext;
 import org.apache.logging.log4j.util.Strings;
 
 import com.geecommerce.catalog.product.MediaType;
@@ -1438,6 +1440,64 @@ public class DefaultProduct extends AbstractAttributeSupport
         this.bundleGroups = bundleGroups;
         return this;
     }
+
+    @Override
+    public Product getMainBundleProduct() {
+        if(getBundleGroups() != null && getBundleGroups().get(0) != null){
+            if(getBundleGroups().get(0).getProducts() != null && getBundleGroups().get(0).getProducts().size() > 0 )
+                return getBundleGroups().get(0).getProducts().get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public Double getEstimatedBundlePrice() {
+        Map<Id, Integer> productQuantityMap = new HashMap<>();
+        if(getBundleGroups() != null){
+            for(BundleGroupItem bundleGroupItem: getBundleGroups()){
+                if(bundleGroupItem.getBundleItems() != null){
+                    for(BundleProductItem bundleProductItem: bundleGroupItem.getBundleItems()){
+                        if(bundleProductItem.isSelected()){
+                            if(bundleProductItem.getProduct().isVariantMaster()){
+                                productQuantityMap.put(bundleProductItem.getDefaultProductId(), bundleProductItem.getQuantity());
+                            } else {
+                                productQuantityMap.put(bundleProductItem.getProductId(), bundleProductItem.getQuantity());
+                            }
+                        }
+                    }
+                }
+            }
+            return calculateBundlePrice(productQuantityMap);
+        }
+        return null;
+    }
+
+    private Double calculateBundlePrice( Map<Id, Integer> productQuantityMap){
+        Double price = 0.0;
+
+        PriceHelper priceHelper = app.helper(PriceHelper.class);
+
+        //List<Id> withProducts = new ArrayList<>(productQuantityMap.keySet());
+        Id[] withProducts = productQuantityMap.keySet().toArray(new Id[productQuantityMap.keySet().size()]);
+        PricingContext pricingContext = priceHelper.getPricingContext(true);
+        for (Id productId: productQuantityMap.keySet()){
+            pricingContext.setLinkedProductIds(productId, withProducts);
+        }
+
+        for (Id productId: productQuantityMap.keySet()){
+
+            Product p = products.findById(Product.class, productId);
+
+            if(p != null && p.getPrice() != null && p.hasValidPrice()){
+
+                price += p.getPrice().getFinalPrice(pricingContext) * productQuantityMap.get(productId);
+            }
+
+        }
+
+        return price;
+    }
+
 
     @JsonIgnore
     @Override

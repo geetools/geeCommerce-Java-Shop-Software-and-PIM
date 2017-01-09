@@ -1,9 +1,15 @@
 package com.geecommerce.calculation.model;
 
+import com.geecommerce.core.type.Id;
+import com.geecommerce.price.pojo.PricingContext;
+
+import java.util.List;
 import java.util.Map;
 
 public interface CalculationItem {
     public Map<String, Object> toCalculationItem();
+
+    public Map<String, Object> toCalculationItem(PricingContext pricingContext);
 
     static final class FIELD {
         public static final String ITEM_ARTICLE_ID = "article_id";

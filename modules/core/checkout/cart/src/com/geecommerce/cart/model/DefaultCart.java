@@ -31,6 +31,8 @@ import com.geecommerce.coupon.model.CouponCode;
 import com.geecommerce.coupon.model.CouponData;
 import com.geecommerce.coupon.service.CouponService;
 import com.geecommerce.customer.model.Customer;
+import com.geecommerce.price.helper.PriceHelper;
+import com.geecommerce.price.pojo.PricingContext;
 import com.geecommerce.shipping.converter.ShippingPackageConverter;
 import com.geecommerce.shipping.model.ShippingItem;
 import com.geecommerce.shipping.model.ShippingOption;
@@ -61,15 +63,17 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
     private final CouponService couponService;
     private final CartService cartService;
     private final ShippingService shippingService;
+    private final PriceHelper priceHelper;
 
     @Inject
     public DefaultCart(CalculationService calculationService, CalculationHelper calculationHelper,
-        CouponService couponService, CartService cartService, ShippingService shippingService) {
+                       CouponService couponService, CartService cartService, ShippingService shippingService, PriceHelper priceHelper) {
         this.calculationService = calculationService;
         this.calculationHelper = calculationHelper;
         this.couponService = couponService;
         this.cartService = cartService;
         this.shippingService = shippingService;
+        this.priceHelper = priceHelper;
     }
 
     @Override
@@ -418,11 +422,21 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
     public Map<String, Object> toCalculationData() {
         Map<String, Object> calculationData = new HashMap<>();
 
+        List<Id> products = new ArrayList<>();
+        for(CartItem cartItem: getCartItems()){
+            products.add(cartItem.getProductId());
+        }
+        Id[] withProducts = products.toArray(new Id[products.size()]);
+        PricingContext pricingContext = priceHelper.getPricingContext(true);
+        for (Id productId: products){
+            pricingContext.setLinkedProductIds(productId, withProducts);
+        }
+
         if (!getActiveCartItems().isEmpty()) {
             List<Map<String, Object>> items = new ArrayList<>();
 
             for (CartItem cartItem : getActiveCartItems()) {
-                items.add(((CalculationItem) cartItem).toCalculationItem());
+                items.add(((CalculationItem) cartItem).toCalculationItem(pricingContext));
             }
 
             calculationData.put(CalculationData.FIELD.ITEMS, items);

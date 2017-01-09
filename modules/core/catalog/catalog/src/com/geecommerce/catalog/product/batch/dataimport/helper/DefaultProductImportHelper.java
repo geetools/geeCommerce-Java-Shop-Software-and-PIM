@@ -21,12 +21,12 @@ import com.google.inject.Singleton;
 @Helper
 public class DefaultProductImportHelper implements ProductImportHelper {
     protected List<String> validActions = Arrays.asList(new String[] { "N", "U", "D" });
-    protected List<String> validVariantFields = Arrays.asList(new String[] { "_action", "_id", "_id2", "_ean", "article_number", "_variant" });
+    protected List<String> validVariantFields = Arrays.asList(new String[] { "_action", "_id", "_id2", "_parent_id", "_ean", "article_number", "_variant" });
     protected List<String> validProgrammeFields = Arrays.asList(new String[] { "_action", "_id", "_id2", "_ean", "article_number", "_programme_product" });
     protected List<String> validBundleFields = Arrays.asList(new String[] { "_action", "_id", "_id2", "_ean", "article_number", "_bundle_product" });
     protected List<String> validUpsellFields = Arrays.asList(new String[] { "_action", "_id", "_id2", "_ean", "article_number", "_upsell" });
     protected List<String> validCrossSellFields = Arrays.asList(new String[] { "_action", "_id", "_id2", "_ean", "article_number", "_crosssell" });
-    protected Pattern isNumberRegex = Pattern.compile("^[0-1]+$");
+    protected Pattern isNumberRegex = Pattern.compile("^[0-9]+$");
 
     @Override
     public boolean actionExists(CSVRecord row) {
@@ -97,7 +97,7 @@ public class DefaultProductImportHelper implements ProductImportHelper {
 
     @Override
     public boolean variantExists(CSVRecord row) {
-        return row.isSet("_variant") && !Str.isEmpty(row.get("_variant"));
+        return row.isSet("_parent_id") && !Str.isEmpty(row.get("_parent_id"));
     }
 
     @Override

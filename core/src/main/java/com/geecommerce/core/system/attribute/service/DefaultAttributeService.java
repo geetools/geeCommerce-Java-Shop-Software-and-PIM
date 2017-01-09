@@ -86,7 +86,12 @@ public class DefaultAttributeService implements AttributeService {
 
     @Override
     public AttributeOption createAttributeOption(AttributeOption attributeOption) {
-        return attributeOptions.add(attributeOption);
+        AttributeOption ao = attributeOptions.add(attributeOption);
+
+        getAttribute(ao.getAttributeId()).setOptions(null);
+
+        refreshAttribute(ao.getAttributeId());
+        return ao;
     }
 
     @Override
@@ -97,6 +102,11 @@ public class DefaultAttributeService implements AttributeService {
     @Override
     public Attribute getAttribute(Id id) {
         return attributes.findById(Attribute.class, id);
+    }
+
+    @Override
+    public void refreshAttribute(Id id) {
+        attributes.findById(Attribute.class, id, QueryOptions.builder().refresh(true).build());
     }
 
     @Override

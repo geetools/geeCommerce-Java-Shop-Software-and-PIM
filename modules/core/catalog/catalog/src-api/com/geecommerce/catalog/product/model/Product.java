@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
+import com.geecommerce.core.enums.ProductSubType;
 import com.geecommerce.core.enums.ProductType;
 import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.DataSupport;
@@ -34,6 +35,10 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     public ProductType getType();
 
     public Product setType(ProductType type);
+
+    public ProductSubType getSubType();
+
+    public Product setSubType(ProductSubType subType);
 
     @JsonIgnore
     public boolean isValidForSelling();
@@ -180,7 +185,7 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     public String getMainImageURI();
 
     public String getMainThumbnailURI();
-    
+
     public CatalogMediaAsset getMainImage();
 
     @JsonIgnore
@@ -329,6 +334,7 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
         public static final String ID2 = "id2";
         public static final String EAN = "ean";
         public static final String TYPE = "type";
+        public static final String SUB_TYPE = "sub_type";
         public static final String GROUP = "group";
         public static final String SALEABLE = "saleable";
         public static final String VISIBLE = "visible";

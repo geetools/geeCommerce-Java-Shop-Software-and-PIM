@@ -946,7 +946,7 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
         if ((val == null && value != null) || (val != null && value == null))
             return false;
-
+        
         return value.equals(val);
     }
 

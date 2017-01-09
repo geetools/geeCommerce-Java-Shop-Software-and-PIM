@@ -38,7 +38,11 @@ public interface ImportHelper extends Helper {
 
     ContextObject toContextObject(Object value, Map<String, String> data);
 
+    ContextObject toContextObject(Object value, Map<String, String> data, boolean includeLanguage);
+
+    ContextObject updateContextObject(ContextObject<Object> ctxObj, Object value, Map<String, String> data, boolean includeLanguage);
+
     ContextObject updateContextObject(ContextObject<Object> ctxObj, Object value, Map<String, String> data);
 
-    ContextObject<?> removeFromContextObject(ContextObject<Object> ctxObj, Map<String, String> data);
+    ContextObject removeFromContextObject(ContextObject<Object> ctxObj, Map<String, String> data);
 }

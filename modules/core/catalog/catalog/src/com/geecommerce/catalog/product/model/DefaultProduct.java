@@ -14,12 +14,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.geecommerce.catalog.product.enums.BundleGroupType;
 import org.apache.logging.log4j.util.Strings;
 
 import com.geecommerce.catalog.product.MediaType;
 import com.geecommerce.catalog.product.ProductConstant;
 import com.geecommerce.catalog.product.elasticsearch.helper.ElasticsearchProductHelper;
+import com.geecommerce.catalog.product.enums.BundleGroupType;
 import com.geecommerce.catalog.product.repository.CatalogMedia;
 import com.geecommerce.catalog.product.repository.ProductConnectionIndexes;
 import com.geecommerce.catalog.product.repository.Products;
@@ -27,6 +27,7 @@ import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.elasticsearch.annotation.Indexable;
 import com.geecommerce.core.elasticsearch.api.SearchIndexSupport;
+import com.geecommerce.core.enums.ProductSubType;
 import com.geecommerce.core.enums.ProductType;
 import com.geecommerce.core.script.Groovy;
 import com.geecommerce.core.service.AbstractAttributeSupport;
@@ -81,6 +82,9 @@ public class DefaultProduct extends AbstractAttributeSupport
 
     @Column(Col.TYPE)
     protected ProductType type = null;
+
+    @Column(Col.SUB_TYPE)
+    protected ProductSubType subType = null;
 
     @Column(Col.SALEABLE)
     protected ContextObject<Boolean> saleable = null;
@@ -251,29 +255,44 @@ public class DefaultProduct extends AbstractAttributeSupport
         return this;
     }
 
+    @Override
+    @XmlAttribute
+    public ProductSubType getSubType() {
+        return subType == null ? ProductSubType.DEFAULT : subType;
+    }
+
+    @Override
+    public Product setSubType(ProductSubType subType) {
+        this.subType = subType;
+        return this;
+    }
+
     @JsonIgnore
     @Override
     public boolean isValidForSelling() {
         Boolean isValid = threadGet(this, "isValidForSelling");
 
         if (isValid == null) {
-            if(isBundle()){
+            if (isBundle()) {
 
-                //Main product should be sellable and visible
-                isValid = isSalable() /*&& isInStock() && visibilityFlagsOK(true)*/ /*&& hasValidPrice()*/;
+                // Main product should be sellable and visible
+                isValid = isSalable() /*
+                                       * && isInStock() &&
+                                       * visibilityFlagsOK(true)
+                                       */ /* && hasValidPrice() */;
 
-                //All mandatory items should be sellable
+                // All mandatory items should be sellable
 
-                for(BundleGroupItem group: bundleGroups){
-                    if(!group.isOptional()){
+                for (BundleGroupItem group : bundleGroups) {
+                    if (!group.isOptional()) {
 
-                        isValid  = isValid && group.hasItemsValidForSelling();
-                        if(group.getType().equals(BundleGroupType.LIST)) {
-                            isValid  = isValid && group.allItemsValidForSelling();
+                        isValid = isValid && group.hasItemsValidForSelling();
+                        if (group.getType().equals(BundleGroupType.LIST)) {
+                            isValid = isValid && group.allItemsValidForSelling();
                         } else {
-                            isValid  = isValid && group.hasItemsValidForSelling();
+                            isValid = isValid && group.hasItemsValidForSelling();
                         }
-                        if(!isValid)
+                        if (!isValid)
                             break;
                     }
                 }
@@ -951,7 +970,6 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     public Map<String, Object> getStockData() {
 
-
         return stocks.getStockData(getId(), app.context().getStore());
     }
 
@@ -1402,7 +1420,7 @@ public class DefaultProduct extends AbstractAttributeSupport
         List<Id> bundleProductIds = new ArrayList<>();
         if (bundleGroups != null && bundleGroups.size() > 0) {
             for (BundleGroupItem groupItem : bundleGroups) {
-                if(groupItem.getBundleItems() != null){
+                if (groupItem.getBundleItems() != null) {
                     bundleProductIds.addAll(groupItem.getBundleItems().stream().map(bundleProductItem -> bundleProductItem.getProductId()).collect(Collectors.toList()));
                 }
             }
@@ -1827,7 +1845,7 @@ public class DefaultProduct extends AbstractAttributeSupport
                 }
             } else if (isBundle() && getBundleProductIds() != null && getBundleProductIds().size() > 0) {
                 List<Map<String, Object>> bundleProducts = products.findDataByIds(Product.class,
-                        getBundleProductIds().toArray(new Id[getBundleProductIds().size()]),
+                    getBundleProductIds().toArray(new Id[getBundleProductIds().size()]),
                     QueryOptions.builder().fetchFields(Col.ID, Col.TYPE, Col.VARIANTS).build());
 
                 for (Map<String, Object> data : bundleProducts) {
@@ -1881,6 +1899,9 @@ public class DefaultProduct extends AbstractAttributeSupport
 
         if (map.get(Col.TYPE) != null)
             this.type = enum_(ProductType.class, map.get(Col.TYPE));
+
+        if (map.get(Col.SUB_TYPE) != null)
+            this.subType = enum_(ProductSubType.class, map.get(Col.SUB_TYPE));
 
         if (map.get(Col.SALEABLE) != null)
             this.saleable = ctxObj_(map.get(Col.SALEABLE));
@@ -1948,6 +1969,8 @@ public class DefaultProduct extends AbstractAttributeSupport
             map.put(Col.EAN, getEan());
 
         map.put(Col.TYPE, getType().toId());
+
+        map.put(Col.SUB_TYPE, getSubType().toId());
 
         if (getSaleable() != null)
             map.put(Col.SALEABLE, getSaleable());
@@ -2151,7 +2174,6 @@ public class DefaultProduct extends AbstractAttributeSupport
 
         if (bundleGroups != null)
             p.bundleGroups = new ArrayList<>(bundleGroups);
-
 
         if (assets != null)
             p.assets = new ArrayList<>(assets);

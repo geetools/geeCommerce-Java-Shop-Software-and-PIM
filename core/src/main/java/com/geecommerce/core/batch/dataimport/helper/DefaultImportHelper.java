@@ -304,21 +304,32 @@ public class DefaultImportHelper implements ImportHelper {
     }
 
     @Override
-    public ContextObject<?> toContextObject(Object value, Map<String, String> data) {
-        return updateContextObject(new ContextObject<>(), value, data);
+    public ContextObject toContextObject(Object value, Map<String, String> data) {
+        return updateContextObject(new ContextObject<>(), value, data, true);
     }
 
     @Override
-    public ContextObject<?> updateContextObject(ContextObject<Object> ctxObj, Object value, Map<String, String> data) {
+    public ContextObject toContextObject(Object value, Map<String, String> data, boolean includeLanguage) {
+        return updateContextObject(new ContextObject<>(), value, data, includeLanguage);
+    }
+
+    @Override
+    public ContextObject updateContextObject(ContextObject<Object> ctxObj, Object value, Map<String, String> data) {
+        return updateContextObject(ctxObj, value, data, true);
+    }
+
+    @Override
+    public ContextObject updateContextObject(ContextObject<Object> ctxObj, Object value, Map<String, String> data, boolean includeLanguage) {
         String _merchantId = data.get("_merchant");
         String _storeId = data.get("_store");
         String _requestContextId = data.get("_request_context");
         String _language = data.get("_language");
 
-        if (Str.isEmpty(_merchantId) && Str.isEmpty(_storeId) && Str.isEmpty(_requestContextId) && Str.isEmpty(_language)) {
+        if (Str.isEmpty(_merchantId) && Str.isEmpty(_storeId) && Str.isEmpty(_requestContextId) && Str.isEmpty(_language)
+            || (!includeLanguage && Str.isEmpty(_merchantId) && Str.isEmpty(_storeId) && Str.isEmpty(_requestContextId))) {
             ctxObj.addOrUpdateGlobal(value);
         } else {
-            if (Str.isEmpty(_language)) {
+            if (!includeLanguage || Str.isEmpty(_language)) {
                 if (!Str.isEmpty(_merchantId)) {
                     ctxObj.addOrUpdateForMerchant(merchantId(_merchantId), value);
                 }
@@ -353,7 +364,7 @@ public class DefaultImportHelper implements ImportHelper {
     }
 
     @Override
-    public ContextObject<?> removeFromContextObject(ContextObject<Object> ctxObj, Map<String, String> data) {
+    public ContextObject removeFromContextObject(ContextObject<Object> ctxObj, Map<String, String> data) {
         String _merchantId = data.get("_merchant");
         String _storeId = data.get("_store");
         String _requestContextId = data.get("_request_context");

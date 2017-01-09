@@ -179,6 +179,11 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
                 return cacheGet(modelClass, id, queryOptions);
             }
         }
+        
+        if (isCacheable && isRefresh) {
+            invalidateModelCache(modelClass);
+            invalidateQueryCaches(id);
+        }
 
         if (isCacheable && isFromCacheOnly)
             return modelObject;

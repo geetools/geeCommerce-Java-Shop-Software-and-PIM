@@ -8,6 +8,7 @@ import com.geecommerce.core.App;
 import com.geecommerce.core.Str;
 import com.geecommerce.core.batch.dataimport.model.ImportFieldScriptlet;
 import com.geecommerce.core.batch.dataimport.model.ImportProfile;
+import com.geecommerce.core.batch.dataimport.model.ImportToken;
 import com.geecommerce.core.batch.dataimport.repository.ImportFieldScriptlets;
 import com.geecommerce.core.batch.dataimport.repository.ImportProfiles;
 import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
@@ -28,7 +29,7 @@ public class DefaultImportExportService implements ImportExportService {
     protected final AttributeService attributeService;
 
     protected List<String> systemFields = Arrays
-        .asList(new String[] { "_action", "_id", "_scope_type", "_scope_code", "_scope_type", "_merchant", "_store", "_view", "_request_context", "_language" });
+        .asList(new String[] { "_action", "_id", "_parent_id", "_type", "_sub_type", "_scope_code", "_scope_type", "_merchant", "_store", "_view", "_request_context", "_language" });
 
     @Inject
     protected App app;
@@ -77,6 +78,12 @@ public class DefaultImportExportService implements ImportExportService {
         return importFieldScriptlets.add(importFieldScriptlet);
     }
 
+
+    @Override
+    public ImportToken getImportToken(String token) {
+        return importTokens.havingToken(token);
+    }
+    
     @Override
     public ImportProfile getImportProfile(String token) {
         return importProfiles.havingToken(token);

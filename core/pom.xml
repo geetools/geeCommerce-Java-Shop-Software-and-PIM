@@ -305,6 +305,11 @@
 		    <artifactId>zt-zip</artifactId>
 		    <version>1.10</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.atlassian.commonmark</groupId>
+		    <artifactId>commonmark</artifactId>
+		    <version>0.8.0</version>
+		</dependency>
 	</dependencies>
 
 </project>

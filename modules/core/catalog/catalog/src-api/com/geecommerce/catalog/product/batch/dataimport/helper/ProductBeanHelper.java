@@ -13,4 +13,6 @@ public interface ProductBeanHelper extends Helper {
     void setProductKeys(Product product, Map<String, String> data);
 
     void setTypeAndGroup(Product product, Map<String, String> data);
+
+    void setAttributeValue(Product product, String attributeCode, String value, Map<String, String> data);
 }

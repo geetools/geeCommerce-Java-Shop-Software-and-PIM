@@ -40,8 +40,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute-tabs', 'gc-attribute
                 newAttributeTab.enabled = self.attributeTabVM.enabled();
 
                 attrTabAPI.createAttributeTab(newAttributeTab).then(function(savedAttributeTab) {
-                    toolbar.hide();
-
+                    context.saved();
+                    
                     self.attributeTabVM.id(savedAttributeTab.id);
 
                     // --------------------------------------------------------

@@ -4,9 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Num {
-    private static final Pattern isNumericPattern = Pattern.compile("-?\\d+(\\.\\d+)?");
-    private static final Pattern isWholeNumberPattern = Pattern.compile("-?\\d+");
-    private static final Pattern isDecimalNumberPattern = Pattern.compile("-?\\d+\\.d+");
+    private static final Pattern isNumericPattern = Pattern.compile("^-?\\d+(\\.\\d+)?$");
+    private static final Pattern isWholeNumberPattern = Pattern.compile("^-?\\d+$");
+    private static final Pattern isUnsignedWholeNumberPattern = Pattern.compile("^\\d+$");
+    private static final Pattern isDecimalNumberPattern = Pattern.compile("^-?\\d+\\.d+$");
 
     public static boolean isNumeric(String str) {
         Matcher m = isNumericPattern.matcher(str);
@@ -15,6 +16,11 @@ public class Num {
 
     public static boolean isWholeNumber(String str) {
         Matcher m = isWholeNumberPattern.matcher(str);
+        return m.matches();
+    }
+
+    public static boolean isUnsignedWholeNumberPattern(String str) {
+        Matcher m = isUnsignedWholeNumberPattern.matcher(str);
         return m.matches();
     }
 

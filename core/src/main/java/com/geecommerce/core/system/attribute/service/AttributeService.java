@@ -25,6 +25,8 @@ public interface AttributeService extends Service {
 
     public List<AttributeOption> createAttributeOptions(List<AttributeOption> options);
 
+    public void refreshAttribute(Id id);
+    
     public Attribute getAttribute(Id id);
 
     public Attribute getAttribute(Id attrTargetObjectId, String code);

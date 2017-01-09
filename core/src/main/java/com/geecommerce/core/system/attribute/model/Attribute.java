@@ -319,7 +319,11 @@ public interface Attribute extends MultiContextModel {
 
     public AttributeOption getOptionWithGlobalLabel(String globalLabel);
 
+    public AttributeOption getOption(String language, String label);
+
     public boolean hasOptionWithGlobalLabel(String globalLabel);
+    
+    public boolean hasOption(String language, String label);
 
     public Attribute setSearchFilterOptions(boolean includeInSearchFilter, FilterType searchFilterInputType,
         boolean searchFilterMulti, int searchFilterPosition);

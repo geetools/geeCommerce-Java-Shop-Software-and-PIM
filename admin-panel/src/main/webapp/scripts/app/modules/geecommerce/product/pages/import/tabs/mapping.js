@@ -23,7 +23,14 @@ define([
 
     ProductImportMappingController.prototype = {
         constructor : ProductImportMappingController,
-        nextTab : function(viewModel, event) {
+        doImport : function(viewModel, event) {
+            var self = this;
+            
+            console.log('################################### DO IMPORT !!! --------------- ', self.importVM().profile());
+            console.log('################################### DO IMPORT !!! --------------- ', self.importVM().profile().token);
+            
+            productAPI.startImport(self.importVM().profile().token);
+            
         },
         activate : function(data) {
             var self = this;

@@ -1,6 +1,8 @@
 package com.geecommerce.catalog.product.rest.v1;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,18 +26,29 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.geecommerce.catalog.product.model.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.elasticsearch.index.query.FilterBuilder;
 
+import com.geecommerce.catalog.product.batch.dataimport.helper.ProductBeanHelper;
+import com.geecommerce.catalog.product.batch.dataimport.helper.ProductImportHelper;
 import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
+import com.geecommerce.catalog.product.model.BundleGroupItem;
+import com.geecommerce.catalog.product.model.CatalogMediaAsset;
+import com.geecommerce.catalog.product.model.CatalogMediaType;
+import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.repository.Products;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
+import com.geecommerce.core.Num;
 import com.geecommerce.core.Str;
 import com.geecommerce.core.batch.dataimport.helper.ImportHelper;
+import com.geecommerce.core.batch.dataimport.model.ImportProfile;
+import com.geecommerce.core.batch.dataimport.model.ImportToken;
 import com.geecommerce.core.batch.dataimport.repository.ImportTokens;
 import com.geecommerce.core.batch.service.ImportExportService;
 import com.geecommerce.core.elasticsearch.api.search.SearchResult;
@@ -43,6 +56,7 @@ import com.geecommerce.core.elasticsearch.helper.ElasticsearchHelper;
 import com.geecommerce.core.elasticsearch.search.SearchParams;
 import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
 import com.geecommerce.core.enums.ObjectType;
+import com.geecommerce.core.enums.ProductType;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractResource;
 import com.geecommerce.core.rest.jersey.inject.FilterParam;
@@ -53,7 +67,9 @@ import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.service.CopySupport;
 import com.geecommerce.core.service.QueryMetadata;
 import com.geecommerce.core.service.QueryOptions;
+import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
+import com.geecommerce.core.system.attribute.model.AttributeTargetObject;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.system.attribute.service.AttributeService;
 import com.geecommerce.core.system.helper.UrlRewriteHelper;
@@ -95,8 +111,11 @@ public class ProductResource extends AbstractResource {
 
     @Inject
     public ProductResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
-                           ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
-                           UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository, AttributeService attributeService, CatalogMediaHelper catalogMediaHelper1, ProductHelper productHelper1, UrlRewrites urlRewrites1, UrlRewriteHelper urlRewriteHelper1, ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens, QueryHelper queryHelper1, ElasticsearchService elasticsearchService1, ElasticsearchHelper elasticsearchHelper1, Products productRepository1) {
+        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+        UrlRewriteHelper urlRewriteHelper, QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper, Products productRepository,
+        AttributeService attributeService, CatalogMediaHelper catalogMediaHelper1, ProductHelper productHelper1, UrlRewrites urlRewrites1, UrlRewriteHelper urlRewriteHelper1,
+        ImportExportService importExportService, ImportHelper importHelper, ImportTokens importTokens, QueryHelper queryHelper1, ElasticsearchService elasticsearchService1,
+        ElasticsearchHelper elasticsearchHelper1, Products productRepository1) {
         this.service = service;
 
         this.attributeService = attributeService;
@@ -135,9 +154,8 @@ public class ProductResource extends AbstractResource {
 
         if (storeHeaderExists())
             queryOptions = QueryOptions.builder(queryOptions)
-                    .limitAttributeToStore("status_description", getStoreFromHeader())
-                    .limitAttributeToStore("status_article", getStoreFromHeader()).build();
-
+                .limitAttributeToStore("status_description", getStoreFromHeader())
+                .limitAttributeToStore("status_article", getStoreFromHeader()).build();
 
         FilterBuilder filterBuilder = queryHelper.buildQuery(filter.getQuery());
         List<FilterBuilder> builders = new ArrayList<>();
@@ -150,14 +168,13 @@ public class ProductResource extends AbstractResource {
         Id[] ids = elasticsearchHelper.toIds(productsResult.getDocumentIds().toArray());
 
         List<Product> products = new ArrayList<>();
-        if(ids != null && ids.length > 0) {
+        if (ids != null && ids.length > 0) {
             products = productRepository.findByIds(Product.class, ids, queryOptions);
         }
 
         app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
         return ok(products);
     }
-
 
     @GET
     @Path("{id}")
@@ -363,12 +380,11 @@ public class ProductResource extends AbstractResource {
         return ok(bundleGroups);
     }
 
-
     @POST
     @Path("{bundleProductId}/bundle-groups")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void setBundleGroups(@PathParam("bundleProductId") Id id,  List<Map<String, Object>> mapBundleGroupItems) {
-        if (id != null ) {
+    public void setBundleGroups(@PathParam("bundleProductId") Id id, List<Map<String, Object>> mapBundleGroupItems) {
+        if (id != null) {
             List<BundleGroupItem> bundleGroupItems = null;
             if (mapBundleGroupItems != null && mapBundleGroupItems.size() > 0) {
                 bundleGroupItems = new ArrayList<>();
@@ -387,11 +403,9 @@ public class ProductResource extends AbstractResource {
             service.update(bundleProduct);
         } else {
             throwBadRequest(
-                    "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}/{qty}");
+                "bundleProductId and childProductId cannot be null in requestURI. Expecting: products/{bundleProductId}/bundle-products/{childProductId}/{qty}");
         }
     }
-
-
 
     @GET
     @Path("{id}/prices")
@@ -1157,5 +1171,108 @@ public class ProductResource extends AbstractResource {
             urlRewrite = app.model(UrlRewrite.class);
         }
         return ok(checked(urlRewrite));
+    }
+
+    @POST
+    @Path("imports/{token}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response importProducts(@PathParam("token") String token) {
+
+        ImportProfile importProfile = app.service(ImportExportService.class).getImportProfile(token);
+        ImportToken importToken = app.service(ImportExportService.class).getImportToken(token);
+
+        System.out.println(importToken.getFilePath());
+
+        File f = new File(importToken.getFilePath());
+
+        if (f.exists()) {
+
+            try {
+                Set<String> headers = importHelper.fetchHeaders(f.getAbsolutePath());
+
+                AttributeTargetObject targetObj = attributeService.getAttributeTargetObjectByCode("product");
+
+                CSVFormat csvFileFormat = CSVFormat.EXCEL.withHeader().withDelimiter(Char.SEMI_COLON);
+                FileReader fileReader = new FileReader(f.getAbsolutePath());
+                CSVParser csvFileParser = new CSVParser(fileReader, csvFileFormat);
+                List<CSVRecord> csvRecords = csvFileParser.getRecords();
+
+                ProductImportHelper productImportHelper = app.helper(ProductImportHelper.class);
+                ProductBeanHelper productBeanHelper = app.helper(ProductBeanHelper.class);
+
+                for (CSVRecord csvRecord : csvRecords) {
+                    if (productImportHelper.isEmpty(csvRecord)) {
+                        continue;
+                    }
+
+                    boolean eanExists = (csvRecord.isSet("ean") && !Str.isEmpty(csvRecord.get("ean")));
+                    boolean articleNumberExists = (csvRecord.isSet("article_number") && !Str.isEmpty(csvRecord.get("article_number")));
+
+                    if (!articleNumberExists)
+                        continue;
+
+                    Product p = productRepository.havingArticleNumber(csvRecord.get("article_number"));
+
+                    if (p != null)
+                        continue;
+
+                    p = app.model(Product.class);
+
+                    if (eanExists)
+                        p.setEan(Long.parseLong(csvRecord.get("ean")));
+
+                    Map<String, String> data = csvRecord.toMap();
+
+                    productBeanHelper.setProductKeys(p, data);
+                    productBeanHelper.setTypeAndGroup(p, data);
+                    productBeanHelper.setVisibility(p, data);
+                    productBeanHelper.setSaleable(p, data);
+
+                    for (String header : headers) {
+                        String _header = header.trim();
+
+                        // ImportFieldScriptlet importFieldScriptlet =
+                        // importFieldScriptlets.havingFieldName(attrTargetObject,
+                        // _header);
+
+                        if (!header.startsWith(Str.UNDERSCORE)) {
+                            Attribute attr = attributeService.getAttribute(targetObj, _header);
+
+                            if (attr != null) {
+                                String value = data.get(_header);
+
+                                if (!Str.isEmpty(value)) {
+                                    productBeanHelper.setAttributeValue(p, attr.getCode(), value, data);
+                                }
+                            }
+                        }
+                    }
+
+                    setStatuses(p);
+
+                    productRepository.add(p);
+
+                    if (productImportHelper.isAddVariant(csvRecord)) {
+                        String parentId = csvRecord.get("_parent_id");
+
+                        Product parentProduct = productRepository.havingArticleNumber(parentId);
+
+                        if (parentProduct == null && Num.isUnsignedWholeNumberPattern(parentId))
+                            parentProduct = productRepository.findById(Product.class, Id.valueOf(parentId));
+
+                        if (parentProduct != null && ProductType.VARIANT_MASTER == parentProduct.getType()) {
+                            parentProduct.addVariant(p);
+                            productRepository.update(parentProduct);
+                        }
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return ok();
     }
 }

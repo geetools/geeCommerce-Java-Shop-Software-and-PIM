@@ -965,7 +965,11 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
     @Override
     public List<AttributeOption> getOptions() {
-        return options;
+        if(this.options == null) {
+            this.options = attributeOptions.thatBelongTo(this);
+        }
+        
+        return this.options;
     }
 
     @Override
@@ -1121,6 +1125,21 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     }
 
     @Override
+    public AttributeOption getOption(String language, String label) {
+        if (this.options == null)
+            return null;
+
+        for (AttributeOption option : this.options) {
+            ContextObject<String> oLabel = option.getLabel();
+
+            if (option != null && oLabel != null && oLabel.valueExistsFor(language, label))
+                return option;
+        }
+
+        return null;
+    }
+
+    @Override
     public boolean hasOptionWithGlobalLabel(String globalLabel) {
         if (this.options == null)
             return false;
@@ -1129,6 +1148,23 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
             ContextObject<String> label = option.getLabel();
 
             if (option != null && label != null && label.globalValueExists(globalLabel))
+                return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean hasOption(String language, String label) {
+        List<AttributeOption> _options = getOptions();
+        
+        if (_options == null)
+            return false;
+
+        for (AttributeOption option : _options) {
+            ContextObject<String> oLabel = option.getLabel();
+            
+            if (option != null && oLabel != null && oLabel.valueExistsFor(language, label))
                 return true;
         }
 

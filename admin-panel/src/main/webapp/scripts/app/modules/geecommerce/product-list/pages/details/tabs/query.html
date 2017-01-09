@@ -17,7 +17,148 @@
     <div class="form-group">
         <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.conditionsTabConditions">Conditions</label>
         <div class="col-sm-9">
-            <div data-bind="queryBuilder: { value: productListVM.queryNode, displayMode: 'inline'}"> </div>
+            <div data-bind='template: {name:"queryNode", data: productListVM.queryNode}'></div>
+
+            <script id='queryNode' type='text/html'>
+                <!-- ko if: type() === 'BOOLEAN' -->
+                <div style="display: inline;line-height:30px" data-bind='template: {name:"queryBooleanNode", data: $data}'></div>
+                <!-- /ko -->
+                <!-- ko if: type() === 'ATTRIBUTE' -->
+                <li style="display: inline;line-height:30px" data-bind='template: {name:"queryAttributeNode", data: $data}'> </li>
+                <!-- /ko -->
+            </script>
+
+
+            <script id='queryAttributeNode' type='text/html'>
+                <!-- ko ifnot: attrVal() -->
+                <span style="display: inline;line-height:30px" class="form-control  form-control-small"
+                      data-bind="editable: attrCode, editableOptions:{type:'select', showbuttons: false, options: $root.productListVM.attributeValues,
+                    optionsText: 'label',
+                    optionsValue: 'code'}"></span>
+                <!-- /ko -->
+                <!-- ko if: attrVal() -->
+                <!-- ko if: attrVal().isEditable -->
+
+                <!-- ko if: attrVal().isOption && !_.isEmpty(attrVal().selectOptions()) && !attrVal().isMultiple -->
+                <div style="display: inline;line-height:30px" class="form-group">
+                    <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class=" control-label"></label>
+                    <div  style="display: inline;line-height:30px" class="">
+                        <select class="selectpicker" title="auswählen" data-bind="select: attrVal().value, data: attrVal().selectOptions">
+                        </select>
+                        <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /ko -->
+                <!-- ko if: attrVal().isOption && !_.isEmpty(attrVal().selectOptions()) && attrVal().isMultiple -->
+                <div style="display: inline;line-height:30px" class="form-group">
+                    <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="control-label"></label>
+                    <div  style="display: inline;line-height:30px" class="">
+                        <select class="selectpicker show-tick" multiple data-bind="select: attrVal().value, data: attrVal().selectOptions, selectOptions: { size: 10 }">
+                        </select>
+                        <i class="fa fa-check-square" style="margin-left:5px;"></i><i class="fa fa-check-square" style="margin-left:3px;"></i>
+                        <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /ko -->
+                <!-- ko if: attrVal().frontendInput == 'BOOLEAN' && attrVal().isShowField -->
+                <div style="display: inline;line-height:30px" class="form-group">
+                    <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="control-label"></label>
+                    <div  style="display: inline;line-height:30px" class="switch-wrapper">
+                        <input type="checkbox" data-bind="i18nBool: attrVal().value" />
+                        <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: attrVal().frontendInput == 'RICHTEXT' && attrVal().isShowField -->
+                <div style="display: inline;line-height:30px" class="form-group">
+                    <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="col-sm-3 control-label"></label>
+                    <div  style="display: inline;line-height:30px" class="col-sm-9 switch-wrapper">
+                        <div data-bind="i18nEditor: {value: attrVal().value, id: 'inpAttr_' + attrVal().code, preBind: attrVal().unjsonDescriptionPanels, enabled: attrVal.isEnabled, editable: attrVal.isEditable}"></div>
+                    </div>
+                    <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: !attrVal().isOption && attrVal().frontendInput != 'BOOLEAN' && attrVal().frontendInput != 'RICHTEXT' && attrVal().isShowField -->
+                <div style="display: inline;line-height:30px" class="form-group">
+                    <label  style="display: inline;line-height:30px" data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="control-label"></label>
+                    <div  style="display: inline;line-height:30px" class="">
+                        <!-- ko if: attrVal().isI18n -->
+                        <div  style="display: inline;line-height:30px" class="input-group">
+                            <span  style="display: inline;line-height:30px" class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                            <input  style="display: inline;line-height:30px" data-bind="i18nValue: attrVal().value" class="form-control" type="text" required />
+                            <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: !attrVal().isI18n -->
+                        <input  style="display: inline;line-height:30px;width:202px" class="form-control" type="text" data-bind="ctxValue: attrVal().value" />
+                        <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+
+                </div>
+                <!-- /ko -->
+
+                <!-- /ko -->
+
+                <!-- ko if: !attrVal().isEditable && attrVal().isShowField -->
+                <div  style="display: inline;line-height:30px" class="form-group">
+                    <label data-bind="i18nText: { value: attrVal().backendLabel, mode: 'any' }, attr: { for: 'inpAttr_' + attrVal().code}" class="control-label"></label>
+                    <div  style="display: inline;line-height:30px" class="">
+                        <!-- ko if: attrVal().isI18n -->
+                        <div  style="display: inline;line-height:30px" class="input-group">
+                            <span  style="display: inline;line-height:30px" class="input-group-addon" data-bind="text: $root.app.currentLang()"></span>
+                            <input  style="display: inline;line-height:30px" class="dynattr-readonly" data-bind="i18nValue: attrVal().value" class="form-control" type="text" readonly />
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: !attrVal().isI18n -->
+                        <input class="form-control dynattr-readonly" data-bind="ctxValue: attrVal().value" readonly />
+                        <!-- /ko -->
+                    </div>
+                    <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </div>
+                </div>
+                <!-- /ko -->                <!-- /ko -->
+
+            </script>
+
+
+            <script id='queryBooleanNode' type='text/html'>
+                <span data-bind="text: $root.ofTheseConditionsAreP1">1</span> <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                                                                                    data-bind="editable: operator,  editableOptions:{type:'select', showbuttons: false, options: $root.operatorChoice,
+				optionsText: 'label',
+				optionsValue: 'value'}"></span> <span data-bind="text: $root.ofTheseConditionsAreP2">2</span> True <span data-bind="text: $root.ofTheseConditionsAreP3">3</span>
+                <!-- ko if: parent() !== null -->
+                <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </div>
+                <!-- /ko -->
+                <ul style="list-style-type: none;">
+                    <div data-bind='template: {name:"queryNode", foreach: nodes}'>
+
+                    </div>
+                    <div data-bind="editable: newNodeType,  editableOptions:{type:'select', options: $root.nodeTypeChoice,
+				optionsText: 'label', optionsValue: 'value', hidden: addNode, noHTML:'true'}">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </div>
+                </ul>
+
+            </script>
+
         </div>
     </div>
 

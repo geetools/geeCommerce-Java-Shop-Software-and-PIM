@@ -78,14 +78,13 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                 });
             })
 
-			console.log('DISABLE', productsToDisable)
-            console.log('PRODUCTS', products)
             disableOptions(productsToDisable);
 
         }
         
         function disableOptions(productsToDisable) {
                 var productsToEnable = [];
+
 
                 _.each($(".bundle-group"), function (bundleGroup) {
                     if ($(bundleGroup).attr("group-type") == "RADIOBUTTON" || $(bundleGroup).attr("group-type") == "CHECKBOX") {
@@ -145,13 +144,21 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
             if ($(".bundle-config").length) {
 
+                var bundleMap = {};
+                var bundleId =  $(".bundle-config").attr('bundle-id');
+
                 _.each($(".bundle-group"), function (bundleGroup) {
 
+                    var bundleId = $(bundleGroup).attr("group-id");
+                    bundleMap[bundleId] = [];
+
                     if ($(bundleGroup).attr("group-type") == "LIST") {
-                        $(bundleGroup).find('input[name=selectedVariant]').each(function () {
+                        $(bundleGroup).find('input[name=selectedVariant]', 'input[name=bundleProduct]').each(function () {
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
 
                                 if($productItem.attr('bundle_master_option')){
                                     products.push($productItem.attr('bundle_master_option'));
@@ -166,6 +173,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
                         if ($productItem.val()) {
                             products.push($productItem.val());
+
+                            bundleMap[bundleId].push($productItem.val());
+
                             if($productItem.attr('bundle_master_option')){
                                 products.push($productItem.attr('bundle_master_option'));
                             }
@@ -179,6 +189,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(productItem);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
                                 if($productItem.attr('bundle_master_option')){
                                     products.push($productItem.attr('bundle_master_option'));
                                 }
@@ -191,6 +204,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
                                 if($productItem.attr('bundle_master_option')){
                                     products.push($productItem.attr('bundle_master_option'));
                                 }
@@ -205,6 +221,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
                                 if($productItem.attr('bundle_master_option')){
                                     products.push($productItem.attr('bundle_master_option'));
                                 }
@@ -214,6 +233,15 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                     }
 
                 })
+
+
+
+                console.log("BUNDLE", bundleMap)
+                catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
+                    console.log("DATA", data);
+
+                })
+
                 return products;
             }
         }

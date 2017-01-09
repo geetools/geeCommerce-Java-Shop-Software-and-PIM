@@ -1,14 +1,8 @@
 package com.geecommerce.catalog.product.rest.web.v1;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -16,9 +10,7 @@ import com.geecommerce.catalog.product.dao.ProductDao;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
-import com.geecommerce.catalog.product.model.CatalogMediaAsset;
-import com.geecommerce.catalog.product.model.CatalogMediaType;
-import com.geecommerce.catalog.product.model.Product;
+import com.geecommerce.catalog.product.model.*;
 import com.geecommerce.core.media.MimeType;
 import com.geecommerce.core.rest.AbstractWebResource;
 import com.geecommerce.core.rest.jersey.inject.FilterParam;
@@ -202,6 +194,50 @@ public class ProductWebResource extends AbstractWebResource {
             urlRewrite = app.model(UrlRewrite.class);
         }
         return ok(checked(urlRewrite));
+    }
+
+    @POST
+    @Path("{id}/bundle-prices")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getBundlePrices(@PathParam("id") Id id, Map<Id, List<Id>> bundle) {
+        Product bundleProduct = checked(service.get(Product.class, id));
+
+        Map<Id, Integer> originalMap = new HashMap<>();
+
+        for(Id groupId : bundle.keySet()){
+
+            Optional<BundleGroupItem> group = bundleProduct.getBundleGroups().stream().filter(g-> g.getId().equals(groupId)).findFirst();
+
+            if(group.isPresent()) {
+                List<Id> products = bundle.get(groupId);
+
+                for (Id productId : products) {
+                    BundleProductItem item = group.get().getItemByProduct(productId);
+
+                    originalMap.put(productId, item.getQuantity());
+                }
+            }
+        }
+
+
+
+        //map <id, int >
+
+
+
+
+
+
+
+        System.out.println(bundle);
+        //Map<String, Object> variantsMap = productHelper.toVariantsMap(p);
+
+        //return ok(variantsMap);
+        return ok();
+    }
+
+    private Double calculateBundlePrice( Map<Id, Integer> productQuantityMap){
+        return null;
     }
 
 }

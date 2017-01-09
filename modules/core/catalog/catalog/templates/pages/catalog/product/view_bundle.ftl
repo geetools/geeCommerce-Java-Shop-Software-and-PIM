@@ -1,8 +1,8 @@
-<div class="bundle-config">
+<div class="bundle-config" bundle-id="${product.id?string}">
 
 	<#list product.bundleGroups as bundleGroup>
 		<#if bundleGroup.showInProductDetails >
-			<div class="bundle-group row" group-type="${bundleGroup.type}">
+			<div class="bundle-group row" group-type="${bundleGroup.type}" group-id="${bundleGroup.id?string}">
 				<div class="bundle-group-label"><@print src=bundleGroup value="bundleGroup.label.str" /></div>
 
 		<#--		cms_product_variants-->
@@ -19,8 +19,15 @@
 								<@cms_product_variants product_id="${bundleItem.product.id}" />
                             </div>
 						<#else>
-						</#if>
+                            <div class="col-xs-12 col-sm-7">
+								<@cms_product_carousel product_id="${bundleItem.product.id}" />
+                            </div>
+                            <div class="col-xs-12 col-sm-5">
+								<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
+                            </div>
 
+							<input type="hidden" name="bundleProduct" value="${bundleItem.product.id}" qty="${bundleItem.quantity}">
+						</#if>
 					</div>
 				</#list>
 			</#if>
@@ -97,7 +104,7 @@
 				</#if>
 
 
-				<#if bundleGroup.type?string == 'RADIOBUTTON' >
+				<#if bundleGroup.type?string == 'RADIOBUTTON'>
 					<#if bundleGroup.optional>
 						<input type="radio" class="bundle-item" name="group_${bundleGroup.id}" value=""> none </br>
 					</#if>
@@ -105,7 +112,7 @@
 						<#if bundleItem.product.variantMaster >
 							<#list  bundleItem.product.variants as variantProduct>
 								<#if variantProduct.validForSelling >
-									<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
+									<#if bundleItem.selected?? && bundleItem.selected && bundleItem.defaultProductId?string == variantProduct.id?string >
                                         <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>
 									<#else>
                                         <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <br/>

@@ -1,4 +1,4 @@
-define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'customer-review/utils/common', 'catalog/utils/media', 'page/media', 'page/variants', 'jquery-magnific-popup', 'jquery-slick', 'page/bundle'], function ($, Bootstrap, gc, catalogAPI, customerReviewAPI, customerReviewUtil, mediaUtil, pageMedia, pageVariants, pageBundle) {
+define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'customer-review/utils/common', 'catalog/utils/media', 'page/media', 'page/variants', 'price/utils/common', 'jquery-magnific-popup', 'jquery-slick'], function ($, Bootstrap, gc, catalogAPI, customerReviewAPI, customerReviewUtil, mediaUtil, pageMedia, pageVariants, priceUtil ) {
 
 	function ProductVM() {
 		var self = this;
@@ -236,9 +236,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 
 
-                console.log("BUNDLE", bundleMap)
                 catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
-              //      console.log("DATA", data);
+                           console.log("DATA", data);
+                           setBundlePrices(data.data.results);
 
                 })
 
@@ -247,6 +247,53 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
         }
 
 
+        function setBundlePrices(priceResult) {
+            var cartPrice = priceResult["cart"];
+            if(cartPrice)
+                cartPrice = cartPrice[0];
+
+            if(!$(".prd-bundle-price").length){
+                setTimeout( function () {
+                    $(".prd-bundle-price").html(priceUtil.formatPrice(cartPrice));
+                }, 1000)
+            }
+
+            $(".prd-bundle-price").html(priceUtil.formatPrice(cartPrice));
+
+            _.each($(".bundle-group"), function (bundleGroup) {
+
+                var bundleGroupId =  $(bundleGroup).attr("group-id");
+
+                var groupPriceResult = priceResult[bundleGroupId];
+
+                if ($(bundleGroup).attr("group-type") == "RADIOBUTTON" || $(bundleGroup).attr("group-type") == "CHECKBOX") {
+
+                    $(bundleGroup).find("input").each(function () {
+                        var product = $(this).val();
+
+                        if($(this).is(":disabled")) {
+                            $(".bundle-item-price[bundle_option=" + product +"]").html("");
+                        } else {
+                            $(".bundle-item-price[bundle_option=" + product +"]").html(priceUtil.formatPrice(groupPriceResult[product]));
+                        }
+                    });
+                }
+
+                if($(bundleGroup).attr("group-type") == "SELECT" || $(bundleGroup).attr("group-type") == "MULTISELECT" ){
+                    $(bundleGroup).find('option').each(function(){
+
+                        var product = $(this).val();
+                        if($(this).is(":disabled")) {
+                            $(this).text($(this).attr('original-text'));
+                        } else {
+                            $(this).text($(this).attr('original-text') + " " + priceUtil.formatPrice(groupPriceResult[product]));
+                        }
+                    });
+
+                }
+
+            })
+        }
     }
 
 

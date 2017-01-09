@@ -43,6 +43,8 @@ public interface BundleGroupItem extends Model {
 
     public List<Product> getValidProducts();
 
+    public boolean isMultiselect();
+
     static final class Col {
         public static final String ID = "_id";
         public static final String LABEL = "label";

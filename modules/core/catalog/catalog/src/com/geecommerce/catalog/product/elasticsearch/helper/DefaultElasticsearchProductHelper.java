@@ -172,7 +172,7 @@ public class DefaultElasticsearchProductHelper implements ElasticsearchProductHe
                 finalPrice = priceResult.getLowestFinalPrice();
             }
 
-            if (finalPrice == null && !product.isProgramme()) {
+            if (finalPrice == null && !product.isProgramme() && !product.isBundle()) {
                 isVisible = false;
                 json.put(FIELD_KEY_IS_VISIBLE, isVisible);
             }

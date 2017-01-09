@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.geecommerce.catalog.product.dao.ProductDao;
+import com.geecommerce.catalog.product.enums.BundleGroupType;
 import com.geecommerce.catalog.product.helper.CatalogMediaHelper;
 import com.geecommerce.catalog.product.helper.ProductHelper;
 import com.geecommerce.catalog.product.helper.ProductUrlHelper;
@@ -23,7 +24,9 @@ import com.geecommerce.core.system.repository.UrlRewrites;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.inventory.model.InventoryItem;
 import com.geecommerce.inventory.service.StockService;
+import com.geecommerce.price.helper.PriceHelper;
 import com.geecommerce.price.model.Price;
+import com.geecommerce.price.pojo.PricingContext;
 import com.geecommerce.price.service.PriceService;
 import com.google.inject.Inject;
 
@@ -36,11 +39,13 @@ public class ProductWebResource extends AbstractWebResource {
     private final UrlRewrites urlRewrites;
     private final UrlRewriteHelper urlRewriteHelper;
     private final ProductDao productDao;
+    private final PriceService priceService;
+    private final PriceHelper priceHelper;
 
     @Inject
     public ProductWebResource(RestService service, CatalogMediaHelper catalogMediaHelper, ProductHelper productHelper,
-        ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
-        UrlRewriteHelper urlRewriteHelper) {
+                              ProductUrlHelper productUrlHelper, UrlRewrites urlRewrites, ProductDao productDao,
+                              UrlRewriteHelper urlRewriteHelper, PriceService priceService, PriceHelper priceHelper) {
         this.service = service;
         this.catalogMediaHelper = catalogMediaHelper;
         this.productHelper = productHelper;
@@ -48,6 +53,8 @@ public class ProductWebResource extends AbstractWebResource {
         this.urlRewrites = urlRewrites;
         this.productDao = productDao;
         this.urlRewriteHelper = urlRewriteHelper;
+        this.priceService = priceService;
+        this.priceHelper = priceHelper;
     }
 
     @GET
@@ -199,45 +206,154 @@ public class ProductWebResource extends AbstractWebResource {
     @POST
     @Path("{id}/bundle-prices")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getBundlePrices(@PathParam("id") Id id, Map<Id, List<Id>> bundle) {
+    public Response getBundlePrices(@PathParam("id") Id id, Map<String, List<String>> bundle) {
         Product bundleProduct = checked(service.get(Product.class, id));
 
-        Map<Id, Integer> originalMap = new HashMap<>();
+        Map<Id, Integer> originalMap = collectItems(bundleProduct, bundle, null);
+        Double basePrice = calculateBundlePrice(originalMap);
 
-        for(Id groupId : bundle.keySet()){
+        Map<String, Map<Id, Double>> prices = new HashMap<>();
 
+        prices.put("cart", new HashMap<>());
+        prices.get("cart").put(Id.parseId("0"), basePrice);
+
+        for(String groupIdStr : bundle.keySet()){
+
+            Id groupId = Id.parseId(groupIdStr);
             Optional<BundleGroupItem> group = bundleProduct.getBundleGroups().stream().filter(g-> g.getId().equals(groupId)).findFirst();
 
-            if(group.isPresent()) {
-                List<Id> products = bundle.get(groupId);
+            if(group.isPresent() && !group.get().getType().equals(BundleGroupType.LIST)) {
+                Map<Id, Integer> bundleMap = collectItems(bundleProduct, bundle, groupId);
 
-                for (Id productId : products) {
-                    BundleProductItem item = group.get().getItemByProduct(productId);
+                prices.put(groupId.toString(), new HashMap<>());
 
-                    originalMap.put(productId, item.getQuantity());
+                if(group.get().isMultiselect()) {
+                    for(Product product: group.get().getProducts()){ //TODO: get valid products
+                        Map<Id, Integer> bundleMapCurrent = new HashMap<Id, Integer>(bundleMap);
+                        Map<Id, Integer> bundleMapRest = collectItems(bundleProduct, bundle, groupId);
+
+                        if(bundleMap.get(product.getId()) == null) {
+                            bundleMapCurrent.putAll(bundleMapRest);
+
+                            BundleProductItem item = group.get().getItemByProduct(product.getId());
+                            bundleMapCurrent.put(product.getId(), item.getQuantity());
+                        } else {
+                            bundleMapRest.remove(product.getId());
+                            bundleMapCurrent.putAll(bundleMapRest);
+                        }
+
+                        Double currentPrice  = calculateBundlePrice(bundleMapCurrent);
+                        Double difference = currentPrice - basePrice;
+
+                        prices.get(groupId.toString()).put(product.getId(), difference);
+                    }
+
+                } else {
+                    for(Product product: group.get().getProducts()){ //TODO: get valid products
+                        Map<Id, Integer> bundleMapCurrent = new HashMap<Id, Integer>(bundleMap);
+
+                        BundleProductItem item = group.get().getItemByProduct(product.getId());
+                        bundleMapCurrent.put(product.getId(), item.getQuantity());
+
+                        Double currentPrice  = calculateBundlePrice(bundleMapCurrent);
+                        Double difference = currentPrice - basePrice;
+
+                        prices.get(groupId.toString()).put(product.getId(), difference);
+                    }
+
+                    if(group.get().isOptional()){
+                        Double currentPrice  = calculateBundlePrice(bundleMap);
+                        Double difference = currentPrice - basePrice;
+
+                        prices.get(groupId.toString()).put(null, difference);
+                    }
                 }
+
             }
         }
 
 
 
-        //map <id, int >
+        return ok(prices);
+    }
 
 
+    private Map<Id, Integer> collectItems(Product bundleProduct, Map<String, List<String>> bundle, Id except){
 
+        Map<Id, Integer> bundleMap = new HashMap<>();
 
+        for(String groupIdStr : bundle.keySet()){
 
+            Id groupId = Id.parseId(groupIdStr);
 
+            Optional<BundleGroupItem> group = bundleProduct.getBundleGroups().stream().filter(g-> g.getId().equals(groupId)).findFirst();
 
-        System.out.println(bundle);
-        //Map<String, Object> variantsMap = productHelper.toVariantsMap(p);
+            if(group.isPresent() && !group.get().getId().equals(except)) {
+                List<String> products = bundle.get(groupIdStr);
 
-        //return ok(variantsMap);
-        return ok();
+                if(products!= null) {
+                    for (String productIdStr : products) {
+                        Id productId = Id.parseId(productIdStr);
+                        BundleProductItem item = group.get().getItemByProduct(productId);
+
+                        bundleMap.put(productId, item.getQuantity());
+                    }
+                }
+            }
+        }
+
+        return bundleMap;
+    }
+
+    private Map<Id, Integer> collectItemsForGroup(Product bundleProduct, Map<String, List<String>> bundle, Id groupId){
+
+        Map<Id, Integer> bundleMap = new HashMap<>();
+
+        for(String groupIdStr : bundle.keySet()){
+
+            Id id = Id.parseId(groupIdStr);
+
+            Optional<BundleGroupItem> group = bundleProduct.getBundleGroups().stream().filter(g-> g.getId().equals(id)).findFirst();
+
+            if(group.isPresent() && group.get().getId().equals(groupId)) {
+                List<String> products = bundle.get(groupIdStr);
+                if(products!= null) {
+                    for (String productIdStr : products) {
+                        Id productId = Id.parseId(productIdStr);
+                        BundleProductItem item = group.get().getItemByProduct(productId);
+
+                        bundleMap.put(productId, item.getQuantity());
+                    }
+                }
+            }
+        }
+
+        return bundleMap;
     }
 
     private Double calculateBundlePrice( Map<Id, Integer> productQuantityMap){
-        return null;
+        Double price = 0.0;
+
+        //List<Id> withProducts = new ArrayList<>(productQuantityMap.keySet());
+        Id[] withProducts = productQuantityMap.keySet().toArray(new Id[productQuantityMap.keySet().size()]);
+        PricingContext pricingContext = priceHelper.getPricingContext(true);
+        for (Id productId: productQuantityMap.keySet()){
+            pricingContext.setLinkedProductIds(productId, withProducts);
+        }
+
+        for (Id productId: productQuantityMap.keySet()){
+
+            Product p = checked(service.get(Product.class, productId));
+
+            if(p != null && p.getPrice() != null && p.hasValidPrice()){
+
+
+                price += p.getPrice().getFinalPrice(pricingContext) * productQuantityMap.get(productId);
+            }
+
+        }
+
+        return price;
     }
 
 }

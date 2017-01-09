@@ -113,7 +113,8 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
     @Override
     public CartItem setBundle(Product bundle) {
         this.bundle = bundle;
-        this.bundleId = bundle.getId();
+        if(bundle != null)
+            this.bundleId = bundle.getId();
         return this;
     }
 

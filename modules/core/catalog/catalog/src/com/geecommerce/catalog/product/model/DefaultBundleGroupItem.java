@@ -242,6 +242,14 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     }
 
     @Override
+    public boolean isMultiselect() {
+        if(getType() != null){
+            return getType().equals(BundleGroupType.CHECKBOX) || getType().equals(BundleGroupType.MULTISELECT);
+        }
+        return false;
+    }
+
+    @Override
     public Id getId() {
         return id;
     }

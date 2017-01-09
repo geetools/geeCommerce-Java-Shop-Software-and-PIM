@@ -33,7 +33,16 @@
 						
 	                    <div class="col-xs-12 col-sm-6 col-md-4 col-category">
 							<div class="cat-item-outer">
-								<div class="cat-item-inner" style="background: url(${product.cat1ImageURI!no_img_path}) center top no-repeat">
+
+								<#if product.cat1ImageURI?? >
+									<#assign cat1ImageURI = product.cat1ImageURI>
+								<#else>
+									<#if product.bundle && product.mainBundleProduct?? && product.mainBundleProduct.cat1ImageURI?? >
+										<#assign cat1ImageURI = product.mainBundleProduct.cat1ImageURI>
+									</#if>
+								</#if>
+
+								<div class="cat-item-inner" style="background: url(${cat1ImageURI!no_img_path}) center top no-repeat">
 								    <div class="cat-item-photo">
 								        <a href="<@url target=product />"></a>
 								    </div>

@@ -14,13 +14,15 @@
 
 
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-12">
         <#assign detailCol = 1 />
         <#include "detail_col.ftl" />
     </div>
+<!--    
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <#assign detailCol = 2 />
         <#include "detail_col.ftl" />
     </div>
+-->    
 </div>
 

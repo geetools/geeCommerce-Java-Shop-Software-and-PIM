@@ -110,6 +110,7 @@
 			</div>
 		</div>
 
+
 		<div class="row">
 			<div id="prd-customer-reviews" class="col-xs-12">
 			    <@import uri="/review/summary/${productId}"></@import>

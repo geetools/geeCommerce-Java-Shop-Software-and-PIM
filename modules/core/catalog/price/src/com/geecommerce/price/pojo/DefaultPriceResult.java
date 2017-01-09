@@ -46,21 +46,24 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
         private final Id storeId;
         private final Id customerId;
         private Set<Id> customerGroupIds;
+        private List<Id> linkedProductIds;
 
         public PriceKey(String type, Integer forQty, PricingContext pricingCtx, Id storeId, Id customerId,
-            Set<Id> customerGroupIds) {
+            Set<Id> customerGroupIds, List<Id> linkedProductIds) {
             this.type = type;
             this.forQty = forQty;
             this.pricingCtx = pricingCtx;
             this.storeId = storeId;
             this.customerId = customerId;
             this.customerGroupIds = customerGroupIds;
+            this.linkedProductIds = linkedProductIds;
         }
 
         @Override
         public int hashCode() {
             final int prime = 31;
             int result = 1;
+            result = prime * result + ((linkedProductIds == null) ? 0 : linkedProductIds.hashCode());
             result = prime * result + ((customerGroupIds == null) ? 0 : customerGroupIds.hashCode());
             result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
             result = prime * result + ((forQty == null) ? 0 : forQty.hashCode());
@@ -108,6 +111,11 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                 if (other.type != null)
                     return false;
             } else if (!type.equals(other.type))
+                return false;
+            if (linkedProductIds == null) {
+                if (other.linkedProductIds != null)
+                    return false;
+            } else if (!linkedProductIds.equals(other.linkedProductIds))
                 return false;
             return true;
         }
@@ -165,7 +173,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
             customerGroupIds.add(price.getCustomerGroupId());
 
             PriceKey priceKey = new PriceKey(price.getTypeId().str(), price.getQtyFrom(), null, price.getStoreId(),
-                price.getCustomerId(), customerGroupIds);
+                price.getCustomerId(), customerGroupIds, price.getWithProductIds());
 
             Price p = priceMap.get(priceKey);
 
@@ -630,7 +638,8 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
 
         Map<Id, List<Id>> linkedProductIds = pricingCtx.getLinkedProductIds();
 
-        PriceKey priceKey = new PriceKey(type, forQty, pricingCtx, storeId, customerId, customerGroupIds);
+        // TODO
+//        PriceKey priceKey = new PriceKey(type, forQty, pricingCtx, storeId, customerId, customerGroupIds, linkedProductIds);
 
         // if (localCache.containsKey(cacheKey))
         // return localCache.get(cacheKey);

@@ -44,10 +44,17 @@ public class ProductDetailsWidget extends AbstractWidgetController implements Wi
             List<AttributeGroup> attributeGroupList = attributeGroups.findAll(AttributeGroup.class);
 
             for (AttributeGroup attributeGroup : attributeGroupList) {
+                
+                if(attributeGroup.getItems() == null || attributeGroup.getItems().isEmpty())
+                    continue;
+
+                System.out.println("GROUP_SIZE :::: " + attributeGroup.getCode() + " - " +  attributeGroup.getItems().size());
+                
                 List<AttributeValue> attributeValues = attributeGroup.getItems().stream()
                     .filter(item -> item.getType().equals(AttributeGroupMappingType.ATTRIBUTE))
                     .map(item -> p.getAttribute(item.getId(), true)).filter(x -> x != null)
                     .collect(Collectors.toList());
+                
                 if (attributeValues != null && attributeValues.size() > 0) {
                     ProductDetail productDetail = new ProductDetail();
                     productDetail.setAttributeValues(attributeValues);
@@ -56,12 +63,15 @@ public class ProductDetailsWidget extends AbstractWidgetController implements Wi
                     productDetail.setGroup(true);
                     productDetail.setPosition(attributeGroup.getPosition());
                     productDetails.add(productDetail);
+                    
+                    System.out.println("attributeValues :::: " + attributeGroup.getCode() + " - " +  attributeValues.size());
+                    
                 }
             }
 
             Collections.sort(productDetails, (p1, p2) -> (int) (p1.getPosition() - p2.getPosition()));
             widgetCtx.setParam("productDetails", productDetails);
-            widgetCtx.setParam("product", p);
+            widgetCtx.setParam("wProduct", p);
         }
 
         widgetCtx.render("product/details");

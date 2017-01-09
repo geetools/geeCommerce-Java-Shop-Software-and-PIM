@@ -84,7 +84,7 @@
                         </@f.form>
 
                     <#else>
-                        <@message text="You should login to be able to review" lang="en" text2="Sie sollten in der Lage sein, melden Sie sich, um eine Rezension zu machen" lang2="de" />
+                        <@message text="Please log in if you wish to write a review." lang="en" text2="Bitte melden Sie sich an, um eine Kundenrezensionen zu schreiben." lang2="de" />
                     </#if>
 
                     <input id="review-rating-star-1" type="hidden" value='<@message text="I hate it" lang="en" text2="Ich hasse es" lang2="de"/>' />

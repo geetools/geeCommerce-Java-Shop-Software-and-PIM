@@ -1,6 +1,14 @@
 package com.geecommerce.cart.controller;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.geecommerce.calculation.helper.CalculationHelper;
@@ -117,7 +125,10 @@ public class CartController extends BaseController {
                     if (p.isVariant())
                         p = p.getParent();
 
-                    if (p == null || p.getId() == null /*|| !p.isVisible() || p.isDeleted()*/) {
+                    if (p == null || p.getId() == null /*
+                                                        * || !p.isVisible() ||
+                                                        * p.isDeleted()
+                                                        */) {
                         cartItemsToRemove.add(cartItem);
                         continue;
                     }
@@ -170,7 +181,7 @@ public class CartController extends BaseController {
 
         cartService.updateCart(cart);
 
-        return redirect("/cart/view/");
+        return redirect("http://" + app.servletRequest().getServerName() + ":" + app.servletRequest().getServerPort() + "/cart/view/");
     }
 
     @Request(value = "add2", method = HttpMethod.POST)
@@ -181,11 +192,10 @@ public class CartController extends BaseController {
 
         Product bundle = productService.getProduct(bundleId);
 
-        Iterator<String> iterProducts =  new ArrayList<String>(Arrays.asList(productIds.split(","))).iterator(); //productIds.split(",")).iterator();
-        Iterator<String> iterQuantities = new ArrayList<String>(Arrays.asList(quantities.split(","))).iterator(); //quantities.split(",")).iterator();
+        Iterator<String> iterProducts = new ArrayList<String>(Arrays.asList(productIds.split(","))).iterator(); // productIds.split(",")).iterator();
+        Iterator<String> iterQuantities = new ArrayList<String>(Arrays.asList(quantities.split(","))).iterator(); // quantities.split(",")).iterator();
 
-        while(iterProducts.hasNext() && iterQuantities.hasNext())
-        {
+        while (iterProducts.hasNext() && iterQuantities.hasNext()) {
             Id productId = Id.parseId(iterProducts.next());
             Integer quantity = Integer.parseInt(iterQuantities.next());
 
@@ -197,10 +207,10 @@ public class CartController extends BaseController {
 
         }
 
-        for(BundleGroupItem bundleGroup: bundle.getBundleGroups()){
-            if(!bundleGroup.getShowInProductDetails()){
-                for(BundleProductItem productItem: bundleGroup.getValidBundleItemsForSelling()){
-                    if(productItem.isSelected()){
+        for (BundleGroupItem bundleGroup : bundle.getBundleGroups()) {
+            if (!bundleGroup.getShowInProductDetails()) {
+                for (BundleProductItem productItem : bundleGroup.getValidBundleItemsForSelling()) {
+                    if (productItem.isSelected()) {
                         Id productId = productItem.getProductId();
                         Integer quantity = productItem.getQuantity();
 
@@ -214,15 +224,14 @@ public class CartController extends BaseController {
 
             }
 
-
         }
 
         cartService.updateCart(cart);
 
-
-        return redirect("/cart/view/");
+        return redirect("http://" + app.servletRequest().getServerName() + ":" + app.servletRequest().getServerPort() + "/cart/view/");
+                
+//        return redirect("/cart/view/");
     }
-
 
     @Request("remove")
     public Result remove(@Param("productId") Id productId) {
@@ -245,7 +254,7 @@ public class CartController extends BaseController {
         List<CartItem> forDelete = cart.getCartItems().stream().filter(i -> i.getBundleId().equals(bundleId)).collect(Collectors.toList());
 
         if (forDelete != null && forDelete.size() > 0) {
-            for (CartItem item: forDelete) {
+            for (CartItem item : forDelete) {
                 cart.getCartItems().remove(item);
             }
             cart.clearTotals();
@@ -254,7 +263,6 @@ public class CartController extends BaseController {
 
         return redirect("/cart/view/");
     }
-
 
     @Request("edit")
     public Result edit(@Param("productId") Id productId, @Param("variantId") Id variantId,

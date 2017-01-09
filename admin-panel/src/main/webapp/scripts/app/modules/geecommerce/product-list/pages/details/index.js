@@ -372,6 +372,9 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             attrAPI.getAttributes('product', { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'showInQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
 
                 var attributes = response.data.attributes;
+                
+                console.log('************ ATTRIBUTES RESPONSE:::: ', attributes);
+                
              //   vm.attributes(attributes);
                 var fAV = [];
                 _.each(attributes, function(attr) {

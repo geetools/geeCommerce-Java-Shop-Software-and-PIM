@@ -49,7 +49,7 @@
                         </@f.form>
 
                     <#else>
-                        <@message text="You should login to be able to report abuse" lang="en" text2="Sie sollten in der Lage sein, melden Sie sich Missbrauch melden" lang2="de" />
+                        <@message text="Please log in if you wish to report abuse." lang="en" text2="Bitte melden Sie sich an, um Missbrauch zu melden." lang2="de" />
                     </#if>
 
                 </div>

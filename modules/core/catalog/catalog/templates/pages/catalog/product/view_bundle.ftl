@@ -3,19 +3,23 @@
 	<#list product.bundleGroups as bundleGroup>
 		<#if bundleGroup.showInProductDetails >
 			<div class="bundle-group row" group-type="${bundleGroup.type}" group-id="${bundleGroup.id?string}">
-				<div class="bundle-group-label"><@print src=bundleGroup value="bundleGroup.label.str" /></div>
 
 		<#--		cms_product_variants-->
 
 			<#if bundleGroup.type?string == 'LIST' >
 				<#list bundleGroup.bundleItems as bundleItem>
 					<div class="row">
-						<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
 						<#if bundleItem.product.variantMaster>
 							<div class="col-xs-12 col-sm-7">
 								<@cms_product_carousel product_id="${bundleItem.product.id}" />
                             </div>
                         	<div class="col-xs-12 col-sm-5">
+								<h3><@attribute src=bundleItem.product code="name" /><@attribute_exists src=bundleItem.product code="name2">, <@attribute src=bundleItem.product code="name2" /></@attribute_exists></h3>
+								<br/>
+								<p>
+								<@attribute src=bundleItem.product code="description" parent=true/>
+								</p>
+                        	
 								<@cms_product_variants product_id="${bundleItem.product.id}" />
                             </div>
 						<#else>
@@ -23,7 +27,15 @@
 								<@cms_product_carousel product_id="${bundleItem.product.id}" />
                             </div>
                             <div class="col-xs-12 col-sm-5">
-								<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
+								<h2 class="bundle-group-label"><@print src=bundleGroup value="bundleGroup.label.str" /></h2>
+								<h3><@attribute src=bundleItem.product code="name" /><@attribute_exists src=bundleItem.product code="name2">, <@attribute src=bundleItem.product code="name2" /></@attribute_exists></h3>
+								<br/>
+								<p>
+								<@attribute src=bundleItem.product code="description" parent=true/>
+								</p>
+								
+								<br/>
+								<@product_details product_id="${bundleItem.product.parentId}"/>								
                             </div>
 
 							<input type="hidden" name="bundleProduct" value="${bundleItem.product.id}" qty="${bundleItem.quantity}">
@@ -32,6 +44,14 @@
 				</#list>
 			</#if>
 				<#if bundleGroup.type?string == 'SELECT' >
+					<div class="row">
+						<div class="col-xs-12 col-sm-7"><!-- carousel --></div>
+
+                        <div class="col-xs-12 col-sm-5">
+						<h2 class="bundle-group-label"><@print src=bundleGroup value="bundleGroup.label.str" /></h2>
+
+   						<#assign selectedProductId = null /> 
+                        
 					<select class="bundle-item">
 						<#if bundleGroup.optional>
 							<option value="">
@@ -39,36 +59,46 @@
 							</option>
 						</#if>
 
+
 						<#list bundleGroup.bundleItems as bundleItem>
 
 							<#if bundleItem.product.variantMaster >
 								<#list  bundleItem.product.variants as variantProduct>
 									<#if variantProduct.validForSelling >
 										<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
+											<#assign selectedProductId = bundleItem.product.id />
                                             <option bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" selected qty="${bundleItem.quantity}">
-												<@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" />
+												<@attribute src=variantProduct code="name" /><@attribute_exists src=bundleItem.product code="name2">, <@attribute src=variantProduct code="name2" /></@attribute_exists>
                                             </option>
 										<#else>
                                             <option bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" value="${variantProduct.id?string}" qty="${bundleItem.quantity}">
-												<@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" />
+												<@attribute src=variantProduct code="name" /><@attribute_exists src=bundleItem.product code="name2">, <@attribute src=variantProduct code="name2" /></@attribute_exists>
                                             </option>
 										</#if>
 									</#if>
 								</#list>
 							<#else>
 								<#if bundleItem.selected >
+									<#assign selectedProductId = bundleItem.product.id />
                                     <option bundle_option="${bundleItem.product.id?string}" value="${bundleItem.product.id?string}" selected qty="${bundleItem.quantity}">
-										<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
+										<@attribute src=bundleItem.product code="name" /><@attribute_exists src=bundleItem.product code="name2">, <@attribute src=bundleItem.product code="name2" /></@attribute_exists>
                                     </option>
 								<#else>
                                     <option bundle_option="${bundleItem.product.id?string}" value="${bundleItem.product.id?string}" qty="${bundleItem.quantity}">
-										<@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" />
+										<@attribute src=bundleItem.product code="name" /><@attribute_exists src=bundleItem.product code="name2">, <@attribute src=bundleItem.product code="name2" /></@attribute_exists>
                                     </option>
 								</#if>
 							</#if>
 
 						</#list>
 					</select>
+					
+					<br/><br/>
+					<@product_details product_id="${selectedProductId}"/>								
+					
+					</div>
+
+					</div>					
 				</#if>
 
 				<#if bundleGroup.type?string == 'MULTISELECT' >

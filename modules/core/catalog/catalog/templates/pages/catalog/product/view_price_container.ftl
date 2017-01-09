@@ -35,8 +35,12 @@
 	            <span class="prd-retail-price">${retailPrice?string.currency}</span>
 		    </#if>
 		    
+<#--
 		    <small class="tax-info"><@message text="VAT included" lang="en" text2="Inkl. 19% MwSt" lang2="de" /></small>
 		    <span class="shipping-info"><@message text="Free delivery and returns" lang="en" text2="Kostenloser Versand und Rückversand" lang2="de" /></span>
+-->
+
+  		    <span class="shipping-info"><@message text="Delivery time: 1 - 4 days" lang="en" text2="Lieferzeit: 1 – 4 Tage" lang2="de" /></span>
 			<!-- ${.now} -->		
 <#--
 		</@cache>

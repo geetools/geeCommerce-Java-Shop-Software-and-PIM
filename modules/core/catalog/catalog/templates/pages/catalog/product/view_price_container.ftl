@@ -35,8 +35,9 @@
 	            <span class="prd-retail-price">${retailPrice?string.currency}</span>
 		    </#if>
 
-
+		<#if product.bundle>
     		<span class="prd-bundle-price"></span>
+		</#if>
 <#--
 		    <small class="tax-info"><@message text="VAT included" lang="en" text2="Inkl. 19% MwSt" lang2="de" /></small>
 		    <span class="shipping-info"><@message text="Free delivery and returns" lang="en" text2="Kostenloser Versand und Rückversand" lang2="de" /></span>

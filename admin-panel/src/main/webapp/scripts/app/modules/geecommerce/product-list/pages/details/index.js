@@ -247,6 +247,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
                 obj["nodes"] = nodes;
             }
             return obj;
+
         }
     }
 
@@ -325,7 +326,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             }
             updateModel.field('filterAttributeIds', filterAttributeIds);
 
-            updateModel.field('queryNode', self.productListVM.queryNode()); //JSON.stringify(.convertNode()));//ko.toJSON(self.productListVM.queryNode(),["type", "operator", "attrVal", "value", "val", "nodes", "attributeId", "optionIds", "attr_id", "opt_id"]));
+            updateModel.field('queryNode', JSON.stringify(self.productListVM.queryNode().convertNode())); //JSON.stringify(.convertNode()));//ko.toJSON(self.productListVM.queryNode(),["type", "operator", "attrVal", "value", "val", "nodes", "attributeId", "optionIds", "attr_id", "opt_id"]));
 
             attrUtil.toUpdateModel(ko.gc.unwrap(self.productListVM.formAttributeValues), self.productListVM.data() ? self.productListVM.data().attributes : null, updateModel);
 

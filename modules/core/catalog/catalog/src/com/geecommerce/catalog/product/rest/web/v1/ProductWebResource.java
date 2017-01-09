@@ -215,7 +215,7 @@ public class ProductWebResource extends AbstractWebResource {
         Map<String, Map<Id, String>> prices = new HashMap<>();
 
         prices.put("cart", new HashMap<>());
-        prices.get("cart").put(Id.parseId("0"), basePrice.toString());
+        prices.get("cart").put(Id.parseId("0"), String.format( "%.2f", basePrice));
 
         for(String groupIdStr : bundle.keySet()){
 
@@ -245,7 +245,7 @@ public class ProductWebResource extends AbstractWebResource {
                         Double currentPrice  = calculateBundlePrice(bundleMapCurrent);
                         Double difference = currentPrice - basePrice;
 
-                        prices.get(groupId.toString()).put(product.getId(), difference.toString());
+                        prices.get(groupId.toString()).put(product.getId(), String.format( "%.2f", difference));
                     }
 
                 } else {
@@ -258,14 +258,14 @@ public class ProductWebResource extends AbstractWebResource {
                         Double currentPrice  = calculateBundlePrice(bundleMapCurrent);
                         Double difference = currentPrice - basePrice;
 
-                        prices.get(groupId.toString()).put(product.getId(), difference.toString());
+                        prices.get(groupId.toString()).put(product.getId(), String.format( "%.2f", difference));
                     }
 
                     if(group.get().isOptional()){
                         Double currentPrice  = calculateBundlePrice(bundleMap);
                         Double difference = currentPrice - basePrice;
 
-                        prices.get(groupId.toString()).put(null, difference.toString());
+                        prices.get(groupId.toString()).put(null, String.format( "%.2f", difference));
                     }
                 }
 

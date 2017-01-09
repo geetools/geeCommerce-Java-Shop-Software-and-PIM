@@ -272,6 +272,12 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
     public Product setBundleGroups(List<BundleGroupItem> bundleGroups);
 
     @JsonIgnore
+    public Product getMainBundleProduct();
+
+    @JsonIgnore
+    public Double getEstimatedBundlePrice();
+
+    @JsonIgnore
     public boolean isProgramme();
 
     @JsonIgnore

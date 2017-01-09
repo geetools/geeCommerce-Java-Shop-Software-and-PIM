@@ -237,10 +237,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 
                 console.log("BUNDLE", bundleMap)
-                catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
-                    console.log("DATA", data);
+             //   catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
+              //      console.log("DATA", data);
 
-                })
+             //   })
 
                 return products;
             }

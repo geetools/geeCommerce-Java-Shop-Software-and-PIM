@@ -153,7 +153,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                     bundleMap[bundleId] = [];
 
                     if ($(bundleGroup).attr("group-type") == "LIST") {
-                        $(bundleGroup).find('input[name=selectedVariant]', 'input[name=bundleProduct]').each(function () {
+                        $(bundleGroup).find('input[name=selectedVariant], input[name=bundleProduct]').each(function () {
                             var $productItem = $(this);
                             if ($productItem.val()) {
                                 products.push($productItem.val());
@@ -237,10 +237,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 
                 console.log("BUNDLE", bundleMap)
-             //   catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
+                catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
               //      console.log("DATA", data);
 
-             //   })
+                })
 
                 return products;
             }

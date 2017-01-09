@@ -112,6 +112,11 @@ a:active {
     color: #FF8E8E;
 }
 
+a.btn:visited {
+    color: #FFF;
+}
+
+
 a>img {
     border: none;
     outline: none;
@@ -3710,6 +3715,9 @@ div.prd-no-image>i.fa {
 	top: 6px;
 }
 
+.bundlesTargetContainer>button {
+	margin-bottom: 10px;
+}
 
 .bundle-groups{
     padding-bottom: 5px;

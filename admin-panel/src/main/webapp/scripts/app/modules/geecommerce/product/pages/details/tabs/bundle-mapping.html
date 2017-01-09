@@ -7,7 +7,7 @@
 								dirtyFlag: $root.app.showToolbar}"></div>
 	<div  data-bind="attr: { id: 'product-bundle-mapping-' + productVM.id }">
 		<div class="row">
-			<div class="col-xs-8">
+			<div class="col-xs-12">
 				<div class="bundlesTargetContainer">
 
 					<button class="btn" data-bind="click: addBundleGroup"><span>Neue Bündelgruppe</span></button>
@@ -15,7 +15,7 @@
 
 					<div  data-bind="sortable: {data: bundleGroups,  connectClass: 'groups'}"  class="bundle-groups"><!-- data-bind="foreach: { data: bundleGroups, as: 'bundleGroup' }" >-->
 						<div class="bundle-group row">
-							<div class="col-xs-5">
+							<div class="col-xs-4">
 								<div class="form-group">
 									<label for="inputPrdListLabel" class="col-xs-3 control-label"  data-i18n="app:modules.product-list.baseTabName">Label</label>
 									<div class="col-xs-9">
@@ -32,16 +32,16 @@
 									<label  class="col-xs-6 control-label">Display</label>
 									<div class="col-xs-6">
 										<select id="inputType" class="selectpicker"  data-bind="select: type, data: [
-										{ id: 'SELECT', text: 'Select' },
-										{ id: 'MULTISELECT', text: 'Multi-select' },
-										{ id: 'CHECKBOX', text: 'Checkbox' },
-										{ id: 'RADIOBUTTON', text: 'Radio' },
-										{ id: 'LIST', text: 'List' }]">
+                                        { id: 'LIST', text: 'Vordefinierte Artikel (fester Bestandteil des Bündels)' },
+										{ id: 'SELECT', text: 'Für den Kunden auwählbarer Artikel (select, einfachfachauswahl)' },
+                                        { id: 'RADIOBUTTON', text: 'Für den Kunden auwählbarer Artikel (radio, einfachauswahl)' },
+										{ id: 'MULTISELECT', text: 'Für den Kunden auwählbare Artikel (select, mehrfachauswahl)' },
+										{ id: 'CHECKBOX', text: 'Für den Kunden auwählbare Artikel (checkbox, mehrfachauswahl)' }]">
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="col-xs-2">
+							<div class="col-xs-3">
 
 								<!-- ko ifnot: isList() -->
 									<div class="form-group">
@@ -53,7 +53,7 @@
 								<!-- /ko -->
 
 								<div class="form-group">
-									<label  class="col-xs-6 control-label">Show in Prd Details</label>
+									<label  class="col-xs-6 control-label">In Produktdetailseite zeigen</label>
 									<div class="col-xs-6 switch-wrapper">
 										<input type="checkbox" data-bind="bool: showInProductDetails" />
 									</div>
@@ -124,11 +124,11 @@
 									<!--											{ id: 'VALID', text: 'Valid' },-->
 									<!-- ko ifnot: $parent.isList() -->
 										<div class="col-xs-5 pull-right">
-											<span>Condition: </span>
+											<span>Bedingung: </span>
 											<select id="inputType" class="selectpicker bundle-condition"  data-bind="select: conditionType, data: [
-											{ id: 'NOT_VALID', text: 'Not valid' }]">
+											{ id: 'NOT_VALID', text: 'nicht auswählbar' }]">
 											</select>
-											<span> with </span>
+											<span> mit Artikel </span>
 											<select class="selectpicker bundle-condition-products" multiple data-live-search="true" data-size="15" data-bind="select: withProductIds, data: $parent.root.allConditionalProducts, sort: true"></select>
 
 <!--

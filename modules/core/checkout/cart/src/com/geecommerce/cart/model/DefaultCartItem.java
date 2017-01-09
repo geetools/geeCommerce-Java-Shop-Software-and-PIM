@@ -279,6 +279,7 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
     @Override
     public void fromMap(Map<String, Object> map) {
         this.productId = id_(map.get(Column.PRODUCT_ID));
+        this.bundleId = id_(map.get(Column.BUNDLE_ID));
         this.quantity = int_(map.get(Column.QUANTITY));
         this.last = bool_(map.get(Column.LAST), false);
     }
@@ -287,6 +288,7 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
     public Map<String, Object> toMap() {
         Map<String, Object> m = new LinkedHashMap<>();
         m.put(Column.PRODUCT_ID, getProductId());
+        m.put(Column.BUNDLE_ID, getBundleId());
         m.put(Column.PRODUCT_NAME, getProductName());
         m.put(Column.PRODUCT_PRICE, getProductPrice());
         m.put(Column.PRODUCT_PRICE_TYPE_ID, getProductPriceType().getId());

@@ -3730,6 +3730,22 @@ div.prd-no-image>i.fa {
     padding-bottom: 5px;
 }
 
+.bundle-condition{
+    width: 100px !important;
+}
+
+.bundle-with-products{
+    display: inline-block;
+}
+
+.bundle-form-control{
+    height: 20px;
+}
+
+.bundle-condition-products{
+    width: 250px !important;
+}
+
 @media only screen and (min-width: 768px) {
     #product-status-infobox {
         background-color: #f6f6f6;

@@ -1,4 +1,4 @@
-define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'customer-review/utils/common', 'catalog/utils/media', 'page/media', 'page/variants', 'jquery-magnific-popup', 'jquery-slick'], function ($, Bootstrap, gc, catalogAPI, customerReviewAPI, customerReviewUtil, mediaUtil, pageMedia, pageVariants) {
+define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'customer-review/utils/common', 'catalog/utils/media', 'page/media', 'page/variants', 'jquery-magnific-popup', 'jquery-slick', 'page/bundle'], function ($, Bootstrap, gc, catalogAPI, customerReviewAPI, customerReviewUtil, mediaUtil, pageMedia, pageVariants, pageBundle) {
 
 	function ProductVM() {
 		var self = this;
@@ -26,8 +26,231 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 	// ---------------------------------------------------------------
 
     console.log('----------------------------->>>1 ', productVM.id);
-	
-	
+	//pageBundle.initConditionsCheck(productVM.id)
+
+
+	//todo move to bundle
+    var conditions = []
+	$('input[name=condition]').each(function(){
+
+		var product = $(this).attr('product');
+        var condition = $(this).attr('condition');
+        var withProduct = $(this).attr('with');
+		
+        var item = _.findWhere(conditions, { product: product });
+        if(item){
+        	item.withProducts.push(withProduct)
+		} else {
+        	item = {};
+        	item.product = product;
+        	item.condition = condition;
+        	item.withProducts = [withProduct];
+        	conditions.push(item);
+		}
+    });
+
+    if(conditions) {
+        initBundleConditions();
+        function initBundleConditions() {
+            $(".bundle-item").on("change", function () {
+                handleConditions();
+            })
+
+            handleConditions();
+        }
+
+        function handleConditions() {
+            var products = collectSelectedOptions();
+
+            var productsToDisable = [];
+            _.each(products, function (product) {
+                var condition = _.findWhere(conditions, {product: product});
+                if (condition) {
+
+                    productsToDisable = productsToDisable.concat(condition.withProducts)
+                }
+
+                _.each(conditions, function (condition) {
+
+                    if (condition.withProducts.includes(product)) {
+                        productsToDisable.push(condition.product);
+                    }
+                });
+            })
+
+            disableOptions(productsToDisable);
+
+        }
+        
+        function disableOptions(productsToDisable) {
+                var productsToEnable = [];
+
+
+                _.each($(".bundle-group"), function (bundleGroup) {
+                    if ($(bundleGroup).attr("group-type") == "RADIOBUTTON" || $(bundleGroup).attr("group-type") == "CHECKBOX") {
+                        $(bundleGroup).find("input").each(function () {
+                        	var product = $(this).val();
+                        	var masterProduct =  $(this).attr('bundle_master_option');
+
+                            if($(this).is(":disabled")) {
+								if(!productsToDisable.includes(product) && !productsToDisable.includes(masterProduct)){
+									productsToEnable.push(product)
+								}
+                            } else {
+                                if(productsToDisable.includes(product) || productsToDisable.includes(masterProduct) ){
+                                    $(this).prop('disabled', true);
+                                    if($(this).is(":checked")) {
+                                        $(this).prop('checked', false);
+                                    }
+                                }
+							}
+                        });
+                    }
+
+                    if($(bundleGroup).attr("group-type") == "SELECT" || $(bundleGroup).attr("group-type") == "MULTISELECT" ){
+                        $(bundleGroup).find('option').each(function(){
+
+                            var product = $(this).val();
+                            var masterProduct =  $(this).attr('bundle_master_option');
+
+                            if($(this).is(":disabled")) {
+                                if(!productsToDisable.includes(product) && !productsToDisable.includes(masterProduct)){
+									productsToEnable.push(product)
+                                }
+                            } else {
+                                if(productsToDisable.includes(product) || productsToDisable.includes(masterProduct)){
+                                    $(this).prop('disabled', true);
+                                    if($(this).is(":checked")) {
+                                        $(this).prop('checked', false);
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+
+                })
+
+
+                _.each(productsToEnable, function (productToEnable) {
+                    $("[bundle_option=" + productToEnable + "]").prop('disabled', false);
+                });
+
+          //  }
+        }
+
+        function collectSelectedOptions() {
+            var products = [];
+
+            if ($(".bundle-config").length) {
+
+                var bundleMap = {};
+                var bundleId =  $(".bundle-config").attr('bundle-id');
+
+                _.each($(".bundle-group"), function (bundleGroup) {
+
+                    var bundleId = $(bundleGroup).attr("group-id");
+                    bundleMap[bundleId] = [];
+
+                    if ($(bundleGroup).attr("group-type") == "LIST") {
+                        $(bundleGroup).find('input[name=selectedVariant]', 'input[name=bundleProduct]').each(function () {
+                            var $productItem = $(this);
+                            if ($productItem.val()) {
+                                products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
+                            }
+                        })
+                    }
+
+
+                    if ($(bundleGroup).attr("group-type") == "RADIOBUTTON") {
+                        var $productItem = $(bundleGroup).find("input:checked");
+
+                        if ($productItem.val()) {
+                            products.push($productItem.val());
+
+                            bundleMap[bundleId].push($productItem.val());
+
+                            if($productItem.attr('bundle_master_option')){
+                                products.push($productItem.attr('bundle_master_option'));
+                            }
+                        }
+                    }
+
+                    if ($(bundleGroup).attr("group-type") == "CHECKBOX") {
+                        var $productItems = $(bundleGroup).find("input:checked");
+
+                        _.each($productItems, function (productItem) {
+                            var $productItem = $(productItem);
+                            if ($productItem.val()) {
+                                products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
+                            }
+                        })
+                    }
+
+                    if ($(bundleGroup).attr("group-type") == "SELECT") {
+                        $(bundleGroup).find('option:selected').each(function () {
+                            var $productItem = $(this);
+                            if ($productItem.val()) {
+                                products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
+                            }
+                        });
+
+                    }
+
+                    if ($(bundleGroup).attr("group-type") == "MULTISELECT") {
+
+                        $(bundleGroup).find('option:selected').each(function () {
+                            var $productItem = $(this);
+                            if ($productItem.val()) {
+                                products.push($productItem.val());
+
+                                bundleMap[bundleId].push($productItem.val());
+
+                                if($productItem.attr('bundle_master_option')){
+                                    products.push($productItem.attr('bundle_master_option'));
+                                }
+                            }
+                        });
+
+                    }
+
+                })
+
+
+
+                console.log("BUNDLE", bundleMap)
+                catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
+                    console.log("DATA", data);
+
+                })
+
+                return products;
+            }
+        }
+
+
+    }
+
+
+
 	gc.app.fragment('/catalog/product/price-container/' + productVM.id, '#prd-cart-box', function(element) {
 	
 		// ---------------------------------------------------------------

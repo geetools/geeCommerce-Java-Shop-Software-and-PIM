@@ -8,20 +8,25 @@
 
 		<div class="row">
 
-			<div id="prd-desc" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cat-hidden-sd cat-hidden-md cat-hidden-ld">
-				<#include "view_description.ftl"/>
-			</div>
-
-            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-				<@cms_product_carousel />
-            </div>
-
-			<div id="prd-desc" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cat-hidden-xs">
-				<#include "view_description.ftl"/>
-				<@cms_product_variants />
-
+			<div class="col-xs-12 col-sm-9">
 				<#include "view_bundle.ftl"/>
 			</div>
+
+
+			<#if !product.bundle>
+				<div id="prd-desc" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cat-hidden-sd cat-hidden-md cat-hidden-ld">
+					<#include "view_description.ftl"/>
+				</div>
+
+				<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+					<@cms_product_carousel />
+				</div>
+
+				<div id="prd-desc" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cat-hidden-xs">
+					<#include "view_description.ftl"/>
+					<@cms_product_variants />
+				</div>
+			</#if>
 
 			<div id="prd-cart" class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 				<div id="prd-cart-box">

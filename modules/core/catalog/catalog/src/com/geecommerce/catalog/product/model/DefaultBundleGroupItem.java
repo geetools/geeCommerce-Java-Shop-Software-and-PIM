@@ -182,6 +182,66 @@ public class DefaultBundleGroupItem extends AbstractModel implements BundleGroup
     }
 
     @Override
+    public BundleProductItem getItemByProduct(Id productId) {
+        if(getBundleItems() != null && getBundleItems().size() > 0) {
+            for(BundleProductItem item : getBundleItems()){
+                if(item.getProductId().equals(productId))
+                    return item;
+
+                if(item.getProduct().isVariantMaster()){
+                    for(Product product: item.getProduct().getVariants()){
+                        if(product.getId().equals(productId))
+                            return item;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        List<Product> products = new ArrayList<>();
+
+        if(getBundleItems() != null && getBundleItems().size() > 0) {
+            for(BundleProductItem item : getBundleItems()){
+                if(item.getProduct().isVariantMaster()){
+                    for(Product product: item.getProduct().getVariants()){
+                        products.add(product);
+                    }
+                } else {
+                    products.add(item.getProduct());
+                }
+
+            }
+        }
+
+        return products;
+    }
+
+    @Override
+    public List<Product> getValidProducts() {
+        List<Product> products = new ArrayList<>();
+
+        if(getBundleItems() != null && getBundleItems().size() > 0) {
+            for(BundleProductItem item : getBundleItems()){
+                if(item.getProduct().isVariantMaster() && item.getProduct().hasValidVariants()){
+                    for(Product product: item.getProduct().getVariants()){
+                        if(product.isValidForSelling())
+                            products.add(product);
+                    }
+                } else {
+                    if(item.getProduct().isValidForSelling())
+                        products.add(item.getProduct());
+                }
+
+            }
+        }
+
+        return products;
+    }
+
+    @Override
     public Id getId() {
         return id;
     }

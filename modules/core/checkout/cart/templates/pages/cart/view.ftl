@@ -54,22 +54,28 @@ which ensures that the first post of the form has a positive csrf-validation.
 
                     <div class="cart-item-quantity col-xs-6 col-sm-2 col-lg-1">
                         <span class="hidden-sm hidden-md hidden-lg"><@message text="Quantity" lang="en" text2="Menge" lang2="de" /></span>
-                        <#if true>
-                            <input name="quantity" productId="${item.productId}" type="text" class="recalc-btn"
-                                    value="${item.quantity}" size="2">
+
+
+                        <#if item.bundleId??>
+                            <span> ${item.quantity} </span>
                         <#else>
-                            <select name="quantity" data-type="number">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
+                            <#if true>
+                                <input name="quantity" productId="${item.productId}" type="text" class="recalc-btn"
+                                       value="${item.quantity}" size="2">
+                            <#else>
+                                <select name="quantity" data-type="number">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </#if>
                         </#if>
                     </div>
 
@@ -80,11 +86,28 @@ which ensures that the first post of the form has a positive csrf-validation.
 
 
                     <div class="cart-item-remove hidden-xs col-sm-2 col-lg-1">
-                        <a href="/cart/remove?productId=${item.productId}"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></a>
+                        <#if item.bundleId??>
+                            <#if bundleId?? && item.bundleId?string == bundleId>
+                            <#else>
+                                <a href="/cart/remove-bundle?bundleId=${item.bundleId}"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></a>
+                                <#assign bundleId = item.bundleId?string>
+                            </#if>
+                        <#else>
+                            <a href="/cart/remove?productId=${item.productId}"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></a>
+                        </#if>
                     </div>
 
                     <div class="cart-item-remove col-xs-1 visible-xs">
-                        <a href="/cart/remove?productId=${item.productId}"><i class="glyphicon glyphicon-remove" aria-hidden="false"></i></a>
+                        <#if item.bundleId??>
+                            <#if bundleId?? && item.bundleId?string == bundleId>
+                            <#else>
+                                <a href="/cart/remove-bundle?bundleId=${item.bundleId}"><i class="glyphicon glyphicon-remove" aria-hidden="false"></i></a>
+                                <#assign bundleId = item.bundleId?string>
+                            </#if>
+                        <#else>
+                            <a href="/cart/remove?productId=${item.productId}"><i class="glyphicon glyphicon-remove" aria-hidden="false"></i></a>
+                        </#if>
+
                     </div>
 
                 </div>
@@ -132,12 +155,14 @@ which ensures that the first post of the form has a positive csrf-validation.
             </div>
         </#if>
 
-        <div class="col-sm-6 col-xs-12 cart-action-checkout">
-            <button type="submit" onclick="location.href='${checkoutAction}';" class="action-btn">
-                <@message text="Checkout" lang="en" text2="zur Kasse" lang2="de" />
-            </button>
-        </div>
+        <#if (cart?? && cart.cartItems?? && cart.cartItems?size > 0)>
 
+            <div class="col-sm-6 col-xs-12 cart-action-checkout">
+                <button type="submit" onclick="location.href='${checkoutAction}';" class="action-btn">
+                    <@message text="Checkout" lang="en" text2="zur Kasse" lang2="de" />
+                </button>
+            </div>
+        </#if>
     </div>
 </div>
 

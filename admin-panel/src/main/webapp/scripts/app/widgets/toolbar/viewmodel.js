@@ -64,15 +64,23 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
 		
 		// If we have a dirtyFlag, use that to track  changes.
 		if(!_.isUndefined(self.dirtyFlag) && ko.isObservable(self.dirtyFlag)) {
-			
-			self.dirtyFlag.subscribe(function(newValue) {
-//				console.log('@@@@@@ VALUE HAS CHANGED IN TOOLBAR!', newValue);
-				
-//				$(toolbar).attr('data-init', '1');
-//				$(toolbar).fadeIn(600);
-			});
+
+            console.log('dirtyFlag INIT')
+
+            self.dirtyFlag.subscribe(function (newValue) {
+
+            	console.log('dirtyFlag',self.dirtyFlag)
+
+                $(toolbar).attr('data-init', '1');
+                $(toolbar).find('div.loader').hide();
+                $(toolbar).find('div.buttons').show();
+                $(toolbar).fadeIn(600);
+
+                self.dirtyFlag(false);
+            });
+        }
 		// Otherwise use standard JQUERY-handling to listen for changes.
-		} else {
+		if(true) {
 			$( '#' + self.targetId ).on('click', ':input, textarea', function(evt1) {
 				// Make sure that we only register the change listener once.
 				var isInitialized = $(toolbar).attr('data-init');			

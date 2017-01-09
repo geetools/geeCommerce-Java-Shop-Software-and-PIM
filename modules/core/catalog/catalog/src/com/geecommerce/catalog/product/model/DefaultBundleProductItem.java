@@ -1,6 +1,7 @@
 package com.geecommerce.catalog.product.model;
 
 
+import com.geecommerce.catalog.product.enums.BundleConditionType;
 import com.geecommerce.catalog.product.service.ProductService;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Column;
@@ -8,7 +9,9 @@ import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Model
@@ -27,6 +30,12 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
 
     @Column(Col.SELECTED)
     protected boolean selected = false;
+
+    @Column(Col.WITH_PRODUCTS)
+    protected List<Id> withProductIds = null;
+
+    @Column(Col.CONDITION_TYPE)
+    protected BundleConditionType conditionType = null;
 
     protected Product product = null;
 
@@ -93,6 +102,36 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
     }
 
     @Override
+    public List<Id> getWithProductIds() {
+        return withProductIds;
+    }
+
+    @Override
+    public BundleProductItem setWithProductIds(List<Id> withProductIds) {
+        this.withProductIds = withProductIds;
+        return this;
+    }
+
+    @Override
+    public BundleProductItem addWithProductId(Id productId) {
+        if(withProductIds == null)
+            withProductIds = new ArrayList<>();
+        withProductIds.add(productId);
+        return this;
+    }
+
+    @Override
+    public BundleConditionType getConditionType() {
+        return conditionType;
+    }
+
+    @Override
+    public BundleProductItem setWithProductIds(BundleConditionType conditionType) {
+        this.conditionType = conditionType;
+        return this;
+    }
+
+    @Override
     public Id getId() {
         return null;
     }
@@ -106,6 +145,8 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
         this.quantity = int_(map.get(Col.QUANTITY), 1);
         this.defaultProductId = id_(map.get(Col.DEFAULT_PRODUCT_ID));
         this.selected = bool_(map.get(Col.SELECTED), false);
+        this.withProductIds = idList_(map.get(Col.WITH_PRODUCTS));
+        this.conditionType = enum_(BundleConditionType.class, map.get(Col.CONDITION_TYPE));
     }
 
     @Override
@@ -113,8 +154,10 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
         Map<String, Object> m = new LinkedHashMap<>();
         m.put(Col.PRODUCT_ID, getProductId());
         m.put(Col.QUANTITY, getQuantity());
-        m.put(Col.DEFAULT_PRODUCT_ID, getProductId());
+        m.put(Col.DEFAULT_PRODUCT_ID, getDefaultProductId());
         m.put(Col.SELECTED, isSelected());
+        m.put(Col.WITH_PRODUCTS, getWithProductIds());
+        m.put(Col.CONDITION_TYPE, getConditionType());
 
         return m;
     }

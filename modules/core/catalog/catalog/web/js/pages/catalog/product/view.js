@@ -248,51 +248,54 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 
         function setBundlePrices(priceResult) {
-            var cartPrice = priceResult["cart"];
-            if(cartPrice)
-                cartPrice = cartPrice[0];
 
-            if(!$(".prd-bundle-price").length){
-                setTimeout( function () {
-                    $(".prd-bundle-price").html(priceUtil.formatPrice(cartPrice));
-                }, 1000)
+            if ($(".bundle-config").length) {
+                var cartPrice = priceResult["cart"];
+                if (cartPrice)
+                    cartPrice = cartPrice[0];
+
+                if (!$(".prd-bundle-price").length) {
+                    setTimeout(function () {
+                        $(".prd-bundle-price").html(priceUtil.formatPrice(cartPrice));
+                    }, 1000)
+                }
+
+                $(".prd-bundle-price").html(priceUtil.formatPrice(cartPrice));
+
+                _.each($(".bundle-group"), function (bundleGroup) {
+
+                    var bundleGroupId = $(bundleGroup).attr("group-id");
+
+                    var groupPriceResult = priceResult[bundleGroupId];
+
+                    if ($(bundleGroup).attr("group-type") == "RADIOBUTTON" || $(bundleGroup).attr("group-type") == "CHECKBOX") {
+
+                        $(bundleGroup).find("input").each(function () {
+                            var product = $(this).val();
+
+                            if ($(this).is(":disabled")) {
+                                $(".bundle-item-price[bundle_option=" + product + "]").html("");
+                            } else {
+                                $(".bundle-item-price[bundle_option=" + product + "]").html(priceUtil.formatPriceWithSign(groupPriceResult[product]));
+                            }
+                        });
+                    }
+
+                    if ($(bundleGroup).attr("group-type") == "SELECT" || $(bundleGroup).attr("group-type") == "MULTISELECT") {
+                        $(bundleGroup).find('option').each(function () {
+
+                            var product = $(this).val();
+                            if ($(this).is(":disabled")) {
+                                $(this).text($(this).attr('original-text'));
+                            } else {
+                                $(this).text($(this).attr('original-text') + " " + priceUtil.formatPriceWithSign(groupPriceResult[product]));
+                            }
+                        });
+
+                    }
+
+                })
             }
-
-            $(".prd-bundle-price").html(priceUtil.formatPrice(cartPrice));
-
-            _.each($(".bundle-group"), function (bundleGroup) {
-
-                var bundleGroupId =  $(bundleGroup).attr("group-id");
-
-                var groupPriceResult = priceResult[bundleGroupId];
-
-                if ($(bundleGroup).attr("group-type") == "RADIOBUTTON" || $(bundleGroup).attr("group-type") == "CHECKBOX") {
-
-                    $(bundleGroup).find("input").each(function () {
-                        var product = $(this).val();
-
-                        if($(this).is(":disabled")) {
-                            $(".bundle-item-price[bundle_option=" + product +"]").html("");
-                        } else {
-                            $(".bundle-item-price[bundle_option=" + product +"]").html(priceUtil.formatPriceWithSign(groupPriceResult[product]));
-                        }
-                    });
-                }
-
-                if($(bundleGroup).attr("group-type") == "SELECT" || $(bundleGroup).attr("group-type") == "MULTISELECT" ){
-                    $(bundleGroup).find('option').each(function(){
-
-                        var product = $(this).val();
-                        if($(this).is(":disabled")) {
-                            $(this).text($(this).attr('original-text'));
-                        } else {
-                            $(this).text($(this).attr('original-text') + " " + priceUtil.formatPriceWithSign(groupPriceResult[product]));
-                        }
-                    });
-
-                }
-
-            })
         }
     }
 

@@ -118,6 +118,10 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
             self.show();
         }
 
+        self.addMediaAssetToPager = function(data){
+            self.maPager.data.push(new MediaAssetVM(data, self.contoller));
+        }
+
         self.loadMediaAssets = function () {
             self.maPager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {vmWrapper : function (data) {
                 var mediaAssetVM = new MediaAssetVM(data, self.contoller);
@@ -127,8 +131,6 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
 
 
             mediaAssetAPI.getMediaAssets(self.id).then(function (data) {
-                console.log("FILL FILES");
-                console.log(data);
                 var mediaAssets = []
                 _.each(data.data.mediaAssets, function (mediaAsset) {
                     var mediaAssetVM = new MediaAssetVM(mediaAsset, self.contoller);

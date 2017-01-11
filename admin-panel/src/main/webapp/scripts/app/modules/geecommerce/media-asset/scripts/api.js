@@ -229,7 +229,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
             return promise;
         },
-
         removeAsset: function(id, mediaAssetId) {
             var self = this;
 

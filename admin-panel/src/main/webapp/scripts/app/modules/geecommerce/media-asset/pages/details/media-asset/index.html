@@ -30,9 +30,9 @@
             <a target="_blank" class="ma-btn"  data-bind="attr: {'href' : $root.tab.vm.selectedFile().url }">
                 <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
             </a>
-            <button type="button" class="ma-btn" >
+<!--            <button type="button" class="ma-btn" >
                 <span class=" glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-            </button>
+            </button>-->
         </div>
     </div>
 
@@ -47,7 +47,7 @@
             <!-- /ko -->
         <!-- /ko -->
         <li><a href="" data-bind="attr: {'id' : 'tab-media-asset-version-' + $root.tab.id, 'data-target': '#ma-versions-' + $root.tab.id  }" data-toggle="tab" >Version</a></li>
-        <li><a href="" data-bind="attr: {'id' : 'tab-media-asset-urls-' + $root.tab.id, 'data-target': '#ma-urls-' + $root.tab.id  }" data-toggle="tab">Urls</a></li>
+<!--        <li><a href="" data-bind="attr: {'id' : 'tab-media-asset-urls-' + $root.tab.id, 'data-target': '#ma-urls-' + $root.tab.id  }" data-toggle="tab">Urls</a></li>-->
     </ul>
 
     <div class="tab-content">
@@ -74,7 +74,7 @@
             <!-- /ko -->
         <!-- /ko -->
         <div class="tab-pane" data-bind="attr: {'id' : 'ma-versions-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/version', activationData: $root.tab}">Action</div>
-        <div class="tab-pane" data-bind="attr: {'id' : 'ma-urls-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/urls', activationData: $root.tab}">Codes</div>
-    </div>
+   <!--     <div class="tab-pane" data-bind="attr: {'id' : 'ma-urls-' + $root.tab.id }, compose:{ model: 'modules/geecommerce/media-asset/pages/details/media-asset/tabs/urls', activationData: $root.tab}">Codes</div>
+ -->   </div>
 
 </div>

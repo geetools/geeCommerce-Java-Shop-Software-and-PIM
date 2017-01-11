@@ -212,7 +212,9 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
         },
 
         removeMa: function (data) {
-
+            var maId = this.vm().id;
+            console.log(this.vm())
+            mediaAssetAPI.removeMediaAsset(maId);
             this.isMaRemovePopupOpen(false);
         },
 

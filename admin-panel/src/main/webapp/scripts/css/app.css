@@ -1315,6 +1315,11 @@ span.attrValue {
 	cursor: pointer;
 }
 
+.glyphicon-file {
+	color: #99D1E3;
+	cursor: pointer;
+}
+
 .glyphicon-remove-circle {
 	color: #bbb;
 	cursor: pointer;
@@ -2581,6 +2586,21 @@ ul.ma-directories, ul.ma-directories li {
 .ma-icon-label {
 	margin-left: 5px;
 	cursor: pointer;
+	font-size: 11px;
+}
+
+.ma-icon-label-file {
+	margin-left: 0px;
+}
+
+.ma-view-image {
+	padding-left: 15px;
+	padding-bottom: 15px;
+}
+
+
+#view-media-asset-details .tab-pane {
+	padding-top: 15px;
 }
 
 .content {

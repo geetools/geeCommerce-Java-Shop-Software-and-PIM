@@ -144,17 +144,17 @@
 							<#list  bundleItem.product.variants as variantProduct>
 								<#if variantProduct.validForSelling >
 									<#if bundleItem.selected?? && bundleItem.selected && bundleItem.defaultProductId?string == variantProduct.id?string >
-                                        <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"><br/>
+                                        <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"></span><br/>
 									<#else>
-                                        <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"><br/>
+                                        <input type="radio" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"></span><br/>
 									</#if>
 								</#if>
 							</#list>
 						<#else>
 							<#if bundleItem.selected >
-                                <input type="radio" class="bundle-item" bundle_option="${bundleItem.product.id?string}" qty="${bundleItem.quantity}" checked name="group_${bundleGroup.id}" value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /> <span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"><br/>
+                                <input type="radio" class="bundle-item" bundle_option="${bundleItem.product.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${bundleItem.product.id?string}" checked > <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /> <span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}" ></span><br/>
 							<#else>
-                                <input type="radio" class="bundle-item" bundle_option="${bundleItem.product.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /> <span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"><br/>
+                                <input type="radio" class="bundle-item" bundle_option="${bundleItem.product.id?string}" qty="${bundleItem.quantity}" name="group_${bundleGroup.id}" value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /> <span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"></span><br/>
 							</#if>
 						</#if>
 
@@ -168,17 +168,17 @@
 							<#list  bundleItem.product.variants as variantProduct>
 								<#if variantProduct.validForSelling >
 									<#if bundleItem.selected &&  bundleItem.defaultProductId?string == variantProduct.id?string>
-                                        <input type="checkbox" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"></span><br/>
+                                        <input type="checkbox" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" name="group_${bundleGroup.id}"  bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" checked value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"></span><br/>
 									<#else>
-                                        <input type="checkbox" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"></span><br/>
+                                        <input type="checkbox" class="bundle-item" bundle_master_option="${bundleItem.product.id?string}" name="group_${bundleGroup.id}" bundle_option="${variantProduct.id?string}" qty="${bundleItem.quantity}" value="${variantProduct.id?string}"> <@attribute src=variantProduct code="name" />, <@attribute src=variantProduct code="name2" /> <span class="bundle-item-price" bundle_option="${variantProduct.id?string}"></span><br/>
 									</#if>
 								</#if>
 							</#list>
 						<#else>
 							<#if bundleItem.selected >
-                                <input type="checkbox" class="bundle-item" bundle_option="${bundleItem.product.id?string}" qty="${bundleItem.quantity}" checked value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /> <span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"></span><br/>
+                                <input type="checkbox" class="bundle-item" bundle_option="${bundleItem.product.id?string}" name="group_${bundleGroup.id}" qty="${bundleItem.quantity}" checked value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /> <span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"></span><br/>
 							<#else>
-                                <input type="checkbox" class="bundle-item" bundle_option="${bundleItem.product.id?string}" qty="${bundleItem.quantity}" value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /><span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"></span> <br/>
+                                <input type="checkbox" class="bundle-item" bundle_option="${bundleItem.product.id?string}" name="group_${bundleGroup.id}" qty="${bundleItem.quantity}" value="${bundleItem.product.id?string}"> <@attribute src=bundleItem.product code="name" />, <@attribute src=bundleItem.product code="name2" /><span class="bundle-item-price" bundle_option="${bundleItem.product.id?string}"></span> <br/>
 							</#if>
 						</#if>
 

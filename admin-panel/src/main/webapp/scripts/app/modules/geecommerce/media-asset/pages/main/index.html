@@ -39,7 +39,7 @@
             <!-- ko foreach: { data: $root.tabs, as: 'tab' } -->
                 <li><a href="" data-bind="attr: {'data-target': '#tab-content-' + tab.id, 'id': 'tab-link-' + tab.id}" data-toggle="tab">
                     <span data-bind="i18nText: {value: tab.label, mode: 'any'}">Tab</span>
-                    <span class="icon expand-icon glyphicon glyphicon-remove" data-bind="click: $root.closeTab"></span>
+                    <span class="icon expand-icon glyphicon glyphicon-remove-circle" data-bind="click: $root.closeTab"></span>
                 </a>
 
                 </li>
@@ -109,14 +109,14 @@
 <script id="nodeTemplate" type="text/html">
     <li class="ma-tree-node">
         <!-- ko if: open() -->
-            <span class="icon expand-icon glyphicon glyphicon-minus" data-bind="click: hide"></span>
+            <span class="icon expand-icon glyphicon glyphicon-chevron-down" data-bind="click: hide"></span>
         <!-- /ko -->
         <!-- ko if: !open() -->
-            <span class="icon expand-icon glyphicon glyphicon-plus" data-bind="click: show"></span>
+            <span class="icon expand-icon glyphicon glyphicon-chevron-right" data-bind="click: show"></span>
         <!-- /ko -->
         <span class="icon expand-icon glyphicon glyphicon-folder-open" data-bind="click: show"></span>
 
-        <span data-bind="i18nText: { value: name, mode: 'closest' }, click: openDirectory, contextMenu: menu"></span>
+        <span class="ma-icon-label" data-bind="i18nText: { value: name, mode: 'closest' }, click: openDirectory, contextMenu: menu"></span>
 
         <!-- ko if: open() -->
         <ul data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>

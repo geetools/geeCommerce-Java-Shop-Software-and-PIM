@@ -15,7 +15,7 @@
     </div>-->
 
     <div class="form-group">
-        <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.conditionsTabConditions">Conditions</label>
+        <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.conditionsTabConditions" style="color: #4badce;">Conditions</label>
         <div class="col-sm-9">
             <div data-bind='template: {name:"queryNode", data: productListVM.queryNode}'></div>
 
@@ -45,7 +45,7 @@
                     <div  style="display: inline;line-height:30px" class="">
                         <select class="selectpicker" title="auswählen" data-bind="select: attrVal().value, data: attrVal().selectOptions">
                         </select>
-                        <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                        <div style="display:inline;line-height:30px;color: #FF6A6A;" data-bind="click: deleteNode">
                             <i class="glyphicon glyphicon-remove"></i>
                         </div>
                     </div>
@@ -58,8 +58,7 @@
                     <div  style="display: inline;line-height:30px" class="">
                         <select class="selectpicker show-tick" multiple data-bind="select: attrVal().value, data: attrVal().selectOptions, selectOptions: { size: 10 }">
                         </select>
-                        <i class="fa fa-check-square" style="margin-left:5px;"></i><i class="fa fa-check-square" style="margin-left:3px;"></i>
-                        <div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                        <div style="display:inline;line-height:30px;color: #FF6A6A;" data-bind="click: deleteNode">
                             <i class="glyphicon glyphicon-remove"></i>
                         </div>
                     </div>

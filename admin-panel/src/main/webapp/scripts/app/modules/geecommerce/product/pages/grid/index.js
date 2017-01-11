@@ -320,13 +320,7 @@ define(['durandal/app', 'plugins/router', 'knockout', 'gc/gc', 'gc-product', 'gc
               { 'name' : '$attr.article_number', 'label' : 'app:modules.product.gridColArticleNo', cookieKey : 'an' },
               { 'name' : '$attr.brand', 'label' : 'app:modules.product.gridColBrand', cookieKey : 'b' },
               { 'name' : '$attr.name', 'label' : 'app:modules.product.gridColName', cookieKey : 'n' },
-              { 'name' : '$attr.supplier', 'label' : 'app:modules.product.gridColSupplier', cookieKey : 'sp' },
-              { 'name' : 'deleted', 'label' : 'app:modules.product.gridColDeleted', cookieKey : 'd', 'selectOptions' :
-            	  [
-            	   { label: gc.app.i18n('app:common.no'), value: false },
-            	   { label: gc.app.i18n('app:common.yes'), value: true },
-            	   { label: gc.app.i18n('app:common.all'), value: '' },
-            	  ] }
+              { 'name' : '$attr.supplier', 'label' : 'app:modules.product.gridColSupplier', cookieKey : 'sp' }
             ];
 	    	
 			this.gridTableMenuItems = [

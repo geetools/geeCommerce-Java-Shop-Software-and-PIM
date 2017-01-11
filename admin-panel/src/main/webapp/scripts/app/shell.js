@@ -158,7 +158,7 @@
                 }, {
                     label : 'app:navigation.customers',
                     group : 'customers',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     label : 'app:navigation.search',
                     group : 'search',
@@ -188,7 +188,7 @@
                     group : 'catalogue',
                     nav : true,
                     hash : '#/product-lists',
-                    roles : [ 'admin' ]
+                    roles : [ 'admin', 'product-manager' ]
                 }, {
                     route : 'attributes*details',
                     moduleId : 'core/attribute/pages/index',

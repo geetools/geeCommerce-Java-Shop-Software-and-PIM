@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.geecommerce.core.App;
 import com.geecommerce.core.service.AbstractAttributeSupport;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
@@ -20,22 +21,25 @@ import com.google.inject.Inject;
 public class DefaultMediaAssetDirectory extends AbstractAttributeSupport implements MediaAssetDirectory {
     private static final long serialVersionUID = -6499739421456471446L;
 
-    private final MediaAssetDirectories mediaAssetDirectories;
+    @Inject
+    protected App app;
+
+    protected final MediaAssetDirectories mediaAssetDirectories;
 
     @Column(Col.ID)
-    private Id id = null;
+    protected Id id = null;
 
     @Column(Col.NAME)
-    private ContextObject<String> name = null;
+    protected ContextObject<String> name = null;
 
     @Column(Col.KEY)
-    private String key = null;
+    protected String key = null;
 
     @Column(Col.PARENT_ID)
-    private Id parentId = null;
+    protected Id parentId = null;
 
     public DefaultMediaAssetDirectory() {
-        this.mediaAssetDirectories = app.repository(MediaAssetDirectories.class);
+        this.mediaAssetDirectories = i(MediaAssetDirectories.class);
     }
 
     @Inject

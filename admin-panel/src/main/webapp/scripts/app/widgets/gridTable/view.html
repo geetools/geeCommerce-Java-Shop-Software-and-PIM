@@ -6,6 +6,7 @@
           <li data-bind="attr: {class: menuItem.key + ' ' + 'grid-table-context-menu'}, contextMenu: menuItem.contextMenu, bindMenuOnClick: true, bindMenuOnContextMenu: false"><i
             data-bind="attr: {class: menuItem.icon}"></i><span data-bind="i18n:menuItem.label"></span></li>
         </ul>
+        <div class="grid-menu-col-filler"></div>
       </div>
       <div class="grid-content-col">
         <div class="grid-row-nav">
@@ -56,13 +57,20 @@
                 <td data-bind="attrText: row, code: 'brand', scope: 'global'"></td>
                 <td data-bind="attrText: row, code: 'name', mode: 'closest'"></td>
                 <td data-bind="attrText: row, code: 'supplier', scope: 'global'"></td>
-                <td class="actions">&nbsp;</td>
               </tr>
             </tbody>
-
           </table>
         </div>
+        
+        
       </div>
+      
     </div>
+    <center>
+        <!--  Pagination -->            
+          <ul class="pagination pagination-sm" data-bind="foreach: { data: pager.pages, as: 'page' }">
+              <li data-bind="click: $root.pager.page, css: { active: $root.pager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+          </ul>
+    </center>
   </div>
 </div>

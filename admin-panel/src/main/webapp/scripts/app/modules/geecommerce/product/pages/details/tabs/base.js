@@ -11,8 +11,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         self.articleStatus = ko.observableArray([]);
 
         self.articleStatusIcon = ko.computed(function() {
-            console.log('GEEEEEEEEEEEEEEEETING NEW ARTICLE STATUS ICON!!!!!!!!!!!', productUtil.getProductStatusIcon(self.articleStatus(), self.$root.articleStatuses()));
-            
             return productUtil.getProductStatusIcon(self.articleStatus(), self.$root.articleStatuses());
         });
 

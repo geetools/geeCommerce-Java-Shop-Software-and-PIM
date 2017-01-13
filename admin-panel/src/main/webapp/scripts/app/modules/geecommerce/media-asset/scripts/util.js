@@ -5,7 +5,7 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         self.id = data.id
         self.name = ko.observableArray(data.name);
         self.url = ko.observable(data.url);
-        self.contoller = controller;
+        self.controller = controller;
         self.files = ko.observableArray(data.files);
         self.mimeType = data.mimeType;
         self.data = ko.observable(data)
@@ -30,7 +30,7 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         }
 
         self.openMediaAsset = function () {
-            self.contoller.openMediaAsset(self);
+            self.controller.openMediaAsset(self);
         }
 
         self.showRename = function () {
@@ -64,10 +64,10 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         var self = this;
         self.id = data.query;
         self.query = ko.observable(data.query);
-        self.contoller = controller;
+        self.controller = controller;
 
         self.maPager = new gc.Pager(mediaAssetAPI.pagingOptions(null, {vmWrapper : function (data) {
-            var mediaAssetVM = new MediaAssetVM(data, self.contoller);
+            var mediaAssetVM = new MediaAssetVM(data, self.controller);
             return mediaAssetVM;
         }}));
 
@@ -84,25 +84,19 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         self.id = data.id;
         self.data = ko.observable(data);
         self.directories = ko.observableArray([]);
-        self.mediaAssets = ko.observableArray([]);
+/*        self.mediaAssets = ko.observableArray([]);*/
         self.name = ko.observableArray(data.name);
         self.open = ko.observable(false);
         self.loaded = ko.observable(false);
-        self.contoller = controller;
+        self.controller = controller;
+        self.maTreePager = undefined;
         self.maPager = undefined;
         self.maPagerLoaded = ko.observable(false);
 
-
-/*        self.mediaAssets = ko.computed(function() {
-            console.log("TESSSSSSSSSSSSSSST");
-            console.log(self.maPager)
-            if(self.maPagerLoaded() && self.maPager)
-                return self.maPager.data();
-            return [];
-        });*/
-
         self.addMediaAsset = function (mediaAsset) {
-            self.mediaAssets.push(mediaAsset);
+            self.maTreePager.data.push(mediaAsset);
+            self.maPager.data.push(mediaAsset);
+
         }
 
         self.hide = function () {
@@ -114,34 +108,36 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         }
 
         self.openDirectory = function () {
-            self.contoller.openDirectory(self);
+            self.controller.openDirectory(self);
             self.show();
-        }
-
-        self.addMediaAssetToPager = function(data){
-            self.maPager.data.push(new MediaAssetVM(data, self.contoller));
         }
 
         self.loadMediaAssets = function () {
             self.maPager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {vmWrapper : function (data) {
-                var mediaAssetVM = new MediaAssetVM(data, self.contoller);
+                var mediaAssetVM = new MediaAssetVM(data, self.controller);
                 return mediaAssetVM;
             }}));
 
 
+            self.maTreePager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {vmWrapper : function (data) {
+                var mediaAssetVM = new MediaAssetVM(data, self.controller);
+                return mediaAssetVM;
+            }}));
 
-            mediaAssetAPI.getMediaAssets(self.id).then(function (data) {
+            self.maPager.load();
+            self.maTreePager.load();
+/*            mediaAssetAPI.getMediaAssets(self.id).then(function (data) {
                 var mediaAssets = []
                 _.each(data.data.mediaAssets, function (mediaAsset) {
-                    var mediaAssetVM = new MediaAssetVM(mediaAsset, self.contoller);
+                    var mediaAssetVM = new MediaAssetVM(mediaAsset, self.controller);
                     mediaAssets.push(mediaAssetVM);
                 });
                 self.mediaAssets(mediaAssets);
-            })
+            })*/
         }
 
         self.showRename = function () {
-            controller.showDirRenameModal(self);
+            self.controller.showDirRenameModal(self);
         }
 
         //TODO: check on uniqueness
@@ -157,7 +153,7 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         }
 
         self.showRemove = function () {
-            controller.showDirRemoveModal(self);
+            self.controller.showDirRemoveModal(self);
         }
 
         self.remove = function () {
@@ -165,7 +161,7 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         }
 
         self.showCreateDirectory = function () {
-            controller.showDirCreateModal(self)
+            self.controller.showDirCreateModal(self)
         }
 
         self.createDirectory = function () {

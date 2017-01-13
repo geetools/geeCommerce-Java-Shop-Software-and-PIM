@@ -113,13 +113,13 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         }
 
         self.loadMediaAssets = function () {
-            self.maPager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {vmWrapper : function (data) {
+            self.maPager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {loadState: false, vmWrapper : function (data) {
                 var mediaAssetVM = new MediaAssetVM(data, self.controller);
                 return mediaAssetVM;
             }}));
 
 
-            self.maTreePager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {vmWrapper : function (data) {
+            self.maTreePager = new gc.Pager(mediaAssetAPI.pagingOptions(self.id, {loadState: false, vmWrapper : function (data) {
                 var mediaAssetVM = new MediaAssetVM(data, self.controller);
                 return mediaAssetVM;
             }}));

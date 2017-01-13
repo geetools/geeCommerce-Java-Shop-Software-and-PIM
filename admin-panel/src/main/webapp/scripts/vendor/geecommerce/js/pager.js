@@ -35,6 +35,11 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         this._onloadSubscribers = [];
         this._onpageclickSubscribers = [];
 
+        if(options.loadState === 'undefined') {
+            this._loadState = true;
+        } else
+            this._loadState = options.loadState;
+
         if (typeof options.onload === "function") {
             this._onloadSubscribers.push(options.onload);
         }
@@ -413,30 +418,32 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         loadState : function() {
             var self = this;
 
-            var json = localStorage.getItem(self.cookieName());
+            if(self._loadState) {
+                var json = localStorage.getItem(self.cookieName());
 
-            if (json) {
-                var data = JSON.parse(json);
+                if (json) {
+                    var data = JSON.parse(json);
 
-                if (!_.isEmpty(data)) {
-                    self._sort = data.s;
-                    self._sortDirection = data.sd, self._currentPage = data.p;
-                    self._limit = data.l;
-                    this._offset = (this._currentPage <= 0 ? 0 : this._currentPage - 1) * this._limit;
+                    if (!_.isEmpty(data)) {
+                        self._sort = data.s;
+                        self._sortDirection = data.sd, self._currentPage = data.p;
+                        self._limit = data.l;
+                        this._offset = (this._currentPage <= 0 ? 0 : this._currentPage - 1) * this._limit;
 
-                    if (!_.isEmpty(data.f)) {
-                        var columns = self.columns();
+                        if (!_.isEmpty(data.f)) {
+                            var columns = self.columns();
 
-                        for ( var property in data.f) {
-                            var filter = data.f;
-                            if (filter.hasOwnProperty(property)) {
-                                var val = filter[property];
-                                var column = _.findWhere(columns, {
-                                    cookieKey : property
-                                });
+                            for (var property in data.f) {
+                                var filter = data.f;
+                                if (filter.hasOwnProperty(property)) {
+                                    var val = filter[property];
+                                    var column = _.findWhere(columns, {
+                                        cookieKey: property
+                                    });
 
-                                if (column) {
-                                    column.value(val);
+                                    if (column) {
+                                        column.value(val);
+                                    }
                                 }
                             }
                         }

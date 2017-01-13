@@ -99,6 +99,10 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
 
         }
 
+        self.addDirectory = function (directory) {
+            self.directories.push(directory);
+        }
+
         self.hide = function () {
             self.open(false);
         }
@@ -178,6 +182,11 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         addMediaAsset: function (data, controller, directory) {
             var mediaAsset = new MediaAssetVM(data, controller);
             directory.addMediaAsset(mediaAsset);
+        },
+        addDirectory : function (data, controller, directory) {
+            var directoryVM = new DirectoryVM(data, controller);
+            directoryVM.loadMediaAssets();
+            directory.addDirectory(directoryVM);
         },
         toSearchVM: function (data, controller) {
             return new SearchVM(data, controller);

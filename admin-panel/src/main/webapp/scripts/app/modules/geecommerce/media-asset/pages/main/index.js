@@ -174,21 +174,17 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
             this.vmName([]);
             this.isDirCreatePopupOpen(true);
 
-            console.log(data)
-            console.log(this.vm());
         },
         //TODO: check on uniqueness
         createDir: function (data) {
-
+            var self = this;
             var newDir  = {};
 
-            console.log(data)
-            console.log(this.vm());
             newDir.parentId = this.vm().id;
             newDir.name = this.vmName();
 
             mediaAssetAPI.createMediaAssetDirectory(newDir).then(function (data) {
-                console.log(data);
+                mediaAssetUtil.addDirectory(data, self, self.vm());
             });
 
             this.isDirCreatePopupOpen(false);

@@ -196,8 +196,19 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
         },
 
         removeDir: function (data) {
+            var self = this;
             var dirId = this.vm().id;
-            mediaAssetAPI.removeMediaAssetDirectory(dirId);
+            mediaAssetAPI.removeMediaAssetDirectory(dirId).then(function () {
+                _.each(self.tabs(), function (tab) {
+                    if(tab.id == dirId){
+                        self.tabs.remove(tab);
+                    }
+                });
+
+                _.each(self.directories(), function (directory) {
+                    directory.removeDirectory(dirId);
+                });
+            });
 
             this.isDirRemovePopupOpen(false);
         },
@@ -208,9 +219,18 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
         },
 
         removeMa: function (data) {
+            var self = this;
             var maId = this.vm().id;
-            console.log(this.vm())
-            mediaAssetAPI.removeMediaAsset(maId);
+            mediaAssetAPI.removeMediaAsset(maId).then(function () {
+                _.each(self.tabs(), function (tab) {
+                    if(tab.id == maId){
+                        self.tabs.remove(tab);
+                    }
+                });
+                _.each(self.directories(), function (directory) {
+                    directory.removeMediaAsset(maId);
+                });
+            });
             this.isMaRemovePopupOpen(false);
         },
 

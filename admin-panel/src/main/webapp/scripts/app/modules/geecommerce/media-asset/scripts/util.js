@@ -93,6 +93,8 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
         self.maPager = undefined;
         self.maPagerLoaded = ko.observable(false);
 
+        self.isRoot = !data.parentId;
+
         self.addMediaAsset = function (mediaAsset) {
             self.maTreePager.data.push(mediaAsset);
             self.maPager.data.push(mediaAsset);
@@ -160,8 +162,46 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
             self.controller.showDirRemoveModal(self);
         }
 
-        self.remove = function () {
+        self.removeDirectory = function (directoryId) {
+            if(self.directories()){
+                _.each(self.directories(), function (directory) {
+                    if(directory.id == directoryId){
+                        self.directories.remove(directory);
+                        return;
+                    } else {
+                        directory.removeDirectory(directoryId);
+                    }
+                });
+            }
+        }
 
+        self.removeMediaAsset = function (mediaAssetId) {
+            var removed = false;
+            if(self.maTreePager && self.maTreePager.data()){
+                _.each(self.maTreePager.data(), function (mediaAsset) {
+                   if(mediaAsset.id == mediaAssetId){
+                       self.maTreePager.data.remove(mediaAsset);
+                       removed = true;
+                   }
+                });
+            }
+            if(self.maPager && self.maPager.data()){
+                _.each(self.maPager.data(), function (mediaAsset) {
+                    if(mediaAsset.id == mediaAssetId){
+                        self.maPager.data.remove(mediaAsset);
+                        removed = true;
+                    }
+                });
+            }
+
+            if(removed)
+                return;
+
+            if(self.directories()){
+                _.each(self.directories(), function (directory) {
+                    directory.removeMediaAsset(mediaAssetId);
+                });
+            }
         }
 
         self.showCreateDirectory = function () {
@@ -172,9 +212,14 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
 
         }
 
-        self.menu = ko.observableArray([{ text: 'Rename', action: self.showRename },
-            { text: 'Remove', action: self.showRemove },
-            { text: 'Add Directory', action: self.showCreateDirectory }]);
+        if(self.isRoot){
+            self.menu = ko.observableArray([{ text: 'Add Directory', action: self.showCreateDirectory }]);
+        } else {
+            self.menu = ko.observableArray([{ text: 'Rename', action: self.showRename },
+                { text: 'Remove', action: self.showRemove },
+                { text: 'Add Directory', action: self.showCreateDirectory }]);
+        }
+
 
     }
 
@@ -221,7 +266,6 @@ define([ 'knockout', 'gc/gc', 'gc-media-asset'], function(ko, gc, mediaAssetAPI)
                             new_parents.push(vm);
                         });
                     }
-
                 })
                 parents = new_parents;
             }

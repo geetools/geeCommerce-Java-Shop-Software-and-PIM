@@ -48,7 +48,7 @@ public class SearchResource extends AbstractResource {
     public Response findProducts(@PathParam("query") String query, @FilterParam Filter filter) {
         SearchResult searchResult = searchService
             .query(new SearchQuery(query, null, filter.getOffset() == null ? 0 : filter.getOffset().intValue(),
-                filter.getLimit() == null ? 25 : filter.getLimit()));
+                filter.getLimit() == null ? 25 : filter.getLimit(), true));
 
         List<Product> products = null;
 

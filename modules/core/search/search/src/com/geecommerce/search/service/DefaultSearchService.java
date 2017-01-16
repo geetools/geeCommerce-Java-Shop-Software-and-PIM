@@ -112,13 +112,19 @@ public class DefaultSearchService implements SearchService {
         String searchPhrase = elasticsearchHelper.sanitize(searchQuery.getSearchPhrase());
 
         if (searchQuery.getQueryParams() != null && searchQuery.getQueryParams().size() > 0) {
-            qb = searchHelper.toAndQuery(searchQuery.getQueryParams());
+            qb = searchHelper.toAndQuery(searchQuery.getQueryParams(), searchQuery.isIgnoreStatusAndVisibilityFlags());
         } else if (searchPhrase != null && isAutocomplete) {
-            qb = QueryBuilders.boolQuery()
-                .must(QueryBuilders.queryString(Strings.transliterate(searchPhrase))
-                    .field(getAutocompleteSearchField()).field(getAutocompleteSearchField2()))
-                .must(new TermQueryBuilder("is_visible", true))
-                .must(new TermQueryBuilder("is_visible_in_pl", true));
+            if (searchQuery.isIgnoreStatusAndVisibilityFlags()) {
+                qb = QueryBuilders.boolQuery()
+                    .must(QueryBuilders.queryString(Strings.transliterate(searchPhrase))
+                        .field(getAutocompleteSearchField()).field(getAutocompleteSearchField2()));
+            } else {
+                qb = QueryBuilders.boolQuery()
+                    .must(QueryBuilders.queryString(Strings.transliterate(searchPhrase))
+                        .field(getAutocompleteSearchField()).field(getAutocompleteSearchField2()))
+                    .must(new TermQueryBuilder("is_visible", true))
+                    .must(new TermQueryBuilder("is_visible_in_pl", true));
+            }
         } else if (searchPhrase != null) {
             Matcher m = articleNumberPattern.matcher(searchPhrase.trim());
 
@@ -127,20 +133,29 @@ public class DefaultSearchService implements SearchService {
                     Strings.slugify(Jsoup.parse(searchPhrase).text()).replaceAll(Str.MINUS_ESCAPED, Str.UNDERSCORE))
                     .append(Str.UNDERSCORE_2X).toString();
 
-                qb = QueryBuilders.boolQuery().must(new TermQueryBuilder("att_article_number_slug", slugSearchPhrase))
-                    .must(new TermQueryBuilder("is_visible", true));
+                if (searchQuery.isIgnoreStatusAndVisibilityFlags()) {
+                    qb = QueryBuilders.boolQuery().must(new TermQueryBuilder("att_article_number_slug", slugSearchPhrase));
+                } else {
+                    qb = QueryBuilders.boolQuery().must(new TermQueryBuilder("att_article_number_slug", slugSearchPhrase))
+                        .must(new TermQueryBuilder("is_visible", true));
+                }
             } else {
                 StringBuilder searchFor = new StringBuilder(Strings.transliterate(searchPhrase));
 
-                if (searchFor.length() > 4)
+                if (searchFor.length() >= 3)
                     searchFor.append(Char.ASTERIX);
 
                 QueryStringQueryBuilder queryBuilder = QueryBuilders.queryString(searchFor.toString());
                 if (SynonymsHelper.isSynonymsEnabled()) {
                     queryBuilder.analyzer("synonym");
                 }
-                qb = QueryBuilders.boolQuery().must(queryBuilder).must(new TermQueryBuilder("is_visible", true))
-                    .must(new TermQueryBuilder("is_visible_in_pl", true));
+
+                if (searchQuery.isIgnoreStatusAndVisibilityFlags()) {
+                    qb = QueryBuilders.boolQuery().must(queryBuilder);
+                } else {
+                    qb = QueryBuilders.boolQuery().must(queryBuilder).must(new TermQueryBuilder("is_visible", true))
+                        .must(new TermQueryBuilder("is_visible_in_pl", true));
+                }
             }
         } else {
             throw new IllegalArgumentException(

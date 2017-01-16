@@ -377,10 +377,17 @@ public class DefaultSearchHelper implements SearchHelper {
 
     @Override
     public QueryBuilder toAndQuery(Map<String, Object> queryParams) {
+        return toAndQuery(queryParams, false);
+    }
+
+    @Override
+    public QueryBuilder toAndQuery(Map<String, Object> queryParams, boolean ignoreVisibilityAndStatus) {
         BoolQueryBuilder bqb = (BoolQueryBuilder) elasticsearchHelper.toAndQuery(queryParams);
 
-        bqb.must(QueryBuilders.termQuery("is_visible", true));
-        bqb.must(QueryBuilders.termQuery("is_visible_in_pl", true));
+        if (!ignoreVisibilityAndStatus) {
+            bqb.must(QueryBuilders.termQuery("is_visible", true));
+            bqb.must(QueryBuilders.termQuery("is_visible_in_pl", true));
+        }
 
         return bqb;
     }

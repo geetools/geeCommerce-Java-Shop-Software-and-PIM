@@ -20,4 +20,5 @@ public interface SearchHelper {
 
     public QueryBuilder toAndQuery(Map<String, Object> queryParams);
 
+    public QueryBuilder toAndQuery(Map<String, Object> queryParams, boolean ignoreVisibilityAndStatus);
 }

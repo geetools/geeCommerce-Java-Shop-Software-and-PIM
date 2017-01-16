@@ -14,6 +14,7 @@ public class SearchQuery {
     private Double priceTo;
     private boolean showEvent;
     private boolean showSale;
+    private boolean ignoreStatusAndVisibilityFlags = false;
 
     public SearchQuery(String searchPhrase) {
         this.searchPhrase = searchPhrase;
@@ -32,6 +33,14 @@ public class SearchQuery {
         this.limit = limit;
     }
 
+    public SearchQuery(String searchPhrase, Map<String, Object> filter, Integer offset, Integer limit, boolean ignoreStatusAndVisibilityFlags) {
+        this.searchPhrase = searchPhrase;
+        this.filter = filter;
+        this.offset = offset;
+        this.limit = limit;
+        this.ignoreStatusAndVisibilityFlags = ignoreStatusAndVisibilityFlags;
+    }
+
     public SearchQuery(String searchPhrase, Map<String, Object> filter, Integer offset, Integer limit, String sort,
         Double priceFrom, Double priceTo, boolean showEvent, boolean showSale) {
         this.searchPhrase = searchPhrase;
@@ -45,10 +54,31 @@ public class SearchQuery {
         this.showSale = showSale;
     }
 
+    public SearchQuery(String searchPhrase, Map<String, Object> filter, Integer offset, Integer limit, String sort,
+        Double priceFrom, Double priceTo, boolean showEvent, boolean showSale, boolean ignoreStatusAndVisibilityFlags) {
+        this.searchPhrase = searchPhrase;
+        this.filter = filter;
+        this.offset = offset;
+        this.limit = limit;
+        this.sort = sort;
+        this.priceFrom = priceFrom;
+        this.priceTo = priceTo;
+        this.showEvent = showEvent;
+        this.showSale = showSale;
+        this.ignoreStatusAndVisibilityFlags = ignoreStatusAndVisibilityFlags;
+    }
+
     public SearchQuery(Map<String, Object> queryParams, Integer offset, Integer limit) {
         this.queryParams = queryParams;
         this.offset = offset;
         this.limit = limit;
+    }
+
+    public SearchQuery(Map<String, Object> queryParams, Integer offset, Integer limit, boolean ignoreStatusAndVisibilityFlags) {
+        this.queryParams = queryParams;
+        this.offset = offset;
+        this.limit = limit;
+        this.ignoreStatusAndVisibilityFlags = ignoreStatusAndVisibilityFlags;
     }
 
     public String getSearchPhrase() {
@@ -136,5 +166,9 @@ public class SearchQuery {
 
     public boolean isShowSale() {
         return showSale;
+    }
+
+    public boolean isIgnoreStatusAndVisibilityFlags() {
+        return ignoreStatusAndVisibilityFlags;
     }
 }

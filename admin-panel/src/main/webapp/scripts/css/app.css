@@ -2583,6 +2583,15 @@ ul.ma-directories, ul.ma-directories li {
     margin-top: 7px;
 }
 
+ul.ma-directories .pagination-ma{
+    margin: 0;
+}
+
+.pagination-ma>li>a, .pagination-ma>li>span {
+
+    padding: 4px 10px;
+}
+
 .ma-icon-label {
 	margin-left: 5px;
 	cursor: pointer;

@@ -59,15 +59,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
                         }
                     });*/
 
-                    dz.on("success", function(file, data) {
-                        //self.tab.vm.files(data.mediaAsset.files);
-                        console.log(data);
-                        self.tab.vm.addMediaAssetToPager(data.data.mediaAsset);
+                    dz.on("success", function(file, data) {;
 
-
-                      //  var mediaAssetVM = new MediaAssetVM(data, self.contoller);
-
-                     //   self.tab.vm.maPager.data.push(data.mediaAsset);
+                    console.log("VM", self.tab.vm)
+                        mediaAssetUtil.addMediaAsset(data.data.mediaAsset, self.tab.vm.controller, self.tab.vm);
 
                         dz.removeFile(file);
                     });

@@ -265,7 +265,7 @@ public class DefaultMediaAsset extends AbstractAttributeSupport
 
         json.put(FIELD_KEY_ID, id);
         json.put(FIELD_KEY_MIME, getMimeType());
-        json.put(FIELD_KEY_NAME, getName().toString());
+        json.put(FIELD_KEY_NAME, getName().str());
 
         boolean isVisible = true;
 

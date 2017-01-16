@@ -120,7 +120,18 @@
 
         <!-- ko if: open() -->
         <ul data-bind="template: { name: 'nodeTemplate', foreach: directories }"></ul>
-        <ul data-bind="template: { name: 'fileTemplate', foreach: mediaAssets }"></ul>
+        <!--<ul data-bind="template: { name: 'fileTemplate', foreach: mediaAssets }"></ul>-->
+            <!-- ko if: maTreePager.limit() < maTreePager._totalCount  -->
+                <ul class="pagination pagination-ma" data-bind="foreach: { data: maTreePager.pages, as: 'page' }">
+                    <li data-bind="click: $parent.maTreePager.page, css: { active: $parent.maTreePager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+                </ul>
+            <!-- /ko -->
+            <ul data-bind="template: { name: 'fileTemplate', foreach: maTreePager.data }"></ul>
+            <!-- ko if: maTreePager.limit() < maTreePager._totalCount -->
+                <ul class="pagination pagination-ma" data-bind="foreach: { data: maTreePager.pages, as: 'page' }">
+                    <li data-bind="click: $parent.maTreePager.page, css: { active: $parent.maTreePager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+                </ul>
+            <!-- /ko -->
         <!-- /ko -->
         <!-- ko if: !open() -->
 
@@ -134,6 +145,8 @@
         <span class="ma-icon-label ma-icon-label-file" data-bind="i18nText: { value: name, mode: 'closest' }, click: openMediaAsset, contextMenu: menu"></span>
     </li>
 </script>
+
+
 
 
 <!--Modal dialogs-->

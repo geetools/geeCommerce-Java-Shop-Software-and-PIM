@@ -214,7 +214,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
                     self.saveState();
 
-                    self.load();
+                    self.load(self._onpageclickSubscribers, { page: self._currentPage, limit:  self._limit});
                 }
             });
 
@@ -542,7 +542,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                             var onloadfunc = self._onloadSubscribers[i];
                             
                             if (onloadfunc && typeof onloadfunc === "function") {
-                                onloadfunc(data, status, xhr);
+                                onloadfunc(data, status, xhr, ctx);
                             }
                         }
                     }
@@ -753,6 +753,10 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             }
 
             this.pages(pagesArr);
+        },
+        totalCount : function() {
+            var self = this;
+            return self._totalCount;
         }
     };
 

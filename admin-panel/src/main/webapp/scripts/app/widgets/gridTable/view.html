@@ -27,10 +27,13 @@
           <div class="grid-num-results-form">
             <form>
               <div class="form-group">
-                <select class="selectpicker" data-size="15" data-bind="select: pager.limit, data: limitOptions, change: pager.refresh">
+                <select class="selectpicker" data-size="15" data-bind="select: pager.limit, data: limitOptions">
                 </select>
               </div>
             </form>
+          </div>
+          <div>
+            <span data-bind="text: numSelectedRows"></span>
           </div>
 
         </div>
@@ -48,7 +51,7 @@
             <!--  Data -->
             <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
               <tr>
-                <th class="td-select" align="center"><input type="checkbox" class="checkbox" /></th>
+                <th class="td-select" align="center"><input type="checkbox" class="checkbox" data-bind="value: row.id"/></th>
                 <td data-bind="attrText: row, code: 'manufacturer', scope: 'global'"></td>
                 <td><a data-bind="i18n: 'app:modules.product.type' + row.type, attr: { href: '#/products/details/' + row.id }"></a></td>
                 <td data-bind="text:  $root.group(row)"></td>

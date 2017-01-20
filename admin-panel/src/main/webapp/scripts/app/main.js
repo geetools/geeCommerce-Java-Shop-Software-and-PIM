@@ -26,7 +26,7 @@
         'bootstrap-jasny' : '../vendor/bootstrap-jasny/dist/extend/js/jasny-bootstrap.min',
         'bootstrap-datepicker' : '../vendor/bootstrap-datepicker/js/bootstrap-datepicker',
         'bootstrap-colorpicker' : '../vendor/bootstrap-colorpicker/js/bootstrap-colorpicker',
-        'bootstrap-select' : '../vendor/bootstrap-select-1.11.2/dist/js/bootstrap-select',
+        'bootstrap-select' : '../vendor/bootstrap-select-1.12.1/dist/js/bootstrap-select',
         'bootstrap-slider' : '../vendor/bootstrap-slider/src/js/bootstrap-slider',
         'jquery.tmpl' : '../vendor/jquery-tmpl/jquery.tmpl.min',
         'jquery.easing' : '../vendor/jquery.easing/jquery.easing.1.3.min',
@@ -574,9 +574,11 @@ define(function(require) {
     widget.registerKind('queryBuilder');
     widget.registerKind('productFinder');
     widget.registerKind('attrSelect');
+    widget.registerKind('attrBatchUpdater');
     widget.registerKind('newAttributeForm');
     widget.registerKind('productInfo');
     widget.registerKind('noImage');
+    widget.registerKind('localeSwitch');
 
     kv.makeBindingHandlerValidatable("i18nValue");
 

@@ -179,6 +179,7 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
         this.showSaveModal = ko.observable(false);
         this.showFlashMessageModal = ko.observable(false);
         this.showQueryBuilderModal = ko.observable(false);
+        this.showAttrBatchUpdaterModal = ko.observable(false);
         this.flashMsg;
         this._toolbarSaveSubscription = null;
         this.navToolbar = ko.observable(false);

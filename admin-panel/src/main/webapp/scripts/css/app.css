@@ -2524,7 +2524,7 @@ td>a:not(i) {
     line-height: 36px !important;
 }
 
-#form-context-switch, #form-locale-switch {
+.form-context-switch, .form-locale-switch {
     margin-top: 5px;
 }
 
@@ -2533,11 +2533,11 @@ td>a:not(i) {
     height: 26px;
 }
 
-#form-context-switch .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+.form-context-switch .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 250px;
 }
 
-#form-locale-switch .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+.form-locale-switch .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 150px;
 }
 
@@ -3837,7 +3837,152 @@ div.prd-no-image>i.fa {
     width: 250px !important;
 }
 
+.attr-batch-updater .bootstrap-select {
+	max-width: 80%;
+}
+
+.attr-batch-updater .modal-dialog, .attr-batch-updater .modal-content {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.attr-batch-updater .modal-content {
+	border: none;
+	border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-sizing: initial;
+    -moz-box-sizing: initial;
+    box-sizing: initial;
+}
+
+.attr-batch-updater .modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.attr-batch-updater form.attr-batch-update-form {
+    height: 70%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    min-height: 70%;
+    position: absolute;
+    width: 95%;
+    padding-right: 15px;
+}
+
+.attr-batch-updater .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+	max-width: 100%;
+    width: 100%;
+}
+
+.attr-batch-updater .modal-body>.bootstrap-select>.dropdown-toggle.bs-placeholder,
+.attr-batch-updater .modal-body>.bootstrap-select>.dropdown-toggle.bs-placeholder:active, 
+.attr-batch-updater .modal-body>.bootstrap-select>.dropdown-toggle.bs-placeholder:focus, 
+.attr-batch-updater .modal-body>.bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+	background-color: #DFDFDF;
+}
+
+.attr-batch-updater .modal-body>.bootstrap-select .btn {
+	background: #DFDFDF;
+	font-weight: bold;
+}
+
+.attr-batch-updater .attr-batch-update-mode {
+	margin-top: 7px;
+}
+
+.attr-batch-updater .attr-batch-update-mode .bootstrap-select .btn {
+	background-color: #fafafa;
+    border-color: #fafafa !important;
+    font-size: 10px;
+}
+
+.attr-batch-updater .attr-batch-update-mode .dropdown-menu {
+    font-size: 10px;
+}
+
+.attr-batch-updater form.attr-batch-update-form .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    float: right;
+}
+
+.attr-batch-updater .modal-body {
+	height: 65%;
+}
+
+.attr-batch-updater .modal-header {
+    cursor: move;
+}
+
+.attr-batch-updater .switch-button-background {
+	margin: 1px 3px;
+}
+
+.modal-header .form-context-switch, .modal-header .form-locale-switch {
+	margin-top: 0px;
+}
+
+.modal-header .form-locale-switch {
+	float: right;
+}
+
+.modal-header .form-locale-switch .btn-group.bootstrap-select {
+    display: inline-block;
+    height: 26px;
+}
+
+.modal-header .form-locale-switch .fa {
+    font-size: 16px;
+    color: #777;
+}
+
+.modal-header .form-locale-switch .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    min-width: 120px;
+    max-width: 200px;
+}
+
+.modal-header .form-locale-switch .btn-default:hover, 
+.modal-header .form-locale-switch .btn-default:focus, 
+.modal-header .form-locale-switch .bootstrap-select .btn-default:active, 
+.modal-header .form-locale-switch .bootstrap-select .btn-default.active, 
+.modal-header .form-locale-switch .bootstrap-select .open .dropdown-toggle.btn-default, 
+.modal-header .form-locale-switch .bootstrap-select .btn {
+    background: #e5e5e5;
+    color: #777 !important;
+    border: 1px solid #777 !important;
+    outline: none;
+    height: 26px;
+}
+
+.form-group.locale-switch {
+	white-space: nowrap;
+}
+
 @media only screen and (min-width: 768px) {
+	.attr-batch-updater .modal-body {
+		min-height: 420px;
+	}
+
+	.attr-batch-updater .modal-content {
+	    border: 1px solid #999;
+	    border: 1px solid rgba(0,0,0,.2);
+	    border-radius: 6px;
+	    outline: 0;
+	    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+	    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+	    height: auto;
+	}
+	
+	.attr-batch-updater .modal-dialog {
+	    width: 600px;
+	    height: auto;
+	    margin: 30px auto;
+	}	
+	
     #product-status-infobox {
         background-color: #f6f6f6;
     }

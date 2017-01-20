@@ -39,7 +39,11 @@
 		"remainingTime" : "Session ends in",
 		"refreshData" : "Refresh data",
 		"saveEdits" : "",
-		"removeContent" : ""
+		"removeContent" : "",
+		"addAttribute" : "<i class=\"fa fa-plus\"></i> Add attribute ...",
+		"attrBatchUpdaterModePartlyReplace" : "Add new values or partly replace existing values",
+		"attrBatchUpdaterModeCompleteReplace" : "Add new values or completely replace existing values",
+		"attrBatchUpdaterModeRemove" : "Remove selected attributes"
 	},
 	"navigation" : {
 		"catalogue" : "Catalog",

@@ -9,7 +9,7 @@
                     <a class="navbar-brand" href="index.html"><img data-bind="attr: { src: app.conf.logoURI }" height="25" /> <span data-bind="attr: { src: app.conf.logoText }"></span></a>
                 </div>
                 <form class="form-inline form-locale-switch menu-item" role="form">
-                    <div id="form-context-switch">
+                    <div class="form-context-switch">
                         <div class="form-group locale-switch">
                             <i class="navbar-icon fa fa-bullseye" aria-hidden="true"></i> 
                             <select class="selectpicker" data-size="15" data-bind="select: app.sess.activeContextId, data: contextOptions">
@@ -21,15 +21,7 @@
                     </div>
                 </form>
 
-                <form class="form-inline form-locale-switch menu-item" role="form">
-                    <div id="form-locale-switch">
-                        <div class="form-group locale-switch">
-                            <i class="navbar-icon fa fa-globe" aria-hidden="true"></i> 
-                            <select class="selectpicker" data-size="15" data-bind="select: app.sess.selectedLanguage, data: languageOptions">
-                            </select>
-                        </div>
-                    </div>
-                </form>
+                <div data-bind="localeSwitch"></div>
             </div>
 
             <div id="navbar-session-user-info">

@@ -21,6 +21,8 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
                 if (sort) {
 
+                    console.log('SOOOOOOOOOOOOOORT??????????????? ', unwrappedData);
+                    
                     var firstItem;
                     if (unwrappedData[0] && unwrappedData[0].id == '') {
                         firstItem = unwrappedData.shift();

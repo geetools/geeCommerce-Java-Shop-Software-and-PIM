@@ -42,7 +42,11 @@
 		"removeContent" : "",
 		"uploadHintDragAndDrop" : "Dateien hierher ziehen",
 		"uploadHintChooseFile" : "Dateien auswählen",
-		"or" : "oder"
+		"or" : "oder",
+		"addAttribute" : "<i class=\"fa fa-plus\"></i> Attribut hinzufügen ...",
+		"attrBatchUpdaterModePartlyReplace" : "Neue Werte hinzufügen oder bestehende Werte ergänzen",
+		"attrBatchUpdaterModeCompleteReplace" : "Neue Werte hinzufügen oder aktuelle Werte komplett ersetzen",
+		"attrBatchUpdaterModeRemove" : "Ausgewählte Attribute entfernen"
 	},
 	"navigation" : {
 		"catalogue" : "Katalog",

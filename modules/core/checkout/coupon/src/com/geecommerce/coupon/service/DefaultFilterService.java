@@ -11,6 +11,7 @@ import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.enums.CouponFilterAttributeType;
 import com.geecommerce.coupon.enums.CouponFilterNodeType;
+import com.geecommerce.coupon.enums.ProductSelectionType;
 import com.geecommerce.coupon.helper.CouponHelper;
 import com.geecommerce.coupon.model.CartAttributeCollection;
 import com.geecommerce.coupon.model.Coupon;
@@ -199,33 +200,47 @@ public class DefaultFilterService implements FilterService {
 
     @Override
     public List<Id> passFilter(CartAttributeCollection cartAttributeCollection, Coupon coupon) {
-        List<Id> result = new ArrayList<>();
-        Set<Id> allProducts = cartAttributeCollection.getProductAttributes().keySet();
 
-        if (coupon.getCouponAction().getFilter() == null)
-            return new ArrayList<>(allProducts);
+        List<Id> result = new ArrayList<>();
+        Set<Id> allCartProducts = cartAttributeCollection.getProductAttributes().keySet();
 
         List<Id> priceTypeIds = new ArrayList<>();
         if (coupon.getPriceTypeIds() != null) {
             priceTypeIds.addAll(coupon.getPriceTypeIds());
         }
+
         if (coupon.getCouponAction().getPriceTypeId() != null) {
             priceTypeIds.add(coupon.getCouponAction().getPriceTypeId());
         }
 
-        /*
-         * 
-         * for(Id productId:
-         * cartAttributeCollection.getProductAttributes().keySet()){ if
-         * (!couponHelper.hasPriceTypes(productId, priceTypeIds)) return false;
-         * }
-         */
 
-        for (Id id : allProducts) {
-            if (couponHelper.hasPriceTypes(id, priceTypeIds)
-                && passFilter(id, cartAttributeCollection, coupon.getCouponAction().getFilter()))
-                result.add(id);
+        if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.QUERY)){
+
+            if (coupon.getCouponAction().getFilter() == null)
+                return new ArrayList<>(allCartProducts);
+
+
+            for (Id id : allCartProducts) {
+                if (couponHelper.hasPriceTypes(id, priceTypeIds)
+                        && passFilter(id, cartAttributeCollection, coupon.getCouponAction().getFilter()))
+                    result.add(id);
+            }
         }
+
+        if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.PRODUCT)){
+            if(coupon.getCouponAction().getProductIds() != null){
+                for (Id id: allCartProducts) {
+                    if(couponHelper.hasPriceTypes(id, priceTypeIds) && coupon.getCouponAction().getProductIds().contains(id))
+                        result.add(id);
+                }
+            }
+        }
+
+
+        if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.LIST)){
+
+        }
+
 
         return result;
     }

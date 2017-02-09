@@ -11,6 +11,7 @@ import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.enums.CouponActionType;
 import com.geecommerce.coupon.enums.CouponDiscountOrder;
+import com.geecommerce.coupon.enums.ProductSelectionType;
 import com.google.common.collect.Maps;
 
 @Cacheable
@@ -19,24 +20,42 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
 
     @Column(Col.TYPE)
     public CouponActionType type;
+
     @Column(Col.DISCOUNT_AMOUNT)
     public Double discountAmount;
+
     @Column(Col.DISCOUNT_AMOUNTS)
     public List<Double> discountAmounts;
+
     @Column(Col.RANGE_DISCOUNT_AMOUNT)
     public List<CouponRangeDiscountAmount> rangeDiscountAmount;
+
     @Column(Col.DISCOUNT_QTY_STEP)
     public Double discountQtyStep;
+
     @Column(Col.MAX_QTY_APPLY_TO)
     public Integer maximumQtyApplyTo;
+
     @Column(Col.FREE_SHIPPING)
     public Boolean freeShipping;
+
     @Column(Col.FILTER)
     public CouponFilterNode filter;
+
     @Column(Col.PRICE_TYPE_ID)
     public Id priceTypeId;
+
     @Column(Col.DISCOUNT_ORDER)
     public CouponDiscountOrder couponDiscountOrder;
+
+    @Column(Col.PRODUCT_SELECTION_TYPE)
+    public ProductSelectionType productSelectionType;
+
+    @Column(Col.PRODUCT_IDS)
+    public List<Id> productIds;
+
+    @Column(Col.PRODUCT_LIST_IDS)
+    public List<Id> productListIds;
 
     @Override
     public CouponActionType getType() {
@@ -151,6 +170,39 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
     }
 
     @Override
+    public ProductSelectionType getProductSelectionType() {
+        return productSelectionType;
+    }
+
+    @Override
+    public CouponAction setProductSelectionType(ProductSelectionType productSelectionType) {
+        this.productSelectionType = productSelectionType;
+        return this;
+    }
+
+    @Override
+    public List<Id> getProductIds() {
+        return productIds;
+    }
+
+    @Override
+    public CouponAction setProductIds(List<Id> productIds) {
+        this.productIds = productIds;
+        return this;
+    }
+
+    @Override
+    public List<Id> getProductListIds() {
+        return productListIds;
+    }
+
+    @Override
+    public CouponAction setProductListIds(List<Id> productListIds) {
+        this.productListIds = productListIds;
+        return this;
+    }
+
+    @Override
     public Id getId() {
         return null;
     }
@@ -160,6 +212,9 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
         map = normalize(map);
         this.type = enum_(CouponActionType.class, map.get(CouponAction.Col.TYPE));
         this.couponDiscountOrder = enum_(CouponDiscountOrder.class, map.get(Col.DISCOUNT_ORDER));
+        this.productSelectionType = enum_(ProductSelectionType.class, map.get(Col.PRODUCT_SELECTION_TYPE), ProductSelectionType.QUERY);
+        this.productIds = idList_(map.get(Col.PRODUCT_IDS));
+        this.productListIds = idList_(map.get(Col.PRODUCT_LIST_IDS));
         this.discountAmount = double_(map.get(Col.DISCOUNT_AMOUNT));
 
         if (list_(map.get(Col.DISCOUNT_AMOUNTS)) != null && list_(map.get(Col.DISCOUNT_AMOUNTS)).size() > 0) {
@@ -208,6 +263,10 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
         m.put(Col.MAX_QTY_APPLY_TO, getMaximumQtyApplyTo());
         m.put(Col.FREE_SHIPPING, getFreeShipping());
         m.put(Col.PRICE_TYPE_ID, getPriceTypeId());
+
+        m.put(Col.PRODUCT_SELECTION_TYPE, getProductSelectionType().toId());
+        m.put(Col.PRODUCT_IDS, getProductIds());
+        m.put(Col.PRODUCT_LIST_IDS, getProductListIds());
 
         if (getFilter() != null) {
             m.put(Col.FILTER, getFilter().toMap());

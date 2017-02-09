@@ -99,6 +99,7 @@ public class MediaAssetResource extends AbstractResource {
         return null;
     }
 
+    //TODO: mark as removed but not actually remove
     @DELETE
     @Path("{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

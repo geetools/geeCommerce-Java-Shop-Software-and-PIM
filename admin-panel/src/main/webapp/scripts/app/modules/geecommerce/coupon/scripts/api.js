@@ -611,13 +611,15 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
                 url: '/api/v1/coupons',
                 filter: options.filter || [],
                 // Only load specific fields for better performance.
-                fields: options.fields || [ 'id', 'name', 'enabled', 'deleted', 'createdOn' ],
+                fields: options.fields || [ 'id', 'name', 'enabled', 'deleted', 'fromDate', 'toDate', 'auto' ],
                 // Optionally pre-sort the results.
                 sort: options.sort || ['-createdOn'],
                 columns: options.columns,
                 // Returns an array that the pager can add to the
                 // ko.observableArray.
                 getArray: function (data) {
+                    console.log("WTF")
+                    console.log(data)
                     return data.coupons;
                 }
             }

@@ -191,7 +191,9 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
 
     @Override
     public PriceType getProductPriceType() {
-        return productPrice().getPriceType();
+        if(productPrice() != null)
+            return productPrice().getPriceType();
+        return null;
     }
 
     @Override
@@ -294,7 +296,8 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
         m.put(Column.BUNDLE_ID, getBundleId());
         m.put(Column.PRODUCT_NAME, getProductName());
         m.put(Column.PRODUCT_PRICE, getProductPrice());
-        m.put(Column.PRODUCT_PRICE_TYPE_ID, getProductPriceType().getId());
+        if(getProductPriceType() != null)
+            m.put(Column.PRODUCT_PRICE_TYPE_ID, getProductPriceType().getId());
         m.put(Column.QUANTITY, getQuantity());
         m.put(Column.LAST, isLast());
 

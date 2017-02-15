@@ -10,9 +10,14 @@ which ensures that the first post of the form has a positive csrf-validation.
 
 <@layout.onecolumn>
 
-    <#include "coupon.ftl" />
+<#--    <#include "coupon.ftl" />-->
+
+
 
     <#if cart?? && cart.cartItems?has_content>
+
+        <@coupons/>
+
         <#assign cart = cart>
         <#assign cartTotals = cart.totals>
 

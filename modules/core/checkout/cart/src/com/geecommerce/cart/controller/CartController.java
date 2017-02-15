@@ -301,69 +301,6 @@ public class CartController extends BaseController {
 
     }
 
-    @Request("remove-coupon")
-    public Result removeCoupon() {
-        Cart cart = cartHelper.getCart(true);
-        cart.setCouponCode(null);
-        cart.setUseAutoCoupon(true);
-        cartService.updateCart(cart);
-        return redirect("/cart/view");
-    }
-
-    @Request("switch-auto-coupon")
-    public Result switchAutoCoupon() {
-        // if(useAutoCoupon != null){
-        // Cart cart = getCart(true);
-        // cart.setUseAutoCoupon(!useAutoCoupon);
-        // }
-        Cart cart = cartHelper.getCart(true);
-        cart.setUseAutoCoupon(!cart.getUseAutoCoupon());
-        cartService.updateCart(cart);
-        return redirect("/cart/view");
-    }
-
-    @Request("set-auto-coupon")
-    public Result setAutoCoupon(@Param("selectedAutoCoupon") String selectedAutoCoupon) {
-        if (selectedAutoCoupon != null) {
-            CouponCode couponCode = couponService.getCouponCode(selectedAutoCoupon);
-            if (couponCode != null && couponCode.getCoupon() != null && couponCode.getCoupon().getAuto() != null
-                && couponCode.getCoupon().getAuto()) {
-                Cart cart = cartHelper.getCart(true);
-                cart.setUseAutoCoupon(true);
-                cart.setCouponCode(couponCode);
-                cartService.updateCart(cart);
-            }
-        }
-
-        return redirect("/cart/view");
-    }
-
-    @Request("add-coupon")
-    public Result addCouponCode(@Param("couponCode") String couponCode) {
-        CouponCode code = couponService.getCouponCode(couponCode);
-        Map<String, String> result = new HashMap<>();
-        // check that exists
-        // if not say that coupon doesn't exists
-        if (code == null) {
-            result.put("result", "unsuccess");
-            result.put("message", app.message("Coupon doesn't exist or not valid"));
-
-        } else {
-            Cart cart = cartHelper.getCart(true);
-            CartAttributeCollection cartAttributeCollection = ((CouponData) cart).toCartAttributeCollection();
-
-            if (couponService.isCouponApplicableToCart(code, cartAttributeCollection, true)) {
-                cart.setCouponCode(code);
-                cartService.updateCart(cart);
-                result.put("result", "success");
-            } else {
-                result.put("result", "unsuccess");
-                result.put("message", app.message("Can't use coupon for this cart"));
-            }
-        }
-
-        return redirect("/cart/view");
-    }
 
     @Request("mini-cart")
     public Result miniCart(@Param("cart-view") String view) throws Exception {
@@ -389,32 +326,4 @@ public class CartController extends BaseController {
         }
     }
 
-    // public CouponCode getAutoCoupon() {
-    // Cart cart = cartHelper.getCart();
-    // if (autoCoupon == null) {
-    // // check if cart contains autocoupon
-    // if (cart.getCouponCode() != null &&
-    // cart.getCouponCode().getCoupon().getAuto() == true)
-    // autoCoupon = cart.getCouponCode();
-    // }
-    // if (autoCoupon == null) {
-    // // get autocoupon
-    // CartAttributeCollection cartAttributeCollection = ((CouponData)
-    // cart).toCartAttributeCollection();
-    // autoCoupon = couponService.getAutoCoupon(cart.getCouponCode(),
-    // cartAttributeCollection);
-    // }
-    // return autoCoupon;
-    // }
-    //
-    // public List<CouponCode> getAutoCoupons() {
-    // if (autoCoupons == null) {
-    // Cart cart = cartHelper.getCart();
-    // CartAttributeCollection cartAttributeCollection = ((CouponData)
-    // cart).toCartAttributeCollection();
-    // autoCoupons = couponService.getAutoCoupons(cartAttributeCollection);
-    // }
-    //
-    // return autoCoupons;
-    // }
 }

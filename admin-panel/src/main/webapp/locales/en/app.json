@@ -43,7 +43,14 @@
 		"addAttribute" : "<i class=\"fa fa-plus\"></i> Add attribute ...",
 		"attrBatchUpdaterModePartlyReplace" : "Add new values or partly replace existing values",
 		"attrBatchUpdaterModeCompleteReplace" : "Add new values or completely replace existing values",
-		"attrBatchUpdaterModeRemove" : "Remove selected attributes"
+		"attrBatchUpdaterModeRemove" : "Remove selected attributes",
+		"msMaxEntryRenderer1" : "Please reduce your entry by __value__ character",
+		"msMaxEntryRenderer2" : "Please reduce your entry by __value__ characters",
+		"msMaxSelectionRenderer1" : "You cannot choose more than 1 item",
+		"msMaxSelectionRenderer2" : "You cannot choose more than __value__ items",
+		"msMinCharsRenderer1" : "Please type __value__ more character",
+		"msMinCharsRenderer2" : "Please type __value__ more characters",
+		"msNoSuggestionText" : "No suggestions"
 	},
 	"navigation" : {
 		"catalogue" : "Catalog",

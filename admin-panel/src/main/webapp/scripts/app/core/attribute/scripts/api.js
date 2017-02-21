@@ -1,5 +1,5 @@
 define(['knockout', 'gc/gc'], function (ko, gc) {
-	
+
 	return {
         getAttribute: function(attributeId) {
 			self = this;
@@ -49,7 +49,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			console.log('_____createAttribute_____', newAttribute);
-			
+
 			gc.rest.post({
 				url : '/api/v1/attributes',
 				data: newAttribute,
@@ -89,7 +89,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			console.log('_____updateModel_____', updateModel.data());
-			
+
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId,
 				data: updateModel.data(),
@@ -120,10 +120,10 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
         },
         getAttributes: function(arg1, arg2) {
 			self = this;
-			
+
             var targetObjCode;
             var options;
-            
+
 			if(!_.isUndefined(arg1) && _.isObject(arg1) && _.isUndefined(arg2)) {
 			    options = arg1;
 			} else if(!_.isUndefined(arg1) && _.isString(arg1) && _.isUndefined(arg2)) {
@@ -132,22 +132,25 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
                 targetObjCode = arg1;
                 options = arg2;
 			}
-			
+
             var options = options || {};
             var filter = options.filter || {};
 
 			if(!_.isUndefined(targetObjCode) && _.isUndefined(filter.targetObjectId)) {
 			    filter.targetObjectId = self.targetObjectId(targetObjCode);
 			}
-			
+
+
+			console.log('?????????????=====??????? targetObjectId: ', targetObjCode, filter.targetObjectId);
+
 			if(!options.nocache) {
 				var cachedAttributes = gc.cache.get('attributes', options);
-				
+
 				if(!_.isEmpty(cachedAttributes ) && cachedAttributes[0]) {
 					return $.when({ isFromCache : true, data : { attributes : cachedAttributes } });
 				}
 			}
-			
+
 			var deferred = new $.Deferred();
 			var promise = deferred.promise();
 
@@ -193,12 +196,12 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
             if(!options.nocache) {
                 var cachedAttributeTargetObjects = gc.cache.get('attributeTargetObjects', options);
-                
+
                 if(!_.isEmpty(cachedAttributeTargetObjects ) && cachedAttributeTargetObjects[0]) {
                     return $.when({ isFromCache : true, data : { attributeTargetObjects : cachedAttributeTargetObjects } });
                 }
             }
-            
+
             var deferred = new $.Deferred();
             var promise = deferred.promise();
 
@@ -244,7 +247,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             var filter = options.filter || {};
 
             if(!_.isEmpty(targetObjectCode)) {
-                
+
                 var cachedAttributeTargetObjects = gc.cache.get('attributeTargetObjects', {filter: {code: targetObjectCode}});
                 if(!_.isEmpty(cachedAttributeTargetObjects) && cachedAttributeTargetObjects.length === 1) {
                     return cachedAttributeTargetObjects[0].id;
@@ -255,7 +258,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			var self = this;
 
 			var options = options || {};
-			
+
 			var deferred = new $.Deferred();
 			var promise = deferred.promise();
 
@@ -292,7 +295,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			return promise;
         },
-        getAttributeOptions: function(attributeId) {
+        getAttributeOptions: function(attributeId, optionIds) {
 			self = this;
 
 			var deferred = new $.Deferred();
@@ -302,8 +305,14 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
+			var optionIdParam = '';
+
+			if(!_.isUndefined(optionIds) && _.isArray(optionIds) && !_.isEmpty(optionIds)) {
+			    optionIdParam = '?id=' + optionIds.join();
+			}
+
 			gc.rest.get({
-				url : '/api/v1/attributes/' + attributeId + '/options',
+				url : '/api/v1/attributes/' + attributeId + '/options' + optionIdParam,
 				success : function(data, status, xhr) {
 					if (self._onload) {
 						self._onload(data, status, xhr);
@@ -366,7 +375,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			return promise;
         },
-        findAttributeOptions: function(attributeId, term, lang, limit) {
+        findAttributeOptions: function(attributeId, term, lang, limit, matchCase) {
 			self = this;
 
 			var deferred = new $.Deferred();
@@ -377,7 +386,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			gc.rest.get({
-				url : '/api/v1/attributes/' + attributeId + '/options/map?term=' + term + '&lang=' + lang + (limit ? '&limit=' + limit : ''),
+				url : '/api/v1/attributes/' + attributeId + '/options/map?term=' + term + '&lang=' + lang + (limit ? '&limit=' + limit : '') + (matchCase ? '&matchCase=' + matchCase : ''),
 				success : function(data, status, xhr) {
 					if (self._onload) {
 						self._onload(data, status, xhr);
@@ -451,7 +460,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			console.log('_____attributeId_____', attributeId);
-			
+
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId + '/options/positions',
 				data: optionPositions,
@@ -492,7 +501,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			console.log('_____attributeId_____', attributeId);
 			console.log('_____newOptionsData_____', newOptionsData);
-			
+
 			gc.rest.post({
 				url : '/api/v1/attributes/' + attributeId + '/options',
 				data: newOptionsData,
@@ -521,7 +530,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			return promise;
         },
-		createOption: function(newOptionsData) {
+		createOption: function(attributeId, newOptionData, ifNotExists, matchCase) {
 			var self = this;
 
 			var deferred = new $.Deferred();
@@ -531,11 +540,21 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____newOptionsData_____', newOptionsData);
+			console.log('_____newOptionData_____', newOptionData);
+
+			var params = '';
+
+			if(!_.isUndefined(ifNotExists)) {
+				params += '?ifNotExists=' + ifNotExists;
+			}
+
+			if(!_.isUndefined(matchCase)) {
+				params += (params == '' ? '?' : '&') + 'matchCase=' + matchCase;
+			}
 
 			gc.rest.post({
-				url : '/api/v1/attribute-options',
-				data: newOptionsData,
+                url : '/api/v1/attributes/' + attributeId + '/option' + params,
+				data: newOptionData,
 				success : function(data, status, xhr) {
 					if (self._onload) {
 						self._onload(data, status, xhr);
@@ -613,7 +632,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			console.log('_____removeAttribute_____', attributeId);
-			
+
 			gc.rest.del({
 				url : '/api/v1/attributes/' + attributeId,
 				success : function(data, status, xhr) {
@@ -652,7 +671,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			console.log('_____removeOption_____', attributeId, optionId);
-			
+
 			gc.rest.del({
 				url : '/api/v1/attributes/' + attributeId + '/options/' + optionId,
 				success : function(data, status, xhr) {
@@ -684,7 +703,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			self = this;
 
 			var cachedInputConditions = gc.cache.get('inputConditions', options);
-			
+
 			if(!_.isEmpty(cachedInputConditions)) {
 				return $.when({ isFromCache : true, data : { attributeInputConditions : cachedInputConditions } });
 			}
@@ -775,7 +794,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			console.log('_____attributeId_____', attributeId);
 			console.log('_____newInputConditionsData_____', newInputConditionsData);
-			
+
 			gc.rest.post({
 				url : '/api/v1/attributes/' + attributeId + '/input-conditions',
 				data: newInputConditionsData,
@@ -816,7 +835,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			console.log('_____attributeId_____', attributeId);
 			console.log('_____inputConditionsUpdateData_____', inputConditionsUpdateData);
-			
+
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId + '/input-conditions',
 				data: inputConditionsUpdateData,
@@ -856,7 +875,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.complete = promise.done;
 
 			console.log('_____inputCondition_____', attributeId, inputConditionId);
-			
+
 			gc.rest.del({
 				url : '/api/v1/attributes/' + attributeId + '/input-conditions/' + inputConditionId,
 				success : function(data, status, xhr) {
@@ -941,7 +960,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
         					item.tags = [];
         				}
         			});
-        			
+
 //        			return ko.mapping.fromJS(attributeOptions || []);
         			return attributeOptions || [];
         		}
@@ -952,7 +971,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 		// ----------------------------------------------------------------
         getPagingOptions: function(pagingOptions) {
         	pagingOptions = pagingOptions || {};
-        		
+
         	return {
         		// Base URI of attributes-API.
         		url: pagingOptions.uri  || '/api/v1/attributes',
@@ -976,7 +995,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 					    viewModel.ctxValue = ko.computed(function () {
 			                return gc.getValue(viewModel.backendLabel);
 			             });
-					        
+
 					     return viewModel;
 					}
 				}

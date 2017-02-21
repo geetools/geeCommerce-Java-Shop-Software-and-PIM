@@ -22,6 +22,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -591,6 +592,25 @@ public class ProductResource extends AbstractResource {
                 p.setURI(null);
 
                 return p.getId();
+            }
+        }
+
+        return null;
+    }
+
+    @PUT
+    @Path("/batch")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response batchSave(@QueryParam("ids") List<Id> ids, @QueryParam("mode") String batchMode, Update update) {
+        
+        if (ids != null && batchMode != null && update != null) {
+            for (Id productId : ids) {
+                Product p = checked(service.get(Product.class, productId, QueryOptions.builder().refresh(true).build()));
+                p.putAttributes(update.getAttributes());
+                p.setOptionAttributes(update.getOptions());
+                p.setXOptionAttributes(update.getXOptions());
+                setStatuses(p);
+                service.update(p);
             }
         }
 

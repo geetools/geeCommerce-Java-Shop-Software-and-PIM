@@ -8,9 +8,11 @@ import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.type.Id;
 
 public interface AttributeOptions extends Repository {
-    public List<AttributeOption> thatBelongTo(Attribute attribute);
+    List<AttributeOption> thatBelongTo(Attribute attribute);
 
-    public List<String> findOptionTags(Id attributeId);
+    List<String> findOptionTags(Id attributeId);
 
-    public List<AttributeOption> thatBelongTo(List<Attribute> attributes);
+    List<AttributeOption> thatBelongTo(List<Attribute> attributes);
+
+    List<AttributeOption> havingLabel(Id attributeId, String label, String language, Integer limit, boolean isMatchCase, boolean isMatchExact);
 }

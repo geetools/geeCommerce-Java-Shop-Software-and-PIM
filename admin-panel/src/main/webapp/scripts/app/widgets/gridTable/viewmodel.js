@@ -6,21 +6,20 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
 		var self = this;
 
 		self.pager = options.pager;
+		
+		if(options.forType) {
+		    self.forType = options.forType;
+		}
         
         self.pager.addOnLoadListener(function(data, status, xhr, ctx) {
-            console.log('@@@@@@@@@@@@@@@@@@@@@ ON_LOAD!', data, status, xhr, ctx);
             self.numSelectedRows(0);
             
             if(!(self.selectMode == 'all_pages' && !_.isUndefined(ctx) && !_.isUndefined(ctx.page))) {
-                
-                console.log('@@@@@@@@@@@@@@@@@@@@@ UNCHECKING IDS!');
-                
                 self.uncheckedIds([]);
             }
         });
         
         self.pager.addOnPageClickListener(function() {
-            console.log('@@@@@@@@@@@@@@@@@@@@@ ON_PAGE!');
             if(self.selectMode == 'all_pages') {
                 self.checkAllOnCurrentPage();
                 self.updateNumSelectedRows();
@@ -42,6 +41,11 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
         });
 		
         self.numSelectedRows = ko.observable(0);
+        
+        self.numSelectedRows.subscribe(function(newVal) {
+            var msgPefix = self.forType || '';
+            gc.app.channel.publish(msgPefix + '.gt.onchange', { numSelectedRows: newVal, checkedIds: self.idsCurrentlyCheckedOnPage(), uncheckedIds: self.uncheckedIds(), selectMode: self.selectMode });
+        });
         
 		self.selectMode = 'current_page';
 		
@@ -70,8 +74,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
         });
 
         $(view).on('click', 'thead>tr>th.th-select>i', function() {
-           console.log('@@@@@@@ CLLLLLLLLLLIIIIIIIIICCCCCCCCCCKKKKKKKKKKK!!!!!!!!!');
-
            self.selectMode = 'current_page';
 
            var _checked = $(this).data('checked') || false;

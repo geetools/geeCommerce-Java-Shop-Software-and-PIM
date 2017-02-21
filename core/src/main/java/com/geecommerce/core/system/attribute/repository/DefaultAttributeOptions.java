@@ -1,18 +1,30 @@
 package com.geecommerce.core.system.attribute.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import com.geecommerce.core.App;
+import com.geecommerce.core.ApplicationContext;
+import com.geecommerce.core.Str;
 import com.geecommerce.core.service.AbstractRepository;
 import com.geecommerce.core.service.QueryOptions;
+import com.geecommerce.core.service.api.GlobalColumn;
+import com.geecommerce.core.service.persistence.mongodb.MongoQueries;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
+import com.geecommerce.core.system.pojo.Label;
 import com.geecommerce.core.type.Id;
+import com.google.inject.Inject;
 import com.mongodb.QueryBuilder;
 
 public class DefaultAttributeOptions extends AbstractRepository implements AttributeOptions {
+    @Inject
+    protected App app;
+
     @Override
     public List<AttributeOption> thatBelongTo(Attribute attribute) {
         Map<String, Object> filter = new LinkedHashMap<String, Object>();
@@ -58,4 +70,21 @@ public class DefaultAttributeOptions extends AbstractRepository implements Attri
 
         return (List<String>) distinct(AttributeOption.class, query.get().toMap(), AttributeOption.Col.TAGS);
     }
+
+    @Override
+    public List<AttributeOption> havingLabel(Id attributeId, String label, String language, Integer limit, boolean isMatchCase, boolean isMatchExact) {
+        Map<String, Object> filter = new HashMap<>();
+        filter.put(AttributeOption.Col.ATTRIBUTE_ID, attributeId);
+
+        if (isMatchCase) {
+            MongoQueries.addCtxObjFilter(filter, AttributeOption.Col.LABEL,
+                Pattern.compile(Str.CARET + label.replaceAll(Str.SLASH, Str.SLASH_ESCAPED) + (isMatchExact ? Str.DOLLAR : Str.EMPTY)), language);
+        } else {
+            MongoQueries.addCtxObjFilter(filter, AttributeOption.Col.LABEL,
+                Pattern.compile(Str.CARET + label.replaceAll(Str.SLASH, Str.SLASH_ESCAPED) + (isMatchExact ? Str.DOLLAR : Str.EMPTY), Pattern.CASE_INSENSITIVE), language);
+        }
+
+        return find(AttributeOption.class, filter, limit == null ? null : QueryOptions.builder().limitTo(limit).noCache(true).sortByDesc(GlobalColumn.CREATED_ON).build());
+    }
+
 }

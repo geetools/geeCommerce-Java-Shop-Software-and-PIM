@@ -1,4 +1,4 @@
-define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc', 'gc-attribute' ], function(app, composition, ko, i18n, gc, attrAPI) {
+define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc', 'gc-attribute', 'gc-attribute/util' ], function(app, composition, ko, i18n, gc, attrAPI, attrUtil) {
     
     function AttributeValueVM(attribute) {
         var self = this;
@@ -43,29 +43,19 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
             return true;
         };
         
-        self.comboboxValues = [];
         
-        self.suggestions = [];
         
-        self.getSuggestions = function() {
-            
-        };
         
-        self.getOptions = function() {
-            
-        };
         
-        self.addOption = function(data) {
-            
-        };
         
-        self.removeOption = function(data) {
-            
-        };
+        
+        
+        
+        
+        
+        
         
         self.selectOptions = function() {
-            console.log('OOOOOOOOOOOOOOOPTIOOOOOOOOOONS :::: ', self.attribute);
-            
             var _options = [];
             
             _.each(self.attribute.options, function(option) {
@@ -73,9 +63,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
                     _options.push({ id: option.id, text: option.label.i18n });
                 }
             });
-
-            console.log('OOOOOOOOOOOOOOOPTIOOOOOOOOOONS :::: ', _options);
-            
             
             return _options;
         };
@@ -107,10 +94,18 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         ];
         
         self.selectedUpdateMode = ko.observable();
+        self.headerMessage = ko.observable('0 attributes will be added or updated on 0 products.');
+        self.headerWarningMessage = ko.observable('');
 	};
 
 	ctor.prototype.activate = function(settings) {
 		var self = this;
+
+		if(settings.pager) {
+		    self.pager = settings.pager;
+		    
+		    console.log('********** PAGER ********** ', self.pager, self.pager.isQuery(), self.pager.isSearch());
+		}
 		
         if (settings.visible) {
             self.visible = settings.visible;
@@ -131,6 +126,26 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         }
 		
 		self.forType = settings.forType;
+		self.gridTableData = {};
+
+        self.updateWarnMessage();
+
+		gc.app.channel.subscribe('product.gt.onchange', function(data) {
+		    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!! product.gt.onchange !!!!!!!!!!!! ', data);
+            console.log('********** PAGER ********** ', self.pager, self.pager.isQuery(), self.pager.isSearch());
+		    
+		    self.headerMessage(self.attributeValues().length + ' attributes will be added or updated on ' + ( data.numSelectedRows || 0 ) + ' products.');
+		    self.gridTableData = data;
+	        self.updateWarnMessage();
+		});
+		
+		self.attributeValues.subscribe(function(newValue) {
+            console.log('********** PAGER ********** ', self.pager, self.pager.isQuery(), self.pager.isSearch());
+	        self.headerMessage(newValue.length + ' attributes will be added or updated on ' + ( self.gridTableData.numSelectedRows || 0 ) + ' products.');
+	        self.updateWarnMessage();
+		});
+		
+		console.log('////////////////////////////////////self.forType: ', self.forType);
 		
         self.mode = settings.mode || 'closest';
 
@@ -162,10 +177,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         
         self.selectedAttribute = ko.observable();
         self.selectedAttribute.subscribe(function(attributeId) {
-            
-            console.log('~~~~~~~~~~~~~~~ SELECTED ATTRIBUTE :::: ', self.attributes);
-            console.log('~~~~~~~~~~~~~~~ SELECTED ATTRIBUTE :::: ', attributeId, _.findWhere(self.attributes, {id: attributeId}));
-            
             if(attributeId != '') {
                 var _attr = _.findWhere(self.attributes, {id: attributeId});
                 
@@ -180,6 +191,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
             console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&& ', newAttrVal);
         });
         
+        
 	};
 	
     ctor.prototype.attached = function(view) {
@@ -187,8 +199,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         
         gc.app.showAttrBatchUpdaterModal.subscribe(function(newVal) {
             if(newVal === true) {
-                console.log('--------------------------> view::: ', newVal, view, $(view).find(".modal-dialog").first());
-                
                 $(view).find(".modal-dialog").first().draggable({
                     handle: ".modal-header"
                 });        
@@ -198,7 +208,12 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
     
     ctor.prototype.save = function(viewModel, event) {
         var self = this;
-        console.log('----------------- save: ', viewModel, event);
+        console.log('----------------- save#1: ', viewModel, event);
+        
+        var updateModel = attrUtil.toNewUpdateModel(self.attributeValues);
+
+        console.log('----------------- save#2: ', updateModel, self.attributeValues());
+        
     };
     
     ctor.prototype.showBatchAttributeUpdater = function() {
@@ -209,6 +224,31 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
     ctor.prototype.cancelBatchAttributeUpdater = function() {
         var self = this;
         self.visible(false);
+    };
+    
+    ctor.prototype.updateWarnMessage = function() {
+        var self = this;
+        
+        console.log('********** updateWarnMessage ********** ', self.gridTableData, self.pager, self.pager.isQuery(), self.pager.isSearch());
+
+        var numSelectedRows = 0;
+        var selectMode = '';
+        if(self.gridTableData) {
+            numSelectedRows = self.gridTableData.numSelectedRows || 0;
+            selectMode = self.gridTableData.selectMode;
+        }
+
+        console.log('********** numSelectedRows ********** ', numSelectedRows);
+        
+        if(numSelectedRows === 0) {
+            self.headerWarningMessage("No products have been selected for updating. <b>Select products first.</b>");
+        } else if((!self.pager.isQuery() && !self.pager.isSearch()) && numSelectedRows > 0 && selectMode == 'all_pages') {
+            self.headerWarningMessage("You are about to update <b>all</b> products as no filtering is in place.");
+        } else if(numSelectedRows > 1000) {
+            self.headerWarningMessage("You are about to update more than <b>1000</b> products.");
+        } else {
+            self.headerWarningMessage('');
+        }
     };
     
 	return ctor;

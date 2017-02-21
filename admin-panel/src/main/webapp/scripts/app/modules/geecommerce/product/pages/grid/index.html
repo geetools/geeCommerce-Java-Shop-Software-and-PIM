@@ -1,5 +1,5 @@
 <div>
-  <div data-bind="attrBatchUpdater: { pager: $root.pager, displayMode: 'modal', showModalLink: false, visible: $root.gc.app.showAttrBatchUpdaterModal}"> </div>
-  <div data-bind="queryBuilder: { value: $root.pager.query, displayMode: 'modal', show: $root.gc.app.showQueryBuilderModal}"> </div>
-  <div data-bind="gridTable: {menuItems: $root.gridTableMenuItems, pager: $root.pager}"></div>
+  <div data-bind="attrBatchUpdater: { pager: $root.pager, forType: 'product', saveURI: '/api/v1/products/batch', displayMode: 'modal', showModalLink: false, visible: $root.gc.app.showAttrBatchUpdaterModal}"></div>
+  <div data-bind="queryBuilder: { value: $root.pager.query, displayMode: 'modal', show: $root.gc.app.showQueryBuilderModal}"></div>
+  <div data-bind="gridTable: {forType: 'product', menuItems: $root.gridTableMenuItems, pager: $root.pager}"></div>
 </div>

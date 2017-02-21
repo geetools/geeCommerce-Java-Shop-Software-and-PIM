@@ -965,10 +965,10 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
     @Override
     public List<AttributeOption> getOptions() {
-        if(this.options == null) {
+        if (this.options == null) {
             this.options = attributeOptions.thatBelongTo(this);
         }
-        
+
         return this.options;
     }
 
@@ -1157,13 +1157,13 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
     @Override
     public boolean hasOption(String language, String label) {
         List<AttributeOption> _options = getOptions();
-        
+
         if (_options == null)
             return false;
 
         for (AttributeOption option : _options) {
             ContextObject<String> oLabel = option.getLabel();
-            
+
             if (option != null && oLabel != null && oLabel.valueExistsFor(language, label))
                 return true;
         }
@@ -1382,8 +1382,7 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
 
             map.put(Col.FRONTEND_INPUT, frontendInput.toId());
 
-            if (frontendInput == FrontendInput.SELECT || frontendInput == FrontendInput.MULTISELECT
-                || ((frontendInput == FrontendInput.COMBOBOX && isAllowMultipleValues()))) {
+            if (frontendInput == FrontendInput.SELECT || frontendInput == FrontendInput.MULTISELECT || frontendInput == FrontendInput.COMBOBOX) {
                 map.put(Col.IS_OPTION_ATTRIBUTE, true);
             } else {
                 map.put(Col.IS_OPTION_ATTRIBUTE, isOptionAttribute());

@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="inputCouponActionDiscountAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountAmount">Discount Amount</label>
         <div class="col-sm-3">
-            <input data-bind="value: couponVM.couponAction.discountAmount" class="form-control" id="inputCouponActionDiscountAmount" type="text" required>
+            <input data-bind="value: couponVM.couponAction.discountAmount" class="form-control" id="inputCouponActionDiscountAmount" type="number" required>
         </div>
     </div>
     <!-- /ko -->
@@ -29,38 +29,59 @@
 
     <div class="form-group">
         <label for="inputCouponActionDiscountAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountAmount">Discount Amount</label>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <ul style="list-style-type: none;">
                 <div data-bind='template: {name:"rangeItem", foreach: couponVM.couponAction.rangeDiscountAmount}'>
 
                 </div>
 
             </ul>
-            <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="add-coupon-icon"></span>
+            <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="glyphicon glyphicon-plus-sign add-query-node"></span>
         </div>
     </div>
 
 
     <!-- /ko -->
     <script id='rangeItem' type='text/html'>
-    <li>
-        <label data-i18n="app:modules.coupon.actionTabRFrom">From</label>
-        <span><input data-bind="value: fromAmount" type="text" style="width: 100px;" required></span>
-        <label data-i18n="app:modules.coupon.actionTabRTo">To</label>
-        <span><input data-bind="value: toAmount" type="text" style="width: 100px;" required></span>
-        <label data-i18n="app:modules.coupon.actionTabRDiscount">Discount</label>
-        <span><input data-bind="value: discountAmount" type="text" style="width: 100px;"  required></span>
-        <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
-			<i class="glyphicon glyphicon-remove"></i>
-		</span>
-    </li>
+    <div class="row">
+        <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
+            <div class="col-xs-4">
+                <label data-i18n="app:modules.coupon.actionTabRFrom">From</label>
+            </div>
+            <div class="col-xs-6">
+                <input data-bind="value: fromAmount" type="number" class="form-control" style="width: 100px;" required>
+            </div>
+        </div>
+        <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
+            <div class="col-xs-4">
+                <label data-i18n="app:modules.coupon.actionTabRTo">To</label>
+            </div>
+            <div class="col-xs-6">
+                <input data-bind="value: toAmount" type="number" class="form-control" style="width: 100px;" required>
+            </div>
+        </div>
+        <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
+            <div class="col-xs-4">
+                <label data-i18n="app:modules.coupon.actionTabRDiscount">Discount</label>
+            </div>
+            <div class="col-xs-6">
+                <input data-bind="value: discountAmount" type="number" class="form-control" style="width: 100px;"  required>
+            </div>
+            <div class="col-xs-1">
+                 <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </span>
+            </div>
+
+        </div>
+    </div>
     </script>
 
     <!-- ko if: couponVM.couponAction.type() === 'BUY_X_GET_Y_FREE' || couponVM.couponAction.type() === 'SPEND_X_GET_Y_FREE' || couponVM.couponAction.type() === 'PERCENT_PRODUCT' || couponVM.couponAction.type() === 'FIXED_PRODUCT' -->
     <div class="form-group">
         <label for="inputCouponActionDiscountQtyStep" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountQtyStep">Discount Qty Step</label>
         <div class="col-sm-3">
-            <input data-bind="value: couponVM.couponAction.discountQtyStep" class="form-control" id="inputCouponActionDiscountQtyStep" type="text" required>
+            <input data-bind="value: couponVM.couponAction.discountQtyStep" class="form-control" id="inputCouponActionDiscountQtyStep" type="number" required>
         </div>
     </div>
     <!-- /ko -->
@@ -69,21 +90,49 @@
     <div class="form-group">
         <label for="inputCouponActionMaximumQtyApplyTo" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabMaximumQtyApplyTo">Maximum Qty Apply To</label>
         <div class="col-sm-3">
-            <input data-bind="value: couponVM.couponAction.maximumQtyApplyTo" class="form-control" id="inputCouponActionMaximumQtyApplyTo" type="text" required>
+            <input data-bind="value: couponVM.couponAction.maximumQtyApplyTo" class="form-control" id="inputCouponActionMaximumQtyApplyTo" type="number" required>
         </div>
     </div>
     <!-- /ko -->
 
     <div class="form-group">
         <label for="inputCouponActionFreeShipping" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFreeShipping">Free Shipping</label>
-        <div class="col-sm-3">
-            <input type="checkbox" data-bind="checked: couponVM.couponAction.freeShipping" id="inputCouponActionFreeShipping">
+        <div class="col-sm-6 switch-wrapper">
+            <input id="inputCouponActionFreeShipping" type="checkbox" data-bind="bool: couponVM.couponAction.freeShipping" />
         </div>
     </div>
 
     <!-- ko if: couponVM.couponAction.type() !== 'PERCENT_CART' && couponVM.couponAction.type() !== 'FIXED_CART' -->
 
-    <!-- ko if:  couponVM.couponAction && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
+    <div class="form-group">
+        <label for="inputProductSelectionType" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabProductSelectionType">Product Selection</label>
+        <div class="col-sm-3">
+            <select id="inputProductSelectionType" class="form-control select2"
+                    data-bind="select: couponVM.couponAction.productSelectionType, data: $root.couponVM.productSelectionTypeOptions"></select>
+        </div>
+    </div>
+
+    <!-- ko if:  couponVM.couponAction && couponVM.couponAction.productSelectionType() == 'PRODUCT' && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
+    <div class="form-group">
+        <label for="inputProductSelectionType" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabProducts">Products</label>
+        <div class="col-sm-9">
+            <div data-bind="productFinder: { value: couponVM.couponAction.productIds, displayMode: 'modal', products: couponVM.couponAction.products, productAs: { fields: ['id', 'id2', 'ean'], attributes: ['name', 'name2', 'article_number']}}"> </div>
+        </div>
+    </div>
+    <!-- /ko -->
+
+
+    <!-- ko if:  couponVM.couponAction && couponVM.couponAction.productSelectionType() == 'LIST' && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
+    <div class="form-group">
+        <label for="inputProductSelectionType" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabProducts">Products</label>
+        <div class="col-sm-9">
+            <select class="selectpicker product-lists" multiple data-live-search="true" data-size="15" data-bind="select: couponVM.couponAction.productListIds, data: couponVM.productListOptions, sort: true"></select>
+        </div>
+    </div>
+
+      <!-- /ko -->
+
+    <!-- ko if:  couponVM.couponAction && couponVM.couponAction.productSelectionType() == 'QUERY' && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
     <div class="form-group">
         <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFilter">Filter</label>
         <div class="col-sm-9">

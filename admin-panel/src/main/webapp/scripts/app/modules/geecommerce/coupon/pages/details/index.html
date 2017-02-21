@@ -11,14 +11,18 @@
 			<li class="active"><a href="" id="tab-coupon-details-base"data-target="#base" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleGeneral">Base</a></li>
 			<li><a href="" data-target="#condition" id="tab-coupon-details-conditions" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleConditions">Conditions</a></li>
 			<li><a href="" data-target="#action" id="tab-coupon-details-action" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleAction">Action</a></li>
-			<li><a href="" data-target="#codes" id="tab-coupon-details-codes" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleCodes">Codes</a></li>
+			<!-- ko if: ($root.couponVM && !$root.couponVM.isNew()) -->
+				<li><a href="" data-target="#codes" id="tab-coupon-details-codes" data-toggle="tab" data-i18n="app:modules.coupon.tabTitleCodes">Codes</a></li>
+			<!-- /ko -->
 		</ul>
 
 		<div class="tab-content">
 			<div class="tab-pane active" id="base" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/base', activationData: $root.couponId}"></div>
 			<div class="tab-pane" id="condition" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/condition', activationData: $root.couponId}">Conditions</div>
 			<div class="tab-pane" id="action" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/action', activationData: $root.couponId}">Action</div>
-			<div class="tab-pane" id="codes" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/codes', activationData: $root.couponId}">Codes</div>
+			<!-- ko if: ($root.couponVM && !$root.couponVM.isNew()) -->
+				<div class="tab-pane" id="codes" data-bind="compose:{ model: 'modules/geecommerce/coupon/pages/details/tabs/codes', activationData: $root.couponId}">Codes</div>
+			<!-- /ko -->
 		</div>
 
 	</form>

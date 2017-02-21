@@ -1,4 +1,4 @@
-define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'knockout-validation', 'gc-customer', 'gc-price' ], function(app, ko, router, gc, couponAPI, validation, customerAPI, priceAPI) {
+define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'knockout-validation', 'gc-customer', 'gc-price','gc-product-list' ], function(app, ko, router, gc, couponAPI, validation, customerAPI, priceAPI, productListAPI) {
 
     function CouponVM(couponId) {
         var self = this;
@@ -48,7 +48,9 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
         self.rawProductAttributesOptions = ko.observable();
         self.optionsForProductAttributes = ko.observable();
         self.couponActionTypesOptions = ko.observableArray();
+        self.productSelectionTypeOptions = ko.observableArray();
         self.productAttributesOptions = ko.observableArray();
+        self.productListOptions = ko.observableArray();
         self.cartAttributesOptions = ko.observableArray();
         self.cartItemAttributesOptions = ko.observableArray();
         self.couponFilterNodeTypes = ko.observableArray();
@@ -161,6 +163,12 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
     function CouponActionVM() {
         var self = this;
         self.type = ko.observable('PERCENT_PRODUCT').extend({ required: true });
+
+        self.productIds = ko.observableArray([]);
+        self.products = ko.observableArray([]);
+        self.productListIds = ko.observableArray([]);
+        self.productSelectionType = ko.observable('LIST');
+
         self.freeShipping = ko.observable();
         self.discountAmount = ko.observable().extend({ //required: true,
             max:{
@@ -371,6 +379,9 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
                 .field('discountQtyStep', self.couponVM.couponAction.discountQtyStep())
                 .field('maximumQtyApplyTo', self.couponVM.couponAction.maximumQtyApplyTo())
                 .field('priceTypeId', self.couponVM.couponAction.priceTypeId())
+                .field('productIds', self.couponVM.couponAction.productIds())
+                .field('productListIds', self.couponVM.couponAction.productListIds())
+                .field('productSelectionType', self.couponVM.couponAction.productSelectionType())
                 .field('filter', ko.toJSON(self.couponVM.couponAction.filter(),["type", "operator", "operation",
                     "operationValue", "attributeType", "attributeCode", "value", "nodes"]));
 
@@ -415,6 +426,19 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
             gc.app.pageTitle(self.pageTitle());
             gc.app.pageDescription(self.pageDescription);
 
+
+            self.couponVM.productSelectionTypeOptions.push( { id : 'PRODUCT', text : function() {
+                return gc.app.i18n('app:modules.coupon.productSelectionTypeProduct', {}, gc.app.currentLang);
+            }});
+
+            self.couponVM.productSelectionTypeOptions.push( { id : 'LIST', text : function() {
+                return gc.app.i18n('app:modules.coupon.productSelectionTypeList', {}, gc.app.currentLang);
+            }});
+
+            self.couponVM.productSelectionTypeOptions.push( { id : 'QUERY', text : function() {
+                return gc.app.i18n('app:modules.coupon.productSelectionTypeQuery', {}, gc.app.currentLang);
+            }});
+
             self.couponVM.couponActionTypesOptions.push( { id : 'PERCENT_PRODUCT', text : function() {
                 return gc.app.i18n('app:modules.coupon.typeActionPercentProduct', {}, gc.app.currentLang);
             }});
@@ -448,6 +472,18 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
             self.couponVM.couponActionTypesOptions.push( { id : 'RANGE_FIXED_CART', text : function() {
                 return gc.app.i18n('app:modules.coupon.typeActionRangeFixedCart', {}, gc.app.currentLang);
             }});
+
+
+            var productListArray = [];
+            productListAPI.getProductLists().then(function(data){
+                _.each(data.data.productLists, function(productList) {
+                    productListArray.push({
+                            id : productList.id,
+                            text : gc.ctxobj.val(productList.label, gc.app.currentUserLang(), "closest")
+                        });
+                });
+                self.couponVM.productListOptions(productListArray);
+            });
 
             couponAPI.getProductAttributes().then(function(data) {
                 var rawProductAttributesOption = {};
@@ -540,6 +576,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
                     self.couponVM.couponAction.discountQtyStep(coupon.couponAction.discountQtyStep);
                     self.couponVM.couponAction.maximumQtyApplyTo(coupon.couponAction.maximumQtyApplyTo);
                     self.couponVM.couponAction.priceTypeId(coupon.couponAction.priceTypeId);
+
+                    self.couponVM.couponAction.productIds(coupon.couponAction.productIds);
+                    self.couponVM.couponAction.productListIds(coupon.couponAction.productListIds);
+                    self.couponVM.couponAction.productSelectionType(coupon.couponAction.productSelectionType);
 
 
                     if(coupon.couponAction.rangeDiscountAmount && coupon.couponAction.rangeDiscountAmount.length > 0){

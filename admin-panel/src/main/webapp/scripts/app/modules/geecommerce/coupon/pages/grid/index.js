@@ -39,18 +39,20 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-coupon'], function (app, ko, gc
 
 			// Pager columns
 			var pagerColumns = [
-				{'name' : 'id', 'label' : 'app:modules.coupon.gridColId', cookieKey : 'id'},
+				{'name' : '#'},
 				{'name' : 'name', 'label' : 'app:modules.coupon.gridColName', cookieKey : 'n'},
-				{'name' : 'createdOn', 'label' : 'app:modules.coupon.gridColCreatedAt', cookieKey : 'co'},
+				{'name' : 'fromDate', 'label' : 'app:modules.coupon.gridColFromDate', cookieKey : 'fr'},
+                {'name' : 'toDate', 'label' : 'app:modules.coupon.gridColToDate', cookieKey : 'to'},
+                {'name' : 'auto', 'label' : 'app:modules.coupon.gridColAuto', cookieKey : 'au'},
 				{'name' : 'enabled', 'label' : 'app:modules.coupon.gridColEnabled', cookieKey : 'e'},
-				{'name' : 'deleted', 'label' : 'app:modules.product.gridColDeleted', cookieKey : 'd', 'selectOptions' :
+/*				{'name' : 'deleted', 'label' : 'app:modules.product.gridColDeleted', cookieKey : 'd', 'selectOptions' :
 					[
 						{ label: gc.app.i18n('app:common.no'), value: false },
 						{ label: gc.app.i18n('app:common.yes'), value: true },
 						{ label: gc.app.i18n('app:common.all'), value: '' },
 					]
-				},
-				{'name' : '', 'label' : ''}
+				},*/
+				{'name' : ''}
 			];
 
 			// Init the pager.

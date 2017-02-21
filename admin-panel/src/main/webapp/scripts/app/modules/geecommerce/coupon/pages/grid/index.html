@@ -42,12 +42,7 @@
                <thead>
                     <!--  Sort fields -->
                     <tr data-bind="foreach: { data: pager.columns, as: 'column' }">
-                        <!-- ko if: column.name != "enabled" -->
 		                <th><div data-bind="click: $root.pager.sort,  i18n: column.label, css: { pagerHideColHeader: column.name == '' }"></div></th>
-	                	<!-- /ko -->
-	                	<!-- ko if: column.name == "enabled" -->
-	                	<th><div data-bind="click: $root.pager.sort,  i18n: $root.statusEnabledTitle(), css: { pagerHideColHeader: column.name == '' }"></div></th>
-	                	<!-- /ko -->
                     </tr>
                     <!--  Filter fields -->
                     <tr data-bind="foreach: { data: pager.columns, as: 'column' }">
@@ -69,11 +64,28 @@
 				<!--  Data -->            
                 <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
                     <tr>
-                        <td><a data-bind="text: row.id, attr: { href: '#/coupons/details/' + row.id }"></a></td>
-                        <td data-bind="i18nText: { value: name, mode: 'any' }"></td>
-                        <td></td>
-                        <td data-bind="html: $root.statusEnabled(row)"></td>
-                        <td data-bind="text: row.deleted"></td>
+                        <td><a data-bind="attr: { href: '#/coupons/details/' + row.id }">#</a></td>
+                        <td><a data-bind="i18nText: { value: name, mode: 'any' }, attr: { href: '#/coupons/details/' + row.id }"></a></td>
+                        <td data-bind="text: row.fromDate"></td>
+                        <td data-bind="text: row.toDate"></td>
+                        <td >
+                            <div class="switch-wrapper">
+                                <input type="checkbox" data-bind="bool: row.auto, switchOptions: {default: false}, enable: false" />
+                            </div>
+
+
+                        </td>
+                      <!--  <td data-bind="html: $root.statusEnabled(row)"></td>-->
+                        <td>
+                            <div class="switch-wrapper">
+                                <input type="checkbox" data-bind="ctxBool: row.enabled, switchOptions: {default: false}, enable: false" />
+                            </div>
+             <!--               <a href="javascript:void(0)" id="prd-desc-status-icon" class="ctx-info-icon" data-toggle="collapse" data-target="#prd-visible-details" aria-expanded="false"><i class="fa fa-bullseye" aria-hidden="true"></i></a>
+                            <div class="collapse col-xs-12" id="prd-visible-details">
+                                <div data-bind="contextValues: {value: row.enabled, type: 'boolean', title: 'app:modules.product.baseTabVisible'}"></div>
+                            </div>-->
+                        </td>
+    <!--                    <td data-bind="text: row.deleted"></td>-->
                         <td class="actions">
                             <a data-bind="attr: { href: '#/coupons/details/clone-' + row.id }">clone</a>
                             <a href="javascript:void(0);" data-bind="click: $root.removeCoupon"><i class="fa fa-times"></i></a>

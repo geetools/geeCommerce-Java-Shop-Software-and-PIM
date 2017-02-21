@@ -6,6 +6,7 @@ import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.enums.CouponActionType;
 import com.geecommerce.coupon.enums.CouponDiscountOrder;
+import com.geecommerce.coupon.enums.ProductSelectionType;
 
 public interface CouponAction extends Model {
 
@@ -49,6 +50,18 @@ public interface CouponAction extends Model {
 
     public CouponAction setDiscountOrder(CouponDiscountOrder couponDiscountOrder);
 
+    public ProductSelectionType getProductSelectionType();
+
+    public CouponAction setProductSelectionType(ProductSelectionType productSelectionType);
+
+    public List<Id> getProductIds();
+
+    public CouponAction setProductIds(List<Id> productIds);
+
+    public List<Id> getProductListIds();
+
+    public CouponAction setProductListIds(List<Id> productListIds);
+
     static final class Col {
         public static final String TYPE = "type";
         public static final String DISCOUNT_AMOUNT = "dsc_amount";
@@ -60,5 +73,8 @@ public interface CouponAction extends Model {
         public static final String FILTER = "filter";
         public static final String PRICE_TYPE_ID = "prc_type_id";
         public static final String DISCOUNT_ORDER = "dsc_order";
+        public static final String PRODUCT_SELECTION_TYPE = "prd_sel_type";
+        public static final String PRODUCT_IDS = "prd_ids";
+        public static final String PRODUCT_LIST_IDS = "prd_list_ids";
     }
 }

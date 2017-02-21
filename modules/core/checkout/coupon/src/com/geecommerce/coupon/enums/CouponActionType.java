@@ -7,9 +7,8 @@ import com.geecommerce.core.service.api.ModelEnum;
 import com.google.common.collect.Maps;
 
 public enum CouponActionType implements ModelEnum {
-    PERCENT_PRODUCT(1), FIXED_PRODUCT(2), PERCENT_CART(3), FIXED_CART(4), BUY_X_GET_Y_FREE(5), SPEND_X_GET_Y_FREE(
-        6), RANGE_PERCENT_CART(
-            7), RANGE_FIXED_CART(8), LIST_PERCENT_PRODUCT(9), LIST_FIXED_PRODUCT(11), BUY_X_GET_Y_FREE_SAME(12);
+    PERCENT_PRODUCT(1), FIXED_PRODUCT(2), PERCENT_CART(3), FIXED_CART(4), BUY_X_GET_Y_FREE(5), SPEND_X_GET_Y_FREE(6),
+    RANGE_PERCENT_CART(7), RANGE_FIXED_CART(8), LIST_PERCENT_PRODUCT(9), LIST_FIXED_PRODUCT(11), BUY_X_GET_Y_FREE_SAME(12);
 
     private int id;
 

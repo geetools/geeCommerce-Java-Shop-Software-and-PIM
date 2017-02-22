@@ -46,7 +46,7 @@ import org.quartz.JobExecutionException;
 import java.util.*;
 
 @DisallowConcurrentExecution
-@Task(group = "Sconto/Promotion", name = "Promotion Price Indexer", schedule = "0 0/1 * * * ?", enabled = false)
+@Task(group = "Coupon/Promotion", name = "Promotion Price Indexer", schedule = "0 0/1 * * * ?", enabled = false)
 public class PromotionPriceIndexer implements Taskable, Job {
 
 	private final CouponPromotionService promotionService;
@@ -110,7 +110,7 @@ public class PromotionPriceIndexer implements Taskable, Job {
 					.setCustomerNumber(app.nextIncrementId("customer_number"))
 					.setForename("Price")
 					.setSurname("Indexer")
-					.setEmail("promo_price_index@sconto.cz");
+					.setEmail("promo_price_index@promo.org");
 
 			final Cart cart = app.model(Cart.class);
 			cart.belongsTo(customer);

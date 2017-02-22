@@ -20,18 +20,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@UrlBinding("/promotion/sconto/{$event}/{id}")
-public class ScontoPromotionAction  extends BaseActionBean {
+@UrlBinding("/promotion/{$event}/{id}")
+public class CouponPromotionAction extends BaseActionBean {
 
 	private final CouponPromotionService promotionService;
 
 	private Id[] productIds = null;
-	private static final Logger log = LogManager.getLogger(ScontoPromotionAction.class);
+	private static final Logger log = LogManager.getLogger(CouponPromotionAction.class);
 	private final ProductService productService;
 	protected final PromotionPriceIndexes promotionPriceIndexes;
 
 	@Inject
-	public ScontoPromotionAction(CouponPromotionService promotionService, ProductService productService, PromotionPriceIndexes promotionPriceIndexes) {
+	public CouponPromotionAction(CouponPromotionService promotionService, ProductService productService, PromotionPriceIndexes promotionPriceIndexes) {
 		this.promotionService = promotionService;
 		this.productService = productService;
 		this.promotionPriceIndexes = promotionPriceIndexes;

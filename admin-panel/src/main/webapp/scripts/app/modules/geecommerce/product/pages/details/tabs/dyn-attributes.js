@@ -63,28 +63,20 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 
 		self.addOption = function() {
 			if (self.comboboxValueId()) {
-				
 				var option = _.findWhere(self.options, {id: self.comboboxValueId()});
 				
 				if(!_.isUndefined(option)) {
 					self.value.push(self.comboboxValueId());
 					self.comboboxValue([]);
-				
-//					console.log('OPTION FOUND !!!!! ', option);
 				} else {
 					attrAPI.getAttributeOption(self.attributeId, self.comboboxValueId()).then(function(data) {
-//						console.log('OOOOOOOOOPTIONSS!! ', data);
-						
 						gc.ctxobj.enhance(data, [ 'label' ], 'any');
 						self.options.push(data);
 
 						self.value.push(self.comboboxValueId());
 						self.comboboxValue([]);
 					});
-				
-//					console.log('OPTION -NOT- FOUND !!!!! ', self.comboboxValueId());
 				}
-				
 				
 				return;
 			}
@@ -99,9 +91,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 			self.comboboxValue([]);
 
 			if(!_.isEmpty(newAttributeOptions)) {
-				attrAPI.createOption(newAttributeOptions).then(function(data) {
-//					console.log('+++++ CREATED OPTION! ', newAttributeOptions, data);
-				
+				attrAPI.createOption(self.attributeId, newAttributeOptions).then(function(data) {
 					gc.ctxobj.enhance(data, [ 'label' ], 'any');
 					if(!self.options)
 						self.options = []

@@ -293,6 +293,14 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 
             return objArr;
         },
+        create : function(value, lang, context) {
+            var self = this;
+            var ctxObj = [];
+            
+            self.set(ctxObj, lang, value, context);
+            
+            return ctxObj;
+        },
         set : function(ctxObject, lang, value, context) {
             var self = this;
             var ctxObject = ctxObject || [];

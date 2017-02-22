@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,14 +28,14 @@ import com.geecommerce.core.rest.jersey.inject.ModelParam;
 import com.geecommerce.core.rest.pojo.Filter;
 import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.rest.service.RestService;
-import com.geecommerce.core.service.QueryOptions;
-import com.geecommerce.core.service.persistence.mongodb.MongoQueries;
 import com.geecommerce.core.system.ConfigurationKey;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeInputCondition;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
+import com.geecommerce.core.system.attribute.repository.AttributeOptions;
 import com.geecommerce.core.system.attribute.service.AttributeService;
 import com.geecommerce.core.system.pojo.Label;
+import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.util.Json;
 import com.geecommerce.core.util.Strings;
@@ -44,13 +43,15 @@ import com.google.inject.Inject;
 
 @Path("/v1/attributes")
 public class AttributeResource extends AbstractResource {
-    private final RestService service;
-    private final AttributeService attrService;
+    protected final RestService service;
+    protected final AttributeService attrService;
+    protected final AttributeOptions attributeOptions;
 
     @Inject
-    public AttributeResource(RestService service, AttributeService attrService) {
+    public AttributeResource(RestService service, AttributeService attrService, AttributeOptions attributeOptions) {
         this.service = service;
         this.attrService = attrService;
+        this.attributeOptions = attributeOptions;
     }
 
     @GET
@@ -77,7 +78,6 @@ public class AttributeResource extends AbstractResource {
         checked(service.get(Attribute.class, attributeId));
 
         // If attribute exists, we can continue to get options for it.
-
         if (filter == null) {
             filter = new Filter();
         }
@@ -90,10 +90,8 @@ public class AttributeResource extends AbstractResource {
             filter.setSortField(AttributeOption.Col.POSITION);
         }
 
-        // We do a query instead of attribute.getOptions() so that we also get
-        // the total count.
-        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter.getParams(),
-            queryOptions(filter));
+        // We do a query instead of attribute.getOptions() so that we also get the total count.
+        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter.getParams(), queryOptions(filter));
 
         return ok(attributeOptions);
     }
@@ -102,31 +100,27 @@ public class AttributeResource extends AbstractResource {
     @Path("{id}/options/map")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getAttributeOptions(@PathParam("id") Id attributeId, @QueryParam("term") String term,
-        @QueryParam("lang") String language, @QueryParam("limit") Integer limit) {
+        @QueryParam("lang") String language, @QueryParam("limit") Integer limit, @QueryParam("matchCase") boolean isMatchCase, @QueryParam("matchExact") boolean isMatchExact) {
+        
+        System.out.println("IIIIIIIIIII **** Is match case : " + isMatchCase + ", isMatchExact=" + isMatchExact);
+        
         // Check if attribute exists.
         checked(service.get(Attribute.class, attributeId));
 
-        Map<String, Object> filter = new HashMap<>();
-        filter.put(AttributeOption.Col.ATTRIBUTE_ID, attributeId);
-        MongoQueries.addCtxObjFilter(filter, AttributeOption.Col.LABEL,
-            Pattern.compile("^" + term.replaceAll("/", "\\/"), Pattern.CASE_INSENSITIVE), language);
-
-        // filter.put("attr_id", attributeId);
-        // filter.put("label.val", "/^" + term.replaceAll("/", "\\/") + "/");
-
-        List<AttributeOption> attributeOptions = service.get(AttributeOption.class, filter,
-            limit == null ? null : QueryOptions.builder().limitTo(limit).build());
-
+        List<AttributeOption> attrOptions = attributeOptions.havingLabel(attributeId, term, language, limit, isMatchCase, isMatchExact);
+        
         List<Label> result = new ArrayList<>();
 
         ApplicationContext appCtx = app.context();
 
-        for (AttributeOption attributeOption : attributeOptions) {
+        for (AttributeOption attributeOption : attrOptions) {
+            System.out.println("===========>>>>>>>>>>>> FOUND OPTION FOR " + term + ":: " + (attributeOption.getLabel() == null ? "??" : attributeOption.getLabel().getClosestValue()));
             if (attributeOption.getLabel() != null && attributeOption.getLabel().hasEntryFor(appCtx.getLanguage())) {
+                System.out.println("===========>>>>>>>>>>>> ADDING OPTION FOR " + term + ":: " + (attributeOption.getLabel() == null ? "??" : attributeOption.getLabel().getClosestValue()));
                 result.add(new Label(attributeOption.getId(), attributeOption.getLabel()));
             }
         }
-
+        
         System.out.println(Json.toJson(result));
 
         return ok("options", result);
@@ -257,7 +251,7 @@ public class AttributeResource extends AbstractResource {
     @POST
     @Path("{id}/options")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void createAttributeOptions(@PathParam("id") Id id, @ModelParam List<AttributeOption> attributeOptions) {
+    public Response createAttributeOptions(@PathParam("id") Id id, @ModelParam List<AttributeOption> attributeOptions) {
         checked(service.get(Attribute.class, id));
 
         if (attributeOptions != null && attributeOptions.size() > 0) {
@@ -268,6 +262,51 @@ public class AttributeResource extends AbstractResource {
                 }
             }
         }
+
+        return created();
+    }
+
+    @POST
+    @Path("{id}/option")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response createAttributeOption(@PathParam("id") Id id, @ModelParam AttributeOption attributeOption, @QueryParam("ifNotExists") boolean createIfNotExists, @QueryParam("matchCase") boolean isMatchCase) {
+        checked(service.get(Attribute.class, id));
+        
+        AttributeOption createdOption = null;
+        AttributeOption existingOption = null;
+        
+        if(createIfNotExists) {
+            ContextObject<String> labels = attributeOption.getLabel();
+            
+            for (Map<String, Object> map : labels) {
+                String lang = (String) map.get(ContextObject.LANGUAGE);
+                String label = (String) map.get(ContextObject.VALUE);
+                
+                List<AttributeOption> attrOptions = attributeOptions.havingLabel(id, label, lang, 1, isMatchCase, true);
+                
+                if(attrOptions != null && !attrOptions.isEmpty()) {
+                    AttributeOption ao = attrOptions.get(0);
+                    
+                    if(existingOption == null && ao != null) {
+                        existingOption = ao;
+                    } else if(existingOption != null && ao != null && !ao.getId().equals(existingOption.getId())) {
+                        existingOption = null;
+                        break;
+                    }
+                }
+            }
+            
+            if(existingOption != null) {
+                return existing(existingOption);
+            }
+        }
+        
+
+        if (attributeOption != null && attributeOption.getLabel() != null && attributeOption.getLabel().isValid()) {
+            createdOption = service.create(attributeOption);
+        }
+
+        return createdOption != null ? created(createdOption) : this.internalServerError("Attribute option could not be created");
     }
 
     @PUT

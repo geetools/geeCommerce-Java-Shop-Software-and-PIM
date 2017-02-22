@@ -99,6 +99,12 @@ public abstract class AbstractResource {
         }
     }
 
+    protected Response created() {
+        appendHeaders();
+
+        return Response.status(Status.CREATED).build();
+    }
+
     protected Response deleted() {
         return Response.status(Status.NO_CONTENT).build();
     }
@@ -197,6 +203,16 @@ public abstract class AbstractResource {
         appendHeaders();
 
         return Response.status(Status.OK).build();
+    }
+
+    protected <T extends Model> Response existing(T entity) {
+        appendHeaders();
+
+        if (entity == null) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        } else {
+            return Response.status(Status.OK).entity(entity).build();
+        }
     }
 
     protected <T extends Model> Response ok(T model) {

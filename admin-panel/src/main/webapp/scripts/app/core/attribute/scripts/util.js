@@ -461,35 +461,52 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 	}
 
 	return {
-		toUpdateModel : function(formAttributes, vmAttributes, updateModel) {
+        toUpdateModel : function(formAttributes, vmAttributes, updateModel) {
 
-			if(!updateModel)
-				updateModel = gc.app.newUpdateModel();
+            if(!updateModel)
+                updateModel = gc.app.newUpdateModel();
 
-			_.each(formAttributes, function(attrVal) {
+            _.each(formAttributes, function(attrVal) {
 
-				if(attrVal.isEditable /*&& attrVal.hasChanged*/) {
-					var isOptOut = gc.ctxobj.plain(attrVal.optOut);
+                if(attrVal.isEditable /*&& attrVal.hasChanged*/) {
+                    var isOptOut = gc.ctxobj.plain(attrVal.optOut);
 
-					if(!_.isUndefined(isOptOut)) {
-						updateModel.optOut(attrVal.code, attrVal.optOut);
-					}
+                    if(!_.isUndefined(isOptOut)) {
+                        updateModel.optOut(attrVal.code, attrVal.optOut);
+                    }
 
-					if(attrVal.isOption) {
-						var foundPrdAttr = _.findWhere(vmAttributes, { attributeId : attrVal.attributeId });
+                    if(attrVal.isOption) {
+                        var foundPrdAttr = _.findWhere(vmAttributes, { attributeId : attrVal.attributeId });
 
-						// Allow resetting of value if vm already has attribute and new value is empty.
-						if((!_.isUndefined(attrVal.value) && !_.isEmpty(attrVal.value)) || !_.isUndefined(foundPrdAttr)) {
-							updateModel.options(attrVal.code, attrVal.value);
-						}
-					} else {
-						updateModel.attr(attrVal.code, attrVal.value);
-					}
-				}
-			});
+                        // Allow resetting of value if vm already has attribute and new value is empty.
+                        if((!_.isUndefined(attrVal.value) && !_.isEmpty(attrVal.value)) || !_.isUndefined(foundPrdAttr)) {
+                            updateModel.options(attrVal.code, attrVal.value);
+                        }
+                    } else {
+                        updateModel.attr(attrVal.code, attrVal.value);
+                    }
+                }
+            });
 
-			return updateModel;
-		},
+            return updateModel;
+        },
+        toNewUpdateModel : function(attributeValues) {
+           var updateModel = gc.app.newUpdateModel();
+
+            _.each(ko.unwrap(attributeValues), function(attrVal) {
+                if(attrVal.isEditable) {
+                    var isOptOut = gc.ctxobj.plain(attrVal.optOut);
+
+                    if(!_.isUndefined(isOptOut)) {
+                        updateModel.optOut(attrVal.code, attrVal.optOut);
+                    }
+                    
+                    updateModel.attr(attrVal.code, attrVal.value);
+                }
+            });
+
+            return updateModel;
+        },
 		getAttribute : function (attribute, attributeTabId, vm, vmAttributes, formAttributeValues, attributeInputConditions, collection) {
 
 			var foundPrdAttr = _.findWhere(vmAttributes, { attributeId : attribute.id });

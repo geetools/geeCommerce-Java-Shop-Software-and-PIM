@@ -63,8 +63,8 @@
         'focusable' : '../vendor/focusable/focus-element-overlay.min',
         'speakingurl' : '../vendor/speakingurl-10.0.0/speakingurl.min',
         'socket.io' : '../vendor/socket.io/socket.io-1.4.5',
-        'slick' : '../vendor/slick-1.6.0/slick/slick.min'
-            
+        'slick' : '../vendor/slick-1.6.0/slick/slick.min',
+        'magicsuggest' : '../vendor/nicolasbize-magicsuggest/magicsuggest-min'
     },
     shim : {
         'jquery' : {
@@ -580,6 +580,7 @@ define(function(require) {
     widget.registerKind('queryBuilder');
     widget.registerKind('productFinder');
     widget.registerKind('attrSelect');
+    widget.registerKind('attrCombobox');
     widget.registerKind('attrBatchUpdater');
     widget.registerKind('newAttributeForm');
     widget.registerKind('productInfo');

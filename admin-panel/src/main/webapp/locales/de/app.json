@@ -46,7 +46,14 @@
 		"addAttribute" : "<i class=\"fa fa-plus\"></i> Attribut hinzufügen ...",
 		"attrBatchUpdaterModePartlyReplace" : "Neue Werte hinzufügen oder bestehende Werte ergänzen",
 		"attrBatchUpdaterModeCompleteReplace" : "Neue Werte hinzufügen oder aktuelle Werte komplett ersetzen",
-		"attrBatchUpdaterModeRemove" : "Ausgewählte Attribute entfernen"
+		"attrBatchUpdaterModeRemove" : "Ausgewählte Attribute entfernen",
+		"msMaxEntryRenderer1" : "Bitte kürzen Sie Ihre Angabe um __value__ Zeichen",
+		"msMaxEntryRenderer2" : "Bitte kürzen Sie Ihre Angabe um __value__ Zeichen",
+		"msMaxSelectionRenderer1" : "Für diese Angabe ist nur 1 Eintrag erlaubt",
+		"msMaxSelectionRenderer2" : "Für diese Angabe sind maximal __value__ Einträge erlaubt",
+		"msMinCharsRenderer1" : "Bitte tragen Sie __value__ weiteres Zeichen hinzu",
+		"msMinCharsRenderer2" : "Bitte tragen Sie __value__ weitere Zeichen hinzu",
+		"msNoSuggestionText" : "Keine Vorschläge vorhanden"
 	},
 	"navigation" : {
 		"catalogue" : "Katalog",

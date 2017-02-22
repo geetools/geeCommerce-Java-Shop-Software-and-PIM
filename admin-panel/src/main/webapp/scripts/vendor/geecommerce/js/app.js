@@ -184,7 +184,7 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
         this._toolbarSaveSubscription = null;
         this.navToolbar = ko.observable(false);
         
-        _.bindAll(this, 'setupChannels', 'defaultLanguage', 'secondaryLanguage', 'i18n', 'message', 'onToolbarEvent', 'registerFormWithToolbar', 'setupEditListener', 'triggerLocaleElements', 'currentLang',
+        _.bindAll(this, 'setupChannels', 'defaultLanguage', 'secondaryLanguage', 'i18n', 'message', 'onToolbarEvent', 'registerFormWithToolbar', 'setupEditListener', 'triggerLocaleElements', 'currentLang', 'currentLangObservable',
                 'currentUserLang', 'alertInfo', 'preloadData', 'confPut', 'confGet', 'confRemove', 'sessionPut', 'sessionGet', 'sessionRemove', 'cookiePut', 'cookieGet', 'dataPut', 'dataGet',
                 'dataRemove', 'startOnChangeListener', 'stopOnChangeListener', 'saveData', 'onSaveEvent', 'triggerSaveAlert', 'cancelSaveData', 'initProgressBar', 'updateProgressBar', 'resetProgressBar', 'flashMessage',
                 'availableContexts', 'contextMap', 'availableMerchants', 'availableStores', 'availableRequestContexts', 'setNavToolbar', 'unsetNavToolbar');
@@ -478,8 +478,6 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
         },
         preloadData : function() {
             var self = this;
-
-            console.log('!!!!!!!!!! PRELOADING DATA !!!!!!!!!!');
 
             var preloadAttributes = self.conf['preloadAttributes'];
             var promises = [];
@@ -881,6 +879,9 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
         },
         currentLang : function() {
             return this.sessionGet('selectedLanguage');
+        },
+        currentLangObservable : function() {
+            return this.sessionKGet('selectedLanguage');
         },
         ctxVal : function(ctxObject, lang, mode, store) {
             return gc.ctxobj.val(ctxObject, lang, mode, store);

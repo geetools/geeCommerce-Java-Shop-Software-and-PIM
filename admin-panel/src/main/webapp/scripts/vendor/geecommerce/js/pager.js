@@ -764,6 +764,14 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         totalCount : function() {
             var self = this;
             return self._totalCount;
+        },
+        isQuery : function() {
+            var self = this;
+            return self._isQuery;
+        },
+        isSearch : function() {
+            var self = this;
+            return self._isSearch;
         }
     };
 

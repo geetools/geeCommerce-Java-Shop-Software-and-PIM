@@ -1,0 +1,23 @@
+<div class="col-md-10" id="view-attribute-tabs-details">
+
+	<form class="form-horizontal" role="form" data-observe="true">
+
+		<ul class="nav nav-tabs">
+			<li id="tab-coupon-promotions-details-base" class="active"><a data-target="#tab-base" data-toggle="tab">Eigenschaften</a></li>
+			<!-- ko if: $root.couponPromotionVM.id != 'new' -->
+				<li id="tab-coupon-promotions-details-mapping"><a data-target="#tab-product-lists" data-toggle="tab">Product Lists</a></li>
+			<!-- /ko -->
+
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab-base" data-bind="compose:{ model: 'modules/geecommerce/coupon-promotion/pages/details/tabs/base', activationData: $root.couponPromotionId}"></div>
+			<!-- ko if: $root.couponPromotionVM.id != 'new' -->
+				<div class="tab-pane" id="tab-product-lists" data-bind="compose:{ model: 'modules/geecommerce/coupon-promotion/pages/details/tabs/product-lists', activationData: $root.couponPromotionId}"></div>
+			<!-- /ko -->
+
+		</div>
+
+	</form>
+
+</div>

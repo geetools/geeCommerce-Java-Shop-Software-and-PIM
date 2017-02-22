@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.geecommerce.core.elasticsearch.api.search.SearchResult;
+import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -59,20 +61,24 @@ public class DefaultProductListService implements ProductListService {
     protected final AttributeService attributeService;
     protected final ElasticsearchIndexHelper elasticsearchIndexHelper;
     protected final ElasticsearchHelper elasticsearchHelper;
+    protected final ElasticsearchService elasticsearchService;
+    protected final ProductService productService;
 
     protected static final String CACHE_NAME = "gc/catalog/product_list/facets";
     protected static final String CACHE_KEY_PREFIX = "pl/";
 
     @Inject
     public DefaultProductListService(ProductLists productLists, ProductListHelper productListHelper,
-        ProductListFilterRules productListFilterRules, AttributeService attributeService,
-        ElasticsearchIndexHelper elasticsearchIndexHelper, ElasticsearchHelper elasticsearchHelper) {
+                                     ProductListFilterRules productListFilterRules, AttributeService attributeService,
+                                     ElasticsearchIndexHelper elasticsearchIndexHelper, ElasticsearchHelper elasticsearchHelper, ElasticsearchService elasticsearchService, ProductService productService) {
         this.productLists = productLists;
         this.productListHelper = productListHelper;
         this.productListFilterRules = productListFilterRules;
         this.attributeService = attributeService;
         this.elasticsearchIndexHelper = elasticsearchIndexHelper;
         this.elasticsearchHelper = elasticsearchHelper;
+        this.elasticsearchService = elasticsearchService;
+        this.productService = productService;
     }
 
     // ----------------------------------------------------------------------
@@ -221,6 +227,38 @@ public class DefaultProductListService implements ProductListService {
         }
 
         return productData;
+    }
+
+    @Override
+    public Id[] getProductIds(ProductList productList, Integer limit) {
+        SearchResult productListResult = null;
+        try {
+            if(limit == null)
+                limit = 10000;
+            List<FilterBuilder> builders = productListHelper.getVisibilityFilters();
+            builders.add(productListHelper.buildQuery(productList.getQueryNode()));
+
+            Map<String, Attribute> filterAttributes = attributeService
+                    .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+
+            productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null, null,
+                    new SearchParams(), 0, limit, null);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        if (productListResult != null && productListResult.getDocumentIds() != null
+                && productListResult.getDocumentIds().size() > 0) {
+            List<Id> ids = new ArrayList<>();
+            return elasticsearchHelper.toIds(productListResult.getDocumentIds().toArray());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Product> getProducts(ProductList productList, Integer limit) {
+        Id[] productIds = getProductIds(productList, limit);
+        return productService.getProducts(productIds);
     }
 
     @Override

@@ -1,7 +1,7 @@
 define([ 'durandal/app', 'gc/childRouter', 'knockout', 'gc/gc' ],
 function(app, router, ko, gc) {
 
-		var childRouter = router.createChildRouter().makeRelative({
+	var childRouter = router.createChildRouter().makeRelative({
 		moduleId : 'modules/geecommerce/coupon/pages',
 		fromParent : true
 	}).mapModule([ {

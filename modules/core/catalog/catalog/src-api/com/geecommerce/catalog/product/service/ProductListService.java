@@ -1,8 +1,10 @@
 package com.geecommerce.catalog.product.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.model.ProductListFilterRule;
 import com.geecommerce.catalog.product.model.ProductListQueryNode;
@@ -28,4 +30,8 @@ public interface ProductListService extends Service {
         Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams);
 
     public Map<String, Object> findProductById(Id productId);
+
+    public Id[] getProductIds(ProductList productList, Integer limit);
+
+    public List<Product> getProducts(ProductList productList, Integer limit);
 }

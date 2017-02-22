@@ -281,6 +281,17 @@
                     hash : '#/product-promotions',
                     roles : [ 'admin' ]
                 }, {
+                    route : 'coupon-promotions*details',
+                    moduleId : 'modules/geecommerce/coupon-promotion/pages/index',
+                    label : 'app:navigation.coupon-promotions',
+                    title : 'app:modules.coupon-promotion.title',
+                    subtitle : 'app:modules.coupon-promotion.subtitle',
+                    icon : 'fa fa-line-chart fa-fw',
+                    group : 'promotions',
+                    nav : true,
+                    hash : '#/coupon-promotions',
+                    roles : [ 'admin' ]
+                }, {
                     route : 'discount-promotions*details',
                     moduleId : 'modules/geecommerce/discount-promotion/pages/index',
                     label : 'app:navigation.discount-promotions',

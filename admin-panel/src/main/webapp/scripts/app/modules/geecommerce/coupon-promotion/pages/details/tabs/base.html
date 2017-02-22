@@ -1,0 +1,134 @@
+<div>
+
+	<div data-bind="toolbar: {
+			targetId: 'couponPromotionBaseForm',
+			i18n: 'app:modules.coupon-promotion.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form id="couponPromotionBaseForm">
+
+		<div class="form-group">
+			<label for="inputCouponPromotionName" class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-9">
+				<div class="input-group">
+					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+					<input data-bind="i18nValue: couponPromotionVM.label" class="form-control" id="inputCouponPromotionName" placeholder="Enter name" type="text" required>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group ">
+			<label for="inputCouponPromotionCondition" class="col-sm-3 control-label">Condition</label>
+			<div class="col-sm-9">
+				<div>
+					<div class="col-xs-4">
+						<div data-bind="maViewer: couponPromotionVM.conditionMediaAsset"></div>
+					</div>
+					<div class="col-xs-8">
+						<div data-bind="maUploader: { value: couponPromotionVM.conditionMediaAsset}" class="dropzone dropzone-files dz-media dz-clickable">
+							<p class="dz-message" data-i18n="app:modules.slide-show.fileTabUploadHint">Click here or drag and drop to add file</p>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+<!--		<div class="form-group">
+			<label for="inputCouponPromotionDescription" class="col-sm-3 control-label" data-i18n="app:modules.coupon-promotion.generalTabDescription">Description</label>
+			<div class="col-sm-6 switch-wrapper">
+				<div id="inputCouponPromotionDescription" data-bind="i18nEditor: {value: couponPromotionVM.description}"></div>
+			</div>
+			<div class="col-sm-3">
+				%category% - product list name <br/>
+				%end% - when promotion ends
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="inputCouponPromotionDescriptionProduct" class="col-sm-3 control-label" data-i18n="app:modules.coupon-promotion.generalTabDescription">Description for Product</label>
+			<div class="col-sm-6 switch-wrapper">
+				<div id="inputCouponPromotionDescriptionProduct" data-bind="i18nEditor: {value: couponPromotionVM.descriptionProduct}"></div>
+			</div>
+			<div class="col-sm-3">
+				%end% - when promotion ends
+			</div>
+		</div>-->
+
+
+		<div class="form-group">
+			<label for="inputCouponPromotionCoupon" class="col-sm-3 control-label" data-i18n="app:modules.product-list.generalTabCoupon">Coupon</label>
+			<div class="col-sm-9">
+				<select id="inputCouponPromotionCoupon" class="form-control select2"
+						data-bind="select: couponPromotionVM.coupon, data: $root.coupons"></select>
+			</div>
+		</div>
+
+
+<!--
+		<div class="form-group">
+			<label class="col-sm-3 control-label" data-i18n="app:modules.coupon.enabled">Enabled</label>
+			<div class="col-sm-6 switch-wrapper">
+				<input type="checkbox" data-bind="ctxBool: couponVM.enabled, switchOptions: {default: false}" />
+			</div>
+			<div class="col-sm-3" data-bind="contextInfo"></div>
+		</div>
+-->
+
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" data-i18n="app:modules.coupon-promotion.enabled">Enabled</label>
+			<div class="col-sm-9 switch-wrapper">
+				<input type="checkbox" data-bind="ctxBool: couponPromotionVM.enabled, switchOptions: {default: false}" />
+			</div>
+			<div class="col-sm-3" data-bind="contextInfo"></div>
+		</div>
+
+
+
+		<!--	<div class="form-group">
+                <label for="inputAttrTabGroup" class="col-sm-2 control-label">Typ</label>
+                <div class="col-sm-10">
+                       <select class="selectpicker" data-bind="select: attributeTabVM.group, data: [ { id: 'PRODUCT', text: 'Produkt' }, { id: 'PRODUCT-LIST', text: 'Produktliste' } ]">
+                       </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAttrTabPosition" class="col-sm-2 control-label">Reihenfolge</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input data-bind="value: attributeTabVM.position" class="form-control" id="inputAttrTabPosition" type="text" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAttrTabShowInProgramme" class="col-sm-2 control-label">Show in programme</label>
+                <div class="col-sm-10 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeTabVM.showInProgramme" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAttrTabShowInVariantMaster" class="col-sm-2 control-label">Show in variant-master</label>
+                <div class="col-sm-10 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeTabVM.showInVariantMaster" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAttrTabShowInProduct" class="col-sm-2 control-label">Show in product</label>
+                <div class="col-sm-10 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeTabVM.showInProduct" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAttrTabEnabled" class="col-sm-2 control-label">Aktiviert</label>
+                <div class="col-sm-10 switch-wrapper">
+                    <input type="checkbox" data-bind="bool: attributeTabVM.enabled" />
+                </div>
+            </div>-->
+		
+	</form>
+
+</div>

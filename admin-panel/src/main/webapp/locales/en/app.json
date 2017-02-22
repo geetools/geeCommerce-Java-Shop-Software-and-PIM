@@ -68,6 +68,7 @@
         "magazines" : "Magazines",
         "product-promotions" : "Product Promotions",
         "discount-promotions" : "Discount Promotions",
+		"coupon-promotions" : "Coupon Promotions",
         "url-rewrites" : "Friendly URLs",
 		"moeve" : "Moeve",
 		"contextMessages" : "Messages",
@@ -531,6 +532,20 @@
             "tabTitleGeneral"  : "General",
             "confirmDelete" : "Are you sure you want to delete this product promotion?"
         },
+		"coupon-promotion": {
+			"title" : "Coupon Promotions",
+			"detailsTitle" : "Coupon Promotion Details",
+			"toolbarSaveMsg" : "This coupon promotion has unsaved changes",
+			"gridColName" : "Name",
+			"gridColEnabled" : "Enabled",
+
+			"baseTabName" : "Name",
+			"baseTabKey" : "Key",
+			"baseTabLimit" : "Limit",
+			"baseTabType" : "Type",
+			"tabTitleGeneral"  : "General",
+			"confirmDelete" : "Are you sure you want to delete this product promotion?"
+		},
         "discount-promotion": {
             "title" : "Manage Discount Promotions",
             "subtitle" : "View and edit discount promotions",

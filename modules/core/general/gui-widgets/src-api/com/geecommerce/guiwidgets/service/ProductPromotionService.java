@@ -13,5 +13,4 @@ public interface ProductPromotionService extends Service {
 
     public List<Product> getProducts(ProductPromotion productPromotion);
 
-    public List<Product> getProducts(ProductList productList, int limit);
 }

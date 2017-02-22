@@ -1,10 +1,10 @@
 package com.geecommerce.coupon.service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.geecommerce.catalog.product.model.ProductList;
+import com.geecommerce.catalog.product.repository.ProductLists;
+import com.geecommerce.catalog.product.service.ProductListService;
 import com.geecommerce.core.script.Groovy;
 import com.geecommerce.core.service.annotation.Service;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
@@ -22,10 +22,14 @@ import com.google.inject.Inject;
 public class DefaultFilterService implements FilterService {
 
     private final CouponHelper couponHelper;
+    private final ProductLists productLists;
+    private final ProductListService productListService;
 
     @Inject
-    public DefaultFilterService(CouponHelper couponHelper) {
+    public DefaultFilterService(CouponHelper couponHelper, ProductLists productLists, ProductListService productListService) {
         this.couponHelper = couponHelper;
+        this.productLists = productLists;
+        this.productListService = productListService;
     }
 
     @Override
@@ -49,12 +53,6 @@ public class DefaultFilterService implements FilterService {
                 return false;
 
             if (attribute.getAttribute() == null || !attribute.getAttribute().isOptionAttribute()) {
-                // Binding binding = new Binding();
-                // binding.setVariable("attr", attribute.getVal());
-                // binding.setVariable("val", castObject(attribute.getVal(),
-                // node.getValue()));
-                // GroovyShell shell = new GroovyShell(binding);
-                // return (boolean)shell.evaluate(script);
 
                 LinkedHashMap<String, Object> args = new LinkedHashMap<>();
                 args.put("attr", attribute.getVal());
@@ -65,11 +63,6 @@ public class DefaultFilterService implements FilterService {
             } else {
                 boolean result = false;
                 for (Id optionId : attribute.getOptionIds()) {
-                    // Binding binding = new Binding();
-                    // binding.setVariable("attr", optionId.toString());
-                    // binding.setVariable("val", node.getValue());
-                    // GroovyShell shell = new GroovyShell(binding);
-                    // result = result || (boolean)shell.evaluate(script);
 
                     LinkedHashMap<String, Object> args = new LinkedHashMap<>();
                     args.put("attr", optionId.toString());
@@ -238,7 +231,19 @@ public class DefaultFilterService implements FilterService {
 
 
         if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.LIST)){
-
+            if(coupon.getCouponAction().getProductListIds() != null){
+                List<Id> allProductsIds = new ArrayList<>();
+                for(Id productListId: coupon.getCouponAction().getProductListIds()){
+                    ProductList productList = productLists.findById(ProductList.class, productListId);
+                    Id[] productIds = productListService.getProductIds(productList, null);
+                    if(productIds != null)
+                        allProductsIds.addAll(Arrays.asList(productIds));
+                }
+                for (Id id: allCartProducts) {
+                    if(couponHelper.hasPriceTypes(id, priceTypeIds) && allProductsIds.contains(id))
+                        result.add(id);
+                }
+            }
         }
 
 

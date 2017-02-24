@@ -330,8 +330,10 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
         PriceResult pr = getProduct().getPrice();
         if (pr != null) {
             Price price = pr.getFinalPriceFor(quantity, pricingContext);
-            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
-            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
+            if(price != null) {
+                m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, price.getFinalPrice());
+                m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE_TYPE, price.getPriceType().getCode());
+            }
         }
 
         m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, getProductPrice());

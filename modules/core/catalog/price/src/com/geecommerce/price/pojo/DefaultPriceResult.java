@@ -329,7 +329,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
 
             Price price = findPrice(priceType, qty, priceList, pricingCtx);
 
-            if (price != null && price.getPrice() > 0) {
+            if (price != null && price.getPrice() >= 0) {
                 finalPrice = price;
                 break;
             }
@@ -395,7 +395,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                 for (String priceType : priceTypes) {
                     Price price = findPrice(priceType, qty, childPriceList, pricingCtx);
 
-                    if (price != null && price.getPrice() > 0) {
+                    if (price != null && price.getPrice() >= 0) {
                         childFinalPrice = price.getPrice();
                         childFinalPriceObj = price;
                         break;
@@ -463,7 +463,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                 for (String priceType : priceTypes) {
                     Price price = findPrice(priceType, qty, childPriceList, pricingCtx);
 
-                    if (price != null && price.getPrice() > 0) {
+                    if (price != null && price.getPrice() >= 0) {
                         childFinalPrice = price.getPrice();
                         childFinalPriceObj = price;
                         break;
@@ -517,7 +517,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
                 for (String priceType : priceTypes) {
                     Price price = findPrice(priceType, 0, childPriceList, null);
 
-                    if (price != null && price.getPrice() > 0) {
+                    if (price != null && price.getPrice() >= 0) {
                         anyValidPrice = true;
                         break;
                     }
@@ -573,7 +573,7 @@ public class DefaultPriceResult extends AbstractPojo implements PriceResult {
         for (String priceType : priceTypes) {
             Price price = findPrice(priceType, forQty, priceList, pricingCtx);
 
-            if (price != null && price.getPrice() > 0) {
+            if (price != null && price.getPrice() >= 0) {
                 validPrices.put(priceType, price.getPrice());
             }
         }

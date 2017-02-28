@@ -1,0 +1,55 @@
+<div>
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="variantsTargetContainer">
+					<h3>Product List</h3>
+	
+					<p>Product List in <b data-bind="i18nText: { value: couponPromotionVM.label, mode: 'any' }"></b> </p>
+					
+					<ul data-bind="foreach: { data: couponPromotionVM.productLists, as: 'productList' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableProductListOptions">
+						<li data-bind="attr: {'data-id': productList.id}" class="droppable-list" unselectable="on">
+							<a href="javascript:void(0)" data-bind="click: $root.removeProductListFromPromotion" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+							<div data-bind="i18nText: { value: productList.label, mode: 'any' }"></div>
+							<div class="attribute-info-row">
+								<!-- ko if: productList.key --><span data-bind="text: productList.key"></span><!-- /ko -->
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="variantsSourceContainer">
+<!--					<div class="row">
+						<div class="col-md-12">
+							<h3>Product List search suchen</h3>
+							<p>Suchen Sie nach Attribute, um sie per drag&drop zur Attributgruppe <span data-bind="i18nText: { value: couponPromotionVM.label, mode: 'any' }"></span> hinzuzufügen.</p>
+							<input data-bind="value: query, valueUpdate:'afterkeyup'" class="form-control" type="text" placeholder="Attribut suchen ...">
+						</div>
+					</div>
+					<br/>-->
+					<div class="row">
+						<div class="col-md-12">
+							<ul data-bind="foreach: { data: $root.sourceProductListsPager.data, as: 'srcProductList' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
+									<span data-bind="i18nText: { value: srcProductList.label, mode: 'any' }"></span>
+									<div class="attribute-info-row">
+										<!-- ko if: srcProductList.key --><span data-bind="text: srcProductList.key"></span><!-- /ko -->
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<!--  Pagination -->            
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceProductListsPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourceProductListsPager.page, css: { active: $root.sourceProductListsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

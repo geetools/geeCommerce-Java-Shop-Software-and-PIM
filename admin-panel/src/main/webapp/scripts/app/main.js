@@ -326,7 +326,13 @@
         name : 'gc-discount-promotion',
         location : 'modules/geecommerce/discount-promotion/scripts',
         main : 'api'
-    }, {
+    },
+    {
+        name : 'gc-coupon-promotion',
+        location : 'modules/geecommerce/coupon-promotion/scripts',
+        main : 'api'
+    },
+    {
         name : 'gc-url-rewrite',
         location : 'core/url-rewrite/scripts',
         main : 'api'

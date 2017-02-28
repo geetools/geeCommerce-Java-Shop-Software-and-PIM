@@ -1,4 +1,4 @@
-<div>
+<div >
     <div class="form-group">
         <label for="inputCouponActionType" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabCouponType">Coupon Type</label>
         <div class="col-sm-3">
@@ -27,7 +27,7 @@
 
     <!-- ko if: couponVM.couponAction.type() === 'RANGE_PERCENT_CART' || couponVM.couponAction.type() === 'RANGE_FIXED_CART'  -->
 
-    <div class="form-group">
+    <div class="form-group ">
         <label for="inputCouponActionDiscountAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabDiscountAmount">Discount Amount</label>
         <div class="col-sm-6">
             <ul style="list-style-type: none;">
@@ -69,7 +69,7 @@
             </div>
             <div class="col-xs-1">
                  <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
-                    <i class="glyphicon glyphicon-remove"></i>
+                    <i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
                 </span>
             </div>
 
@@ -133,7 +133,7 @@
       <!-- /ko -->
 
     <!-- ko if:  couponVM.couponAction && couponVM.couponAction.productSelectionType() == 'QUERY' && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
-    <div class="form-group">
+    <div class="form-group query-builder">
         <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFilter">Filter</label>
         <div class="col-sm-9">
             <div data-bind='template: {name:"filterNode", data: couponVM.couponAction.filter}'></div>
@@ -176,7 +176,7 @@
                 <div style="display:inline;line-height:30px" ><input type="checkbox" data-bind="checked: value"/></div>
                 <!-- /ko -->
                 <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
-					<i class="glyphicon glyphicon-remove"></i>
+					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</span><br>
             </script>
 
@@ -192,7 +192,7 @@
 				optionsValue: 'value'}"></span>
                 <!-- ko if: parent() !== null -->
                 <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
-					<i class="glyphicon glyphicon-remove"></i>
+					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</span><br>
                 <!-- /ko -->
                 <ul style="list-style-type: none;">
@@ -201,7 +201,7 @@
                     </div>
 					<div data-bind="editable: newNodeType, editableOptions:{type:'select', options: $root.nodeCreatingChoice,
 				optionsText: 'label', optionsValue: 'value', hidden: addNode,noHTML:'true'}">
-						<i class="glyphicon glyphicon-plus"></i>
+						<i class="glyphicon glyphicon-plus-sign add-query-node"></i>
 					</div>
                 </ul>
 

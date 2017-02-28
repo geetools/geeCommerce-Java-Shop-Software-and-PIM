@@ -28,6 +28,11 @@
     border-bottom: solid grey 1px;
 }
 
+.cart-summary .discount {
+    font-size: 18px;
+    border-bottom: solid grey 1px;
+}
+
 .cart-item {
     padding-top: 20px;
     padding-bottom: 20px;

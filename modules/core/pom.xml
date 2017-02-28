@@ -37,6 +37,7 @@
 		<module>marketing/analytics/google-analytics</module>
 		<module>marketing/newsletter/newsletter-subscription</module>
 		<module>marketing/sem/google-remarketing</module>
+		<module>marketing/promotions/coupon-promotion</module>
 		<module>media/media-assets</module>
 		<module>navigation/navigation</module>
 		<module>payment/payment-method/bank-transfer</module>

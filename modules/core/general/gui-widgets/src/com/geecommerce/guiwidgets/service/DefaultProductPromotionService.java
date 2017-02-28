@@ -90,35 +90,11 @@ public class DefaultProductPromotionService implements ProductPromotionService {
                 queryMap = Json.fromJson(productList.getQuery(), HashMap.class);
             }
 
-            products = getProducts(productList, productPromotion.getLimit() == null || productPromotion.getLimit() == 0
+            products = productListService.getProducts(productList, productPromotion.getLimit() == null || productPromotion.getLimit() == 0
                 ? 100 : productPromotion.getLimit());
         }
         return products;
     }
 
-    @Override
-    public List<Product> getProducts(ProductList productList, int limit) {
-        SearchResult productListResult = null;
-        try {
-
-            List<FilterBuilder> builders = productListHelper.getVisibilityFilters();
-            builders.add(productListHelper.buildQuery(productList.getQueryNode()));
-
-            Map<String, Attribute> filterAttributes = attributeService
-                .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
-
-            productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null, null,
-                new SearchParams(), 0, limit, null);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        if (productListResult != null && productListResult.getDocumentIds() != null
-            && productListResult.getDocumentIds().size() > 0) {
-            Id[] productIds = elasticsearchHelper.toIds(productListResult.getDocumentIds().toArray());
-            return productService.getProducts(productIds);
-        }
-        return new ArrayList<>();
-    }
 
 }

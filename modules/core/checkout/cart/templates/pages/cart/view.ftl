@@ -129,6 +129,7 @@ which ensures that the first post of the form has a positive csrf-validation.
                         ${cartTotals.gross_subtotal?string.currency}
                     </div>
                 </div>
+
                 <div class="shipping row">
                     <div class="title col-xs-6">
                         <@message text="Shipping Cost" lang="en" text2="Versandkosten" lang2="de" />:
@@ -137,6 +138,16 @@ which ensures that the first post of the form has a positive csrf-validation.
                         ${cartTotals.gross_shipping_amount?string.currency}
                     </div>
                 </div>
+                <#if (cartTotals["gross_discount_total"] > 0)>
+                    <div class="discount row">
+                        <div class="title col-xs-6">
+                            <@message text="Discount" lang="en" text2="Discount" lang2="de" />:
+                        </div>
+                        <div class="value col-xs-6 text-right">
+                            -${cartTotals.gross_discount_total?string.currency}
+                        </div>
+                    </div>
+                </#if>
                 <div class="total row">
                     <div class="title col-xs-6">
                         <@message text="Total" lang="en" text2="Gesamtsumme" lang2="de" />:

@@ -20,7 +20,7 @@
   </appenders>
   <loggers>
 	<logger name="com.sevon.common.cache" level="INFO"/>
-	<logger name="com.cb" level="INFO"/>
+	<logger name="com.geecommerce" level="INFO"/>
 	<logger name="com.geecommerce.service.inject" level="INFO"/>
 	<logger name="com.geecommerce.core.inject" level="INFO"/>
 	<logger name="com.geecommerce.core.reflect" level="INFO"/>

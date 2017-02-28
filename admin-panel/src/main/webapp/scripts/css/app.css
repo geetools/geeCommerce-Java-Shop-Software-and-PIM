@@ -4049,6 +4049,15 @@ div.prd-no-image>i.fa {
 	white-space: nowrap;
 }
 
+.show-tick{
+    width: 90% !important;
+}
+
+.form-horizontal .form-group {
+    margin-right: unset;
+    margin-left: unset;
+}
+
 @media only screen and (min-width: 768px) {
 	.attr-batch-updater .modal-body {
 		min-height: 420px;

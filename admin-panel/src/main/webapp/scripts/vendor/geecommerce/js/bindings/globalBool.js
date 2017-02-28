@@ -60,12 +60,12 @@ define([ 'knockout', 'i18next', 'gc/gc' ], function(ko, i18n, gc) {
 			if (booleanVal) {
 				$(element).prop('checked', true);
 				$(element).attr('checked', 'checked');
-				$(element).switchButton('setChecked', true);
+//				$(element).switchButton('setChecked', true);
 
 			} else {
 				$(element).prop('checked', false);
 				$(element).removeAttr('checked');
-				$(element).switchButton('setChecked', false);
+//				$(element).switchButton('setChecked', false);
 			}
 		}
 	};

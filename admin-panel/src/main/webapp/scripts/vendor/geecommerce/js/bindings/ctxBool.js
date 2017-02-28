@@ -178,7 +178,7 @@ define([ 'knockout', 'i18next', 'gc/gc' ], function(ko, i18n, gc) {
 			}
 
             if($element.is(':checked') !== ctxVal) {
-                $element.switchButton('setChecked', ctxVal);
+//                $element.switchButton('setChecked', ctxVal);
             }
 		}
 	};

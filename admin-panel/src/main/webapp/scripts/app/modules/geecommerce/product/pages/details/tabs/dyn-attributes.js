@@ -27,6 +27,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
         self.suggestions = ko.observableArray([]);
 		self.srcOptions = ko.observableArray([]);
 
+/*		
 		self.comboboxValue = ko.observableArray([]);
 		self.comboboxValueId = ko.observable();
 
@@ -162,15 +163,10 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 			self.comboboxValues(_options);
 
 //			return _options;
-/*
-			if(self.selectOptions) {
-				_.each(self.value(), function (optionId) {
-					selected.push(_.findWhere(self.selectOptions(), {id: optionId}));
-				});
-			}
-			return selected;*/
-		});
 
+		});
+*/
+		
 		// Callback for widget i18nEditor.
 		self.unjsonDescriptionPanels = function(data) {
 			var asJson = null;

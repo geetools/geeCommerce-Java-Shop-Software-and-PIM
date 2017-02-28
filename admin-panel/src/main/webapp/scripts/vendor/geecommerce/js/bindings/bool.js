@@ -83,14 +83,14 @@ define([ 'knockout', 'i18next', 'gc/gc' ], function(ko, i18n, gc) {
                     $(element).prop('checked', true);
                     $(element).attr('checked', 'checked');
                     $(element).change();
-                    $(element).switchButton('setChecked', true);
+//                    $(element).switchButton('setChecked', true);
                 }
             } else {
                 if (isChecked !== false) {
                     $(element).prop('checked', false);
                     $(element).removeAttr('checked');
                     $(element).change();
-                    $(element).switchButton('setChecked', false);
+//                    $(element).switchButton('setChecked', false);
                 }
             }
         }

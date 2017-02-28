@@ -4,7 +4,7 @@
     <@layout.onecolumn pageModel=productList>
 
 		<div class="row container-category">
-		
+
 			<#if products??>
 			
 				<div class="col-xs-12 col-sm-3 col-md-3">
@@ -15,6 +15,7 @@
 					<@product_list_filter/>
 				</div>
 				<div class="col-xs-12 col-sm-9 col-md-9">
+					<@cp_product_list product_list="${productList.id}" />
 
 	                <div class="col-xs-12 col-sm-12 col-md-4 cat-pl-pagination-top">
 						<@pagination />

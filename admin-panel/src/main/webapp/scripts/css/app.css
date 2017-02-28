@@ -4058,6 +4058,15 @@ div.prd-no-image>i.fa {
     margin-left: unset;
 }
 
+.query-builder .form-control{
+    border: solid 1px #eeeeee;
+}
+
+.form-control:active{
+    border: solid 1px #eeeeee;
+}
+
+
 @media only screen and (min-width: 768px) {
 	.attr-batch-updater .modal-body {
 		min-height: 420px;

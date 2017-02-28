@@ -36,7 +36,9 @@
                 </div>
 
             </ul>
-            <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="glyphicon glyphicon-plus-sign add-query-node"></span>
+            <div class="query-builder">
+                <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="glyphicon glyphicon-plus-sign add-query-node"></span>
+            </div>
         </div>
     </div>
 
@@ -173,7 +175,11 @@
                 </select>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'BOOLEAN' -->
-                <div style="display:inline;line-height:30px" ><input type="checkbox" data-bind="checked: value"/></div>
+                <div style="display:inline;line-height:30px" >
+                    <div class="switch-wrapper">
+                        <input  type="checkbox" data-bind="bool: value" />
+                    </div>
+                </div>
                 <!-- /ko -->
                 <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>

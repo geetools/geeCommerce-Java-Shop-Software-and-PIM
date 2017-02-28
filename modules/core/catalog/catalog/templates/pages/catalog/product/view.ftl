@@ -8,6 +8,8 @@
 
 		<div class="row">
 
+			<@cp_product product_id="${product.id}" />
+
 			<div class="col-xs-12 col-sm-9">
 				<#include "view_bundle.ftl"/>
 			</div>

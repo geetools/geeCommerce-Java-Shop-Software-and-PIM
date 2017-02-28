@@ -69,7 +69,10 @@
                 </select>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'BOOLEAN' -->
-                <div style="display: inline;line-height:30px"><input type="checkbox" data-bind="checked: value"/></div>
+                <div style="display: inline;line-height:30px">
+                    <div class="switch-wrapper">
+                    <input  type="checkbox" data-bind="bool: value" />
+                </div></div>
                 <!-- /ko -->
 				<div style="display:inline;line-height:30px" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove"></i>

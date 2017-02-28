@@ -19,6 +19,13 @@
 	<#assign salePrice=prices['sale_price']!0.0>
 </#if>
 
+<@cp_product_price product_id="${product.id}" />
+<#if promotionPrice?? >
+	<#if salePrice?? && promotionPrice lt salePrice || !salePrice?? || salePrice == 0>
+		<#assign salePrice=promotionPrice>
+	</#if>
+</#if>
+
 <#if (!product.programme || product.price.hasValidPrice())>
 
 	<div class="product-panel-box">

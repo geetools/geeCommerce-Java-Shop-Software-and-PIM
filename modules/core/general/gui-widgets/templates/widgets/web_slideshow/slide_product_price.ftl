@@ -27,6 +27,15 @@
 <#assign finalSpecialPrice=0>
 <#assign percentOff=0>
 
+
+<@cp_product_price product_id="${product.id}" />
+<#if promotionPrice?? >
+    <#if salePrice?? && promotionPrice lt salePrice || !salePrice?? || salePrice == 0>
+        <#assign salePrice=promotionPrice>
+    </#if>
+</#if>
+
+
 <#if (!product.programme || product.price.hasValidPrice())>
 
     <#if specialPrice?? && (specialPrice > 0)>

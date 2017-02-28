@@ -64,33 +64,24 @@ public class DefaultCouponPromotionService implements CouponPromotionService {
 		promotions.update(promotion);
 	}
 
+
 	@Override
 	public List<Coupon> getCoupons() {
 			Map<String, Object> filter = new HashMap<>();
 			filter.put(Coupon.Col.AUTO, true);
-
-	/*		MongoQueries.addCtxObjFilter(filter, Coupon.Col.ENABLED, true);*/
 
 			Date now = new Date();
 			DBObject gteClause = new BasicDBObject();
 			gteClause.put("$gte", now);
 			filter.put(Coupon.Col.TO_DATE, gteClause);
 
-/*			DBObject ltClause = new BasicDBObject();
-			ltClause.put("$lt", now);
-			filter.put(Coupon.Col.FROM_DATE, ltClause);*/
-
 			List<Coupon> findedCoupons = coupons.find(Coupon.class, filter);
 
-/*
-			List<CouponCode> result = new ArrayList<>();
-			for (Coupon coupon : findedCoupons)
-			{
-				if (coupon.getCodes() != null && coupon.getCodes().size() > 0)
-					result.add(coupon.getCodes().get(0));
-			}
-*/
-
 			return findedCoupons;
+	}
+
+	@Override
+	public void IndexPromotionPrices() {
+
 	}
 }

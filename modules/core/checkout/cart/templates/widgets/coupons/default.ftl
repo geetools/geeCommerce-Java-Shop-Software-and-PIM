@@ -4,7 +4,7 @@
 
     <!--Coupon code is in card and it's not an autocoupon-->
     <#if (wCouponCode?? && wCouponCode.coupon?? && !wCouponCode.coupon.auto) >
-        <div id="basket-active-discount-box">
+        <div class="discount-box">
             <h2><@message text="Discount" lang="en" text="Rabbat" lang="de"/></h2>
 
             <h3><@print src=wCouponCode value="wCouponCode.coupon.name.str" format="short-text" /></h3>
@@ -22,7 +22,7 @@
     </#if>
 
     <#if (wCouponCode?? && wCouponCode.coupon?? && wCouponCode.coupon.auto) >
-        <div id="basket-active-discount-box">
+        <div class="discount-box">
             <h2><@message text="Discount" lang="en" text="Rabbat" lang="de"/></h2>
 
             <#if wAutoCoupons?size gt 1>
@@ -51,7 +51,7 @@
                         <#assign checked = "">
                     </#if>
 
-                    <input type="checkbox" class="checkbox" onclick="document.forms.discount_set_state.submit();" ${checked} name="useAutoCoupon" >
+                    <input type="checkbox" class="checkbox discount-checkbox" onclick="document.forms.discount_set_state.submit();" ${checked} name="useAutoCoupon" >
                     <@message text="Use action" lang="en" text2="Use action" lang2="de"/>
                 </label>
 
@@ -82,7 +82,7 @@
 
 <!--Coupon code not entered and no autocoupons-->
     <#if !wCouponCode?? ||  hasAutocoupons>
-        <div class="cart-coupon-form">
+        <div class="discount-form">
             <#if !wCouponCode?? && !hasAutocoupons>
                 <h2><@message text="Coupon code" lang="en" text2="Rabattcode" lang2="de" /></h2>
             </#if>

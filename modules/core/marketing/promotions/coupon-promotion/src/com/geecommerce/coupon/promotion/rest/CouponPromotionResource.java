@@ -9,6 +9,7 @@ import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.geecommerce.coupon.promotion.helper.CouponPromotionHelper;
 import com.geecommerce.coupon.promotion.model.CouponPromotion;
 import com.geecommerce.coupon.promotion.service.CouponPromotionService;
 import com.google.inject.Inject;
@@ -24,11 +25,13 @@ public class CouponPromotionResource extends AbstractResource {
 
     private final RestService service;
     private final CouponPromotionService couponPromotionService;
+    private final CouponPromotionHelper couponPromotionHelper;
 
     @Inject
-    public CouponPromotionResource(RestService service, CouponPromotionService couponPromotionService) {
+    public CouponPromotionResource(RestService service, CouponPromotionService couponPromotionService, CouponPromotionHelper couponPromotionHelper) {
         this.service = service;
         this.couponPromotionService = couponPromotionService;
+        this.couponPromotionHelper = couponPromotionHelper;
     }
 
     @GET
@@ -64,7 +67,9 @@ public class CouponPromotionResource extends AbstractResource {
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createCouponPromotion(@ModelParam CouponPromotion couponPromotion)
     {
-        return created(service.create(couponPromotion));
+        couponPromotion = service.create(couponPromotion);
+        couponPromotionHelper.createPromotionIndex();
+        return created(couponPromotion);
     }
 
     @PUT
@@ -77,6 +82,9 @@ public class CouponPromotionResource extends AbstractResource {
             CouponPromotion c = checked(service.get(CouponPromotion.class, id));
             c.set(update.getFields());
             service.update(c);
+
+            couponPromotionHelper.createPromotionIndex();
+
             return ok(c);
         }
         return notFound();

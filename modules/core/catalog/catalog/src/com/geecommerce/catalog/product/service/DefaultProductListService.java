@@ -230,12 +230,16 @@ public class DefaultProductListService implements ProductListService {
     }
 
     @Override
-    public Id[] getProductIds(ProductList productList, Integer limit) {
+    public Id[] getProductIds(ProductList productList, boolean checkVisibility, Integer limit) {
         SearchResult productListResult = null;
         try {
             if(limit == null)
                 limit = 10000;
-            List<FilterBuilder> builders = productListHelper.getVisibilityFilters();
+            List<FilterBuilder> builders =  new ArrayList<>();
+
+            if(checkVisibility)
+                productListHelper.getVisibilityFilters();
+
             builders.add(productListHelper.buildQuery(productList.getQueryNode()));
 
             Map<String, Attribute> filterAttributes = attributeService
@@ -256,8 +260,8 @@ public class DefaultProductListService implements ProductListService {
     }
 
     @Override
-    public List<Product> getProducts(ProductList productList, Integer limit) {
-        Id[] productIds = getProductIds(productList, limit);
+    public List<Product> getProducts(ProductList productList, boolean checkVisibility, Integer limit) {
+        Id[] productIds = getProductIds(productList, checkVisibility, limit);
         return productService.getProducts(productIds);
     }
 

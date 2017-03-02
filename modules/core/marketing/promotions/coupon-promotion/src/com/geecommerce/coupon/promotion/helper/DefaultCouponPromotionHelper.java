@@ -150,7 +150,7 @@ public class DefaultCouponPromotionHelper implements CouponPromotionHelper{
 
                         //
 
-                        List<Product> products = productListService.getProducts(productList, null);
+                        List<Product> products = productListService.getProducts(productList, true, null);
 
                         for (Product product : products) {
                             indexProductsPrices(cart, product, promotion, coupon);

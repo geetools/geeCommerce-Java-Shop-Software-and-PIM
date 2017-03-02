@@ -235,7 +235,7 @@ public class DefaultFilterService implements FilterService {
                 List<Id> allProductsIds = new ArrayList<>();
                 for(Id productListId: coupon.getCouponAction().getProductListIds()){
                     ProductList productList = productLists.findById(ProductList.class, productListId);
-                    Id[] productIds = productListService.getProductIds(productList, null);
+                    Id[] productIds = productListService.getProductIds(productList, false, null);
                     if(productIds != null)
                         allProductsIds.addAll(Arrays.asList(productIds));
                 }

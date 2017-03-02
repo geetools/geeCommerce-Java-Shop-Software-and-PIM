@@ -577,8 +577,8 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
                     self.couponVM.couponAction.maximumQtyApplyTo(coupon.couponAction.maximumQtyApplyTo);
                     self.couponVM.couponAction.priceTypeId(coupon.couponAction.priceTypeId);
 
-                    self.couponVM.couponAction.productIds(coupon.couponAction.productIds);
-                    self.couponVM.couponAction.productListIds(coupon.couponAction.productListIds);
+                    self.couponVM.couponAction.productIds(coupon.couponAction.productIds || []);
+                    self.couponVM.couponAction.productListIds(coupon.couponAction.productListIds || []);
                     self.couponVM.couponAction.productSelectionType(coupon.couponAction.productSelectionType);
 
 

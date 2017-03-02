@@ -55,6 +55,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
         self.cartItemAttributesOptions = ko.observableArray();
         self.couponFilterNodeTypes = ko.observableArray();
         self.couponFilterOperators = ko.observableArray();
+
         self.customerGroupOptions = ko.computed(function() {
             var _options = [ { id: '', text: 'auswählen' } ];
             if(self.customerGroups()){
@@ -224,6 +225,25 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
         self.parent = ko.observable(parent);
 
         self.newNodeType = ko.observable();
+
+        self.couponFilterOperators = ko.computed(function () {
+            if(self.type() == 'FIlTER_ATTRIBUTE_OPERATION' && self.attributeType() == 'PRODUCT'){
+                if(self.inputType() == 'SELECT' || self.inputType() == 'BOOLEAN' ){
+                    var result = [];
+                    console.log(self.couponVM.couponFilterOperators())
+                    result.push(_.where(self.couponVM.couponFilterOperators(), {value: "=="})[0])
+                    result.push(_.where(self.couponVM.couponFilterOperators(), {value: "!="})[0])
+                    console.log(result);
+                    return result;
+                } else {
+                    return self.couponVM.couponFilterOperators();
+                }
+            } else {
+                return self.couponVM.couponFilterOperators();
+            }
+        });
+
+
         self.options = ko.computed(function() {
             var _options = [ { id: '', text: 'auswählen' } ];
             if(self.couponVM.enableOpt()){

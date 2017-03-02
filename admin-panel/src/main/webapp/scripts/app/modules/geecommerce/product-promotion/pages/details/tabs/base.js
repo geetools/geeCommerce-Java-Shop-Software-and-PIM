@@ -7,7 +7,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
         self.key = ko.observable();
         self.query = ko.observable();
         self.limit = ko.observable();
-        self.teaser = ko.observable();
+        self.teaserId = ko.observable();
 
         self.displayLabel = ko.observable("");
         self.targetId = ko.observable();
@@ -22,41 +22,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
             self.isNew(true);
         }
 
-        self.showTeaser =  ko.computed(function() {
-            if(self.teaser())
-                return true;
-            return false;
-        }, self);
 
-    }
-
-    function TeaserImageVM(mediaAssetId, path, webPath, webThumbnailPath, previewImagePath, previewImageWebPath, previewImageWebThumbnailPath, mimeType) {
-        var self = this;
-        self.mediaAssetid = mediaAssetId;
-
-        self.path = ko.observable(path);
-        self.webPath = ko.observable(webPath);
-
-        var dPath = webPath + "?d=true";
-        if(dPath.indexOf("http") == -1){
-            dPath = "https://" + dPath;
-        }
-
-        self.downloadPath = ko.observable(dPath);
-        self.webThumbnailPath = ko.observable(webThumbnailPath);
-        self.previewImagePath = ko.observable(previewImagePath);
-        self.previewImageWebPath = ko.observable(previewImageWebPath);
-        self.previewImageWebThumbnailPath = ko.observable(previewImageWebThumbnailPath);
-
-        self.mimeType = ko.observable(mimeType);
-
-        self.fileExtension = ko.computed(function() {
-            return self.path().substring(self.path().lastIndexOf('.')+1);
-        });
-
-        self.isImage = ko.computed(function() {
-            return self.mimeType().startsWith('image/');
-        });
 
     }
 
@@ -76,7 +42,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
         this.productLists = ko.observableArray([]);
 
         // Solves the 'this' problem when a DOM event-handler is fired.
-        _.bindAll(this, 'activate', 'attached', 'saveData', 'removeTeaser');
+        _.bindAll(this, 'activate', 'attached', 'saveData');
     }
 
     ProductPromotionBaseController.prototype = {
@@ -105,6 +71,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
             updateModel.field('limit', self.productPromotionVM.limit());
             updateModel.field('enabled', self.productPromotionVM.enabled(), true);
             updateModel.field('useTargetObjectLabel', self.productPromotionVM.useTargetLabel());
+            updateModel.field('teaserImageId', self.productPromotionVM.teaserId());
 
             if(self.productPromotionVM.targetId() && self.productPromotionVM.targetId() != '' ){
                 updateModel.field('targetObjectType', 'PRODUCT_LIST');
@@ -126,13 +93,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
                 })
             }
         },
-        removeTeaser : function() {
-            var self = this;
-
-            productPromotionAPI.removeTeaser(self.productPromotionId()).then(function (data) {
-                self.productPromotionVM.teaser(null);
-            });
-        },
         activate : function(data) {
             var self = this;
             self.productPromotionId(data);
@@ -153,10 +113,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
                     }
                 });
                 self.productLists(prdoductListArray);
+
             });
 
             if(!vm.isNew()){
-                productPromotionAPI.getProductPromotion(self.productPromotionId()).then(function(data) {
+                return productPromotionAPI.getProductPromotion(self.productPromotionId()).then(function(data) {
 
                     vm.key(data.key);
                     vm.query(data.query);
@@ -169,44 +130,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
                         vm.useTargetLabel(data.useTargetObjectLabel);
                     vm.targetId(data.targetObjectId);
                     vm.targetType(data.targetObjectType);
-
-                    if(data.teaserImage){
-                        var teaserImage = new TeaserImageVM(data.teaserImage.id, data.teaserImage.name, data.teaserImage.url, data.teaserImage.webThumbnailPath, data.teaserImage.url, data.teaserImage.url, data.teaserImage.url, data.teaserImage.mimeType);
-                        vm.teaser(teaserImage);
-                    }
+                    vm.teaserId(data.teaserImageId)
 
                 });
             }
-
-            Dropzone.autoDiscover = false;
-
-            $('.dropzone-teaser').livequery(function() {
-                var form = $(this).get(0);
-                var $form = $(form);
-
-                var dzInitialized = $form.data('dz-init');
-
-                if(!dzInitialized) {
-                    var dz = new Dropzone(form, { url: '/api/v1/product-promotions/' + self.productPromotionId() + '/teasers/'});
-
-                    dz.on("sending", function(file, xhr, formData) {
-                        var activeStore = gc.app.activeStore();
-
-                        if(!_.isEmpty(activeStore) && !_.isUndefined(activeStore.id)) {
-                            xhr.setRequestHeader('X-CB-StoreContext', activeStore.id);
-                        }
-                    });
-
-                    dz.on("success", function(file, data) {
-                        var teaserImage = new TeaserImageVM(data.teaserImage.id, data.teaserImage.name, data.teaserImage.url, data.teaserImage.webThumbnailPath, data.teaserImage.url, data.teaserImage.url, data.teaserImage.url, data.teaserImage.mimeType);
-                        self.productPromotionVM.teaser(teaserImage);
-                        // Remove file from preview.
-                        dz.removeFile(file);
-                    });
-
-                    $form.data('dz-init', true);
-                }
-            });
         },
         attached : function() {
             var self = this;

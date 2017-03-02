@@ -4058,11 +4058,11 @@ div.prd-no-image>i.fa {
     margin-left: unset;
 }
 
-.query-builder .form-control{
+.query-builder-coupon .form-control{
     border: solid 1px #eeeeee;
 }
 
-.form-control:active{
+.query-builder-coupon .form-control:active{
     border: solid 1px #eeeeee;
 }
 

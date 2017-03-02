@@ -57,12 +57,12 @@
                     optionsValue: 'value'}"></span>
                 <!-- /ko -->
                 <span style="display:inline;line-height:30px" class="form-control form-control-small"
-                      data-bind="editable: operator, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.couponFilterOperators,
+                      data-bind="editable: operator, editableOptions:{type:'select', showbuttons: false, options: couponFilterOperators,
 				optionsText: 'label',
-				optionsValue: 'value'}"></span>
+				optionsValue: 'value'}"></span>`
 
                 <!-- ko if: inputType() === 'TEXT' || inputType() !== 'SELECT' && inputType() !== 'BOOLEAN'-->
-                <span style="display:inline;line-height:30px" data-bind="editable: value" class="form-control form-control-small"></span>
+                <input style="display:inline;" data-bind="value: value" class="form-control form-control-small"></input>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'SELECT' -->
                 <select style="display:inline;line-height:30px" class="selectpicker" title="auswählen" data-bind="select: value, data: options">

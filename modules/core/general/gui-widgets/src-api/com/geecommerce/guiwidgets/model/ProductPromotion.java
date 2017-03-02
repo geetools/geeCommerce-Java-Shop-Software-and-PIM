@@ -39,6 +39,8 @@ public interface ProductPromotion extends MultiContextModel {
 
     public String getDisplayLabel();
 
+    public ContextObject<String> getContextDisplayLabel();
+
     @JsonIgnore
     public String getDisplayURI();
 

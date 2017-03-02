@@ -32,12 +32,10 @@ import com.sun.jersey.multipart.FormDataParam;
 @Path("/v1/product-promotions")
 public class ProductPromotionResource extends AbstractResource {
     private final RestService service;
-    private final MediaAssetService mediaAssetService;
 
     @Inject
-    public ProductPromotionResource(RestService service, MediaAssetService mediaAssetService) {
+    public ProductPromotionResource(RestService service) {
         this.service = service;
-        this.mediaAssetService = mediaAssetService;
     }
 
     @GET
@@ -100,57 +98,6 @@ public class ProductPromotionResource extends AbstractResource {
                     productPromotion.setKey(Strings.slugify(name));
                 }
             }
-        }
-    }
-
-    @POST
-    @Path("{id}/teasers")
-    @Consumes({ MediaType.MULTIPART_FORM_DATA })
-    public ProductPromotion newTeaserImage(@PathParam("id") Id id,
-        @FormDataParam("file") InputStream uploadedInputStream,
-        @FormDataParam("file") FormDataBodyPart formDataBodyPart) {
-        ProductPromotion productPromotion = null;
-        if (id != null) {
-            // Get product and image.
-            productPromotion = checked(service.get(ProductPromotion.class, id));
-            FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
-
-            MediaAsset newMediaAsset = mediaAssetService.create(uploadedInputStream, fileDetails.getFileName());
-            if (productPromotion.getTeaserImage() != null) {
-                mediaAssetService.remove(productPromotion.getTeaserImage());
-                productPromotion.setTeaserImage(null);
-            }
-            productPromotion.setTeaserImage(newMediaAsset);
-            service.update(productPromotion);
-            return checked(productPromotion);
-        } else {
-            throwBadRequest(
-                "ProductPromotionId cannot be null in requestURI. Expecting: product-promotions/{id}/teasers");
-        }
-
-        if (productPromotion == null) {
-            throwInternalServerError();
-        }
-
-        return checked(productPromotion);
-    }
-
-    @DELETE
-    @Path("{id}/teasers")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void removeTeaserImage(@PathParam("id") Id id) {
-        if (id != null) {
-            // Get product and media-asset.
-            ProductPromotion productPromotion = checked(service.get(ProductPromotion.class, id));
-            if (productPromotion.getTeaserImage() != null) {
-                mediaAssetService.remove(productPromotion.getTeaserImage());
-                productPromotion.setTeaserImage(null);
-            }
-
-            service.update(productPromotion);
-        } else {
-            throwBadRequest(
-                "ProductPromotionId cannot be null in requestURI. Expecting: product-promotions/{id}/teasers");
         }
     }
 

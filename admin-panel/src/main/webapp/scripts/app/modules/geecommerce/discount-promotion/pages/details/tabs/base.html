@@ -8,19 +8,19 @@
     <form class="form-horizontal" role="form" id="discountPromotionBaseForm">
 
         <div class="form-group">
-            <label for="inputPrdPromotionKey" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabKey">Key</label>
-            <div class="col-sm-9">
-                <input data-bind="value: discountPromotionVM.key" class="form-control" id="inputPrdPromotionKey" type="text" required>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="inputDscPromotionLabel" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabName">Label</label>
             <div class="col-sm-9">
                 <div class="input-group">
                     <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
                     <input data-bind="i18nValue: discountPromotionVM.label" class="form-control" id="inputDscPromotionLabel" placeholder="Enter name" type="text" required>
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPrdPromotionKey" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabKey">Key</label>
+            <div class="col-sm-9">
+                <input data-bind="value: discountPromotionVM.key" class="form-control" id="inputPrdPromotionKey" type="text" required>
             </div>
         </div>
 
@@ -58,21 +58,21 @@
         <div class="form-group">
             <label for="inputPrdPromotionShowTimes" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabShowTimes">Show Times</label>
             <div class="col-sm-9">
-                <input data-bind="value: discountPromotionVM.showTimes" class="form-control" id="inputPrdPromotionShowTimes" type="text" required>
+                <input data-bind="value: discountPromotionVM.showTimes" class="form-control" id="inputPrdPromotionShowTimes" type="number" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputDscPromotionRerunAfter" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabRerunAfter">Rerun After</label>
             <div class="col-sm-9">
-                <input data-bind="value: discountPromotionVM.rerunAfter" class="form-control" id="inputDscPromotionRerunAfter" type="text" required>
+                <input data-bind="value: discountPromotionVM.rerunAfter" class="form-control" id="inputDscPromotionRerunAfter" type="number" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputDscPromotionCouponDuration" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabCouponDuration">Coupon Duration</label>
             <div class="col-sm-9">
-                <input data-bind="value: discountPromotionVM.couponDuration" class="form-control" id="inputDscPromotionCouponDuration" type="text" required>
+                <input data-bind="value: discountPromotionVM.couponDuration" class="form-control" id="inputDscPromotionCouponDuration" type="number" required>
             </div>
         </div>
 
@@ -110,8 +110,8 @@
 
         <div class="form-group">
             <label for="inputDscOnlyForNewCustomer" class="col-sm-3 control-label" data-i18n="app:modules.discount-promotion.baseTabShowForAll">Show for all</label>
-            <div class="col-sm-9">
-                <input type="checkbox" data-bind="checked: discountPromotionVM.showForAll" id="inputDscOnlyForNewCustomer">
+            <div class="col-sm-9 switch-wrapper">
+                <input type="checkbox" data-bind="bool: discountPromotionVM.showForAll" id="inputDscOnlyForNewCustomer">
             </div>
         </div>
 

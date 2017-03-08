@@ -65,7 +65,7 @@ which ensures that the first post of the form has a positive csrf-validation.
                             <span> ${item.quantity} </span>
                         <#else>
                             <#if true>
-                                <input name="quantity" productId="${item.productId}" type="text" class="recalc-btn"
+                                <input name="quantity" productId="${item.productId}" type="number" class="recalc-btn"
                                        value="${item.quantity}" size="2">
                             <#else>
                                 <select name="quantity" data-type="number">

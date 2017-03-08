@@ -446,6 +446,9 @@
             "typeActionRangeFixedProduct": "Range Fixed Product",
             "typeActionRangePercentCart": "Range Percent Cart",
             "typeActionRangeFixedCart": "Range Fixed Cart",
+			"typeActionListPercentProduct": "List Percent Product",
+			"typeActionListFixedProduct": "List Fixed Product",
+			"typeActionBuyXGetYFreeSame": "Buy X Get Y Free (Same products)",
             "exportCouponCodes" : "Export coupon codes",
             "savingUnsuccessful" : "Saving unsuccessful. Please fill in the required fields."
 		},

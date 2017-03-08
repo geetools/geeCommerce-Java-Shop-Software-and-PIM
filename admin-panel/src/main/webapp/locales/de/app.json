@@ -555,6 +555,9 @@
             "typeActionRangeFixedProduct": "Palette Fest Produk",
             "typeActionRangePercentCart": "Palette Prozent Wagen",
             "typeActionRangeFixedCart": "Palette Festwagen",
+			"typeActionListPercentProduct": "List Percent Product",
+			"typeActionListFixedProduct": "List Fixed Product",
+			"typeActionBuyXGetYFreeSame": "Buy X Get Y Free (Same products)",
             "exportCouponCodes" : "Gutscheincodes exportieren",
             "savingUnsuccessful" : "Speichern erfolglos. Bitte füllen Sie die erforderlichen Felder aus."
 		},

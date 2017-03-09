@@ -36,7 +36,7 @@
                 </div>
 
             </ul>
-            <div class="query-builder">
+            <div class="query-builder-coupon">
                 <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="glyphicon glyphicon-plus-sign add-query-node"></span>
             </div>
         </div>
@@ -135,7 +135,7 @@
       <!-- /ko -->
 
     <!-- ko if:  couponVM.couponAction && couponVM.couponAction.productSelectionType() == 'QUERY' && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
-    <div class="form-group query-builder">
+    <div class="form-group query-builder-coupon">
         <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFilter">Filter</label>
         <div class="col-sm-9">
             <div data-bind='template: {name:"filterNode", data: couponVM.couponAction.filter}'></div>
@@ -171,7 +171,7 @@
                 <input style="display:inline;" data-bind="value: value" class="form-control form-control-small"></input>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'SELECT' -->
-                <select style="display:inline;line-height:30px" class="selectpicker" title="auswählen" data-bind="select: value, data: options">
+                <select style="display:inline;line-height:30px" class="selectpicker form-control-middle" title="auswählen" data-bind="select: value, data: options">
                 </select>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'BOOLEAN' -->

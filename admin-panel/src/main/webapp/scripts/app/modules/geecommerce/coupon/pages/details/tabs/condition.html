@@ -18,7 +18,7 @@
     </div>
 
     <!-- ko if:  couponVM.couponCondition && couponVM.couponCondition() -->
-    <div class="form-group query-builder">
+    <div class="form-group query-builder-coupon">
         <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.conditionsTabConditions">Conditions</label>
         <div class="col-sm-9">
             <div data-bind='template: {name:"cfilterNode", data: couponVM.couponCondition}'></div>
@@ -65,7 +65,7 @@
                 <input style="display:inline;" data-bind="value: value" class="form-control form-control-small"></input>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'SELECT' -->
-                <select style="display:inline;line-height:30px" class="selectpicker" title="auswählen" data-bind="select: value, data: options">
+                <select style="display:inline;line-height:30px" class="selectpicker form-control-middle" title="auswählen" data-bind="select: value, data: options">
                 </select>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'BOOLEAN' -->
@@ -75,7 +75,7 @@
                 </div></div>
                 <!-- /ko -->
 				<div style="display:inline;line-height:30px" data-bind="click: deleteNode">
-					<i class="glyphicon glyphicon-remove"></i>
+					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</div><br>
             </script>
 
@@ -91,7 +91,7 @@
 				optionsValue: 'value'}"></span>
                 <!-- ko if: parent() !== null -->
 				<div style="display:inline-block" data-bind="click: deleteNode">
-					<i class="glyphicon glyphicon-remove"></i>
+					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</div>
                 <!-- /ko -->
                 <ul style="list-style-type: none;">
@@ -117,7 +117,7 @@
 				optionsValue: 'value'}"></span> of these conditions true
                 <!-- ko if: parent() !== null -->
 				<div style="display:inline-block" data-bind="click: deleteNode">
-					<i class="glyphicon glyphicon-remove"></i>
+					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</div>
                 <!-- /ko -->
                 <ul style="list-style-type: none;">

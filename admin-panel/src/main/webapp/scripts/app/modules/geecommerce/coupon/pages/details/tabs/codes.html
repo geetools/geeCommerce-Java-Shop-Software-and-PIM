@@ -100,7 +100,9 @@
 				<!--  Data -->
 				<tbody data-bind="foreach: { data: pager.data, as: 'row' }">
 					<tr>
-						<td data-bind="text: code"></td>
+						<td>
+							<span data-bind="text: row.code"></span>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -25,13 +25,13 @@
 
             <script id='cfilterNode' type='text/html'>
                 <!-- ko if:  $data && type() === 'BOOLEAN_OPERATION' -->
-                <div style="display:inline" data-bind='template: {name:"cfilterNodeBoolean", data: $data}'></div>
+                <div class="node-item" data-bind='template: {name:"cfilterNodeBoolean", data: $data}'></div>
                 <!-- /ko -->
                 <!-- ko if:  $data && type() === 'FIlTER_ATTRIBUTE_OPERATION' -->
-                <li style="display:inline" data-bind='template: {name:"cfilterNodeAttribute", data: $data}'> </li>
+                <li class="node-item" data-bind='template: {name:"cfilterNodeAttribute", data: $data}'> </li>
                 <!-- /ko -->
                 <!-- ko if:  $data && (type() === 'FOUND' || type() === 'NOT_FOUND') -->
-                <li style="display:inline" data-bind='template: {name:"cfilterNodeFound", data: $data}'> </li>
+                <li class="node-item" data-bind='template: {name:"cfilterNodeFound", data: $data}'> </li>
                 <!-- /ko -->
 
             </script>
@@ -39,62 +39,62 @@
 
             <script id='cfilterNodeAttribute' type='text/html'>
                 <!-- ko if: attributeType() === 'PRODUCT' -->
-                <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                <span class="form-control  form-control-small node-item"
                       data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.productAttributesOptions,
                     optionsText: 'label',
                     optionsValue: 'value'}"></span>
                 <!-- /ko -->
                 <!-- ko if: attributeType() === 'CART_ITEM' -->
-                <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                <span class="form-control  form-control-small node-item"
                       data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.cartItemAttributesOptions,
                     optionsText: 'label',
                     optionsValue: 'value'}"></span>
                 <!-- /ko -->
                 <!-- ko if: attributeType() === 'CART' -->
-                <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                <span class="form-control  form-control-small node-item"
                       data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.cartAttributesOptions,
                     optionsText: 'label',
                     optionsValue: 'value'}"></span>
                 <!-- /ko -->
-                <span style="display:inline;line-height:30px" class="form-control form-control-small"
+                <span class="form-control form-control-small node-item"
                       data-bind="editable: operator, editableOptions:{type:'select', showbuttons: false, options: couponFilterOperators,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span>`
 
                 <!-- ko if: inputType() === 'TEXT' || inputType() !== 'SELECT' && inputType() !== 'BOOLEAN'-->
-                <input style="display:inline;" data-bind="value: value" class="form-control form-control-small"></input>
+                <input data-bind="value: value" class="form-control form-control-small node-item"></input>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'SELECT' -->
-                <select style="display:inline;line-height:30px" class="selectpicker form-control-middle" title="auswählen" data-bind="select: value, data: options">
+                <select class="selectpicker form-control-middle node-item" title="auswählen" data-bind="select: value, data: options">
                 </select>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'BOOLEAN' -->
-                <div style="display: inline;line-height:30px">
+                <div class="node-item">
                     <div class="switch-wrapper">
                     <input  type="checkbox" data-bind="bool: value" />
                 </div></div>
                 <!-- /ko -->
-				<div style="display:inline;line-height:30px" data-bind="click: deleteNode">
+				<div class="node-item" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</div><br>
             </script>
 
 
             <script id='cfilterNodeBoolean' type='text/html'>
-                if <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                if <span class="form-control  form-control-small node-item"
                          data-bind="editable: operation, editableOptions:{type:'select', showbuttons: false, options: $root.booleanFilterChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span> of these conditions are
-                <span style="display:inline" class="form-control  form-control-small"
+                <span class="form-control  form-control-small node-item"
                       data-bind="editable: operationValue, editableOptions:{type:'select', showbuttons: false, options: $root.booleanValueFilterChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span>
                 <!-- ko if: parent() !== null -->
-				<div style="display:inline-block" data-bind="click: deleteNode">
+				<div class="node-item" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</div>
                 <!-- /ko -->
-                <ul style="list-style-type: none;">
+                <ul>
                     <div data-bind='template: {name:"cfilterNode", foreach: nodes}'>
 
                     </div>
@@ -107,20 +107,20 @@
             </script>
 
             <script id='cfilterNodeFound' type='text/html'>
-                if an item is <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                if an item is <span class="form-control  form-control-small node-item"
                          data-bind="editable: type, editableOptions:{type:'select', showbuttons: false, options: $root.booleanCombinationFilterChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span> in the cart with
-                <span style="display:inline" class="form-control  form-control-small"
+                <span class="form-control  form-control-small node-item"
                       data-bind="editable: operation, editableOptions:{type:'select', showbuttons: false, options: $root.booleanFilterChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span> of these conditions true
                 <!-- ko if: parent() !== null -->
-				<div style="display:inline-block" data-bind="click: deleteNode">
+				<div class="node-item" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</div>
                 <!-- /ko -->
-                <ul style="list-style-type: none;">
+                <ul>
                     <div data-bind='template: {name:"cfilterNode", foreach: nodes}'>
 
                     </div>

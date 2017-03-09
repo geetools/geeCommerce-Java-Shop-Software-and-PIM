@@ -4066,6 +4066,11 @@ div.prd-no-image>i.fa {
     border: solid 1px #eeeeee;
 }
 
+.query-builder-coupon .node-item {
+    display: inline;
+    line-height: 30px;
+}
+
 /*.query-builder-coupon  .form-control:active{
     border: solid 1px #eeeeee;
 }*/
@@ -4104,6 +4109,9 @@ div.prd-no-image>i.fa {
     width: 300px;
 }
 
+.query-builder-coupon ul {
+    list-style-type: none;
+}
 
 @media only screen and (min-width: 768px) {
 	.attr-batch-updater .modal-body {

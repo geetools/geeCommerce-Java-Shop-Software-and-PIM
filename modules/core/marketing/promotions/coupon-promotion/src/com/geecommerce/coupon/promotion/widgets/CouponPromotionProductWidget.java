@@ -44,7 +44,26 @@ public class CouponPromotionProductWidget extends AbstractWidgetController imple
     {
         String id = widgetCtx.getParam(PARAM_PRODUCT);
 
-        widgetCtx.setParam("promoConditionUrl", "");
+        widgetCtx.setParam("couponPromotionMessage", "");
+        if(!StringUtils.isBlank(id)){
+            Id productId = Id.parseId(id);
+            ProductPromotionPriceIndex index = promotionPriceIndexes.byProduct(productId);
+            if(index != null){
+                CouponPromotion couponPromotion = couponPromotions.findById(CouponPromotion.class, index.getPromotionId());
+                Coupon coupon = coupons.findById(Coupon.class, couponPromotion.getCouponId());
+
+                if(coupon != null && couponPromotion != null){
+                    String message = couponPromotion.getDescriptionProduct().str();
+                    if(!StringUtils.isBlank(message)) {
+                        message = message.replace("%end%", new SimpleDateFormat("dd.MM.yyyy").format(coupon.getToDate()));
+                        widgetCtx.setParam("couponPromotionMessage", message);
+                    }
+                }
+            }
+        }
+
+
+/*        widgetCtx.setParam("promoConditionUrl", "");
         if(!StringUtils.isBlank(id)){
             Id productId = Id.parseId(id);
             ProductPromotionPriceIndex index = promotionPriceIndexes.byProduct(productId);
@@ -61,18 +80,10 @@ public class CouponPromotionProductWidget extends AbstractWidgetController imple
                     if(couponPromotion.getConditionMediaAsset() != null){
                         widgetCtx.setParam("promoConditionUrl", couponPromotion.getConditionMediaAsset().getUrl());
                     }
-
-/*                    String message = couponPromotion.getDescriptionProduct().str();
-                    if(!StringUtils.isBlank(message)) {
-                        message = message.replace("%end%", new SimpleDateFormat("dd.MM.yyyy").format(coupon.getToDate()));
-                        widgetCtx.setParam("promotionMessage", message);
-                        widgetCtx.setParam("promoEndTimeForCounter", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(coupon.getToDate()));
-                        widgetCtx.setParam("promoEndTime", coupon.getToDate().toString());
-                    }*/
                 }
             }
-        }
-        widgetCtx.render("coupon_promotion/product");
+        }*/
+        widgetCtx.render();
     }
 
 

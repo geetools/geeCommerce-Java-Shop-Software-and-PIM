@@ -14,7 +14,7 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-product-promotion'], function (
 		this.pager = {};
 		
 		// Solves the 'this' problem when a DOM event-handler is fired.
-		_.bindAll(this, 'activate', 'removeProductPromotion', 'statusEnabled');
+		_.bindAll(this, 'activate', 'removeProductPromotion');
 	}
 	
 	ProductPromotionGridIndexController.prototype = {
@@ -29,10 +29,11 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-product-promotion'], function (
 	    	
 	    	// Pager columns
 			var pagerColumns = [
-              {'name' : 'key', 'label' : 'app:modules.product-promotion.gridColKey'},
-              {'name' : 'label', 'label' : 'app:modules.product-promotion.gridColLabel'},
-			  {'name' : 'enabled', 'label' : 'app:modules.product-promotion.gridColEnabled'},
-              {'name' : '', 'label' : ''}
+				{'name' : '#'},
+              	{'name' : 'key', 'label' : 'app:modules.product-promotion.gridColKey'},
+              	{'name' : 'contextDisplayLabel', 'label' : 'app:modules.product-promotion.gridColLabel'},
+			  	{'name' : 'enabled', 'label' : 'app:modules.product-promotion.gridColEnabled'},
+              	{'name' : '', 'label' : ''}
             ];
 	    	
 	    	// Init the pager.
@@ -53,61 +54,7 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-product-promotion'], function (
 		    		});
 				}
 			});
-    	},
-		statusEnabled : function(data) {
-			var statusDescTxt = '';
-
-			var value = data.enabled;
-			var activeStore = gc.app.sessionGet('activeStore');
-			var availableStores = gc.app.confGet('availableStores');
-
-			// If no store is currently selected, just show the current values as text.
-			if(_.isEmpty(activeStore) || _.isEmpty(activeStore.id)) {
-				var summaryText = '';
-				_.each(availableStores, function(store) {
-					if(store.id && store.id != '') {
-
-						var txt = false;
-
-						if(!_.isUndefined(value)) {
-							txt = gc.ctxobj.val(value, undefined, 'closest', store.id);
-						}
-
-						if(!_.isUndefined(txt)) {
-							if (availableStores.length > 2) { 
-								if(txt) {
-									summaryText += '<img class="gridStoreImg" src="' + store.iconPathXS + '" title="' + store.name + '"/><br/>';
-								} else {
-									summaryText += '';
-								}
-							} else {
-								if(txt) {
-									summaryText += '<span class="gridStoreStatusImg product-status-tick fa fa-check"></span>';
-								} else {
-									summaryText += '<span class="gridStoreStatusImg product-status-tick fa fa-times"></span>';
-								}
-							}
-						}
-					}
-				});
-
-				statusDescTxt = summaryText;
-			} else {
-				var txt = false;
-				if(!_.isUndefined(value)) {
-					txt = gc.ctxobj.val(value, undefined, 'closest', activeStore.id);
-
-				}
-				if(txt) {
-					statusDescTxt = '<span class="gridStoreStatusImg product-status-tick fa fa-check"></span>';
-				} else {
-					statusDescTxt = '<span class="gridStoreStatusImg product-status-cross fa fa-circle-o"></span>';
-				}
-
-			}
-
-			return statusDescTxt;
-		}
+    	}
     }
 	return ProductPromotionGridIndexController;
 });

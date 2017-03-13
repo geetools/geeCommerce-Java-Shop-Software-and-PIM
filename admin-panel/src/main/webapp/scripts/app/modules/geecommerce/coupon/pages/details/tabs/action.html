@@ -36,7 +36,9 @@
                 </div>
 
             </ul>
-            <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="glyphicon glyphicon-plus-sign add-query-node"></span>
+            <div class="query-builder-coupon">
+                <span data-bind="click: couponVM.couponAction.addRangeDiscountAmount" class="glyphicon glyphicon-plus-sign add-query-node"></span>
+            </div>
         </div>
     </div>
 
@@ -44,31 +46,31 @@
     <!-- /ko -->
     <script id='rangeItem' type='text/html'>
     <div class="row">
-        <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
+        <div class="col-xs-4">
             <div class="col-xs-4">
                 <label data-i18n="app:modules.coupon.actionTabRFrom">From</label>
             </div>
             <div class="col-xs-6">
-                <input data-bind="value: fromAmount" type="number" class="form-control" style="width: 100px;" required>
+                <input data-bind="value: fromAmount" type="number" class="form-control"  required>
             </div>
         </div>
-        <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
+        <div class="col-xs-4">
             <div class="col-xs-4">
                 <label data-i18n="app:modules.coupon.actionTabRTo">To</label>
             </div>
             <div class="col-xs-6">
-                <input data-bind="value: toAmount" type="number" class="form-control" style="width: 100px;" required>
+                <input data-bind="value: toAmount" type="number" class="form-control"  required>
             </div>
         </div>
-        <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
+        <div class="col-xs-4" >
             <div class="col-xs-4">
                 <label data-i18n="app:modules.coupon.actionTabRDiscount">Discount</label>
             </div>
             <div class="col-xs-6">
-                <input data-bind="value: discountAmount" type="number" class="form-control" style="width: 100px;"  required>
+                <input data-bind="value: discountAmount" type="number" class="form-control"   required>
             </div>
             <div class="col-xs-1">
-                 <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                 <span class="node-item" data-bind="click: deleteNode">
                     <i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
                 </span>
             </div>
@@ -133,69 +135,73 @@
       <!-- /ko -->
 
     <!-- ko if:  couponVM.couponAction && couponVM.couponAction.productSelectionType() == 'QUERY' && couponVM.couponAction.filter && couponVM.couponAction.filter() -->
-    <div class="form-group query-builder">
+    <div class="form-group query-builder-coupon">
         <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabFilter">Filter</label>
         <div class="col-sm-9">
             <div data-bind='template: {name:"filterNode", data: couponVM.couponAction.filter}'></div>
 
             <script id='filterNode' type='text/html'>
                     <!-- ko if: $data && $data.type() === 'BOOLEAN_OPERATION' -->
-                        <div style="display:inline" data-bind='template: {name:"filterNodeBoolean", data: $data}'></div>
+                        <div class="node-item" data-bind='template: {name:"filterNodeBoolean", data: $data}'></div>
                     <!-- /ko -->
                     <!-- ko if: $data && type() === 'FIlTER_ATTRIBUTE_OPERATION' -->
-                        <li style="display:inline" data-bind='template: {name:"filterNodeAttribute", data: $data}'> </li>
+                        <li class="node-item" data-bind='template: {name:"filterNodeAttribute", data: $data}'> </li>
                     <!-- /ko -->
             </script>
 
 
             <script id='filterNodeAttribute' type='text/html'>
                 <!-- ko if: attributeType() === 'PRODUCT' -->
-                    <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                    <span class="form-control  form-control-small node-item"
                           data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.productAttributesOptions,
                     optionsText: 'label',
                     optionsValue: 'value'}"></span>
                 <!-- /ko -->
                 <!-- ko if: attributeType() === 'CART_ITEM' -->
-                    <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                    <span class="form-control  form-control-small node-item"
                           data-bind="editable: attributeCode, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.cartItemAttributesOptions,
                     optionsText: 'label',
                     optionsValue: 'value'}"></span>
                 <!-- /ko -->
-                <span style="display:inline;line-height:30px" class="form-control form-control-small"
-                      data-bind="editable: operator, editableOptions:{type:'select', showbuttons: false, options: $root.couponVM.couponFilterOperators,
+                <span class="form-control form-control-small node-item"
+                      data-bind="editable: operator, editableOptions:{type:'select', showbuttons: false, options: couponFilterOperators,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span>
                 <!-- ko if: inputType() === 'TEXT' || inputType() !== 'SELECT' && inputType() !== 'BOOLEAN'-->
-                <span style="display:inline;line-height:30px" data-bind="editable: value" class="form-control form-control-small"></span>
+                <input data-bind="value: value" class="form-control form-control-small node-item"></input>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'SELECT' -->
-                <select style="display:inline;line-height:30px" class="selectpicker" title="auswählen" data-bind="select: value, data: options">
+                <select class="selectpicker form-control-middle node-item" title="auswählen" data-bind="select: value, data: options">
                 </select>
                 <!-- /ko -->
                 <!-- ko if: inputType() === 'BOOLEAN' -->
-                <div style="display:inline;line-height:30px" ><input type="checkbox" data-bind="checked: value"/></div>
+                <div class="node-item" >
+                    <div class="switch-wrapper">
+                        <input  type="checkbox" data-bind="bool: value" />
+                    </div>
+                </div>
                 <!-- /ko -->
-                <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                <span class="node-item" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</span><br>
             </script>
 
 
             <script id='filterNodeBoolean' type='text/html'>
-                if <span style="display:inline;line-height:30px" class="form-control  form-control-small"
+                if <span class="form-control  form-control-small node-item"
                          data-bind="editable: operation, editableOptions:{type:'select', showbuttons: false, options: $root.booleanFilterChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span> of these conditions are
-                <span style="display:inline" class="form-control  form-control-small"
+                <span  class="form-control  form-control-small node-item"
                       data-bind="editable: operationValue, editableOptions:{type:'select', showbuttons: false, options: $root.booleanValueFilterChoice,
 				optionsText: 'label',
 				optionsValue: 'value'}"></span>
                 <!-- ko if: parent() !== null -->
-                <span style="display:inline;line-height:30px" data-bind="click: deleteNode">
+                <span class="node-item" data-bind="click: deleteNode">
 					<i class="glyphicon glyphicon-remove-circle remove-query-node"></i>
 				</span><br>
                 <!-- /ko -->
-                <ul style="list-style-type: none;">
+                <ul>
                     <div data-bind='template: {name:"filterNode", foreach: nodes}'>
 
                     </div>

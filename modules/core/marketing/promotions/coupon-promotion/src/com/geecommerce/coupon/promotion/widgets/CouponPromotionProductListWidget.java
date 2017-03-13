@@ -44,7 +44,28 @@ public class CouponPromotionProductListWidget extends AbstractWidgetController i
     {
         String id = widgetCtx.getParam(PARAM_PRODUCT_LIST);
 
-        widgetCtx.setParam("promoConditionUrl", "");
+        widgetCtx.setParam("couponPromotionMessage", "");
+        if(!StringUtils.isBlank(id)){
+            Id productListId = Id.parseId(id);
+            ProductListPromotionIndex index = promotionProductListIndexes.byProductList(productListId);
+            ProductList productList = productLists.findById(ProductList.class, productListId);
+            if(index != null && productList != null) {
+                CouponPromotion couponPromotion = couponPromotions.findById(CouponPromotion.class, index.getPromotionId());
+                Coupon coupon = coupons.findById(Coupon.class, couponPromotion.getCouponId());
+
+                if(coupon != null && couponPromotion != null){
+                    String message = couponPromotion.getDescription().str();
+                    if(!StringUtils.isBlank(message)){
+                        message = message.replace("%category%", productList.getLabel().str());
+                        message = message.replace("%end%", new SimpleDateFormat("dd.MM.yyyy").format(coupon.getToDate()));
+
+                        widgetCtx.setParam("couponPromotionMessage", message);
+                    }
+                }
+            }
+        }
+
+/*        widgetCtx.setParam("promoConditionUrl", "");
         if(!StringUtils.isBlank(id)){
             Id productListId = Id.parseId(id);
             ProductListPromotionIndex index = promotionProductListIndexes.byProductList(productListId);
@@ -72,8 +93,8 @@ public class CouponPromotionProductListWidget extends AbstractWidgetController i
 
                 }
             }
-        }
-        widgetCtx.render("coupon_promotion/product_list");
+        }*/
+        widgetCtx.render();
     }
 
 

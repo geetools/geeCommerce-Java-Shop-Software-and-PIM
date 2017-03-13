@@ -173,6 +173,16 @@ public class DefaultProductPromotion extends AbstractMultiContextModel implement
     }
 
     @Override
+    public ContextObject<String> getContextDisplayLabel() {
+        if (useTargetObjectLabel) {
+            TargetSupport tarObject = getTargetObject();
+            return tarObject != null ? tarObject.getLabel() : null;
+        } else {
+            return getLabel();
+        }
+    }
+
+    @Override
     public String getDisplayURI() {
         if (displayURI == null) {
             UrlRewrite urlRewrite = urlRewrites.forTargetObject(targetObjectId, targetObjectType);

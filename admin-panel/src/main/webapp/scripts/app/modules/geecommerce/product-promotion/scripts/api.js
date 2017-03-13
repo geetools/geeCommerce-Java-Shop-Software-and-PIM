@@ -282,7 +282,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
                 searchUrl: '/api/v1/search/product-promotions',
                 filter: options.filter || [],
                 // Only load specific fields for better performance.
-                fields: options.fields || [ 'id', 'key', 'label', 'enabled' ],
+                fields: options.fields || ['-targetObject', '-teaserImage'], //[ 'id', 'key', 'enabled', 'contextDisplayLabel' ],
                 // Optionally pre-sort the results.
                 sort: options.sort || ['createdOn'],
                 columns: options.columns,

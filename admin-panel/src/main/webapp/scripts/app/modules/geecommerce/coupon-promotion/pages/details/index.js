@@ -4,8 +4,8 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-coupon-promotion',  'gc-produc
 		var self = this;
         self.id = id;
 		self.label = ko.observableArray();
-		self.description = ko.observableArray();
-		self.descriptionProduct = ko.observableArray();
+		self.description = ko.observableArray([]);
+		self.descriptionProduct = ko.observableArray([]);
 		self.coupon = ko.observable();
 		self.enabled = ko.observableArray([]);
 		self.productLists = ko.observableArray([]);

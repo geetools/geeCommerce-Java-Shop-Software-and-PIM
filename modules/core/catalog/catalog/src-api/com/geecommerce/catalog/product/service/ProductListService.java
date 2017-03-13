@@ -31,7 +31,7 @@ public interface ProductListService extends Service {
 
     public Map<String, Object> findProductById(Id productId);
 
-    public Id[] getProductIds(ProductList productList, Integer limit);
+    public Id[] getProductIds(ProductList productList, boolean checkVisibility, Integer limit);
 
-    public List<Product> getProducts(ProductList productList, Integer limit);
+    public List<Product> getProducts(ProductList productList, boolean checkVisibility, Integer limit);
 }

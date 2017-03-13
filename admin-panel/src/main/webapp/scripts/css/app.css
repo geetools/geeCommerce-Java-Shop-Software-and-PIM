@@ -4058,6 +4058,61 @@ div.prd-no-image>i.fa {
     margin-left: unset;
 }
 
+.query-builder-coupon .editable-click {
+    border-bottom: none;
+}
+
+.query-builder-coupon  .form-control{
+    border: solid 1px #eeeeee;
+}
+
+.query-builder-coupon .node-item {
+    display: inline;
+    line-height: 30px;
+}
+
+/*.query-builder-coupon  .form-control:active{
+    border: solid 1px #eeeeee;
+}*/
+
+.query-builder-coupon  .form-control:focus{
+    border: solid 1px #eeeeee !important;
+}
+
+/*
+.query-builder-coupon  .form-control:hover{
+    border: solid 1px #eeeeee;
+}
+*/
+
+.query-builder-coupon .remove-query-node {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.query-builder-coupon .remove-query-node:hover {
+    color: #bc2328;
+}
+
+.query-builder-coupon .fa {
+    font-size: 12px;
+}
+
+.query-builder-coupon .add-query-node {
+    color: #FF6A6A;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.query-builder-coupon .form-control-middle {
+    width: 300px;
+}
+
+.query-builder-coupon ul {
+    list-style-type: none;
+}
+
 @media only screen and (min-width: 768px) {
 	.attr-batch-updater .modal-body {
 		min-height: 420px;

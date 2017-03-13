@@ -2,9 +2,11 @@ package com.geecommerce.coupon.service;
 
 import java.util.*;
 
+import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.repository.ProductLists;
 import com.geecommerce.catalog.product.service.ProductListService;
+import com.geecommerce.catalog.product.service.ProductService;
 import com.geecommerce.core.script.Groovy;
 import com.geecommerce.core.service.annotation.Service;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
@@ -24,12 +26,14 @@ public class DefaultFilterService implements FilterService {
     private final CouponHelper couponHelper;
     private final ProductLists productLists;
     private final ProductListService productListService;
+    private final ProductService productService;
 
     @Inject
-    public DefaultFilterService(CouponHelper couponHelper, ProductLists productLists, ProductListService productListService) {
+    public DefaultFilterService(CouponHelper couponHelper, ProductLists productLists, ProductListService productListService, ProductService productService) {
         this.couponHelper = couponHelper;
         this.productLists = productLists;
         this.productListService = productListService;
+        this.productService = productService;
     }
 
     @Override
@@ -223,8 +227,15 @@ public class DefaultFilterService implements FilterService {
         if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.PRODUCT)){
             if(coupon.getCouponAction().getProductIds() != null){
                 for (Id id: allCartProducts) {
-                    if(couponHelper.hasPriceTypes(id, priceTypeIds) && coupon.getCouponAction().getProductIds().contains(id))
-                        result.add(id);
+                    if(couponHelper.hasPriceTypes(id, priceTypeIds)) {
+                        if (coupon.getCouponAction().getProductIds().contains(id))
+                            result.add(id);
+                        else {
+                            Product product = productService.getProduct(id);
+                            if (product != null && product.isVariant() && product.getParentId() != null && coupon.getCouponAction().getProductIds().contains(product.getParentId()))
+                                result.add(id);
+                        }
+                    }
                 }
             }
         }
@@ -235,13 +246,20 @@ public class DefaultFilterService implements FilterService {
                 List<Id> allProductsIds = new ArrayList<>();
                 for(Id productListId: coupon.getCouponAction().getProductListIds()){
                     ProductList productList = productLists.findById(ProductList.class, productListId);
-                    Id[] productIds = productListService.getProductIds(productList, null);
+                    Id[] productIds = productListService.getProductIds(productList, false, null);
                     if(productIds != null)
                         allProductsIds.addAll(Arrays.asList(productIds));
                 }
                 for (Id id: allCartProducts) {
-                    if(couponHelper.hasPriceTypes(id, priceTypeIds) && allProductsIds.contains(id))
-                        result.add(id);
+                    if(couponHelper.hasPriceTypes(id, priceTypeIds)) {
+                        if (allProductsIds.contains(id))
+                            result.add(id);
+                        else {
+                            Product product = productService.getProduct(id);
+                            if (product != null && product.isVariant() && product.getParentId() != null && allProductsIds.contains(product.getParentId()))
+                                result.add(id);
+                        }
+                    }
                 }
             }
         }

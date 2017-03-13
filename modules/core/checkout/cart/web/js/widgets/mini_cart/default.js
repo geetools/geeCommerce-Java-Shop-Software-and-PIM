@@ -13,7 +13,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'cart/api', 'cart/utils/common', 'price/
                     item.id = cartItem.productId;
                     item.url = cartItem.productURI;
                     item.quantity = cartItem.quantity;
-                    item.image = cartItem.product.mainImage.webThumbnailPath;
+                    item.image = cartItem.product.mainImage != null ? cartItem.product.mainImage.webThumbnailPath : "";
                     item.name = cartUtil.attributeValue(cartItem.product.attributes, "name");
                     item.name2 = cartUtil.attributeValue(cartItem.product.attributes, "name2");
                     item.price = priceUtil.formatPrice(cartItem.productPrice);

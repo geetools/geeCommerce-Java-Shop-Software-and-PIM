@@ -90,7 +90,7 @@ public class DefaultProductPromotionService implements ProductPromotionService {
                 queryMap = Json.fromJson(productList.getQuery(), HashMap.class);
             }
 
-            products = productListService.getProducts(productList, productPromotion.getLimit() == null || productPromotion.getLimit() == 0
+            products = productListService.getProducts(productList, true, productPromotion.getLimit() == null || productPromotion.getLimit() == 0
                 ? 100 : productPromotion.getLimit());
         }
         return products;

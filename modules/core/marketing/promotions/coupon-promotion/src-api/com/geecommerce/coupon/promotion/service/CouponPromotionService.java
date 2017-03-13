@@ -23,4 +23,6 @@ public interface CouponPromotionService extends Service {
 	void updatePromotion(CouponPromotion promotion);
 
 	List<Coupon> getCoupons();
+
+	void IndexPromotionPrices();
 }

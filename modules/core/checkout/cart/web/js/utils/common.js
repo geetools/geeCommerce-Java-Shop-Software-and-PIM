@@ -5,7 +5,7 @@ define([ 'gc/gc' ], function(gc) {
             if(!attributes)
                 return;
             var attribute = _.findWhere(attributes, {code: code});
-            if(attribute && attribute.value);
+            if(attribute && attribute.value)
                 return attribute.value[0].val;
         }
 	};

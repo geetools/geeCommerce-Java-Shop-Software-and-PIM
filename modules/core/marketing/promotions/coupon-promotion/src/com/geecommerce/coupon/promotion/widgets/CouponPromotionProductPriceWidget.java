@@ -48,7 +48,7 @@ public class CouponPromotionProductPriceWidget extends AbstractWidgetController 
                 widgetCtx.setParam("promotionPrice", index.getPrice());
             }
         }
-        widgetCtx.render("coupon_promotion/product_price");
+        widgetCtx.render();
     }
 
 

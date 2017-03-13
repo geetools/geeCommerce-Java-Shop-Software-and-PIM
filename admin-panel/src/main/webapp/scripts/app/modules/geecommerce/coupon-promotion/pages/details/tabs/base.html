@@ -5,11 +5,11 @@
 			i18n: 'app:modules.coupon-promotion.toolbarSaveMsg',
 			saveCallback: saveData }"></div>
 
-	<form id="couponPromotionBaseForm">
+	<div id="couponPromotionBaseForm">
 
 		<div class="form-group">
 			<label for="inputCouponPromotionName" class="col-sm-3 control-label">Name</label>
-			<div class="col-sm-9">
+			<div class="col-sm-6">
 				<div class="input-group">
 					<span class="input-group-addon" data-bind="text: app.currentLang()"></span>
 					<input data-bind="i18nValue: couponPromotionVM.label" class="form-control" id="inputCouponPromotionName" placeholder="Enter name" type="text" required>
@@ -18,7 +18,7 @@
 		</div>
 
 
-		<div class="form-group ">
+<!--		<div class="form-group ">
 			<label for="inputCouponPromotionCondition" class="col-sm-3 control-label">Condition</label>
 			<div class="col-sm-9">
 				<div>
@@ -31,15 +31,13 @@
 						</div>
 					</div>
 				</div>
-
-
 			</div>
-		</div>
+		</div>-->
 
-<!--		<div class="form-group">
+		<div class="form-group">
 			<label for="inputCouponPromotionDescription" class="col-sm-3 control-label" data-i18n="app:modules.coupon-promotion.generalTabDescription">Description</label>
 			<div class="col-sm-6 switch-wrapper">
-				<div id="inputCouponPromotionDescription" data-bind="i18nEditor: {value: couponPromotionVM.description}"></div>
+				<div id="inputCouponPromotionDescription" data-bind="i18nEditor: {value: couponPromotionVM.description, id: 'inputCouponPromotionDescription'}"></div>
 			</div>
 			<div class="col-sm-3">
 				%category% - product list name <br/>
@@ -51,17 +49,17 @@
 		<div class="form-group">
 			<label for="inputCouponPromotionDescriptionProduct" class="col-sm-3 control-label" data-i18n="app:modules.coupon-promotion.generalTabDescription">Description for Product</label>
 			<div class="col-sm-6 switch-wrapper">
-				<div id="inputCouponPromotionDescriptionProduct" data-bind="i18nEditor: {value: couponPromotionVM.descriptionProduct}"></div>
+				<div id="inputCouponPromotionDescriptionProduct" data-bind="i18nEditor: {value: couponPromotionVM.descriptionProduct, id: 'inputCouponPromotionDescriptionProduct'}"></div>
 			</div>
 			<div class="col-sm-3">
 				%end% - when promotion ends
 			</div>
-		</div>-->
+		</div>
 
 
 		<div class="form-group">
 			<label for="inputCouponPromotionCoupon" class="col-sm-3 control-label" data-i18n="app:modules.product-list.generalTabCoupon">Coupon</label>
-			<div class="col-sm-9">
+			<div class="col-sm-6">
 				<select id="inputCouponPromotionCoupon" class="form-control select2"
 						data-bind="select: couponPromotionVM.coupon, data: $root.coupons"></select>
 			</div>
@@ -129,6 +127,6 @@
                 </div>
             </div>-->
 		
-	</form>
+	</div>
 
 </div>

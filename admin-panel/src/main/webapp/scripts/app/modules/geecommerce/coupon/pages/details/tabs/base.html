@@ -78,7 +78,7 @@
         <div class="form-group">
             <label for="inputCouponGenerationAmountAdditional" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponsQuantity">Coupons Quantity</label>
             <div class="col-sm-3">
-                <input data-bind="value: couponVM.generation.quantity" class="form-control" id="inputCouponGenerationAmountAdditional" placeholder="Enter Coupons Quantity" type="text" required>
+                <input data-bind="value: couponVM.generation.quantity" class="form-control" id="inputCouponGenerationAmountAdditional" placeholder="Enter Coupons Quantity" type="number" required>
                 <div id="generate-additional-coupons-btn" class="btn btn-primary" data-bind="click: $root.generateAdditionalCodes, i18n: 'app:modules.coupon.generalTabGenerateAdditional'">Generate Additional Coupons</div>
             </div>
         </div>
@@ -123,7 +123,7 @@
         <div class="form-group">
             <label for="inputCouponGenerationAmount" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponsQuantity">Coupons Quantity</label>
             <div class="col-sm-3">
-                <input data-bind="value: couponVM.generation.quantity" class="form-control" id="inputCouponGenerationAmount" placeholder="Enter Coupons Quantity" type="text" required>
+                <input data-bind="value: couponVM.generation.quantity" class="form-control" id="inputCouponGenerationAmount" placeholder="Enter Coupons Quantity" type="number" required>
             </div>
         </div>
 
@@ -131,7 +131,7 @@
         <div class="form-group">
             <label for="inputCouponGenerationLength" class="col-sm-3 control-label" data-i18n="app:modules.coupon.generalTabCouponCodeLength">Coupon Code Length</label>
             <div class="col-sm-3">
-                <input data-bind="value: couponVM.generation.length" class="form-control" id="inputCouponGenerationLength" placeholder="Coupon Code Length" type="text" required>
+                <input data-bind="value: couponVM.generation.length" class="form-control" id="inputCouponGenerationLength" placeholder="Coupon Code Length" type="number" required>
             </div>
         </div>
         <!-- /ko -->

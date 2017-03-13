@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.geecommerce.core.rest.jersey.adapter.UpdateAdapter;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.type.TypeConverter;
@@ -23,21 +24,27 @@ import com.geecommerce.core.type.TypeConverter;
 public class Update implements Serializable {
     private static final long serialVersionUID = 3943794814223044989L;
 
-    private Id id = null;
+    protected Id id = null;
 
     @XmlJavaTypeAdapter(UpdateAdapter.class)
-    private UpdateMap fields;
-    private UpdateMap vars;
-    private Map<String, ContextObject<?>> attributes = null;
-    private Map<String, List<Id>> options = null;
-    private Map<String, ContextObject<List<Id>>> xOptions = null;
-    private Map<String, ContextObject<Boolean>> optOuts = null;
+    protected UpdateMap fields;
+    protected UpdateMap vars;
+    protected Map<String, ContextObject<?>> attributes = null;
+    protected Map<String, List<Id>> options = null;
+    protected Map<String, ContextObject<List<Id>>> xOptions = null;
+    protected Map<String, ContextObject<Boolean>> optOuts = null;
 
-    private List<Id> merchantIds = null;
-    private List<Id> storeIds = null;
-    private List<Id> requestContextIds = null;
+    protected List<Id> merchantIds = null;
+    protected List<Id> storeIds = null;
+    protected List<Id> requestContextIds = null;
 
-    private boolean saveAsNewCopy = false;
+    protected boolean saveAsNewCopy = false;
+
+    // Additional "where" fields.
+    protected String searchKeyword = null;
+    protected QueryNode query = null;
+    protected List<Id> ids = null;
+    protected List<Id> idsToIgnore = null;
 
     public Update() {
         fields = new UpdateMap();
@@ -144,6 +151,14 @@ public class Update implements Serializable {
         this.saveAsNewCopy = saveAsNewCopy == null ? false : saveAsNewCopy;
     }
 
+    public Update appendWhereFields(String searchKeyword, QueryNode query, List<Id> ids, List<Id> idsToIgnore) {
+        this.searchKeyword = searchKeyword;
+        this.query = query;
+        this.ids = ids;
+        this.idsToIgnore = idsToIgnore;
+        return this;
+    }
+
     public Id getId() {
         return id;
     }
@@ -190,6 +205,22 @@ public class Update implements Serializable {
 
     public final Object get(final String name) {
         return fields.get(name);
+    }
+
+    public String getSearchKeyword() {
+        return searchKeyword;
+    }
+
+    public QueryNode getQuery() {
+        return query;
+    }
+
+    public List<Id> getIds() {
+        return ids;
+    }
+
+    public List<Id> getIdsToIgnore() {
+        return idsToIgnore;
     }
 
     public final String asString(final String name, final String defaultValue) {
@@ -442,14 +473,6 @@ public class Update implements Serializable {
         this.optOuts = optOuts;
     }
 
-    @Override
-    public String toString() {
-        return "Update [id=" + id + ", fields=" + fields + ", vars=" + vars + ", attributes=" + attributes
-            + ", options=" + options + ", xOptions=" + xOptions + ", optOuts=" + optOuts + ", merchantIds="
-            + merchantIds + ", storeIds=" + storeIds + ", requestContextIds=" + requestContextIds
-            + ", saveAsNewCopy=" + saveAsNewCopy + "]";
-    }
-
     public static final class UpdateMap extends HashMap<String, Object> {
         private static final long serialVersionUID = 4478431564115327551L;
 
@@ -459,5 +482,12 @@ public class Update implements Serializable {
         public UpdateMap(Map<String, Object> map) {
             this.putAll(map);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Update [id=" + id + ", fields=" + fields + ", vars=" + vars + ", attributes=" + attributes + ", options=" + options + ", xOptions=" + xOptions + ", optOuts=" + optOuts
+            + ", merchantIds=" + merchantIds + ", storeIds=" + storeIds + ", requestContextIds=" + requestContextIds + ", saveAsNewCopy=" + saveAsNewCopy + ", searchKeyword=" + searchKeyword
+            + ", query=" + query + ", ids=" + ids + ", idsToIgnore=" + idsToIgnore + "]";
     }
 }

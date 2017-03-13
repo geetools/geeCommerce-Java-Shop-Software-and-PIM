@@ -78,7 +78,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			return promise;
         },
-        updateAttribute: function(attributeId, updateModel) {
+				updateAttribute: function(attributeId, updateModel) {
 			var self = this;
 
 			var deferred = new $.Deferred();
@@ -92,6 +92,48 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId,
+				data: updateModel.data(),
+				success : function(data, status, xhr) {
+					if (self._onload) {
+						self._onload(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				},
+				error : function(jqXHR, status, error) {
+					if (self._onerror) {
+						self._onerror(jqXHR, status, error);
+					}
+
+					deferred.reject(jqXHR, status, error);
+				},
+				complete : function(data, status, xhr) {
+					if (self._oncomplete) {
+						self._oncomplete(data, status, xhr);
+					}
+
+					deferred.resolve(data, status, xhr);
+				}
+			});
+
+			return promise;
+        },
+				batchUpdateAttributeValues: function(updateModel, forType) {
+			var self = this;
+
+			var deferred = new $.Deferred();
+			var promise = deferred.promise();
+
+			promise.success = promise.done;
+			promise.error = promise.fail;
+			promise.complete = promise.done;
+
+			console.log('_____updateModel_____', updateModel.data());
+
+			var queryString = '?forType=' + forType;
+
+			gc.rest.put({
+				url : '/api/v1/attributes/batch' + queryString,
 				data: updateModel.data(),
 				success : function(data, status, xhr) {
 					if (self._onload) {

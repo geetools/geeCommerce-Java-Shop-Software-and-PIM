@@ -125,7 +125,7 @@ define([
         });
 
         self.showInputConditionsTab = ko.computed(function() {
-            return !self.isNew() && !self.isVirtual() && self.isProductAttribute();
+            return !self.isNew() && !self.isVirtual();
         });
 
         self.showBackendType = ko.computed(function() {

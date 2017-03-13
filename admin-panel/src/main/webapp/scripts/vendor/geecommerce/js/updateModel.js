@@ -18,13 +18,17 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 		this._attributes = options.attributes || [];
 		this._options = options.options || [];
 		this._xOptions = options.xOptions || [];
-        this._fields = options.fields || [];
-        this._vars = options.vars || [];
-        this._optOuts = options.optOuts || [];
-        this._merchantIds = options.merchantIds || [];
-        this._storeIds = options.storeIds || [];
-        this._requestContextIds = options.requestContextIds || [];
-        this._saveAsNewCopy = options.saveAsNewCopy || false;
+    this._fields = options.fields || [];
+    this._vars = options.vars || [];
+    this._optOuts = options.optOuts || [];
+    this._merchantIds = options.merchantIds || [];
+    this._storeIds = options.storeIds || [];
+    this._requestContextIds = options.requestContextIds || [];
+    this._saveAsNewCopy = options.saveAsNewCopy || false;
+		this._ids = options.ids;
+		this._ignoreIds = options.ignoreIds;
+		this._searchKeyword = options.searchKeyword;
+		this._query = options.query;
 
 		// Solves the 'this' problem when a DOM event-handler is fired.
 		_.bindAll(this, 'stringify', 'data', 'variable', 'attr', 'options', 'field', 'optOut', 'id', 'merchantIds', 'storeIds', 'requestContextIds', 'saveAsNewCopy');
@@ -41,13 +45,17 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 				fields : this._fields,
 				attributes : this._attributes,
 				options : this._options,
-                xOptions : this._xOptions,
-                vars : this._vars,
+        xOptions : this._xOptions,
+        vars : this._vars,
 				optOuts : this._optOuts,
 				merchantIds : this._merchantIds,
 				storeIds : this._storeIds,
 				requestContextIds : this._requestContextIds,
-				saveAsNewCopy : this._saveAsNewCopy
+				saveAsNewCopy : this._saveAsNewCopy,
+				ids : this._ids,
+				ignoreIds : this._ignoreIds,
+				searchKeyword : this._searchKeyword,
+				query : this._query
 			};
 		},
         id : function(id) {
@@ -57,9 +65,9 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         context : function(contextModel) {
             if(_.isEmpty(contextModel))
                 return;
-            
+
             console.log('+++++++++++++++++++++++ /// ', contextModel.merchantIds(), contextModel.storeIds(), contextModel.requestContextIds());
-            
+
             this._merchantIds = contextModel.merchantIds();
             this._storeIds = contextModel.storeIds();
             this._requestContextIds = contextModel.requestContextIds();
@@ -81,10 +89,26 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             this._saveAsNewCopy = saveAsNewCopy;
             return this;
         },
+				whereIds : function(ids) {
+            this._ids = ids;
+            return this;
+        },
+				whereIgnoreIds : function(ignoreIds) {
+            this._ignoreIds = ignoreIds;
+            return this;
+        },
+				whereSearchKeyword : function(searchKeyword) {
+            this._searchKeyword = searchKeyword;
+            return this;
+        },
+				whereQuery : function(query) {
+            this._query = query;
+            return this;
+        },
 		field : function(name, value, isCtxObj) {
 			var _isCtxObj = isCtxObj || false;
 			var _field = {};
-			
+
 			if(_isCtxObj) {
 				_field['ctxObj:' + name] = value;
 			} else {
@@ -92,7 +116,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			}
 
 			this._fields.push(_field);
-			
+
 			return this;
 		},
 		attr : function(code, value) {
@@ -105,7 +129,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			} else {
 				console.log('Unable to add value as it is not a valid contextObject.', code, value);
 			}
-			
+
 			return this;
 		},
 		optOut : function(code, optOut) {
@@ -117,21 +141,21 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			} else {
 				console.log('Unable to add optOut-value as it is not a valid contextObject.', code, value);
 			}
-			
+
 			return this;
 		},
 		options : function(code, optionIds) {
 			if(!_.isArray(optionIds) && !_.isUndefined(optionIds)) {
 				optionIds = [optionIds];
 			}
-			
+
 			if(!_.isUndefined(optionIds) && !_.isNull(optionIds)) {
 				this._options.push({
 					code : code,
 					optionIds : optionIds
 				});
 			}
-			
+
 			return this;
 		},
 		xOptions : function(code, xOptionIds) {
@@ -143,13 +167,13 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			} else {
 				console.log('Unable to add value as it is not a valid xOptionId object (=contextObject).', code, xOptionIds);
 			}
-			
+
 			return this;
 		},
         variable : function(name, value, isCtxObj) {
             var _isCtxObj = isCtxObj || false;
             var _var = {};
-            
+
             if(_isCtxObj) {
                 _var['ctxObj:' + name] = value;
             } else {
@@ -157,7 +181,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             }
 
             this._vars.push(_var);
-            
+
             return this;
         }
 	};

@@ -40,7 +40,7 @@ public class FilterInjectableProvider extends AbstractHttpContextInjectable<Filt
     }
 
     protected static enum FilterKey {
-        FIELDS, ATTRIBUTES, SORT, LIMIT, OFFSET, NOCACHE, QUERY;
+        FIELDS, ATTRIBUTES, SORT, LIMIT, OFFSET, NOCACHE, QUERY, SEARCH_KEYWORD, IDS, IGNORE_IDS;
     }
 
     @Override

@@ -50,7 +50,6 @@
                     				optionsValue: 'id' }" ></a>
 							</td>
 
-							<!-- ko if: $root.attributeVM.group() == 'PRODUCT' -->
 								<td>
 									<select class="selectpicker show-tick" multiple data-bind="select: newInputCondition.applyToProductTypes, data: [
 											{ id: 'PRODUCT', text: 'Produkt' },
@@ -59,8 +58,6 @@
 										]">
 									</select>
 								</td>
-							<!-- /ko -->
-
 	                        <td class="actions">
 	                            <a href="javascript:void(0)" data-bind="click: $root.removeNewInputConditionRow"><i class="fa fa-times"></i></a>
 	                        </td>

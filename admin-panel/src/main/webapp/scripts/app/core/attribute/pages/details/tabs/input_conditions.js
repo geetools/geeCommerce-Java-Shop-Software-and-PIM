@@ -203,7 +203,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 			self.attributeId = attributeId;
 			
         	// We return the promise so that durandaljs knows to wait for the asynchronous REST-call.
-       		return attrAPI.getOptionAttributes({ enabled: true, group: self.attributeVM.group(), fields: [ 'backendLabel', 'code', 'code2', 'allowMultipleValues', 'enabled' ] }).then(function(data) {
+       		return attrAPI.getOptionAttributes({ enabled: true, targetObjectId: 2, fields: [ 'backendLabel', 'code', 'code2', 'allowMultipleValues', 'enabled' ] }).then(function(data) {
         		gc.ctxobj.enhance(data.data.attributes, [ 'backendLabel' ], 'any');
 
         		// Turn the data into something that x-editable understands. Did not work otherwise.

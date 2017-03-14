@@ -7,7 +7,7 @@ import com.geecommerce.core.service.api.ModelEnum;
 import com.google.common.collect.Maps;
 
 public enum WidgetParameterType implements ModelEnum {
-    TEXT(1), MEDIASSET(2), PRODUCT(3), COLOR(4), SLIDER(5), SELECT(6), NUMBER(7);
+    TEXT(1), MEDIASSET(2), PRODUCT(3), COLOR(4), SLIDER(5), SELECT(6), NUMBER(7), PRODUCT_LIST(8);
 
     private int id;
 

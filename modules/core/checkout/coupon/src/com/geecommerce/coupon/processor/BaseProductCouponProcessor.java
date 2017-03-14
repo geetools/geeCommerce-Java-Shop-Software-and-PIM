@@ -8,6 +8,7 @@ import com.geecommerce.calculation.model.CalculationContext;
 import com.geecommerce.calculation.model.CalculationItem;
 import com.geecommerce.calculation.model.CalculationItemDiscount;
 import com.geecommerce.core.type.Id;
+import com.geecommerce.coupon.enums.CouponDiscountOrder;
 import com.geecommerce.coupon.model.CartAttributeCollection;
 import com.geecommerce.coupon.model.Coupon;
 import com.geecommerce.coupon.model.CouponAction;
@@ -52,7 +53,11 @@ public abstract class BaseProductCouponProcessor extends BaseCouponProcessor imp
         }
 
         while (applyDiscountTo != 0) {
-            Id current = itemWithLowestPrice(itemPrices);
+            Id current;
+            if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.ASC))
+                current = itemWithLowestPrice(itemPrices);
+            else
+                current = itemWithBiggestPrice(itemPrices);
 
             Map<String, Object> itemDiscount = itemDiscounts.get(current);
             if (itemDiscount == null) {
@@ -68,15 +73,19 @@ public abstract class BaseProductCouponProcessor extends BaseCouponProcessor imp
                 (Integer) itemDiscount.get(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY) + 1);
             applyDiscountTo -= 1; // 1 item;
             itemCounts.put(current, itemCounts.get(current) - 1);
-            removeItemsByStep(itemCounts, itemPrices, discountQtyStep);
+            removeItemsByStep(couponAction, itemCounts, itemPrices, discountQtyStep);
         }
         calcCtx.setItemDiscounts(itemDiscounts);
     }
 
     protected abstract void setDiscount(Map<String, Object> itemDiscount, CouponAction couponAction);
 
-    private void removeItemsByStep(Map<Id, Integer> itemCounts, Map<Id, Double> itemPrices, int step) {
-        Id current = itemWithLowestPrice(itemPrices);
+    private void removeItemsByStep(CouponAction couponAction, Map<Id, Integer> itemCounts, Map<Id, Double> itemPrices, int step) {
+        Id current;
+        if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.DSC))
+            current = itemWithLowestPrice(itemPrices);
+        else
+            current = itemWithBiggestPrice(itemPrices);
 
         if (itemCounts.get(current) == 0) {
             itemCounts.remove(current);
@@ -84,7 +93,11 @@ public abstract class BaseProductCouponProcessor extends BaseCouponProcessor imp
         }
 
         while (step != 0) {
-            current = itemWithLowestPrice(itemPrices);
+            if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.DSC))
+                current = itemWithLowestPrice(itemPrices);
+            else
+                current = itemWithBiggestPrice(itemPrices);
+
             if (itemCounts.get(current) <= step) {
                 step -= itemCounts.get(current);
                 itemCounts.remove(current);

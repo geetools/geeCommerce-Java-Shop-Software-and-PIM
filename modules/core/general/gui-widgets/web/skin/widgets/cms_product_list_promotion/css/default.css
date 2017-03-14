@@ -1,0 +1,56 @@
+.container-prd-promo{
+    margin-top: 0px;
+}
+
+.prd-promo-title{
+    text-align: center;
+    font-weight: bold;
+}
+
+.col-prd-promo {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.prd-promo-item-inner {
+    height: 340px;
+    width: 100%;
+}
+
+.prd-promo-item-photo a {
+    display: block;
+    height: 260px;
+    font-weight: bold;
+}
+
+.prd-promo-item-title {
+    font-weight: bold;
+    min-height: 40px;
+    text-align: center;
+}
+
+.prd-promo-item-desc {
+    min-height: 60px;
+}
+
+
+.prd-promo-item-sale-price {
+    color: #DE2929;
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.prd-promo-item-retail-price {
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+}
+
+.prd-promo-item-old-price {
+    font-size: 14px;
+    text-decoration: line-through;
+    float: right;
+    font-weight: normal;
+}

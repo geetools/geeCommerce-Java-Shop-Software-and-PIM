@@ -21,6 +21,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-coupon' ], function(app, ko, g
         booleanFilterChoice: ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]),
         booleanValueFilterChoice: ko.observableArray([{value: 1, label:"True"}, {value: 0, label:"False"}]),
         nodeCreatingChoice: ko.observableArray([{value:"1", label:"Condition Combination"}, {value:"2", label:"Cart Item Attribute"}, {value:"3", label:"Product Item Attribute"}]),
+        productSortOrderOptions: ko.observableArray([]),
 		constructor : CouponActionController,
 		saveData : function() {
 			var self = this;
@@ -30,6 +31,14 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-coupon' ], function(app, ko, g
 		},
 		activate : function(couponId) {
 			var self = this;
+
+            self.productSortOrderOptions.push( { id : 'ASC', text : function() {
+                return gc.app.i18n('app:modules.coupon.productSortOrderAsc', {}, gc.app.currentLang);
+            }});
+
+            self.productSortOrderOptions.push( { id : 'DSC', text : function() {
+                return gc.app.i18n('app:modules.coupon.productSortOrderDsc', {}, gc.app.currentLang);
+            }});
 
             self.couponVM = gc.app.sessionGet('couponVM');
 

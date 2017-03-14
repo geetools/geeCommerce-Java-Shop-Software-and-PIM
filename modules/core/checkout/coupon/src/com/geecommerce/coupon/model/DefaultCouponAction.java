@@ -159,7 +159,7 @@ public class DefaultCouponAction extends AbstractModel implements CouponAction {
     @Override
     public CouponDiscountOrder getDiscountOrder() {
         if (couponDiscountOrder == null)
-            couponDiscountOrder = CouponDiscountOrder.DSC;
+            couponDiscountOrder = CouponDiscountOrder.ASC;
         return couponDiscountOrder;
     }
 

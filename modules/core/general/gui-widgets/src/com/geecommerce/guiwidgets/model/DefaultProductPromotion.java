@@ -34,6 +34,9 @@ public class DefaultProductPromotion extends AbstractMultiContextModel implement
     @Column(Col.LIMIT)
     private Integer limit = null;
 
+    @Column(Col.SLIDES_TO_SHOW)
+    private Integer slidesToShow = null;
+
     @Column(Col.TARGET_OBJECT_ID)
     private Id targetObjectId = null;
 
@@ -94,6 +97,17 @@ public class DefaultProductPromotion extends AbstractMultiContextModel implement
     public ProductPromotion setLabel(ContextObject<String> label) {
         this.label = label;
         return this;
+    }
+
+    @Override
+    public ProductPromotion setSlidesToShow(Integer slidesToShow) {
+        this.slidesToShow = slidesToShow;
+        return this;
+    }
+
+    @Override
+    public Integer getSlidesToShow() {
+        return slidesToShow;
     }
 
     @Override

@@ -21,6 +21,10 @@ public interface ProductPromotion extends MultiContextModel {
 
     public ProductPromotion setLabel(ContextObject<String> label);
 
+    public ProductPromotion setSlidesToShow(Integer slidesToShow);
+
+    public Integer getSlidesToShow();
+
     public ProductPromotion setLimit(Integer limit);
 
     public Integer getLimit();
@@ -67,6 +71,7 @@ public interface ProductPromotion extends MultiContextModel {
 
         public static final String KEY = "key";
         public static final String LABEL = "label";
+        public static final String SLIDES_TO_SHOW = "slides_to_show";
         public static final String LIMIT = "limit";
         public static final String TARGET_OBJECT_ID = "tar_obj";
         public static final String TARGET_OBJECT_TYPE = "tar_obj_type";

@@ -24,23 +24,25 @@
             </div>
 
             <script id='toolboxGroupTemplate' type='text/html'>
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       data-bind="i18nText: { value: group.label, mode: 'any' }, attr:{href: '#' + group.key}" style="user-select: none;-moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;">First level</a>
-                </h4>
-            </div>
-            <div data-bind="attr:{id:group.key}" class="panel-collapse in">
-                <div class="" data-bind="foreach: { data: group.items, as: 'item'}">
-                    <div data-bind="attr: { id: item.key }" class="editor-menu-widget col-md-6 gee-widget w-handle ui-draggable ui-draggable-handle" >
-                        <div >
-                            <i data-bind="attr: {class: item.icon}"></i>
-                            <span data-bind="i18nText: { value: item.label, mode: 'any' }"></span>
-                        </div><!--"i18nText: item.label"-->
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion"
+                           data-bind="i18nText: { value: group.label, mode: 'any' }, attr:{href: '#' + group.key}" style="user-select: none;-moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;">First level</a>
+                    </h4>
+                </div>
+                <div data-bind="attr:{id:group.key}" class="panel-collapse in">
+                    <div class="" data-bind="foreach: { data: group.items, as: 'item'}">
+                        <div data-bind="attr: { id: item.key }" class="editor-menu-widget col-md-6 gee-widget w-handle ui-draggable ui-draggable-handle" >
+                            <div >
+                                <i data-bind="attr: {class: item.icon}"></i>
+                                <span data-bind="i18nText: { value: item.label, mode: 'any' }"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </script>
+                <div class="clear"></div>
+
+            </script>
 
             <div style="display: none;">
                 <div id="toolbox">
@@ -154,6 +156,15 @@
                                         </div>
                                     </div>
                                 <!-- /ko -->
+
+                        <!-- ko if: $data.parameter.type() == 'PRODUCT_LIST' -->
+                        <div class="form-group col-xs-12">
+                            <label data-bind="i18nText: { value: $data.parameter.label, mode: 'any' }" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-9">
+                                <div class="product-list-selector" data-bind="prdListSelect: {value: $data.value, ctxMode: 'any'}"></div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
 
                                 <!-- ko if:  $data.parameter.type() == 'MEDIASSET' -->
                                     <div class="form-group col-xs-12">

@@ -169,6 +169,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
         self.products = ko.observableArray([]);
         self.productListIds = ko.observableArray([]);
         self.productSelectionType = ko.observable('LIST');
+        self.productSortOrder = ko.observable('ASC');
 
         self.freeShipping = ko.observable();
         self.discountAmount = ko.observable().extend({ //required: true,
@@ -402,6 +403,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
                 .field('productIds', self.couponVM.couponAction.productIds())
                 .field('productListIds', self.couponVM.couponAction.productListIds())
                 .field('productSelectionType', self.couponVM.couponAction.productSelectionType())
+                .field('discountOrder', self.couponVM.couponAction.productSortOrder())
                 .field('filter', ko.toJSON(self.couponVM.couponAction.filter(),["type", "operator", "operation",
                     "operationValue", "attributeType", "attributeCode", "value", "nodes"]));
 
@@ -600,6 +602,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
                     self.couponVM.couponAction.productIds(coupon.couponAction.productIds || []);
                     self.couponVM.couponAction.productListIds(coupon.couponAction.productListIds || []);
                     self.couponVM.couponAction.productSelectionType(coupon.couponAction.productSelectionType);
+                    self.couponVM.couponAction.productSortOrder(coupon.couponAction.discountOrder);
 
 
                     if(coupon.couponAction.rangeDiscountAmount && coupon.couponAction.rangeDiscountAmount.length > 0){

@@ -9,6 +9,7 @@ import com.geecommerce.calculation.model.CalculationItem;
 import com.geecommerce.calculation.model.CalculationItemDiscount;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.enums.CouponActionType;
+import com.geecommerce.coupon.enums.CouponDiscountOrder;
 import com.geecommerce.coupon.model.CartAttributeCollection;
 import com.geecommerce.coupon.model.Coupon;
 import com.geecommerce.coupon.model.CouponAction;
@@ -50,7 +51,12 @@ public class DefaultBuyXGetYCouponProcessor extends BaseCouponProcessor implemen
 
         Map<Id, Map<String, Object>> itemDiscounts = new HashMap<>();
         while (applyDiscountTo != 0) {
-            Id current = itemWithLowestPrice(itemPrices);
+            Id current;
+            if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.ASC))
+                current = itemWithLowestPrice(itemPrices);
+            else
+                current = itemWithBiggestPrice(itemPrices);
+
             Map<String, Object> itemDiscount = new HashMap<>();
             itemDiscount.put(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_ARTICLE_ID, current);
             if (itemCounts.get(current) <= applyDiscountTo) {

@@ -9,6 +9,7 @@ import com.geecommerce.calculation.model.CalculationItem;
 import com.geecommerce.calculation.model.CalculationItemDiscount;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.coupon.enums.CouponActionType;
+import com.geecommerce.coupon.enums.CouponDiscountOrder;
 import com.geecommerce.coupon.model.CartAttributeCollection;
 import com.geecommerce.coupon.model.Coupon;
 import com.geecommerce.coupon.model.CouponAction;
@@ -68,6 +69,10 @@ public class DefaultBuyXGetYSameCouponProcessor extends BaseCouponProcessor impl
                 break;
 
             Id current = itemWithLowestPrice(itemPrices);
+            if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.ASC))
+                current = itemWithLowestPrice(itemPrices);
+            else
+                current = itemWithBiggestPrice(itemPrices);
 
             if (itemCounts.get(current) < xy) {
                 itemCounts.remove(current);

@@ -287,7 +287,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
 
                     if(item.TYPE == "PARAMETER"){
                         var parameterValue = _.findWhere( self.parameterValues(), { id : item.id } );
-                        console.log(parameterValue.value())
+                       // console.log(parameterValue.value())
                         newItems.push(parameterValue.clone());
                     } else if (item.TYPE == "TAB"){
                         cloneTabParameters(item);
@@ -315,9 +315,9 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
 
             self.parameterValues(parameterValues);
 
-            console.log(self.widget)
+          //  console.log(self.widget)
             if(self.widget.tab()){
-                console.log(self.widget.tab())
+           //     console.log(self.widget.tab())
                 self.tab(populateTabs(self.widget.tab(), null));
 
             }
@@ -327,11 +327,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
                 tabVM.label(tab.label);
 
                 _.each(tab.items, function (item) {
-                    console.log(item);
+                //    console.log(item);
                     if(item.type == "PARAMETER"){
                         var parameterValue = _.findWhere( self.parameterValues(), { id : item.id } );
                         tabVM.items.push(parameterValue.clone());
-                        console.log(parameterValue.value())
+                  //      console.log(parameterValue.value())
                     } else if (item.type == "TAB"){
                         tabVM.items.push(populateTabs(item.item, tabVM));
                     }
@@ -484,7 +484,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
         saveData : function(context) {
             var self = this;
 
-            console.log(self)
+           // console.log(self)
             
             var contentUpdateModel = gc.app.newUpdateModel();
 
@@ -530,7 +530,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
             self.contentVM = new ContentVM();
             self.contentVM.contentId(data);
 
-            console.log("ACTIVATEEEEEEEEEEEEEEEEEEEEEEED");
+          //  console.log("ACTIVATEEEEEEEEEEEEEEEEEEEEEEED");
 
             self.contentVM.ckeditorConfigs = {}
             var hCkeditorOptions = {
@@ -696,7 +696,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
         attached : function() {
             var self = this;
 
-            console.log('________________ @@@WIDEGTS :::::::::::::::::::: ', self.widgets);
+          //  console.log('________________ @@@WIDEGTS :::::::::::::::::::: ', self.widgets);
             
             
             

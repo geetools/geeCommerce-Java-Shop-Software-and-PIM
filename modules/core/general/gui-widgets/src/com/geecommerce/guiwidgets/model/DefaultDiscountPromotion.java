@@ -34,11 +34,8 @@ public class DefaultDiscountPromotion extends AbstractModel implements DiscountP
     @Column(Col.DESCRIPTION_EMAIL)
     private ContextObject<String> descriptionEmail = null;
 
-    @Column(Col.TITLE_PROMO_PAGE)
-    private ContextObject<String> titlePromoPage = null;
-
-    @Column(Col.DESCRIPTION_PROMO_PAGE)
-    private ContextObject<String> descriptionPromoPage = null;
+    @Column(Col.PROMO_PAGE_URL)
+    private ContextObject<String> promoPageUrl = null;
 
     @Column(Col.COUPON_ID)
     private Id couponId = null;
@@ -136,26 +133,16 @@ public class DefaultDiscountPromotion extends AbstractModel implements DiscountP
     }
 
     @Override
-    public ContextObject<String> getTitlePromoPage() {
-        return titlePromoPage;
+    public ContextObject<String> getPromoPageUrl() {
+        return promoPageUrl;
     }
 
     @Override
-    public DiscountPromotion setTitlePromoPage(ContextObject<String> titlePromoPage) {
-        this.titlePromoPage = titlePromoPage;
+    public DiscountPromotion setPromoPageUrl(ContextObject<String> promoPageUrl) {
+        this.promoPageUrl = promoPageUrl;
         return this;
     }
 
-    @Override
-    public ContextObject<String> getDescriptionPromoPage() {
-        return descriptionPromoPage;
-    }
-
-    @Override
-    public DiscountPromotion setDescriptionPromoPage(ContextObject<String> descriptionPromoPage) {
-        this.descriptionPromoPage = descriptionPromoPage;
-        return this;
-    }
 
     @Override
     public Coupon getCoupon() {

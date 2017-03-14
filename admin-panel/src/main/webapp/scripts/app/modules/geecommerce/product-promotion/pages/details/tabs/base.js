@@ -7,6 +7,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
         self.key = ko.observable();
         self.query = ko.observable();
         self.limit = ko.observable();
+        self.slidesToShow = ko.observable();
         self.teaserId = ko.observable();
 
         self.displayLabel = ko.observable("");
@@ -69,6 +70,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
             updateModel.field('label', self.productPromotionVM.label(), true);
             updateModel.field('key', self.productPromotionVM.key());
             updateModel.field('limit', self.productPromotionVM.limit());
+            updateModel.field('slidesToShow', self.productPromotionVM.slidesToShow());
             updateModel.field('enabled', self.productPromotionVM.enabled(), true);
             updateModel.field('useTargetObjectLabel', self.productPromotionVM.useTargetLabel());
             updateModel.field('teaserImageId', self.productPromotionVM.teaserId());
@@ -123,6 +125,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
                     vm.query(data.query);
                     vm.label(data.label);
                     vm.limit(data.limit);
+                    vm.slidesToShow(data.slidesToShow);
                     vm.enabled(data.enabled);
 
                     vm.displayLabel(data.displayLabel);

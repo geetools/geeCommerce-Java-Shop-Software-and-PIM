@@ -28,13 +28,9 @@ public interface DiscountPromotion extends Model {
 
     public DiscountPromotion setDescriptionEmail(ContextObject<String> descriptionEmail);
 
-    public ContextObject<String> getTitlePromoPage();
+    public ContextObject<String> getPromoPageUrl();
 
-    public DiscountPromotion setTitlePromoPage(ContextObject<String> titlePromoPage);
-
-    public ContextObject<String> getDescriptionPromoPage();
-
-    public DiscountPromotion setDescriptionPromoPage(ContextObject<String> descriptionPromoPage);
+    public DiscountPromotion setPromoPageUrl(ContextObject<String> promoPageUrl);
 
     public Coupon getCoupon();
 
@@ -86,8 +82,7 @@ public interface DiscountPromotion extends Model {
         public static final String LABEL = "label";
         public static final String DESCRIPTION = "description";
         public static final String DESCRIPTION_EMAIL = "description_email";
-        public static final String TITLE_PROMO_PAGE = "title_promo_page";
-        public static final String DESCRIPTION_PROMO_PAGE = "description_promo_page";
+        public static final String PROMO_PAGE_URL = "promo_page_url";
         public static final String COUPON_ID = "coupon_id";
         public static final String SHOW_TIMES = "show_times";
         public static final String SHOW_FROM = "show_from";

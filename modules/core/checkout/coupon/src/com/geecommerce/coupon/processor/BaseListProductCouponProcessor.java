@@ -8,6 +8,7 @@ import com.geecommerce.calculation.model.CalculationContext;
 import com.geecommerce.calculation.model.CalculationItem;
 import com.geecommerce.calculation.model.CalculationItemDiscount;
 import com.geecommerce.core.type.Id;
+import com.geecommerce.coupon.enums.CouponDiscountOrder;
 import com.geecommerce.coupon.model.CartAttributeCollection;
 import com.geecommerce.coupon.model.Coupon;
 import com.geecommerce.coupon.model.CouponAction;
@@ -80,7 +81,7 @@ public abstract class BaseListProductCouponProcessor extends BaseCouponProcessor
                 (Integer) itemDiscount.get(CalculationItemDiscount.FIELD.DISCOUNT_ITEM_QUANTITY) + 1);
             applyDiscountTo -= 1; // 1 item;
             itemCounts.put(current, itemCounts.get(current) - 1);
-            removeItemsByStep(itemCounts, itemPrices, discountQtyStep);
+            removeItemsByStep(couponAction, itemCounts, itemPrices, discountQtyStep);
             itemIndex++;
         }
         calcCtx.setItemDiscounts(itemDiscounts);
@@ -88,8 +89,12 @@ public abstract class BaseListProductCouponProcessor extends BaseCouponProcessor
 
     protected abstract void setDiscount(Map<String, Object> itemDiscount, CouponAction couponAction, int itemIndex);
 
-    private void removeItemsByStep(Map<Id, Integer> itemCounts, Map<Id, Double> itemPrices, int step) {
-        Id current = itemWithBiggestPrice(itemPrices);
+    private void removeItemsByStep(CouponAction couponAction, Map<Id, Integer> itemCounts, Map<Id, Double> itemPrices, int step) {
+        Id current;
+        if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.DSC))
+            current = itemWithLowestPrice(itemPrices);
+        else
+            current = itemWithBiggestPrice(itemPrices);
 
         if (itemCounts.get(current) == 0) {
             itemCounts.remove(current);
@@ -97,7 +102,11 @@ public abstract class BaseListProductCouponProcessor extends BaseCouponProcessor
         }
 
         while (step != 0) {
-            current = itemWithBiggestPrice(itemPrices);
+            if(couponAction.getDiscountOrder().equals(CouponDiscountOrder.DSC))
+                current = itemWithLowestPrice(itemPrices);
+            else
+                current = itemWithBiggestPrice(itemPrices);
+
             if (itemCounts.get(current) <= step) {
                 step -= itemCounts.get(current);
                 itemCounts.remove(current);

@@ -239,7 +239,7 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 
 
 			var inputConditions = _.where( self.inputConditions, { showAttributeId : self.attributeId } );
-			
+
 
 			var isValid = true;
 
@@ -490,18 +490,33 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 
             return updateModel;
         },
-        toNewUpdateModel : function(attributeValues) {
+        toNewUpdateModel : function(attributeValues, origAttributeValues) {
            var updateModel = gc.app.newUpdateModel();
 
             _.each(ko.unwrap(attributeValues), function(attrVal) {
+							console.log('ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄHHHHHHHHHHHHHHH: attrVal: ', ko.toJS(attrVal));
+
                 if(attrVal.isEditable) {
                     var isOptOut = gc.ctxobj.plain(attrVal.optOut);
 
                     if(!_.isUndefined(isOptOut)) {
                         updateModel.optOut(attrVal.code, attrVal.optOut);
                     }
-                    
-                    updateModel.attr(attrVal.code, attrVal.value);
+
+										if(attrVal.isOption()) {
+												var foundExistingAttr = undefined;
+
+												if(!_.isEmpty(origAttributeValues)) {
+													foundExistingAttr = _.findWhere(origAttributeValues, { attributeId : attrVal.attributeId });
+												}
+
+												// Allow resetting of value if product already has attribute and new value is empty.
+												if((!_.isUndefined(attrVal.value) && !_.isEmpty(attrVal.value)) || !_.isUndefined(foundExistingAttr)) {
+														updateModel.options(attrVal.code, ko.unwrap(attrVal.value));
+												}
+										} else {
+												updateModel.attr(attrVal.code, ko.unwrap(attrVal.value));
+										}
                 }
             });
 

@@ -447,4 +447,15 @@ public class AttributeResource extends AbstractResource {
         return ok(suggestions);
     }
 
+    
+    @PUT
+    @Path("batch")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void batchUpdateAttributeValues(@QueryParam("forType") String forType, Update update) {
+        
+        System.out.println("forType=" + forType + ", update=" + update);
+        
+    }
+    
+    
 }

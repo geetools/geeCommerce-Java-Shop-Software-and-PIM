@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +13,15 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.geecommerce.core.App;
 import com.geecommerce.core.Str;
 import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.rest.pojo.Update.UpdateMap;
 import com.geecommerce.core.service.annotation.Profile;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.geecommerce.core.util.Json;
 import com.owlike.genson.Context;
 import com.owlike.genson.Converter;
 import com.owlike.genson.stream.ObjectReader;
@@ -26,29 +30,34 @@ import com.owlike.genson.stream.ValueType;
 
 @Profile
 public class UpdateConverter implements Converter<Update> {
-    private static final String FIELD_PREFIX_CONTEXT_OBJECT = "ctxObj:";
-    private static final String KEY_ID = "_id";
-    private static final String KEY_FIELDS = "fields";
-    private static final String KEY_VARS = "vars";
-    private static final String KEY_ATTRIBUTES = "attributes";
-    private static final String KEY_OPTIONS = "options";
-    private static final String KEY_XOPTIONS = "xOptions";
-    private static final String KEY_CODE = "code";
-    private static final String KEY_VALUE = "value";
-    private static final String KEY_OPTION_IDS = "optionIds";
-    private static final String KEY_XOPTION_IDS = "xOptionIds";
-    private static final String KEY_OPT_OUTS = "optOuts";
-    private static final String KEY_MERCHANT_IDS = "merchantIds";
-    private static final String KEY_STORE_IDS = "storeIds";
-    private static final String KEY_REQUEST_CONTEXT_IDS = "requestContextIds";
-    private static final String KEY_SAVE_AS_NEW_COPY = "saveAsNewCopy";
-    private static final String FIELD_PREFIX_CONTEXT_OBJECTS_ARRAY = "ctxObjArray:";
+    protected static final String FIELD_PREFIX_CONTEXT_OBJECT = "ctxObj:";
+    protected static final String KEY_ID = "_id";
+    protected static final String KEY_FIELDS = "fields";
+    protected static final String KEY_VARS = "vars";
+    protected static final String KEY_ATTRIBUTES = "attributes";
+    protected static final String KEY_OPTIONS = "options";
+    protected static final String KEY_XOPTIONS = "xOptions";
+    protected static final String KEY_CODE = "code";
+    protected static final String KEY_VALUE = "value";
+    protected static final String KEY_OPTION_IDS = "optionIds";
+    protected static final String KEY_XOPTION_IDS = "xOptionIds";
+    protected static final String KEY_OPT_OUTS = "optOuts";
+    protected static final String KEY_MERCHANT_IDS = "merchantIds";
+    protected static final String KEY_STORE_IDS = "storeIds";
+    protected static final String KEY_REQUEST_CONTEXT_IDS = "requestContextIds";
+    protected static final String KEY_SAVE_AS_NEW_COPY = "saveAsNewCopy";
+    protected static final String FIELD_PREFIX_CONTEXT_OBJECTS_ARRAY = "ctxObjArray:";
+
+    protected static final String KEY_WHERE_IDS = "ids";
+    protected static final String KEY_WHERE_IGNORE_IDS = "ignoreIds";
+    protected static final String KEY_WHERE_SEARCH_KEYWORD = "searchKeyword";
+    protected static final String KEY_WHERE_QUERY = "query";
 
     // Test if the input is a valid ISO8601 JSON date.
-    private static final Pattern datePattern = Pattern.compile(
+    protected static final Pattern datePattern = Pattern.compile(
         "[\\d]{4}\\-[\\d]{2}\\-[\\d]{2}T[\\d]{2}\\:[\\d]{2}\\:[\\d]{2}(?:\\.[\\d]{3})?(?:[\\-+]{1}[\\d]{4})?[Z]{0,1}");
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     static {
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
@@ -66,6 +75,10 @@ public class UpdateConverter implements Converter<Update> {
         List<Id> storeIds = null;
         List<Id> requestContextIds = null;
         boolean saveAsNewCopy = false;
+        List<Id> whereIds = null;
+        List<Id> whereIgnoreIds = null;
+        String whereSearchKeyword = null;
+        QueryNode whereQuery = null;
 
         // Update object
         ObjectReader updateObject = reader.beginObject();
@@ -135,12 +148,41 @@ public class UpdateConverter implements Converter<Update> {
                 requestContextIds = deserializeIds(updateObject.beginArray());
                 updateObject.endArray();
             }
+
+            if (KEY_WHERE_IDS.equals(fieldName)) {
+                whereIds = deserializeIds(updateObject.beginArray());
+                updateObject.endArray();
+            }
+
+            if (KEY_WHERE_IGNORE_IDS.equals(fieldName)) {
+                whereIgnoreIds = deserializeIds(updateObject.beginArray());
+                updateObject.endArray();
+            }
+
+            if (KEY_WHERE_SEARCH_KEYWORD.equals(fieldName)) {
+                whereSearchKeyword = updateObject.valueAsString();
+            }
+
+            if (KEY_WHERE_QUERY.equals(fieldName)) {
+                String _whereQuery = updateObject.valueAsString();
+
+                if (_whereQuery != null) {
+                    Map<String, Object> queryNodeMap = Json.fromJson(_whereQuery, HashMap.class);
+                    QueryNode queryNode = App.get().model(QueryNode.class);
+                    queryNode.fromMap(queryNodeMap);
+                    whereQuery = queryNode;
+                }
+            }
         }
 
         reader.endObject();
 
-        return new Update(id, fields, vars, attributes, options, xOptions, optOuts, merchantIds, storeIds,
+        Update u = new Update(id, fields, vars, attributes, options, xOptions, optOuts, merchantIds, storeIds,
             requestContextIds, saveAsNewCopy);
+
+        u.appendWhereFields(whereSearchKeyword, whereQuery, whereIds, whereIgnoreIds);
+
+        return u;
     }
 
     public Map<String, Object> deserializeFields(ObjectReader fieldReader) throws IOException {

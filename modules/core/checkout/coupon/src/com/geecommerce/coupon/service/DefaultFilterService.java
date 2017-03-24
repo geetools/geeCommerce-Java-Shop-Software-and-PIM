@@ -225,7 +225,7 @@ public class DefaultFilterService implements FilterService {
         }
 
         if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.PRODUCT)){
-            if(coupon.getCouponAction().getProductIds() != null){
+            if(coupon.getCouponAction().getProductIds() != null && coupon.getCouponAction().getProductIds().size() > 0){
                 for (Id id: allCartProducts) {
                     if(couponHelper.hasPriceTypes(id, priceTypeIds)) {
                         if (coupon.getCouponAction().getProductIds().contains(id))
@@ -237,12 +237,18 @@ public class DefaultFilterService implements FilterService {
                         }
                     }
                 }
+            } else {
+                for (Id id: allCartProducts) {
+                    if (couponHelper.hasPriceTypes(id, priceTypeIds)) {
+                        result.add(id);
+                    }
+                }
             }
         }
 
 
         if(coupon.getCouponAction().getProductSelectionType().equals(ProductSelectionType.LIST)){
-            if(coupon.getCouponAction().getProductListIds() != null){
+            if(coupon.getCouponAction().getProductListIds() != null && coupon.getCouponAction().getProductListIds().size() > 0 ){
                 List<Id> allProductsIds = new ArrayList<>();
                 for(Id productListId: coupon.getCouponAction().getProductListIds()){
                     ProductList productList = productLists.findById(ProductList.class, productListId);
@@ -261,12 +267,19 @@ public class DefaultFilterService implements FilterService {
                         }
                     }
                 }
+            } else {
+                for (Id id: allCartProducts) {
+                    if (couponHelper.hasPriceTypes(id, priceTypeIds)) {
+                        result.add(id);
+                    }
+                }
             }
         }
 
 
         return result;
     }
+
 
     private boolean passFilterAttributeNode(Id id, CartAttributeCollection cartAttributeCollection,
         CouponFilterNode node) {

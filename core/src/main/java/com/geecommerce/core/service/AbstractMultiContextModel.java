@@ -238,12 +238,20 @@ public abstract class AbstractMultiContextModel extends AbstractModel implements
 
         if (getMerchantIds() != null && getMerchantIds().size() > 0)
             map.put(GlobalColumn.MERCHANT_ID, getMerchantIds());
+        else {
+            map.put(GlobalColumn.MERCHANT_ID, null);
+        }
 
-        if (getStoreIds() != null)
+        if (getStoreIds() != null && getStoreIds().size() > 0)
             map.put(GlobalColumn.STORE_ID, getStoreIds());
+        else
+            map.put(GlobalColumn.STORE_ID, null);
 
-        if (getRequestContextIds() != null)
+
+        if (getRequestContextIds() != null && getRequestContextIds().size() > 0)
             map.put(GlobalColumn.REQUEST_CONTEXT_ID, getRequestContextIds());
+        else
+            map.put(GlobalColumn.REQUEST_CONTEXT_ID, null);
 
         return map;
     }

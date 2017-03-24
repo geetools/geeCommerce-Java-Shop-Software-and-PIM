@@ -53,10 +53,12 @@ public class CouponPromotionProductWidget extends AbstractWidgetController imple
                 Coupon coupon = coupons.findById(Coupon.class, couponPromotion.getCouponId());
 
                 if(coupon != null && couponPromotion != null){
-                    String message = couponPromotion.getDescriptionProduct().str();
-                    if(!StringUtils.isBlank(message)) {
-                        message = message.replace("%end%", new SimpleDateFormat("dd.MM.yyyy").format(coupon.getToDate()));
-                        widgetCtx.setParam("couponPromotionMessage", message);
+                    if(couponPromotion.getDescriptionProduct()!= null) {
+                        String message = couponPromotion.getDescriptionProduct().str();
+                        if (!StringUtils.isBlank(message)) {
+                            message = message.replace("%end%", new SimpleDateFormat("dd.MM.yyyy").format(coupon.getToDate()));
+                            widgetCtx.setParam("couponPromotionMessage", message);
+                        }
                     }
                 }
             }

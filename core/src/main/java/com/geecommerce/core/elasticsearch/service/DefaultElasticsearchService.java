@@ -1,5 +1,6 @@
 package com.geecommerce.core.elasticsearch.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -330,8 +331,23 @@ public class DefaultElasticsearchService implements ElasticsearchService {
     }
 
     @Override
+    public <T extends Model> SearchResult findItems(Class<T> modelClass) {
+        return findItems(modelClass, null);
+    }
+
+    @Override
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, FilterBuilder filterBuilder) {
+        return findItems(modelClass, Arrays.asList(filterBuilder), null);
+    }
+
+    @Override
+    public <T extends Model> SearchResult findItems(Class<T> modelClass, FilterBuilder filterBuilder, SearchParams searchParams) {
+        return findItems(modelClass, Arrays.asList(filterBuilder), searchParams);
+    }
+
+    @Override
     public <T extends Model> SearchResult findItems(Class<T> modelClass, List<FilterBuilder> filterBuilders, SearchParams searchParams) {
-            Client client = ElasticSearch.CLIENT.get();
+        Client client = ElasticSearch.CLIENT.get();
 
         // ---------------------------------------------------------------------
         // Search filters
@@ -350,9 +366,9 @@ public class DefaultElasticsearchService implements ElasticsearchService {
         Store store = appCtx.getStore();
 
         SearchRequestBuilder searchRequestBuilder = client.prepareSearch(elasticsearchIndexHelper.indexName(merchant.getId(), store.getId(), modelClass))
-                .setMinScore(0.5f).setTypes(Annotations.getIndexedCollectionName(modelClass))
-                .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(searchParams.getOffset())
-                .setSize(searchParams.getLimit()).setQuery(searchQuery).setPostFilter(fb);
+            .setMinScore(0.5f).setTypes(Annotations.getIndexedCollectionName(modelClass))
+            .setSearchType(SearchType.QUERY_THEN_FETCH).setFrom(searchParams.getOffset())
+            .setSize(searchParams.getLimit()).setQuery(searchQuery).setPostFilter(fb);
 
         // ---------------------------------------------------------------------
         // Execute search

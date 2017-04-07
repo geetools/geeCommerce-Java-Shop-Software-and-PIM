@@ -66,7 +66,7 @@
                         <td><!-- ko if: row.orderPayment != undefined --><a data-bind="text: row.orderPayment.transactionId, attr: { href: '#/orders/details/' + row.id }"></a><!-- /ko --></td>
                         <td><a data-bind="text: row.customerId, attr: { href: '#/orders/details/' + row.id }"></a></td>
                         <td><!-- ko if: row.invoiceOrderAddress != undefined --><a target="_blank" data-bind="text: row.invoiceOrderAddress.firstName + ' ' + row.invoiceOrderAddress.lastName, attr: { href: '#/customers/details/' + row.customerId }"></a><!-- /ko --></td>
-                        <td data-bind="text: totalAmount"></td>
+                        <td data-bind="text: row.totalAmount"></td>
                         <td data-bind="text: row.discountCode"></td>
                         <td data-bind="text: row.orderStatus"></td>
                         <td data-bind="format: createdOn, formatOptions: { type: 'date', to: 'DD.MM.YYYY HH:mm' }"></td>

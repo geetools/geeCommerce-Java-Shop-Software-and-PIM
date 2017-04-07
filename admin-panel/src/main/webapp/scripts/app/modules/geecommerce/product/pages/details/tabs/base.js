@@ -126,7 +126,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
             // if(!reviewUrl){
             // reviewUrl = "/catalog/product/view/" + self.id();
             // }
-            //		
+            //
             // return 'https://' + reqCtx.urlPrefix + reviewUrl + '?xref=adm&xpage=refresh&xt=' + new Date().getTime();
         });
     }
@@ -213,7 +213,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.productGroup(gc.attributes.find(prdData.attributes, 'product_group').optionIds);
                 self.editVM.programme(gc.attributes.find(prdData.attributes, 'programme').optionIds);
                 self.editVM.bundleGroup(gc.attributes.find(prdData.attributes, 'bundle_group').optionIds);
-                
+
                 self.editVM.articleStatus(gc.attributes.find(prdData.attributes, 'status_article').xOptionIds);
                 self.editVM.descriptionStatus(gc.attributes.find(prdData.attributes, 'status_description').xOptionIds);
                 self.editVM.imageStatus(gc.attributes.find(prdData.attributes, 'status_image').attributeOptions);
@@ -228,7 +228,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.friendlyURL(gc.ctxobj.clone(prdData.uri));
 
                 var friendlyURL = self.editVM.friendlyURL();
-                
+
                 // Here we listen for possible changes from observables that are used for creating the search engine friendly URL.
                 ko.computed(function() {
                     var isProgramme = self.editVM.isProgramme();
@@ -243,12 +243,12 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                     // No data to work with here, so we just return.
                     if((_.isEmpty(productGroup) && _.isEmpty(programme) && _.isEmpty(bundleGroup)) || _.isEmpty(name))
                         return;
-                    
+
                     var requestContexts = gc.app.availableRequestContexts();
-                    var activeContext = gc.app.sessionGet('activeContext');            
-                    
+                    var activeContext = gc.app.sessionGet('activeContext');
+
                     if(isProgramme === true || isBundle === true) {
-                        
+
                     } else {
                         // We do not want to override already saved values as they may have been indexed by search engines.
                         // Therefore we make the initial check using the original value form the server (prdData.uri).
@@ -261,23 +261,23 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                             var i18nProductGroup = gc.contexts.textValue(productGroup[0], productGroups, defaultLang);
                             var i18nName = gc.ctxobj.val(name, defaultLang, undefined, activeContext);
                             var brandName = gc.ctxobj.closest(brand, defaultLang, activeContext);
-                            
+
                             if(!_.isEmpty(i18nProductGroup) && !_.isEmpty(i18nName) && !_.isEmpty(brandName)) {
                                 // When we have all the required information, we can create the new URL.
                                 globalURI = productUtil.newURI(defaultLang, i18nProductGroup, brandName, i18nName);
-                                
+
                                 if(!_.isEmpty(globalURI)) {
                                     gc.ctxobj.set(friendlyURL, undefined, globalURI);
                                     isUpdateObservable = true;
                                 }
                             }
                         }
-                        
+
                         // Now we'll attempt to do the same for all request contexts (websites).
                         if(!_.isEmpty(requestContexts)) {
                             for (var i = 0; i < requestContexts.length; i++) {
                                 var reqCtx = requestContexts[i];
-                                
+
                                 if(reqCtx !== undefined && reqCtx.id !== undefined && !_.isEmpty(reqCtx.language)) {
                                     // We do not want to override already saved values as they may have been indexed by search engines.
                                     // Therefore we make the initial check using the original value form the server (prdData.uri).
@@ -295,11 +295,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                                         var i18nProductGroup = gc.contexts.textValue(productGroup[0], productGroups, reqCtxLang);
                                         var i18nName = gc.ctxobj.val(name, reqCtxLang, undefined, activeContext);
                                         var brandName = gc.ctxobj.closest(brand, reqCtxLang, activeContext);
-                                        
+
                                         if(!_.isEmpty(i18nProductGroup) && !_.isEmpty(i18nName) && !_.isEmpty(brandName)) {
                                             // When we have all the required information, we can create the new URL for this request-context.
                                             var reqCtxURI = productUtil.newURI(reqCtxLang, i18nProductGroup, brandName, i18nName);
-                                            
+
                                             if(globalURI !== reqCtxURI) {
                                                 gc.ctxobj.set(friendlyURL, undefined, reqCtxURI, reqCtx, globalURI, reqCtxURI);
                                                 isUpdateObservable = true;
@@ -310,13 +310,13 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                             }
                         }
                     }
-                    
+
                     if(isUpdateObservable === true) {
                         self.editVM.isSystemURLChange = true;
                         self.editVM.friendlyURL(friendlyURL);
                     }
                 }, self);
-                
+
                 self.editVM.isSystemURLChange = false;
                 self.editVM.friendlyURL.subscribe(function(newVal) {
                     // Reset again so that the following change is not longer ignored.
@@ -524,7 +524,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         },
         createProduct : function(view, parent, loader) {
             var self = this;
-            
+
             gc.app.initProgressBar();
             gc.app.updateProgressBar(25);
 
@@ -563,7 +563,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
 
             productAPI.createProduct(newProduct).then(function(data) {
                 gc.app.updateProgressBar(50);
-                
+
                 // Reset the loading image.
                 loader.reset();
 
@@ -581,11 +581,11 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.bundleGroup(gc.attributes.find(data.attributes, 'bundle_group').optionIds);
 
                 gc.app.updateProgressBar(100);
-                
+
                 gc.app.resetProgressBar();
-                
+
                 gc.app.channel.publish('product.created', data);
-                
+
                 gc.app.flashMessage('success', gc.app.i18n('app:modules.product.fmCreateSuccessTitle'), gc.app.i18n('app:modules.product.fmCreateSuccessBody', {productName: 'Some name - 12345', productURI: 'Some  URI ---'}));
             });
         },
@@ -638,13 +638,13 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 updateModel.xOptions('status_article', self.editVM.articleStatus());
             }
 
-            self.addDynamicFormAttributes(updateModel);            
-            
+            self.addDynamicFormAttributes(updateModel);
+
              productAPI.updateProduct(self.editVM.id(), updateModel).then(function(data) {
-                 
+
                  // Update progress bar.
                  gc.app.updateProgressBar(50);
-                 
+
                  if(gc.app.saveMakeCopy() === true) {
                      context.saved(function() {
                          router.navigate('//products');
@@ -652,15 +652,15 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                  } else {
                      productAPI.getProduct(self.editVM.id()).then(function(data) {
                          gc.app.updateProgressBar(75);
-                         
+
                          vm.data(data);
-                        
+
                          self.editVM.descriptionStatus(gc.attributes.find(data.attributes, 'status_description').xOptionIds);
                          self.editVM.imageStatus(gc.attributes.find(data.attributes, 'status_image').attributeOptions);
-                         
+
                          self.editVM.isSystemURLChange = true;
                          self.editVM.friendlyURL(data.uri);
-                         
+
                          context.saved(function() {
                              // Optionally do something after progress bar is complete.
                          });
@@ -673,22 +673,24 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
             var vm = self.productVM();
             var formAttributes = ko.gc.unwrap(vm.formAttributeValues());
 
+console.log('------------------>>> formAttributes ', formAttributes);
+
             for (var i = 0; i < formAttributes.length; i++) {
                 var formAttributeArray = formAttributes[i];
-                
+
                 for (var j = 0; j < formAttributeArray.length; j++) {
                     var attrVal = ko.gc.unwrap(formAttributeArray[j]);
-                
+
                     if(attrVal.isEditable /* && attrVal.hasChanged */) {
                         var isOptOut = gc.ctxobj.plain(attrVal.optOut);
-                        
+
                         if(!_.isUndefined(isOptOut)) {
                             updateModel.optOut(attrVal.code, attrVal.optOut);
                         }
-                            
+
                         if(attrVal.isOption) {
                             var foundPrdAttr = _.findWhere(vm.data().attributes, { attributeId : attrVal.attributeId });
-                        
+
                             // Allow resetting of value if product already has attribute and new value is empty.
                             if((!_.isUndefined(attrVal.value) && !_.isEmpty(attrVal.value)) || !_.isUndefined(foundPrdAttr)) {
                                 updateModel.options(attrVal.code, attrVal.value);
@@ -703,9 +705,9 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         attached : function(view, parent) {
             var self = this;
             var vm = self.productVM();
-            
+
             $('#productBaseForm').addClass('save-button-listen-area');
-            
+
             gc.app.onSaveEvent(function(context) {
                 self.saveData(context);
             }, vm.contextModel());

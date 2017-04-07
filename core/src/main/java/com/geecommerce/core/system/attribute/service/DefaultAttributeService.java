@@ -6,18 +6,27 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.index.query.FilterBuilder;
 
 import com.geecommerce.core.App;
 import com.geecommerce.core.Char;
+import com.geecommerce.core.Str;
 import com.geecommerce.core.db.Connections;
+import com.geecommerce.core.elasticsearch.api.search.SearchResult;
+import com.geecommerce.core.elasticsearch.helper.ElasticsearchHelper;
+import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
 import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.system.attribute.model.AttributeTargetObject;
+import com.geecommerce.core.system.attribute.pojo.BatchData;
 import com.geecommerce.core.system.attribute.repository.AttributeOptions;
 import com.geecommerce.core.system.attribute.repository.AttributeTargetObjects;
 import com.geecommerce.core.system.attribute.repository.Attributes;
+import com.geecommerce.core.system.query.helper.QueryHelper;
+import com.geecommerce.core.system.query.model.QueryNode;
+import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.ContextObjects;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
@@ -34,14 +43,21 @@ public class DefaultAttributeService implements AttributeService {
     protected final AttributeOptions attributeOptions;
     protected final AttributeTargetObjects attributeTargetObjects;
     protected final Connections connections;
+    protected final QueryHelper queryHelper;
+    protected final ElasticsearchService elasticsearchService;
+    protected final ElasticsearchHelper elasticsearchHelper;
 
     @Inject
     public DefaultAttributeService(Attributes attributes, AttributeOptions attributeOptions,
-        AttributeTargetObjects attributeTargetObjects, Connections connections) {
+        AttributeTargetObjects attributeTargetObjects, Connections connections,
+        QueryHelper queryHelper, ElasticsearchService elasticsearchService, ElasticsearchHelper elasticsearchHelper) {
         this.attributes = attributes;
         this.attributeOptions = attributeOptions;
         this.attributeTargetObjects = attributeTargetObjects;
         this.connections = connections;
+        this.queryHelper = queryHelper;
+        this.elasticsearchService = elasticsearchService;
+        this.elasticsearchHelper = elasticsearchHelper;
     }
 
     @Override
@@ -300,5 +316,44 @@ public class DefaultAttributeService implements AttributeService {
         }
 
         return suggestions;
+    }
+
+    @Override
+    public void processBatchUpdate(BatchData batchData) {
+        if (Str.isEmpty(batchData.forType()))
+            throw new NullPointerException("forType must be set when batch processing attributes");
+
+        AttributeTargetObject targetObj = getAttributeTargetObjectByCode(batchData.forType());
+
+        if (targetObj == null)
+            throw new IllegalArgumentException("Invalid forType '" + batchData.forType() + "'. Check your attribute target objects mapping (MongoDB collection: attribute_target_objects).");
+
+        Map<String, ContextObject<?>> attributes = batchData.attributes();
+        Map<String, List<Id>> options = batchData.options();
+        Map<String, ContextObject<List<Id>>> xOptions = batchData.xOptions();
+
+        String searchKeyword = batchData.searchKeyword();
+        QueryNode query = batchData.query();
+        List<Id> ids = batchData.ids();
+        List<Id> idsToIgnore = batchData.idsToIgnore();
+
+        // No data to process.
+        if ((attributes == null || attributes.isEmpty()) && (options == null || options.isEmpty()) && (xOptions == null || xOptions.isEmpty()))
+            return;
+
+        // No objects to process.
+        if (Str.isEmpty(searchKeyword) && query == null && (ids == null || ids.isEmpty()))
+            return;
+
+        Class<? extends AttributeSupport> modelClass = targetObj.toModelType();
+
+        if (query != null) {
+            FilterBuilder filterBuilder = queryHelper.buildQuery(query);
+            SearchResult searchResult = elasticsearchService.findItems(modelClass, filterBuilder);
+            
+            System.out.println("---- GOT QUERY IDS::::::::::: " + searchResult.getDocumentIds());
+        }
+
+        System.out.println("------------------------------------>>>>>>>>> " + modelClass + " - " + ids);
     }
 }

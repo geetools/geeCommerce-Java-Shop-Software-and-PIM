@@ -27,7 +27,18 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-customer'], function (app, ko, 
         	this.pager = new gc.Pager(customerAPI.pagingOptions({columns : pagerColumns}));
         	
         	// We return the promise so that durandaljs knows to wait for the asynchronous REST-call.
-        	return this.pager.load();
+//        	return this.pager.load();
+        	
+        	
+            var promise = this.pager.load();
+            
+            promise.then(function(data) {
+            console.log('*** CUSTOMERS: ', data.data.customers);
+            });
+            
+            // We return the promise so that durandaljs knows to wait for the asynchronous REST-call.
+            return promise;
+        	
 	    },
 	    compositionComplete : function() {
 	    	var self = this;

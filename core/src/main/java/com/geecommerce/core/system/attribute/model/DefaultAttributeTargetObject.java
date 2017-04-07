@@ -16,18 +16,19 @@
 
 package com.geecommerce.core.system.attribute.model;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.geecommerce.core.App;
 import com.geecommerce.core.service.AbstractModel;
+import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
+import com.geemodule.api.Module;
+import com.google.inject.Inject;
 
 @Model("attribute_target_objects")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -35,17 +36,23 @@ import com.geecommerce.core.type.Id;
 public class DefaultAttributeTargetObject extends AbstractModel implements AttributeTargetObject {
     private static final long serialVersionUID = -8274544676101969159L;
 
+    @Inject
+    protected App app;
+
     @Column(Col.ID)
     protected Id id = null;
 
     @Column(Col.CODE)
     protected String code = null;
 
+    @Column(Col.MODULE)
+    protected String module = null;
+
     @Column(Col.NAME)
     protected ContextObject<String> name = null;
 
-    @Column(Col.TYPES)
-    protected Set<String> types = null;
+    @Column(Col.TYPE)
+    protected String type = null;
 
     @Override
     public Id getId() {
@@ -70,6 +77,17 @@ public class DefaultAttributeTargetObject extends AbstractModel implements Attri
     }
 
     @Override
+    public String getModule() {
+        return module;
+    }
+
+    @Override
+    public AttributeTargetObject setModule(String module) {
+        this.module = module;
+        return this;
+    }
+
+    @Override
     public ContextObject<String> getName() {
         return name;
     }
@@ -81,36 +99,55 @@ public class DefaultAttributeTargetObject extends AbstractModel implements Attri
     }
 
     @Override
-    public Set<String> getTypes() {
-        return types;
-    }
-
-    @Override
-    public AttributeTargetObject setTypes(Set<String> types) {
-        this.types = types;
-        return this;
+    public String getType() {
+        return type;
     }
 
     @Override
     public AttributeTargetObject setType(String type) {
-        types = new LinkedHashSet<>();
-        types.add(type);
+        this.type = type;
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public AttributeTargetObject addType(String type) {
-        if (types == null) {
-            types = new LinkedHashSet<>();
+    public Class<? extends AttributeSupport> toModelType() {
+        Class<? extends AttributeSupport> clazz = null;
+
+        if (module != null) {
+            Module m = app.moduleLoader().getLoadedModuleByCode(module);
+
+            if (m != null) {
+                try {
+                    clazz = (Class<? extends AttributeSupport>) m.loadClass(type);
+                } catch (ClassNotFoundException e) {
+                }
+            }
+
+            if (clazz == null && m == null) {
+                m = app.moduleLoader().getLoadedModule(module);
+
+                if (m != null) {
+                    try {
+                        clazz = (Class<? extends AttributeSupport>) m.loadClass(type);
+                    } catch (ClassNotFoundException e) {
+                    }
+                }
+            }
         }
 
-        types.add(type);
+        if (clazz == null) {
+            try {
+                clazz = (Class<? extends AttributeSupport>) app.moduleLoader().lookup(type);
+            } catch (ClassNotFoundException e) {
+            }
+        }
 
-        return this;
+        return clazz;
     }
 
     @Override
     public String toString() {
-        return "DefaultAttributeTargetObject [id=" + id + ", name=" + name + ", types=" + types + "]";
+        return "DefaultAttributeTargetObject [id=" + id + ", name=" + name + ", type=" + type + "]";
     }
 }

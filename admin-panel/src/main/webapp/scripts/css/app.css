@@ -44,6 +44,7 @@ body {
   -moz-border-radius: 0px;
   -webkit-border-radius: 3px 3px 0px 0px;
   border-radius: 3px 3px 0px 0px;
+  display: none !important;
 }
 
 .attrCombobox .attrComboFullwidth .ms-sel-ctn {
@@ -4215,3 +4216,19 @@ div.prd-no-image>i.fa {
         width: 70%;
     }
 }
+
+
+#view-product-details h4 {
+	margin-left: 10px;
+}
+
+#view-product-details table {
+	margin-top: 20px;
+}
+
+#view-product-details .form-group>div {
+	padding-top: 7px;
+}
+
+
+

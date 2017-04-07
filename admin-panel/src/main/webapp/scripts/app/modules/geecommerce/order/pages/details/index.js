@@ -9,7 +9,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 			var orderId = ko.unwrap(self.orderId);
 			
 			if(!_.isUndefined(orderId)) {
-				title += ': ' + orderId;
+				title += ': #' + orderId;
 			}
 			
 			return title;

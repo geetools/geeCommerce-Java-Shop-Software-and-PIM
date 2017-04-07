@@ -107,9 +107,9 @@ define([
         });
 
         self.isProductAttribute = ko.computed(function() {
-            console.log('_____________ IS PRODUCT!!!?? ', (self.targetObject.code == 'product'));
-
-            return self.targetObject.code == 'product';
+            console.log('_____________ IS PRODUCT!!!?? ', (self.targetObject() && self.targetObject().code == 'product'));
+            console.log(self.targetObject())
+            return self.targetObject() && self.targetObject().code == 'product';
         });
 
         self.isOptionsAttribute = ko.computed(function() {

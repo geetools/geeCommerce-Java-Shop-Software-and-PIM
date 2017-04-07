@@ -222,9 +222,6 @@ define([ 'durandal/app', 'postal', 'knockout', 'plugins/router', 'gc/gc', 'gc-na
             var self = this;
             var newNode = node.addNode();
 
-            console.log("ADDDED")
-console.log(newNode);
-            console.log(node);
             self.activateView(newNode);
 
             // Expand to show newly created child

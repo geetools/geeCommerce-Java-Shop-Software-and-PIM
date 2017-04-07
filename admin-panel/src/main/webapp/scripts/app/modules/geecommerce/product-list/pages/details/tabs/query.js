@@ -21,6 +21,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product-list' ], function(app,
         constructor : ProductListQueryController,
         operatorChoice: ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]),
         nodeTypeChoice: ko.observableArray([{value:"BOOLEAN", label:"Condition Combination"}, {value:"ATTRIBUTE", label:"Attribute"}]),
+        comparatorChoice: ko.observableArray([{value:"is", label:"is"}, {value:"gt", label:">"}, {value:"gte", label:"≥"}, {value:"lt", label:"<"}, {value:"lte", label:"≤"}]),
 
         saveData : function(view, parent, toolbar) {
             var self = this;

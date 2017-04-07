@@ -539,6 +539,8 @@
             "actionTabRDiscount" : "Discount",
             "actionTabRFrom" : "Aus",
             "actionTabRTo" : "An",
+			"productSortOrderAsc" : "Low price first",
+			"productSortOrderDsc" : "High price first",
             "conditionsTabConditions" : "Bedingungen",
             "conditionsTabPriceTypes" : "Preistypen",
             "conditionsTabCustomerGroups" : "Kundengruppen",

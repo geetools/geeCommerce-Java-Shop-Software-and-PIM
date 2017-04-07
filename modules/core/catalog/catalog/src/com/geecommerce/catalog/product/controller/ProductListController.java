@@ -114,7 +114,7 @@ public class ProductListController {
             builders.add(productListHelper.buildQuery(productList.getQueryNode()));
 
             Map<String, Attribute> filterAttributes = attributeService
-                .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+                .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER, TargetObjectCode.PRODUCT);
 
             productListResult = elasticsearchService.findItems(Product.class, builders, filterAttributes, null,
                 requestFilters, searchParams);
@@ -194,7 +194,7 @@ public class ProductListController {
 
     protected void collectParamFilters(ProductListFilterRule navFilterRule, Map<String, Set<Object>> requestFilters) {
         Map<String, Attribute> filterAttributes = attributeService
-            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER);
+            .getAttributesForSearchFilter(TargetObjectCode.PRODUCT_LIST, TargetObjectCode.PRODUCT_FILTER, TargetObjectCode.PRODUCT);
 
         Map<String, String> attributesAliasIndex = elasticsearchHelper.buildAttributeAliasIndex(filterAttributes);
 

@@ -430,6 +430,8 @@
             "actionTabRDiscount" : "Discount",
             "actionTabRFrom" : "From",
             "actionTabRTo" : "To",
+			"productSortOrderAsc" : "Low price first",
+			"productSortOrderDsc" : "High price first",
             "conditionsTabConditions" : "Conditions",
             "conditionsTabPriceTypes" : "Price Types",
             "conditionsTabCustomerGroups" : "Customer Groups",

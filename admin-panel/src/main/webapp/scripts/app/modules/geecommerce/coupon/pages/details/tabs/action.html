@@ -15,6 +15,14 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabPriceType">Product Sort Order</label>
+        <div class="col-sm-3">
+            <select class="selectpicker show-tick" data-bind="select: couponVM.couponAction.productSortOrder, data: productSortOrderOptions">
+            </select>
+        </div>
+    </div>
+
     <!-- ko if: couponVM.couponAction.type() !== 'RANGE_PERCENT_CART' && couponVM.couponAction.type() !== 'RANGE_FIXED_CART' -->
 
     <div class="form-group">
@@ -88,7 +96,7 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: couponVM.couponAction.type() !== 'RANGE_PERCENT_CART' && couponVM.couponAction.type() !== 'RANGE_FIXED_CART' -->
+    <!-- ko if: couponVM.couponAction.type() !== 'RANGE_PERCENT_CART' && couponVM.couponAction.type() !== 'RANGE_FIXED_CART' && couponVM.couponAction.type() !== 'PERCENT_CART' && couponVM.couponAction.type() !== 'FIXED_CART'-->
     <div class="form-group">
         <label for="inputCouponActionMaximumQtyApplyTo" class="col-sm-3 control-label" data-i18n="app:modules.coupon.actionTabMaximumQtyApplyTo">Maximum Qty Apply To</label>
         <div class="col-sm-3">

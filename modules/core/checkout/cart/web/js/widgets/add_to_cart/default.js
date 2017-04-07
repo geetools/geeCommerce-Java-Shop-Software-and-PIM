@@ -1,110 +1,110 @@
 define(['jquery', 'bootstrap', 'gc/gc'], function ($, Bootstrap, gc) {
     return {
         init: function (widgetParams) {
+            if(widgetParams.bundle) {
+                var formSelector = "[name=addToCartForm_" + widgetParams.productId + "]";
+                $(formSelector).submit(function (e) {
+                    var self = this;
+                    e.preventDefault();
 
-            var formSelector = "[name=addToCartForm_" + widgetParams.productId + "]";
-            $(formSelector).submit(function(e) {
-                var self = this;
-                e.preventDefault();
+                    //gather parameters
 
-                //gather parameters
+                    if ($(".bundle-config").length) {
+                        var products = [];
+                        var qtys = [];
 
-                if($(".bundle-config").length){
-                    var products = [];
-                    var qtys = [];
+                        _.each($(".bundle-group"), function (bundleGroup) {
 
-                    _.each($(".bundle-group"), function (bundleGroup) {
+                            if ($(bundleGroup).attr("group-type") == "LIST") {
 
-                        if($(bundleGroup).attr("group-type") == "LIST"){
+                                $(bundleGroup).find('input[name=selectedVariant], input[name=bundleProduct]').each(function () {
+                                    var $productItem = $(this);
 
-                            $(bundleGroup).find('input[name=selectedVariant], input[name=bundleProduct]').each(function () {
-                                var $productItem = $(this);
-
-                                if($productItem.val()){
-                                    products.push($productItem.val());
-                                    qtys.push(1);//qtys.push($productItem.attr("qty"));
-                                }
-                            })
-                        }
-
-
-                        if($(bundleGroup).attr("group-type") == "RADIOBUTTON"){
-                            var $productItem = $(bundleGroup).find("input:checked");
-
-                            if($productItem.val()){
-                                products.push($productItem.val());
-                                qtys.push($productItem.attr("qty"));
+                                    if ($productItem.val()) {
+                                        products.push($productItem.val());
+                                        qtys.push(1);//qtys.push($productItem.attr("qty"));
+                                    }
+                                })
                             }
-                        }
 
-                        if($(bundleGroup).attr("group-type") == "CHECKBOX"){
-                            var $productItems = $(bundleGroup).find("input:checked");
 
-                            _.each($productItems, function (productItem) {
-                                var $productItem = $(productItem);
-                                if($productItem.val()){
+                            if ($(bundleGroup).attr("group-type") == "RADIOBUTTON") {
+                                var $productItem = $(bundleGroup).find("input:checked");
+
+                                if ($productItem.val()) {
                                     products.push($productItem.val());
                                     qtys.push($productItem.attr("qty"));
                                 }
-                            })
-                        }
+                            }
 
-                        if($(bundleGroup).attr("group-type") == "SELECT"){
-                            $(bundleGroup).find('option:selected').each(function(){
-                                var $productItem = $(this);
-                                if($productItem.val()){
-                                    products.push($productItem.val());
-                                    qtys.push($productItem.attr("qty"));
-                                }
-                            });
+                            if ($(bundleGroup).attr("group-type") == "CHECKBOX") {
+                                var $productItems = $(bundleGroup).find("input:checked");
 
-                        }
+                                _.each($productItems, function (productItem) {
+                                    var $productItem = $(productItem);
+                                    if ($productItem.val()) {
+                                        products.push($productItem.val());
+                                        qtys.push($productItem.attr("qty"));
+                                    }
+                                })
+                            }
 
-                        if($(bundleGroup).attr("group-type") == "MULTISELECT"){
+                            if ($(bundleGroup).attr("group-type") == "SELECT") {
+                                $(bundleGroup).find('option:selected').each(function () {
+                                    var $productItem = $(this);
+                                    if ($productItem.val()) {
+                                        products.push($productItem.val());
+                                        qtys.push($productItem.attr("qty"));
+                                    }
+                                });
 
-                            $(bundleGroup).find('option:selected').each(function(){
-                                var $productItem = $(this);
-                                if($productItem.val()){
-                                    products.push($productItem.val());
-                                    qtys.push($productItem.attr("qty"));
-                                }
-                            });
+                            }
 
-                        }
+                            if ($(bundleGroup).attr("group-type") == "MULTISELECT") {
 
-                    })
+                                $(bundleGroup).find('option:selected').each(function () {
+                                    var $productItem = $(this);
+                                    if ($productItem.val()) {
+                                        products.push($productItem.val());
+                                        qtys.push($productItem.attr("qty"));
+                                    }
+                                });
 
-                    var productsValue = products.join();
-                    var quantitiesValue = qtys.join();
+                            }
 
-                    $('input[name=productIds]').remove();
-                    $('input[name=quantities]').remove();
+                        })
 
+                        var productsValue = products.join();
+                        var quantitiesValue = qtys.join();
 
-                    $('<input>').attr({
-                        type: 'hidden',
-                        id: 'bundleProductIds',
-                        name: 'productIds',
-                        value: productsValue
-                    }).appendTo(formSelector);
-
-                    $('<input>').attr({
-                        type: 'hidden',
-                        id: 'bundleQuantities',
-                        name: 'quantities',
-                        value: quantitiesValue
-                    }).appendTo(formSelector);
+                        $('input[name=productIds]').remove();
+                        $('input[name=quantities]').remove();
 
 
+                        $('<input>').attr({
+                            type: 'hidden',
+                            id: 'bundleProductIds',
+                            name: 'productIds',
+                            value: productsValue
+                        }).appendTo(formSelector);
 
-                    $('input[name=productId]').val( widgetParams.productId);
+                        $('<input>').attr({
+                            type: 'hidden',
+                            id: 'bundleQuantities',
+                            name: 'quantities',
+                            value: quantitiesValue
+                        }).appendTo(formSelector);
 
-                }
 
-                self.submit();
+                        $('input[name=productId]').val(widgetParams.productId);
 
-                return true;
-            });
+                    }
+
+                    self.submit();
+
+                    return true;
+                });
+            }
         }
     }
 

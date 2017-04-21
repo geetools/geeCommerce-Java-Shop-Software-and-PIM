@@ -9,6 +9,7 @@ import com.geecommerce.core.service.api.Service;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.system.attribute.model.AttributeTargetObject;
+import com.geecommerce.core.system.attribute.pojo.BatchData;
 import com.geecommerce.core.type.Id;
 
 public interface AttributeService extends Service {
@@ -74,4 +75,6 @@ public interface AttributeService extends Service {
     public List<String> getOptionTags(Id id);
 
     public List<String> getSuggestions(Id attributeId, String collectionName, String lang, String query);
+
+    void processBatchUpdate(BatchData batchData);
 }

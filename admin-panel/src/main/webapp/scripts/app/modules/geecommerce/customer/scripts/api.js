@@ -135,7 +135,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
         		// Returns an array that the pager can add to the
 				// ko.observableArray.
         		getArray: function(data) {
-        			return data.classes;
+        			return data.customers;
         		}
         	}
         }

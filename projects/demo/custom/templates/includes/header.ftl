@@ -63,19 +63,9 @@
                 <div class="row">
                     <div class="col-sm-12 hidden-phone hidden-phone-h hidden-xs-down">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item <@nav_is_active item="/sofas/">active</@nav_is_active>"><a href="/sofas/">Sofas</a>
+                            <li class="nav-item <@nav_is_active item="/smartphones/">active</@nav_is_active>"><a href="/smartphones/">Smartphones</a>
                             </li>
-                            <li class="nav-item <@nav_is_active item="/betten/"></@nav_is_active>"><a href="/betten/">Betten</a>
-                            </li>
-                            <li class="nav-item <@nav_is_active item="/regale/">active</@nav_is_active>"><a href="/regale/">Regale</a>
-                            </li>
-                            <li class="nav-item <@nav_is_active item="/schraenke/">active</@nav_is_active>"><a href="/schraenke/">Schränke</a>
-                            </li>
-                            <li class="nav-item <@nav_is_active item="/tische/">active</@nav_is_active>"><a href="/tische/">Tische</a>
-                            </li>
-                            <li class="nav-item <@nav_is_active item="/stuehle/">active</@nav_is_active>"><a href="/stuehle/">Stühle</a>
-                            </li>
-                            <li class="nav-item <@nav_is_active item="/teppiche/">active</@nav_is_active>"><a href="/teppiche/">Teppiche</a>
+                            <li class="nav-item <@nav_is_active item="/smartphones/">active</@nav_is_active>"><a href="/smartphones/">Handys</a>
                             </li>
                         </ul>
                     </div>

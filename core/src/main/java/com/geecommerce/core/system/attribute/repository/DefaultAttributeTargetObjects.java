@@ -1,9 +1,7 @@
 package com.geecommerce.core.system.attribute.repository;
 
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import com.geecommerce.core.service.AbstractRepository;
 import com.geecommerce.core.service.AttributeSupport;
@@ -36,13 +34,7 @@ public class DefaultAttributeTargetObjects extends AbstractRepository implements
     @Override
     public AttributeTargetObject forType(Class<? extends AttributeSupport> modelInterfaceFQN) {
         Map<String, Object> filter = new LinkedHashMap<>();
-
-        Set<String> types = new HashSet<>();
-        types.add(modelInterfaceFQN.getName());
-
-        Map<String, Object> attrInFilter = new LinkedHashMap<>();
-        attrInFilter.put("$in", types);
-        filter.put(AttributeTargetObject.Col.TYPES, attrInFilter);
+        filter.put(AttributeTargetObject.Col.TYPE, modelInterfaceFQN.getName());
 
         return findOne(AttributeTargetObject.class, filter);
     }

@@ -16,8 +16,7 @@
 
 package com.geecommerce.core.system.attribute.model;
 
-import java.util.Set;
-
+import com.geecommerce.core.service.AttributeSupport;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
@@ -32,22 +31,25 @@ public interface AttributeTargetObject extends Model {
 
     AttributeTargetObject setCode(String code);
 
+    String getModule();
+
+    AttributeTargetObject setModule(String module);
+
     ContextObject<String> getName();
 
     AttributeTargetObject setName(ContextObject<String> name);
 
-    Set<String> getTypes();
-
-    AttributeTargetObject setTypes(Set<String> types);
+    String getType();
 
     AttributeTargetObject setType(String type);
 
-    AttributeTargetObject addType(String type);
+    Class<? extends AttributeSupport> toModelType();
 
     static final class Col {
         public static final String ID = "_id";
         public static final String CODE = "code";
+        public static final String MODULE = "module";
         public static final String NAME = "name";
-        public static final String TYPES = "types";
+        public static final String TYPE = "type";
     }
 }

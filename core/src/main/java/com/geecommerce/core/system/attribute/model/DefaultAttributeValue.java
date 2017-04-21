@@ -671,8 +671,13 @@ public class DefaultAttributeValue extends AbstractModel implements AttributeVal
     @Override
     public AttributeValue setOptionIds(List<Id> optionIds) {
         if ((this.value != null && this.value.size() > 0) || (this.xOptionIds != null && this.xOptionIds.size() > 0)) {
-            throw new IllegalStateException(
-                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+//            throw new IllegalStateException(
+//                "You may only specify optionIds OR xOptionIds OR a value per instance of AttributeValue and not in combination");
+            // TODO!!!
+
+            // Temporary fix for combobox.
+            this.value = null;
+            this.xOptionIds = null;
         }
 
         this.optionIds = optionIds;

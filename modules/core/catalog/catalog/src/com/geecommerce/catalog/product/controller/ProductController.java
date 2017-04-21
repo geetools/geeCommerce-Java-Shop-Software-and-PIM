@@ -93,11 +93,21 @@ public class ProductController extends BaseController {
     public Result view(@PathParam("id") Id id, @Context HttpServletRequest request,
         @Context HttpServletResponse response) {
 
+        //If product should use custom template -> redirect
+//        if(true)
+//            redirect("/content/")
+
+
+
         List<LinkedProductView> linkedProductViews = new ArrayList<>();
 
         long start = System.currentTimeMillis();
 
         Product product = productService.getProduct(id);
+
+        if(product.getTemplateId()!=null){
+            return redirect("/content/product/" + product.getId());
+        }
 
         if (!isVisible(product, request, response))
             return null;

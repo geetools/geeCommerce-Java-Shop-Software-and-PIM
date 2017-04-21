@@ -587,6 +587,7 @@ define(function(require) {
     widget.registerKind('noImage');
     widget.registerKind('localeSwitch');
     widget.registerKind('prdListSelect');
+    widget.registerKind('templateSelect');
 
     kv.makeBindingHandlerValidatable("i18nValue");
 

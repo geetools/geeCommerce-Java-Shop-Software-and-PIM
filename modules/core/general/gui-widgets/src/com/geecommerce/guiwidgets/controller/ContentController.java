@@ -94,6 +94,23 @@ public class ContentController extends BaseController {
         return result;
     }
 
+    @Request("product/{id}")
+    public Result getProductPage(@PathParam("id") Id id, @Context HttpServletRequest request,
+                          @Context HttpServletResponse response) {
+
+        Product product = productService.getProduct(id);
+        Content content = contents.findById(Content.class, product.getTemplateId());
+
+        app.setViewPath("page/content/view_" + content.getId().str() + "_" + product.getId());
+        app.setActionURI(request.getRequestURI());
+
+        Result result = freemarkerTemplateStream(content.getTemplate(), "3h");
+        if (content.getPreviewProductId() != null) {
+            result.bind("product", product);
+        }
+        return result;
+    }
+
     @Request("preview-node/{id}")
     public Result getPreviewNode(@Param("node") String node, @PathParam("id") Id contentId) throws IOException {
         Product product = null;

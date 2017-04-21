@@ -133,6 +133,9 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Column(Col.DELETED_NOTE)
     protected String deletedNote = null;
 
+    @Column(Col.TEMPLATE)
+    protected Id templateId = null;
+
     /* Data support map */
 
     protected Map<String, Object> data = null;
@@ -1947,6 +1950,17 @@ public class DefaultProduct extends AbstractAttributeSupport
     }
 
     @Override
+    public Id getTemplateId() {
+        return templateId;
+    }
+
+    @Override
+    public Product setTemplateId(Id templateId) {
+        this.templateId = templateId;
+        return this;
+    }
+
+    @Override
     public void fromMap(Map<String, Object> map) {
         if (map == null)
             return;
@@ -1956,6 +1970,8 @@ public class DefaultProduct extends AbstractAttributeSupport
         this.id = id_(map.get(Col.ID));
         this.id2 = str_(map.get(Col.ID2));
         this.ean = long_(map.get(Col.EAN));
+
+        this.templateId = id_(map.get(Col.TEMPLATE));
 
         if (map.get(Col.TYPE) != null)
             this.type = enum_(ProductType.class, map.get(Col.TYPE));
@@ -2021,6 +2037,9 @@ public class DefaultProduct extends AbstractAttributeSupport
         Map<String, Object> map = Maps.newLinkedHashMap(super.toMap());
 
         map.put(Col.ID, getId());
+
+        if (getTemplateId() != null)
+            map.put(Col.TEMPLATE, getTemplateId());
 
         if (getId2() != null)
             map.put(Col.ID2, getId2());

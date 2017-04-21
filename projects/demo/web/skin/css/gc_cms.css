@@ -99,6 +99,7 @@
 
 .gee-grid {
     min-height: 50px;
+    max-width: 100%;
 }
 
 .gee-grid:empty:before {

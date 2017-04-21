@@ -108,6 +108,8 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
         self.showFriendlyURLWarning = ko.observable(false);
         self.showFriendlyURLSuccess = ko.observable(false);
 
+        self.template = ko.observable();
+
         self.previewURL = ko.computed(function() {
             // var reqCtx = gc.app.reqCtxForActiveStore();
             //
@@ -185,6 +187,8 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 self.editVM.isProgramme(vm.isProgramme());
                 self.editVM.isBundle(vm.isBundle());
                 self.editVM.parentId(prdData.parentId);
+
+                self.editVM.template(prdData.templateId);
 
                 if (vm.isVariant()) {
                     productAPI.getProduct(prdData.parentId).then(function(data) {
@@ -616,6 +620,8 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
             updateModel.field('includeInFeeds', self.editVM.includeInFeeds(), true);
             updateModel.variable('friendlyURL', self.editVM.friendlyURL(), true);
             /* updateModel.field('showCartButton', self.editVM.showCartButton(), true); */
+
+            updateModel.field('templateId', self.editVM.template());
 
             if (vm.isProgramme()) {
                 updateModel.field('special', self.editVM.special(), true);

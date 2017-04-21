@@ -50,7 +50,7 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 
             gc.rest.get({
                 url : '/api/v1/contents/',
-                fields: [ 'id', 'key', 'label'],
+                fields: [ 'id', 'key', 'name'],
                 success : function(data, status, xhr) {
                     if (self._onload) {
                         self._onload(data, status, xhr);

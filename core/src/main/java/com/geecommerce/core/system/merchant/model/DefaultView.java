@@ -7,9 +7,11 @@ import java.util.Map;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.service.AbstractModel;
+import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.utils.Filenames;
 
+@Model
 public class DefaultView extends AbstractModel implements View {
     private static final long serialVersionUID = -3328975975809087586L;
     private Id id = null;
@@ -34,6 +36,12 @@ public class DefaultView extends AbstractModel implements View {
     @Override
     public final Id getId() {
         return id;
+    }
+
+    @Override
+    public View setId(Id id) {
+        this.id = id;
+        return this;
     }
 
     @Override

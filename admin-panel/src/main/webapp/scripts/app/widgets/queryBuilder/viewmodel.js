@@ -172,6 +172,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 		this.forType = "product";
 		this.expertQueryMode = false;
         this.showFilterButton = true;
+        this.autoSave = false;
         this.operatorChoice = ko.observableArray([{value:"AND", label:"All"}, {value:"OR", label:"Any"}]);
         this.nodeTypeChoice = ko.observableArray([{value:"BOOLEAN", label:"Condition Combination"}, {value:"ATTRIBUTE", label:"Attribute"}]);
         this.comparatorChoice = ko.observableArray([{value:"is", label:"="}, {value:"gt", label:">"}, {value:"gte", label:"≥"}, {value:"lt", label:"<"}, {value:"lte", label:"≤"}]);
@@ -201,6 +202,10 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             this.showFilterButton = false;
         }
 
+        if(settings.autoSave){
+            this.autoSave = settings.autoSave;
+        }
+
         this.buttonIconClass = undefined;
         if(settings.buttonIconClass) {
             this.buttonIconClass = settings.buttonIconClass;        
@@ -222,11 +227,21 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 		if(settings.displayMode)
 			this.displayMode = settings.displayMode;
 
-
 		if(settings.value()){
             this.queryNode(setQueryNode(settings.value(), null, this.attributeValues));
         } else {
             this.queryNode(setQueryNode(null, null, this.attributeValues));
+        }
+
+        if(settings.autoSave){
+            setInterval(function () {
+                var savedNode = self.queryNode().convertNode();
+                var query = JSON.stringify(savedNode)
+
+                if(self.settings.value() != query) {
+                    self.settings.value(JSON.stringify(savedNode));
+                }
+            }, 1000)
         }
 
         function setQueryNode( node, parent){

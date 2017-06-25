@@ -1,0 +1,26 @@
+<div data-bind="toolbar: {
+			targetId: 'roleBaseForm',
+			i18n: 'app:modules.role.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+
+<div id="roleBaseForm">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Code</label>
+        <div class="col-sm-9">
+            <input data-bind="value: roleVM.code" class="form-control" id="inputCustUsername" placeholder="Vorname eingeben" type="text" required>
+        </div>
+    </div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label">Name</label>
+		<div class="col-sm-9">
+            <div class="input-group">
+                <span class="input-group-addon" data-bind="text: app.currentLang()"></span>
+                <input data-bind="i18nValue: roleVM.name" class="form-control" id="inputSlideShowLabel" placeholder="Vorname eingeben" type="text" required>
+            </div>
+		</div>
+	</div>
+
+	
+</div>

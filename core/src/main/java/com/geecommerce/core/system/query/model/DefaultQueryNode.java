@@ -104,6 +104,13 @@ public class DefaultQueryNode extends AbstractMultiContextModel implements Query
     }
 
     @Override
+    public boolean isEmpty() {
+        if(type.equals(QueryNodeType.BOOLEAN) && (nodes == null || nodes.size() == 0))
+            return true;
+        return false;
+    }
+
+    @Override
     public Id getId() {
         return null;
     }

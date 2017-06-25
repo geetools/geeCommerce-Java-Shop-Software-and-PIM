@@ -1,13 +1,32 @@
-<div class="col-md-10" id="view-product-details">
 
-	<form class="form-horizontal" role="form">
+
+<div class="col-md-10" id="view-user-details">
+	<div data-bind="toolbar: {
+			targetId: 'userAllForm',
+			i18n: 'app:modules.user.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form class="form-horizontal" role="form" id="userAllForm">
 
 		<ul class="nav nav-tabs">
-			<li class="active" id="tab-cust-details-general"><a data-target="#base" data-toggle="tab">Basisdaten</a></li>
+			<li class="active" id="tab-user-details-general"><a data-target="#base" data-toggle="tab">Basisdaten</a></li>
+			<!-- ko if: $root.userId != 'new' -->
+			<li id="tab-user-details-roles"><a data-target="#roles" data-toggle="tab">Roles</a></li>
+			<!-- /ko -->
+
+			<li id="tab-user-products"><a data-target="#products" data-toggle="tab">Products</a></li>
+			<!-- ko if: $root.userVM.isProductManager --><!-- /ko -->
+
 		</ul>
 
 		<div class="tab-content">
 			<div class="tab-pane active" id="base" data-bind="compose:{ model: 'core/user/pages/details/tabs/base', activationData: $root.userId}"></div>
+			<!-- ko if: $root.userId != 'new' -->
+			<div class="tab-pane" id="roles" data-bind="compose:{ model: 'core/user/pages/details/tabs/roles', activationData: $root.userId}"></div>
+			<!-- /ko -->
+
+			<div class="tab-pane" id="products" data-bind="compose:{ model: 'core/user/pages/details/tabs/products', activationData: $root.userId}"></div>
+			<!-- ko if: $root.userVM.isProductManager --><!-- /ko -->
 		</div>
 
 	</form>

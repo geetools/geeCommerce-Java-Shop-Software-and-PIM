@@ -10,7 +10,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.geecommerce.core.service.AbstractModel;
+import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.system.user.repository.Roles;
 import com.geecommerce.core.type.Id;
 import com.google.common.collect.Maps;
@@ -21,11 +23,17 @@ import com.google.inject.Inject;
 public class DefaultUser extends AbstractModel implements User {
     private static final long serialVersionUID = 297135100681943106L;
 
+    @Column(Col.ID)
     private Id id = null;
+    @Column(Col.USERNAME)
     private String username = null;
+    @Column(Col.EMAIL)
     private String email = null;
+    @Column(Col.FORENAME)
     private String forename = null;
+    @Column(Col.SURNAME)
     private String surname = null;
+
     private byte[] password;
     private byte[] salt;
     private String forgotPasswordToken = null;
@@ -33,6 +41,8 @@ public class DefaultUser extends AbstractModel implements User {
     private Date forgotPasswordOn = null;
     private Date lastLoggedIn = null;
     private boolean enabled = false;
+
+    public QueryNode queryNode;
 
     @XmlElementWrapper(name = "roles")
     @XmlElement(name = "role")
@@ -247,46 +257,69 @@ public class DefaultUser extends AbstractModel implements User {
         return this;
     }
 
+
+    @Override
+    public QueryNode getQueryNode() {
+        return queryNode;
+    }
+
+    @Override
+    public User setQueryNode(QueryNode queryNode) {
+        this.queryNode = queryNode;
+        return this;
+    }
+
+
     @Override
     public void fromMap(Map<String, Object> map) {
         super.fromMap(map);
 
-        this.id = id_(map.get(Column.ID));
-        this.username = str_(map.get(Column.USERNAME));
-        this.email = str_(map.get(Column.EMAIL));
-        this.forename = str_(map.get(Column.FORENAME));
-        this.surname = str_(map.get(Column.SURNAME));
-        this.password = bytes_(map.get(Column.PASSWORD));
-        this.salt = bytes_(map.get(Column.SALT));
-        this.enabled = bool_(map.get(Column.ENABLED));
-        this.forgotPasswordToken = str_(map.get(Column.FORGOT_PASSWORD_TOKEN));
-        this.forgotPasswordSalt = str_(map.get(Column.FORGOT_PASSWORD_SALT));
-        this.forgotPasswordOn = date_(map.get(Column.FORGOT_PASSWORD_ON));
-        this.lastLoggedIn = date_(map.get(Column.LAST_LOGGED_IN));
-        this.roleIds = idList_(map.get(Column.ROLES));
-        this.scopeIds = idList_(map.get(Column.SCOPES));
+        this.id = id_(map.get(Col.ID));
+        this.username = str_(map.get(Col.USERNAME));
+        this.email = str_(map.get(Col.EMAIL));
+        this.forename = str_(map.get(Col.FORENAME));
+        this.surname = str_(map.get(Col.SURNAME));
+        this.password = bytes_(map.get(Col.PASSWORD));
+        this.salt = bytes_(map.get(Col.SALT));
+        this.enabled = bool_(map.get(Col.ENABLED));
+        this.forgotPasswordToken = str_(map.get(Col.FORGOT_PASSWORD_TOKEN));
+        this.forgotPasswordSalt = str_(map.get(Col.FORGOT_PASSWORD_SALT));
+        this.forgotPasswordOn = date_(map.get(Col.FORGOT_PASSWORD_ON));
+        this.lastLoggedIn = date_(map.get(Col.LAST_LOGGED_IN));
+        this.roleIds = idList_(map.get(Col.ROLES));
+        this.scopeIds = idList_(map.get(Col.SCOPES));
+
+        Map<String, Object> queryNodeMap = map_(map.get(Col.QUERY_NODE));
+        if (queryNodeMap != null && queryNodeMap.size() > 0) {
+            this.queryNode = app.model(QueryNode.class);
+            this.queryNode.fromMap(queryNodeMap);
+        }
     }
 
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> m = Maps.newLinkedHashMap(super.toMap());
 
-        m.put(Column.ID, getId());
-        m.put(Column.USERNAME, getUsername());
-        m.put(Column.EMAIL, getEmail());
-        m.put(Column.FORENAME, getForename());
-        m.put(Column.SURNAME, getSurname());
-        m.put(Column.PASSWORD, getPassword());
-        m.put(Column.SALT, getSalt());
-        m.put(Column.ENABLED, isEnabled());
-        m.put(Column.LAST_LOGGED_IN, getLastLoggedIn());
-        m.put(Column.ROLES, getRoleIds());
-        m.put(Column.SCOPES, getScopeIds());
+        m.put(Col.ID, getId());
+        m.put(Col.USERNAME, getUsername());
+        m.put(Col.EMAIL, getEmail());
+        m.put(Col.FORENAME, getForename());
+        m.put(Col.SURNAME, getSurname());
+        m.put(Col.PASSWORD, getPassword());
+        m.put(Col.SALT, getSalt());
+        m.put(Col.ENABLED, isEnabled());
+        m.put(Col.LAST_LOGGED_IN, getLastLoggedIn());
+        m.put(Col.ROLES, getRoleIds());
+        m.put(Col.SCOPES, getScopeIds());
 
         if (getForgotPasswordToken() != null) {
-            m.put(Column.FORGOT_PASSWORD_TOKEN, getForgotPasswordToken());
-            m.put(Column.FORGOT_PASSWORD_SALT, getForgotPasswordSalt());
-            m.put(Column.FORGOT_PASSWORD_ON, getForgotPasswordOn());
+            m.put(Col.FORGOT_PASSWORD_TOKEN, getForgotPasswordToken());
+            m.put(Col.FORGOT_PASSWORD_SALT, getForgotPasswordSalt());
+            m.put(Col.FORGOT_PASSWORD_ON, getForgotPasswordOn());
+        }
+
+        if (getQueryNode() != null) {
+            m.put(Col.QUERY_NODE, getQueryNode().toMap());
         }
 
         return m;

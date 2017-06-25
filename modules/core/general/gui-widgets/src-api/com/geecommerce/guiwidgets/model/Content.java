@@ -57,6 +57,10 @@ public interface Content extends AttributeSupport, TargetSupport {
 
     public Content setPreviewProductId(Id previewProductId);
 
+    public Id getTemplateId();
+
+    public Content setTemplateId(Id id);
+
     static final class Col {
         public static final String ID = "_id";
         public static final String KEY = "key";
@@ -69,6 +73,7 @@ public interface Content extends AttributeSupport, TargetSupport {
         public static final String NAME = "name";
         public static final String DESCRIPTION = "descr";
         public static final String PREVIEW_PRODUCT_ID = "pr_prd_id";
+        public static final String TEMPLATE_ID = "template_id";
     }
 
 }

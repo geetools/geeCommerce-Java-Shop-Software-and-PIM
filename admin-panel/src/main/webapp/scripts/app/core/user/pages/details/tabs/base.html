@@ -1,4 +1,4 @@
-<div>
+<div id="userBaseForm">
     <div class="form-group">
         <label for="inputCustForename" class="col-sm-3 control-label">Username</label>
         <div class="col-sm-9">
@@ -27,5 +27,18 @@
 		</div>
 	</div>
 
-	
+	<div class="form-group">
+		<label for="inputPassword" class="col-sm-3 control-label">Password</label>
+		<div class="col-sm-9">
+			<input data-bind="value: userVM.password" class="form-control" id="inputPassword" placeholder="Password eingeben" type="text" required>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="inputPassword2" class="col-sm-3 control-label">Password Confirmation</label>
+		<div class="col-sm-9">
+			<input data-bind="value: userVM.password2" class="form-control" id="inputPassword2" placeholder="Password eingeben" type="text" required>
+		</div>
+	</div>
+
 </div>

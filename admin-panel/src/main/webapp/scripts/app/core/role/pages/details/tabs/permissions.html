@@ -1,0 +1,47 @@
+<div>
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="variantsTargetContainer">
+					<h3>Permissions</h3>
+	
+					<p>Permissions in <b data-bind="i18nText: { value: roleVM.name, mode: 'any' }"></b> </p>
+					
+					<ul data-bind="foreach: { data: roleVM.permissions, as: 'permission' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortablePermissionOptions">
+						<li data-bind="attr: {'data-id': permission.id}" class="droppable-list" unselectable="on">
+							<a href="javascript:void(0)" data-bind="click: $root.removePermissionFromRole" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+							<div data-bind="i18nText: { value: permission.name, mode: 'any' }"></div>
+							<div class="permission-info-row">
+								<!-- ko if: permission.code --><span data-bind="text: permission.code"></span><!-- /ko -->
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="variantsSourceContainer">
+					<div class="row">
+						<div class="col-md-12">
+							<ul data-bind="foreach: { data: $root.sourcePermissionsPager.data, as: 'srcPermission' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
+									<span data-bind="i18nText: { value: srcPermission.name, mode: 'any' }"></span>
+									<div class="attribute-info-row">
+										<!-- ko if: srcPermission.code --><span data-bind="text: srcPermission.code"></span><!-- /ko -->
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<!--  Pagination -->            
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourcePermissionsPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourcePermissionsPager.page, css: { active: $root.sourcePermissionsPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

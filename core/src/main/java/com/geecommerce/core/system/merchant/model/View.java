@@ -6,6 +6,8 @@ import com.geecommerce.core.type.Id;
 public interface View extends Model {
     public Id getId();
 
+    public View setId(Id id);
+
     public String getName();
 
     public String getCode();

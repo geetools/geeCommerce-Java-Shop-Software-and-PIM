@@ -27,9 +27,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.geecommerce.core.security.DefaultCredentialsMatcher;
+import com.geecommerce.core.system.query.model.QueryNode;
+import com.geecommerce.core.system.user.model.User;
+import com.geecommerce.core.system.user.service.UserService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.elasticsearch.index.query.FilterBuilder;
 
 import com.geecommerce.catalog.product.batch.dataimport.helper.ProductBeanHelper;
@@ -136,14 +143,45 @@ public class ProductResource extends AbstractResource {
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getProducts(@FilterParam Filter filter) {
-        QueryOptions queryOptions = queryOptions(filter);
+        User user = getLoggedInUser();
+        if(user != null && user.getQueryNode() != null && !user.getQueryNode().isEmpty()){
+            QueryOptions queryOptions = queryOptions(filter);
 
-        if (storeHeaderExists())
-            queryOptions = QueryOptions.builder(queryOptions)
-                .limitAttributeToStore("status_description", getStoreFromHeader())
-                .limitAttributeToStore("status_article", getStoreFromHeader()).build();
+            if (storeHeaderExists())
+                queryOptions = QueryOptions.builder(queryOptions)
+                        .limitAttributeToStore("status_description", getStoreFromHeader())
+                        .limitAttributeToStore("status_article", getStoreFromHeader()).build();
 
-        return ok(service.get(Product.class, filter.getParams(), queryOptions));
+            FilterBuilder filterBuilder = queryHelper.buildQuery(user.getQueryNode());
+            List<FilterBuilder> builders = new ArrayList<>();
+            builders.add(filterBuilder);
+            SearchParams searchParams = new SearchParams();
+            searchParams.setLimit(filter.getLimit());
+            searchParams.setOffset(filter.getOffset().intValue());
+            SearchResult productsResult = elasticsearchService.findItems(Product.class, builders, searchParams);
+
+            Id[] ids = elasticsearchHelper.toIds(productsResult.getDocumentIds().toArray());
+
+            List<Product> products = new ArrayList<>();
+            if (ids != null && ids.length > 0) {
+                products = productRepository.findByIds(Product.class, ids, queryOptions);
+            }
+
+            app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
+
+            return ok(products);
+
+        } else {
+            QueryOptions queryOptions = queryOptions(filter);
+
+            if (storeHeaderExists())
+                queryOptions = QueryOptions.builder(queryOptions)
+                        .limitAttributeToStore("status_description", getStoreFromHeader())
+                        .limitAttributeToStore("status_article", getStoreFromHeader()).build();
+
+            return ok(service.get(Product.class, filter.getParams(), queryOptions));
+        }
+
     }
 
     @GET
@@ -158,7 +196,14 @@ public class ProductResource extends AbstractResource {
                 .limitAttributeToStore("status_description", getStoreFromHeader())
                 .limitAttributeToStore("status_article", getStoreFromHeader()).build();
 
-        FilterBuilder filterBuilder = queryHelper.buildQuery(filter.getQuery());
+
+        QueryNode query = filter.getQuery();
+        User user = getLoggedInUser();
+        if(user != null && user.getQueryNode() != null){
+            query = queryHelper.combine(user.getQueryNode(), filter.getQuery());
+        }
+
+        FilterBuilder filterBuilder = queryHelper.buildQuery(query);
         List<FilterBuilder> builders = new ArrayList<>();
         builders.add(filterBuilder);
         SearchParams searchParams = new SearchParams();
@@ -174,7 +219,26 @@ public class ProductResource extends AbstractResource {
         }
 
         app.setQueryMetadata(QueryMetadata.builder().count(productsResult.getTotalNumResults()).build());
+
         return ok(products);
+    }
+
+    private User getLoggedInUser(){
+        UsernamePasswordToken userPassToken = new UsernamePasswordToken(
+                DefaultCredentialsMatcher.DEFAULT_WEB_USERNAME, (String) null);
+
+        Subject subject = SecurityUtils.getSubject();
+        //subject.login(userPassToken);
+
+        User user = null;
+
+        if (subject.isAuthenticated()) {
+            Id userId = (Id) subject.getPrincipal();
+
+            user = app.service(UserService.class).getUserForRealm(userId);
+            return user;
+        }
+        return null;
     }
 
     @GET

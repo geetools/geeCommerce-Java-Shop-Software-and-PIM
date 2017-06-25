@@ -106,7 +106,8 @@ public class ProductController extends BaseController {
         Product product = productService.getProduct(id);
 
         if(product.getTemplateId()!=null){
-            return redirect("/content/product/" + product.getId());
+            return Results.view("_template_id_"+product.getTemplateId()).bind("product", product);
+//            return redirect("/content/product/" + product.getId());
         }
 
         if (!isVisible(product, request, response))

@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.geecommerce.core.system.query.model.QueryNode;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.geecommerce.catalog.product.model.ProductList;
-import com.geecommerce.catalog.product.model.ProductListQueryNode;
 import com.geecommerce.catalog.product.model.ProductNavigationIndex;
 import com.geecommerce.catalog.product.repository.ProductLists;
 import com.geecommerce.catalog.product.repository.ProductNavigationIndexes;
@@ -96,7 +96,7 @@ public class RefreshProductNavigationIndex implements Taskable, Job {
 
                 System.out.println(productList.getKey());
 
-                ProductListQueryNode queryNode = productList.getQueryNode();
+                QueryNode queryNode = productList.getQueryNode();
 
                 Map<String, Object> queryMap = null;
                 if (productList.getQuery() != null && !productList.getQuery().isEmpty()) {

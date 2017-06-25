@@ -7,6 +7,7 @@ import java.util.List;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.system.model.RequestContext;
 import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface Merchant extends Model {
     public Id getId();
@@ -49,26 +50,37 @@ public interface Merchant extends Model {
 
     public View getViewFor(RequestContext requestCtx);
 
+    @JsonIgnore
     public String getBaseSystemPath();
 
+    @JsonIgnore
     public String getLogPath();
 
+    @JsonIgnore
     public String getConfigurationPath();
 
+    @JsonIgnore
     public String getClassesPath();
 
+    @JsonIgnore
     public URL[] getClasspath() throws MalformedURLException;
 
+    @JsonIgnore
     public String getAbsoluteBaseSystemPath();
 
+    @JsonIgnore
     public String getModulesPath();
 
+    @JsonIgnore
     public String getTemplatesPath();
 
+    @JsonIgnore
     public String getWebPath();
 
+    @JsonIgnore
     public String getResourcesPath();
 
+    @JsonIgnore
     public String getCertsPath();
 
     static final class Column {

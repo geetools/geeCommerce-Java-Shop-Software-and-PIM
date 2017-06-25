@@ -165,91 +165,91 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
 
     }
 
-    function ProductListQueryNodeVM(parent, productListVM){
-        var self = this;
-        console.log(productListVM)
-        self.productListVM = productListVM;
-        self.type = ko.observable();
-        self.operator = ko.observable();
-        self.attrVal = ko.observable();
-        self.attrCode = ko.observable();
-        self.attrCode.subscribe(function (code) {
-            var attr = _.findWhere(self.productListVM.attributeValues(), { code : code });
-
-            var attrOptions = attr.options;
-            gc.ctxobj.enhance(attrOptions, [ 'label' ], 'any');
-
-            var atr = new ProductListAttributeValueVM(
-                undefined,
-                attr.id,
-                attr.backendLabel,
-                attr.code,
-                attr.code2,
-                [],
-                attr.editable,
-                attr.enabled,
-                attr.inputType,
-                attr.frontendInput,
-                attr.optionAttribute,
-                attr.allowMultipleValues,// || true, // set all multiples
-                attr.i18n,
-                attrOptions);
-            atr.isMultiple = true;
-            atr.isShowField = true;
-            self.attrVal(atr);
-
-        });
-        self.value = ko.observable();
-        self.nodes = ko.observableArray([]);
-        self.parent = ko.observable(parent);
-
-        self.newNodeType = ko.observable();
-
-        self.deleteNode = function(){
-            self.parent().nodes.remove(self);
-        };
-
-        self.addNode = function(target, reason){
-            if( !(reason === 'nochange' || reason === 'save')) return;
-
-            var nodeVM = new ProductListQueryNodeVM(self, self.productListVM);
-
-            if(self.newNodeType() === 'BOOLEAN'){
-                nodeVM.type('BOOLEAN');
-                nodeVM.operator('AND');
-            } else {
-                nodeVM.type('ATTRIBUTE');
-
-            }
-            self.nodes.push(nodeVM);
-        }
-
-        self.convertNode = function () {
-            var obj = {};
-            obj["type"] = self.type();
-            obj["operator"] = self.operator();
-            if(self.attrVal()){
-                var attr_obj = {}
-                obj["val"] = attr_obj;
-                if(self.attrVal().isOption){
-                    attr_obj["opt_id"] = self.attrVal().value()
-                } else {
-                    attr_obj["val"] = self.attrVal().value()
-                }
-                attr_obj["attr_id"] = self.attrVal().attributeId;
-            }
-            if(self.nodes() && self.nodes().length > 0){
-                var nodes = []
-
-                _.each(self.nodes(), function (node) {
-                    nodes.push(node.convertNode())
-                })
-                obj["nodes"] = nodes;
-            }
-            return obj;
-
-        }
-    }
+    // function ProductListQueryNodeVM(parent, productListVM){
+    //     var self = this;
+    //     console.log(productListVM)
+    //     self.productListVM = productListVM;
+    //     self.type = ko.observable();
+    //     self.operator = ko.observable();
+    //     self.attrVal = ko.observable();
+    //     self.attrCode = ko.observable();
+    //     self.attrCode.subscribe(function (code) {
+    //         var attr = _.findWhere(self.productListVM.attributeValues(), { code : code });
+    //
+    //         var attrOptions = attr.options;
+    //         gc.ctxobj.enhance(attrOptions, [ 'label' ], 'any');
+    //
+    //         var atr = new ProductListAttributeValueVM(
+    //             undefined,
+    //             attr.id,
+    //             attr.backendLabel,
+    //             attr.code,
+    //             attr.code2,
+    //             [],
+    //             attr.editable,
+    //             attr.enabled,
+    //             attr.inputType,
+    //             attr.frontendInput,
+    //             attr.optionAttribute,
+    //             attr.allowMultipleValues,// || true, // set all multiples
+    //             attr.i18n,
+    //             attrOptions);
+    //         atr.isMultiple = true;
+    //         atr.isShowField = true;
+    //         self.attrVal(atr);
+    //
+    //     });
+    //     self.value = ko.observable();
+    //     self.nodes = ko.observableArray([]);
+    //     self.parent = ko.observable(parent);
+    //
+    //     self.newNodeType = ko.observable();
+    //
+    //     self.deleteNode = function(){
+    //         self.parent().nodes.remove(self);
+    //     };
+    //
+    //     self.addNode = function(target, reason){
+    //         if( !(reason === 'nochange' || reason === 'save')) return;
+    //
+    //         var nodeVM = new ProductListQueryNodeVM(self, self.productListVM);
+    //
+    //         if(self.newNodeType() === 'BOOLEAN'){
+    //             nodeVM.type('BOOLEAN');
+    //             nodeVM.operator('AND');
+    //         } else {
+    //             nodeVM.type('ATTRIBUTE');
+    //
+    //         }
+    //         self.nodes.push(nodeVM);
+    //     }
+    //
+    //     self.convertNode = function () {
+    //         var obj = {};
+    //         obj["type"] = self.type();
+    //         obj["operator"] = self.operator();
+    //         if(self.attrVal()){
+    //             var attr_obj = {}
+    //             obj["val"] = attr_obj;
+    //             if(self.attrVal().isOption){
+    //                 attr_obj["opt_id"] = self.attrVal().value()
+    //             } else {
+    //                 attr_obj["val"] = self.attrVal().value()
+    //             }
+    //             attr_obj["attr_id"] = self.attrVal().attributeId;
+    //         }
+    //         if(self.nodes() && self.nodes().length > 0){
+    //             var nodes = []
+    //
+    //             _.each(self.nodes(), function (node) {
+    //                 nodes.push(node.convertNode())
+    //             })
+    //             obj["nodes"] = nodes;
+    //         }
+    //         return obj;
+    //
+    //     }
+    // }
 
     //-----------------------------------------------------------------
     // Controller
@@ -268,7 +268,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
         this.tabs = ko.observableArray([]);
 
         // Solves the 'this' problem when a DOM event-handler is fired.
-        _.bindAll(this, 'saveData', 'activate');
+        _.bindAll(this, 'saveData', 'activate', 'notifyChange');
     }
 
     ProductListDetailsIndexController.prototype = {
@@ -289,27 +289,15 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             return title;
         },
         pageDescription : 'app:modules.product-list.detailsSubtitle',
+        notifyChange : function() {
+            $toolbar = $("#productListAllForm").closest('div').find('.toolbar-trigger').first();
+            // Make sure that the save/cancel toolbar sees the change.
+            $toolbar.click();
+            $toolbar.trigger('change');
+        },
         saveData : function(view, parent, toolbar) {
             var self = this;
             self.productListVM = gc.app.sessionGet('productListVM');
-            setValueToNode(self.productListVM.queryNode());
-            function setValueToNode(nodeVM){
-                if(nodeVM.attrVal()){
-                    var val = {};
-                    val.attr_id = nodeVM.attrVal().attributeId;
-                    val.opt_id = nodeVM.attrVal().value;
-                    nodeVM.val = val;
-                    nodeVM.value(val);
-
-                }
-                if(nodeVM.nodes() && nodeVM.nodes().length > 0){
-                    _.each(nodeVM.nodes(), function(node) {
-                        setValueToNode(node);
-                    });
-                }
-            }
-
-
 
             var updateModel = gc.app.newUpdateModel();
             updateModel.field('label', self.productListVM.label(), true);
@@ -326,7 +314,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             }
             updateModel.field('filterAttributeIds', filterAttributeIds);
 
-            updateModel.field('queryNode', JSON.stringify(self.productListVM.queryNode().convertNode())); //JSON.stringify(.convertNode()));//ko.toJSON(self.productListVM.queryNode(),["type", "operator", "attrVal", "value", "val", "nodes", "attributeId", "optionIds", "attr_id", "opt_id"]));
+            updateModel.field('queryNode', self.productListVM.queryNode())
 
             attrUtil.toUpdateModel(ko.gc.unwrap(self.productListVM.formAttributeValues), self.productListVM.data() ? self.productListVM.data().attributes : null, updateModel);
 
@@ -393,41 +381,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
 
                 });
                 vm.attributeValues(fAV);
-                setAttributeToNode(vm.queryNode());
-                function setAttributeToNode(nodeVM){
-                    if(nodeVM.value()){
-                        var attr = _.findWhere(attributes, { id : nodeVM.value().attributeId });
-
-                        var attrOptions = attr.options;
-                        gc.ctxobj.enhance(attrOptions, [ 'label' ], 'any');
-
-                        var atr = new ProductListAttributeValueVM(
-                            nodeVM.value().id,
-                            nodeVM.value().attributeId,
-                            nodeVM.value().attribute.backendLabel,
-                            nodeVM.value().attribute.code,
-                            nodeVM.value().attribute.code2,
-                            attr.optionAttribute ? nodeVM.value().optionIds : nodeVM.value().value,
-                            attr.editable,
-                            attr.enabled,
-                            attr.inputType,
-                            attr.frontendInput,
-                            attr.optionAttribute,
-                            attr.allowMultipleValues,// || true, // set all multiples
-                            attr.i18n,
-                            attrOptions);
-                        atr.isMultiple = true;
-                        atr.isShowField = true;
-                        nodeVM.attrVal(atr);
-
-                    }
-                    if(nodeVM.nodes() && nodeVM.nodes().length > 0){
-                        _.each(nodeVM.nodes(), function(node) {
-                            setAttributeToNode(node);
-                        });
-                    }
-                }
-
             })
 
         },
@@ -451,7 +404,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
                     if(data.attributes)
                         vm.attributes(data.attributes);
 
-                    vm.queryNode(setQueryNode(data.queryNode, null, vm));
+                    vm.queryNode(data.queryNode);
+                    vm.queryNode.subscribe(function(value) {
+                        self.notifyChange()
+                    })
 
                     if(data.filterAttributeIds){
                         data.filterAttributeIds.each(function(elem, index) {
@@ -471,31 +427,12 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
                     }
                 });
             } else {
-                vm.queryNode(setQueryNode(null, null, vm))
+                // vm.queryNode(setQueryNode(null, null, vm))
                 self.loadAttributes(vm);
-            }
+                vm.queryNode.subscribe(function(value) {
+                    self.notifyChange()
+                })
 
-
-            function setQueryNode( node, parent, productListVM){
-                if(node == null && parent != null)
-                    return null;
-                else if(node == null){
-                    var nodeVM = new ProductListQueryNodeVM(parent, productListVM);
-                    nodeVM.type('BOOLEAN');
-                    nodeVM.operator('AND');
-                    return nodeVM;
-                }
-                var nodeVM = new ProductListQueryNodeVM(parent, productListVM);
-                nodeVM.type(node.type);
-                nodeVM.operator(node.operator);
-                nodeVM.value(node.value);
-                if(node.nodes && node.nodes.length > 0){
-                    node.nodes.each(function(elem, index) {
-                        nodeVM.nodes.push(setQueryNode(elem, nodeVM, productListVM));
-                    });
-                }
-
-                return nodeVM;
             }
 
             return attrTabsUtil.getTabsPromise(vm, "product_list", self.tabs);

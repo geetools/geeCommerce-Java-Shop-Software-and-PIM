@@ -22,7 +22,6 @@ import com.geecommerce.catalog.product.helper.ProductListUrlHelper;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.model.ProductListFilterRule;
-import com.geecommerce.catalog.product.model.ProductListQueryNode;
 import com.geecommerce.catalog.product.service.ProductListService;
 import com.geecommerce.catalog.product.service.ProductService;
 import com.geecommerce.core.elasticsearch.helper.ElasticsearchHelper;
@@ -38,6 +37,7 @@ import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.system.attribute.service.AttributeService;
 import com.geecommerce.core.system.helper.UrlRewriteHelper;
 import com.geecommerce.core.system.model.UrlRewrite;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.system.repository.UrlRewrites;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
@@ -106,7 +106,7 @@ public class ProductListResource extends AbstractResource {
         Map<String, Object> queryNodeMap = Json.fromJson(queryNodeJson, HashMap.class);
         update.getFields().remove("queryNode");
         // update.getFields().put("queryNode", queryNodeMap);
-        ProductListQueryNode queryNode = app.model(ProductListQueryNode.class);
+        QueryNode queryNode = app.model(QueryNode.class);
         queryNode.fromMap(queryNodeMap);
 
         ProductList p = app.model(ProductList.class);
@@ -132,7 +132,7 @@ public class ProductListResource extends AbstractResource {
             Map<String, Object> queryNodeMap = Json.fromJson(queryNodeJson, HashMap.class);
             update.getFields().remove("queryNode");
             // update.getFields().put("queryNode", queryNodeMap);
-            ProductListQueryNode queryNode = app.model(ProductListQueryNode.class);
+            QueryNode queryNode = app.model(QueryNode.class);
             queryNode.fromMap(queryNodeMap);
 
             ProductList p = checked(service.get(ProductList.class, id));

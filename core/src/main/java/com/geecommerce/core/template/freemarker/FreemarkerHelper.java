@@ -155,8 +155,10 @@ public class FreemarkerHelper {
                     TemplateLoader defaultTemplateLoader = conf.getTemplateLoader();
                     TemplateLoader freemarkerModuleTemplateLoader = new FreemarkerModuleTemplateLoader(module);
                     TemplateLoader freemarkerMerchantTemplateLoader = new FreemarkerMerchantTemplateLoader();
+                    TemplateLoader freemarkerDatabaseTemplateLoader = new FreemarkerDatabaseTemplateLoader();
 
                     List<TemplateLoader> loaders = new ArrayList<TemplateLoader>();
+                    loaders.add(freemarkerDatabaseTemplateLoader);
                     loaders.add(freemarkerMerchantTemplateLoader);
 
                     if (module != null)

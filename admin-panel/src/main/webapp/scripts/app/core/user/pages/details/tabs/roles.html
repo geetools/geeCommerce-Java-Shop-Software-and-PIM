@@ -1,0 +1,47 @@
+<div>
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="variantsTargetContainer">
+					<h3>Roles</h3>
+	
+					<p>Roles in <b data-bind="i18nText: { value: userVM.name, mode: 'any' }"></b> </p>
+					
+					<ul data-bind="foreach: { data: userVM.roles, as: 'role' }, dropZone: { name: 'sourceContainer', drop: $root.dropFromSource }" class="target sortableRoleOptions">
+						<li data-bind="attr: {'data-id': role.id}" class="droppable-list" unselectable="on">
+							<a href="javascript:void(0)" data-bind="click: $root.removeRoleFromUser" class="btn-cancel pull-right"><i class="fa fa-times"></i></a>
+							<div data-bind="i18nText: { value: role.name, mode: 'any' }"></div>
+							<div class="role-info-row">
+								<!-- ko if: role.code --><span data-bind="text: role.code"></span><!-- /ko -->
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="variantsSourceContainer">
+					<div class="row">
+						<div class="col-md-12">
+							<ul data-bind="foreach: { data: $root.sourceRolesPager.data, as: 'srcRole' }, dropZone: { name: 'targetContainer', drop: $root.dropFromTarget }" class="source">
+								<li data-bind="dragZone: { name: 'sourceContainer' }" class="droppable-list" unselectable="on">
+									<span data-bind="i18nText: { value: srcRole.name, mode: 'any' }"></span>
+									<div class="attribute-info-row">
+										<!-- ko if: srcRole.code --><span data-bind="text: srcRole.code"></span><!-- /ko -->
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<!--  Pagination -->            
+				            <ul class="pagination pagination-sm" data-bind="foreach: { data: sourceRolesPager.pages, as: 'page' }">
+				                <li data-bind="click: $root.sourceRolesPager.page, css: { active: $root.sourceRolesPager.isActive(page) }"><a data-bind="text: page.label" href="#"></a></li>
+				            </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

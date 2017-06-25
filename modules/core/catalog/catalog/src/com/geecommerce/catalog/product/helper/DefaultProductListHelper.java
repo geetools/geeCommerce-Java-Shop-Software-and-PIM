@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import com.geecommerce.core.system.query.QueryNodeType;
+import com.geecommerce.core.system.query.model.QueryNode;
 import org.elasticsearch.index.query.FilterBuilder;
 import org.elasticsearch.index.query.FilterBuilders;
 
-import com.geecommerce.catalog.product.enums.ProductListQueryNodeType;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.model.ProductListFilterRule;
-import com.geecommerce.catalog.product.model.ProductListQueryNode;
 import com.geecommerce.core.App;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
@@ -34,7 +34,7 @@ public class DefaultProductListHelper implements ProductListHelper {
     protected static final String CATEGORY_SEO_APPEND_PARENT_KEYWORDS = "category/seo/append_parent_keywords";
 
     protected static final String AND = "AND";
-    protected static final String OR = "or";
+    protected static final String OR = "OR";
 
     protected static final Pattern DOT_PATTERN = Pattern.compile("\\.");
     protected static final Pattern SLASH_PATTERN = Pattern.compile("\\/");
@@ -62,12 +62,12 @@ public class DefaultProductListHelper implements ProductListHelper {
     }
 
     @Override
-    public FilterBuilder buildQuery(ProductListQueryNode queryNode) {
+    public FilterBuilder buildQuery(QueryNode queryNode) {
         if (queryNode == null)
             return null;
-        if (queryNode.getType().equals(ProductListQueryNodeType.BOOLEAN)) {
+        if (queryNode.getType().equals(QueryNodeType.BOOLEAN)) {
             List<FilterBuilder> filterBuilders = new ArrayList<>();
-            for (ProductListQueryNode node : queryNode.getNodes()) {
+            for (QueryNode node : queryNode.getNodes()) {
                 filterBuilders.add(buildQuery(node));
             }
             if (queryNode.getOperator().equals(AND)) {
@@ -373,7 +373,7 @@ public class DefaultProductListHelper implements ProductListHelper {
         if (productList.getQueryNode() == null)
             return;
         while (true) {
-            ProductListQueryNode node = productList.getQueryNode();
+            QueryNode node = productList.getQueryNode();
             Boolean changed = false;
             ReturnValue n = fixQueryNode(node);
             if (n.node == null)
@@ -383,7 +383,7 @@ public class DefaultProductListHelper implements ProductListHelper {
         }
     }
 
-    private ReturnValue fixQueryNode(ProductListQueryNode node) {
+    private ReturnValue fixQueryNode(QueryNode node) {
         ReturnValue value = new ReturnValue();
         if (node == null) {
             value.changed = false;
@@ -399,14 +399,14 @@ public class DefaultProductListHelper implements ProductListHelper {
 
         boolean changedInternal = false;
         if (node.getNodes() != null) {
-            List<ProductListQueryNode> nodesForDelete = new ArrayList<>();
-            for (ProductListQueryNode n : node.getNodes()) {
+            List<QueryNode> nodesForDelete = new ArrayList<>();
+            for (QueryNode n : node.getNodes()) {
                 ReturnValue t = fixQueryNode(n);
                 if (t.node == null)
                     nodesForDelete.add(n);
                 changedInternal = changedInternal || t.changed;
             }
-            for (ProductListQueryNode n : nodesForDelete) {
+            for (QueryNode n : nodesForDelete) {
                 node.getNodes().remove(n);
             }
             value.changed = changedInternal;
@@ -420,7 +420,7 @@ public class DefaultProductListHelper implements ProductListHelper {
 
     class ReturnValue {
         Boolean changed;
-        ProductListQueryNode node;
+        QueryNode node;
     }
 
 }

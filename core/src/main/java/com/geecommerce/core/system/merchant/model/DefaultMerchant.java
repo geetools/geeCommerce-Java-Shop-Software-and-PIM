@@ -16,6 +16,7 @@ import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.system.model.RequestContext;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.utils.Filenames;
+import com.owlike.genson.annotation.JsonIgnore;
 
 @Cacheable
 @Model("merchants")
@@ -151,11 +152,13 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
         return companyWebsite;
     }
 
+    @JsonIgnore
     @Override
     public String getBaseSystemPath() {
         return this.baseSystemPath;
     }
 
+    @JsonIgnore
     @Override
     public String getAbsoluteBaseSystemPath() {
         if (absoluteBaseSystemPath == null) {
@@ -271,11 +274,13 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
         return null;
     }
 
+    @JsonIgnore
     @Override
     public String getConfigurationPath() {
         return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("conf").toString();
     }
 
+    @JsonIgnore
     @Override
     public String getLogPath() {
         RequestContext requestCtx = app.context().getRequestContext();
@@ -287,38 +292,45 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
             .toString();
     }
 
+    @JsonIgnore
     @Override
     public String getClassesPath() {
         return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("custom")
             .append(File.separatorChar).append("classes").toString();
     }
 
+    @JsonIgnore
     @Override
     public URL[] getClasspath() throws MalformedURLException {
         return new URL[] { new File(getClassesPath()).toURI().toURL() };
     }
 
+    @JsonIgnore
     @Override
     public String getTemplatesPath() {
         return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("custom")
             .append(File.separatorChar).append("templates").toString();
     }
 
+    @JsonIgnore
     @Override
     public String getWebPath() {
         return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("web").toString();
     }
 
+    @JsonIgnore
     @Override
     public String getResourcesPath() {
         return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("resources").toString();
     }
 
+    @JsonIgnore
     @Override
     public String getCertsPath() {
         return new StringBuilder(getResourcesPath()).append(File.separatorChar).append("certs").toString();
     }
 
+    @JsonIgnore
     @Override
     public String getModulesPath() {
         return new StringBuilder(getAbsoluteBaseSystemPath()).append(File.separatorChar).append("modules").toString();

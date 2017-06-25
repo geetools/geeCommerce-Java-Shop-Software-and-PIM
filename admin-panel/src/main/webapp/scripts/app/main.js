@@ -259,6 +259,18 @@
         location : 'core/user/scripts',
         main : 'api'
     }, {
+        name : 'gc-role',
+        location : 'core/role/scripts',
+        main : 'api'
+    }, {
+        name : 'gc-permission',
+        location : 'core/permission/scripts',
+        main : 'api'
+    }, {
+        name : 'gc-template',
+        location : 'core/template/scripts',
+        main : 'api'
+    }, {
         name : 'gc-widget',
         location : 'core/widget/scripts',
         main : 'api'
@@ -326,15 +338,25 @@
         name : 'gc-discount-promotion',
         location : 'modules/geecommerce/discount-promotion/scripts',
         main : 'api'
-    },
-    {
+    }, {
         name : 'gc-coupon-promotion',
         location : 'modules/geecommerce/coupon-promotion/scripts',
         main : 'api'
-    },
-    {
+    }, {
         name : 'gc-url-rewrite',
         location : 'core/url-rewrite/scripts',
+        main : 'api'
+    }, {
+        name : 'gc-merchant',
+        location : 'core/merchant/scripts',
+        main : 'api'
+    }, {
+        name : 'gc-request-context',
+        location : 'core/request-context/scripts',
+        main : 'api'
+    }, {
+        name : 'gc-settings',
+        location : 'core/settings/scripts',
         main : 'api'
     }, {
         name : 'gc-account',
@@ -588,6 +610,11 @@ define(function(require) {
     widget.registerKind('localeSwitch');
     widget.registerKind('prdListSelect');
     widget.registerKind('templateSelect');
+    widget.registerKind('merchantSelect');
+    widget.registerKind('merchantStoreSelect');
+    widget.registerKind('merchantViewSelect');
+    widget.registerKind('languageSelect');
+    widget.registerKind('countrySelect');
 
     kv.makeBindingHandlerValidatable("i18nValue");
 

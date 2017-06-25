@@ -1,0 +1,33 @@
+<div class="col-md-12 content-panel" id="view-merchant-details">
+
+	<form class="form-horizontal" role="form" data-observe="true">
+
+		<ul class="nav nav-tabs">
+			<li id="tab-merchant-details-base" class="active"><a data-target="#tab-general" data-toggle="tab">Allgemein</a></li>
+			<!-- ko if: merchantId() != 'new' -->
+			<li id="tab-merchant-details-stores" ><a data-target="#tab-stores" data-toggle="tab">Stores</a></li>
+			<!-- /ko -->
+			<!-- ko if: merchantId() != 'new' -->
+			<li id="tab-merchant-details-views"><a data-target="#tab-views" data-toggle="tab">Views</a></li>
+			<!-- /ko -->
+			<!-- ko if: merchantId() != 'new' -->
+			<li id="tab-merchant-details-request-contexts"><a data-target="#tab-request-contexts" data-toggle="tab">Request Contexts</a></li>
+			<!-- /ko -->
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab-general" data-bind="compose:{ model: 'core/merchant/pages/details/tabs/general', activationData: merchantVM.id}"></div>
+			<!-- ko if: merchantId() != 'new' -->
+			<div class="tab-pane" id="tab-stores" data-bind="compose:{ model: 'core/merchant/pages/details/tabs/stores', activationData: merchantVM.id}"></div>
+			<!-- /ko -->
+			<!-- ko if: merchantId() != 'new' -->
+			<div class="tab-pane" id="tab-views" data-bind="compose:{ model: 'core/merchant/pages/details/tabs/views', activationData: merchantVM.id}"></div>
+			<!-- /ko -->
+			<!-- ko if: merchantId() != 'new' -->
+			<div class="tab-pane" id="tab-request-contexts" data-bind="compose:{ model: 'core/merchant/pages/details/tabs/request-contexts', activationData: merchantVM.id}"></div>
+			<!-- /ko -->
+		</div>
+
+	</form>
+
+</div>

@@ -19,10 +19,17 @@ import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
 import com.geecommerce.core.App;
+import com.geecommerce.core.config.SystemConfig;
 import com.geecommerce.core.service.annotation.Task;
 
 public class TaskRunner {
     public static void main(String[] args) throws SchedulerException {
+        System.getenv().forEach((k,v) -> System.out.println("[Env]  " + k + ": " + v));
+        System.getProperties().forEach((k,v) -> System.out.println("[Prop] " + k + ": " + v));
+        
+        System.out.println("Webapp path: " + SystemConfig.GET.val(SystemConfig.APPLICATION_WEBAPP_PATH));
+        System.out.println("Projects path: " + SystemConfig.GET.val(SystemConfig.APPLICATION_PROJECTS_PATH));
+        
         Environment.init();
 
         Logger log = LogManager.getLogger(TaskRunner.class);

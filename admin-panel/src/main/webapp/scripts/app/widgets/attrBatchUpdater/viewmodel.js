@@ -213,7 +213,7 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
 
     ctor.prototype.save = function(viewModel, event) {
         var self = this;
-        console.log('----------------- save#1: ', viewModel, event, self.gridTableData, self.pager, self.pager.isQuery(), self.pager.isSearch());
+        console.log('----------------- save#1: ', ko.toJSON(self.attributeValues), viewModel, event, self.gridTableData, self.pager, self.pager.isQuery(), self.pager.isSearch());
 
         var updateModel = attrUtil.toNewUpdateModel(self.attributeValues);
 

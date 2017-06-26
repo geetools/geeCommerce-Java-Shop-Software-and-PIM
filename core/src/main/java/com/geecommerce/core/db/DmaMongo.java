@@ -13,7 +13,7 @@ public enum DmaMongo {
     public MongoClient get() {
         if (mongoClient == null) {
             try {
-                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).autoConnectRetry(true)
+                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100)
                     .connectTimeout(30000).socketTimeout(60000).socketKeepAlive(true).build();
 
                 mongoClient = new MongoClient(new ServerAddress(SystemConfig.GET.val(SystemConfig.MONGODB_DMA_HOST),

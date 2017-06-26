@@ -8,6 +8,7 @@ import com.geecommerce.core.db.api.ConnectionProvider;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 
@@ -35,10 +36,16 @@ public class MongoDatabaseConnection implements ConnectionProvider {
             this.properties = new HashMap<>(properties);
 
             try {
-                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).autoConnectRetry(true)
-                    .connectTimeout(30000).socketTimeout(60000).socketKeepAlive(true).build();
-                mongoClient = new MongoClient(new ServerAddress(property("host"), Integer.parseInt(property("port"))),
-                    options);
+                String mongoClientURI = "mongodb://" + property("user") + ":" + property("pass") + "@" + property("host") + ":" + property("port") + "/" + property("name") + "?authSource=admin";
+               
+                MongoClientURI uri = new MongoClientURI(mongoClientURI);
+                mongoClient = new MongoClient(uri);                
+                
+                
+//                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).autoConnectRetry(true)
+//                    .connectTimeout(30000).socketTimeout(60000).socketKeepAlive(true).build();
+//                mongoClient = new MongoClient(new ServerAddress(property("host"), Integer.parseInt(property("port"))),
+//                    options);
             } catch (Throwable t) {
                 throw new IllegalStateException(t);
             }
@@ -48,14 +55,14 @@ public class MongoDatabaseConnection implements ConnectionProvider {
     @SuppressWarnings("deprecation")
     @Override
     public Object provide() {
-        DB db = mongoClient.getDB(property("name"));
-        db.setWriteConcern(WriteConcern.SAFE);
-
-        if (!db.authenticate(property("user"), property("pass").toCharArray())) {
-            throw new IllegalStateException("Unable to establish MongoDB connection with the provided credentials.");
-        }
-
-        return db;
+//        DB db = mongoClient.getDB(property("name"));
+//        db.setWriteConcern(WriteConcern.SAFE);
+//
+//        if (!db.authenticate(property("user"), property("pass").toCharArray())) {
+//            throw new IllegalStateException("Unable to establish MongoDB connection with the provided credentials.");
+//        }
+        
+        return mongoClient.getDB(property("name"));
     }
 
     @Override

@@ -158,10 +158,12 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
 
     @Override
     public String getAbsoluteBaseSystemPath() {
+        
         if (absoluteBaseSystemPath == null) {
             String appProjectsPath = app.systemConfig().val(SystemConfig.APPLICATION_PROJECTS_PATH);
-
+            
             File f = new File(appProjectsPath, getBaseSystemPath());
+            
             if (f.exists()) {
                 this.absoluteBaseSystemPath = f.getAbsolutePath();
             } else {
@@ -172,7 +174,7 @@ public class DefaultMerchant extends AbstractModel implements Merchant {
                 }
             }
         }
-
+        
         return this.absoluteBaseSystemPath;
     }
 

@@ -23,8 +23,8 @@ URL_PREFIX=demo.geecommerce.local
 
 WEBAPP_PATH=$( cd $CURRENT_DIR/../../webapp/src/main/webapp; pwd -P )
 LOG_PATH=$( cd $CURRENT_DIR/../../projects/demo/log/_demostore; pwd -P )
-LOG_CONFIG=$CURRENT_DIR/conf/log4j2.xml
-JVM_ARGS="-Xms512m -Xmx612m"
+LOG_CONFIG=$( cd $CURRENT_DIR/../cron/conf; pwd -P )/log4j2.xml
+JVM_ARGS="-Xms512m -Xmx512m"
 
 echo "JAVA_HOME: $java_home_path"
 echo "CURRENT_DIR: $CURRENT_DIR"
@@ -39,4 +39,3 @@ $CURRENT_DIR/run_cron.sh \
 -w $WEBAPP_PATH \
 -l $LOG_PATH \
 -L $LOG_CONFIG
-> $CURRENT_DIR/log/cron_demo.log 2>&1

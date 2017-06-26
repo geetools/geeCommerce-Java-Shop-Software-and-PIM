@@ -13,7 +13,7 @@ public enum Mongo {
     public MongoClient get() {
         if (mongoClient == null) {
             try {
-                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).autoConnectRetry(true)
+                MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100)
                     .connectTimeout(30000).socketTimeout(60000).socketKeepAlive(true).build();
 
                 // System.out.println("Using [host=" +

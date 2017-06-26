@@ -26,7 +26,10 @@ var cmdFunctions = [
 	{regex : 'remove all modules from project (.+)', func : removeAllModulesFromSingleProject}
 ];
 
-print('I am running from ' + __DIR__ + ' --> ' + __cbHome + ' - ' + __modulesDir + ' - ' + __projectsDir);
+print('[geec.js] Scripts directory: ' + __DIR__);
+print('[geec.js] geeCommerce home: ' + __cbHome);
+print('[geec.js] Modules directory: ' + __modulesDir);
+print('[geec.js] Projects directory: ' + __projectsDir);
 
 executeCommand(arguments);
 
@@ -77,13 +80,12 @@ function addAllModulesToSingleProject(projectName) {
 		with (imports) {
 			var moduleLinkFile = new File(projModulesDir, uniqueModuleName);
 			
-			System.out.println(moduleLinkFile.toPath() + ' ---- ' + new File(modulePath).toPath() + ' --- '  + Files.class);
-			
-			Files.createSymbolicLink(moduleLinkFile.toPath(), new File(modulePath).toPath());			
+			if(!moduleLinkFile.exists()) {
+	            System.out.println("[geec.js] Linking module '" + new File(modulePath).toPath() + "' to '" + moduleLinkFile.toPath() + "'.");
+	            Files.createSymbolicLink(moduleLinkFile.toPath(), new File(modulePath).toPath());           
+			}
 		}
-		
 	});
-	
 	
 }
 

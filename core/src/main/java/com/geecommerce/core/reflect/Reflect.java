@@ -1077,9 +1077,6 @@ public class Reflect {
             }
         }
 
-        if (foundInterface == null)
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ NO INTERFACE FOUND: " + clazz.getName());
-
         return (Class<T>) foundInterface;
     }
 

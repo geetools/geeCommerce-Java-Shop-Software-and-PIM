@@ -8,6 +8,7 @@ import com.geecommerce.core.Char;
 import com.geecommerce.core.enums.UrlType;
 import com.geecommerce.core.service.AbstractModel;
 import com.geecommerce.core.service.annotation.Cacheable;
+import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 
@@ -15,14 +16,23 @@ import com.geecommerce.core.type.Id;
 @Model("request_contexts")
 public class DefaultRequestContext extends AbstractModel implements RequestContext {
     private static final long serialVersionUID = 2082572472587143131L;
+    @Column(Col.ID)
     private Id id = null;
+    @Column(Col.MERCHANT_ID)
     private Id merchantId = null;
+    @Column(Col.STORE_ID)
     private Id storeId = null;
+    @Column(Col.LANGUAGE)
     private String language = null;
+    @Column(Col.COUNTRY)
     private String country = null;
+    @Column(Col.VIEW_ID)
     private Id viewId = null;
+    @Column(Col.URL_PREFIX)
     private String urlPrefix = null;
+    @Column(Col.URL_TYPE)
     private UrlType urlType = null;
+    @Column(Col.SORT_INDEX)
     private Integer sortIndex = null;
 
     private String cacheKey = null;
@@ -65,8 +75,20 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
     }
 
     @Override
+    public RequestContext setId(Id id) {
+        this.id = id;
+        return this;
+    }
+
+    @Override
     public Id getMerchantId() {
         return merchantId;
+    }
+
+    @Override
+    public RequestContext setMerchantId(Id merchantId) {
+        this.merchantId = merchantId;
+        return this;
     }
 
     @Override
@@ -75,8 +97,20 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
     }
 
     @Override
+    public RequestContext setStoreId(Id storeId) {
+        this.storeId = storeId;
+        return this;
+    }
+
+    @Override
     public String getLanguage() {
         return language;
+    }
+
+    @Override
+    public RequestContext setLanguage(String language) {
+        this.language = language;
+        return this;
     }
 
     @Override
@@ -85,8 +119,20 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
     }
 
     @Override
+    public RequestContext setCountry(String country) {
+        this.country = country;
+        return this;
+    }
+
+    @Override
     public Id getViewId() {
         return viewId;
+    }
+
+    @Override
+    public RequestContext setViewId(Id viewId) {
+        this.viewId = viewId;
+        return this;
     }
 
     @Override
@@ -95,13 +141,31 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
     }
 
     @Override
+    public RequestContext setUrlPrefix(String urlPrefix) {
+        this.urlPrefix = urlPrefix;
+        return this;
+    }
+
+    @Override
     public UrlType getUrlType() {
         return urlType;
     }
 
     @Override
+    public RequestContext setUrlType(UrlType urlType) {
+        this.urlType = urlType;
+        return this;
+    }
+
+    @Override
     public Integer getSortIndex() {
         return sortIndex;
+    }
+
+    @Override
+    public RequestContext setSortIndex(Integer sortIndex) {
+        this.sortIndex = sortIndex;
+        return this;
     }
 
     public Locale getLocale() {
@@ -122,17 +186,17 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
 
         super.fromMap(map);
 
-        this.id = id_(map.get(Column.ID));
-        this.merchantId = id_(map.get(Column.MERCHANT_ID));
-        this.storeId = id_(map.get(Column.STORE_ID));
-        this.language = str_(map.get(Column.LANGUAGE));
-        this.country = str_(map.get(Column.COUNTRY));
-        this.viewId = id_(map.get(Column.VIEW_ID));
-        this.urlPrefix = str_(map.get(Column.URL_PREFIX));
-        this.sortIndex = int_(map.get(Column.SORT_INDEX));
+        this.id = id_(map.get(Col.ID));
+        this.merchantId = id_(map.get(Col.MERCHANT_ID));
+        this.storeId = id_(map.get(Col.STORE_ID));
+        this.language = str_(map.get(Col.LANGUAGE));
+        this.country = str_(map.get(Col.COUNTRY));
+        this.viewId = id_(map.get(Col.VIEW_ID));
+        this.urlPrefix = str_(map.get(Col.URL_PREFIX));
+        this.sortIndex = int_(map.get(Col.SORT_INDEX));
 
-        if (map.get(Column.URL_TYPE) != null)
-            this.urlType = UrlType.fromId(int_(map.get(Column.URL_TYPE)));
+        if (map.get(Col.URL_TYPE) != null)
+            this.urlType = enum_(UrlType.class, map.get(Col.URL_TYPE));
 
         initCacheKey();
     }
@@ -141,17 +205,17 @@ public class DefaultRequestContext extends AbstractModel implements RequestConte
     public Map<String, Object> toMap() {
         Map<String, Object> map = new LinkedHashMap<String, Object>(super.toMap());
 
-        map.put(Column.ID, getId());
-        map.put(Column.MERCHANT_ID, getMerchantId());
-        map.put(Column.STORE_ID, getStoreId());
-        map.put(Column.LANGUAGE, getLanguage());
-        map.put(Column.COUNTRY, getCountry());
-        map.put(Column.VIEW_ID, getViewId());
-        map.put(Column.URL_PREFIX, getUrlPrefix());
-        map.put(Column.SORT_INDEX, getSortIndex());
+        map.put(Col.ID, getId());
+        map.put(Col.MERCHANT_ID, getMerchantId());
+        map.put(Col.STORE_ID, getStoreId());
+        map.put(Col.LANGUAGE, getLanguage());
+        map.put(Col.COUNTRY, getCountry());
+        map.put(Col.VIEW_ID, getViewId());
+        map.put(Col.URL_PREFIX, getUrlPrefix());
+        map.put(Col.SORT_INDEX, getSortIndex());
 
         if (getUrlType() != null)
-            map.put(Column.URL_TYPE, getUrlType().toId());
+            map.put(Col.URL_TYPE, getUrlType().toId());
 
         return map;
     }

@@ -163,6 +163,14 @@
                     label : 'app:navigation.search',
                     group : 'search',
                     roles : [ 'admin' ]
+                }, {
+                    label : 'app:navigation.permissions',
+                    group : 'permissions',
+                    roles : [ 'admin' ]
+                }, {
+                    label : 'app:navigation.config',
+                    group : 'config',
+                    roles : [ 'admin' ]
                 } ];
 
                 // console.log('router.routes#2a: ', router.routes);
@@ -237,6 +245,18 @@
                     hash : '#/content',
                     roles : [ 'admin', 'product-manager' ]
                 }, {
+                    route : 'templates*details',
+                    moduleId : 'core/template/pages/index',
+                    label : 'app:navigation.templates',
+                    title : 'app:modules.template.title',
+                    subtitle : 'app:modules.template.subtitle',
+                    icon : 'fa fa-file-text fa-fw',
+                    group : 'content',
+                    nav : true,
+                    hash : '#/templates',
+                    roles : [ 'admin', 'product-manager' ]
+            },
+            {
                     route : 'navigation*details',
                     moduleId : 'modules/geecommerce/navigation/pages/index',
                     label : 'app:navigation.navigation',
@@ -388,8 +408,36 @@
                     icon : 'fa fa-user fa-fw',
                     nav : true,
                     hash : '#/users',
+                    group : 'permissions',
                     roles : [ 'admin' ]
-                }
+                }, {
+                        route : 'roles*details',
+                        moduleId : 'core/role/pages/index',
+                        label : 'app:navigation.roles',
+                        icon : 'fa fa-user fa-fw',
+                        nav : true,
+                        hash : '#/roles',
+                        group : 'permissions',
+                        roles : [ 'admin' ]
+                }, {
+                    route : 'merchants*details',
+                    moduleId : 'core/merchant/pages/index',
+                    label : 'app:navigation.merchants',
+                    icon : 'fa fa-user fa-fw',
+                    nav : true,
+                    hash : '#/merchants',
+                    group : 'config',
+                    roles : [ 'admin' ]
+                 }//, {
+                //     route : 'request-contexts*details',
+                //     moduleId : 'core/request-context/pages/index',
+                //     label : 'app:navigation.request-contexts',
+                //     icon : 'fa fa-user fa-fw',
+                //     nav : true,
+                //     hash : '#/request-contexts',
+                //     group : 'config',
+                //     roles : [ 'admin' ]
+                // }
                 // {
                 // , {
                 // route : 'marketplace/supplier/merchants*details',

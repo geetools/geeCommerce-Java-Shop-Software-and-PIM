@@ -165,6 +165,13 @@
                 <!-- /ko -->
 
                 <div class="form-group">
+                    <label for="inputPrdName" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabTemplate">Template</label>
+                    <div class="col-sm-5 read-only-text">
+                        <span class="" data-bind="templateSelect: {value: editVM.template, forType: 'product'}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="inputPrdArtNumber" class="col-sm-3 control-label" data-i18n="app:common.articleNumber">Article Number</label>
                     <div class="col-sm-5">
                         <input data-bind="ctxValue: editVM.articleNumber, ctxOptions: {scopes: ['global']}" class="form-control" id="inputPrdArtNumber" type="text" required>
@@ -275,6 +282,7 @@
                         <span class="" data-bind="i18nText: editVM.name"></span>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label for="inputPrdName2" class="col-sm-3 control-label" data-i18n="app:modules.product.baseTabName2">Name2</label>
                     <div class="col-sm-5 read-only-text">

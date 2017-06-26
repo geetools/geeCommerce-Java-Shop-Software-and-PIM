@@ -2,18 +2,15 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-user'], function (app, ko, gc, 
 	
     return {
     	app: gc.app,
-    	pageTitle: 'Kunden verwalten',
-    	pageDescription: 'Kunden ansehen und bearbeiten',
         // The pager takes care of filtering, sorting and paging functionality.
     	pager: {},
 	    activate: function(data) {
 
-	    	gc.app.pageTitle('Kunden Verwalten');
-	    	gc.app.pageDescription('Kunden ansehen und bearbeiten');
+            gc.app.pageTitle(gc.app.i18n('app:modules.user.title'));
+            gc.app.pageDescription(gc.app.i18n('app:modules.user.subtitle'));
 	    	
 	    	// Pager columns
 			var pagerColumns = [
-              {'name' : 'id', 'label' : 'Id'},
               {'name' : 'username', 'label' : 'Username'},
               {'name' : 'forename', 'label' : 'Vorname'},
               {'name' : 'surname', 'label' : 'Nachname'},

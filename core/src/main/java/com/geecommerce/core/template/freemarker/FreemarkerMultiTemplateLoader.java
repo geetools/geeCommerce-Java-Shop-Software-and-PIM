@@ -94,7 +94,6 @@ public class FreemarkerMultiTemplateLoader implements StatefulTemplateLoader {
     public Object findTemplateSource(String name) throws IOException {
         // Use soft affinity - give the loader that last found this
         // resource a chance to find it again first.
-
         TemplateLoader lastLoader = (TemplateLoader) lastLoaderForName.get(name);
         if (lastLoader != null) {
             Object source = lastLoader.findTemplateSource(name);

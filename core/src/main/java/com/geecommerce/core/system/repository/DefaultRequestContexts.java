@@ -21,19 +21,19 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
         Map<String, Object> filter = new LinkedHashMap<>();
 
         if (merchant != null)
-            filter.put(RequestContext.Column.MERCHANT_ID, merchant.getId());
+            filter.put(RequestContext.Col.MERCHANT_ID, merchant.getId());
 
         if (store != null)
-            filter.put(RequestContext.Column.STORE_ID, store.getId());
+            filter.put(RequestContext.Col.STORE_ID, store.getId());
 
         if (language != null)
-            filter.put(RequestContext.Column.LANGUAGE, language);
+            filter.put(RequestContext.Col.LANGUAGE, language);
 
         if (country != null)
-            filter.put(RequestContext.Column.COUNTRY, country);
+            filter.put(RequestContext.Col.COUNTRY, country);
 
         if (view != null)
-            filter.put(RequestContext.Column.VIEW_ID, view.getId());
+            filter.put(RequestContext.Col.VIEW_ID, view.getId());
 
         return find(RequestContext.class, filter);
     }
@@ -41,16 +41,16 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
     @Override
     public List<RequestContext> forHost(String host) {
         Map<String, Object> filter = new LinkedHashMap<>();
-        filter.put(RequestContext.Column.URL_PREFIX, Pattern.compile(new StringBuilder('^').append(host).toString()));
+        filter.put(RequestContext.Col.URL_PREFIX, Pattern.compile(new StringBuilder('^').append(host).toString()));
 
         return find(RequestContext.class, filter,
-            QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
+            QueryOptions.builder().sortBy(RequestContext.Col.SORT_INDEX).build());
     }
 
     @Override
     public RequestContext forUrlPrefix(String urlPrefix) {
         Map<String, Object> filter = new LinkedHashMap<>();
-        filter.put(RequestContext.Column.URL_PREFIX, urlPrefix);
+        filter.put(RequestContext.Col.URL_PREFIX, urlPrefix);
 
         return findOne(RequestContext.class, filter);
     }
@@ -58,9 +58,9 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
     @SuppressWarnings("unchecked")
     @Override
     public List<RequestContext> forScopes(List<Id> scopeIds) {
-        QueryBuilder query = new QueryBuilder().or(QueryBuilder.start(RequestContext.Column.ID).in(scopeIds).get(),
-            QueryBuilder.start(RequestContext.Column.STORE_ID).in(scopeIds).get(),
-            QueryBuilder.start(RequestContext.Column.MERCHANT_ID).in(scopeIds).get());
+        QueryBuilder query = new QueryBuilder().or(QueryBuilder.start(RequestContext.Col.ID).in(scopeIds).get(),
+            QueryBuilder.start(RequestContext.Col.STORE_ID).in(scopeIds).get(),
+            QueryBuilder.start(RequestContext.Col.MERCHANT_ID).in(scopeIds).get());
 
         return find(RequestContext.class, query.get().toMap());
     }
@@ -68,18 +68,18 @@ public class DefaultRequestContexts extends AbstractRepository implements Reques
     @Override
     public List<RequestContext> forStore(Store store) {
         Map<String, Object> filter = new LinkedHashMap<>();
-        filter.put(RequestContext.Column.STORE_ID, store.getId());
+        filter.put(RequestContext.Col.STORE_ID, store.getId());
 
         return find(RequestContext.class, filter,
-            QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
+            QueryOptions.builder().sortBy(RequestContext.Col.SORT_INDEX).build());
     }
 
     @Override
     public List<RequestContext> forMerchant(Merchant merchant) {
         Map<String, Object> filter = new LinkedHashMap<>();
-        filter.put(RequestContext.Column.MERCHANT_ID, merchant.getId());
+        filter.put(RequestContext.Col.MERCHANT_ID, merchant.getId());
 
         return find(RequestContext.class, filter,
-            QueryOptions.builder().sortBy(RequestContext.Column.SORT_INDEX).build());
+            QueryOptions.builder().sortBy(RequestContext.Col.SORT_INDEX).build());
     }
 }

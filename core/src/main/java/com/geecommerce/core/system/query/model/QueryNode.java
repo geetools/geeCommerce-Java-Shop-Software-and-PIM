@@ -30,6 +30,8 @@ public interface QueryNode extends Model {
 
     public boolean isValid();
 
+    public boolean isEmpty();
+
     static final class Col {
         public static final String ID = "_id";
         public static final String NODES = "nodes";

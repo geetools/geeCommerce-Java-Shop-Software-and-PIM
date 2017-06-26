@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.geecommerce.core.service.api.Model;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.Id;
 import com.owlike.genson.annotation.JsonIgnore;
 
@@ -69,7 +70,11 @@ public interface User extends Model {
 
     public User addScopeId(Id scopeId);
 
-    static final class Column {
+    public QueryNode getQueryNode();
+
+    public User setQueryNode(QueryNode queryNode);
+
+    static final class Col {
         public static final String ID = "_id";
         public static final String EMAIL = "email";
         public static final String USERNAME = "username";
@@ -84,5 +89,6 @@ public interface User extends Model {
         public static final String LAST_LOGGED_IN = "l_login";
         public static final String ROLES = "roles";
         public static final String SCOPES = "scopes";
+        public static final String QUERY_NODE = "query_node";
     }
 }

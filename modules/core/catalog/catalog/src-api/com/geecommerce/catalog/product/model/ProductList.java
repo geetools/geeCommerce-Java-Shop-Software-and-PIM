@@ -7,6 +7,7 @@ import com.geecommerce.core.service.PageSupport;
 import com.geecommerce.core.service.TargetSupport;
 import com.geecommerce.core.service.api.MultiContextModel;
 import com.geecommerce.core.system.attribute.model.Attribute;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.owlike.genson.annotation.JsonIgnore;
@@ -47,9 +48,9 @@ public interface ProductList extends MultiContextModel, AttributeSupport, Target
 
     public String getQuery();
 
-    public ProductListQueryNode getQueryNode();
+    public QueryNode getQueryNode();
 
-    public ProductList setQueryNode(ProductListQueryNode productListQueryNode);
+    public ProductList setQueryNode(QueryNode productListQueryNode);
 
     public Id getFilterRuleId();
 

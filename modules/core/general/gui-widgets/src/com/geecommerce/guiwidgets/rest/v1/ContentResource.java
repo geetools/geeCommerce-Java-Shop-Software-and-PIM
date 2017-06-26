@@ -1,6 +1,8 @@
 package com.geecommerce.guiwidgets.rest.v1;
 
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +28,7 @@ import com.geecommerce.core.system.ConfigurationKey;
 import com.geecommerce.core.system.helper.UrlRewriteHelper;
 import com.geecommerce.core.system.model.UrlRewrite;
 import com.geecommerce.core.system.repository.UrlRewrites;
+import com.geecommerce.core.template.model.Template;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.util.Json;
@@ -34,6 +37,9 @@ import com.geecommerce.guiwidgets.helper.ContentUrlHelper;
 import com.geecommerce.guiwidgets.model.Content;
 import com.geecommerce.guiwidgets.service.ContentService;
 import com.google.inject.Inject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.w3c.tidy.Tidy;
 
 @Path("/v1/contents")
 public class ContentResource extends AbstractResource {
@@ -85,6 +91,7 @@ public class ContentResource extends AbstractResource {
         c.set(update.getFields());
         c.setTemplate(contentService.generateTemplate(c));
 
+        updateTemplate(c);
         setContentKey(c);
         c = service.create(c);
 
@@ -142,6 +149,9 @@ public class ContentResource extends AbstractResource {
                 c.set(update.getFields());
 
                 c.setTemplate(contentService.generateTemplate(c));
+
+                updateTemplate(c);
+
                 setContentKey(c);
                 service.update(c);
             }
@@ -150,6 +160,54 @@ public class ContentResource extends AbstractResource {
             ex.printStackTrace();
         }
         return checked(service.get(Content.class, id));
+    }
+
+
+    private void updateTemplate(Content c){
+        String parsedTemplate = c.getTemplate();
+
+
+
+//        try{
+//            Tidy tidy = new Tidy(); // obtain a new Tidy instance
+//            tidy.setXHTML(true);
+//            StringWriter stringWriter = new StringWriter();
+//            tidy.parse(new StringReader(c.getTemplate()), stringWriter);
+//            parsedTemplate = stringWriter.toString();
+//        } catch (Exception ex){
+//            System.out.println(ex);
+//        }
+
+
+
+       // FreeMarkerEngine freeMarkerEngine = new FreeMarkerEngine();
+
+        Document doc = Jsoup.parse(parsedTemplate);
+        parsedTemplate = doc.html();
+
+        if(c.getTemplateId() == null){
+            Template template = app.model(Template.class);
+            template.setTemplate(parsedTemplate);
+            template.setLabel(c.getName());
+
+            template = service.create(template);
+            c.setTemplateId(template.getId());
+        } else {
+            Template template = service.get(Template.class, c.getTemplateId());
+            if(template != null){
+                template.setTemplate(parsedTemplate);
+                template.setLabel(c.getName());
+
+                service.update(template);
+            } else {
+                template = app.model(Template.class);
+                template.setTemplate(parsedTemplate);
+                template.setLabel(c.getName());
+
+                template = service.create(template);
+                c.setTemplateId(template.getId());
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -2,6 +2,7 @@ package com.geecommerce.core.system.merchant.model;
 
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.type.Id;
+import com.owlike.genson.annotation.JsonIgnore;
 
 public interface Store extends Model {
     public Id getId();
@@ -34,10 +35,13 @@ public interface Store extends Model {
 
     public Store belongsTo(Merchant merchant);
 
+    @JsonIgnore
     public String getTemplatesPath();
 
+    @JsonIgnore
     public String getResourcesPath();
 
+    @JsonIgnore
     public String getCertsPath();
 
     static final class Col {

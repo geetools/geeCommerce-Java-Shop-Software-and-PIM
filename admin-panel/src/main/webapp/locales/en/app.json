@@ -86,7 +86,14 @@
 		"addNodeTooltip" : "Remove this navigation node",
 		"removeNodeTooltip" : "Add navigation node",
 		"search-rewrites" : "Search Rewrites",
-		"synonyms" : "Synonyms"
+		"synonyms" : "Synonyms",
+		"permissions" : "Permissions",
+		"users" : "Users",
+		"roles" : "Roles",
+		"config" : "Configuration",
+		"merchants" : "Merchants",
+		"templates" : "Templates"
+
 	},
 	"gridTable" : {
 		"menuItemSettings" : "Settings",
@@ -636,6 +643,29 @@
 		"synonym" : {
 		  "title" : "Synonyms",
 		  "subtitle": "Synonyms"
+		},
+		"user" : {
+			"title" : "User",
+			"newUserTitle" : "New User",
+			"subtitle": "Users",
+			"toolbarSaveMsg" : "This user has unsaved changes. Please save them before navigating to the next tab."
+		},
+		"role" : {
+			"title" : "Role",
+			"subtitle": "Roles",
+			"toolbarSaveMsg" : "This role has unsaved changes. Please save them before navigating to the next tab."
+		},
+		"merchant" : {
+			"title" : "Merchant",
+			"subtitle": "Merchants",
+			"toolbarSaveMsg" : "This merchant has unsaved changes. Please save them before navigating to the next tab."
+		},
+		"template" : {
+			"title" : "Template",
+			"subtitle": "Templates",
+			"toolbarSaveMsg" : "This template has unsaved changes. Please save them before navigating to the next tab.",
+			"gridColUri" : "URL",
+			"gridColLabel" : "Name"
 		},
 		"marketplace-supplier" : {
 		  "title" : "Marketplace",

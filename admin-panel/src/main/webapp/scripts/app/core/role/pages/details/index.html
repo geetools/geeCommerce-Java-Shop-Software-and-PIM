@@ -1,0 +1,23 @@
+<div class="col-md-10" id="view-role-details">
+
+	<form class="form-horizontal" role="form">
+
+		<ul class="nav nav-tabs">
+			<li class="active" id="tab-role-details-general"><a data-target="#base" data-toggle="tab">Basisdaten</a></li>
+			<!-- ko if: $root.roleId != 'new' -->
+			<li id="tab-role-details-permissions"><a data-target="#permissions" data-toggle="tab">Permissions</a></li>
+			<!-- /ko -->
+
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="base" data-bind="compose:{ model: 'core/role/pages/details/tabs/base', activationData: $root.roleId}"></div>
+			<!-- ko if: $root.roleId != 'new' -->
+			<div class="tab-pane" id="permissions" data-bind="compose:{ model: 'core/role/pages/details/tabs/permissions', activationData: $root.roleId}"></div>
+			<!-- /ko -->
+
+		</div>
+
+	</form>
+
+</div>

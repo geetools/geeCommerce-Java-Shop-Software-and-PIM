@@ -13,8 +13,8 @@ define([ 'durandal/app', 'plugins/router', 'knockout', 'gc/gc' ], function(app, 
             moduleId : 'details/tabs/base',
         }]).buildNavigationModel();
 
-    gc.app.pageTitle('Attribute Verwalten');
-    gc.app.pageDescription('Attribute ansehen und bearbeiten');
+    gc.app.pageTitle('User Verwalten');
+    gc.app.pageDescription('User ansehen und bearbeiten');
 
     return {
         router : childRouter

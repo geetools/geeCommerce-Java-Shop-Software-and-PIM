@@ -19,13 +19,15 @@
                     <div data-bind='template: {name:"queryNode", data: queryNode}'></div>
                 </div>
             </div>
-            <button class="gc-btn query-builder-apply-button" data-bind="click: apply">
-              <!-- ko if: buttonIconClass -->
-                <span data-bind="attr: {class: buttonIconClass}"></span>
-              <!-- /ko -->
-              
-              <span data-bind="text: buttonLabel">Apply</span>
-            </button>
+            <!-- ko if: !autoSave -->
+                <button class="gc-btn query-builder-apply-button" data-bind="click: apply">
+                  <!-- ko if: buttonIconClass -->
+                    <span data-bind="attr: {class: buttonIconClass}"></span>
+                  <!-- /ko -->
+
+                  <span data-bind="text: buttonLabel">Apply</span>
+                </button>
+            <!-- /ko -->
 
     <!-- /ko -->
 

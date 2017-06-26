@@ -13,8 +13,8 @@ public class DefaultUsers extends AbstractRepository implements Users {
             return null;
 
         Map<String, Object> filter = new HashMap<>();
-        filter.put(User.Column.EMAIL, email);
-        filter.put(User.Column.ENABLED, true);
+        filter.put(User.Col.EMAIL, email);
+        filter.put(User.Col.ENABLED, true);
 
         return findOne(User.class, filter);
     }
@@ -25,7 +25,7 @@ public class DefaultUsers extends AbstractRepository implements Users {
             return null;
 
         Map<String, Object> filter = new HashMap<>();
-        filter.put(User.Column.USERNAME, username);
+        filter.put(User.Col.USERNAME, username);
 
         return findOne(User.class, filter);
     }

@@ -1,0 +1,67 @@
+<div>
+
+	<div data-bind="toolbar: {
+			targetId: 'requestContextGeneralForm',
+			i18n: 'app:modules.urlrewrite.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form id="requestContextGeneralForm">
+		<div class="form-group">
+			<label for="inputUrlPrefix" class="col-sm-2 control-label">URL Prefix</label>
+			<div class="col-sm-10"><input data-bind="value: requestContextVM.urlPrefix" class="form-control" id="inputUrlPrefix" type="text" required></div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputUrlType" class="col-sm-2 control-label">URL Type</label>
+			<div class="col-sm-10">
+				<select id="inputUrlType" class="selectpicker"  data-bind="select: requestContextVM.urlType, data: [
+	           		{ id: 'DOMAIN_ONLY', text: 'DOMAIN_ONLY: www.fr.myshop.ch (store=myshop, view=www, lang=fr, country=ch' },
+	           		{ id: 'VC_L_1', text: 'VC_L_1: www.myshop.ch/fr/ (store=myshop, view=www, language=fr, country=ch)' },
+	           		{ id: 'VC_L_2', text: 'VC_L_2: www.ch.myshop.com/fr/ (store=myshop, view=www, language=fr, country=ch' },
+	           		{ id: 'V_CL', text: 'V_CL: www.myshop.com/ch-fr/ (store=myshop, view=www, language=fr, country=ch)' },
+	           		{ id: 'VL_C', text: 'VL_C: www.fr.myshop.com/ch/ (store=myshop, view=www, language=fr, country=ch)' },
+	           		{ id: 'LC_V', text: 'LC_V: fr.myshop.ch/web/ (store=myshop, view=web, language=fr, country=ch)' },
+	           		{ id: 'C_LV', text: 'C_LV: ch.myshop.com/fr-web/ (store=myshop, view=web, language=fr, country=ch)' },
+	           		{ id: 'URI_PREFIX_ONLY', text: 'URI_PREFIX_ONLY: www.myshop.com/web-ch-fr/ (store=myshop, view=web, language=fr, country=ch)' },
+	           		{ id: 'DOMAIN_ONLY_WITHOUT_LANGUAGE', text: 'DOMAIN_ONLY_WITHOUT_LANGUAGE: www.myshop.com (values can be retrieved from the mongodb collection request_contexts)' }]">
+				</select>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">Merchant</label>
+			<div class="col-sm-10 read-only-text">
+				<span class="" data-bind="merchantSelect: {value: requestContextVM.merchant}"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">Store</label>
+			<div class="col-sm-10 read-only-text">
+				<span class="" data-bind="merchantStoreSelect: {value: requestContextVM.store, merchant: requestContextVM.merchant}"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">View</label>
+			<div class="col-sm-10 read-only-text">
+				<span class="" data-bind="merchantViewSelect: {value: requestContextVM.view, merchant: requestContextVM.merchant}"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">Country</label>
+			<div class="col-sm-10 read-only-text">
+				<span class="" data-bind="countrySelect: {value: requestContextVM.country}"></span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">Language</label>
+			<div class="col-sm-10 read-only-text">
+				<span class="" data-bind="languageSelect: {value: requestContextVM.language}"></span>
+			</div>
+		</div>
+
+	</form>
+
+</div>

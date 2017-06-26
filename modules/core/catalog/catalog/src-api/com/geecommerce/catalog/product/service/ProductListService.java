@@ -7,9 +7,9 @@ import java.util.Set;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.model.ProductListFilterRule;
-import com.geecommerce.catalog.product.model.ProductListQueryNode;
 import com.geecommerce.core.elasticsearch.search.SearchParams;
 import com.geecommerce.core.service.api.Service;
+import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.Id;
 
 public interface ProductListService extends Service {
@@ -23,10 +23,10 @@ public interface ProductListService extends Service {
 
     public ProductListFilterRule getProductListFilterRule(String key);
 
-    public Set<Id> getProductIds(ProductListQueryNode queryNode, Map<String, Object> navFilterParts,
-        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams);
+    public Set<Id> getProductIds(QueryNode queryNode, Map<String, Object> navFilterParts,
+                                 Map<String, Set<Object>> uriFilterParts, SearchParams searchParams);
 
-    public Map<Id, Boolean> getProductIdsAndVisibility(ProductListQueryNode queryNode,
+    public Map<Id, Boolean> getProductIdsAndVisibility(QueryNode queryNode,
         Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams);
 
     public Map<String, Object> findProductById(Id productId);

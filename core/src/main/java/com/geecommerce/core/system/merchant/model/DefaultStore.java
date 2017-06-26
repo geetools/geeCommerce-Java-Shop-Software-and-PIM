@@ -10,6 +10,7 @@ import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.utils.Filenames;
+import com.owlike.genson.annotation.JsonIgnore;
 
 @Model(collection = "stores", fieldAccess = true)
 public class DefaultStore extends AbstractModel implements Store {
@@ -129,6 +130,7 @@ public class DefaultStore extends AbstractModel implements Store {
         return this;
     }
 
+    @JsonIgnore
     @Override
     public final String getTemplatesPath() {
         if (merchant == null)
@@ -138,6 +140,7 @@ public class DefaultStore extends AbstractModel implements Store {
             .append(Filenames.ensureSafeName(getCode() != null ? getCode() : getName(), true)).toString();
     }
 
+    @JsonIgnore
     @Override
     public final String getResourcesPath() {
         if (merchant == null)
@@ -147,6 +150,7 @@ public class DefaultStore extends AbstractModel implements Store {
             .append(Filenames.ensureSafeName(getCode() != null ? getCode() : getName(), true)).toString();
     }
 
+    @JsonIgnore
     @Override
     public final String getCertsPath() {
         String rp = getResourcesPath();

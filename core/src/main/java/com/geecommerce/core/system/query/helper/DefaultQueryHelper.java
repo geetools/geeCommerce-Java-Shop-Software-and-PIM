@@ -3,10 +3,12 @@ package com.geecommerce.core.system.query.helper;
 import com.geecommerce.core.App;
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
+import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.service.annotation.Helper;
 import com.geecommerce.core.system.query.QueryNodeType;
 import com.geecommerce.core.system.query.model.QueryNode;
 import com.geecommerce.core.type.Id;
+import com.geecommerce.core.util.Json;
 import com.geecommerce.core.util.Strings;
 import com.google.inject.Inject;
 import org.apache.commons.lang.StringUtils;
@@ -22,7 +24,7 @@ public class DefaultQueryHelper implements QueryHelper {
     protected App app;
 
     protected static final String AND = "AND";
-    protected static final String OR = "or";
+    protected static final String OR = "OR";
 
     protected static final Pattern DOT_PATTERN = Pattern.compile("\\.");
     protected static final Pattern SLASH_PATTERN = Pattern.compile("\\/");
@@ -100,6 +102,45 @@ public class DefaultQueryHelper implements QueryHelper {
             }
         }
         return null;
+    }
+
+    @Override
+    public QueryNode getQueryNode(Update update, String field) {
+        String queryNodeJson = (String) update.getFields().get(field);
+        update.getFields().remove(field);
+
+        Map<String, Object> queryNodeMap = Json.fromJson(queryNodeJson, HashMap.class);
+        QueryNode queryNode = app.model(QueryNode.class);
+        queryNode.fromMap(queryNodeMap);
+
+        return queryNode;
+    }
+
+    @Override
+    public QueryNode combine(QueryNode queryNode1, QueryNode queryNode2) {
+        if(queryNode1 == null && queryNode2 == null)
+            return null;
+
+        if(queryNode1 == null)
+            return queryNode2;
+
+        if(queryNode2 == null)
+            return queryNode1;
+
+        if(queryNode1.isEmpty())
+            return queryNode2;
+
+        if(queryNode2.isEmpty())
+            return queryNode1;
+
+        QueryNode queryNode = app.model(QueryNode.class);
+        queryNode.setType(QueryNodeType.BOOLEAN);
+        queryNode.setOperator("AND");
+        queryNode.setNodes(new ArrayList<>());
+        queryNode.getNodes().add(queryNode1);
+        queryNode.getNodes().add(queryNode2);
+
+        return queryNode;
     }
 
 }

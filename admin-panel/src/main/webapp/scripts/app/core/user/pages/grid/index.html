@@ -32,6 +32,9 @@
 	        	</div>
         	</form>
         </div>
+        <div class="col-md-3 pull-right">
+            <a href="#/users/details/new" id="btn-new-user" class="btn btn-primary pull-right" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;<span data-i18n="app:modules.use.newButton">Add</span></a>
+        </div>
     </div>
 
     <div class="row">
@@ -50,8 +53,7 @@
 				<!--  Data -->            
                 <tbody data-bind="foreach: { data: pager.data}">
                     <tr>
-                        <td><a data-bind="text: $data.id, attr: { href: '#/users/details/' + $data.id }"></a></td>
-                        <td data-bind="text: $data.username"></td>
+                        <td><a data-bind="text: $data.username, attr: { href: '#/users/details/' + $data.id }"></a></td>
                         <td data-bind="text: $data.forename"></td>
                         <td data-bind="text: $data.surname"></td>
                         <td data-bind="text: $data.email"></td>

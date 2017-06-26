@@ -8,6 +8,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
+import com.geecommerce.core.system.model.*;
+import com.geecommerce.core.system.repository.*;
+import com.geecommerce.core.template.model.DefaultTemplate;
+import com.geecommerce.core.template.model.Template;
+import com.geecommerce.core.template.repository.DefaultTemplates;
+import com.geecommerce.core.template.repository.Templates;
 import org.apache.shiro.realm.Realm;
 
 import com.geecommerce.core.App;
@@ -111,36 +117,12 @@ import com.geecommerce.core.system.merchant.model.Store;
 import com.geecommerce.core.system.merchant.model.View;
 import com.geecommerce.core.system.merchant.repository.DefaultMerchants;
 import com.geecommerce.core.system.merchant.repository.Merchants;
-import com.geecommerce.core.system.model.ConfigurationProperty;
-import com.geecommerce.core.system.model.ContextMessage;
-import com.geecommerce.core.system.model.Country;
-import com.geecommerce.core.system.model.Currency;
-import com.geecommerce.core.system.model.DefaultConfigurationProperty;
-import com.geecommerce.core.system.model.DefaultContextMessage;
-import com.geecommerce.core.system.model.DefaultCountry;
-import com.geecommerce.core.system.model.DefaultCurrency;
-import com.geecommerce.core.system.model.DefaultLanguage;
-import com.geecommerce.core.system.model.DefaultRequestContext;
-import com.geecommerce.core.system.model.DefaultUrlRewrite;
-import com.geecommerce.core.system.model.Language;
-import com.geecommerce.core.system.model.RequestContext;
-import com.geecommerce.core.system.model.UrlRewrite;
 import com.geecommerce.core.system.query.helper.DefaultQueryHelper;
 import com.geecommerce.core.system.query.helper.QueryHelper;
 import com.geecommerce.core.system.query.model.DefaultQuery;
 import com.geecommerce.core.system.query.model.DefaultQueryNode;
 import com.geecommerce.core.system.query.model.Query;
 import com.geecommerce.core.system.query.model.QueryNode;
-import com.geecommerce.core.system.repository.Configurations;
-import com.geecommerce.core.system.repository.ContextMessages;
-import com.geecommerce.core.system.repository.DefaultConfigurations;
-import com.geecommerce.core.system.repository.DefaultContextMessages;
-import com.geecommerce.core.system.repository.DefaultLanguages;
-import com.geecommerce.core.system.repository.DefaultRequestContexts;
-import com.geecommerce.core.system.repository.DefaultUrlRewrites;
-import com.geecommerce.core.system.repository.Languages;
-import com.geecommerce.core.system.repository.RequestContexts;
-import com.geecommerce.core.system.repository.UrlRewrites;
 import com.geecommerce.core.system.service.ConfigurationService;
 import com.geecommerce.core.system.service.ContextMessageService;
 import com.geecommerce.core.system.service.DefaultConfigurationService;
@@ -241,6 +223,10 @@ public class SystemModule extends AbstractModule {
         // RequestContext
         super.bind(RequestContext.class).to(DefaultRequestContext.class);
         super.bind(RequestContexts.class).to(DefaultRequestContexts.class).in(Singleton.class);
+
+        //SearchIndex
+        super.bind(SearchIndex.class).to(DefaultSearchIndex.class);
+        super.bind(SearchIndexes.class).to(DefaultSearchIndexes.class);
 
         // Language
         super.bind(Language.class).to(DefaultLanguage.class);
@@ -367,6 +353,11 @@ public class SystemModule extends AbstractModule {
         super.bind(ImportPlanInfo.class).to(DefaultImportPlanInfo.class);
         super.bind(ImportMessage.class).to(DefaultImportMessage.class);
 
+        // ----------------------------------------------------
+        // Templates
+        // ----------------------------------------------------
+        super.bind(Template.class).to(DefaultTemplate.class);
+        super.bind(Templates.class).to(DefaultTemplates.class);
     }
 
     // @Provides

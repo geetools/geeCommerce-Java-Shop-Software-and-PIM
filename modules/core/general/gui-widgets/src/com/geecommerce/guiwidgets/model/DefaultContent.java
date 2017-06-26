@@ -46,6 +46,9 @@ public class DefaultContent extends AbstractAttributeSupport implements Content 
     @Column(Col.PREVIEW_PRODUCT_ID)
     private Id previewProductId = null;
 
+    @Column(Col.TEMPLATE_ID)
+    private Id templateId = null;
+
     @JsonIgnore
     private ContextObject<String> uri = null;
 
@@ -184,6 +187,17 @@ public class DefaultContent extends AbstractAttributeSupport implements Content 
     @Override
     public Content setPreviewProductId(Id previewProductId) {
         this.previewProductId = previewProductId;
+        return this;
+    }
+
+    @Override
+    public Id getTemplateId() {
+        return templateId;
+    }
+
+    @Override
+    public Content setTemplateId(Id templateId) {
+        this.templateId = templateId;
         return this;
     }
 

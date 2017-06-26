@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.geecommerce.core.elasticsearch.api.search.SearchResult;
 import com.geecommerce.core.elasticsearch.service.ElasticsearchService;
+import com.geecommerce.core.system.query.model.QueryNode;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -25,7 +26,6 @@ import com.geecommerce.catalog.product.helper.ProductListHelper;
 import com.geecommerce.catalog.product.model.Product;
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.model.ProductListFilterRule;
-import com.geecommerce.catalog.product.model.ProductListQueryNode;
 import com.geecommerce.catalog.product.repository.ProductListFilterRules;
 import com.geecommerce.catalog.product.repository.ProductLists;
 import com.geecommerce.core.App;
@@ -101,8 +101,8 @@ public class DefaultProductListService implements ProductListService {
     }
 
     @Override
-    public Set<Id> getProductIds(ProductListQueryNode queryNode, Map<String, Object> navFilterParts,
-        Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
+    public Set<Id> getProductIds(QueryNode queryNode, Map<String, Object> navFilterParts,
+                                 Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
         Client client = ElasticSearch.CLIENT.get();
 
         ApplicationContext appCtx = app.context();
@@ -141,7 +141,7 @@ public class DefaultProductListService implements ProductListService {
     }
 
     @Override
-    public Map<Id, Boolean> getProductIdsAndVisibility(ProductListQueryNode queryNode,
+    public Map<Id, Boolean> getProductIdsAndVisibility(QueryNode queryNode,
         Map<String, Object> navFilterParts, Map<String, Set<Object>> uriFilterParts, SearchParams searchParams) {
         Client client = ElasticSearch.CLIENT.get();
 

@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 
+import com.geemvc.inject.InjectorProvider;
+import com.geemvc.inject.Injectors;
+import com.sun.corba.se.spi.ior.ObjectKey;
+import freemarker.cache.StringTemplateLoader;
+import freemarker.ext.servlet.AllHttpScopesHashModel;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -87,10 +93,34 @@ public class ContentController extends BaseController {
         app.setViewPath("page/content/view_" + id.str());
         app.setActionURI(request.getRequestURI());
 
-        Result result = freemarkerTemplateStream(content.getTemplate(), "3h");
+
+        Map<String, Object> params = new HashedMap();
+        if (content.getPreviewProductId() != null) {
+            params.put("product", productService.getProduct(content.getPreviewProductId()));
+        }
+
+        Result result = freemarkerTemplateStream(content.getTemplate(), params, "3h");
         if (content.getPreviewProductId() != null) {
             result.bind("product", productService.getProduct(content.getPreviewProductId()));
         }
+        return result;
+    }
+
+    @Request("product/{id}")
+    public Result getProductPage(@PathParam("id") Id id, @Context HttpServletRequest request,
+                          @Context HttpServletResponse response) {
+
+        Product product = productService.getProduct(id);
+        Content content = contents.findById(Content.class, product.getTemplateId());
+
+        app.setViewPath("page/content/view_" + content.getId().str() + "_" + product.getId());
+        app.setActionURI(request.getRequestURI());
+
+        Map<String, Object> params = new HashedMap();
+        params.put("product", product);
+        
+        Result result = freemarkerTemplateStream(content.getTemplate(),params, "3h");
+        result.bind("product", product);
         return result;
     }
 
@@ -128,7 +158,7 @@ public class ContentController extends BaseController {
         return result;
     }
 
-    protected Result freemarkerTemplateStream(String content, String cacheFor) {
+    protected Result freemarkerTemplateStream(String content, Map<String,Object> params, String cacheFor) {
         StringWriter sw = new StringWriter();
 
         try {
@@ -151,15 +181,26 @@ public class ContentController extends BaseController {
             getResponse().setCharacterEncoding("UTF-8");
 
             TemplateModel tm = FreemarkerHelper.createModel(ObjectWrapper.DEFAULT_WRAPPER, app.servletContext(),
-                getRequest(), getResponse());
+                app.servletRequest(), app.servletResponse());
+
+            if(params!=null)
+                ((AllHttpScopesHashModel)tm).putAll(params);
 
             app.registryPut(FreemarkerConstant.FREEMARKER_REQUEST_TEMPLATE_MODEL, tm);
 
             Template t = new Template("templateName", new StringReader(content), conf);
 
-            Environment env = t.createProcessingEnvironment(tm, sw);
-            env.setLocale(conf.getLocale());
-            env.process();
+
+            InjectorProvider saved = Injectors.get();
+
+            t.process(tm, sw);
+            Injectors.set(saved);
+//            Environment env = t.createProcessingEnvironment(tm, sw);
+//            env.setLocale(conf.getLocale());
+//            env.process();
+
+
+
         } catch (Throwable th) {
             if (app.isDevPrintErrorMessages()) {
                 System.out.println("An error occured while rendering template from string :  " + content);
@@ -169,7 +210,7 @@ public class ContentController extends BaseController {
             throw new RuntimeException(th.getMessage(), th);
         }
 
-        return Results.stream("text/html", sw.toString());
+        return Results.stream("text/html", sw.toString()).bind(params);
     }
 
     /*

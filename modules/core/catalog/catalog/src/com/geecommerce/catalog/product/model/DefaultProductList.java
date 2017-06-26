@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.geecommerce.core.system.query.model.QueryNode;
 import org.apache.logging.log4j.util.Strings;
 
-import com.geecommerce.catalog.product.enums.ProductListQueryNodeType;
 import com.geecommerce.catalog.product.repository.ProductListFilterRules;
 import com.geecommerce.core.service.AbstractAttributeSupport;
 import com.geecommerce.core.service.AttributeSupport;
@@ -15,7 +15,6 @@ import com.geecommerce.core.service.TargetSupport;
 import com.geecommerce.core.service.annotation.Cacheable;
 import com.geecommerce.core.service.annotation.Column;
 import com.geecommerce.core.service.annotation.Model;
-import com.geecommerce.core.system.attribute.TargetObjectCode;
 import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeValue;
 import com.geecommerce.core.system.attribute.service.AttributeService;
@@ -62,7 +61,7 @@ public class DefaultProductList extends AbstractAttributeSupport
     private boolean special = false;
 
     @Column(Col.QUERY_NODE)
-    public ProductListQueryNode queryNode;
+    public QueryNode queryNode;
 
     @Column(Col.FILTER_ATTRIBUTES)
     public List<Id> filterAttributeIds = new ArrayList<>();
@@ -137,15 +136,12 @@ public class DefaultProductList extends AbstractAttributeSupport
     }
 
     @Override
-    public ProductListQueryNode getQueryNode() {
-        if (queryNode == null) {
-            fromOldFormat();
-        }
+    public QueryNode getQueryNode() {
         return queryNode;
     }
 
     @Override
-    public ProductList setQueryNode(ProductListQueryNode productListQueryNode) {
+    public ProductList setQueryNode(QueryNode productListQueryNode) {
         this.queryNode = productListQueryNode;
         return this;
     }
@@ -264,31 +260,6 @@ public class DefaultProductList extends AbstractAttributeSupport
         return this;
     }
 
-    public void fromOldFormat() {
-        try {
-            if (getAttributes() != null) {
-                ProductListQueryNode rootQueryNode = app.model(ProductListQueryNode.class);
-                rootQueryNode.setType(ProductListQueryNodeType.BOOLEAN);
-                rootQueryNode.setOperator("AND");
-                rootQueryNode.setNodes(new ArrayList<ProductListQueryNode>());
-                for (AttributeValue attributeValue : getAttributes()) {
-                    if (attributeValue.getAttribute() != null
-                        && attributeValue.getAttributeTargetObject().getCode().equals(TargetObjectCode.PRODUCT)) {
-                        ProductListQueryNode childQueryNode = app.model(ProductListQueryNode.class);
-                        childQueryNode.setType(ProductListQueryNodeType.ATTRIBUTE);
-                        childQueryNode.setValue(attributeValue);
-                        rootQueryNode.getNodes().add(childQueryNode);
-                    }
-                }
-                if (rootQueryNode.getNodes() != null && rootQueryNode.getNodes().size() > 0)
-                    setQueryNode(rootQueryNode);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-    }
-
     // --------------------------------------------------------------------------------
     // Page support methods
     // --------------------------------------------------------------------------------
@@ -375,7 +346,7 @@ public class DefaultProductList extends AbstractAttributeSupport
 
         Map<String, Object> queryNodeMap = map_(map.get(Col.QUERY_NODE));
         if (queryNodeMap != null && queryNodeMap.size() > 0) {
-            this.queryNode = app.model(ProductListQueryNode.class);
+            this.queryNode = app.model(QueryNode.class);
             this.queryNode.fromMap(queryNodeMap);
         }
 

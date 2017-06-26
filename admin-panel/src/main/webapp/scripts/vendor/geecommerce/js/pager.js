@@ -186,7 +186,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 gc.app.sessionKGet('activeContext').subscribe(function(ctxId) {
                     self._currentPage = 1;
                     self._offset = (self._currentPage - 1) * self._limit;
-
+                    console.log("change context")
                     self.load();
                 });
             }

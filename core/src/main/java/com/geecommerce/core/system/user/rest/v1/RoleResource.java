@@ -18,9 +18,15 @@ import com.geecommerce.core.rest.pojo.Update;
 import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.system.user.model.Permission;
 import com.geecommerce.core.system.user.model.Role;
+import com.geecommerce.core.system.user.model.User;
 import com.geecommerce.core.system.user.service.UserService;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Path("/v1/roles")
 public class RoleResource extends AbstractResource {
@@ -86,5 +92,60 @@ public class RoleResource extends AbstractResource {
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getPermissions(@FilterParam Filter filter) {
         return ok(checked(service.get(Permission.class, filter.getParams(), queryOptions(filter))));
+    }
+
+    @GET
+    @Path("{id}/notRolePermissions")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getNotUserRoles(@PathParam("id") Id id, @FilterParam Filter filter)
+    {
+        List<Id> permissionIds = new LinkedList<>();
+
+        if (id != null)
+        {
+            Role role = service.get(Role.class, id);
+            if(role != null) {
+                permissionIds = role.getPermissionIds();
+            }
+        }
+
+        Map<String, Object> permissionsFilter = new HashMap<>();
+        if(permissionIds != null && !permissionIds.isEmpty()) {
+            Map<String, Object> permissionsNotInFilter = new HashMap<>();
+            permissionsNotInFilter.put("$nin", permissionIds);
+            permissionsFilter.put(Role.Column.ID, permissionsNotInFilter);
+        }
+
+        return ok(service.get(Permission.class, permissionsFilter, queryOptions(filter)));
+    }
+
+    @PUT
+    @Path("{id}/permission/{permissionId}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void addRole(@PathParam("id") Id id, @PathParam("permissionId") Id permissionId)
+    {
+        if (id != null && permissionId != null)
+        {
+            Role role = service.get(Role.class, id);
+            if(role != null) {
+                role.getPermissionIds().add(permissionId);
+                service.update(role);
+            }
+        }
+    }
+
+    @DELETE
+    @Path("{id}/permission/{permissionId}")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void removeRole(@PathParam("id") Id id, @PathParam("permissionId") Id permissionId)
+    {
+        if (id != null && permissionId != null)
+        {
+            Role role = service.get(Role.class, id);
+            if(role != null) {
+                role.getPermissionIds().remove(permissionId);
+                service.update(role);
+            }
+        }
     }
 }

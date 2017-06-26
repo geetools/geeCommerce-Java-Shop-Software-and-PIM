@@ -1,0 +1,52 @@
+<div>
+
+	<div data-bind="toolbar: {
+			targetId: 'merchantStoresForm',
+			i18n: 'app:modules.merchant.toolbarSaveMsg',
+			saveCallback: saveData }"></div>
+
+	<form id="merchantStoresForm">
+
+		<table class="table table-striped table-hover">
+			<thead>
+			<th>
+				Code
+			</th>
+			<th>
+				Name
+			</th>
+			<th>
+				Default Language
+			</th>
+			<th>
+				Parent Store
+			</th>
+			<th>
+				<button class="btn btn-primary" type="button" data-bind="click: $root.addNewStore"><i class="fa fa-plus"></i></button>
+			</th>
+			</thead>
+			<tbody data-bind="foreach: { data: stores, as: 'storeVM' }" >
+			<tr>
+				<td>
+					<input data-bind="value: storeVM.code" class="form-control" type="text" required>
+				</td>
+				<td>
+					<input data-bind="value: storeVM.name" class="form-control" type="text" required>
+				</td>
+				<td>
+					<span class="" data-bind="languageSelect: {value: storeVM.defaultLanguage}"></span>
+				</td>
+				<td>
+					<span class="" data-bind="merchantStoreSelect: {value: storeVM.parentStore, merchant: $root.merchantId}"></span>
+				</td>
+				<td class="actions">
+					<a href="javascript:void(0)" data-bind="click: $root.removeStore"><i class="fa fa-times"></i></a>
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+
+	</form>
+
+</div>

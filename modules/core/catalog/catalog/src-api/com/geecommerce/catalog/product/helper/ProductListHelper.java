@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.geecommerce.core.system.query.model.QueryNode;
 import org.elasticsearch.index.query.FilterBuilder;
 
 import com.geecommerce.catalog.product.model.ProductList;
 import com.geecommerce.catalog.product.model.ProductListFilterRule;
-import com.geecommerce.catalog.product.model.ProductListQueryNode;
 import com.geecommerce.core.service.api.Helper;
 import com.geecommerce.core.system.attribute.model.Attribute;
 
@@ -22,7 +22,7 @@ public interface ProductListHelper extends Helper {
 
     public Map<String, Set<Object>> getFilterPartsFromURI(String uri, ProductListFilterRule navFilterURLRule);
 
-    public FilterBuilder buildQuery(ProductListQueryNode queryNode);
+    public FilterBuilder buildQuery(QueryNode queryNode);
 
     public String getAttributeOrConfigProperty(ProductList productList, String attrName, String configPropertyName);
 

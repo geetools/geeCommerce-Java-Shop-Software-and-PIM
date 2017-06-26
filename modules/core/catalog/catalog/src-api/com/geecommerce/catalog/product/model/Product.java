@@ -335,6 +335,10 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
 
     public Set<Id> getAllConnectedProductIds(boolean useIndex);
 
+    public Id getTemplateId();
+
+    public Product setTemplateId(Id templateId);
+
     static final class Col {
         public static final String ID = "_id";
         public static final String ID2 = "id2";
@@ -360,5 +364,6 @@ public interface Product extends AttributeSupport, TargetSupport, PageSupport, D
         public static final String PRODUCT_LINKS = "prd_links";
         public static final String ASSETS = "assets";
         public static final String BUNDLE_AS_SINGLE_PRODUCT = "bundle_single_prd";
+        public static final String TEMPLATE = "template";
     }
 }

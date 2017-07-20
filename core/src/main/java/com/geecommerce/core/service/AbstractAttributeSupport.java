@@ -839,7 +839,7 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
     protected List<AttributeValue> copyOfAttributes() {
         List<AttributeValue> copyOfAttributes = new ArrayList<>();
 
-        for (AttributeValue attributeValue : copyOfAttributes) {
+        for (AttributeValue attributeValue : attributes) {
             copyOfAttributes.add(attributeValue.copy());
         }
 

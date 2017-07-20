@@ -2216,7 +2216,7 @@ public class DefaultProduct extends AbstractAttributeSupport
 
     @Override
     public Product makeCopy() {
-        DefaultProduct p = new DefaultProduct();
+        DefaultProduct p = (DefaultProduct) app.model(Product.class);
 
         p.id2 = id2;
         p.ean = ean;

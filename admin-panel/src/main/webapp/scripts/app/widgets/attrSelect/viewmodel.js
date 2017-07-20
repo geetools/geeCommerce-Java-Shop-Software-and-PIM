@@ -26,7 +26,10 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
 		
         return attrAPI.getAttributes(self.forType, self.apiOptions).then(function(data) {
             var attributes = data.data.attributes;
-
+            self.options.push({
+                id : '',
+                text : " "
+            });
             _.forEach(attributes, function(attr) {
                 self.options.push({
                     id : attr[self.valueKey],

@@ -3626,6 +3626,17 @@ select:focus, select:active, button:active, button:active {
 	padding-left: 0px;
 }
 
+.query-builder .editable {
+    border: 1px solid lightgrey;
+    padding: 5px;
+}
+
+.query-builder input.form-control {
+    width: auto;
+    display: inline-block;
+    border: 1px solid lightgrey;
+}
+
 .query-builder .remove-query-node {
 	color: #ccc;
     cursor: pointer;
@@ -3651,7 +3662,7 @@ select:focus, select:active, button:active, button:active {
 }
 
 .query-builder .editable-click {
-    border-bottom: none;
+    /*border-bottom: none;*/
 }
 
 .query-builder-modal .modal-body{

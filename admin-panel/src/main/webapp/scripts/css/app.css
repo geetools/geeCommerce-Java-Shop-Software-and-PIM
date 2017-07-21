@@ -3794,6 +3794,12 @@ select:focus, select:active, button:active, button:active {
 	height: 14px;
 }
 
+.prd-info-remove-btn {
+    top: 0;
+    position: fixed;
+    margin-left: 85px;
+}
+
 .product-finder-query-builder {
 	padding: 20px;
 }

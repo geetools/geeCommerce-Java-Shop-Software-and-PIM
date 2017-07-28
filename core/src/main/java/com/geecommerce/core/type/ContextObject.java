@@ -1390,7 +1390,7 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
                     || val instanceof Number[] || val instanceof Date || val instanceof Date[]
                     || val instanceof Boolean || val instanceof Boolean[] || val instanceof Id
                     || val instanceof Id[] || val instanceof byte[] || val instanceof UUID
-                    || val instanceof UUID[])) {
+                    || val instanceof UUID[] || (val instanceof ArrayList<?> && ((ArrayList) val).get(0) instanceof Id))) {
                     return false;
                 }
             } else {

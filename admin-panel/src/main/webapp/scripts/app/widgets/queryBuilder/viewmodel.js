@@ -178,6 +178,8 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
         this.comparatorChoice = ko.observableArray([{value:"is", label:"="}, {value:"gt", label:">"}, {value:"gte", label:"≥"}, {value:"lt", label:"<"}, {value:"lte", label:"≤"}]);
         this.attributeValues = ko.observableArray([]);
         this.queryNode = ko.observable();
+        this.originalValue = null;
+
 
         this.ofTheseConditionsAreP1 = gc.app.i18n('app:modules.product-list.ofTheseConditionsAreP1');
         this.ofTheseConditionsAreP2 = gc.app.i18n('app:modules.product-list.ofTheseConditionsAreP2');
@@ -233,17 +235,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
             this.queryNode(setQueryNode(null, null, this.attributeValues));
         }
 
-        if(settings.autoSave){
-            setInterval(function () {
-                var savedNode = self.queryNode().convertNode();
-                var query = JSON.stringify(savedNode)
-
-                if(self.settings.value() != query) {
-                    self.settings.value(JSON.stringify(savedNode));
-                }
-            }, 1000)
-        }
-
         function setQueryNode( node, parent){
             if(node == null && parent != null)
                 return null;
@@ -266,9 +257,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
 
             return nodeVM;
         }
-
-        console.log("QUERY NODE")
-        console.log(this.queryNode())
 
         return attrAPI.getAttributes( { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'showInQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
 
@@ -316,6 +304,22 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc',  'gc-attri
                         setAttributeToNode(node);
                     });
                 }
+            }
+
+
+            var tempQueryNode = self.queryNode().convertNode();
+            self.originalValue = JSON.stringify(tempQueryNode);
+
+            if(settings.autoSave){
+                setInterval(function () {
+                    var savedNode = self.queryNode().convertNode();
+                    var query = JSON.stringify(savedNode)
+
+                    if(self.originalValue != query) {
+                        self.originalValue = query;
+                        self.settings.value(JSON.stringify(savedNode));
+                    }
+                }, 1000)
             }
 
         })

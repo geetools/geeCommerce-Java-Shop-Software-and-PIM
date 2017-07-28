@@ -10,6 +10,7 @@ import com.geecommerce.checkout.model.OrderAddress;
 import com.geecommerce.core.cache.CacheManager;
 import com.geecommerce.core.db.Connections;
 import com.geecommerce.core.db.annotation.Persistence;
+import com.geecommerce.core.service.Annotations;
 import com.geecommerce.core.service.annotation.Dao;
 import com.geecommerce.core.service.api.Model;
 import com.geecommerce.core.service.persistence.mysql.DefaultMySqlDao;
@@ -29,7 +30,11 @@ public class DefaultOrderAddressDao extends DefaultMySqlDao implements OrderAddr
 
     @Override
     protected <T extends Model> String getTableName(Class<T> modelClass) {
-        return TABLE_NAME;
+        if(modelClass.equals(OrderAddress.class))
+            return TABLE_NAME;
+        else {
+            return Annotations.getCollectionName(modelClass);
+        }
     }
 
     @Override

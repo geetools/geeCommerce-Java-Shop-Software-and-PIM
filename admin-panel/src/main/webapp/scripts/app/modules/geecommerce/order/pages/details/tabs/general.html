@@ -489,13 +489,13 @@
                                     <!-- ko if: orderVM().calculationResult-->
                                     <span data-bind="text: orderVM().calculationResult.gross_shipping_amount"></span>
                                     <!-- /ko -->
-                                    <!-- ko if: !orderVM().calculationResult-->
+                                    <!-- ko if: !orderVM().calculationResult && v-->
                                     <span data-bind="text: orderVM().orderShipment.deliveryPrice"></span>
                                     <!-- /ko -->
                                 )
 							<!-- /ko -->
                         <!-- /ko -->
-                        <!-- ko if: orderVM().orderShipment.shippingOptions-->
+                        <!-- ko if: orderVM().orderShipment && orderVM().orderShipment.shippingOptions-->
                             <span data-bind="foreach: orderVM().orderShipment.shippingOptions">
                                 <span data-bind="text: name"></span>;
                             </span>
@@ -504,7 +504,7 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: orderVM().orderShipment.deliveryPrice-->
+                <!-- ko if: orderVM().orderShipment && orderVM().orderShipment.deliveryPrice-->
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Delivery Price</label>
                     <div class="col-sm-9">
@@ -512,7 +512,7 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: orderVM().orderShipment.postageAndPackingPrice-->
+                <!-- ko if: orderVM().orderShipment && orderVM().orderShipment.postageAndPackingPrice-->
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Postage And Packing Price</label>
                     <div class="col-sm-9">

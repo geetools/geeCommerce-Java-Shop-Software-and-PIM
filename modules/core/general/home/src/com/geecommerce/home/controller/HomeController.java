@@ -12,8 +12,6 @@ public class HomeController {
     @Request("/")
     public Result ViewHome() {
 
-        System.out.println("GEEMVC HOME!!!!!!!!!!!!!!!!!");
-
         return Results.view("home");
     }
 }

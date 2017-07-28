@@ -60,7 +60,12 @@ import com.geecommerce.coupon.model.LabelValue;
 import com.geecommerce.coupon.repository.CouponCodes;
 import com.geecommerce.coupon.repository.Coupons;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/coupons")
 public class CouponResource extends AbstractResource {
 

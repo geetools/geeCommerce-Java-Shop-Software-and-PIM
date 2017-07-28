@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2013-2017 QuartzDesk.com. All Rights Reserved.
+  ~ QuartzDesk.com PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+  -->
+
+<Context>
+
+  <!--
+    You can either modify the QuartzDesk work dir path here, or set a JVM system property
+    quartzdesk.work.dir pointing to the directory.
+  -->
+
+  <Parameter name="quartzdesk.work.dir" value="/usr/local/quartzdesk/work"/>
+
+	<Resource name="QuartzDeskDS"
+	 auth="Container"
+	 type="javax.sql.DataSource"
+	 removeAbandoned="true"
+	 removeAbandonedTimeout="30"
+	 maxActive="10"
+	 maxIdle="1"
+	 maxWait="2000"
+	 validationQuery="select 1"
+	 poolPreparedStatements="true"
+	 username="gc_demo"
+	 password="d3m0"
+	 driverClassName="com.mysql.jdbc.Driver"
+	 url="jdbc:mysql://gc_demo_mysql:3306/gc_demo_quartzdesk_local?cachePrepStmts=true"/>
+
+  <!--
+    Required by Tomcat to make the globally defined JDBC data source (see GlobalNamingResources section
+    in server.xml) available in the web application context.
+  <ResourceLink name="QuartzDeskDS" global="jdbc/QuartzDeskDS" type="javax.sql.DataSource"/>
+  -->
+
+</Context>

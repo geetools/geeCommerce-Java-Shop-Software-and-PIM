@@ -21,7 +21,12 @@ import com.geecommerce.core.system.model.ContextMessage;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/text")
 public class TextResource extends AbstractResource {
     private final RestService service;

@@ -28,12 +28,17 @@ import com.geecommerce.core.system.user.model.Role;
 import com.geecommerce.core.system.user.model.User;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import io.swagger.annotations.Api;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+@Api
+@Singleton
 @Path("/v1/users")
 public class UserResource extends AbstractResource {
 

@@ -30,7 +30,12 @@ import com.geecommerce.core.system.attribute.model.Attribute;
 import com.geecommerce.core.system.attribute.model.AttributeGroup;
 import com.geecommerce.core.system.attribute.model.AttributeGroupMapping;
 import com.geecommerce.core.type.Id;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/attribute-groups")
 public class AttributeGroupResource extends AbstractResource {
     private final RestService service;

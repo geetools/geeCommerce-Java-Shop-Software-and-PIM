@@ -33,7 +33,7 @@ public interface BundleProductItem extends Model {
 
     public BundleConditionType getConditionType();
 
-    public BundleProductItem setWithProductIds(BundleConditionType conditionType);
+    public BundleProductItem setConditionType(BundleConditionType conditionType);
 
     static final class Col {
         public static final String PRODUCT_ID = "prd_id";

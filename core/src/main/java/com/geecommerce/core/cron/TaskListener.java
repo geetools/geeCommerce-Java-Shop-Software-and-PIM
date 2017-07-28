@@ -56,14 +56,14 @@ public class TaskListener implements JobListener {
                 + ".");
             log.info("---------------------------------------------------------------------------------------------");
 
-            sendMail(
-                "Task '" + context.getJobDetail().getKey()
-                    + "' has been vetoed",
-                "Task '" + context.getJobDetail().getKey() + "' has been vetoed. "
-                    + (context.getNextFireTime() == null ? ""
-                        : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime())
-                            + "."),
-                context, true);
+//            sendMail(
+//                "Task '" + context.getJobDetail().getKey()
+//                    + "' has been vetoed",
+//                "Task '" + context.getJobDetail().getKey() + "' has been vetoed. "
+//                    + (context.getNextFireTime() == null ? ""
+//                        : "Next trigger fire time is at " + dateFormat.format(context.getNextFireTime())
+//                            + "."),
+//                context, true);
         } catch (Throwable t) {
             t.printStackTrace();
         } finally {
@@ -99,12 +99,12 @@ public class TaskListener implements JobListener {
                     log.info(
                         "=============================================================================================");
 
-                    sendMail("Task '" + context.getJobDetail().getKey() + "' completed",
-                        "Task '" + context.getJobDetail().getKey() + "' has completed. "
-                            + (context.getNextFireTime() == null ? ""
-                                : "Next trigger fire time is at "
-                                    + dateFormat.format(context.getNextFireTime()) + "."),
-                        context, false);
+//                    sendMail("Task '" + context.getJobDetail().getKey() + "' completed",
+//                        "Task '" + context.getJobDetail().getKey() + "' has completed. "
+//                            + (context.getNextFireTime() == null ? ""
+//                                : "Next trigger fire time is at "
+//                                    + dateFormat.format(context.getNextFireTime()) + "."),
+//                        context, false);
                 } else {
                     log.error(
                         "---------------------------------------------------------------------------------------------");
@@ -123,8 +123,8 @@ public class TaskListener implements JobListener {
 
                     System.out.println(sw.toString());
 
-                    sendMail("Task '" + context.getJobDetail().getKey() + "' threw an error: "
-                        + jobException.getMessage(), sw.toString(), context, true);
+//                    sendMail("Task '" + context.getJobDetail().getKey() + "' threw an error: "
+//                        + jobException.getMessage(), sw.toString(), context, true);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -24,7 +24,12 @@ import com.geecommerce.core.system.model.UrlRewrite;
 import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/url-rewrites")
 public class UrlRewriteResource extends AbstractResource {
     private final RestService service;

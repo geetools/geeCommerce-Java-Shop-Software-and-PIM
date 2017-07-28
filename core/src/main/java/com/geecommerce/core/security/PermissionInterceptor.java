@@ -55,10 +55,6 @@ public class PermissionInterceptor implements MethodInterceptor {
         String uri = request.getRequestURI();
         String method = request.getMethod();
 
-        // System.out.println("/////////////// CHECKING URI: " + method + " " +
-        // uri + " -> " +
-        // invocation.getMethod().getName());
-
         boolean isAuthorizationEnabled = app.cpBool_("core/cpanel/authorization/enabled", false);
 
         if (!isAuthorizationEnabled) {
@@ -78,6 +74,7 @@ public class PermissionInterceptor implements MethodInterceptor {
         }
 
         if ((("GET".equals(method) || "POST".equals(method)) && uri.matches("^\\/api\\/v[0-9]+\\/sessions[\\/]?$"))
+            || uri.matches("^\\/api\\/swagger.+")
             || ("GET".equals(method) && (uri.matches("^\\/api\\/v[0-9]+\\/settings[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/attributes[\\/]?$")
                 || uri.matches("^\\/api\\/v[0-9]+\\/control\\-panels\\/[0-9]+\\/attribute\\-tabs[\\/]?$")

@@ -29,10 +29,15 @@ import com.geecommerce.core.system.attribute.model.AttributeTargetObject;
 import com.geecommerce.core.system.attribute.service.AttributeService;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/import")
 public class ImportResource extends AbstractResource {
     protected final RestService service;

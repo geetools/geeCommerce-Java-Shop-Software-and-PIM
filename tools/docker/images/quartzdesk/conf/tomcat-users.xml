@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<tomcat-users>
+	<!-- QuartzDesk web application roles -->
+	<user username="admin" password="d3m0" roles="QuartzDeskUser"/>
+	<user username="monitor" password="d3m0" roles="QuartzDeskMonitor"/>
+	<user username="service" password="d3m0" roles="QuartzDeskService"/>
+</tomcat-users>

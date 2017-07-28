@@ -79,6 +79,13 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         imageArgKeys.put("o", "out");
     }
 
+    public static void main(String[] args) {
+//        ".+___(.+?)\\..+$"
+        String imageUri = "/c/media/products/images/_/_/12/34/7-/01/-12347-01___s:330x330.jpg";
+        
+        extractImageParameters(imageUri);
+    }
+    
     /**
      * Renames an image to *.jpg.{timestamp}.deleted.
      */
@@ -990,7 +997,7 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         return imgUri.replaceFirst("(.+)___(?:.+)\\.(.+)$", "$1.$2");
     }
 
-    private Map<String, Object> extractImageParameters(String imageUri) {
+    private static Map<String, Object> extractImageParameters(String imageUri) {
         Map<String, Object> params = new HashMap<>();
 
         Matcher m = patternImageParameters.matcher(imageUri);
@@ -1347,8 +1354,8 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
                 // }
             }
         } catch (Throwable t) {
-            System.out.println("ERROR WHEN GETTING MEDIA-ASSET URL FOR URI: " + mediaAssetURI);
-            t.printStackTrace();
+//            System.out.println("ERROR WHEN GETTING MEDIA-ASSET URL FOR URI: " + mediaAssetURI);
+//            t.printStackTrace();
         }
 
         return mediaAssetURL;

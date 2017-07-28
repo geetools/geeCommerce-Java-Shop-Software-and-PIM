@@ -1,0 +1,6 @@
+<Context
+  docBase="/usr/local/geecommerce/webapp/src/main/webapp"
+  path=""
+  reloadable="true">
+  <Resources allowLinking="true" />
+</Context>

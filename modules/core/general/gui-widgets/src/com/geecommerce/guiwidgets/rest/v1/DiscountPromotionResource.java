@@ -45,12 +45,16 @@ import com.geecommerce.guiwidgets.repository.DiscountPromotionSubscriptions;
 import com.geecommerce.mediaassets.model.MediaAsset;
 import com.geecommerce.mediaassets.service.MediaAssetService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
 
 import au.com.bytecode.opencsv.CSVWriter;
+import io.swagger.annotations.Api;
 
+@Api
+@Singleton
 @Path("/v1/discount-promotions")
 public class DiscountPromotionResource extends AbstractResource {
     private final RestService service;

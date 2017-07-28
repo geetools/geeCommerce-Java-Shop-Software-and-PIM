@@ -1,0 +1,94 @@
+version: '2'
+services:
+  mysql:
+    image: geecommerce/demo-mysql:1.0
+    container_name: gc_demo_mysql
+    ports:
+    - 3306:3306
+    restart: always
+  mongo:
+    image: geecommerce/demo-mongodb:1.0
+    container_name: gc_demo_mongodb
+    ports:
+    - 27017:27017
+    restart: always
+  tomcat:
+    image: geecommerce/tomcat8-java8:1.0
+    container_name: gc_demo_tomcat
+    environment:
+      - GC_HOME=/usr/local/geecommerce
+    volumes:
+    - .:/usr/local/geecommerce
+    ports:
+    - 8080:8080
+    - 8000:8000
+    depends_on:
+    - mysql
+    - mongo
+    - elasticsearch
+    links:
+    - mysql
+    - mongo
+    - elasticsearch
+  nginx:
+    image: geecommerce/demo-nginx:1.0
+    container_name: gc_demo_nginx
+    volumes:
+    - .:/usr/local/geecommerce:ro
+    ports:
+    - 80:80
+    - 443:443
+    depends_on:
+    - tomcat
+    links:
+    - tomcat
+  elasticsearch:
+    image: elasticsearch:1.7.6
+    container_name: gc_demo_es
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    volumes:
+      - esdemodata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    restart: always
+  jobsdaemon:
+    image: geecommerce/jobs-daemon:1.0
+    container_name: gc_demo_jobs_daemon
+    environment:
+      - GC_HOME=/usr/local/geecommerce
+    volumes:
+    - .:/usr/local/geecommerce
+    ports:
+    - 1099:1099
+    depends_on:
+    - mysql
+    - mongo
+    - elasticsearch
+    - tomcat
+    links:
+    - mysql
+    - mongo
+    - elasticsearch
+  quartzdesk:
+    image: geecommerce/demo-quartzdesk:1.0
+    container_name: gc_demo_quartzdesk
+    ports:
+    - 8090:8080
+    depends_on:
+    - mysql
+    - jobsdaemon
+    links:
+    - mysql
+    - jobsdaemon
+volumes:
+  esdemodata:
+    driver: local

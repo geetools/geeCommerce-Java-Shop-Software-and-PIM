@@ -142,6 +142,10 @@ public final class ModuleInjector {
                 foundClasses.addAll(foundClasses1);
                 foundClasses.addAll(foundClasses2);
 
+                // Add the swagger classes.
+                foundClasses.add(io.swagger.jaxrs.listing.ApiListingResource.class);
+                foundClasses.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);                
+
                 if (foundClasses != null && foundClasses.size() > 0) {
                     for (Class<?> foundClass : foundClasses) {
                         if (foundClass == null)
@@ -149,11 +153,11 @@ public final class ModuleInjector {
 
                         if (!isSystemClass(foundClass) && (ResourceConfig.isRootResourceClass(foundClass)
                             || ResourceConfig.isProviderClass(foundClass))) {
-                            bind(foundClass);
+                            bind(foundClass).asEagerSingleton();
                         }
                     }
                 }
-
+                
                 serve("/api/*").with(GuiceContainer.class,
                     ImmutableMap.of(JSONConfiguration.FEATURE_POJO_MAPPING, "true"));
             }

@@ -93,6 +93,18 @@ public class StaticAssetRouterFilter implements Filter {
             }
         }
 
+        if (asset != null && !asset.exists()) {
+            System.out.println("Asset file '" + asset.getAbsolutePath() + "' does not exist.");
+            
+            File[] files = asset.getParentFile().listFiles();
+            
+            if(files != null) {
+                for (int i = 0; i < files.length; i++) {
+                    System.out.println("Asset file " + files[i]);
+                }
+            }
+        }
+        
         if (asset != null && asset.exists()) {
             String mimeType = URLConnection.guessContentTypeFromName(asset.getName());
             response.setContentType(mimeType);

@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.javers.common.collections.Arrays;
+
 import com.geecommerce.core.App;
 import com.geecommerce.core.ApplicationContext;
 import com.geecommerce.core.cache.Cache;
@@ -23,6 +25,7 @@ import com.geecommerce.core.system.model.RequestContext;
 import com.geecommerce.core.type.Id;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.mongodb.BasicDBObject;
 import com.mongodb.QueryOperators;
 
 @RepositorySupport
@@ -403,6 +406,26 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
         return simpleContextFindIdsOnly(modelClass, filter, null);
     }
 
+    private Map<String, Object> nullOrEmpty(String fieldName) {
+        Map<String, Object> rootORMap = new LinkedHashMap<>();
+        List<Map<String, Object>> allORs = new ArrayList<>();
+
+        Map<String, Object> nullVal = new LinkedHashMap<>();
+        nullVal.put(fieldName, null);
+        
+        Map<String, Object> emptyVal = new LinkedHashMap<>();
+        Map<String, Object> sizeZero = new LinkedHashMap<>();
+        sizeZero.put("$size", 0);
+        emptyVal.put(fieldName, sizeZero);
+        
+        allORs.add(nullVal);
+        allORs.add(emptyVal);
+        
+        rootORMap.put("$or", allORs);
+        
+        return rootORMap;
+    }
+    
     @Override
     public <T extends MultiContextModel> List<Id> simpleContextFindIdsOnly(Class<T> modelClass,
         Map<String, Object> filter, QueryOptions queryOptions) {
@@ -417,9 +440,10 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
         // All context values are null (global scope)
         // ----------------------------------------------------------
         Map<String, Object> ctxANDMap1 = new LinkedHashMap<>(filter);
-        ctxANDMap1.put(GlobalColumn.MERCHANT_ID, null);
-        ctxANDMap1.put(GlobalColumn.STORE_ID, null);
-        ctxANDMap1.put(GlobalColumn.REQUEST_CONTEXT_ID, null);
+        ctxANDMap1.put("$and", Lists.newArrayList(nullOrEmpty(GlobalColumn.MERCHANT_ID), nullOrEmpty(GlobalColumn.STORE_ID), nullOrEmpty(GlobalColumn.REQUEST_CONTEXT_ID)));
+//        ctxANDMap1.put(GlobalColumn.MERCHANT_ID, null);
+//        ctxANDMap1.put(GlobalColumn.STORE_ID, null);
+//        ctxANDMap1.put(GlobalColumn.REQUEST_CONTEXT_ID, null);
         ctxANDMaps.add(ctxANDMap1);
 
         // A job may not have the request-context initialized.
@@ -463,6 +487,8 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
 
         rootORMap.put(QueryOperators.OR, ctxANDMaps);
 
+        System.out.println(new BasicDBObject(rootORMap).toJson());
+        
         return dao().findIds(modelClass, rootORMap, queryOptions);
     }
 

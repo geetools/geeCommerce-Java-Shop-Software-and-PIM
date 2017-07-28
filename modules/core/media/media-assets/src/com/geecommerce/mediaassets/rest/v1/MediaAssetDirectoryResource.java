@@ -21,7 +21,12 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.mediaassets.model.MediaAssetDirectory;
 import com.geecommerce.mediaassets.repository.MediaAssetDirectories;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/media-asset-directories")
 public class MediaAssetDirectoryResource extends AbstractResource {
     private final RestService service;

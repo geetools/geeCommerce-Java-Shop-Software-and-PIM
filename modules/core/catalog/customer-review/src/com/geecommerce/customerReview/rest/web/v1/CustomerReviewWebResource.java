@@ -20,7 +20,12 @@ import com.geecommerce.customer.model.Customer;
 import com.geecommerce.customerReview.model.CustomerReview;
 import com.geecommerce.customerReview.service.CustomerReviewService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/web/customer-reviews")
 public class CustomerReviewWebResource extends AbstractWebResource {
 

@@ -12,7 +12,12 @@ import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.customer.model.Customer;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/web/customers")
 public class CustomerWebResource extends AbstractWebResource {
     private final RestService service;

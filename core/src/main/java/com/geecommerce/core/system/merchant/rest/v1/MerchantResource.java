@@ -15,12 +15,17 @@ import com.geecommerce.core.system.repository.RequestContexts;
 import com.geecommerce.core.system.repository.SearchIndexes;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import io.swagger.annotations.Api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Api
+@Singleton
 @Path("/v1/merchants")
 public class MerchantResource extends AbstractResource {
     private final RestService service;

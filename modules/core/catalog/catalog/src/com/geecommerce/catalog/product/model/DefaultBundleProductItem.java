@@ -126,7 +126,7 @@ public class DefaultBundleProductItem extends AbstractModel implements BundlePro
     }
 
     @Override
-    public BundleProductItem setWithProductIds(BundleConditionType conditionType) {
+    public BundleProductItem setConditionType(BundleConditionType conditionType) {
         this.conditionType = conditionType;
         return this;
     }

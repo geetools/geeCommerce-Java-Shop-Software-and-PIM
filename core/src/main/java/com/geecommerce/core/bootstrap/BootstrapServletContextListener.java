@@ -25,6 +25,8 @@ public class BootstrapServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+        System.out.println("Using environment variable GC_HOME: " + System.getenv("GC_HOME"));
+        
         // Turn off the custom Guice ClassLoader, so that the CommerceBoard
         // ModuleClassLoader is used instead.
         System.setProperty("guice.custom.loader", "false");

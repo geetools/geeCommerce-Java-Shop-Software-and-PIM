@@ -12,7 +12,12 @@ import com.geecommerce.core.rest.pojo.Filter;
 import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.price.model.PriceType;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/prices")
 public class PriceResource extends AbstractResource {
     private final RestService service;

@@ -135,6 +135,11 @@
 			<version>1.19</version>
 		</dependency>
 		<dependency>
+		  <groupId>io.swagger</groupId>
+		  <artifactId>swagger-jersey-jaxrs</artifactId>
+		  <version>1.5.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.javers</groupId>
 			<artifactId>javers-core</artifactId>
 			<version>1.6.0</version>

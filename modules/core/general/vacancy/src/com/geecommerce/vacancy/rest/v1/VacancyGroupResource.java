@@ -29,10 +29,15 @@ import com.geecommerce.mediaassets.service.MediaAssetService;
 import com.geecommerce.vacancy.model.Vacancy;
 import com.geecommerce.vacancy.model.VacancyGroup;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/vacancy-groups")
 public class VacancyGroupResource extends AbstractResource {
     private final RestService service;

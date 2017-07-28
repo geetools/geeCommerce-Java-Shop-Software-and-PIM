@@ -14,7 +14,12 @@ import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.mailer.model.MailerTemplate;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/mailer-templates")
 public class MailerTemplateResource extends AbstractResource {
 

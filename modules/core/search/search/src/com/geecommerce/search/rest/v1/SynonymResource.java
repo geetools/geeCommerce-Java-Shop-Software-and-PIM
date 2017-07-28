@@ -19,7 +19,12 @@ import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.search.model.Synonym;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/synonyms")
 public class SynonymResource extends AbstractResource {
 

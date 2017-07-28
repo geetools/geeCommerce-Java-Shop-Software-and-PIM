@@ -32,7 +32,12 @@ import com.geecommerce.core.system.cpanel.model.ControlPanel;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.type.Ids;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/control-panels")
 public class ControlPanelResource extends AbstractResource {
     private final RestService service;

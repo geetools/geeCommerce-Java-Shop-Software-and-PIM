@@ -23,7 +23,12 @@ import com.geecommerce.search.model.SearchQuery;
 import com.geecommerce.search.model.SearchResult;
 import com.geecommerce.search.service.SearchService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/search")
 public class SearchResource extends AbstractResource {
     private final RestService service;

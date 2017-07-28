@@ -53,8 +53,6 @@ public interface RetailStore extends AttributeSupport {
 
     public List<String> getAddressLines();
 
-    public RetailStore setAddressLines(String... lines);
-
     public RetailStore addAddressLine(String addressLine);
 
     public RetailStore setMainImageId(Id mainImageId);

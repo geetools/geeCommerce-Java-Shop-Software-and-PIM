@@ -24,9 +24,13 @@ import com.geecommerce.core.type.Id;
 import com.geecommerce.customer.model.Customer;
 import com.geecommerce.customer.model.CustomerGroup;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import au.com.bytecode.opencsv.CSVWriter;
+import io.swagger.annotations.Api;
 
+@Api
+@Singleton
 @Path("/v1/customers")
 public class CustomerResource extends AbstractResource {
     private final RestService service;

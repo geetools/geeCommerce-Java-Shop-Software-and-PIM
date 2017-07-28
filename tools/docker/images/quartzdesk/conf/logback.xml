@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013-2017 QuartzDesk.com. All Rights Reserved.
+  ~ QuartzDesk.com PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+  -->
+
+<!--
+  This is a sample QuartzDesk logback configuration that redirects all
+  log messages to the quartzdesk.log a quartzdesk-trace.log files in the
+  logs directory in the QuartzDesk work directory.
+
+  quartzdesk.log is rotated on daily basis and 10 days worth of history are kept.
+
+  quartzdesk-trace.log is size-rotated (2MB) and 6 most recent logs are kept.
+  -->
+
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+  <!--
+    Registers the MBean for logback management in the JMX server under the given context name.
+  -->
+  <contextName>quartzdesk</contextName>
+  <jmxConfigurator/>
+
+  <!--
+    Logback context property logback.config.dir is set by the LogbackInitContextListener
+    to point to the parent directory of the logback configuration file (logback.xml).
+  -->
+  <property name="logs.dir" value="${logback.config.dir:-.}/logs"/>
+
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logs.dir}/quartzdesk.log</file>
+    <append>true</append>
+
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <fileNamePattern>${logs.dir}/quartzdesk.log.%d{yyyy-MM-dd}</fileNamePattern>
+      <!-- keep 10 days' worth of history -->
+      <maxHistory>10</maxHistory>
+    </rollingPolicy>
+
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>[%date] %.-1level [%thread] [%mdc] [%logger:%line] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+  <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logs.dir}/quartzdesk-trace.log</file>
+    <append>true</append>
+
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>TRACE</level>
+    </filter>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>${logs.dir}/quartzdesk-trace.log.%i</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>5</maxIndex>
+    </rollingPolicy>
+
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>2MB</maxFileSize>
+    </triggeringPolicy>
+
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>[%date] %.-1level [%thread] [%mdc] [%logger:%line] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+  <logger name="com.quartzdesk.common"
+          level="INFO"/>
+
+  <!-- JMX API -->
+  <logger name="com.quartzdesk.common.jmx"
+          level="TRACE"/>
+
+  <!-- License API -->
+  <logger name="com.quartzdesk.common.license"
+          level="TRACE"/>
+
+  <!-- IM API -->
+  <logger name="com.quartzdesk.common.im"
+          level="TRACE"/>
+
+
+  <logger name="com.quartzdesk"
+          level="TRACE"/>
+
+  <!-- Stripes framework logging -->
+  <!--
+  <logger name="net.sourceforge.stripes"
+          level="TRACE"/>
+  -->
+
+  <!--
+    Start of Spring framework logging configuration
+  -->
+
+  <!--
+    Loading of Spring application contexts from XML resources.
+  -->
+  <logger name="org.springframework.beans.factory.xml"
+          level="INFO"/>
+
+  <!--
+    Loading of properties resources (eg. through the context:property-placeholder directive).
+  -->
+  <logger name="org.springframework.core.io.support.PropertiesLoaderSupport"
+          level="TRACE"/>
+
+  <!--
+    Spring web.
+  -->
+  <logger name="org.springframework.web"
+          level="INFO"/>
+
+  <!--
+    Spring WS.
+  -->
+  <logger name="org.springframework.ws"
+          level="TRACE"/>
+
+  <!--
+    Spring WS - logging of SOAP requests/responses.
+  -->
+  <logger name="org.springframework.ws.server.endpoint.AbstractLoggingInterceptor"
+          level="TRACE"/>
+
+  <!--
+    URL Rewrite Filter
+  -->
+  <logger name="org.tuckey.web.filters.urlrewrite"
+          level="INFO"/>
+
+  <!-- Jetty -->
+  <logger name="org.mortbay.jetty"
+          level="INFO"/>
+
+
+  <!--
+     Hibernate
+   -->
+  <logger name="org.hibernate"
+          level="WARN"/>
+
+  <!--
+    Hibernate - logging of SQL queries.
+  -->
+  <logger name="org.hibernate.SQL"
+          level="DEBUG"/>
+
+  <!--
+    Hibernate - logging of JDBC bind parameters in SQL queries.
+  -->
+  <logger name="org.hibernate.type"
+          level="TRACE"/>
+
+  <!--
+    Hibernate - logging of extracted result set values.
+  -->
+  <logger name="org.hibernate.type.descriptor.sql.BasicExtractor"
+          level="INFO"/>
+
+
+  <!--
+    All >= WARN messages from all libraries should be logged.
+  -->
+  <root level="WARN">
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="TRACE_FILE"/>
+  </root>
+</configuration>

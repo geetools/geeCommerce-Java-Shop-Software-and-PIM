@@ -20,7 +20,12 @@ import com.geecommerce.core.system.user.model.Permission;
 import com.geecommerce.core.system.user.service.UserService;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/permissions")
 public class PermissionResource extends AbstractResource {
     private final UserService userService;

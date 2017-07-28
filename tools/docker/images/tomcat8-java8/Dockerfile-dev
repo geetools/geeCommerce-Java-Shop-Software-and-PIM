@@ -1,0 +1,22 @@
+FROM tomcat:8.0-jre8
+
+RUN \
+  apt-get update && apt-get install -y --force-yes \
+  imagemagick \
+  dos2unix \
+  less
+
+RUN mkdir -p /usr/local/tomcat/conf/Catalina/localhost;
+
+COPY ./conf/ROOT.xml /usr/local/tomcat/conf/Catalina/localhost/
+COPY ./scripts/entrypoint.sh /
+
+RUN chmod +x /entrypoint.sh && \
+  dos2unix /entrypoint.sh && \
+  ls -l /
+
+EXPOSE 8080
+EXPOSE 8000
+
+CMD ["bash"]
+CMD ["/entrypoint.sh"]

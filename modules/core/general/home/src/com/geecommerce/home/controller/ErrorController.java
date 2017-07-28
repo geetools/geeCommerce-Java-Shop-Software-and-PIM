@@ -17,9 +17,6 @@ public class ErrorController {
     @Request("/{code}")
     public Result viewHome(@PathParam("code") String code) {
 
-        System.out.println(
-            "GEEMVC ERROR !!!!!!!!!!!!!!!!! " + code + " - " + app.getOriginalURI() + " - " + app.getViewPath());
-
         return Results.view("error").bind("errorCode", code);
     }
 }

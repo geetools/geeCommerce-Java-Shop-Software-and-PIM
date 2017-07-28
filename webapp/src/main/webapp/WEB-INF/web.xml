@@ -166,6 +166,24 @@
 	</filter-mapping>
 
 	<servlet>
+        <servlet-name>Jersey2Config</servlet-name>
+        <servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+        <init-param>
+            <param-name>api.version</param-name>
+            <param-value>1.0.0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>swagger.api.basepath</param-name>
+            <param-value>http://demo.geecommerce.local:8080/api-docs</param-value>
+        </init-param>
+        <load-on-startup>5</load-on-startup>
+    </servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey2Config</servlet-name>
+		<url-pattern>/api-docs/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>Geemvc-Servlet</servlet-name>
 		<servlet-class>com.geemvc.DispatcherServlet</servlet-class>
 		<init-param>
@@ -244,7 +262,7 @@
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<!-- Error pages. -->
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+<!-- 
 	<error-page>
 		<error-code>403</error-code>
 		<location>/error/404</location>
@@ -269,4 +287,5 @@
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/error/other</location>
 	</error-page>
+ -->	
 </web-app>

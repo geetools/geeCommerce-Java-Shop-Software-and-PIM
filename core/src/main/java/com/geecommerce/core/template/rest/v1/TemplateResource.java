@@ -1,7 +1,16 @@
 package com.geecommerce.core.template.rest.v1;
 
-import com.geecommerce.core.Str;
-import com.geecommerce.core.cache.CacheManager;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.geecommerce.core.rest.AbstractResource;
 import com.geecommerce.core.rest.jersey.inject.FilterParam;
 import com.geecommerce.core.rest.jersey.inject.ModelParam;
@@ -11,15 +20,12 @@ import com.geecommerce.core.rest.service.RestService;
 import com.geecommerce.core.service.CopySupport;
 import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.template.model.Template;
-import com.geecommerce.core.type.ContextObject;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.Map;
+import io.swagger.annotations.Api;
 
+@Api
 @Path("/v1/templates")
 public class TemplateResource extends AbstractResource {
     private final RestService service;

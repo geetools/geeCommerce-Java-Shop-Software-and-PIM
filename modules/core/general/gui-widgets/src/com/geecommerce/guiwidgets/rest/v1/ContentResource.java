@@ -1,8 +1,6 @@
 package com.geecommerce.guiwidgets.rest.v1;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +13,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import com.geecommerce.core.Char;
 import com.geecommerce.core.Str;
@@ -37,10 +38,12 @@ import com.geecommerce.guiwidgets.helper.ContentUrlHelper;
 import com.geecommerce.guiwidgets.model.Content;
 import com.geecommerce.guiwidgets.service.ContentService;
 import com.google.inject.Inject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.w3c.tidy.Tidy;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/contents")
 public class ContentResource extends AbstractResource {
     private final RestService service;

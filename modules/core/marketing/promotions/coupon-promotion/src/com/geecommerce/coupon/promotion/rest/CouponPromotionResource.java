@@ -13,6 +13,9 @@ import com.geecommerce.coupon.promotion.helper.CouponPromotionHelper;
 import com.geecommerce.coupon.promotion.model.CouponPromotion;
 import com.geecommerce.coupon.promotion.service.CouponPromotionService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import io.swagger.annotations.Api;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,6 +23,8 @@ import javax.ws.rs.core.Response;
 
 import java.util.*;
 
+@Api
+@Singleton
 @Path("/v1/coupon-promotions")
 public class CouponPromotionResource extends AbstractResource {
 

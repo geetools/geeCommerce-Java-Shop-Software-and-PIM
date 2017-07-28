@@ -31,10 +31,15 @@ import com.geecommerce.mediaassets.repository.MediaAssets;
 import com.geecommerce.mediaassets.service.MediaAssetDirectoryService;
 import com.geecommerce.mediaassets.service.MediaAssetService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataParam;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/slide-shows")
 public class SlideShowResource extends AbstractResource {
     public static final String SYSTEM_PATH = "system/cms/widgets/slide_show";

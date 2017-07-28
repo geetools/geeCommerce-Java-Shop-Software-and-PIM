@@ -19,7 +19,12 @@ import com.geecommerce.core.system.attribute.model.AttributeOption;
 import com.geecommerce.core.system.attribute.service.AttributeService;
 import com.geecommerce.core.type.Id;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/attribute-options")
 public class AttributeOptionResource extends AbstractResource {
     private final RestService service;

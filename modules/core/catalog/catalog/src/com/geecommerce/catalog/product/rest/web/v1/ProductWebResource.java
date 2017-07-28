@@ -29,7 +29,12 @@ import com.geecommerce.price.model.Price;
 import com.geecommerce.price.pojo.PricingContext;
 import com.geecommerce.price.service.PriceService;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/web/products")
 public class ProductWebResource extends AbstractWebResource {
     private final RestService service;

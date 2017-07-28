@@ -184,12 +184,6 @@ public class DefaultRetailStore extends AbstractAttributeSupport implements Reta
     }
 
     @Override
-    public RetailStore setAddressLines(String... lines) {
-        this.addressLines = Lists.newArrayList(lines);
-        return this;
-    }
-
-    @Override
     public RetailStore addAddressLine(String addressLine) {
         this.addressLines.add(addressLine);
         return this;

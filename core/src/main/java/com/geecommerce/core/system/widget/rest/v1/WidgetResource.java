@@ -17,7 +17,12 @@ import com.geecommerce.core.system.widget.model.WidgetGroup;
 import com.geecommerce.core.type.Id;
 import com.geecommerce.core.web.api.WidgetController;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/widgets")
 public class WidgetResource extends AbstractResource {
     private final RestService service;

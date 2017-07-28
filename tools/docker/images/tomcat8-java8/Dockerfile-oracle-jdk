@@ -1,0 +1,47 @@
+FROM ubuntu:latest
+
+# Install Java.
+RUN \
+  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+  apt-get update && \
+  apt-get install -y software-properties-common && \
+  add-apt-repository -y ppa:webupd8team/java && \
+  apt-get update && \
+  apt-get install -y oracle-java8-installer && \
+  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/cache/oracle-jdk8-installer
+
+# Define working directory.
+WORKDIR /usr/local
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+RUN \
+  apt-get update && apt-get install -y --force-yes \
+  imagemagick \
+  dos2unix \
+  wget \
+  less
+
+RUN \
+  wget http://mirror.klaus-uwe.me/apache/tomcat/tomcat-8/v8.5.16/bin/apache-tomcat-8.5.16.tar.gz && \
+  tar xvfz apache-tomcat-8.5.16.tar.gz && \
+  rm apache-tomcat-8.5.16.tar.gz && \
+  ln -s /usr/local/apache-tomcat-8.5.16 /usr/local/tomcat && \
+  mv /usr/local/tomcat/webapps/ROOT /usr/local/tomcat/webapps/tomcat-home && \
+  ln -s /usr/local/geecommerce/webapp/src/main/webapp/ /usr/local/tomcat/webapps/ROOT
+
+COPY ./scripts/entrypoint.sh /
+
+RUN chmod +x /entrypoint.sh && \
+  dos2unix /entrypoint.sh && \
+  ls -l /
+
+WORKDIR /usr/local/tomcat
+
+EXPOSE 8080
+EXPOSE 8000
+
+CMD ["bash"]
+CMD ["/entrypoint.sh"]

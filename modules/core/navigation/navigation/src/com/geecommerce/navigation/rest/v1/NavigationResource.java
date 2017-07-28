@@ -29,7 +29,12 @@ import com.geecommerce.core.util.Strings;
 import com.geecommerce.navigation.helper.NavigationHelper;
 import com.geecommerce.navigation.model.NavigationItem;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+import io.swagger.annotations.Api;
+
+@Api
+@Singleton
 @Path("/v1/navigation")
 public class NavigationResource extends AbstractResource {
     private final RestService service;

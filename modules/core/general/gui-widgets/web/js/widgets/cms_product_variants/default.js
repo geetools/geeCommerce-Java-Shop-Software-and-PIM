@@ -56,6 +56,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                             console.log('preselectedVariantId::: ', preselectedVariantId);
 
+                            if(!preselectedVariantId){
+                                preselectedVariantId = Object.keys(variantProducts)[0];
+                            }
+                            
                             if (preselectedVariantId) {
                                 var preselectedVariant = self.findVariantById(preselectedVariantId, variantProducts);
                                 var preselectedOptionElements = self.getPreselectedOptionElements(preselectedVariant, variantOptions, wdContainer);

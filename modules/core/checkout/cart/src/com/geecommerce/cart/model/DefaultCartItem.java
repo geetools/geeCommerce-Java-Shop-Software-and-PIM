@@ -337,6 +337,11 @@ public class DefaultCartItem extends AbstractModel implements CartItem, Calculat
         }
 
         m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, getProductPrice());
+
+        if(m.get(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE) == null){
+            m.put(CalculationItem.FIELD.ITEM_BASE_CALCULATION_PRICE, 0);
+        }
+
         m.put(CalculationItem.FIELD.ITEM_TAX_RATE, getProductTaxRate());
 
         return m;

@@ -273,6 +273,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                         $(bundleGroup).find("input").each(function () {
                             var product = $(this).val();
 
+                            // it's not a product, just option = no product selected
+                            if(!product)
+                                product = "0";
+
                             if ($(this).is(":disabled")) {
                                 $(".bundle-item-price[bundle_option=" + product + "]").html("");
                             } else {
@@ -330,6 +334,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 				var preselectedVariantId = pageVariants.getPreselectedVariantFromURI();
 
 				console.log('preselectedVariantId::: ', preselectedVariantId);
+
+                if(!preselectedVariantId){
+                    preselectedVariantId = Object.keys(variantProducts)[0];
+                }
 
 				if(preselectedVariantId) {
 					var preselectedVariant = pageVariants.findVariantById(preselectedVariantId, variantProducts);

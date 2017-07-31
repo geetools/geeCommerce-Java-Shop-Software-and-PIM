@@ -270,7 +270,7 @@ public class ProductWebResource extends AbstractWebResource {
                         Double currentPrice  = calculateBundlePrice(bundleMap);
                         Double difference = currentPrice - basePrice;
 
-                        prices.get(groupId.toString()).put(null, String.format( "%.2f", difference));
+                        prices.get(groupId.toString()).put(Id.parseId("0"), String.format( "%.2f", difference));
                     }
                 }
 

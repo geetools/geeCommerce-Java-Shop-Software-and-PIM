@@ -54,7 +54,7 @@
                         
 					<select class="bundle-item">
 						<#if bundleGroup.optional>
-							<option value="">
+							<option value=""  bundle_option="0">
 								keine Auswahl
 							</option>
 						</#if>
@@ -137,7 +137,7 @@
 
 				<#if bundleGroup.type?string == 'RADIOBUTTON'>
 					<#if bundleGroup.optional>
-						<input type="radio" class="bundle-item" name="group_${bundleGroup.id}" value=""> keine Auswahl </br>
+						<input type="radio" class="bundle-item"  bundle_option="0" name="group_${bundleGroup.id}" value=""> keine Auswahl </br>
 					</#if>
 					<#list bundleGroup.bundleItems as bundleItem>
 						<#if bundleItem.product.variantMaster >

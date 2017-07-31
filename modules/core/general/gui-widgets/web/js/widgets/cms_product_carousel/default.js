@@ -35,13 +35,23 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                     console.log('mainImage', _mainImage);
                     console.log('galleryImages', _galleryImages);
 
-                    productVM.mainImage = {
-                        origImage: _mainImage.path,
-                        largeImage: _mainImage.webDetailPath ? _mainImage.webDetailPath : mediaUtil.buildImageURL(_mainImage.path, 330, 330),
-                        thumbnail: _mainImage.webThumbnailPath ? _mainImage.webThumbnailPath : mediaUtil.buildImageURL(_mainImage.path, 60, 60),
-                        zoomImage: _mainImage.webZoomPath ? _mainImage.webZoomPath : mediaUtil.buildImageURL(_mainImage.path, 1024, 1024),
-                        index: 0
-                    };
+                    if(_mainImage)
+                        productVM.mainImage = {
+                            origImage: _mainImage.path,
+                            largeImage: _mainImage.webDetailPath ? _mainImage.webDetailPath : mediaUtil.buildImageURL(_mainImage.path, 330, 330),
+                            thumbnail: _mainImage.webThumbnailPath ? _mainImage.webThumbnailPath : mediaUtil.buildImageURL(_mainImage.path, 60, 60),
+                            zoomImage: _mainImage.webZoomPath ? _mainImage.webZoomPath : mediaUtil.buildImageURL(_mainImage.path, 1024, 1024),
+                            index: 0
+                        };
+                    else {
+                        productVM.mainImage = {
+                            origImage: "",
+                            largeImage: "",
+                            thumbnail: "",
+                            zoomImage: "",
+                            index: 0
+                        };
+                    }
 
                     var idx = 1;
                     _.each(_galleryImages, function (image) {

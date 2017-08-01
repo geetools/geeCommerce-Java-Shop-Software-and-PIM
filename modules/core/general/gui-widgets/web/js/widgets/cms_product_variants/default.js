@@ -56,9 +56,13 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                             console.log('preselectedVariantId::: ', preselectedVariantId);
 
+                            // if(!preselectedVariantId){
+                            //     preselectedVariantId = Object.keys(variantProducts)[0];
+                            // }
                             if(!preselectedVariantId){
-                                preselectedVariantId = Object.keys(variantProducts)[0];
+                                $('.prd-cart-btn button').addClass("disabled");
                             }
+
                             
                             if (preselectedVariantId) {
                                 var preselectedVariant = self.findVariantById(preselectedVariantId, variantProducts);
@@ -211,7 +215,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             var foundOption = _.findWhere(variantOption.options, {id: option});
 
                             if (!_.isUndefined(foundOption)) {
-                                foundElements.push($('#wd_option_' + variantOption.attribute_code + '_' + option));
+                                foundElements.push($('#option_' + variantOption.attribute_code + '_' + option));
                             }
                         });
                     });

@@ -306,7 +306,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 
 	gc.app.fragment('/catalog/product/price-container/' + productVM.id, '#prd-cart-box', function(element) {
-	
+
 		// ---------------------------------------------------------------
 		// Set up variants once price container has loaded.
 		// ---------------------------------------------------------------
@@ -335,21 +335,28 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 				console.log('preselectedVariantId::: ', preselectedVariantId);
 
+                // if(!preselectedVariantId){
+                //     preselectedVariantId = Object.keys(variantProducts)[0];
+                // }
                 if(!preselectedVariantId){
-                    preselectedVariantId = Object.keys(variantProducts)[0];
+                    $('.prd-cart-btn button').addClass("disabled");
                 }
 
-				if(preselectedVariantId) {
+
+                if(preselectedVariantId) {
 					var preselectedVariant = pageVariants.findVariantById(preselectedVariantId, variantProducts);
 					var preselectedOptionElements = pageVariants.getPreselectedOptionElements(preselectedVariant, variantOptions);
 
 					console.log('!!preselectedVariant!! ', preselectedOptionElements);
 
 					if(!_.isEmpty(preselectedOptionElements)) {
+                        console.log(preselectedOptionElements)
 						_.each(preselectedOptionElements, function($el) {
 							var attrCode = $el.data('attr');
-							var optionId = $el.data('option');
-
+                            var optionId = $el.data('option');
+                            console.log("!!!!!!!!!!!!!");
+                            console.log(attrCode)
+                            console.log(optionId);
 							variantVM.setOption(attrCode, optionId);
 						});
 
@@ -362,23 +369,24 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 						pageVariants.highlightSelectedOption(preselectedOptionElements);
 
-                        var selectedProductVariant = pageVariants.findVariant(variantVM, variantProducts);
-
-                        // Tell cart form which variant has been selected.
-                        if(!_.isUndefined(selectedProductVariant) && !_.isUndefined(selectedProductVariant.id)) {
-                            $('#prd-cart-form-product-id').val(selectedProductVariant.id);
-                            $('.prd-cart-btn button').removeAttr("disabled");
-                            $('.prd-cart-btn button').removeClass("disabled");
-                            pageVariants.setPreselectedVariantInURI(selectedProductVariant.id);
-
-                            var variantImages = pageVariants.getVariantImages(selectedProductVariant);
-
-                            pageMedia.moveToImage(variantImages[0].origImage);
-
-                        } else {
-                            $('.prd-cart-btn button').addClass("disabled");
-                        }
 					}
+
+                    var selectedProductVariant = pageVariants.findVariant(variantVM, variantProducts);
+
+                    // Tell cart form which variant has been selected.
+                    if(!_.isUndefined(selectedProductVariant) && !_.isUndefined(selectedProductVariant.id)) {
+                        $('#prd-cart-form-product-id').val(selectedProductVariant.id);
+                        $('.prd-cart-btn button').removeAttr("disabled");
+                        $('.prd-cart-btn button').removeClass("disabled");
+                        pageVariants.setPreselectedVariantInURI(selectedProductVariant.id);
+
+                        var variantImages = pageVariants.getVariantImages(selectedProductVariant);
+
+                        pageMedia.moveToImage(variantImages[0].origImage);
+
+                    } else {
+                        $('.prd-cart-btn button').addClass("disabled");
+                    }
 				}
 
 				// --------------------------------------------------------------------

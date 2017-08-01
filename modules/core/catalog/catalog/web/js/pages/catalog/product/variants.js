@@ -54,7 +54,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media'], f
 					var foundOption = _.findWhere(variantOption.options, {id: option});
 					
 					if(!_.isUndefined(foundOption)) {
-						foundElements.push($('#option_' + variantOption.attribute_code + '_' + option));
+						foundElements.push($('#wd_option_' + variantOption.attribute_code + '_' + option));
 					}
 				});
 			});
@@ -100,7 +100,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media'], f
 		// Set the label of the currently selected option.
 		// -----------------------------------------------------------------------------
 		setSelectedOptionLabel : function(element, optionLabel) {
-			$(element).closest('div.variant-options').prev('div.variant-attribute').children('span.variant-selected-value').first().text(optionLabel);
+			$(element).closest('div.wd-variant-options').prev('div.wd-variant-attribute').children('span.wd-variant-selected-value').first().text(optionLabel);
 		},
 		// -----------------------------------------------------------------------------
 		// Activates all options of the current attribute (where click took place).
@@ -116,7 +116,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media'], f
 			var selectedOptionId = $(element).data('option').toString();
 
 			// Iterate though all options.
-			$('.variant-options>ul>li>a').each(function(index) {
+			$('.wd-variant-options>ul>li>a').each(function(index) {
 				var attrCode = $(this).data('attr');
 				var optionId = $(this).data('option').toString();
 

@@ -26,6 +26,7 @@
 
 				<div id="prd-desc" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cat-hidden-xs">
 					<#include "view_description.ftl"/>
+						<#--<#include "view_variants.ftl"/>-->
 					<@cms_product_variants />
 				</div>
 			</#if>

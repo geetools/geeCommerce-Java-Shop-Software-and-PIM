@@ -361,6 +361,23 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 						});
 
 						pageVariants.highlightSelectedOption(preselectedOptionElements);
+
+                        var selectedProductVariant = pageVariants.findVariant(variantVM, variantProducts);
+
+                        // Tell cart form which variant has been selected.
+                        if(!_.isUndefined(selectedProductVariant) && !_.isUndefined(selectedProductVariant.id)) {
+                            $('#prd-cart-form-product-id').val(selectedProductVariant.id);
+                            $('.prd-cart-btn button').removeAttr("disabled");
+                            $('.prd-cart-btn button').removeClass("disabled");
+                            pageVariants.setPreselectedVariantInURI(selectedProductVariant.id);
+
+                            var variantImages = pageVariants.getVariantImages(selectedProductVariant);
+
+                            pageMedia.moveToImage(variantImages[0].origImage);
+
+                        } else {
+                            $('.prd-cart-btn button').addClass("disabled");
+                        }
 					}
 				}
 

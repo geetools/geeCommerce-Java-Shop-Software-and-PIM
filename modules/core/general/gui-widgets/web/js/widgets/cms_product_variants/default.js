@@ -82,6 +82,29 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                     });
 
                                     self.highlightSelectedOption(preselectedOptionElements);
+
+                                    var selectedProductVariant = self.findVariant(variantVM, variantProducts);
+
+                                    // Tell cart form which variant has been selected.
+                                    if (!_.isUndefined(selectedProductVariant) && !_.isUndefined(selectedProductVariant.id)) {
+                                        $('#prd-cart-form-product-id').val(selectedProductVariant.id);
+                                        $('.prd-cart-btn button').removeAttr("disabled");
+                                        $('.prd-cart-btn button').removeClass("disabled");
+                                        self.setPreselectedVariantInURI(selectedProductVariant.id);
+
+
+                                        $(wdContainer).find("#selected-prd-variant").val(selectedProductVariant.id);
+
+                                        var variantImages = self.getVariantImages(selectedProductVariant);
+
+                                        console.log(variantImages)
+
+                                        // publish message to move to image
+                                        gc.app.channel.publish('product.variants', {variantMasterId: productVM.id, origImage: variantImages[0].origImage});
+
+                                    } else {
+                                        $('.prd-cart-btn button').addClass("disabled");
+                                    }
                                 }
                             }
 

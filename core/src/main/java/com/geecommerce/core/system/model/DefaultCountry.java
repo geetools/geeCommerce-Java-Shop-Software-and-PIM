@@ -32,7 +32,7 @@ public class DefaultCountry extends AbstractModel implements Country {
     @Column(Col.CODE3)
     private String code3 = null;
 
-//    @Column(Col.NAME)
+    @Column(Col.NAME)
     private ContextObject<String> name = null;
 
     private Double latitude = null;
@@ -57,8 +57,8 @@ public class DefaultCountry extends AbstractModel implements Country {
 
         super.fromMap(map);
 
-        this.name = new ContextObject<String>();
-        this.name.addGlobal(str_(map.get(Col.NAME)));
+//        this.name = new ContextObject<String>();
+//        this.name.addGlobal(str_(map.get(Col.NAME)));
 
         try {
             this.latitude = double_(map.get(Col.LATITUDE));

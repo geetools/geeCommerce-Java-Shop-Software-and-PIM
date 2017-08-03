@@ -6,7 +6,7 @@
 	        <form>
 		        <div class="form-group">
 			        <div class="input-group">
-			        	<input class="form-control" type="text" name="attrQueryString" value="" placeholder="Search for search-rewrites ..."/>
+			        	<input class="form-control" type="text" name="attrQueryString" value="" placeholder="Search for keywords ..."/>
 			        	<span class="input-group-btn">
 							<button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
 						</span>
@@ -69,7 +69,7 @@
                 <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
                     <tr>
                         <td><a data-bind="text: row.id, attr: { href: '#/search-rewrites/details/' + row.id }"></a></td>
-                        <td data-bind="text: row.keywords"></td>
+                        <td><a data-bind="text: row.keywords, attr: { href: '#/search-rewrites/details/' + row.id }"></a></td>
                         <td data-bind="text: row.targetUri"></td>
                         <td class="actions">
                             <a href="javascript:void(0)" data-bind="click: $root.removeSearchRewrite.bind($root)"><i class="fa fa-times"></i></a>

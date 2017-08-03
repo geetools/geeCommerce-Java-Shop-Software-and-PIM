@@ -13,14 +13,13 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-synonym'], function (app, ko, g
 		},
 	    activate: function(data) {
 
-	    	gc.app.pageTitle('Kunden Verwalten');
-	    	gc.app.pageDescription('Kunden ansehen und bearbeiten');
+	    	gc.app.pageTitle('app:modules.synonym.title');
+	    	gc.app.pageDescription('app:modules.synonym.subtitle');
 	    	
 	    	// Pager columns
 			var pagerColumns = [
-              {'name' : 'id', 'label' : 'CB ID', cookieKey : 'id'},
-              {'name' : 'word', 'label' : 'app:modules.search-rewrite.gridColWord', cookieKey : 'wd'},
-              {'name' : 'custom', 'label' : 'app:modules.search-rewrite.gridColCustom', cookieKey : 'c'},
+              {'name' : 'word', 'label' : 'app:modules.synonym.gridColWord', cookieKey : 'wd'},
+              {'name' : 'custom', 'label' : 'app:modules.synonym.gridColCustom', cookieKey : 'c'},
               {'name' : '', 'label' : ''}
             ];
 	    	

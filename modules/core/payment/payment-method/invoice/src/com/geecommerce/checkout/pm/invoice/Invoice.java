@@ -34,7 +34,7 @@ public class Invoice extends AbstractPaymentMethod {
 
     @Override
     public String getLabel() {
-        return app.message("Převodem na účet");
+        return app.message("Invoice");
     }
 
     @Override

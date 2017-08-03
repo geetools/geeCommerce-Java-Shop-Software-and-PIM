@@ -64,9 +64,8 @@
 				<!--  Data -->            
                 <tbody data-bind="foreach: { data: pager.data, as: 'row' }">
                     <tr>
-                        <td><a data-bind="text: row.id, attr: { href: '#/synonyms/details/' + row.id }"></a></td>
-                        <td data-bind="text: row.word"></td>
-                        <td data-bind="text: row.custom"></td>
+                        <td><a data-bind="text: row.word, attr: { href: '#/synonyms/details/' + row.id }"></a></td>
+                        <td data-bind="i18n: 'app:common.' + row.custom"></td>
                         <td class="actions">
                             <a href="javascript:void(0)" data-bind="click: $root.removeSynonym.bind($root)"><i class="fa fa-times"></i></a>
                         </td>

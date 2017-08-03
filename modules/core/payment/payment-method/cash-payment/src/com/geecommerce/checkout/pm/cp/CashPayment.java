@@ -34,7 +34,7 @@ public class CashPayment extends AbstractPaymentMethod {
 
     @Override
     public String getLabel() {
-        return app.message("Hotově nebo platební kartou na prodejně");
+        return app.message("Cash Payment");
     }
 
     @Override

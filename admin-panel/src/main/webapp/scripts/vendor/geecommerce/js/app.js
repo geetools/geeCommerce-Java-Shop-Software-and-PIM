@@ -64,8 +64,6 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
         });
 
         this.sess['activeContext'].subscribe(function(activeCtx) {
-            console.log('NEEEEEEEEEEEEEEW active CTX !!!! ', activeCtx);
-            
             if(activeCtx.scope == 'global')
                 return;
             
@@ -105,8 +103,6 @@ define([ 'plugins/router', 'durandal/app', 'postal', 'knockout', 'i18next', 'gc/
                 langCount = 1;
                 ctxLang = activeCtx.language;
             }
-            
-            console.log('???????????????????????????????? ', langCount, ctxLang, currentLang);
             
             if(langCount === 1 && ctxLang !== currentLang) {
                 self.sess.selectedLanguage(ctxLang);

@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <a class="btn-link"
-                                 href="mailto:info@scommerceboard.de"><@message text='info@scommerceboard.de'/></a>
+                                 href="mailto:info@commerceboard.com"><@message text='info@commerceboard.com'/></a>
                     </div>
 
                     <div class="col-xs-12 success-return-div">

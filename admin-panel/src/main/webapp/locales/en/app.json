@@ -85,7 +85,7 @@
 		"toolbarSaveMsg" : "You have unsaved changes in your tree.",
 		"addNodeTooltip" : "Remove this navigation node",
 		"removeNodeTooltip" : "Add navigation node",
-		"search-rewrites" : "Search Rewrites",
+		"search-rewrites" : "Keyword Mapping",
 		"synonyms" : "Synonyms",
 		"permissions" : "Permissions",
 		"users" : "Users",
@@ -582,39 +582,37 @@
             "baseTabName" : "Name",
             "baseTabKey" : "Key",
             "baseTabDescription" : "Description",
-            "baseTabShowTimes" : "Show Times",
+            "baseTabShowTimes" : "How Often to Display",
             "baseTabRerunAfter" : "Rerun After",
             "baseTabCouponDuration" : "Coupon Duration",
             "baseTabShowShowFrom" : "ShowFrom",
             "baseTabShowTo" : "Show To",
             "baseTabCoupon" : "Coupon",
             "tabTitleGeneral"  : "General",
-            "confirmDelete" : "Are you sure you want to delete this discount promotion?"
+            "confirmDelete" : "Are you sure you want to delete this discount promotion?",
+            "baseTabDescriptionEmail": "Content for E-Mail",
+            "baseTabTitlePromoPage": "Title for Discount Promotion",
+            "baseTabDescriptionPromo": "Description for Discount Promotion",
+            "baseTabShowForAll": "Show everyone?",
+            "enabled": "Enabled"
         },
         "urlrewrite": {
 			"title" : "Manage URL Rewrites",
 			"subtitle" : "View and edit URL Rewrites",
 			"gridSearchPlaceholder" : "Search for url-rewrites ...",
-			"gridColRequestURI" : "Freundliche URL",
-			"gridColRequestMethod" : "Anfragetyp",
-			"gridColTargetObjectType" : "Zieltyp",
-			"gridColTargetObjectId" : "Ziel-ID",
-			"gridColEnabled" : "Aktiviert",
+			"gridColRequestURI" : "Friendly URL",
+			"gridColRequestMethod" : "Request Method",
+			"gridColTargetObjectType" : "Target Type",
+			"gridColTargetObjectId" : "Target ID",
+			"gridColEnabled" : "Enabled",
 			"toolbarSaveMsg" : "This url-rewrite has unsaved changes. Please save them before navigating to the next tab.",
 			"detailsTitle" : "URL-Rewrite Details",
 			"detailsSubtitle" : "View and edit URL-rewrite details",
 			"tabTitleGeneral" : "General",
-			"typePRODUCT_LIST" : "Produktliste",
-			"typePRODUCT" : "Produkt",
-			"typeRETAIL_STORE" : "Filiale"
+			"typePRODUCT_LIST" : "Product list",
+			"typePRODUCT" : "Product",
+			"typeRETAIL_STORE" : "Retail Store"
 		},
-        "moeve" : {
-            "title": "Moeve",
-            "subtitle": "Moeve",
-            "gridColEmail": "Email",
-            "gridColStores": "Stores",
-            "confirmDeleteEmail": "Are you sure you want to delete this email?"
-        },
 		"pictogram" : {
 		  "title": "Pictograms",
 		  "subtitle": "Pictograms",
@@ -632,17 +630,28 @@
 		},
 		"content" : {
 		  "title" : "Content Management System",
-		  "subtitle" : "Management of displayed content",
+		  "subtitle" : "Manage your content pages",
 		  "gridColKey" : "Page Id",
 		  "gridColName" : "Page Name"
 		},
 		"search-rewrite" : {
-		  "title" : "Search Rewrites",
-		  "subtitle": "Search rewrites"
+		  "title" : "Keyword Mapping",
+		  "subtitle": "Forward search keywords to particular pages",
+		  "gridColKeywords": "Keywords",
+		  "gridColTargetUri": "Target-URI",
+		  "newSearchRewriteButton": "Add new keyword mapping",
+		  "baseTabTargetUri": "Target-URI",
+		  "baseTabKeywords": "Keywords",
+		  "toolbarSaveMsg" : "This keyword mpping has unsaved changes. Please save them before navigating to the next tab."
 		},
 		"synonym" : {
 		  "title" : "Synonyms",
-		  "subtitle": "Synonyms"
+		  "subtitle": "Synonyms",
+		  "gridColWord": "Keyword",
+		  "gridColCustom": "User Entry",
+		  "baseTabWords": "Search Keyword",
+		  "baseTabSynonyms": "Synonyms",
+			"toolbarSaveMsg" : "This synonym has unsaved changes. Please save them before navigating to the next tab."
 		},
 		"user" : {
 			"title" : "User",

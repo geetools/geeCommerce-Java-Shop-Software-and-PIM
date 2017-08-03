@@ -433,7 +433,7 @@
                 <!-- ko if: orderVM().orderPayment-->
                 <!-- ko if: orderVM().orderPayment.paymentMethodCode-->
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">ZpÅ¯sob platby</label>
+                    <label class="col-sm-3 control-label">Payment Method</label>
                     <div class="col-sm-9">
                         <p data-bind="text: orderVM().orderPayment.paymentMethodLabel"></p>
                     </div>
@@ -481,10 +481,7 @@
 	                <div class="col-sm-9">
 		                <!-- ko if: orderVM().orderShipment.carrierCode-->
                         <!-- ko if: orderVM().orderShipment.shippingOptions == null || orderVM().orderShipment.shippingOptions.length == 0 -->
-                        <!-- ko if: orderVM().orderShipment.carrierCode == 'instore_pickup' || orderVM().orderShipment.carrierCode == 'osobne' -->
 								Shipping Option (<span data-bind="text: orderVM().orderShipment.optionName"></span>)
-							<!-- /ko -->
-							<!-- ko if: orderVM().orderShipment.carrierCode != 'instore_pickup' && orderVM().orderShipment.carrierCode != 'osobne'-->
 								Shipping Amount (
                                     <!-- ko if: orderVM().calculationResult-->
                                     <span data-bind="text: orderVM().calculationResult.gross_shipping_amount"></span>
@@ -493,7 +490,6 @@
                                     <span data-bind="text: orderVM().orderShipment.deliveryPrice"></span>
                                     <!-- /ko -->
                                 )
-							<!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: orderVM().orderShipment && orderVM().orderShipment.shippingOptions-->
                             <span data-bind="foreach: orderVM().orderShipment.shippingOptions">

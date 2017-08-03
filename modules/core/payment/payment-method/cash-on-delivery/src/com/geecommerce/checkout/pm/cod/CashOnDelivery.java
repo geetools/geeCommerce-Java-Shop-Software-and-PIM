@@ -34,7 +34,7 @@ public class CashOnDelivery extends AbstractPaymentMethod {
 
     @Override
     public String getLabel() {
-        return app.message("Na dobírku");
+        return app.message("Cash on Delivery");
     }
 
     @Override

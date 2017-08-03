@@ -157,11 +157,13 @@ public class ProductListFilterWidget extends AbstractWidgetController implements
     public String filterVanillaURI() {
         String baseURI = app.getRewrittenURI() == null ? app.getOriginalURI() : app.getRewrittenURI();
 
-        String newURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
-            .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
-            .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts).build();
+        if(baseURI == null) {
+            baseURI = app.injectable(ProductListURIBuilder.class).newURI(baseURI).usingFilterRule(filterRule)
+                .withAttributeMetaData(filterAttributes).withAttributeAliasIndex(attributeAliasIndex)
+                .havingURIFilterParts(uriFilterParts).havingParamFilterParts(paramFilterParts).build();
+        }
 
-        return newURI == null ? Str.HASH : newURI;
+        return baseURI == null ? Str.HASH : baseURI;
     }
 
     public int numActive(String fieldKey) {

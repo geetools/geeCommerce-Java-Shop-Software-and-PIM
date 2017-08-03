@@ -12,12 +12,11 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-search-rewrite'], function (app
 		},
 	    activate: function(data) {
 
-	    	gc.app.pageTitle('Kunden Verwalten');
-	    	gc.app.pageDescription('Kunden ansehen und bearbeiten');
+	    	gc.app.pageTitle('app:modules.search-rewrite.title');
+	    	gc.app.pageDescription('app:modules.search-rewrite.subtitle');
 	    	
 	    	// Pager columns
 			var pagerColumns = [
-              {'name' : 'id', 'label' : 'CB ID', cookieKey : 'id'},
               {'name' : 'keywords', 'label' : 'app:modules.search-rewrite.gridColKeywords', cookieKey : 'kwds'},
               {'name' : 'targetUri', 'label' : 'app:modules.search-rewrite.gridColTargetUri', cookieKey : 'tu'},
               {'name' : '', 'label' : 'app:common.action'}

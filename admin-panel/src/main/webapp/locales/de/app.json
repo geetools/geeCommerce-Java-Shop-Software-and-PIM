@@ -84,8 +84,8 @@
 		"contextMessages" : "Nachrichten",
 		"mediaAssets" : "Media Assets",
 		"pictograms" : "Pictograms",
-		"search-rewrites" : "Search Rewrites",
-		"synonyms" : "Synonyms",
+		"search-rewrites" : "Keyword Mapping",
+		"synonyms" : "Synonyme",
 		"permissions" : "Permissions",
 		"users" : "Users",
 		"roles" : "Roles",
@@ -624,7 +624,7 @@
             "generalTabEnabled" : "Aktiviert",
             "gridColKey" : "Navigationsbaum",
 			"nodeTypeProductList" : "Product list",
-			"nodeTypeCmsPage" : "Cms page",
+			"nodeTypeCmsPage" : "CMS Seite",
 			"nodeTypeLink" : "Link",
 			"toolbarSaveMsg" : "Sie haben Änderungen an der Navigation vorgenommen. Bitte speichern Sie diese, bevor Sie fortfahren.",
 			"addTopLevelNode" : "Navigationspunkt auf oberster Ebene hinzufügen",
@@ -663,54 +663,53 @@
             "baseTabKey" : "Key",
             "baseTabLimit" : "Limit",
             "baseTabType" : "Typ",
-            "tabTitleGeneral"  : "General",
+            "tabTitleGeneral"  : "Allgemein",
             "confirmDelete" : "Sind Sie sicher, dass Sie dieses Produkt-Promotion wirklich löschen wollen?"
         },
         "discount-promotion": {
             "title" : "Rabattaktionen Verwalten",
             "subtitle" : "Anzeigen und Bearbeiten von Rabattaktionen",
-            "detailsTitle" : "Rabatt-Förderung-Details",
+            "detailsTitle" : "Details zur Rabattaktion",
             "detailsSubtitle" : "Anzeigen und Bearbeiten von Rabattaktionen",
-            "toolbarSaveMsg" : "Diese Rabattaktion ist nicht gespeicherten Änderungen",
+            "toolbarSaveMsg" : "Diese Rabattaktion hat nicht gespeicherte Änderungen. Bitte speichern Sie diese, bevor Sie zum nächsten Reiter wechseln.",
             "gridColKey" : "Schlüssel",
-            "gridColLabel" : "Etikett",
+            "gridColLabel" : "Bezeichnung",
 			"gridColEnabled" : "Aktiviert",
             "baseTabName" : "Name",
             "baseTabKey" : "Schlüssel",
             "baseTabDescription" : "Beschreibung",
-            "baseTabShowTimes" : "Show-Zeiten",
-            "baseTabRerunAfter" : "Nach Wiederholung",
-            "baseTabCouponDuration" : "Coupon Dauer",
-            "baseTabShowShowFrom" : "Show aus",
-            "baseTabShowTo" : "Um zu zeigen",
+            "baseTabShowTimes" : "Wie oft zeigen?",
+            "baseTabRerunAfter" : "Erneut zeigen nach X Seitenaufrufe",
+            "baseTabCouponDuration" : "Dauer der Rabbataktion",
+            "baseTabShowFrom" : "Anzeigen von",
+            "baseTabShowTo" : "Anzeigen bis",
             "baseTabCoupon" : "Gutschein",
-            "tabTitleGeneral"  : "General",
-            "confirmDelete" : "Sind Sie sicher, dass Sie dieses Rabattaktion wirklich löschen wollen?"
+            "tabTitleGeneral"  : "Allgemein",
+            "confirmDelete" : "Sind Sie sicher, dass Sie dieses Rabattaktion wirklich löschen wollen?",
+            "baseTabDescriptionEmail": "Inhalt für E-Mail",
+            "baseTabTitlePromoPage": "Titel für Aktionsseite",
+            "baseTabDescriptionPromo": "Beschreibung für Aktionsseite",
+            "baseTabShowForAll": "Aktion allen zeigen?",
+            "enabled": "Aktiviert"
+            
         },
         "urlrewrite": {
-			"title" : "Manage URL Rewrites",
-			"subtitle" : "View and edit URL Rewrites",
-			"gridSearchPlaceholder" : "Search for url-rewrites ...",
+			"title" : "Freundliche URLs verwalten",
+			"subtitle" : "Freundliche URL anzeigen und bearbeiten",
+			"gridSearchPlaceholder" : "Freundliche URLs suchen ...",
 			"gridColRequestURI" : "Freundliche URL",
 			"gridColRequestMethod" : "Anfragetyp",
 			"gridColTargetObjectType" : "Zieltyp",
 			"gridColTargetObjectId" : "Ziel-ID",
 			"gridColEnabled" : "Aktiviert",
-			"toolbarSaveMsg" : "This url-rewrite has unsaved changes. Please save them before navigating to the next tab.",
-			"detailsTitle" : "URL-Rewrite Details",
-			"detailsSubtitle" : "View and edit URL-rewrite details",
+            "toolbarSaveMsg" : "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese, bevor Sie zum nächsten Reiter wechseln.",
+			"detailsTitle" : "Freundliche URL",
+			"detailsSubtitle" : "Freundliche URL anzeigen und bearbeiten",
 			"tabTitleGeneral" : "General",
 			"typePRODUCT_LIST" : "Produktliste",
 			"typePRODUCT" : "Produkt",
 			"typeRETAIL_STORE" : "Filiale"
 		},
-        "moeve" : {
-            "title" : "Moeve",
-            "subtitle" : "Moeve",
-            "gridColEmail": "E-Mail",
-            "gridColStores": "Stores",
-            "confirmDeleteEmail": "Wollen Sie wirklich diese E-Mail Adresse löschen?"
-        },
 		"pictogram" : {
 		  "title": "Pictograms",
 		  "subtitle": "Pictograms",
@@ -729,37 +728,49 @@
 		"content" : {
 		  "title" : "Content Management System",
 		  "subtitle" : "CMS Seiten verwalten",
-		  "gridColKey" : "Seitennummer",
+		  "gridColKey" : "Seitenschlüssel",
 		  "gridColName" : "Seitenname"
 		},
 		"synonym" : {
-		  "title" : "Synonyms",
-		  "subtitle": "Synonyms"
+		  "title" : "Synonyme",
+		  "subtitle": "Synonyme",
+		  "gridColWord": "Suchbegriff",
+		  "gridColCustom": "Nutzereintrag",
+		  "detailsTitle": "Synonym erstellen oder ändern",
+		  "baseTabWords": "Suchbegriff",
+		  "baseTabSynonyms": "Synonyme",
+		  "toolbarSaveMsg": "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese bevor Sie zu einem anderen Tab wechseln."
 		},
 		"search-rewrite" : {
-		  "title" : "Search Rewrites",
-		  "subtitle": "Search rewrites"
+		  "title" : "Keyword-Mapping",
+		  "subtitle": "Leiten Sie bestimmte Suchbegriffe auf eine Zielseite um",
+		  "gridColKeywords": "Suchbegriffe",
+		  "gridColTargetUri": "Ziel-URI",
+		  "newSearchRewriteButton": "Neues Keyword-Mapping hinzufügen",
+		  "baseTabTargetUri": "Ziel-URI",
+		  "baseTabKeywords": "Suchbegriffe",
+		  "toolbarSaveMsg": "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese bevor Sie zu einem anderen Tab wechseln."
 		},
 		"user" : {
-			"title" : "User",
-			"newUserTitle" : "New User",
-			"subtitle": "Users",
-			"toolbarSaveMsg" : "This user has unsaved changes. Please save them before navigating to the next tab."
+			"title" : "Benutzer",
+			"newUserTitle" : "Neuen Benutzer erstellen",
+			"subtitle": "Benutzer",
+		  "toolbarSaveMsg": "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese bevor Sie zu einem anderen Tab wechseln."
 		},
 		"role" : {
-			"title" : "Role",
-			"subtitle": "Roles",
-			"toolbarSaveMsg" : "This role has unsaved changes. Please save them before navigating to the next tab."
+			"title" : "Benutzerrolen",
+			"subtitle": "Benutzerrolen",
+		  "toolbarSaveMsg": "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese bevor Sie zu einem anderen Tab wechseln."
 		},
 		"merchant" : {
 			"title" : "Merchant",
 			"subtitle": "Merchants",
-			"toolbarSaveMsg" : "This merchant has unsaved changes. Please save them before navigating to the next tab."
+		  "toolbarSaveMsg": "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese bevor Sie zu einem anderen Tab wechseln."
 		},
 		"template" : {
 			"title" : "Template",
 			"subtitle": "Templates",
-			"toolbarSaveMsg" : "This template has unsaved changes. Please save them before navigating to the next tab.",
+		  "toolbarSaveMsg": "Sie haben Änderungen vorgenommen. Bitte speichern Sie diese bevor Sie zu einem anderen Tab wechseln.",
 			"gridColUri" : "URL",
 			"gridColLabel" : "Name"
 		},

@@ -11,8 +11,8 @@
         <#if products??>
 
             <div class="col-xs-12">
-                <strong> <@message text='Suchergebnisse' /> (${actionBean.totalNumResults})</strong>
-                <p><@message text='für '/>  &#8222;${RequestParameters.k}&#8221;</p>
+                <strong> <@message text='Suchergebnisse' /> (${totalNumResults})</strong>
+                <p><@message text='für '/>  &#8222;${RequestParameters.q}&#8221;</p>
 
             </div>
 

@@ -50,7 +50,12 @@ define(['require', 'jquery', 'bootstrap', 'gc/gc', 'postal'], function (require,
             var process = options.process || false;
 
             if (!_.isUndefined(sliceURI)) {
-                self.slice({slice: sliceURI, target: target}, function (data) {
+                var sliceOptions = {slice: sliceURI}
+                if(!process){
+                    sliceOptions["target"] = target;
+                }
+
+                self.slice(sliceOptions, function (data) {
                     var html = data.html;
 
                     console.log('DATA ::: ', html);

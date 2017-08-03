@@ -47,7 +47,7 @@ which ensures that the first post of the form has a positive csrf-validation.
                 <div class="row cart-item ${["odd", "even"][item_index%2]}">
                     <div class="cart-item-name col-xs-11 col-sm-6 col-lg-8">
                         <div class="item-image">
-                            <a href="${item.productURI}"><img product="${item.productId}" src="<@catMediaURL uri="${item.product.mainImageURI!}" width=216 height=156 />" class="product-img" /></a>
+                            <img product="${item.productId}" src="<@catMediaURL uri="${product.mainImage.path!}" width=216 height=156 />" class="product-img" /></a>
                         </div>
                         <div class="item-description">
                             <a class="item-dscr-name" href="${item.productURI}"><@attribute src=product code="name" /></a>

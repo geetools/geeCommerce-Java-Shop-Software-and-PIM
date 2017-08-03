@@ -1,4 +1,4 @@
-require(['jquery', 'bootstrap', 'gc/gc', 'customer-review/api', 'customer-review/utils/common', 'jquery-rateit'], function ($, Bootstrap, gc, reviewAPI, reviewUtil) {
+define(['jquery', 'bootstrap', 'gc/gc', 'customer-review/api', 'customer-review/utils/common', 'jquery-rateit'], function ($, Bootstrap, gc, reviewAPI, reviewUtil) {
 
     var star1 = $("#review-rating-star-1").val();
     var star2 = $("#review-rating-star-2").val();

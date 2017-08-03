@@ -1106,3 +1106,8 @@ header #col-search button:hover {
 	background-color: #005A9D !important;
 	background-image: none !important;
 }
+
+.prd-cart-btn button.disabled {
+    background-color: #ccc !important;
+    background-image: none !important;
+}

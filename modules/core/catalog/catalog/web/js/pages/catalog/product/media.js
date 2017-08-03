@@ -43,43 +43,43 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/utils/media', 'jquery-swipe'], 
 			    console.log('THERE????????????????????? ', $('#prd-img-thumbnails>div>ul'));
 			    
 				// Start the slick slider for the thumbnails.
-				$('#prd-img-thumbnails>div>ul').slick({
-				  infinite: false,
-				  slidesToShow: 5,
-				  slidesToScroll: 3,
-				  centerPadding: '50px',
-				  vertical: true,
-				  arrows: true,
-				  prevArrow: '<button type="button" class="slick-prev"></button>',
-				  nextArrow: '<button type="button" class="slick-next"></button>',
-				  responsive: [
-				    {
-				      breakpoint: 750,
-				      settings: {
-						  infinite: false,
-						  slidesToShow: 5,
-						  slidesToScroll: 2,
-						  arrows: true,
-        				  centerPadding: '40px',
-						  vertical: false,
-						  prevArrow: '<button type="button" class="slick-prev"></button>',
-						  nextArrow: '<button type="button" class="slick-next"></button>',
-				      }
-				    },
-				    {
-				      breakpoint: 450,
-				      settings: {
-						  infinite: true,
-						  slidesToShow: 4,
-						  arrows: false,
-        				  centerPadding: '80px',
-						  vertical: false,
-						  prevArrow: '<button type="button" class="slick-prev"></button>',
-						  nextArrow: '<button type="button" class="slick-next"></button>',
-				      }
-				    }
-				  ]
-				});
+				// $('#prd-img-thumbnails>div>ul').slick({
+				//   infinite: false,
+				//   slidesToShow: 5,
+				//   slidesToScroll: 3,
+				//   centerPadding: '50px',
+				//   vertical: true,
+				//   arrows: true,
+				//   prevArrow: '<button type="button" class="slick-prev"></button>',
+				//   nextArrow: '<button type="button" class="slick-next"></button>',
+				//   responsive: [
+				//     {
+				//       breakpoint: 750,
+				//       settings: {
+				// 		  infinite: false,
+				// 		  slidesToShow: 5,
+				// 		  slidesToScroll: 2,
+				// 		  arrows: true,
+        			// 	  centerPadding: '40px',
+				// 		  vertical: false,
+				// 		  prevArrow: '<button type="button" class="slick-prev"></button>',
+				// 		  nextArrow: '<button type="button" class="slick-next"></button>',
+				//       }
+				//     },
+				//     {
+				//       breakpoint: 450,
+				//       settings: {
+				// 		  infinite: true,
+				// 		  slidesToShow: 4,
+				// 		  arrows: false,
+        			// 	  centerPadding: '80px',
+				// 		  vertical: false,
+				// 		  prevArrow: '<button type="button" class="slick-prev"></button>',
+				// 		  nextArrow: '<button type="button" class="slick-next"></button>',
+				//       }
+				//     }
+				//   ]
+				// });
 				
 				// Display large image depending on which thumbnail the user hovers over.
 				$(document).on('click', '#prd-img-thumbnails>div>ul li', function() {

@@ -17,7 +17,7 @@
                 <div id="col-search" class="col-sm-4 col-xs-12 hidden-xs hidden-xs-down">
                     <form role="search" action="/catalog/search/query" method="get" >
                         <div class="input-group">
-                            <input type="text" name="q" placeholder="Suchbegriff / Artikelnr. eingeben" class="form-control" />
+                            <input type="text" name="q" placeholder="Suchbegriff / Artikelnr. eingeben" class="form-control" id="searchFormKeyword"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">Suchen</button>
                             </span>

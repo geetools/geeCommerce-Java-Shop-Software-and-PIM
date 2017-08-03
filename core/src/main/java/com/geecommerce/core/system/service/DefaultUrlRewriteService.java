@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.geecommerce.core.enums.ObjectType;
+import com.geecommerce.core.service.QueryOptions;
 import com.geecommerce.core.system.helper.UrlRewriteHelper;
 import com.geecommerce.core.system.model.UrlRewrite;
 import com.geecommerce.core.system.repository.UrlRewrites;
@@ -44,7 +45,8 @@ public class DefaultUrlRewriteService implements UrlRewriteService {
         filter.put(UrlRewrite.Col.TARGET_OBJECT_TYPE, objType.toId());
         filter.put(UrlRewrite.Col.ENABLED, true);
 
-        return urlRewrites.multiContextFind(UrlRewrite.class, filter, UrlRewrite.Col.TARGET_OBJECT_ID);
+        return urlRewrites.multiContextFind(UrlRewrite.class, filter, UrlRewrite.Col.TARGET_OBJECT_ID,
+            QueryOptions.builder().singleQueryField(UrlRewrite.Col.TARGET_OBJECT_ID).build());
     }
 
     @Override

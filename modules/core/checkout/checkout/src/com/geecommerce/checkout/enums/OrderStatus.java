@@ -3,9 +3,10 @@ package com.geecommerce.checkout.enums;
 import java.util.Map;
 
 import com.geecommerce.core.App;
+import com.geecommerce.core.service.api.ModelEnum;
 import com.google.common.collect.Maps;
 
-public enum OrderStatus {
+public enum OrderStatus implements ModelEnum {
     NEW(10), PENDING(20), ACCEPTED(30), CONFIRMED(40), DISPATCHED(50), DONE(60), READY(70), CANCELED(
         80), PARTIALLY_CANCELED(90), REJECTED(100);
 

@@ -1,4 +1,4 @@
-require(['jquery', 'bootstrap', 'gc/gc', 'customer/api'], function ($, Bootstrap, gc, customerAPI) {
+define(['jquery', 'bootstrap', 'gc/gc', 'customer/api'], function ($, Bootstrap, gc, customerAPI) {
 
     $(".customer-account-container .registr-btn").on('click', function () {
         console.log("registr-btn handler was called!");

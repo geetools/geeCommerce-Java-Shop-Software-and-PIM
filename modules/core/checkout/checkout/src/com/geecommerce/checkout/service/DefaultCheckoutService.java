@@ -228,6 +228,8 @@ public class DefaultCheckoutService implements CheckoutService {
 
     @Override
     public List<Order> getOrders(Map<String, Object> query, QueryOptions queryOptions) {
+        System.out.println(query + "  --- " + queryOptions);
+        
         return orders.find(Order.class, query, queryOptions);
     }
 

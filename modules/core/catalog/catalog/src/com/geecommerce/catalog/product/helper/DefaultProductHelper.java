@@ -465,22 +465,22 @@ public class DefaultProductHelper implements ProductHelper {
         if (products == null || products.size() == 0)
             return;
 
-        Map<Id, ContextObject<String>> productURIs = toURIMap(urlRewrites);
-
-        for (Product p : products) {
-            // Add UrlRewrite.
-            ContextObject<String> uri = productURIs.get(p.getId());
-
-            if (uri == null)
-                uri = new ContextObject<String>();
-
-            // Add the default URI in case there is none for the current
-            // language.
-            if (!uri.hasGlobalEntry())
-                uri.addOrUpdateGlobal("/catalog/product/view/" + p.getId());
-
-            p.setURI(uri);
-        }
+//        Map<Id, ContextObject<String>> productURIs = toURIMap(urlRewrites);
+//
+//        for (Product p : products) {
+//            // Add UrlRewrite.
+//            ContextObject<String> uri = productURIs.get(p.getId());
+//
+//            if (uri == null)
+//                uri = new ContextObject<String>();
+//
+//            // Add the default URI in case there is none for the current
+//            // language.
+//            if (!uri.hasGlobalEntry())
+//                uri.addOrUpdateGlobal("/catalog/product/view/" + p.getId());
+//
+//            p.setURI(uri);
+//        }
     }
 
     @Override

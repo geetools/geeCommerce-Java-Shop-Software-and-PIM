@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -870,47 +871,53 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     @JsonProperty("uri")
     public ContextObject<String> getURI() {
-        System.out.println("id=" + getId() + ", isVariant=" + isVariant() + ", isVisiPL=" + getVisibleInProductList().getBoolean(false));
-        
-        if (uri == null) {
+        if (this.uri == null) {
             if(isVariant() && !getVisibleInProductList().getBoolean(false)) {
                 UrlRewrite urlRewrite = urlRewrites.forProduct(getParentId());
 
-                System.out.println("PAAAAAAAAARRRRRREEEEEEEEEEENNNNNNNNTTTTTTTTT :::: " + getParentId() + " -> " + urlRewrite);
-
+                ContextObject<String> requestURI = null;
                 
                 if (urlRewrite != null) {
-                    uri = ContextObject.valueOf(urlRewrite.getRequestURI());
+                    requestURI = ContextObject.valueOf(urlRewrite.getRequestURI());
                 } else {
-                    uri = new ContextObject<String>();
+                    requestURI = new ContextObject<String>();
                 }
 
-                if (!uri.hasGlobalEntry())
-                    uri.addOrUpdateGlobal("/catalog/product/view/" + getParentId());
-
-                System.out.println("RETURNING BEFORE URI :::: " + uri);
+                if (!requestURI.hasGlobalEntry())
+                    requestURI.addOrUpdateGlobal("/catalog/product/view/" + getParentId());
                 
-                uri.stream().forEach((entry) -> {
+                ContextObject<String> variantRequestURI = new ContextObject<String>();;
+                
+                requestURI.stream().forEach((entry) -> {
                     String uri = (String) entry.get(ContextObject.VALUE);
-                    entry.put(ContextObject.VALUE, uri + "#" + getId());
+                    
+                    Map<String, Object> variantEntry = new LinkedHashMap<>(entry);
+
+                    variantEntry.put(ContextObject.VALUE, uri + "#" + getId());
+                    
+                    variantRequestURI.add(variantEntry);
                 });
+                
+                this.uri = variantRequestURI;
             } else {
+                ContextObject<String> requestURI = null;
+                
                 UrlRewrite urlRewrite = urlRewrites.forProduct(getId());
 
                 if (urlRewrite != null)
-                    uri = urlRewrite.getRequestURI();
+                    requestURI = urlRewrite.getRequestURI();
 
-                if (uri == null)
-                    uri = new ContextObject<String>();
+                if (requestURI == null)
+                    requestURI = new ContextObject<String>();
 
-                if (!uri.hasGlobalEntry())
-                    uri.addOrUpdateGlobal("/catalog/product/view/" + getId());
+                if (!requestURI.hasGlobalEntry())
+                    requestURI.addOrUpdateGlobal("/catalog/product/view/" + getId());
+                
+                this.uri = requestURI;
             }
         }
-        
-        System.out.println("RETURNING AFTER URI :::: " + uri);
 
-        return uri;
+        return this.uri;
     }
 
     @Override

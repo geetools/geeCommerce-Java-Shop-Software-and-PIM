@@ -159,6 +159,24 @@ public class DefaultAttributes extends AbstractRepository implements Attributes 
     }
 
     @Override
+    public List<Attribute> forProductListFilter(List<AttributeTargetObject> targetObjects) {
+        List<Map<String, Object>> filters = new ArrayList<>();
+
+        for (AttributeTargetObject targetObject : targetObjects) {
+            Map<String, Object> filter = new LinkedHashMap<>();
+            filter.put(Attribute.Col.ENABLED, true);
+            filter.put(Attribute.Col.INCLUDE_IN_PRODUCT_LIST_FILTER, true);
+            filter.put(Attribute.Col.TARGET_OBJECT_ID, targetObject.getId());
+            filters.add(filter);
+        }
+
+        Map<String, Object> orFilter = new LinkedHashMap<>();
+        orFilter.put(QueryOperators.OR, filters);
+
+        return multiContextFind(Attribute.class, orFilter, Attribute.Col.CODE);
+    }
+
+    @Override
     public List<Attribute> forSearchFilter(String... targetObjectCodes) {
         List<Map<String, Object>> filters = new ArrayList<>();
 
@@ -170,6 +188,29 @@ public class DefaultAttributes extends AbstractRepository implements Attributes 
                 Map<String, Object> filter = new LinkedHashMap<>();
                 filter.put(Attribute.Col.ENABLED, true);
                 filter.put(Attribute.Col.INCLUDE_IN_SEARCH_FILTER, true);
+                filter.put(Attribute.Col.TARGET_OBJECT_ID, targetObject.getId());
+                filters.add(filter);
+            }
+        }
+
+        Map<String, Object> orFilter = new LinkedHashMap<>();
+        orFilter.put(QueryOperators.OR, filters);
+
+        return multiContextFind(Attribute.class, orFilter, Attribute.Col.CODE);
+    }
+
+    @Override
+    public List<Attribute> forProductListFilter(String... targetObjectCodes) {
+        List<Map<String, Object>> filters = new ArrayList<>();
+
+        for (String targetObjectCode : targetObjectCodes) {
+
+            AttributeTargetObject targetObject = attributeTargetObjects.havingCode(targetObjectCode);
+
+            if (targetObject != null) {
+                Map<String, Object> filter = new LinkedHashMap<>();
+                filter.put(Attribute.Col.ENABLED, true);
+                filter.put(Attribute.Col.INCLUDE_IN_PRODUCT_LIST_FILTER, true);
                 filter.put(Attribute.Col.TARGET_OBJECT_ID, targetObject.getId());
                 filters.add(filter);
             }

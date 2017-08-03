@@ -3,9 +3,10 @@ package com.geecommerce.checkout.enums;
 import java.util.Map;
 
 import com.geecommerce.core.App;
+import com.geecommerce.core.service.api.ModelEnum;
 import com.google.common.collect.Maps;
 
-public enum AddressType {
+public enum AddressType implements ModelEnum {
     DELIVERY(1), INVOICE(2);
 
     private int id;

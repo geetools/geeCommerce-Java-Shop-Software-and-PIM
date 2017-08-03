@@ -36,4 +36,8 @@ public interface Attributes extends Repository {
     public List<Attribute> forSearchFilter(List<AttributeTargetObject> targetObjects);
 
     public List<Attribute> forSearchFilter(String... targetObjectCodes);
+
+    List<Attribute> forProductListFilter(List<AttributeTargetObject> targetObjects);
+
+    List<Attribute> forProductListFilter(String... targetObjectCodes);
 }

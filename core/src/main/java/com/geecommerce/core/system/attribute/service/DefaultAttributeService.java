@@ -276,6 +276,33 @@ public class DefaultAttributeService implements AttributeService {
     }
 
     @Override
+    public Map<String, Attribute> getAttributesForProductListFilter(List<Id> attrTargetObjectIds) {
+        Map<String, Attribute> filterAttributes = new HashMap<>();
+
+        List<Attribute> attributeList = attributes.forProductListFilter(attributeTargetObjects.findByIds(
+            AttributeTargetObject.class, attrTargetObjectIds.toArray(new Id[attrTargetObjectIds.size()])));
+
+        for (Attribute attribute : attributeList) {
+            filterAttributes.put(attribute.getCode(), attribute);
+        }
+
+        return filterAttributes;
+    }
+
+    @Override
+    public Map<String, Attribute> getAttributesForProductListFilter(String... attrTargetObjectCodes) {
+        Map<String, Attribute> filterAttributes = new HashMap<>();
+
+        List<Attribute> attributeList = attributes.forProductListFilter(attrTargetObjectCodes);
+
+        for (Attribute attribute : attributeList) {
+            filterAttributes.put(attribute.getCode(), attribute);
+        }
+
+        return filterAttributes;
+    }
+
+    @Override
     public List<String> getOptionTags(Id attributeId) {
         return attributeOptions.findOptionTags(attributeId);
     }

@@ -423,6 +423,8 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                         if (COMPARISON_QUERY_OPERATORS.containsKey(operator.trim())) {
                             sql.append("`").append(column).append("` ").append(COMPARISON_QUERY_OPERATORS.get(operator))
                                 .append(" ?");
+                            
+                            val = ((Map<String, Object>) val).get(operator.trim());
                         }
                     } else if (val instanceof Collection<?> || val.getClass().isArray()) {
                         int len = val.getClass().isArray() ? ((Object[]) val).length : ((Collection<?>) val).size();
@@ -1373,7 +1375,13 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
 
             if (columnInfo != null) {
                 List<Class<?>> genericType = Reflect.getGenericType(columnInfo.genericType());
-                componentType = genericType == null || genericType.isEmpty() ? Object.class : genericType.get(0);
+                
+                if(genericType == null && columnInfo.genericType() == columnInfo.type()) {
+                    componentType = columnInfo.type();
+                }
+                
+                if(componentType == null)
+                    componentType = genericType == null || genericType.isEmpty() ? Object.class : genericType.get(0);
             } else {
                 if (targetLen > 0) {
                     componentType = coll.iterator().next().getClass();
@@ -1391,8 +1399,14 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                 return numIds.toArray(new Number[numIds.size()]);
             } else if (ModelEnum.class.isAssignableFrom(componentType)) {
                 List<Number> numIds = new ArrayList<>();
-                for (ModelEnum e : (Collection<ModelEnum>) obj) {
-                    numIds.add(e.toId());
+                for (Object e : (Collection<?>) obj) {
+                    if(e instanceof ModelEnum) {
+                        numIds.add(((ModelEnum)e).toId());
+                    } else if(e instanceof Number) {
+                        numIds.add((Number) e);
+                    } else {
+                        Integer.valueOf(e.toString());
+                    }
                 }
 
                 return numIds.toArray(new Number[numIds.size()]);

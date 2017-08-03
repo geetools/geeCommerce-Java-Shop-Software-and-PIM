@@ -1,4 +1,4 @@
-require(['jquery', 'bootstrap', 'gc/gc', 'customer/api'], function ($, Bootstrap, gc, customerAPI) {
+define(['jquery', 'bootstrap', 'gc/gc', 'customer/api'], function ($, Bootstrap, gc, customerAPI) {
 
     // $("input:checkbox").on('click', function() {
     //     var $box = $(this);

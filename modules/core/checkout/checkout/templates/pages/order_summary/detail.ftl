@@ -129,6 +129,8 @@
                                 </div>
 
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 content-cell">
+variant: <@print src=product value='product.variant'/><br/>                       
+visibleInProductList: <@print src=product value='product.visibleInProductList'/><br/>
                                     <a href="<@print src=product value='product.URI'/>">
                                         <img class="product-image" product="${item.productId}" src="<@catMediaURL uri="${product.mainImageURI!}" width=133 height=147 />"/>
                                     </a>

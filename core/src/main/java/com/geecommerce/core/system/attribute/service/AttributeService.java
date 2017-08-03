@@ -77,4 +77,8 @@ public interface AttributeService extends Service {
     public List<String> getSuggestions(Id attributeId, String collectionName, String lang, String query);
 
     void processBatchUpdate(BatchData batchData);
+
+    Map<String, Attribute> getAttributesForProductListFilter(List<Id> attrTargetObjectIds);
+
+    Map<String, Attribute> getAttributesForProductListFilter(String... s);
 }

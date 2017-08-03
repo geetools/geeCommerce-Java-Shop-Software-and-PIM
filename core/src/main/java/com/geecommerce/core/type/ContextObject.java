@@ -502,6 +502,11 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
         return TypeConverter.asBoolean(getClosestValue());
     }
 
+    public Boolean getBoolean(boolean defaultValue) {
+        Object val = getClosestValue();
+        return val == null ? defaultValue : TypeConverter.asBoolean(val);
+    }
+
     public Date getDate() {
         return TypeConverter.asDate(getClosestValue());
     }
@@ -946,7 +951,7 @@ public class ContextObject<T> extends ArrayList<Map<String, Object>> {
 
         if ((val == null && value != null) || (val != null && value == null))
             return false;
-        
+
         return value.equals(val);
     }
 

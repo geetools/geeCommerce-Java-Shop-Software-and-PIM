@@ -29,13 +29,17 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                 catalogAPI.getEnabledViewImages(productVM.id).then(function (response) {
                     console.log('images', response.data.catalogMediaAssets);
 
+                    if(!response.data.catalogMediaAssets)  {
+                        return;
+                    }
+                    
                     var _mainImage = _.findWhere(response.data.catalogMediaAssets, {productMainImage: true})
                     var _galleryImages = _.where(response.data.catalogMediaAssets, {productGalleryImage: true})
 
                     console.log('mainImage', _mainImage);
                     console.log('galleryImages', _galleryImages);
 
-                    if(_mainImage)
+                    if(_mainImage) {
                         productVM.mainImage = {
                             origImage: _mainImage.path,
                             largeImage: _mainImage.webDetailPath ? _mainImage.webDetailPath : mediaUtil.buildImageURL(_mainImage.path, 330, 330),
@@ -43,7 +47,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             zoomImage: _mainImage.webZoomPath ? _mainImage.webZoomPath : mediaUtil.buildImageURL(_mainImage.path, 1024, 1024),
                             index: 0
                         };
-                    else {
+                    } else {
                         productVM.mainImage = {
                             origImage: "",
                             largeImage: "",
@@ -63,6 +67,8 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             index: idx++
                         });
                     });
+                    
+                    console.log('GGGGGGGRRRRRRRRRRR:::::::::::::::::::: ', productVM);
 
                     self.renderCarouselImages(productVM, mediaElement);
 
@@ -78,7 +84,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
             },
             renderCarouselImages: function (productVM, mediaElement) {
 
-                console.log("renderImages::prdMedia = " + mediaElement);
+                console.log("renderImages::prdMedia = " + mediaElement, productVM.mainImage, productVM.galleryImages);
 
                 $(mediaElement).empty();
 

@@ -36,6 +36,9 @@ require.config({
         'pick-a-color': {
             deps: [ 'jquery', 'tinycolor' ]
         },
+        'gc/gc': {
+            deps: [ 'gc/app', 'gc/util', 'gc/rest' ]
+        },
         'jquery-ui': {
 			deps: [ 'jquery' ],
 			exports : 'jQuery'
@@ -90,7 +93,7 @@ console.log('after initializing config');
 
 console.log('initialized paths!!');
 
-require(['jquery']);
+define('jquery');
 
 
 require(['jquery', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], function($, Bootstrap, gc, App, gcRest) {

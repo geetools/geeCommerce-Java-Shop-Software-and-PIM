@@ -9,8 +9,10 @@
         <table class="mc-items">
             {{#items}}
             <tr class="mc-item">
-                <td class="mc-image"><a href="{{{url}}}"><img src="{{{image}}}"></a></td>
-                <td class="mc-name"><b>{{{name}}}</b><br>{{{name2}}}</td>
+            	{{#image}}
+	                <td class="mc-image">*****<a href="{{{url}}}"><img src="{{{image}}}"></a></td>
+            	{{/image}}
+                <td class="mc-name"><b>+++{{{name}}}</b><br>{{{name2}}}</td>
                 <td class="mc-quantity">{{{quantity}}}x</td>
                 <td class="mc-subtotal">{{{subtotal}}}</td>
             </tr>

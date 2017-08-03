@@ -1,0 +1,42 @@
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 479px) {
+    .hidden-phone {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .hidden-phone-h {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .container {
+        width: 100%;
+        max-width: 100%; /*fix for bootstrap4*/
+    }
+    /* ------------------------------------------------------------------------------------------------------ */
+    /* Header                                                                                                 */
+    /* ------------------------------------------------------------------------------------------------------ */
+    
+    header {
+        background-color: #329898;
+        padding-bottom: 0;
+    }
+    header #brand-bar .navbar-nav>li {
+        margin-left: 15px;
+        text-align: center;
+    }
+    header ul.navbar-nav small {
+        display: inline;
+        font-size: 11px;
+    }
+    header #col-search input {
+        border: none;
+    }
+    header #col-search button {
+        border: none;
+    }
+}

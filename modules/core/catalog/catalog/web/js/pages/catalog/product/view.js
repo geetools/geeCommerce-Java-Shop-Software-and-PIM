@@ -382,8 +382,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
                         var variantImages = pageVariants.getVariantImages(selectedProductVariant);
 
-                        pageMedia.moveToImage(variantImages[0].origImage);
-
+                        if(variantImages && variantImages.length > 0) {
+                            pageMedia.moveToImage(variantImages[0].origImage);
+                        }
                     } else {
                         $('.prd-cart-btn button').addClass("disabled");
                     }
@@ -440,6 +441,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 	catalogAPI.getEnabledViewImages(productVM.id).then(function(response) {
 		console.log('images', response.data.catalogMediaAssets);
 		
+		if(!response.data.catalogMediaAssets)  {
+		    return;
+		}
+		
 		var _mainImage = _.findWhere(response.data.catalogMediaAssets, {productMainImage: true})
 		var _galleryImages = _.where(response.data.catalogMediaAssets, {productGalleryImage: true})
 
@@ -465,6 +470,8 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 			});
 		});
 
+		console.log('################ RENDER IMAGES!!!! ', productVM);
+		
 		pageMedia.renderImages(productVM);
 	});
 	

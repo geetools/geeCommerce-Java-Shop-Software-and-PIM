@@ -16,9 +16,9 @@ services:
     image: geecommerce/tomcat8-java8:1.0
     container_name: gc_demo_tomcat
     environment:
-      - GC_HOME=/usr/local/geecommerce
+      - GC_HOME=/usr/local/geecommerce-local
     volumes:
-    - .:/usr/local/geecommerce
+    - .:/usr/local/geecommerce-shared
     ports:
     - 8080:8080
     - 8000:8000

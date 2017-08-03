@@ -96,11 +96,16 @@ public class StaticAssetRouterFilter implements Filter {
         if (asset != null && !asset.exists()) {
             System.out.println("Asset file '" + asset.getAbsolutePath() + "' does not exist.");
             
-            File[] files = asset.getParentFile().listFiles();
-            
-            if(files != null) {
-                for (int i = 0; i < files.length; i++) {
-                    System.out.println("Asset file " + files[i]);
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(100L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(!asset.exists()) {
+                    System.out.println("Retry (" + i + ") file: " + asset.getAbsolutePath() + " does not exist.");
+                } else {
+                    System.out.println("Retry (" + i + ") file: " + asset.getAbsolutePath() + " exists now!");
                 }
             }
         }

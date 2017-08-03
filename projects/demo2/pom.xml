@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.geetools.geecommerce</groupId>
+    <artifactId>gc-projects-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.geetools.geecommerce</groupId>
+        <artifactId>geecommerce-projects</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <build>
+        <sourceDirectory>custom/src</sourceDirectory>
+        <outputDirectory>custom/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>custom/resources</directory>
+			</resource>
+		</resources>		
+    </build>
+
+    <profiles>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.geetools.geecommerce</groupId>
+            <artifactId>geecommerce-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.geetools.geecommerce</groupId>
+            <artifactId>gc-module-catalog</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.geetools.geecommerce</groupId>
+            <artifactId>gc-module-customer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.geetools.geecommerce</groupId>
+            <artifactId>gc-module-checkout</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.geetools.geecommerce</groupId>
+            <artifactId>gc-module-price</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

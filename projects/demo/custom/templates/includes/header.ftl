@@ -11,7 +11,7 @@
         <div id="brand-bar" class="container">
             <div class="row">
                 <div id="brand-bar-logo" class="col-sm-4 col-xs-12">
-                    <a class="navbar-brand" href="/"><img src="<@skin path="images/layout/header/logo.png" />" /><span>CommerceBoard Suite</span></a>
+                    <a class="navbar-brand" href="/smartphones/"><img src="<@skin path="images/layout/header/logo.png" />" /><span>CommerceBoard Suite</span></a>
                 </div>
                 
                 <div id="col-search" class="col-sm-4 col-xs-12 hidden-xs hidden-xs-down">
@@ -63,9 +63,9 @@
                 <div class="row">
                     <div class="col-sm-12 hidden-phone hidden-phone-h hidden-xs-down">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item <@nav_is_active item="/smartphones/">active</@nav_is_active>"><a href="/smartphones/">Smartphones</a>
-                            </li>
                             <li class="nav-item <@nav_is_active item="/smartphones/">active</@nav_is_active>"><a href="/smartphones/">Handys</a>
+                            </li>
+                            <li class="nav-item <@nav_is_active item="/smartphones/">active</@nav_is_active>"><a href="/smartphones/">Smartphones</a>
                             </li>
                         </ul>
                     </div>

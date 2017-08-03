@@ -183,4 +183,12 @@ public class DefaultUrlRewrite extends AbstractMultiContextModel implements UrlR
         this.enabled = enabled;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "DefaultUrlRewrite [id=" + id + ", id2=" + id2 + ", requestURI=" + requestURI + ", requestMethod=" + requestMethod + ", targetURL=" + targetURL + ", targetObjectId=" + targetObjectId
+            + ", targetObjectType=" + targetObjectType + ", flags=" + flags + ", manual=" + manual + ", enabled=" + enabled + "]";
+    }
+    
+    
 }

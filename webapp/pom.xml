@@ -6,6 +6,10 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<properties>
+		<tomcat.version>8.0.28</tomcat.version>
+	</properties>
+  
 	<parent>
 		<groupId>com.geetools.geecommerce</groupId>
 		<artifactId>geecommerce-parent</artifactId>
@@ -51,8 +55,38 @@
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
-			<version>8.0.22</version>
+			<version>${tomcat.version}</version>
 		</dependency>
+		<dependency>
+	        <groupId>org.apache.tomcat.embed</groupId>
+	        <artifactId>tomcat-embed-core</artifactId>
+	        <version>${tomcat.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.tomcat.embed</groupId>
+	        <artifactId>tomcat-embed-logging-juli</artifactId>
+	        <version>${tomcat.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.tomcat.embed</groupId>
+	        <artifactId>tomcat-embed-jasper</artifactId>
+	        <version>${tomcat.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.tomcat</groupId>
+	        <artifactId>tomcat-jasper</artifactId>
+	        <version>${tomcat.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.tomcat</groupId>
+	        <artifactId>tomcat-jasper-el</artifactId>
+	        <version>${tomcat.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.tomcat</groupId>
+	        <artifactId>tomcat-jsp-api</artifactId>
+	        <version>${tomcat.version}</version>
+	    </dependency>		
 	</dependencies>
 
     <profiles>

@@ -11,6 +11,9 @@ define(['jquery', 'gc/gc'], function ($, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GC: ', gc);
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! REST: ', gc.rest);
+            
             gc.rest.get({
                 url : '/api/v1/web/carts/' + cartId,
                 success : function(data, status, xhr) {

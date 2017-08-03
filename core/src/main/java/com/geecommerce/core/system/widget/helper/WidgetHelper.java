@@ -28,7 +28,7 @@ public class WidgetHelper {
     private static final Logger log = LogManager.getLogger(SystemInjector.class);
 
     private static final String WIDGET_JS_DEFAULT_FILEPATH = "widgets/%s/%s";
-    private static final String WIDGET_JS_SCRIPT_TAG = "<script>require.config({ paths: { '%s/widgets/%s' : '/m/%s/js/widgets/%s' }});require(['%s'], function(widget){if(widget && widget.init) widget.init(%s)});</script>";
+    private static final String WIDGET_JS_SCRIPT_TAG = "<script>require.config({ paths: { '%s/widgets/%s' : '/m/%s/js/widgets/%s' }});require(['%s', 'gc-deps'], function(widget){if(widget && widget.init) widget.init(%s)});</script>";
 
     private static final String WIDGET_SKIN_STYLES_FILEPATH = "widgets/%s/css/%s.css";
 

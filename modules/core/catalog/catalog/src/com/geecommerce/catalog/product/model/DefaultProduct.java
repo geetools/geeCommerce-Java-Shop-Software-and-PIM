@@ -870,18 +870,45 @@ public class DefaultProduct extends AbstractAttributeSupport
     @Override
     @JsonProperty("uri")
     public ContextObject<String> getURI() {
+        System.out.println("id=" + getId() + ", isVariant=" + isVariant() + ", isVisiPL=" + getVisibleInProductList().getBoolean(false));
+        
         if (uri == null) {
-            UrlRewrite urlRewrite = urlRewrites.forProduct(getId());
+            if(isVariant() && !getVisibleInProductList().getBoolean(false)) {
+                UrlRewrite urlRewrite = urlRewrites.forProduct(getParentId());
 
-            if (urlRewrite != null)
-                uri = urlRewrite.getRequestURI();
+                System.out.println("PAAAAAAAAARRRRRREEEEEEEEEEENNNNNNNNTTTTTTTTT :::: " + getParentId() + " -> " + urlRewrite);
 
-            if (uri == null)
-                uri = new ContextObject<String>();
+                
+                if (urlRewrite != null) {
+                    uri = ContextObject.valueOf(urlRewrite.getRequestURI());
+                } else {
+                    uri = new ContextObject<String>();
+                }
 
-            if (!uri.hasGlobalEntry())
-                uri.addOrUpdateGlobal("/catalog/product/view/" + getId());
+                if (!uri.hasGlobalEntry())
+                    uri.addOrUpdateGlobal("/catalog/product/view/" + getParentId());
+
+                System.out.println("RETURNING BEFORE URI :::: " + uri);
+                
+                uri.stream().forEach((entry) -> {
+                    String uri = (String) entry.get(ContextObject.VALUE);
+                    entry.put(ContextObject.VALUE, uri + "#" + getId());
+                });
+            } else {
+                UrlRewrite urlRewrite = urlRewrites.forProduct(getId());
+
+                if (urlRewrite != null)
+                    uri = urlRewrite.getRequestURI();
+
+                if (uri == null)
+                    uri = new ContextObject<String>();
+
+                if (!uri.hasGlobalEntry())
+                    uri.addOrUpdateGlobal("/catalog/product/view/" + getId());
+            }
         }
+        
+        System.out.println("RETURNING AFTER URI :::: " + uri);
 
         return uri;
     }

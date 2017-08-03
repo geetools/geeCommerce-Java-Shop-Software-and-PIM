@@ -180,7 +180,7 @@ header .navbar-brand {
 
 header .navbar-brand>img {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 header .navbar-brand>span {
@@ -246,7 +246,7 @@ header #col-search button:hover {
 }
 
 .breadcrumbs #navig-path>span {
-    color: #9A1452;
+    color: #0072C6;
     display: inline-block;
     padding: 0 5px;
     margin: 0;
@@ -1091,4 +1091,18 @@ header #col-search button:hover {
     background-position: -817px -120px;
     background-size: 1600px 1097px;
     transform: rotate(-180deg);
+}
+
+#prd-cart-box, #prd-extra-info-box {
+	background-color: #E6F2FA !important;
+}
+
+.prd-cart-btn button {
+	background-color: #0072C6 !important;
+	background-image: none !important;
+}
+
+.prd-cart-btn button:hover {
+	background-color: #005A9D !important;
+	background-image: none !important;
 }

@@ -1,4 +1,4 @@
-require(['jquery', 'bootstrap', 'gc/gc', 'cart/api', 'cart/utils/common'], function ($, Bootstrap, gc, cartAPI, cartUtil) {
+define(['jquery', 'bootstrap', 'gc/gc', 'cart/api', 'cart/utils/common'], function ($, Bootstrap, gc, cartAPI, cartUtil) {
 
     $(".recalc-btn").change(function () {
         var productId = $(this).attr("productId");

@@ -1,0 +1,44 @@
+/* Medium Devices, Desktops */
+
+@media only screen and (min-width: 998px) {
+    .hidden-dektop {
+        display: none !important;
+    }
+    .container {
+        width: 998px;
+    }
+    .container.breadcrumbs {
+        margin-top: 5px;
+    }
+    
+    /* ------------------------------------------------------------------------------------------------------ */
+    /* Header                                                                                                 */
+    /* ------------------------------------------------------------------------------------------------------ */
+    
+	header #col-search {
+    	padding-left: 15px;
+    	padding-right: 15px;
+	}
+    
+    header #top-nav-bar .navbar-nav>li {
+        font-size: 15px;
+        margin-right: 5px;
+    }
+    header #top-nav-bar .navbar-nav>li>a {
+        padding: 7px 10px;
+        padding-right: 35px;
+    }
+    
+	header .navbar-brand>span {
+		color: #060605;
+	}
+}
+
+@media only screen and (min-width: 1130px) {
+    .hidden-dektop {
+        display: none !important;
+    }
+    .container {
+        width: 1130px;
+    }
+}

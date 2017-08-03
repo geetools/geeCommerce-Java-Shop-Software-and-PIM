@@ -1,0 +1,455 @@
+.modal-backdrop, .modal-backdrop.in {
+    background: #fafafa;
+    opacity: 0.7;
+}
+
+.modal-header {
+    background-color: #349898;
+    color: #fff;
+}
+
+.focusable-column {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    background: #fafafa;
+    opacity: 0.9;
+}
+
+.dashed-border {
+    border: dashed 2px #AEB0B7;
+    opacity: 0.9;
+    padding-bottom:10px;
+    margin-bottom:10px;
+}
+
+.gee-row {
+    display: flex;
+    flex-shrink: 1;
+    flex: 1;
+}
+
+.gee-cell {
+    /*   flex-shrink: 1;*/
+    /* flex-basis: 80px;*/
+    /*    flex-shrink: 1;*/
+    position: relative;
+    /*    flex: 1;*/
+    /*    padding-right: .9375rem;
+    padding-left: .9375rem;*/
+    padding-right: 0;
+    padding-left: 0;
+/*    overflow: hidden;*/
+    min-height: 20px;
+}
+
+.widget-content {
+    overflow: hidden; /* */
+    max-width: 100%;
+}
+
+.gee-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-right: 0rem;
+    margin-left: 0rem;
+}
+
+.gee-column {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+    display: flex;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.gee-column>.gee-cell {
+    flex: 0 0 auto;
+}
+
+.gee-column>.gee-row {
+    flex: 0 0 auto;
+}
+
+.gee-column>.gee-stretch {
+    flex: 1 0 auto;
+}
+
+.w-handle, .w-handle-new {
+    cursor: move;
+}
+
+.gee-grid>div {
+    /*cursor: move;*/
+    /*    overflow:visible;*/
+    /*To avoid the offset being clipped away*/
+    outline-offset: -2px;
+    /*To make border not increase cell size*/
+    -webkit-box-sizing: border-box !important;
+    /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box !important; /* Firefox, other Gecko */
+    box-sizing: border-box !important; /* Opera/IE 8+ */
+}
+
+.highlight {
+    display: flex;
+    flex-grow: 1;
+}
+
+.gee-grid {
+    min-height: 50px;
+    max-width: 100%;
+}
+
+.gee-grid:empty:before {
+    min-height: 5px;
+    /*background-color:black;*/
+    color: black;
+    width: 100%;
+    text-align: center;
+    content: '>>INSERT ELEMENTS INTO GRID<<';
+    outline: 1px grey dotted;
+    /*To avoid the offset being clipped away*/
+    outline-offset: -2px;
+    /*To make border not increase cell size*/
+    -webkit-box-sizing: border-box !important;
+    /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box !important; /* Firefox, other Gecko */
+    box-sizing: border-box !important; /* Opera/IE 8+ */
+}
+
+/*.item {
+    flex: 1 1 80px;
+
+    z-index: 9998; !* for draggable *!
+    cursor: move;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    background-color: grey;
+    text-align: center;
+    vertical-align: middle;
+}*/
+
+.gee-grid #highlight {
+    flex: 0 0 2px !important;
+    background-color: #3B5998;
+}
+
+#gee-cell-toolbox>span {
+    margin: 0px 4px;
+}
+
+.w-element-controls:hover {
+    visibility: visible !important;
+}
+
+.w-element-controls {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: visibility 0s ease .2s, opacity .2s ease;
+    -moz-transition: visibility 0s ease .2s, opacity .2s ease;
+    transition: visibility 0s ease .2s, opacity .2s ease;
+    /*    position: absolute;*/
+    z-index: 11;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: 100%;
+}
+
+.w-element-controls .w-move-outer {
+    position: absolute;
+    top: -13px;
+    left: -13px;
+    padding: 5px 10px 10px 5px;
+}
+
+.w-element-controls .w-move {
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid #88ceff;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    -moz-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    background-image: url('../icons-s16342f837d.png');
+    background-position: 0 0;
+}
+
+.w-element-controls .w-handle-outer {
+    z-index: 1000;
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    padding: 5px 20px 0;
+    margin-left: -48px;
+}
+
+
+
+
+.w-element-controls .w-handle {
+    width: 55px;
+    height: 18px;
+    border: 1px solid #62727E;
+    border-radius: 2px;
+    background-repeat: no-repeat;
+    background-color: #62727E;
+    -webkit-transition: background-color 0.05s ease-in, border-color 0.05s
+        ease-in;
+    -moz-transition: background-color 0.05s ease-in, border-color 0.05s
+        ease-in;
+    transition: background-color 0.05s ease-in, border-color 0.05s ease-in;
+    padding-top: 1px;
+}
+
+.w-element-controls .w-handle:hover {
+    border: 1px solid #7C8C98;
+    background-color: #7C8C98;
+    -webkit-transition: background-color 0.05s ease-in, border-color 0.05s
+        ease-in;
+    -moz-transition: background-color 0.05s ease-in, border-color 0.05s
+        ease-in;
+    transition: background-color 0.05s ease-in, border-color 0.05s ease-in;
+    padding-top: 1px;
+}
+
+
+.w-element-controls>.w-handle-outer>.w-handle>div {
+    background-color: #CED7DD;
+    width: 80%;
+    height: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2px;
+}
+
+.w-element-controls>.w-handle-outer>.w-handle:hover>div {
+    background-color: #ECF0F2;
+}
+
+.w-handle {
+    cursor: move;
+}
+
+.w-element-controls .w-option-outer, .element-box .w-option-outer {
+    position: absolute;
+    z-index: 1000;
+    top: -11px;
+    left: -10px;
+    font-size: 12pt;
+    text-align: center;
+    cursor: pointer;
+}
+
+.w-element-controls .w-delete-outer, .element-box .w-delete-outer {
+    position: absolute;
+    z-index: 1000;
+    top: -11px;
+    right: -9px;
+    cursor: pointer;
+}
+
+.w-element-controls .w-delete, .element-box .w-delete {
+    width: 20px;
+    padding-top: 2px;
+    height: 20px;
+    text-align: center;
+    border-radius: 2px;
+    border: #FF8080;
+    background-color: #FF8080;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    color: #fff;
+}
+
+.w-element-controls .w-delete:hover, .element-box .w-delete:hover {
+    border: #FF3939;
+    background-color: #FF3939;
+}
+
+.w-element-controls .w-option, .element-box .w-option {
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    border: 1px solid #62727E;
+    background-color: #62727E;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    -moz-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    background-position: 0 -90px;
+    color: #fff;
+    padding-top: 1px;
+}
+
+.w-element-controls .w-option:hover, .element-box .w-option:hover {
+    border: 1px solid #7C8C98;
+    background-color: #7C8C98;
+}
+
+.w-element-controls .w-resize-l-outer {
+    position: absolute;
+    bottom: -13px;
+    left: -13px;
+    padding: 5px 10px 10px 5px;
+}
+
+.w-element-controls .w-resize-l {
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid #88ceff;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    -moz-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    background-image: url('../resize.png');
+    background-position: -1px -93px;
+}
+
+.w-element-controls .w-resize-r-outer {
+    position: absolute;
+    bottom: -13px;
+    right: -13px;
+    padding: 5px 10px 10px 5px;
+}
+
+.w-element-controls .w-resize-r {
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid #88ceff;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    -moz-transition: background-color 0.1s ease-in, border-color 0.1s
+        ease-in;
+    transition: background-color 0.1s ease-in, border-color 0.1s ease-in;
+    background-image: url('../resize.png');
+    background-position: 0 0;
+}
+
+/*.weebly-content-area .inside-hover>.w-element-controls, .weebly-content-area .inside-hover>.element-box>.element-box-contents>.element>.w-delete-outer, .weebly-content-area .inside-active>.w-element-controls, .weebly-content-area .inside-active>.element-box>.element-box-contents>.element>.w-delete-outer, .weebly-content-area .inside-dragging>.w-element-controls, .weebly-content-area .inside-dragging>.element-box>.element-box-contents>.element>.w-delete-outer, .weebly-content-area .inside-move-active>.w-element-controls, .weebly-content-area .inside-move-active>.element-box>.element-box-contents>.element>.w-delete-outer, .weebly-content-area .inside-delete-active>.w-element-controls, .weebly-content-area .inside-delete-active>.element-box>.element-box-contents>.element>.w-delete-outer {
+*/
+.w-hover .w-element-controls, .w-element-controls:hover {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+.ui-resizable-helper {
+    border: 2px dotted #00F;
+}
+/*
+.w-hover .ui-resizable-e{
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid #88ceff;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    -webkit-transition: background-color 0.1s ease-in,border-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in,border-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in,border-color 0.1s ease-in;
+    background-image: url('../resize.png');
+    background-position: 0 0;
+    float: right;
+    cursor: e-resize;
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+}
+
+.w-hover .ui-resizable-w{
+    width: 18px;
+    bottom: -8px;
+    left: -8px;
+    height: 18px;
+    border-radius: 2px;
+    border: 1px solid #88ceff;
+    background-color: #fff;
+    position: absolute;
+    cursor: w-resize;
+    background-repeat: no-repeat;
+    -webkit-transition: background-color 0.1s ease-in,border-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in,border-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in,border-color 0.1s ease-in;
+    background-image: url('../resize.png');
+    background-position: -1px -93px;
+
+}*/
+#debug {
+    position: absolute;
+    float: left;
+    z-index: 11111;
+}
+
+.gee-cell:hover {
+    outline-offset: -2px;
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(98,114,126,1);
+    -moz-box-shadow: 0px 0px 7px 0px rgba(98,114,126,1);
+    box-shadow: 0px 0px 7px 0px rgba(98,114,126,1);    
+}
+
+.gee-resize-control>.ui-resizable-e {
+    background-color: #000;
+    width: 4px;
+    right: -2px;
+    /*    border-right-style: solid;
+    border-right-color: grey;*/
+    /*    background-color: dimgrey;
+    width: 2px;
+  !*  padding-left: 2px;*!
+    padding-right: 2px;*/
+}
+
+/*DEBUG PART*/
+/*
+.gee-cell {
+    background-color: lightblue;
+}
+
+.gee-row  {
+    background-color: lightgreen;
+}
+
+.gee-column {
+    background-color: lightcoral;
+}
+.preview-container .gee-cell{border: 1px solid #D6D6D6;}
+*/
+@media ( max-width : 768px) {
+    .gee-row {
+        flex-wrap: wrap;
+    }
+}

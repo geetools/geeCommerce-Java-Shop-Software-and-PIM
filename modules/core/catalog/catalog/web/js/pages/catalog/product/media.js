@@ -39,6 +39,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/utils/media', 'jquery-swipe'], 
 				    type: 'image'
 				});
 
+			    
+			    console.log('THERE????????????????????? ', $('#prd-img-thumbnails>div>ul'));
+			    
 				// Start the slick slider for the thumbnails.
 				$('#prd-img-thumbnails>div>ul').slick({
 				  infinite: false,

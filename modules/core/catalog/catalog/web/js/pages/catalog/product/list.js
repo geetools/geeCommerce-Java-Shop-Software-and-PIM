@@ -1,4 +1,4 @@
-require(['jquery', 'bootstrap', 'gc/gc'], function ($, Bootstrap, gc) {
+define(['jquery', 'bootstrap', 'gc/gc'], function ($, Bootstrap, gc) {
 
 	$('.product-list-filter>ul>li.off, .product-list-filter>ul>li.on').on('click', function(e) {
 		e.stopPropagation();

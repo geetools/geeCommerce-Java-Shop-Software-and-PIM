@@ -54,7 +54,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             // --------------------------------------------------------------------
                             var preselectedVariantId = self.getPreselectedVariantFromURI();
 
-                            console.log('preselectedVariantId::: ', preselectedVariantId);
+                            console.log('preselectedVariantIdÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ::: ', preselectedVariantId);
 
                             // if(!preselectedVariantId){
                             //     preselectedVariantId = Object.keys(variantProducts)[0];
@@ -72,17 +72,22 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                                 if (!_.isEmpty(preselectedOptionElements)) {
                                     _.each(preselectedOptionElements, function ($el) {
+                                        console.log('____________ELE VAR OPT::: ', $el.data('attr'), $el.data('option'));
+                                        
                                         var attrCode = $el.data('attr');
                                         var optionId = $el.data('option');
 
-                                        variantVM.setOption(attrCode, optionId);
+                                        if(attrCode && optionId) {
+                                            variantVM.setOption(attrCode, optionId);
+                                        }
                                     });
 
                                     _.each(preselectedOptionElements, function ($el) {
-                                        var optionLabel = $el.data('label');
-                                        self.setSelectedOptionLabel($el, optionLabel);
-
-                                        self.deactivateUnavailableOptions($el, variantVM, variantOptions, wdContainer);
+                                        if($el.data('attr') && $el.data('option')) {
+                                            var optionLabel = $el.data('label');
+                                            self.setSelectedOptionLabel($el, optionLabel);
+                                            self.deactivateUnavailableOptions($el, variantVM, variantOptions, wdContainer);
+                                        }
                                     });
 
                                     self.highlightSelectedOption(preselectedOptionElements);
@@ -101,11 +106,12 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                                         var variantImages = self.getVariantImages(selectedProductVariant);
 
-                                        console.log(variantImages)
+                                        console.log("%%%%%%%%%%%%%%%%%%%%%%%5variantImages: " + variantImages)
 
-                                        // publish message to move to image
-                                        gc.app.channel.publish('product.variants', {variantMasterId: productVM.id, origImage: variantImages[0].origImage});
-
+                                        if(variantImages && variantImages.length > 0) {
+                                            // publish message to move to image
+                                            gc.app.channel.publish('product.variants', {variantMasterId: productVM.id, origImage: variantImages[0].origImage});
+                                        }
                                     } else {
                                         $('.prd-cart-btn button').addClass("disabled");
                                     }
@@ -137,6 +143,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                                 var selectedProductVariant = self.findVariant(variantVM, variantProducts);
 
+                                console.log('CLIIIIIIIIIIIIIIIIICK:::::::::::::::: ', variantVM, variantProducts, selectedProductVariant);
+                                
+                                
                                 // Tell cart form which variant has been selected.
                                 if (!_.isUndefined(selectedProductVariant) && !_.isUndefined(selectedProductVariant.id)) {
                                     $('#prd-cart-form-product-id').val(selectedProductVariant.id);
@@ -149,11 +158,12 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                                     var variantImages = self.getVariantImages(selectedProductVariant);
 
-                                    console.log(variantImages)
+                                    console.log("ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ variantImages: " + variantImages)
 
-                                    // publish message to move to image
-                                    gc.app.channel.publish('product.variants', {variantMasterId: productVM.id, origImage: variantImages[0].origImage});
-
+                                    if(variantImages && variantImages.length > 0) {
+                                        // publish message to move to image
+                                        gc.app.channel.publish('product.variants', {variantMasterId: productVM.id, origImage: variantImages[0].origImage});
+                                    }
                                 } else {
                                     $('.prd-cart-btn button').addClass("disabled");
                                 }
@@ -215,7 +225,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             var foundOption = _.findWhere(variantOption.options, {id: option});
 
                             if (!_.isUndefined(foundOption)) {
-                                foundElements.push($('#option_' + variantOption.attribute_code + '_' + option));
+                                foundElements.push($('#wd_option_' + variantOption.attribute_code + '_' + option));
                             }
                         });
                     });
@@ -306,9 +316,22 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                 console.log(variantProduct)
 
-
                 if (!_.isEmpty(variantProduct.gallery)) {
                     _.each(variantProduct.gallery, function (image) {
+                        if (!_.isEmpty(image)) {
+                            variantImages.push({
+                                origImage: image.path,
+                                largeImage: mediaUtil.buildImageURL(image.path, 330, 330),
+                                thumbnail: mediaUtil.buildImageURL(image.path, 50, 50),
+                                zoomImage: mediaUtil.buildImageURL(image.path, 1024, 1024),
+                                index: idx++
+                            });
+                        }
+                    });
+                } else if(variantProduct.originalVariantImage) {
+                    var image = variantProduct.originalVariantImage;
+
+                    if (!_.isEmpty(image)) {
                         variantImages.push({
                             origImage: image.path,
                             largeImage: mediaUtil.buildImageURL(image.path, 330, 330),
@@ -316,16 +339,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             zoomImage: mediaUtil.buildImageURL(image.path, 1024, 1024),
                             index: idx++
                         });
-                    });
-                } else if(variantProduct.originalVariantImage) {
-                    var image = variantProduct.originalVariantImage;
-                    variantImages.push({
-                        origImage: image.path,
-                        largeImage: mediaUtil.buildImageURL(image.path, 330, 330),
-                        thumbnail: mediaUtil.buildImageURL(image.path, 50, 50),
-                        zoomImage: mediaUtil.buildImageURL(image.path, 1024, 1024),
-                        index: idx++
-                    });
+                    }
                 }
 
                 return variantImages;

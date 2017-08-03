@@ -11,8 +11,8 @@
         <#if products??>
 
             <div class="col-xs-12">
-                <strong> <@message text='Suchergebnisse' /> (${actionBean.totalNumResults})</strong>
-                <p><@message text='für '/>  &#8222;${RequestParameters.k}&#8221;</p>
+                <strong> <@message text='Suchergebnisse' /> (${totalNumResults})</strong>
+                <p><@message text='für '/>  &#8222;${RequestParameters.q}&#8221;</p>
 
             </div>
 
@@ -66,12 +66,19 @@
                 <#list products as product>
 
                     <@skin path="images/catalog/no_img_250.jpg" var="cat1ImageURI" />
-                    <#if product.cat1ImageURI?has_content>
-                        <@catMediaURL uri="${product.cat1ImageURI!no_img_path}" width=250 height=250 var="cat1ImageURI" />
-                    </#if>
+
 
                     <div class="col-xs-12 col-sm-6 col-md-4 col-category">
                         <div class="cat-item-outer">
+
+                            <#if product.cat1ImageURI?? >
+                                <#assign cat1ImageURI = product.cat1ImageURI>
+                            <#else>
+                                <#if product.bundle && product.mainBundleProduct?? && product.mainBundleProduct.cat1ImageURI?? >
+                                    <#assign cat1ImageURI = product.mainBundleProduct.cat1ImageURI>
+                                </#if>
+                            </#if>
+
                             <div class="cat-item-inner" style="background: url(${cat1ImageURI}) center top no-repeat">
                                 <div class="cat-item-photo">
                                     <a href="<@url target=product />"></a>

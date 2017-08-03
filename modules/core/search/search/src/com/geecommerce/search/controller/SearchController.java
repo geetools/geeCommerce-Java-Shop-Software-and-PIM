@@ -66,6 +66,7 @@ public class SearchController extends BaseController {
         Map<String, Object> activeFilters = null;
         SearchResult searchResult = null;
         List<Product> products = null;
+        long totalNumResults = 0;
 
         if (filterForm == null) {
             filterForm = new FilterForm();
@@ -84,6 +85,7 @@ public class SearchController extends BaseController {
 
                 if (searchResult != null && searchResult.getDocumentIds() != null
                     && searchResult.getDocumentIds().size() > 0) {
+                    totalNumResults = searchResult.getTotalNumResults();
                     Id[] productIds = elasticsearchHelper.toIds(searchResult.getDocumentIds().toArray());
                     products = productService.getProducts(productIds);
                     products = orderByProductIds(products, productIds);
@@ -115,7 +117,7 @@ public class SearchController extends BaseController {
         }
 
         return Results.view("catalog/search/result").bind("products", products).bind("form", filterForm)
-            .bind("filterCtx", filterCtx).bind("pagingCtx", pagingCtx);
+            .bind("filterCtx", filterCtx).bind("pagingCtx", pagingCtx).bind("totalNumResults", totalNumResults);
     }
 
     @Request("/autocomplete")

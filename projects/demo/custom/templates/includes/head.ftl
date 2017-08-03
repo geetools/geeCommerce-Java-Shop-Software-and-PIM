@@ -20,6 +20,8 @@
     <link href="/js/vendor/jquery/plugins/rateit/rateit.css" rel="stylesheet">
 
     <link href="/js/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/js/vendor/jquery-ui/jquery-ui.css" rel="stylesheet">
+
     <link href="<@skin path="css/gc.css"/>" rel="stylesheet">
     <link href="<@skin path="css/gc_icons.css"/>" rel="stylesheet">
     <link href="<@skin path="css/gc.css"/>" rel="stylesheet">
@@ -68,7 +70,7 @@ require.config({
         'jquery-rateit': 'jquery/plugins/rateit/jquery.rateit.min',
         'jquery-dropzone': 'jquery/plugins/dropzone/dropzone-amd-module',
         'jquery-tmpl': 'jquery/plugins/jquery-tmpl/plugins/jquery.tmpl.min',
-        'jquery-ui': 'jquery/plugins/jquery-ui/js/jquery-ui',
+        'jquery-ui': 'jquery-ui/jquery-ui',
         'bootstrap': 'bootstrap/bootstrap.min',
         'bootstrap-jasny': 'bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min',
         'bootstrap-select': 'bootstrap/plugins/select/bootstrap-select.min',
@@ -153,7 +155,7 @@ define('gc-deps', ['jquery', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], functio
 
 console.log('initialized paths!! ', require);
 
-require(['jquery', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], function($, Bootstrap, gc, App, gcRest) {
+require(['jquery', 'jquery-ui', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], function($, jqui,  Bootstrap, gc, App, gcRest) {
 console.log('GCCCCCCCCCCCCCCCCCCCCCCC: ', gc);
 	gc.app = new App();
 	gc.rest = gcRest;
@@ -171,7 +173,45 @@ console.log('GCCCCCCCCCCCCCCCCCCCCCCC: ', gc);
 		require([pageMain]);
 	}
 	
-	console.log('after initializing page');	
+	console.log('after initializing page');
+
+    $(document).ready(function(){
+
+        function highlightName(productName, queryString) {
+
+            var queryStringParts = queryString.split(' ');
+
+            for (var i=0; i<queryStringParts.length; i++) {
+                if(queryStringParts[i].trim() == '')
+                    continue;
+                var regex = new RegExp('(' + queryStringParts[i].trim() + ')','gi');
+                productName = productName.replace(regex, '<b>$1</b>');
+            }
+
+            return productName;
+        }
+
+        $("#searchFormKeyword").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: "/catalog/search/autocomplete",
+                    data: request,
+                    dataType: "json",
+                    method: "post",
+                    success: response
+                })
+            },
+            delay: 250,
+            minLength: 3
+        })
+        $("#searchFormKeyword").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                    .data( "ui-autocomplete-item", item )
+                    .append( "<a href='" + item.uri + "' style = 'width: 194px; text-align: left; color: #000000;'>" + highlightName(item.label,$('#searchFormKeyword').val()) + "</a>" )
+                    .appendTo(ul);
+        };
+    });
+
 });
 
 

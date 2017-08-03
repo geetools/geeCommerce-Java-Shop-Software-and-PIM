@@ -111,7 +111,30 @@ require(['jquery', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], function($, Boots
 		require([pageMain]);
 	}
 	
-	console.log('after initializing page');	
+	console.log('after initializing page');
+
+
+    console.log($("#searchFormKeyword"));
+
+    $("#searchFormKeyword").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "/catalog/search/autocomplete",
+                data: request,
+                dataType: "json",
+                method: "post",
+                success: response
+            })
+        },
+        delay: 250,
+        minLength: 3
+    })
+    $("#searchFormKeyword").data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        return $( "<li>" )
+        .data( "ui-autocomplete-item", item )
+        .append( "<a href='" + item.uri + "' style = 'width: 194px; text-align: left; color: #000000;'>" + highlightName(item.label,$('#searchFormKeyword').val()) + "</a>" )
+        .appendTo(ul);
+        };
 });
 
 

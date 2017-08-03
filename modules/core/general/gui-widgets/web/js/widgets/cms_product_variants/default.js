@@ -60,6 +60,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             //     preselectedVariantId = Object.keys(variantProducts)[0];
                             // }
                             if(!preselectedVariantId){
+                                $('.prd-cart-btn button').prop('disabled', true);
                                 $('.prd-cart-btn button').addClass("disabled");
                             }
 

@@ -339,6 +339,7 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
                 //     preselectedVariantId = Object.keys(variantProducts)[0];
                 // }
                 if(!preselectedVariantId){
+                    $('.prd-cart-btn button').prop('disabled', true);
                     $('.prd-cart-btn button').addClass("disabled");
                 }
 

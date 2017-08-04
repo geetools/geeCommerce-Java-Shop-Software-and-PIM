@@ -73,28 +73,26 @@ public class DefaultCartHelper implements CartHelper {
                 unsetCart();
                 Cart customerCart = cartService.getCartForCustomer(customer.getId());
 
-                if (customerCart == null) {
-                    customerCart = createNewCart();
+                if (cart.getCartItems() != null && cart.getCartItems().size() != 0) {
+                    // need to copy
+                    if (customerCart == null) {
+                        customerCart = createNewCart();
+                    }
+
+                    if(customerCart.getCartItems() != null)
+                        customerCart.getCartItems().clear();
+
+                    for (CartItem item : cart.getCartItems()) {
+                        customerCart.addProduct(item.getProduct());
+                    }
+                    cartService.updateCart(customerCart);
+                } else {
+                    // nothing to copy
+                    if (customerCart == null & createIfNotExists) {
+                        customerCart = createNewCart();
+                    }
+
                 }
-
-
-//                if (cart.getCartItems() != null && cart.getCartItems().size() != 0) {
-//                    // need to copy
-//                    if (customerCart == null) {
-//                        customerCart = createNewCart();
-//                    }
-//
-//                    for (CartItem item : cart.getCartItems()) {
-//                        customerCart.addProduct(item.getProduct());
-//                    }
-//                    cartService.updateCart(customerCart);
-//                } else {
-//                    // nothing to copy
-//                    if (customerCart == null & createIfNotExists) {
-//                        customerCart = createNewCart();
-//                    }
-//
-//                }
                 cart = customerCart;
                 setCart(cart);
 

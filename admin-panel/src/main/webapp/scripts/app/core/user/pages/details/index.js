@@ -17,10 +17,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'plugins/router', 'gc-user', 'gc-r
         self.isProductManager = ko.computed(function () {
             if(self.roles()) {
                 _.each(self.roles(), function (role) {
-                    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                    console.log(role.code)
                     if (role.code == 'product-manager') {
-                        console.log("++++++++++++++++++++++++++++++++++")
                         return true;
                     }
                 })

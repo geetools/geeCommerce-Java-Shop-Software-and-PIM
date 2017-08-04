@@ -15,8 +15,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media'], f
 			_.each(variantProducts, function(variantProduct) {
 				var diff = _.difference(variantProduct.options, selectedOptions);
 				
-				console.log('findVariant: ', diff.length, variantProduct.options, selectedOptions);
-				
 				if(diff.length == 0 && variantProduct.options.length == selectedOptions.length) {
 					foundVariant = variantProduct;
 				}

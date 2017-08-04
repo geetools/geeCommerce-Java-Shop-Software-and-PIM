@@ -628,8 +628,6 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                 log.trace("INSERT SQL: " + query);
             }
 
-            System.out.println("INSERT SQL: " + query);
-
             // Fetch the already prepared statement in batch mode.
             if (JDBC.isBatchModeEnabled())
                 pstmt = JDBC.fetchPreparedStatement(modelClass, query);
@@ -784,8 +782,6 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
                 }
             }
         } catch (Throwable t) {
-            System.out.println("Create ERROR: " + errorField + " --> " + errorValue);
-
             if (isBatchModeEnabled && isBatchCommitOnFlushEnabled) {
                 batchError = true;
 
@@ -837,15 +833,9 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
         List<?> genericType = Reflect.getGenericType(columnInfo.genericType());
 
         if (genericType == null || genericType.isEmpty()) {
-            System.out.println("toSqlArray#1: " + genericType);
             return toSqlArray(values.toArray(), conn);
         } else {
-            System.out.println("toSqlArray#2a: " + genericType);
-
             Object[] arr = (Object[]) java.lang.reflect.Array.newInstance((Class) genericType.get(0), values.size());
-
-            System.out.println("toSqlArray#2b: " + arr);
-
             return toSqlArray(arr, conn);
         }
     }
@@ -854,13 +844,9 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
     protected Array toSqlArray(Object[] values, Connection conn) throws SQLException {
         Class<?> arrayType = values.getClass().getComponentType();
 
-        System.out.println("Type 1: " + arrayType.getName());
-
         if (arrayType == Object.class && values.length > 0) {
             arrayType = values[0].getClass();
         }
-
-        System.out.println("Type 2: " + arrayType.getName() + " - " + values.length);
 
         Array sqlArray = null;
 
@@ -868,68 +854,24 @@ public abstract class AbstractSqlDao extends AbstractDao implements SqlDao {
             sqlArray = conn.createArrayOf("text", values);
         } else if (String.class.isAssignableFrom(arrayType) || char.class.isAssignableFrom(arrayType)
             || char[].class.isAssignableFrom(arrayType)) {
-            System.out.println("text!");
             sqlArray = conn.createArrayOf("text", values);
         } else if (BigInteger.class.isAssignableFrom(arrayType) || Long.class.isAssignableFrom(arrayType)) {
-            System.out.println("bigint! --> " + Arrays.asList((Long[]) values));
             sqlArray = conn.createArrayOf("bigint", (Long[]) values);
         } else if (Integer.class.isAssignableFrom(arrayType)) {
-            System.out.println("integer!");
             sqlArray = conn.createArrayOf("integer", values);
         } else if (BigDecimal.class.isAssignableFrom(arrayType) || Double.class.isAssignableFrom(arrayType)) {
-            System.out.println("decimal!");
             sqlArray = conn.createArrayOf("decimal", values);
         } else if (Float.class.isAssignableFrom(arrayType)) {
-            System.out.println("float!");
             sqlArray = conn.createArrayOf("float", values);
         } else if (Number.class.isAssignableFrom(arrayType)) {
-            System.out.println("bigint! --> " + Arrays.asList((Number[]) values));
             sqlArray = conn.createArrayOf("bigint", (Number[]) values);
         } else if (Boolean.class.isAssignableFrom(arrayType)) {
-            System.out.println("boolean!");
             sqlArray = conn.createArrayOf("boolean", values);
         } else {
-            System.out.println("text2! -> " + arrayType);
             sqlArray = conn.createArrayOf("text", values);
         }
 
         return sqlArray;
-    }
-
-    public static void main(String[] args) {
-
-        Collection c = new ArrayList<Long>();
-        c.add(1111111111111L);
-
-        Object[] values = c.toArray(new Long[1]);
-
-        Class<?> arrayType = values.getClass().getComponentType();
-
-        System.out.println("Type 1: " + arrayType.getName());
-
-        if (arrayType == Object.class && values.length > 0) {
-            arrayType = values[0].getClass();
-        }
-
-        System.out.println("Type 2: " + arrayType.getName());
-
-        Array sqlArray = null;
-
-        if (arrayType == String.class || arrayType == char.class) {
-            System.out.println("TEXT!");
-        } else if (arrayType == BigInteger.class || arrayType == Long.class) {
-            System.out.println("int8!");
-        } else if (arrayType == Integer.class) {
-            System.out.println("int4!");
-        } else if (arrayType == BigDecimal.class || arrayType == Double.class) {
-            System.out.println("numeric!");
-        } else if (arrayType == Float.class) {
-            System.out.println("float4!");
-        } else if (arrayType == Boolean.class) {
-            System.out.println("bool!");
-        } else {
-            System.out.println("TEXT2!");
-        }
     }
 
     @Override

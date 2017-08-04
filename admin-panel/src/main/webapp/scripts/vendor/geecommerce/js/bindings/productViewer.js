@@ -41,8 +41,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                 var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
                 var numberVal = gc.ctxobj.val(number.value, gc.app.currentUserLang(), "closest");
 
-                console.log("!!!!! Product obtained = " + product.id + " Name=" + nameVal + " Art_No=" + numberVal);
-
                 $element.find("div.product-viewer-img").html("<img src='"+ webThumbnailPath + "'>");
                 $element.find("div.product-viewer-name").html("<span>" + nameVal+ "</span>");
             }

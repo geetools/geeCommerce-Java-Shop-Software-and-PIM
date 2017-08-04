@@ -440,17 +440,9 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 		constructor : ProductHistoryIndexController,
 		activate : function(data) {
 			var self = this;
-
-			console.log('VERSION !!!!!!!!!!!!!! ', data);
-
 			var vm = new ProductVM(data.id);
 			
-			console.log('VERSION !!!!!!!!!!!!!!vm ', vm);
-			
-			
 			self.productVM(vm);
-
-			console.log('VERSION !!!!!!!!!!!!!!self.productVM() ', self.productVM());
 			
 			gc.app.sessionPut('historyProductVM', self.productVM);
 
@@ -464,8 +456,6 @@ define([ 'durandal/app', 'postal', 'knockout', 'gc/gc', 'gc-product', 'gc-attrib
 			var promise = $.when({});
 			
 				promise = productAPI.getSnapshot(data.id, data.version).then(function(response) {
-					console.log('Loaded snapshot: ', response.data.products[0]);
-					
 					vm.data(response.data.products[0]);
 					gc.app.pageTitle(vm.pageTitle());
 					gc.app.pageDescription(vm.pageDescription());

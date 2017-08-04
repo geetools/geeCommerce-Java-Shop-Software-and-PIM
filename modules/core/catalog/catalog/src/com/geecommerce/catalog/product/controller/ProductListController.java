@@ -140,8 +140,8 @@ public class ProductListController {
             }
         }
 
-        if ((System.currentTimeMillis() - start) > 5000)
-            System.out.println("Product list took: " + (System.currentTimeMillis() - start));
+//        if ((System.currentTimeMillis() - start) > 5000)
+//            System.out.println("Product list took: " + (System.currentTimeMillis() - start));
 
         // Only tell varnish to cache if the user is not filtering.
         if (requestFilters.isEmpty()) {

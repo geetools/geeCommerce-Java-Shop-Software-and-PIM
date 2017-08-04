@@ -86,7 +86,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-coupon-promotion',  'gc-produc
 
 /*					if(couponPromotion.productLists){
 						_.each(couponPromotion.productLists, function (productList) {
-                            console.log("3")
 							self.couponPromotionVM.productLists.push({id: productList.id, key: productList.key, label: productList.label});
 						})
 					}*/

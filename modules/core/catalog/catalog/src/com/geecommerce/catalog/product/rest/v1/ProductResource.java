@@ -250,16 +250,6 @@ public class ProductResource extends AbstractResource {
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Product getProduct(@PathParam("id") Id id) {
-
-        try {
-            Product p = Json.fromJson(
-                "{\"type\":\"PRODUCT\",\"attributes\":[{\"attributeId\":\"11306950695210100\",\"optionIds\":[\"11365129740710100\"]}]}",
-                app.modelType(Product.class));
-            System.out.println("DESERIALIZED PRODUCT: " + p);
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-
         return checked(service.get(Product.class, id));
     }
 
@@ -868,9 +858,6 @@ public class ProductResource extends AbstractResource {
 
             FormDataContentDisposition fileDetails = formDataBodyPart.getFormDataContentDisposition();
             String mimeType = MimeType.fromFilename(fileDetails.getFileName());
-
-            System.out.println(fileDetails.getFileName() + " -> " + mimeType + " -> " + fileDetails.getName());
-
             String absSystemPath = null;
 
             if (MimeType.isImage(fileDetails.getFileName())) {
@@ -881,17 +868,11 @@ public class ProductResource extends AbstractResource {
                     fileDetails.getFileName(), mimeType, product, app.getStoreFromHeader());
             }
 
-            System.out.println(absSystemPath);
-
             File savedFile = catalogMediaHelper.saveToDisk(uploadedInputStream, absSystemPath, product);
-
-            System.out.println(savedFile.getAbsolutePath());
 
             // We need to get the relative path from the saved file in case a
             // version number has been added.
             String relativePath = catalogMediaHelper.toRelativeAssetPath(savedFile.getAbsolutePath());
-
-            System.out.println(relativePath);
 
             CatalogMediaAsset cma = app.model(CatalogMediaAsset.class).belongsTo(product)
                 .setPath(catalogMediaHelper.toWebURI(relativePath)).setMimeType(mimeType).setPosition(99)

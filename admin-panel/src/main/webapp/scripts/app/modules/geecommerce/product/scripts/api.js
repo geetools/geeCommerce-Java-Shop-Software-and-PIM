@@ -96,13 +96,9 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
             var ids = '';
             var _ids = ko.unwrap(productIds);
             
-            console.log('unwrapped products ids ___________________ ', _ids);
-            
-            
             if(!_.isEmpty(_ids) && _.isArray(_ids)) {
                 ids = _ids.join();
             }
-            console.log('joined products ids ___________________ ', ids);
 
             var attributes = options.attributes || [];
             
@@ -113,8 +109,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
                 success : function(data, status, xhr) {
 
                     var productsArr = data.data.products;                    
-                    
-                    console.log(';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;productsArr;;  ', data, productsArr);
                     
                     // append attribute info from cache
                     gc.attributes.appendAttributes(productsArr);
@@ -189,8 +183,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel-addVariant_____', variantProductId);
 			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/variants/' + variantProductId,
@@ -228,8 +220,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel-removeVariant_____', variantProductId);
 			
 			gc.rest.del({
 				url : '/api/v1/products/' + productId + '/variants/' + variantProductId,
@@ -305,8 +295,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____updateModel-addProductToUpsells_____', productId, upsellProductId);
-			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/upsells/' + upsellProductId,
 				success : function(data, status, xhr) {
@@ -343,8 +331,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel-removeUpsell_____', productId, upsellProductId);
 			
 			gc.rest.del({
 				url : '/api/v1/products/' + productId + '/upsells/' + upsellProductId,
@@ -420,8 +406,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____updateModel-addProductToCrossSells_____', productId, crossSellProductId);
-
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/cross-sells/' + crossSellProductId,
 				success : function(data, status, xhr) {
@@ -458,8 +442,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel-removeCrossSell_____', productId, crossSellProductId);
 
 			gc.rest.del({
 				url : '/api/v1/products/' + productId + '/cross-sells/' + crossSellProductId,
@@ -535,8 +517,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____updateModel-addProductToProgramme_____', programmeProductId, childProductId);
-			
 			gc.rest.put({
 				url : '/api/v1/products/' + programmeProductId + '/programme-products/' + childProductId,
 				success : function(data, status, xhr) {
@@ -574,8 +554,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____updateModel-removeProductFromProgramme_____', programmeProductId, childProductId);
-			
 			gc.rest.del({
 				url : '/api/v1/products/' + programmeProductId + '/programme-products/' + childProductId,
 				success : function(data, status, xhr) {
@@ -916,8 +894,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel_____', updateModel.data());
 			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId,
@@ -956,8 +932,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____product_____', ko.gc.unwrap(product));
 			
 			gc.rest.post({
 				url : '/api/v1/products',
@@ -996,8 +970,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel-attributeValue_____', attributeValue);
 			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/attributes/' + attributeValue.attributeId,
@@ -1148,8 +1120,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel-updateValue_____', updateValue);
 			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/images/' + id + '/metadata',
@@ -1188,8 +1158,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____imagePositions_____', imagePositions);
 			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/images/positions',
@@ -1313,8 +1281,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____productIds_____', productIds);
-
 			gc.rest.post({
 				url : '/api/v1/products/image-media-assets',
 				data: productIds,
@@ -1352,8 +1318,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('UPLADIG MEDIA ASSET!!! ', productId, {addContextHeader : true});
 			
 			gc.rest.file({
 				url : '/api/v1/products/' + productId + '/media-assets/',
@@ -1393,9 +1357,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____productId_____', productId);
-			console.log('_____mediaAssetsUpdateData_____', mediaAssetsUpdateData);
 			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/media-assets',
@@ -1472,8 +1433,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____mediaAssetPositions_____', mediaAssetPositions);
-			
 			gc.rest.put({
 				url : '/api/v1/products/' + productId + '/media-assets/positions',
 				data: mediaAssetPositions,
@@ -1587,8 +1546,6 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModel.data());
-
             gc.rest.put({
                 url : '/api/v1/products/' + productId + '/url',
                 data: updateModel.data(),
@@ -1627,10 +1584,8 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModel.data());
-
             var url = '/api/v1/products/url/validation';
-            console.log(productId);
+
             if(productId)
                 url = '/api/v1/products/' + productId + '/url/validation'
 
@@ -1858,16 +1813,9 @@ define([ 'knockout', 'gc/gc', 'gc-attribute' ], function ( ko, gc, attrAPI ) {
         		// Returns an array that the pager can add to the
 				// ko.observableArray.
         		getArray: function(data) {
-        			console.log('HISTORY DATA', data);
-        		
-        		
 					var productsArr = data.products;
 					
-	        		console.time("ADD-ATTRIBUTES");
-
 					gc.attributes.appendAttributes(productsArr);
-
-	        		console.timeEnd("ADD-ATTRIBUTES");
 
         			return productsArr || [];
         		}

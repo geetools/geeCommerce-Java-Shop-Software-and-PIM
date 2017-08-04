@@ -11,14 +11,11 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____createAttributeTab_____', newAttributeTab);
 			
 			gc.rest.post({
 				url : '/api/v1/control-panels/' + gc.app.confGet('controlPanelId') + '/attribute-tabs',
 				data: newAttributeTab,
 				success : function(data, status, xhr) {
-					console.log("SUCCESS",data, status, xhr);
 					if (self._onload) {
 						self._onload(data, status, xhr);
 					}
@@ -26,7 +23,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 					deferred.resolve(data, status, xhr);
 				},
 				error : function(jqXHR, status, error) {
-					console.log("ERROR",data, status, xhr);
 					if (self._onerror) {
 						self._onerror(jqXHR, status, error);
 					}
@@ -34,7 +30,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 					deferred.reject(jqXHR, status, error);
 				},
 				complete : function(data, status, xhr) {
-					console.log("COMPLETE",data, status, xhr);
 					if (self._oncomplete) {
 						self._oncomplete(data, status, xhr);
 					}
@@ -85,15 +80,11 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
         getAttributeTabs: function(type) {
 			self = this;
 
-			console.log(type);
-			console.log(type ? '/attribute-tabs/group/' + type : '/attribute-tabs')
-
 			if(type){
 				var cachedAttributeTabs = gc.cache.get('attributeTabs-' + type);
 			} else {
 				var cachedAttributeTabs = gc.cache.get('attributeTabs');
 			}
-
 			
 			if(!_.isEmpty(cachedAttributeTabs)) {
 				return $.when({ isFromCache : true, data : { attributeTabs : cachedAttributeTabs } });
@@ -116,7 +107,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 						var attributeTabs = data.data.attributeTabs;
 						gc.cache.put('attributeTabs-' + type, attributeTabs);
 					}
-
 
 					if (self._onload) {
 						self._onload(data, status, xhr);
@@ -309,8 +299,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____attrTabId_____', attrTabId);
 			
 			gc.rest.put({
 				url : '/api/v1/control-panels/' + attrTabId + '/options/positions',
@@ -390,8 +378,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.success = promise.done;
             promise.error = promise.fail;
             promise.complete = promise.done;
-
-            console.log('_____removeAttributeTab_____', attrTabId);
 
             gc.rest.del({
                 url : '/api/v1/control-panels/' + attrTabId,

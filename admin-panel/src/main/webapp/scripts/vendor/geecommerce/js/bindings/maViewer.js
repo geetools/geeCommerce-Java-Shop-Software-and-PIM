@@ -20,7 +20,6 @@ define(['knockout', 'gc/gc', 'gc-media-asset'], function (ko, gc, mediaAssetAPI)
             if (!_.isUndefined(valueUnwrapped) && !_.isEmpty(valueUnwrapped)) {
                 var mediaAssetId = valueUnwrapped;
                 mediaAssetAPI.getMediaAsset(mediaAssetId).then(function (mediaAsset) {
-                    console.log("LOAD MEDIA ASSET");
                     if (!_.isUndefined(mediaAsset)) {
                         setElementData(mediaAsset);
                     }

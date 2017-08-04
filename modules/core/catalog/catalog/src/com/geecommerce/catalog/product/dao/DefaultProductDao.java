@@ -159,13 +159,8 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
     public Product findProductByIds(String collectionName, String id2, String articleNumber, Long ean) {
         Map<String, Object> productIds = fetchProductIds(collectionName, id2, articleNumber, ean);
 
-        long start = System.currentTimeMillis();
-
         if (productIds != null && productIds.containsKey("_id")) {
             Product p = findById(Product.class, Id.valueOf(productIds.get("_id")));
-
-            System.out.println("Found product by ids in: " + (System.currentTimeMillis() - start) + "ms");
-
             return p;
         }
 
@@ -177,8 +172,6 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
     public Map<String, Object> fetchProductIds(String collectionName, String id2, String articleNumber, Long ean) {
         if (!db(Product.class).collectionExists(collectionName))
             throw new IllegalStateException("Collection '" + collectionName + "' does not exist");
-
-        long start = System.currentTimeMillis();
 
         int countNotNull = 0;
 
@@ -212,8 +205,6 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
                 query.append(", {ean: ").append(ean).append("}");
 
             query.append("]}");
-
-            System.out.println(query.toString());
 
             dbObject = (DBObject) JSON.parse(query.toString());
         } else {
@@ -249,8 +240,6 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
                         doc.put("ean", TypeConverter.asLong(doc.get("ean")));
                 }
 
-                System.out.println("Found product id map in: " + (System.currentTimeMillis() - start) + "ms");
-
                 count++;
             }
         } finally {
@@ -266,13 +255,9 @@ public class DefaultProductDao extends AbstractMongoDao implements ProductDao {
         if (!db(Product.class).collectionExists(collectionName))
             throw new IllegalStateException("Collection '" + collectionName + "' does not exist");
 
-        long start = System.currentTimeMillis();
-
         DBObject dbObject = new BasicDBObject("_id", id);
 
         DBObject doc = db(Product.class).getCollection(collectionName).findOne(dbObject);
-
-        System.out.println("Product id exists: " + (System.currentTimeMillis() - start) + "ms");
 
         return doc != null;
     }

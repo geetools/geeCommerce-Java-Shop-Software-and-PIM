@@ -38,7 +38,5 @@ public class AttrOption extends AbstractCommand {
         List<DBObject> allAttributes = (List<DBObject>) dboAttributes.get(ALL);
 
         allAttributes.add(new BasicDBObject(ELEM_MATCH, new BasicDBObject(FIELD_OPTIONS, value)));
-
-        System.out.println("AttrOption: " + query);
     }
 }

@@ -28,8 +28,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-magazine' ], function(app, ko,
         self.id = pageId
         self.mediaAssetid = mediaAssetId;
 
-console.log('PATH:::::::::::::::: ', path);
-
         self.path = ko.observable(path);
         self.webPath = ko.observable(webPath);
 

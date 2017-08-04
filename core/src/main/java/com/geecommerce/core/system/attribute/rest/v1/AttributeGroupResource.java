@@ -93,8 +93,6 @@ public class AttributeGroupResource extends AbstractResource {
     @Path("{id}")
     public void removeAttribute(@PathParam("id") Id id) {
         AttributeGroup attributeGroup = checked(service.get(AttributeGroup.class, id));
-
-        System.out.println("--- Removing attribute-group: " + attributeGroup);
         service.remove(attributeGroup);
     }
 
@@ -219,8 +217,6 @@ public class AttributeGroupResource extends AbstractResource {
     @Path("{id}/positions")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateAttributeTabPositions(@PathParam("id") Id id, HashMap<String, Integer> positionsMap) {
-        System.out.println(positionsMap);
-
         if (id != null && positionsMap != null && positionsMap.size() > 0) {
             AttributeGroup attributeGroup = checked(service.get(AttributeGroup.class, id));
             Set<String> keys = positionsMap.keySet();

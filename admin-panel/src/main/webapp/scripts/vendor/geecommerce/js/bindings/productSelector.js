@@ -101,7 +101,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                     return false;
                 },
                 source: function (request, response) {
-                    console.log("PP :: searching for ::" + queryStr);
                     var queryStr = inputElement.val();
 
                     var autocompleteSrc = [];
@@ -126,8 +125,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                     searchProductResults.columnValue('$attr.article_number', queryStr);
                     searchProductResults.load().then(function (data) {
                         if (_.isEmpty(data.data.products)) {
-                            console.log("PP:: SEARCHING FOR ARTICLE NUMBER with NO results.");
-
                             searchProductResults.columnValue('$attr.article_number', undefined);
                             searchProductResults.columnValue('$attr.name', queryStr);
                             searchProductResults.load().then(function (data2) {
@@ -154,7 +151,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                                     });
 
                                 } else {
-                                    console.log("PP:: NO SEARCHING RESULTS FOUND...");
                                     showProductPickerMessage("No product found");
                                 }
                             });
@@ -253,8 +249,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
 
                 var nameVal = gc.ctxobj.val(name.value, gc.app.currentUserLang(), "closest");
                 var numberVal = gc.ctxobj.val(number.value, gc.app.currentUserLang(), "closest");
-
-                console.log("!!!!! Product updated = " + product.id + " Name=" + nameVal + " Art_No=" + numberVal);
 
                 $element.find("div.product-img").html("<img src='" + webThumbnailPath + "'>");
                 $element.find("div.product-name").html("<span>" + nameVal + "(" + numberVal + ")" + "</span>");

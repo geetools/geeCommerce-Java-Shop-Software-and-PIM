@@ -136,9 +136,7 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute/util
             // });
         },
         getAttributesForTabsPromise : function(attributeTabId, modelObject, modelAttributes, collection, formAttributeValues) {
-
             var self = this;
-            console.log(attributeTabId);
 
             return attrTabAPI.getAttributeTabMapping(attributeTabId).then(
                     function(data) {

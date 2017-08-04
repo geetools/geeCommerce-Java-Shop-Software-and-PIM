@@ -123,8 +123,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModelData);
-
             gc.rest.put({
                 url: '/api/v1/content-layouts/' + id,
                 data: updateModelData.data(),

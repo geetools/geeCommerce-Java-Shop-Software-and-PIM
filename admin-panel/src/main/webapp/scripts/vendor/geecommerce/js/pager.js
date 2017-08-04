@@ -14,7 +14,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             throw new TypeError("Pager constructor cannot be called as a function.");
         }
 
-        // console.log(options);
         options = options || {};
         
         this._url = options.url;
@@ -186,7 +185,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 gc.app.sessionKGet('activeContext').subscribe(function(ctxId) {
                     self._currentPage = 1;
                     self._offset = (self._currentPage - 1) * self._limit;
-                    console.log("change context")
                     self.load();
                 });
             }
@@ -210,8 +208,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             });
 
             self.limit.subscribe(function(newValue) {
-                console.log(newValue);
-
                 if (self._isInitialized && newValue != self._limit) {
                     self._currentPage = 1;
                     self._offset = 0;
@@ -239,7 +235,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             var self = this;
 
             self.query.subscribe(function(newValue) {
-                console.log(newValue)
                 if (_.isEmpty(newValue)) {
                     self._isQuery = false;
                     self._query = "";
@@ -266,8 +261,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             var column = _.findWhere(ko.unwrap(this.columns), {
                 name : name
             });
-            console.log(column);
-            console.log(this.columns());
             if (!_.isUndefined(column)) {
                 column.value(value);
             }
@@ -318,7 +311,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             _.each(this.columns(), function(column) {
                 var name = '';
                 var val = '';
-                // console.log(column);
                 if (!column.combined) {
                     name = column.name;
                     val = column.value();
@@ -350,9 +342,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                         self._filter[name] = JSON.stringify(dateFilter);
                     }
                 } else if (val && val != '' && (val.length > 2 || isNumber || isBoolean)) {
-                    console.log(column)
                     if (!_.isEmpty(column.type) && column.type == 'ContextObject') {
-                        console.log(column.useRegexp);
                         if (column.useRegexp) {
                             self._filter[name] = '$regex:{{val:"' + val + '"}}';
                         } else if (column.wildcard) {
@@ -519,8 +509,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                 url = self._queryUrl;
             }
 
-           console.log(self._query);
-
             gc.rest.get({
                 url : url,
                 filter : filter,
@@ -553,8 +541,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
                             }
                         }
                     }
-
-                    console.log("callbackcallbackcallbackcallbackcallback ", callbacks);
 
                     if(callbacks && !_.isEmpty(callbacks)) {
                         for(var i=0; i<callbacks.length; i++) {

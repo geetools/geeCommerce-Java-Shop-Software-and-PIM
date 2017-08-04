@@ -36,9 +36,7 @@ define(
 
 				},
 				activate : function(data) {
-
 					var self = this;
-					console.log(data);
 					self.activeNode = data;
 
 					return;

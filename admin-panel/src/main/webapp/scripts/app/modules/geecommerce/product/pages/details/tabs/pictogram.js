@@ -42,7 +42,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
         };
 
 		self.format =  function(state) {
-			console.log(state);
 			var originalOption = state.element;
 
 			var $state = $(
@@ -602,7 +601,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 										self.pictogramImage(attrVM);
 										if (imageId)
 											mediaAssetAPI.getMediaAsset(imageId).then(function (data) {
-												console.log('11111111111111111111111111');
 												self.previewTemplate(false);
 												self.pictogramImageUrl(data.url);
 											});
@@ -649,7 +647,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 						}
 					} else {
 						updateModel.attr(attrVal.code, attrVal.value);
-						console.log(attrVal.value)
 					}
 				}
 			});
@@ -673,7 +670,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 		},
 		detached : function() {
 			var self = this;
-			console.log('!!! DETACNI');
 			$(document).off('click', '#tab-prd-details-media');
 		}
 	}

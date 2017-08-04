@@ -240,8 +240,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____removeSlideshow_____', slideshowId);
-			
 			gc.rest.del({
 				url : '/api/v1/slide-shows/' + slideshowId,
 				success : function(data, status, xhr) {

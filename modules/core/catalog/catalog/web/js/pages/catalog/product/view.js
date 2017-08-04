@@ -25,7 +25,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 	// Load add to cart and price fragment.
 	// ---------------------------------------------------------------
 
-    console.log('----------------------------->>>1 ', productVM.id);
 	//pageBundle.initConditionsCheck(productVM.id)
 
 
@@ -237,7 +236,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 
 
                 catalogAPI.getBundlePrices(bundleId, bundleMap).then(function (data) {
-                           console.log("DATA", data);
                            setBundlePrices(data.data.results);
 
                 })
@@ -333,8 +331,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 				// --------------------------------------------------------------------
 				var preselectedVariantId = pageVariants.getPreselectedVariantFromURI();
 
-				console.log('preselectedVariantId::: ', preselectedVariantId);
-
                 // if(!preselectedVariantId){
                 //     preselectedVariantId = Object.keys(variantProducts)[0];
                 // }
@@ -348,16 +344,10 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 					var preselectedVariant = pageVariants.findVariantById(preselectedVariantId, variantProducts);
 					var preselectedOptionElements = pageVariants.getPreselectedOptionElements(preselectedVariant, variantOptions);
 
-					console.log('!!preselectedVariant!! ', preselectedOptionElements);
-
 					if(!_.isEmpty(preselectedOptionElements)) {
-                        console.log(preselectedOptionElements)
 						_.each(preselectedOptionElements, function($el) {
 							var attrCode = $el.data('attr');
                             var optionId = $el.data('option');
-                            console.log("!!!!!!!!!!!!!");
-                            console.log(attrCode)
-                            console.log(optionId);
 							variantVM.setOption(attrCode, optionId);
 						});
 
@@ -440,17 +430,12 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 	// ---------------------------------------------------------------
 	
 	catalogAPI.getEnabledViewImages(productVM.id).then(function(response) {
-		console.log('images', response.data.catalogMediaAssets);
-		
 		if(!response.data.catalogMediaAssets)  {
 		    return;
 		}
 		
 		var _mainImage = _.findWhere(response.data.catalogMediaAssets, {productMainImage: true})
 		var _galleryImages = _.where(response.data.catalogMediaAssets, {productGalleryImage: true})
-
-		console.log('mainImage', _mainImage);
-		console.log('galleryImages', _galleryImages);
 
 		productVM.mainImage = {
 			origImage: _mainImage.path,
@@ -470,8 +455,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'customer-review/api', 'c
 				index: idx++
 			});
 		});
-
-		console.log('################ RENDER IMAGES!!!! ', productVM);
 		
 		pageMedia.renderImages(productVM);
 	});

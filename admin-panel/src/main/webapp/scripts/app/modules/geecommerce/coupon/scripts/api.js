@@ -493,8 +493,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModelData);
-
             gc.rest.put({
                 url: '/api/v1/coupons/' + couponId,
                 data: updateModelData,
@@ -570,8 +568,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____removeAttribute_____', id);
-
             gc.rest.del({
                 url : '/api/v1/coupons/' + id,
                 success : function(data, status, xhr) {
@@ -618,8 +614,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
                 // Returns an array that the pager can add to the
                 // ko.observableArray.
                 getArray: function (data) {
-                    console.log("WTF")
-                    console.log(data)
                     return data.coupons;
                 }
             }

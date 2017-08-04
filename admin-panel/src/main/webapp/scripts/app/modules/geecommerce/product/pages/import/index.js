@@ -20,8 +20,6 @@ define([
             });
             
             self.fieldMapping(_fieldMapping);
-            
-            console.log('NEW FIELD MAPPING :::::: ', _fieldMapping);
         });
 
     }
@@ -52,8 +50,6 @@ define([
             self.importVM(vm);
 
             gc.app.sessionPut('importVM', self.importVM);
-
-            console.log('ProductImportIndexController!!!!!!!!!!!!!!!!! ');
         }
     }
 

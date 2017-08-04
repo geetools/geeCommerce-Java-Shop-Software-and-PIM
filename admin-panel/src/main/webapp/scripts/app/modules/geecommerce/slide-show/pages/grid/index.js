@@ -36,8 +36,6 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-slide-show'], function (app, ko
 	    	// Init the pager.
         	self.pager = new gc.Pager(slideShowAPI.pagingOptions({columns : pagerColumns}));
         	
-        	console.log("THIS IS PAGER",self.pager);
-        	
         	// We return the promise so that durandaljs knows to wait for the asynchronous REST-call.
         	return self.pager.load();
 	    },
@@ -46,12 +44,9 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-slide-show'], function (app, ko
     		var yes = gc.app.i18n('app:common.yes');
     		var no = gc.app.i18n('app:common.no');
     		
-    		console.log("THIS STILL IS PAGER",self.pager);
-    		
 			app.showMessage(gc.app.i18n('app:modules.slide-show.confirmDelete'), gc.ctxobj.val(slideshow.name, gc.app.currentLang()), [yes, no]).then(function(confirm) {
 				if(confirm == yes) {
 					slideShowAPI.removeSlideshow(slideshow.id).then(function() {
-						console.log("REMOVING",slideshow,self.pager);
 		    			self.pager.removeData(slideshow);
 		    		});
 				}
@@ -81,7 +76,6 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-slide-show'], function (app, ko
 						var txt = false;
 
 						if(!_.isUndefined(value)) {
-							console.log("CTXOBJ",gc.ctxobj);
 							txt = gc.ctxobj.val(value, undefined, 'closest', store.id);
 						}
 

@@ -31,8 +31,6 @@ define([
 
             var vm = gc.app.sessionGet('importVM');
             self.importVM(vm);
-
-            console.log('IN IMPORT!!!');
             
 //            var io = require('socket.io')(80);
 //            
@@ -56,12 +54,7 @@ define([
             });
 
             dz.on("success", function(file) {
-                console.log('uploaded file ------------> ', file);
-                
-                console.log('token --------------------->', file.xhr.responseText);
-                
                 vm.token(file.xhr.responseText.replace(/"/g,""));
-                
             });
         }
     }

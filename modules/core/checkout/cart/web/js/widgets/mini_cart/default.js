@@ -1,16 +1,16 @@
 define(['jquery', 'bootstrap', 'gc/gc', 'cart/api', 'cart/utils/common', 'price/utils/common'], function ($, Bootstrap, gc, cartAPI, cartUtil, priceUtil) {
     return {
         init: function (widgetParams) {
+            gc.app.fragment('/cart/view-mini/', '#mini-cart-content');
+            
+/*            
             cartAPI.getCart(1).then(function (data) {
-                console.log(data);
                 var cart = {};
                 cart.items = [];
 
                 cart.empty = true;
 
                 _.each(data.cartItems, function (cartItem) {
-                    console.log('???????????????? cartItem.product.mainImage ::: ', cartItem.product.mainImage, (!cartItem.product.mainImage));
-                    
                     var item = {};
                     item.id = cartItem.productId;
                     item.url = cartItem.productURI;
@@ -26,16 +26,8 @@ define(['jquery', 'bootstrap', 'gc/gc', 'cart/api', 'cart/utils/common', 'price/
 
                 cart.total = priceUtil.formatPrice(data.totals.gross_grand_total);
 
-                gc.app.render({
-                    slice: 'cart/mini_cart/default',
-                    data: {cart: cart},
-                    process: true,
-                    target: '#mini-cart-content'
-                }, function (targetEL) {
-
-                });
             });
-
+*/
             $('#popoverMiniCart').popover({
                 html: true,
                 content: function () {

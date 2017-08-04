@@ -19,9 +19,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
 
         self.apiOptions = options.apiOptions;
 
-        console.log("OPTIONS")
-        console.log(self.apiOptions)
-		
         self.options = [];
 		
         return attrAPI.getAttributes(self.forType, self.apiOptions).then(function(data) {

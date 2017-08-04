@@ -27,7 +27,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 			self.hasEditRights = activateData.hasEditRights;
 			self.hasViewRights = activateData.hasViewRights;
 
-		//	console.log(self.attributeTab.id());
 			self.formAttributeValues = ko.computed(function() {
 				return _.filter(self.formAllAttributeValues(), function (formAttributeValue) {
 					return formAttributeValue.attributeTabId == self.attributeTab.id();

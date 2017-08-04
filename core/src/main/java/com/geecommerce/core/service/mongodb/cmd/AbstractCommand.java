@@ -42,15 +42,11 @@ public abstract class AbstractCommand implements Command {
             } else {
                 if (Num.isWholeNumber(val)) {
                     if (val.length() > 9) {
-                        System.out.println("ATTR-CMD: " + val + " seems to be a long.");
-
                         dbValue.put(key, Long.valueOf(val));
                     } else {
-                        System.out.println("ATTR-CMD: " + val + " seems to be an integer.");
                         dbValue.put(key, Integer.valueOf(val));
                     }
                 } else if (Num.isDouble(val)) {
-                    System.out.println("ATTR-CMD: " + val + " seems to be a double.");
                     dbValue.put(key, Double.valueOf(val));
                 } else {
                     dbValue.put(key, val);

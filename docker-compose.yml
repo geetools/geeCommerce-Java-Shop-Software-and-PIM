@@ -30,6 +30,11 @@ services:
     - mysql
     - mongo
     - elasticsearch
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"    
   nginx:
     image: geecommerce/demo-nginx:1.0
     container_name: gc_demo_nginx
@@ -42,6 +47,11 @@ services:
     - tomcat
     links:
     - tomcat
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   elasticsearch:
     image: elasticsearch:1.7.6
     container_name: gc_demo_es

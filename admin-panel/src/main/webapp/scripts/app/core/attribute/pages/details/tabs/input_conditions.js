@@ -134,9 +134,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 			
 			var whenAttributeId = ko.unwrap(inputCondition.whenAttributeId);
 			
-			console.log('whenAttributeId ----------------- ', whenAttributeId);
-			
-			
 			if(!_.isUndefined(inputCondition) && !_.isUndefined(whenAttributeId)) {
 				
 				return attrAPI.getAttributeOptions(whenAttributeId).then(function(data) {

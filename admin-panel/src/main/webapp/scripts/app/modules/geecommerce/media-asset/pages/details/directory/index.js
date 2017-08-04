@@ -33,11 +33,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
              */
 
             return self.tab.vm.maPager.load();
-            console.log("TAB");
- /*           console.log(self.tab.vm.mediaAssets())
-            _.each(self.tab.vm.mediaAssets(), function (data) {
-                console.log(data.file())
-            })*/
         },
         attached : function() {
             var self = this;
@@ -61,7 +56,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
 
                     dz.on("success", function(file, data) {;
 
-                    console.log("VM", self.tab.vm)
                         mediaAssetUtil.addMediaAsset(data.data.mediaAsset, self.tab.vm.controller, self.tab.vm);
 
                         dz.removeFile(file);
@@ -73,11 +67,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
         compositionComplete : function() {
             var self = this;
             self.tab.vm.maPager.activateSubscribers();
-
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

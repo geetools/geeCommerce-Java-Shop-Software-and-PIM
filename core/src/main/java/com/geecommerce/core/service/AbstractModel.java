@@ -504,23 +504,6 @@ public abstract class AbstractModel implements Model {
         }
     }
 
-    public static void main(String[] args) {
-        List<Map<String, Object>> mapList = new ArrayList<>();
-
-        List<Long> optionIds = new ArrayList<>();
-        optionIds.add(987654321L);
-
-        Map<String, Object> m = new HashMap<>();
-        m.put("s", 123456789L);
-        m.put("val", optionIds);
-
-        mapList.add(m);
-
-        ContextObject<List<Id>> ctxObj = ctxObj_(mapList, true);
-
-        System.out.println(ctxObj);
-    }
-
     public <T> List<ContextObject<?>> ctxObjList_(Object object) {
         return TypeConverter.asListOfContextObjects(object);
     }

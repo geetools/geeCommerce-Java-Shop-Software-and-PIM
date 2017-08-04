@@ -3,11 +3,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
         return {
             init: function (widgetParams) {
-
-                console.log("WIDGET PARAMS!!!")
-                console.log(widgetParams);
-                console.log($('#' + widgetParams.widgetId));
-
                 var self = this;
 
                 var mediaElement = '#' + widgetParams.widgetId;
@@ -27,17 +22,12 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                 // ---------------------------------------------------------------
 
                 catalogAPI.getEnabledViewImages(productVM.id).then(function (response) {
-                    console.log('images', response.data.catalogMediaAssets);
-
                     if(!response.data.catalogMediaAssets)  {
                         return;
                     }
                     
                     var _mainImage = _.findWhere(response.data.catalogMediaAssets, {productMainImage: true})
                     var _galleryImages = _.where(response.data.catalogMediaAssets, {productGalleryImage: true})
-
-                    console.log('mainImage', _mainImage);
-                    console.log('galleryImages', _galleryImages);
 
                     if(_mainImage) {
                         productVM.mainImage = {
@@ -67,15 +57,12 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             index: idx++
                         });
                     });
-                    
-                    console.log('GGGGGGGRRRRRRRRRRR:::::::::::::::::::: ', productVM);
 
                     self.renderCarouselImages(productVM, mediaElement);
 
                     // Subscribe to change variant message
                     gc.app.channel.subscribe('product.variants', function (data) {
                         if (!_.isUndefined(data) && productVM.id == data.variantMasterId) {
-                            console.log('CAROUSEL:: got the variants message ' + data.origImage);
                             self.moveToImage(data.origImage, mediaElement);
                         }
                     });
@@ -83,9 +70,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
             },
             renderCarouselImages: function (productVM, mediaElement) {
-
-                console.log("renderImages::prdMedia = " + mediaElement, productVM.mainImage, productVM.galleryImages);
-
                 $(mediaElement).empty();
 
                 gc.app.render({
@@ -102,12 +86,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                     $(mediaElement + ' .main-carousel:visible').swipe({
                         swipeLeft: function (event, direction, distance, duration, fingerCount) {
-                            console.log('CMS_PRODUCT_CAROUSEL SWIPE!! ', $(this), event);
-
                             $(mediaElement + ' .main-carousel').carousel('next');
                         },
                         swipeRight: function (event, direction, distance, duration, fingerCount) {
-                            console.log('CMS_PRODUCT_CAROUSEL SWIPE!! ', $(this), event);
                             $(mediaElement + ' .main-carousel').carousel('prev');
                         },
                         threshold: 0
@@ -168,8 +149,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                 });
             },
             moveToImage: function (imageURI, mediaElement) {
-                console.log('CMS_PRODUCT_CAROUSEL moveToImage_____ ', imageURI);
-
                 var foundImageEL = $(mediaElement + ' #prd-img-thumbnails>div>ul').find("[data-orig='" + imageURI + "']");
 
                 if (!_.isEmpty(foundImageEL)) {
@@ -178,9 +157,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                     if (!_.isEmpty(foundImageEL)) {
                         var idx = foundListEL.data('slick-index');
 
-                        console.log('CMS_PRODUCT_CAROUSEL moveToImage_____ ', foundImageEL, foundListEL, foundListEL.data('slick-index'));
-
-
                         $(mediaElement + ' #prd-img-thumbnails>div>ul').slick('slickGoTo', idx);
                         $(mediaElement + ' .main-carousel').carousel(idx + 1);
                     }
@@ -188,7 +164,4 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
             }
         }
     });
-
-
-
 

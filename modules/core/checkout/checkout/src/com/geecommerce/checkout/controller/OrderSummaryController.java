@@ -62,12 +62,11 @@ public class OrderSummaryController extends BaseController {
 
     @Request("/detail/{id}")
     public Result detail(@PathParam("id") Id id) {
-        Order order = null;
-        if (isCustomerLoggedIn()) {
-            order = checkoutService.getOrder(id);
-        }
+        if (!isCustomerLoggedIn())
+            return redirect("/customer/account/login");
 
-        return view("order_summary/detail").bind("order", order);
+        return view("order_summary/detail")
+            .bind("order", checkoutService.getOrder(id));
     }
 
     private Map<String, String> getCountries() {

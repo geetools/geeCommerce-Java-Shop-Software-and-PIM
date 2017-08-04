@@ -25,7 +25,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 		constructor : DynAttributesController,
 		activate : function(activateData) {
 			var self = this;
-			console.log(activateData);
 			self.vm = activateData.vm;
 			self.attributeTab = ko.unwrap(activateData.attributeTab);
 			self.hasEditRights = true;

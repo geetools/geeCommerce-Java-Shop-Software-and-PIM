@@ -140,7 +140,6 @@ public class ContentController extends BaseController {
 
                 ContentNode contentNode = app.model(ContentNode.class);
                 contentNode.fromMap(nodeMap);
-                System.out.println(node);
 
                 htmlContent = contentService.generateNode(contentNode);
             }

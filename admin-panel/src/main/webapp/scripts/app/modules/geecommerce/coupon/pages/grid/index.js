@@ -84,9 +84,7 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-coupon'], function (app, ko, gc
 
 						var txt = false;
 
-						console.log("VALUE",value);
 						if(!_.isUndefined(value)) {
-							console.log("CTXOBJ",gc.ctxobj);
 							txt = gc.ctxobj.val(value, undefined, 'closest', store.id);
 						}
 

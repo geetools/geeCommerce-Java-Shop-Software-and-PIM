@@ -212,7 +212,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-discount-promotion' ], functio
                     var gifts = _.sortBy(data.gifts, function (gift) {return gift.position});
 
                     _.each(gifts, function(gift) {
-                        console.log(gift);
                         var giftVM = new GiftVM(gift.id, gift.mediaAsset.id, gift.mediaAsset.name, gift.mediaAsset.url,
                             gift.mediaAsset.webThumbnailPath, gift.mediaAsset.url, gift.mediaAsset.url, gift.mediaAsset.url,
                             gift.position, gift.mediaAsset.mimeType, gift.name, gift.description);
@@ -242,7 +241,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-discount-promotion' ], functio
                             });
 
                             dz.on("success", function(file, gift) {
-                                console.log(gift);
                                 var gift = gift.data.actionGift;
                                 var giftVM = new GiftVM(gift.id, gift.mediaAsset.id, gift.mediaAsset.name, gift.mediaAsset.url,
                                     gift.mediaAsset.webThumbnailPath, gift.mediaAsset.url, gift.mediaAsset.url, gift.mediaAsset.url,

@@ -115,13 +115,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
                     var ele=ui.element;
                     var factor = $(this).parent().width()-x;
                     var f2 = $(this).parent().width() * .02999;
-                    console.log(f2);
                     $.each(ele.siblings(),function(idx,item){
-
                         ele.siblings().eq(idx).css('height',y+'px');
                         //ele.siblings().eq(idx).css('width',(factor-41)+'px');
                         ele.siblings().eq(idx).width((factor-f2)+'px');
-
                     });
                 }
             });
@@ -235,10 +232,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
         },
 
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

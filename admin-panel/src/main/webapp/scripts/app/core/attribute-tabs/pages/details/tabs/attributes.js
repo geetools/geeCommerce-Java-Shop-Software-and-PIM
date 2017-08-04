@@ -137,17 +137,14 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-tabs
 			var self = this;
 
 			self.query.subscribe(function(value) {
-				console.log('SEARCHING FOR: ', value);
-
 				self.sourceAttributesPager.columnValue('code', undefined);
 				self.sourceAttributesPager.columnValue('backendLabel', '.*' + value + '.*');
 				self.sourceAttributesPager.load().then(function(data) {
-                    console.log(data)
-					if(_.isEmpty(data.data)) {
+
+				    if(_.isEmpty(data.data)) {
 						self.sourceAttributesPager.columnValue('backendLabel', undefined);
 						self.sourceAttributesPager.columnValue('code', value);
 						self.sourceAttributesPager.load().then(function(data2) {
-                            console.log(data2)
 						});
 					}
 				});

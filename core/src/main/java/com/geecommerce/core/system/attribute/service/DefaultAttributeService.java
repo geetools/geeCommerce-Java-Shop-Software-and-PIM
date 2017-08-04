@@ -377,10 +377,6 @@ public class DefaultAttributeService implements AttributeService {
         if (query != null) {
             FilterBuilder filterBuilder = queryHelper.buildQuery(query);
             SearchResult searchResult = elasticsearchService.findItems(modelClass, filterBuilder);
-            
-            System.out.println("---- GOT QUERY IDS::::::::::: " + searchResult.getDocumentIds());
         }
-
-        System.out.println("------------------------------------>>>>>>>>> " + modelClass + " - " + ids);
     }
 }

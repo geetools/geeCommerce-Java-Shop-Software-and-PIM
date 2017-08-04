@@ -54,10 +54,6 @@
 -->
 
 	<script type="text/javascript">
-// -----------------------------------------------------------------------
-// External js libraries and settings.
-// -----------------------------------------------------------------------
-
 require.config({
 	enforceDefine: true,
 	waitSeconds: 0,
@@ -107,13 +103,6 @@ require.config({
     }
 });
 
-console.log('after initializing config');
-
-
-// -----------------------------------------------------------------------
-// Init CommerceBoard libraries.
-// -----------------------------------------------------------------------
-
 	// Init module js path.
 	require.config({
 		paths:  {
@@ -135,8 +124,6 @@ console.log('after initializing config');
     var pos = pageMain.lastIndexOf('/');
     var pageDir = pageMain.substring(0, pos);
     var templateDir = '/m/' + pageModule + '/js/templates/';
-    
-    console.log('~~~ pageMain ~~~ ', pageMain, pageDir, templateDir, pageModule);
 
 	require.config({
 		paths:  {
@@ -146,48 +133,30 @@ console.log('after initializing config');
 	});
 
 require(['jquery']);
-
-
 define('gc-deps', ['jquery', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], function($, Bootstrap, gc, App, gcRest) {
-	console.log('--------------------> REQUIRING DEPS!!!');
 });
 
 
-console.log('initialized paths!! ', require);
-
 require(['jquery', 'jquery-ui', 'bootstrap', 'gc/gc', 'gc/app', 'gc/rest'], function($, jqui,  Bootstrap, gc, App, gcRest) {
-console.log('GCCCCCCCCCCCCCCCCCCCCCCC: ', gc);
 	gc.app = new App();
 	gc.rest = gcRest;
 
-console.log('GCCCCCCCCCCCCCCCCCCCCCCC: ', gc);
-
 	// Get current page info.
 	var pageInfo = gc.app.pageInfo();
-
-	console.log('Initializing app with page-info: ', pageInfo);
-
-
 
 	if(pageMain) {
 		require([pageMain]);
 	}
 	
-	console.log('after initializing page');
-
     $(document).ready(function(){
-
         function highlightName(productName, queryString) {
-
             var queryStringParts = queryString.split(' ');
-
             for (var i=0; i<queryStringParts.length; i++) {
                 if(queryStringParts[i].trim() == '')
                     continue;
                 var regex = new RegExp('(' + queryStringParts[i].trim() + ')','gi');
                 productName = productName.replace(regex, '<b>$1</b>');
             }
-
             return productName;
         }
 

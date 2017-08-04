@@ -95,7 +95,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-discount-pro
         saveData : function(view, parent, toolbar) {
             var self = this;
             var updateModel = gc.app.newUpdateModel();
-            console.log(self.discountPromotionVM) ;
 
             updateModel.field('label', self.discountPromotionVM.label(), true);
             updateModel.field('key', self.discountPromotionVM.key());
@@ -118,7 +117,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-discount-pro
 
             updateModel.field('couponDuration', self.discountPromotionVM.couponDuration());
             updateModel.field('showForAll', self.discountPromotionVM.showForAll());
-            console.log(updateModel);
 
             if(self.discountPromotionVM.isNew()) {
                 discountPromotionAPI.createDiscountPromotion(updateModel).then(function(data) {
@@ -162,8 +160,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-discount-pro
 
                 }
             });
-            console.log("//////////////////////")
-            console.log(self.discountPromotionVM)
         },
         attached : function() {
             var self = this;

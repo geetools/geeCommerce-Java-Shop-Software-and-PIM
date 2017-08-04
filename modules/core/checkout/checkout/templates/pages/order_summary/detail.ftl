@@ -130,7 +130,7 @@
 
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 content-cell">
                                     <a href="<@print src=product value='product.URI'/>">
-                                        <img class="product-image" product="${item.productId}" src="<@catMediaURL uri="${product.mainImageURI!}" width=133 height=147 />"/>
+                                        <img class="product-image" product="${item.productId}" src="<@catMediaURL src=product width=133 height=147 parent=true />"/>
                                     </a>
                                 </div>
 

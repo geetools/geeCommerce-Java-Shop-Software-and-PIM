@@ -3,7 +3,6 @@ define(['gc/gc'], function (gc) {
     return {
         test: function () {
             var self = this;
-            console.log('Test common js in checkout.');
         },
         getURLParam: function (param) {
             var reParam = new RegExp('(?:[\?&]|&)' + param + '=([^&]+)', 'i');

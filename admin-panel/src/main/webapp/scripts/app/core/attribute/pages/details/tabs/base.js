@@ -153,8 +153,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
                     updateModel.field('validationPattern', self.attributeVM.validationPattern(), true);
                     updateModel.field('validationScript', self.attributeVM.validationScript(), true);
                     updateModel.field('validationMessage', self.attributeVM.validationMessage(), true);
-                    
-                    console.log('UPDATE ATTRIBUTE!!!!! ', updateModel);
 				}
 				
 				attrAPI.updateAttribute(self.attributeVM.id(), updateModel).then(function(data) {
@@ -170,8 +168,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute' ], function(app, ko
 			var self = this;
 			
 			self.attributeVM = gc.app.sessionGet('attributeVM');
-			
-			console.log('~~~~~~~~~~~~~~~~~ attributeVM: ', self.attributeVM);
 			
 			var reduced = gc.ctxobj.reduce(gc.app.dataGet('productAttributes'), 'id', 'backendLabel', gc.app.currentLang(), true, { backendLabel: 'text' });
 			self.productAttributes(_.sortBy(reduced, "text"));

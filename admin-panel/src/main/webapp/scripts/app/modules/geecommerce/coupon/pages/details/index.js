@@ -92,9 +92,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
         self.code = ko.observable().extend({
             required: {
                 onlyIf: function () {
-                    console.log(self.parent().isNew() );
-                    console.log(self.auto() );
-                    console.log(self.parent().auto() );
                     return self.parent().isNew() && !self.auto() && !self.parent().auto(); }
             },
             validation: {
@@ -231,10 +228,8 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
             if(self.type() == 'FIlTER_ATTRIBUTE_OPERATION' && self.attributeType() == 'PRODUCT'){
                 if(self.inputType() == 'SELECT' || self.inputType() == 'BOOLEAN' ){
                     var result = [];
-                    console.log(self.couponVM.couponFilterOperators())
                     result.push(_.where(self.couponVM.couponFilterOperators(), {value: "=="})[0])
                     result.push(_.where(self.couponVM.couponFilterOperators(), {value: "!="})[0])
-                    console.log(result);
                     return result;
                 } else {
                     return self.couponVM.couponFilterOperators();
@@ -386,11 +381,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
                 couponUpdateModel.field('priceTypeIds', self.couponVM.priceTypeIds());
             if(self.couponVM.customerGroupIds() && self.couponVM.customerGroupIds().length > 0)
                 couponUpdateModel.field('customerGroupIds', self.couponVM.customerGroupIds());
-
-
-            console.log(self.couponVM.couponAction.discountAmounts());
-
-
 
             var couponActionUpdateModel = gc.app.newUpdateModel();
             couponActionUpdateModel.field('type', self.couponVM.couponAction.type())
@@ -677,10 +667,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-coupon', 'kn
              });*/
         },
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function(couponId) {
         },

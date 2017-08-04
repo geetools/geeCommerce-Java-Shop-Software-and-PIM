@@ -85,8 +85,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModel.data());
-
             gc.rest.put({
                 url : '/api/v1/discount-promotions/' + discountPromotionId,
                 data: updateModel.data(),
@@ -124,8 +122,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____removeDiscountPromotion_____', discountPromotionId);
 			
 			gc.rest.del({
 				url : '/api/v1/discount-promotions/' + discountPromotionId,

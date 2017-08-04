@@ -65,12 +65,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
 		// If we have a dirtyFlag, use that to track  changes.
 		if(!_.isUndefined(self.dirtyFlag) && ko.isObservable(self.dirtyFlag)) {
 
-            console.log('dirtyFlag INIT')
-
             self.dirtyFlag.subscribe(function (newValue) {
-
-            	console.log('dirtyFlag',self.dirtyFlag)
-
                 $(toolbar).attr('data-init', '1');
                 $(toolbar).find('div.loader').hide();
                 $(toolbar).find('div.buttons').show();

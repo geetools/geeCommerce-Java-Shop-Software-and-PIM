@@ -39,9 +39,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 
 			if(_.isUndefined(foundItem)) {
 
-				console.log("--DATA--");
-				console.log(data);
-
 				if (data.code2 == "GROUP") {
 
 					if(_.isUndefined(foundItem)) {
@@ -66,8 +63,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
         },
         removeItemFromGroup : function(data) {
         	var self = this;
-			console.log("REMOVE");
-			console.log(data);
 			attrGroupsAPI.removeItemFromGroup(self.attributeGroupId, data.id).then(function() {
 
 				if(data.type == "ATTRIBUTE"){
@@ -111,15 +106,10 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 
             self.setupSearchListener();
 
-			console.log(attributeGroupId);
-
 			if(!_.isEmpty(attributeGroupId) && attributeGroupId != 'new') {
 			
 				self.attributeGroupVM = gc.app.sessionGet('attributeGroupVM');
 				self.attributeGroupId = attributeGroupId;
-
-				
-				console.log(self.attributeGroupVM);
 
                 var pagerColumns = [
                     {'name' : 'code', 'label' : 'Code'},
@@ -172,9 +162,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 										itemMapping.code = gc.app.i18n('app:common.valueNotFound', { value: itemMapping.id });
 									}
 								}
-								console.log(itemMapping);
-
-
 							})
 						}
 
@@ -231,17 +218,13 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 			var self = this;
 
 			self.query.subscribe(function(value) {
-				console.log('SEARCHING FOR: ', value);
-
 				self.sourceAttributesPager.columnValue('code', undefined);
 				self.sourceAttributesPager.columnValue('backendLabel', '.*' + value + '.*');
 				self.sourceAttributesPager.load().then(function(data) {
-                    console.log(data)
 					if(_.isEmpty(data.data)) {
 						self.sourceAttributesPager.columnValue('backendLabel', undefined);
 						self.sourceAttributesPager.columnValue('code', value);
 						self.sourceAttributesPager.load().then(function(data2) {
-                            console.log(data2)
 						});
 					}
 				});
@@ -249,12 +232,10 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-grou
 				self.sourceAttributeGroupsPager.columnValue('code', undefined);
 				self.sourceAttributeGroupsPager.columnValue('label', '.*' + value + '.*');
 				self.sourceAttributeGroupsPager.load().then(function(data) {
-					console.log(data)
 					if(_.isEmpty(data.data)) {
 						self.sourceAttributeGroupsPager.columnValue('label', undefined);
 						self.sourceAttributeGroupsPager.columnValue('code', value);
 						self.sourceAttributeGroupsPager.load().then(function(data2) {
-							console.log(data2)
 						});
 					}
 				});

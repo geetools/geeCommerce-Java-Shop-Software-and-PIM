@@ -47,8 +47,6 @@ public class ProductDetailsWidget extends AbstractWidgetController implements Wi
                 
                 if(attributeGroup.getItems() == null || attributeGroup.getItems().isEmpty())
                     continue;
-
-                System.out.println("GROUP_SIZE :::: " + attributeGroup.getCode() + " - " +  attributeGroup.getItems().size());
                 
                 List<AttributeValue> attributeValues = attributeGroup.getItems().stream()
                     .filter(item -> item.getType().equals(AttributeGroupMappingType.ATTRIBUTE))
@@ -63,9 +61,6 @@ public class ProductDetailsWidget extends AbstractWidgetController implements Wi
                     productDetail.setGroup(true);
                     productDetail.setPosition(attributeGroup.getPosition());
                     productDetails.add(productDetail);
-                    
-                    System.out.println("attributeValues :::: " + attributeGroup.getCode() + " - " +  attributeValues.size());
-                    
                 }
             }
 

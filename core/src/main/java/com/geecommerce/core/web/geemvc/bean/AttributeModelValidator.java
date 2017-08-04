@@ -39,9 +39,6 @@ public class AttributeModelValidator implements Validator {
 
     @Override
     public Object validate(RequestHandler requestHandler, ValidationContext validationCtx, Errors errors) {
-
-        System.out.println("VxAAAAAAAAAAAAAALIDATINGxx !!! ------> " + validationCtx.typedValues());
-
         Map<String, Object> typedValues = validationCtx.typedValues();
 
         for (Map.Entry<String, Object> entry : typedValues.entrySet()) {

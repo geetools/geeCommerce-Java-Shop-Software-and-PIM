@@ -151,7 +151,6 @@ public class CartController extends BaseController {
             }
 
             if (!cartItemsToRemove.isEmpty()) {
-
                 System.out.println(
                     "Removing " + cartItemsToRemove.size() + " out of " + cartItems.size() + " cart items. Items ("
                         + ") may either have caused an error, haven been deleted or are not visible.");
@@ -165,6 +164,14 @@ public class CartController extends BaseController {
 
         return view("cart/view").bind("cart", cart).bind("variantsAsJSON", variantsAsJSON)
             .bind("variantsAsMap", variantsAsMap).bind("checkoutAction", getCheckoutAction());
+    }
+
+    @Request("view-mini")
+    public Result viewMini() throws Exception {
+        Cart cart = cartHelper.getCart();
+
+        return view("cart/view_mini")
+            .bind("cart", cart);
     }
 
     @Request(value = "add", method = HttpMethod.POST)
@@ -229,8 +236,8 @@ public class CartController extends BaseController {
         cartService.updateCart(cart);
 
         return redirect("http://" + app.servletRequest().getServerName() + ":" + app.servletRequest().getServerPort() + "/cart/view/");
-                
-//        return redirect("/cart/view/");
+
+        // return redirect("/cart/view/");
     }
 
     @Request("remove")
@@ -301,7 +308,6 @@ public class CartController extends BaseController {
 
     }
 
-
     @Request("mini-cart")
     public Result miniCart(@Param("cart-view") String view) throws Exception {
         return view("cart/" + view);
@@ -312,8 +318,6 @@ public class CartController extends BaseController {
         CheckoutFlowStep firstFlowStep = checkoutFlowHelper.getFirstActiveFlowStep();
 
         if (firstFlowStep != null) {
-            System.out.println("CartController::getCheckoutAction() first active flow step = "
-                + checkoutFlowHelper.getOriginalURI(firstFlowStep));
             return checkoutFlowHelper.getOriginalURI(firstFlowStep);
         } else {
             String checkoutFlowURL = app.cpStr_(Key.CHECKOUT_FLOW);

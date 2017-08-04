@@ -86,8 +86,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-		console.log('______ CREATING MAGAZINE ____ ', magazineUpdateData.data());
-
             gc.rest.post({
                 url : '/api/v1/magazines/',
                 data: magazineUpdateData.data(),

@@ -58,8 +58,6 @@ define(['require', 'jquery', 'bootstrap', 'gc/gc', 'postal'], function (require,
                 self.slice(sliceOptions, function (data) {
                     var html = data.html;
 
-                    console.log('DATA ::: ', html);
-
                     if (process) {
                         self.mustache({html: html, data: templateData, target: target}, callback);
                     } else {
@@ -144,8 +142,6 @@ define(['require', 'jquery', 'bootstrap', 'gc/gc', 'postal'], function (require,
                     if (self._onerror) {
                         self._onerror(jqXHR, status, error);
                     }
-
-                    console.log('FRG ERROR???????????', jqXHR, status, error);
 
                     deferred.reject(jqXHR, status, error);
                 },

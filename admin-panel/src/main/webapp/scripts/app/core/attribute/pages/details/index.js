@@ -82,8 +82,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-vm' 
 //		});
 //		
 //		self.isProductAttribute = ko.computed(function() {
-//			console.log('_____________ IS PRODUCT!!!?? ', (self.targetObject.code == 'product'));
-//			
 //			return self.targetObject.code == 'product';
 //		});
 //		
@@ -233,8 +231,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'gc-attribute-vm' 
 					self.attributeVM.productListFilterInheritFromParent(attribute.productListFilterInheritFromParent);
 					self.attributeVM.productListFilterIncludeChildren(attribute.productListFilterIncludeChildren);
 					self.attributeVM.productListFilterPosition(attribute.productListFilterPosition);
-					
-					console.log('LOAD ATTRIBUTE::: ', attribute, self.attributeVM);
 					
 					gc.app.pageTitle(self.pageTitle());
 				});

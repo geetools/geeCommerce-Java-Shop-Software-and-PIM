@@ -108,8 +108,6 @@ public class SessionResource extends AbstractResource {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response createSession(@FormParam("username") String email, @FormParam("password") String password) {
         try {
-            System.out.println("username=" + email + ", password=" + password);
-            
             HttpServletRequest request = app.servletRequest();
             request.setAttribute(DefaultSubjectContext.SESSION_CREATION_ENABLED, Boolean.TRUE);
 

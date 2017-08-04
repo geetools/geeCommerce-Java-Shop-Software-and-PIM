@@ -61,8 +61,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'jquery.spectrum' 
 			var rows = self.pager.getData();
 			var updates = [];
 			
-			console.log('update rows : ', rows);
-			
 			if(_.isArray(rows) && !_.isEmpty(rows)) {
 				createPromise.then(function(createData) {
 					_.each(rows, function(data) {
@@ -77,8 +75,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'jquery.spectrum' 
 						
 						updates.push(updateModel.data());
 					});
-					
-					console.log('option updates: ', updates);
 					
 					updatePromise = attrAPI.updateOptions(self.attributeId, updates);
 				});
@@ -220,7 +216,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-attribute', 'jquery.spectrum' 
 			$(".option-thumbnail-color").spectrum(spectrumOptions);
 			
 			self.pager.onload(function() {
-				console.log('onload - spectrum --------------------------------');
 				$(".option-thumbnail-color").spectrum(spectrumOptions);
 			});
 		}

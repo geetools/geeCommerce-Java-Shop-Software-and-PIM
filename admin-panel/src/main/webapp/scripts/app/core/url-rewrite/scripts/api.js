@@ -86,8 +86,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('___________ NEW-URL-REWRITE: ', newURLRewrite);
-
 			gc.rest.post({
 				url : '/api/v1/url-rewrites',
 				data: newURLRewrite,

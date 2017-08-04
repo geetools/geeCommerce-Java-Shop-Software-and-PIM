@@ -74,8 +74,6 @@ public class DefaultProductBeanHelper implements ProductBeanHelper {
 
         Boolean visible = Bool.toBoolean(_visible);
 
-        System.out.println("+++ SET VISIBILITY: " + _visible + " -> " + visible);
-
         if (visible == null)
             visible = false;
 
@@ -86,8 +84,6 @@ public class DefaultProductBeanHelper implements ProductBeanHelper {
         } else {
             importHelper.updateContextObject(prdVisible, visible, data, false);
         }
-
-        System.out.println("+++ VISIBILITY SET TO: " + _visible + " -> " + product.getVisible());
 
         if (!Str.isEmpty(_visibleFrom)) {
             ContextObject prdVisibleFrom = product.getVisibleFrom();
@@ -125,8 +121,6 @@ public class DefaultProductBeanHelper implements ProductBeanHelper {
 
         Boolean visibleInProductList = Bool.toBoolean(_visibleInProductList);
 
-        System.out.println("+++ SET VISIBILITY IN PRD#1: " + _visibleInProductList + " -> " + visibleInProductList);
-
         if (visibleInProductList == null)
             visibleInProductList = false;
 
@@ -135,9 +129,6 @@ public class DefaultProductBeanHelper implements ProductBeanHelper {
         } else if (!Str.isEmpty(_visibleInProductList)) {
             importHelper.updateContextObject(prdVisibleInProductList, visibleInProductList, data, false);
         }
-
-        System.out.println("+++ SET VISIBILITY IN PRD#2: " + _visibleInProductList + " -> " + product.getVisibleInProductList());
-
     }
 
     @Override
@@ -261,8 +252,6 @@ public class DefaultProductBeanHelper implements ProductBeanHelper {
 
     @Override
     public void setProductKeys(Product product, Map<String, String> data) {
-        System.out.println(data);
-
         String _id2 = data.get("_id2");
         String _articleNumber = data.get("_article_number");
         String _ean = data.get("_ean");

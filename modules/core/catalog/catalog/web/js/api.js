@@ -4,8 +4,6 @@ define([ 'jquery', 'gc/gc' ], function($, gc) {
         getImages : function(productId) {
             var self = this;
 
-            console.log('----------------------------->>> ', productId);
-
             var deferred = new $.Deferred();
             var promise = deferred.promise();
 
@@ -52,8 +50,6 @@ define([ 'jquery', 'gc/gc' ], function($, gc) {
             promise.success = promise.done;
             promise.error = promise.fail;
             promise.complete = promise.done;
-
-            console.log('----------------------------->>> ', productId);
 
             gc.rest.get({
                 url : '/api/v1/web/products/' + productId + '/media-assets',

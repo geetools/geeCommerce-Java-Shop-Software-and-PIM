@@ -69,14 +69,10 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-context-mess
 
             if(!vm.isNew()){
                 contextMessageAPI.getMessage(self.contextMessageId()).then(function(data) {
-                    console.log(data);
                     vm.key(data.key);
                     vm.value(data.value);
-
-
                 });
             }
-            
         }
     }
 

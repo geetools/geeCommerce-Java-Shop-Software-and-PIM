@@ -317,8 +317,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModel.data());
-
             gc.rest.put({
                 url : '/api/v1/media-assets/' + mediaAssetId,
                 data: updateModel.data(),
@@ -357,8 +355,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____createAttribute_____', newMediaAssetDirectory);
-
             gc.rest.post({
                 url : '/api/v1/media-asset-directories',
                 data: newMediaAssetDirectory,
@@ -396,8 +392,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.success = promise.done;
             promise.error = promise.fail;
             promise.complete = promise.done;
-
-            console.log('_____updateModel_____', updateModel.data());
 
             gc.rest.put({
                 url : '/api/v1/media-asset-directories/' + mediaAssetDirectoryId,
@@ -447,8 +441,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
                 // Returns an array that the pager can add to the
                 // ko.observableArray.
                 getArray: function(data) {
-                    console.log(111111111111111111111111111);
-                    console.log(data);
                     var mediaAssets = []
                     _.each(data.mediaAssets, function (mediaAsset) {
                         mediaAssets.push(options.vmWrapper(mediaAsset));

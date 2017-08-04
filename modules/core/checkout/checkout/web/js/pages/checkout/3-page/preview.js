@@ -42,8 +42,6 @@ require(['jquery', 'bootstrap', 'gc/gc', 'checkout/api', 'checkout/utils/common'
     });
 
     $(".checkout-action-btn").click(function() {
-        console.log("agreeToTerms() checked...");
-
         if ($("input[name='form.agreeToTerms']:checked").length) {
             $(".checkout-form").submit();
         } else {

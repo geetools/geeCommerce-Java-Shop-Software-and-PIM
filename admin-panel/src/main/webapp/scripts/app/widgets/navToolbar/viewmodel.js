@@ -15,12 +15,8 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
 		this.toolbar = ko.observable(false);
 		    
 		gc.app.navToolbar.subscribe(function(newToolbar) {
-	        console.log('TTTTTTTOOOOOOOOOOOLLLLLLLLLLLLLL CHNAGE:: ', newToolbar);
-		    
 		    self.toolbar(newToolbar);
 		});
-		
-		console.log('TTTTTTTOOOOOOOOOOOLLLLLLLLLLLLLL:: ', this.toolbar());
 	};
 
 	return ctor;

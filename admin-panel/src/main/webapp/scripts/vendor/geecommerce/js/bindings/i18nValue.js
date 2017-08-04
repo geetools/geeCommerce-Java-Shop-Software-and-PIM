@@ -6,9 +6,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			var valueUnwrapped = _.isUndefined(value) ? [] : ko.unwrap(value);
             var allBindings = allBindingsAccessor();
             var lang = allBindings.lang || gc.app.currentLang();
-	
-            console.log('INIT allBindings.lang=', allBindings.lang, ' gc.app.currentLang()=', gc.app.currentLang());
-            
             
 			var ctxVal = gc.ctxobj.val(valueUnwrapped, lang);
 
@@ -24,8 +21,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 				
 	            var lang = allBindings.lang || gc.app.currentLang();
 				
-				console.log('USING LANG ________________ ', lang);
-				
 				// Update the context-object to reflect the change.
 				gc.ctxobj.set(valueUnwrapped, lang, $(this).val());
 
@@ -40,8 +35,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 			var valueUnwrapped = ko.unwrap(value);
             var allBindings = allBindingsAccessor();
             var lang = allBindings.lang || gc.app.currentLang();
-			
-            console.log('UPDATE allBindings.lang=', allBindings.lang, ' gc.app.currentLang()=', gc.app.currentLang());
             
 			var ctxVal = gc.ctxobj.val(valueUnwrapped, lang);
 

@@ -124,8 +124,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModelData);
-
             gc.rest.put({
                 url: '/api/v1/contents/' + contentId,
                 data: updateModelData.data(),
@@ -238,8 +236,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModel.data());
-
             gc.rest.put({
                 url : '/api/v1/contents/' + contentId + '/url',
                 data: updateModel.data(),
@@ -277,8 +273,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.success = promise.done;
             promise.error = promise.fail;
             promise.complete = promise.done;
-
-            console.log('_____updateModel_____', updateModel.data());
 
             var url = '/api/v1/contents/url/validation';
 

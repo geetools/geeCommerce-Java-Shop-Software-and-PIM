@@ -47,7 +47,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-order' ], function(app, ko, gc
 			//	self.orderVM.totalAmount(order.totalAmount);
 			//	self.orderVM.createdAt(order.createdAt);
                 self.orderVM(order);
-                console.log(self.orderVM());
 			});
 		},
 		attached : function() {

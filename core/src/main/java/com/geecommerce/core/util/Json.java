@@ -146,26 +146,4 @@ public class Json {
         JSONArray ja = new JSONArray(list);
         return ja.toString();
     }
-
-    public static void main(String[] args) throws JSONException {
-        System.out.println(toJson(Arrays.asList("1234567.01", "1234567.01", "1234567.01", "1234567.01", "1234567.01")));
-        System.out.println(toList(toJson(Arrays.asList("1234567.01", "1234567.01", "1234567.01", "1234567.01", "1234567.01"))));
-        System.out.println();
-        
-        System.out.println(toJson(Arrays.asList(1, 2, 3, 4, 5)));
-        System.out.println(toList(toJson(Arrays.asList(1, 2, 3, 4, 5))));
-        System.out.println();
-
-        System.out.println(toJson(Arrays.asList(true, false, true, false)));
-        System.out.println(toList(toJson(Arrays.asList(true, false, true, false))));
-        System.out.println();
-
-        System.out.println(toJson(Arrays.asList(Id.valueOf(1), Id.valueOf(2), Id.valueOf(3), Id.valueOf(4), Id.valueOf(5))));
-        System.out.println(toList(toJson(Arrays.asList(Id.valueOf(1), Id.valueOf(2), Id.valueOf(3), Id.valueOf(4), Id.valueOf(5)))));
-        System.out.println();
-
-        System.out.println(toJson(Arrays.asList(1.1, 2.2, 3.0, 4.4, 5.5)));
-        System.out.println(toList(toJson(Arrays.asList(1.1, 2.2, 3.0, 4.4, 5.5))));
-
-    }
 }

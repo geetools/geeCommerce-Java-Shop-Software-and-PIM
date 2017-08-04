@@ -15,10 +15,7 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
         },
         findValue : function(ctxObject, context, data) {
             var self = this;
-            console.log('%%%%%%%%%%%%%%%%%%%ctxVal1 ', ctxObject, context, data);
             var ctxVal = gc.ctxobj.val(ctxObject, undefined, undefined, context);
-
-            console.log('%%%%%%%%%%%%%%%%%%%ctxVal2 ', ctxVal, (!_.isUndefined(context) && !_.isUndefined(context.id) && !_.isUndefined(context.scope)));
 
             if (!_.isUndefined(ctxVal)) {
                 if (!_.isUndefined(data)) {

@@ -29,7 +29,6 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-order'], function (app, ko, gc,
 			var promise = this.pager.load();
 			
 			promise.then(function(data) {
-			console.log(data);
 			});
 			
         	// We return the promise so that durandaljs knows to wait for the asynchronous REST-call.

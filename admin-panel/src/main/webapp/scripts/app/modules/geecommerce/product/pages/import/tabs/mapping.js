@@ -25,40 +25,27 @@ define([
         constructor : ProductImportMappingController,
         doImport : function(viewModel, event) {
             var self = this;
-            
-            console.log('################################### DO IMPORT !!! --------------- ', self.importVM().profile());
-            console.log('################################### DO IMPORT !!! --------------- ', self.importVM().profile().token);
-            
             productAPI.startImport(self.importVM().profile().token);
-            
         },
         activate : function(data) {
             var self = this;
 
             var vm = gc.app.sessionGet('importVM');
             self.importVM(vm);
-
-            console.log('IN IMPORT MAPPING!!!');
             
             // New token from file-upload in base.js.
             vm.token.subscribe(function(newToken) {
-                console.log('NEW TOKEN!!!! ', newToken);
                 
                 importAPI.getProfileByToken(newToken).then(function(profile) {
-                    console.log('DATA !!!  --------------------->', profile);
-                    
                     vm.profile(profile);
                     
                     attrAPI.getAttributes('product').then(function(data) {
                         self.attributes(data.data.attributes);
-                        
-                        console.log('****** DATA ATTRIBUTES !!!  ---------------------> ', data);
                     });
                 });
             });
         },
         attached : function() {
-            
         }
     }
 

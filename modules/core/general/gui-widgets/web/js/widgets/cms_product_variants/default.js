@@ -54,8 +54,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                             // --------------------------------------------------------------------
                             var preselectedVariantId = self.getPreselectedVariantFromURI();
 
-                            console.log('preselectedVariantIdÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖ::: ', preselectedVariantId);
-
                             // if(!preselectedVariantId){
                             //     preselectedVariantId = Object.keys(variantProducts)[0];
                             // }
@@ -69,12 +67,8 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                 var preselectedVariant = self.findVariantById(preselectedVariantId, variantProducts);
                                 var preselectedOptionElements = self.getPreselectedOptionElements(preselectedVariant, variantOptions, wdContainer);
 
-                                console.log('!!preselectedVariant!! ', preselectedOptionElements);
-
                                 if (!_.isEmpty(preselectedOptionElements)) {
                                     _.each(preselectedOptionElements, function ($el) {
-                                        console.log('____________ELE VAR OPT::: ', $el.data('attr'), $el.data('option'));
-                                        
                                         var attrCode = $el.data('attr');
                                         var optionId = $el.data('option');
 
@@ -102,12 +96,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                         $('.prd-cart-btn button').removeClass("disabled");
                                         self.setPreselectedVariantInURI(selectedProductVariant.id);
 
-
                                         $(wdContainer).find("#selected-prd-variant").val(selectedProductVariant.id);
 
                                         var variantImages = self.getVariantImages(selectedProductVariant);
-
-                                        console.log("%%%%%%%%%%%%%%%%%%%%%%%5variantImages: " + variantImages)
 
                                         if(variantImages && variantImages.length > 0) {
                                             // publish message to move to image
@@ -143,9 +134,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                 variantVM.setOption(attrCode, optionId);
 
                                 var selectedProductVariant = self.findVariant(variantVM, variantProducts);
-
-                                console.log('CLIIIIIIIIIIIIIIIIICK:::::::::::::::: ', variantVM, variantProducts, selectedProductVariant);
-                                
                                 
                                 // Tell cart form which variant has been selected.
                                 if (!_.isUndefined(selectedProductVariant) && !_.isUndefined(selectedProductVariant.id)) {
@@ -158,8 +146,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
                                     $(wdContainer).find("#selected-prd-variant").val(selectedProductVariant.id);
 
                                     var variantImages = self.getVariantImages(selectedProductVariant);
-
-                                    console.log("ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ variantImages: " + variantImages)
 
                                     if(variantImages && variantImages.length > 0) {
                                         // publish message to move to image
@@ -185,8 +171,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
 
                 _.each(variantProducts, function (variantProduct) {
                     var diff = _.difference(variantProduct.options, selectedOptions);
-
-                    console.log('findVariant: ', diff.length, variantProduct.options, selectedOptions);
 
                     if (diff.length == 0 && variantProduct.options.length == selectedOptions.length) {
                         foundVariant = variantProduct;
@@ -314,8 +298,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/api', 'catalog/utils/media', 'j
             getVariantImages: function (variantProduct) {
                 var variantImages = [];
                 var idx = 0;
-
-                console.log(variantProduct)
 
                 if (!_.isEmpty(variantProduct.gallery)) {
                     _.each(variantProduct.gallery, function (image) {

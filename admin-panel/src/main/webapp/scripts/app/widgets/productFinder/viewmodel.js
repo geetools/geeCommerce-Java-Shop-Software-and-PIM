@@ -20,8 +20,6 @@ define([
         self.linkText = ko.observable(settings.linkText || 'Product Finder');
         
         self.currentlyCheckedValues.subscribe(function(checkedProductIds) {
-            console.log('?????????????????????????? SUBSCRIPTION ???? ', checkedProductIds);
-            
             productAPI.getProducts(checkedProductIds, {
                 fields : [
                         'id', 'id2', 'ean', 'mainImageURI'
@@ -55,8 +53,6 @@ define([
         });
 
         if (!_.isUndefined(settings.products)) {
-            console.log('Settings.products NOT EMPTY !!!!!!!!!!!!!!!!!! ', settings.products);
-            
             self.products = settings.products;
             self.productAs = settings.productAs || {};
 
@@ -79,8 +75,6 @@ define([
                     });
                 }
             });
-        } else {
-            console.log('Settings.products IS EMPTY !!!!!!!!!!!!!!!!!! ', settings.products);
         }
 
         if (settings.visible) {

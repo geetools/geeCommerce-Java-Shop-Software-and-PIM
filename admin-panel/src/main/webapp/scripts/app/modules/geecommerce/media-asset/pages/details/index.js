@@ -77,11 +77,8 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
                     });*/
 
                     dz.on("success", function(file, data) {
-                        console.log(data);
-                        console.log(file);
                         // Remove file from preview.
                         mediaAssetUtil.addMediaAsset(data.data.mediaAsset, self.tab.vm.controller, self.tab.vm);
-
                         dz.removeFile(file);
 
                         /*      router.navigate('//media-assets/details/' + data.data.mediaAsset.id);*/
@@ -91,10 +88,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
             });
         },
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

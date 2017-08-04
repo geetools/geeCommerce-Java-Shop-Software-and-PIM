@@ -312,7 +312,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-slide-show' ], function(app, k
                                     });
 
                                     _.each(slides, function(slide) {
-                                        console.log(slide);
                                         if (slide.mediaAsset) {
                                             var slideVM = new SlideVM(slide.id, slide.mediaAsset.id, slide.mediaAsset.file.name, slide.mediaAsset.url, slide.mediaAsset.webThumbnailPath,
                                                     slide.mediaAsset.url, slide.mediaAsset.url, slide.mediaAsset.url, slide.position, slide.mediaAsset.mimeType, slide.link, slide.productArticle,

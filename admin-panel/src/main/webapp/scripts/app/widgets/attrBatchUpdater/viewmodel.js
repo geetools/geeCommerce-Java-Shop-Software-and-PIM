@@ -8,8 +8,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         self.code = self.attribute.code;
 
         self.label = function() {
-            console.log('==================> attr.backendLabel:: ', self.attribute.backendLabel);
-
             return self.attribute.backendLabel;
 
             return gc.ctxobj.val(self.attribute.backendLabel, gc.app.currentUserLang(), self.mode) || "";
@@ -28,8 +26,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         };
 
         self.isOption = function() {
-console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttribute);
-
             return self.attribute.optionAttribute;
         };
 
@@ -44,17 +40,6 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
         self.isShowField = function() {
             return true;
         };
-
-
-
-
-
-
-
-
-
-
-
 
 
         self.selectOptions = function() {
@@ -105,8 +90,6 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
 
 		if(settings.pager) {
 		    self.pager = settings.pager;
-
-		    console.log('********** PAGER ********** ', self.pager, self.pager.isQuery(), self.pager.isSearch());
 		}
 
         if (settings.visible) {
@@ -133,31 +116,20 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
         self.updateWarnMessage();
 
 		gc.app.channel.subscribe(self.forType + '.gt.onchange', function(data) {
-		    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!! ' + self.forType + '.gt.onchange !!!!!!!!!!!! ', data);
-            console.log('********** PAGER ********** ', self.pager, self.pager.isQuery(), self.pager.isSearch());
-
 		    self.gridTableData = data;
 	        self.updateWarnMessage();
 
           self.headerMessage(self.attributeValues().length + ' attributes will be added or updated on ' + ( data.numSelectedRows || 0 ) + self.forType + ' objects.');
-
-
 		});
 
 		self.attributeValues.subscribe(function(newValue) {
-            console.log('********** PAGER ********** ', self.pager, self.pager.isQuery(), self.pager.isSearch());
 	        self.headerMessage(newValue.length + ' attributes will be added or updated on ' + ( self.gridTableData.numSelectedRows || 0 ) + self.forType + ' objects.');
 	        self.updateWarnMessage();
 		});
 
-		console.log('////////////////////////////////////self.forType: ', self.forType);
-
         self.mode = settings.mode || 'closest';
 
         self.apiOptions = settings.apiOptions;
-
-        console.log("OPTIONS")
-        console.log(self.apiOptions)
 
         self.options = [];
 
@@ -191,12 +163,6 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
                 }
             }
         });
-
-        self.attributeValues.subscribe(function(newAttrVal) {
-            console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&& ', newAttrVal);
-        });
-
-
 	};
 
     ctor.prototype.attached = function(view) {
@@ -213,40 +179,26 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
 
     ctor.prototype.save = function(viewModel, event) {
         var self = this;
-        console.log('----------------- save#1: ', ko.toJSON(self.attributeValues), viewModel, event, self.gridTableData, self.pager, self.pager.isQuery(), self.pager.isSearch());
 
         var updateModel = attrUtil.toNewUpdateModel(self.attributeValues);
 
-        console.log('----------------- save#2: ', updateModel, self.attributeValues(), self.gridTableData, self.pager, self.pager.isQuery(), self.pager.isSearch());
-
         if(self.gridTableData.numSelectedRows > 0) {
           if(self.gridTableData.selectMode === 'all_pages') {
-            console.log('----------------- save#3ba: ', self.pager.query(), self.pager.searchKeyword());
-
             updateModel.whereIds([]);
             updateModel.whereIgnoreIds(self.gridTableData.uncheckedIds);
             updateModel.whereSearchKeyword(self.pager.searchKeyword());
             updateModel.whereQuery(self.pager.query());
-
-            console.log('----------------- save#3d: ', updateModel);
 
             attrAPI.batchUpdateAttributeValues(updateModel, self.forType);
 
           } else if(self.gridTableData.selectMode === 'current_page') {
             var objectIds = self.gridTableData.checkedIds;
 
-            console.log('----------------- save#3b: ', objectIds);
-
             updateModel.whereIds(self.gridTableData.checkedIds);
 
-            console.log('----------------- save#3c: ', updateModel);
-
             attrAPI.batchUpdateAttributeValues(updateModel, self.forType);
-
           }
-
         }
-
     };
 
     ctor.prototype.showBatchAttributeUpdater = function() {
@@ -262,16 +214,12 @@ console.log('???????????? IS OPTION???? ', self.code, self.attribute.optionAttri
     ctor.prototype.updateWarnMessage = function() {
         var self = this;
 
-        console.log('********** updateWarnMessage ********** ', self.gridTableData, self.pager, self.pager.isQuery(), self.pager.isSearch());
-
         var numSelectedRows = 0;
         var selectMode = '';
         if(self.gridTableData) {
             numSelectedRows = self.gridTableData.numSelectedRows || 0;
             selectMode = self.gridTableData.selectMode;
         }
-
-        console.log('********** numSelectedRows ********** ', numSelectedRows);
 
         if(numSelectedRows === 0) {
             self.headerWarningMessage("No products have been selected for updating. <b>Select products first.</b>");

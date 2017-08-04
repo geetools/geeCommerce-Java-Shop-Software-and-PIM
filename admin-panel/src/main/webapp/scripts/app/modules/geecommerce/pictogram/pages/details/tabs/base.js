@@ -184,7 +184,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-pictogram', 
         },
         activate : function(data) {
             var self = this;
-            console.log(data);
             self.pictogramId(data);
             var vm = new PictogramVM(data);
             self.pictogramVM = vm;
@@ -212,8 +211,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-pictogram', 
                 vm.productGroupOptions(prdGroupOptions);
             }).then(function(){
                 pictogramAPI.getPictogram(self.pictogramId()).then(function(data) {
-                    console.log(data);
-
                     vm.dimensionAttributes(data.dimensionAttributeIds);
                     vm.productGroups(data.productGroupIds);
                     vm.unit(data.unit);

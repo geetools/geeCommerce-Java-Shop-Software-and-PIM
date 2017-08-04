@@ -65,8 +65,6 @@ public class AttrXOption extends AbstractCommand {
         DBObject attrVal = new BasicDBObject(FIELD_ATTR_ID, attributeId).append(FIELD_XOPT_ID, elemMatch(dboVal));
 
         allAttributes.add(elemMatch(attrVal));
-
-        System.out.println("AttrXOption: " + query);
     }
 
     public DBObject elemMatch(DBObject dbObject) {

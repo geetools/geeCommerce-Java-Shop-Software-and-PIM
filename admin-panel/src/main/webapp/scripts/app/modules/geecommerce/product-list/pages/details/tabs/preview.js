@@ -45,7 +45,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product-list' ], function(app,
                 if(!self.productListVM.isNew()) {
                     productListAPI.getProductListProducts(self.productListVM.id()).then(function(data){
                         productListAPI.getProductListImages(self.productListVM.id()).then(function(dataUrls){
-                            console.log(dataUrls);
                             var prds = [];
                             var index = 0;
                             var row = [];

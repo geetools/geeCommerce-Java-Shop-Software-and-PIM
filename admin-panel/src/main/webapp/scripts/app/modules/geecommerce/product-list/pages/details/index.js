@@ -112,8 +112,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
                     var updateModel = gc.app.newUpdateModel();
                     updateModel.field('rewriteUrl', val, true);
                     
-                    console.log('!!!!!!!!!!!!!!!!!!!!!!!!! ', self.id());
-                    
                     var res = productListAPI.isUrlUnique(self.id(), updateModel).then(function(result) {
                         var notUnique = [];
                         var isUnique = true;
@@ -337,7 +335,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
                 })
             } else {
                 productListAPI.updateProductList(self.productListId(), updateModel).then(function(data) {
-                    console.log(data);
                     self.productListVM.query(data.query)
                     var updateModel = gc.app.newUpdateModel();
                     updateModel.field('rewriteUrl', self.productListVM.rewriteUrl(), true);
@@ -361,8 +358,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             attrAPI.getAttributes('product', { fields : [ 'code', 'code2', 'backendLabel', 'editable', 'enabled', 'inputType', 'frontendInput', 'optionAttribute', 'allowMultipleValues', 'i18n', 'options', 'tags', 'label', 'showInQuery', 'group', 'includeInProductListFilter'] } ).then(function( response ) {
 
                 var attributes = response.data.attributes;
-                
-                console.log('************ ATTRIBUTES RESPONSE:::: ', attributes);
                 
              //   vm.attributes(attributes);
                 var fAV = [];
@@ -441,10 +436,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-list
             var self = this;
         },
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

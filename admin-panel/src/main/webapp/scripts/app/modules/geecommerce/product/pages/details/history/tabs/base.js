@@ -58,16 +58,11 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute' ], fu
 			_.each(availableStores, function(store) {
 				var ctxVal = gc.ctxobj.val(descriptionStatus, undefined, undefined, store.id);
 				
-console.log('ctxVal::::: ----> ', ctxVal);
-				
 				if(!_.isEmpty(ctxVal)) {
 					if(x > 0)
 						summaryText += ', <br/>';
 				
 					var foundValue = _.findWhere(self.$root.descriptionStatuses(), {id: ctxVal[0]});
-
-console.log('foundValue::::: ----> ', foundValue, self.$root.descriptionStatuses());
-
 					
 					if(ko.isObservable(foundValue.text) || _.isFunction(foundValue.text)) {
 						summaryText += '<span class="descStatus_' + foundValue.text().substring(0, 1) + '">' + foundValue.text() + '</span>';
@@ -360,8 +355,6 @@ console.log('foundValue::::: ----> ', foundValue, self.$root.descriptionStatuses
 		},
 		detached : function() {
 			var self = this;
-			console.log('!!! DETACHED BASE');
-
 			self.editVM.articleStatusIcon.dispose();
 			self.editVM.descriptionStatusLabel.dispose();
 			self.editVM.descriptionStatusIcon.dispose();

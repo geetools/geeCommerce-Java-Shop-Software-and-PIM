@@ -296,7 +296,8 @@ public class DefaultCheckoutHelper implements CheckoutHelper {
     public void setPrices(Order order, CalculationResult calculationResult) {
         for (OrderItem orderItem : order.getOrderItems()) {
             Id productId = orderItem.getProductId();
-            Double price = calculationResult.getItemResult(productId).getDouble("cart_price");
+            CalculationItemResult calculationItemResult = calculationResult.getItemResult(productId);
+            Double price = calculationItemResult.getDouble("cart_price");
             orderItem.setPrice(price);
         }
     }

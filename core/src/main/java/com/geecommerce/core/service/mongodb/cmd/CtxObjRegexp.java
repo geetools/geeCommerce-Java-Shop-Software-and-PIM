@@ -54,7 +54,5 @@ public class CtxObjRegexp extends AbstractCommand {
         allPart.put("$all", allElemMatchParts);
 
         query.put(columnName, allPart);
-
-        System.out.println("CtxObj: " + query);
     }
 }

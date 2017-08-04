@@ -7,17 +7,7 @@ require.config({
     }
 });
 
-
-console.log('::::: MODULES :::: ', modules, require.config);
-
-
-console.log('IN APPPPPPPPPP!!');
-
-
 require(['jquery'], function($) {
 	    var pageMain = $('#gc-main-script').data('page-main')
-	    
-	    console.log('~~~ pageMain ~~~ ', pageMain);
-	
 		require([pageMain]);
 });

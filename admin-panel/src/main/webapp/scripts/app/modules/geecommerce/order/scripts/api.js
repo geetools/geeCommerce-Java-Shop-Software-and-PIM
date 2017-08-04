@@ -47,8 +47,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel_____', updateModel.data());
 			
 			gc.rest.put({
 				url : '/api/v1/orders/' + orderId,

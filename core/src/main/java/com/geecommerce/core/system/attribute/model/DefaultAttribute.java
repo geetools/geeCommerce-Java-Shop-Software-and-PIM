@@ -1502,7 +1502,6 @@ public class DefaultAttribute extends AbstractMultiContextModel implements Attri
      * Make sure that the options are re-fetched after deserialization.
      */
     protected void afterReadingObject() {
-        System.out.println("After reading object!");
         this.options = attributeOptions.thatBelongTo(this);
     }
 

@@ -55,10 +55,7 @@ public class ProductPromotionResource extends AbstractResource {
     @Path("{id}")
     public void removeProductPromotion(@PathParam("id") Id id) {
         ProductPromotion productPromotion = checked(service.get(ProductPromotion.class, id));
-
-        System.out.println("--- Removing product promotion: " + productPromotion);
         service.remove(productPromotion);
-
     }
 
     @POST

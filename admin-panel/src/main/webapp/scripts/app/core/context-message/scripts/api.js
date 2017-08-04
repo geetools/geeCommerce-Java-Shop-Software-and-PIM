@@ -86,8 +86,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-		console.log('______ CREATING MESSAGE ____ ', messageUpdateData.data());
-
             gc.rest.post({
                 url : '/api/v1/text/',
                 data: messageUpdateData.data(),
@@ -136,7 +134,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
                 // Returns an array that the pager can add to the
                 // ko.observableArray.
                 getArray: function(data) {
-                    console.log(data);
                     _.each(data.contextMessages, function(mag){
                         mag.value = gc.ctxobj.val(mag.value, gc.app.currentUserLang(), 'any');
                     })

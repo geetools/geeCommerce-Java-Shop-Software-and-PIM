@@ -81,16 +81,4 @@ public final class Passwords {
 
         return randomPassword.toString();
     }
-
-    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] merchant_sugar = "%f&h!./fghzu46uzf-'+".getBytes();
-        byte[] salt = getRandomSalt();
-        byte[] secret = merge(salt, merchant_sugar);
-
-        byte[] password = getEncryptedPassword("mypassword", secret);
-
-        boolean auth = authenticate("mypasswordx", password, secret);
-
-        System.out.println("AUTH:: " + auth);
-    }
 }

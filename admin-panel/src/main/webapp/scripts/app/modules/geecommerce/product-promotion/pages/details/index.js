@@ -36,9 +36,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
              });*/
         },
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
         },
         detached : function() {
         },

@@ -48,8 +48,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-            console.log('_____updateModel_____', updateModel.data());
-
             gc.rest.post({
                 url : '/api/v1/users/',
                 data: updateModel.data(),
@@ -87,8 +85,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.success = promise.done;
             promise.error = promise.fail;
             promise.complete = promise.done;
-
-            console.log('_____updateModel_____', updateModel.data());
 
             gc.rest.put({
                 url : '/api/v1/users/' + userId,
@@ -228,7 +224,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
         		// Returns an array that the pager can add to the
 				// ko.observableArray.
         		getArray: function(data) {
-                    console.log(data);
         			return data.users;
         		}
         	}

@@ -11,8 +11,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-            console.log(rootId);
-
 			gc.rest.get({
 				url : '/api/v1/navigation/',
 				sort: ['level', 'position'],
@@ -43,7 +41,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			return promise;
         },
         createNavigationItem: function(parentId) {
-        	console.log("NavAPI: create navigation item");
             var self = this;
 
             var deferred = new $.Deferred();
@@ -81,7 +78,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             return promise;
         },
         updateNavigationItem: function(id, updateModel) {
-        	console.log("NavAPI: update navigation item");
             var self = this;
 
             var deferred = new $.Deferred();
@@ -120,7 +116,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             return promise;
         },
         saveNavigationTree: function(navigationTree) {
-        	console.log("NavAPI: save navigation tree",navigationTree);
         	var self = this;
 			
 			//var jsonTree = ko.toJSON(navigationTree,["children","targetId","targetType","enabled","level","useTargetLabel","label"]);
@@ -163,7 +158,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             return promise;
         },
         updateNavigationTree: function(navigationTree) {
-        	console.log("NavAPI: update navigation tree");
             var self = this;
 
             var deferred = new $.Deferred();
@@ -203,7 +197,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             return promise;
         },
         removeNavigationItem: function(id) {
-        	console.log("NavAPI: remove navigation item");
             var self = this;
 
             var deferred = new $.Deferred();

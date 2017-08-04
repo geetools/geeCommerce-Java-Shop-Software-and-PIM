@@ -58,8 +58,6 @@ public class Attr extends AbstractCommand {
         DBObject attrVal = new BasicDBObject(FIELD_ATTR_ID, attributeId).append(FIELD_VAL, elemMatch(dboVal));
 
         allAttributes.add(elemMatch(attrVal));
-
-        System.out.println("Attr: " + query);
     }
 
     public DBObject elemMatch(DBObject dbObject) {

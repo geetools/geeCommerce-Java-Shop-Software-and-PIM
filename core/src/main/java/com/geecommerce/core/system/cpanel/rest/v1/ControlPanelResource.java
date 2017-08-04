@@ -83,8 +83,6 @@ public class ControlPanelResource extends AbstractResource {
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateAttributeTab(@PathParam("id") Id controlPanelId, @PathParam("tabId") Id attrTabId,
         Update update) {
-        System.out.println("UPDATING : " + controlPanelId + " - " + attrTabId + " - " + update.getFields());
-
         if (controlPanelId != null && attrTabId != null && update != null) {
             checked(service.get(ControlPanel.class, controlPanelId));
 
@@ -307,8 +305,6 @@ public class ControlPanelResource extends AbstractResource {
     @Path("{id}/options/positions")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateAttributeTabPositions(@PathParam("id") Id id, HashMap<String, Integer> positionsMap) {
-        System.out.println(positionsMap);
-
         if (id != null && positionsMap != null && positionsMap.size() > 0) {
             AttributeTab attributeTab = checked(service.get(AttributeTab.class, id));
 
@@ -332,8 +328,6 @@ public class ControlPanelResource extends AbstractResource {
     @Path("{id}")
     public void removeAttributeTab(@PathParam("id") Id id) {
         AttributeTab attributeTab = checked(service.get(AttributeTab.class, id));
-
-        System.out.println("--- Removing attribute-tab: " + attributeTab);
         service.remove(attributeTab);
     }
 

@@ -196,7 +196,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-content', 'g
 
                 if (self.contentVM.type() == "PAGE" && self.contentLayoutChoice().length > 1) {
                     self.contentVM.layout(self.contentLayoutChoice()[1].id);
-                    console.log(self.contentLayoutChoice()[1].id);
                 }
             }));
 

@@ -89,8 +89,6 @@ public class DiscountPromotionResource extends AbstractResource {
     @Path("{id}")
     public void removeDiscountPromotion(@PathParam("id") Id id) {
         DiscountPromotion discountPromotion = checked(service.get(DiscountPromotion.class, id));
-
-        System.out.println("--- Removing discount promotion: " + discountPromotion);
         service.remove(discountPromotion);
 
     }

@@ -755,8 +755,6 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
                 for (File cacheDir : cacheDirs) {
                     File cachedFile = new File(cacheDir, baseRelativePath);
 
-                    System.out.println("Checking: " + cachedFile);
-
                     if (cachedFile.exists())
                         cachedFiles.add(cachedFile);
                 }
@@ -1385,26 +1383,15 @@ public class DefaultCatalogMediaHelper implements CatalogMediaHelper {
         CacheManager cm = app.inject(CacheManager.class);
         Cache<String, String> c = cm.getCache(CACHE_NAME);
 
-        System.out.println("ATTEMPTING TO DELETE VALUES FROM CACHE: " + CACHE_NAME + " --> " + c + " --> "
-            + (c == null ? 0 : c.size()));
-
         if (c != null && c.size() > 0) {
             String[] keys = c.keySet();
 
-            System.out.println("ATTEMPTING TO DELETE VALUES FROM CACHE: " + Arrays.asList(keys));
-
             String baseMediaAssetPath = mediaAsset.getPath().substring(0, mediaAsset.getPath().lastIndexOf(Char.SLASH));
-
-            System.out.println("BASE MEDIA PATH IS: " + baseMediaAssetPath);
 
             int x = 0;
             for (String cacheKey : keys) {
 
-                System.out.println("CHECKING IF CACHEKEY STARTS WITH: " + baseMediaAssetPath + " ---> " + cacheKey);
-
                 if (cacheKey.startsWith(baseMediaAssetPath)) {
-                    System.out.println((++x) + ": " + baseMediaAssetPath + " --> " + cacheKey);
-
                     c.remove(cacheKey);
                 }
             }

@@ -73,22 +73,15 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 				if(!_.isUndefined(option)) {
 					self.value.push(self.comboboxValueId());
 					self.comboboxValue([]);
-
-//					console.log('OPTION FOUND !!!!! ', option);
 				} else {
 					attrAPI.getAttributeOption(self.attributeId, self.comboboxValueId()).then(function(data) {
-//						console.log('OOOOOOOOOPTIONSS!! ', data);
-
 						gc.ctxobj.enhance(data, [ 'label' ], 'any');
 						self.options.push(data);
 
 						self.value.push(self.comboboxValueId());
 						self.comboboxValue([]);
 					});
-
-//					console.log('OPTION -NOT- FOUND !!!!! ', self.comboboxValueId());
 				}
-
 
 				return;
 			}
@@ -104,8 +97,6 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 
 			if(!_.isEmpty(newAttributeOptions)) {
 				attrAPI.createOption(newAttributeOptions).then(function(data) {
-//					console.log('+++++ CREATED OPTION! ', newAttributeOptions, data);
-
 					gc.ctxobj.enhance(data, [ 'label' ], 'any');
 					if(!self.options)
 						self.options = []
@@ -151,8 +142,6 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 				val = [val];
 			}
 
-//console.log('____________ COMBO-option__________ ',  self.code, val, self.options);
-
 			_.each(val, function (optionId) {
 				var option = _.findWhere(self.options, {id: optionId});
 
@@ -162,7 +151,7 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 					attrAPI.getAttributeOption(self.attributeId, optionId).then(function(data) {
 						gc.ctxobj.enhance(data, [ 'label' ], 'any');
 						self.options.push(data);
-//console.log('____________ COMBO-DATAAAAA __________ ',  self.code, data);
+
 						if(!_.isEmpty(data) && data.label) {
 							_options.push({ id: data.id, text: data.label.i18n });
 							self.comboboxValues(_options);
@@ -170,8 +159,6 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
 					});
 				}
 			});
-
-//console.log('____________ COMBO-option__________ ',  self.code, _options);
 
 			self.comboboxValues(_options);
 
@@ -494,8 +481,6 @@ define([ 'knockout', 'gc/gc' , 'gc-attribute'], function(ko, gc, attrAPI) {
            var updateModel = gc.app.newUpdateModel();
 
             _.each(ko.unwrap(attributeValues), function(attrVal) {
-							console.log('ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄHHHHHHHHHHHHHHH: attrVal: ', ko.toJS(attrVal));
-
                 if(attrVal.isEditable) {
                     var isOptOut = gc.ctxobj.plain(attrVal.optOut);
 

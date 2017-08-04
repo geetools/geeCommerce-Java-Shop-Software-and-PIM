@@ -469,20 +469,4 @@ public class AttributeDirective implements TemplateDirectiveModel {
         String unit = App.get().cpStr_(UNIT_KEY, "cm");
         return String.format("%s %s", value.toString(), "cm");
     }
-
-    public static void main(String[] args) {
-        String s = "<li>ssdfdfsf</li>\n<li>ssdfdfsf</li>\n<li>ssdfdfsf</li>\n<li>ssdfdfsf</li>\n<li>ssdfdfsf</li>\n1111111111111<br/>\n222222222222<br>\n33333333333333<br />\n444444444444<br >\n";
-
-        s = s.replace("</li>", "\n");
-
-        Matcher m = brPattern.matcher(s);
-        if (m.find())
-            s = m.replaceAll("\n");
-
-        s = s.replace("\n\n", "\n");
-        s = com.geecommerce.core.util.Strings.stripTags(s);
-        s = com.geecommerce.core.util.Strings.replaceNewlines(s, ", ");
-
-        System.out.println(s);
-    }
 }

@@ -57,7 +57,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-template' ],
 
                     if(gc.app.saveMakeCopy()) {
                         context.saved(function() {
-                        	console.log(data);
                             router.navigate('//templates/details/' + data.data.template.id);
                         });
 					} else {

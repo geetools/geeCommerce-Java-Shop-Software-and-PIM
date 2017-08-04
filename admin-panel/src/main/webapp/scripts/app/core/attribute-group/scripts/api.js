@@ -123,8 +123,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.error = promise.fail;
             promise.complete = promise.done;
 
-		console.log('______ CREATING MESSAGE ____ ', attributeGroupUpdateData.data());
-
             gc.rest.post({
                 url : '/api/v1/attribute-groups/',
                 data: attributeGroupUpdateData.data(),
@@ -162,8 +160,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
             promise.success = promise.done;
             promise.error = promise.fail;
             promise.complete = promise.done;
-
-            console.log('_____removeAttributeGroup_____', attributeGroupId);
 
             gc.rest.del({
                 url : '/api/v1/attribute-groups/' + attributeGroupId,

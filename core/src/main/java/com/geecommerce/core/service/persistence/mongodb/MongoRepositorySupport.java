@@ -487,8 +487,6 @@ public class MongoRepositorySupport extends AbstractRepositorySupport {
 
         rootORMap.put(QueryOperators.OR, ctxANDMaps);
 
-        System.out.println(new BasicDBObject(rootORMap).toJson());
-        
         return dao().findIds(modelClass, rootORMap, queryOptions);
     }
 

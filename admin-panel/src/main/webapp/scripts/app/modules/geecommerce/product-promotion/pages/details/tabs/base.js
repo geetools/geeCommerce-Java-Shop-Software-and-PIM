@@ -89,7 +89,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product-prom
                 })
             } else {
                 productPromotionAPI.updateProductPromotion(self.productPromotionId(), updateModel).then(function(data) {
-                    console.log(data);
                     self.productPromotionVM.query(data.query)
                     toolbar.hide();
                 })

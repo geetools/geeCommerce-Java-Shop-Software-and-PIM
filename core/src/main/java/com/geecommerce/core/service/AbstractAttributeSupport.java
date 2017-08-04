@@ -459,8 +459,6 @@ public abstract class AbstractAttributeSupport extends AbstractMultiContextModel
                 return false;
             } else if (i18nVal != null && !(i18nVal instanceof String)) {
                 return false;
-            } else {
-                System.out.println(attr.getCode() + " HAS NO VALUE FOR LANG::: " + lang + " !!! ");
             }
         }
 

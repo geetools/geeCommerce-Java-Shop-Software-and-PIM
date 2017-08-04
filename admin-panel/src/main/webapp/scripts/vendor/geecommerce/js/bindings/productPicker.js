@@ -23,7 +23,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                     return false;
                 },
                 source: function (request, response) {
-                    console.log("PP :: searching for ::" + queryStr);
                     var queryStr = $element.val();
 
                     var autocompleteSrc = [];
@@ -48,8 +47,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                     searchProductResults.columnValue('$attr.article_number', queryStr);
                     searchProductResults.load().then(function (data) {
                         if (_.isEmpty(data.data.products)) {
-                            console.log("PP:: SEARCHING FOR ARTICLE NUMBER with NO results.");
-
                             searchProductResults.columnValue('$attr.article_number', undefined);
                             searchProductResults.columnValue('$attr.name', queryStr);
                             searchProductResults.load().then(function (data2) {
@@ -75,8 +72,6 @@ define(['knockout', 'gc/gc', 'gc/pager', 'gc-product'], function (ko, gc, pager,
                                         response(autocompleteSrc);
                                     });
 
-                                } else {
-                                    console.log("PP:: NO SEARCHING RESULTS FOUND...");
                                 }
                             });
                         } else {

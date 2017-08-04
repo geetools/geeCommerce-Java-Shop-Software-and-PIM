@@ -59,7 +59,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'knockout-valida
                 gc.app.pageDescription(self.pageDescription);
 
                 return attributeGroupAPI.getAttributeGroup(self.attributeGroupId()).then(function(data) {
-                    console.log(data);
                     self.attributeGroupVM.code(data.code);
                     self.attributeGroupVM.label(data.label);
                     self.attributeGroupVM.position(data.position);
@@ -69,8 +68,7 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'knockout-valida
                     _.each(data.items, function (item) {
                         items.push({id: item.id, type: item.type});
                     });
-                    console.log("--ITEMS--");
-                    console.log(items);
+                    
                     self.attributeGroupVM.items(items);
                     
                     gc.app.sessionPut('attributeGroupVM', self.attributeGroupVM);
@@ -84,10 +82,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'knockout-valida
 
         },
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

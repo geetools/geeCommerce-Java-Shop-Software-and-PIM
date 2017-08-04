@@ -128,9 +128,6 @@ public class DefaultProductCsvImporter implements ImportAdapter {
             }
         }
 
-        System.out.println("::::: productsToUpdate ::::: " + productsToUpdate);
-        System.out.println("::::: productsToDelete ::::: " + productsToDelete);
-
         if (!updateDeleteCollions.isEmpty()) {
             productsToUpdate.removeAll(updateDeleteCollions);
             productsToDelete.removeAll(updateDeleteCollions);

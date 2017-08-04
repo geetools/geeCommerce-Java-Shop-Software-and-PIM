@@ -85,9 +85,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product', 'gc-attribute', 'gc-
 			self.productId = activateData.productId;
 			self.attributeTab = ko.unwrap(activateData.attributeTab);
 
-console.log('????????????????? ', ko.toJS(self.product), self.productId, self.attributeTab);
-
-
 			return attrTabAPI.getAttributeTabMapping(self.attributeTab.id()).then(function(data) {
 				
 				var attributeTabMappings = data.data.attributeTabMappings;
@@ -163,14 +160,10 @@ console.log('????????????????? ', ko.toJS(self.product), self.productId, self.at
 	                			}
 	                		});
 
-							console.log('___formAttributeValuesArray___ ', formAttributeValuesArray);
-
 							self.formAttributeValues(formAttributeValuesArray);
 	                	})
             	}
 			});
-			
-			
 		},
 		attached : function(view, parent) {
 			var tabbedPaneContent = $(parent);

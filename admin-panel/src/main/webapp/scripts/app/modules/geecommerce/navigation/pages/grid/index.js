@@ -45,7 +45,6 @@ define(['durandal/app', 'knockout', 'gc/gc', 'gc-navigation'], function (app, ko
 			app.showMessage(gc.app.i18n('app:modules.navigation.confirmDelete'), gc.ctxobj.val(navigation.Label, gc.app.currentLang()), [yes, no]).then(function (confirm) {
 				if (confirm == yes) {
 					navigationAPI.removeNavigationItem(navigation.id).then(function () {
-						console.log("SELF",self);
 						self.pager.removeData(navigation);
 					});
 				}

@@ -212,9 +212,6 @@ public class AppHelper {
 
         ModuleLoader loader = Geemodule.createModuleLoader(appCtx.getMerchant().getModulesPath());
 
-        System.out.println(
-            "!!!!! INITIAIZED MODULE LOADER ::::: " + loader + " - " + appCtx.getMerchant().getModulesPath());
-
         Collection<Module> modules = loader.getLoadedModules();
 
         if (modules != null && modules.size() > 0) {

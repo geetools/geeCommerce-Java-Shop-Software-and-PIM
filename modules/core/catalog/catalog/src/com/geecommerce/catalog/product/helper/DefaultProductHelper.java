@@ -88,8 +88,6 @@ public class DefaultProductHelper implements ProductHelper {
             if (isAttributeAvailableForProduct
                 && (!product.isAttributeEmpty(attr.getId(), store) || product.isAttributeOptedOut(attr.getId()))) {
                 countNumNonEmptyAttributes++;
-            } else if (isAttributeAvailableForProduct) {
-                System.out.println(attr.getCode() + " - " + attr.getInputType().name());
             }
         }
 

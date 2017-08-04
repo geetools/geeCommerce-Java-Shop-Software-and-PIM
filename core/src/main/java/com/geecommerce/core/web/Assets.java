@@ -221,8 +221,6 @@ public class Assets {
             .append(appendExtension(relativeURI)).toString();
         File f = new File(App.get().getBaseWebappPath(), jsWebPath);
 
-        System.out.println(f.getAbsolutePath());
-
         if (f.exists()) {
             return jsWebPath;
         }
@@ -234,8 +232,6 @@ public class Assets {
         String jsWebPath = new StringBuilder(Str.SLASH).append(JS_BASE_PATH).append(appendExtension(relativeURI))
             .toString();
         File f = new File(App.get().getBaseWebappPath(), jsWebPath);
-
-        System.out.println(f.getAbsolutePath());
 
         if (f.exists()) {
             return jsWebPath;
@@ -531,42 +527,5 @@ public class Assets {
 
     private static final boolean isLocateInProjects() {
         return App.get().cpBool_(CP_KEY_WEB_PATHS_LOCATE_IN_PROJECTS, true);
-    }
-
-    public static void main(String[] args) {
-        Environment.disableMessageBus();
-        Environment.disableObservers();
-
-        Environment.init();
-
-        String relativeURI = "images/sprites/graphic-aditional-sprites.png";
-
-        System.out.println(skinDefaultPath(relativeURI));
-        System.out.println(skinViewPath(relativeURI));
-        System.out.println(skinStorePath(relativeURI));
-        System.out.println(skinMerchantPath(relativeURI));
-        System.out.println(skinModulePath(relativeURI, "catalog"));
-        System.out.println(skinModuleViewPath(relativeURI, "catalog"));
-        System.out.println(skinModuleStorePath(relativeURI, "catalog"));
-        System.out.println(skinModuleMerchantPath(relativeURI, "catalog"));
-
-        System.out.println("#####################################################");
-        System.out.println("#####################################################");
-
-        relativeURI = "test/test";
-        System.out.println(jsViewPath(relativeURI));
-        System.out.println(jsStorePath(relativeURI));
-        System.out.println(jsMerchantPath(relativeURI));
-        System.out.println(jsModulePath(relativeURI, "catalog"));
-
-        System.out.println("#####################################################");
-        System.out.println("#####################################################");
-
-        relativeURI = "jobs/product-manager.pdf";
-        System.out.println(resourceViewPath(relativeURI));
-        System.out.println(resourceStorePath(relativeURI));
-        System.out.println(resourceMerchantPath(relativeURI));
-        System.out.println(resourceModulePath(relativeURI, "catalog"));
-
     }
 }

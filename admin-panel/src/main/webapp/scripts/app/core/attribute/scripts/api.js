@@ -48,8 +48,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____createAttribute_____', newAttribute);
-
 			gc.rest.post({
 				url : '/api/v1/attributes',
 				data: newAttribute,
@@ -88,8 +86,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____updateModel_____', updateModel.data());
-
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId,
 				data: updateModel.data(),
@@ -127,8 +123,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____updateModel_____', updateModel.data());
 
 			var queryString = '?forType=' + forType;
 
@@ -181,9 +175,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			if(!_.isUndefined(targetObjCode) && _.isUndefined(filter.targetObjectId)) {
 			    filter.targetObjectId = self.targetObjectId(targetObjCode);
 			}
-
-
-			console.log('?????????????=====??????? targetObjectId: ', targetObjCode, filter.targetObjectId);
 
 			if(!options.nocache) {
 				var cachedAttributes = gc.cache.get('attributes', options);
@@ -501,8 +492,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____attributeId_____', attributeId);
-
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId + '/options/positions',
 				data: optionPositions,
@@ -541,9 +530,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____attributeId_____', attributeId);
-			console.log('_____newOptionsData_____', newOptionsData);
-
 			gc.rest.post({
 				url : '/api/v1/attributes/' + attributeId + '/options',
 				data: newOptionsData,
@@ -581,8 +567,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____newOptionData_____', newOptionData);
 
 			var params = '';
 
@@ -632,9 +616,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____attributeId_____', attributeId);
-			console.log('_____optionsUpdateData_____', optionsUpdateData);
-
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId + '/options',
 				data: optionsUpdateData,
@@ -673,8 +654,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____removeAttribute_____', attributeId);
-
 			gc.rest.del({
 				url : '/api/v1/attributes/' + attributeId,
 				success : function(data, status, xhr) {
@@ -711,8 +690,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____removeOption_____', attributeId, optionId);
 
 			gc.rest.del({
 				url : '/api/v1/attributes/' + attributeId + '/options/' + optionId,
@@ -834,9 +811,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____attributeId_____', attributeId);
-			console.log('_____newInputConditionsData_____', newInputConditionsData);
-
 			gc.rest.post({
 				url : '/api/v1/attributes/' + attributeId + '/input-conditions',
 				data: newInputConditionsData,
@@ -875,9 +849,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____attributeId_____', attributeId);
-			console.log('_____inputConditionsUpdateData_____', inputConditionsUpdateData);
-
 			gc.rest.put({
 				url : '/api/v1/attributes/' + attributeId + '/input-conditions',
 				data: inputConditionsUpdateData,
@@ -915,8 +886,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.success = promise.done;
 			promise.error = promise.fail;
 			promise.complete = promise.done;
-
-			console.log('_____inputCondition_____', attributeId, inputConditionId);
 
 			gc.rest.del({
 				url : '/api/v1/attributes/' + attributeId + '/input-conditions/' + inputConditionId,

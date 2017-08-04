@@ -407,8 +407,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 						self.variantsPager.load().then(function(data) {
 							self.variantsVM.sourceContainer([]);							
 							
-							console.log('$$$$$$$$$$$$$$4 ', data);
-							
 							// Remember products that we have fetched as we will need them after the 
 							// light copy has been dropped into the target container.
 							_.each(data.data.products, function(product) {
@@ -461,8 +459,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function(app, ko, 
 			        	self.variantsPager.columnValue('$attr.article_number', gc.ctxobj.plain(vm.articleNumber()).substring(0,5));
 			        	self.variantsPager.load().then(function(data) {
 
-							console.log("VARIANTS")
-							console.log(data)
 							// Populate drag&drop source container.
 			        		self.variantsVM.refreshSourceContainer(data.data.products);
 			        	});

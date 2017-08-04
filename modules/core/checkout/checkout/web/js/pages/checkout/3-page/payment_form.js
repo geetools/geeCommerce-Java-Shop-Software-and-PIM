@@ -2,7 +2,6 @@ require(['jquery', 'bootstrap', 'gc/gc', 'checkout/api', 'checkout/utils/common'
 
     $("input[name='form.paymentMethodCode']").change(function () {
         var code = $(this).attr("value");
-        console.log("Selected payment code=" + code);
     });
 
     $(".btn-next").click(function(){

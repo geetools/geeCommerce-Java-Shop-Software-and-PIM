@@ -86,8 +86,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('___________ NEW-TEMPLATE: ', newTemplate);
-
 			gc.rest.post({
 				url : '/api/v1/templates',
 				data: newTemplate,

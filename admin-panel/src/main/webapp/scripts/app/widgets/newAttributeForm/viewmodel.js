@@ -13,12 +13,8 @@ define([
 
         self.targetObjectCode = self.options.forType;
 
-        console.log('@@@@@@@@@@@@@@ IN ATTRIBUTE FORM!!');
-
         var AttributeVM = require('gc-attribute-vm');
         self.attributeVM = new AttributeVM();
-
-        console.log('@@@@@@@@@@@@@@ IN ATTRIBUTE FORM!! ', self.attributeVM);
 
         self.showModal = ko.observable(false);
 
@@ -58,7 +54,6 @@ define([
 
     ctor.prototype.saveAndClose = function(viewModel, event) {
         var self = this;
-        console.log('----------------- saveAndClose: ', viewModel, event);
 
         if (self.attributeVM.containsMinimumData()) {
             self.initProgressBar();
@@ -108,8 +103,6 @@ define([
 
     ctor.prototype.attached = function(view, parent) {
         var self = this;
-
-        console.log('%%%%%%%%%%%%%%%%%%%% ATTACHED::: ', view, parent);
 
         // $(view).on('show.bs.modal', '.modal', function(e) {
         // self.initData();

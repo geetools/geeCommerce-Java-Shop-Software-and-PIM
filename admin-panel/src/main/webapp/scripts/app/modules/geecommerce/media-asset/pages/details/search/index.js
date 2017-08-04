@@ -37,11 +37,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
         compositionComplete : function() {
             var self = this;
             self.tab.vm.maPager.activateSubscribers();
-
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

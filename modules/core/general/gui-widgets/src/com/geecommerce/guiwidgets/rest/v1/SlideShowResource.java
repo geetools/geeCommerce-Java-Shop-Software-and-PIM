@@ -79,10 +79,7 @@ public class SlideShowResource extends AbstractResource {
     @Path("{id}")
     public void removeSlideshow(@PathParam("id") Id id) {
         WebSlideShow slideshow = checked(service.get(WebSlideShow.class, id));
-
-        System.out.println("--- Removing slideshow: " + slideshow);
         service.remove(slideshow);
-
     }
 
     @PUT

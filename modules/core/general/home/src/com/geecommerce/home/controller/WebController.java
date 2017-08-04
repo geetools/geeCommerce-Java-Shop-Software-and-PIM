@@ -66,8 +66,6 @@ public class WebController extends BaseController {
                     try {
                         File f = new File(basePath, "templates/slices/" + slice + ".ftl");
 
-                        System.out.println("SLICE PATH:: " + f.getAbsolutePath());
-
                         if (f.exists()) {
                             app.setTargetModule(m);
                             return Results.view(new StringBuilder(getSlicesPath()).append(Char.SLASH).append(slice)

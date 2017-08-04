@@ -101,14 +101,10 @@ define([
         self.isCodeEditable = ko.observable(true);
 
         self.isVirtual = ko.computed(function() {
-            console.log('_____________ IS VIRTUAL!!!?? ', (self.type() == 'VIRTUAL'));
-
             return self.type() == 'VIRTUAL';
         });
 
         self.isProductAttribute = ko.computed(function() {
-            console.log('_____________ IS PRODUCT!!!?? ', (self.targetObject() && self.targetObject().code == 'product'));
-            console.log(self.targetObject())
             return self.targetObject() && self.targetObject().code == 'product';
         });
 

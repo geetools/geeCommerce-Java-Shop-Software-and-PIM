@@ -28,10 +28,7 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
                     text : gc.ctxobj.val(productList[self.labelKey], gc.app.currentUserLang(), self.ctxMode) || ""
                 });
             });
-
-            console.log(self.options)
         })
-
 	};
 	
     ctor.prototype.attached = function(view) {

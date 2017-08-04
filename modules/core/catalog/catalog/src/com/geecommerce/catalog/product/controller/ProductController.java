@@ -133,9 +133,6 @@ public class ProductController extends BaseController {
 
         String currentProductList = request.getParameter(CURRENT_PRODUCT_LIST_PARAM);
 
-        if ((System.currentTimeMillis() - start) > 500)
-            System.out.println("-- product-view time took: " + (System.currentTimeMillis() - start));
-
         return Results.view("catalog/product/view").bind("product", product).bind("variantsAsMap", variantsAsMap)
             .bind("variantsAsJSON", variantsAsJSON).bind("mediaAssetLinkViews", mediaAssetLinkViews)
             .bind("currentProductList", currentProductList).bind("linkedProductViews", linkedProductViews);
@@ -171,11 +168,6 @@ public class ProductController extends BaseController {
         if (product.getAssets() != null && !product.getAssets().isEmpty()) {
             mediaAssetLinkViews = getMediaAssetLinkViews(product.getAssets());
         }
-
-        String currentProductList = request.getParameter(CURRENT_PRODUCT_LIST_PARAM);
-
-        if ((System.currentTimeMillis() - start) > 500)
-            System.out.println("-- product-view time took: " + (System.currentTimeMillis() - start));
 
         return product;
     }

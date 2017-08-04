@@ -1,11 +1,6 @@
-require(['jquery', 'bootstrap', 'gc/gc', 'checkout/api', 'checkout/utils/common'], function ($, Bootstrap, gc, checkoutAPI, checkoutUtil) {
-
-
-    console.log("order_summary::overview loaded.");
+define(['jquery', 'bootstrap', 'gc/gc', 'checkout/api', 'checkout/utils/common'], function ($, Bootstrap, gc, checkoutAPI, checkoutUtil) {
 
     $('#order-filter-date').on('change', function() {
-        console.log("os-filter-date::changed");
-
         var redirectURL = "?orderFilterDate=" + $('#order-filter-date').val();
         var url = document.location.toString();
         if (url.match('#')) {

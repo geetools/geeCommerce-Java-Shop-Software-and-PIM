@@ -19,12 +19,9 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/utils/media', 'jquery-swipe'], 
 				
 				$('.main-carousel:visible').swipe({
 					swipeLeft:function(event, direction, distance, duration, fingerCount) {
-						console.log('SWIPE!! ', $(this), event);
-					
 						$('.main-carousel').carousel('next');    
 					},
 					swipeRight:function(event, direction, distance, duration, fingerCount) {
-						console.log('SWIPE!! ', $(this), event);
 						$('.main-carousel').carousel('prev');
 					},
 					threshold:0
@@ -39,9 +36,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/utils/media', 'jquery-swipe'], 
 				    type: 'image'
 				});
 
-			    
-			    console.log('THERE????????????????????? ', $('#prd-img-thumbnails>div>ul'));
-			    
 				// Start the slick slider for the thumbnails.
 				// $('#prd-img-thumbnails>div>ul').slick({
 				//   infinite: false,
@@ -88,8 +82,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/utils/media', 'jquery-swipe'], 
 			});
 		},
 		moveToImage : function(imageURI) {
-			console.log('moveToImage_____ ', imageURI);
-
 			var foundImageEL = $('#prd-img-thumbnails>div>ul').find("[data-orig='" + imageURI + "']");
 			
 			if(!_.isEmpty(foundImageEL)) {
@@ -97,9 +89,6 @@ define(['jquery', 'bootstrap', 'gc/gc', 'catalog/utils/media', 'jquery-swipe'], 
 	
 				if(!_.isEmpty(foundImageEL)) {
 					var idx = foundListEL.data('slick-index');
-					
-					console.log('moveToImage_____ ', foundImageEL, foundListEL, foundListEL.data('slick-index'));
-
 										
 					$('#prd-img-thumbnails>div>ul').slick('slickGoTo', idx);
 					$('.main-carousel').carousel(idx+1);

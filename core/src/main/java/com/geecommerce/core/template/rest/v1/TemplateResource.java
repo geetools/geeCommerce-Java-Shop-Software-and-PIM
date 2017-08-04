@@ -64,10 +64,7 @@ public class TemplateResource extends AbstractResource {
     @Path("{id}")
     public void removeProductPromotion(@PathParam("id") Id id) {
         Template tmp = checked(service.get(Template.class, id));
-
-        System.out.println("--- Removing template: " + tmp);
         service.remove(tmp);
-
     }
 
     @PUT

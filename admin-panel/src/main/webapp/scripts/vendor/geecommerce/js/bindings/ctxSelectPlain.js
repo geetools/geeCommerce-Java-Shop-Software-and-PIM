@@ -48,8 +48,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
 		                if (contextMap.hasOwnProperty(property)) {
 		                    var ctx = contextMap[property];
 	                        var ctxVal = gc.ctxobj.val(unwrappedValue, undefined, undefined, ctx);
-
-                            console.log('________$$$$$$$$$$$_______ ', ctx, ctxVal);
 	                        
 	                        if(!_.isEmpty(ctxVal)) {
 	                            if(x > 0)

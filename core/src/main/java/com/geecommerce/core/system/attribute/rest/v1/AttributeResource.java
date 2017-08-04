@@ -109,8 +109,6 @@ public class AttributeResource extends AbstractResource {
     public Response getAttributeOptions(@PathParam("id") Id attributeId, @QueryParam("term") String term,
         @QueryParam("lang") String language, @QueryParam("limit") Integer limit, @QueryParam("matchCase") boolean isMatchCase, @QueryParam("matchExact") boolean isMatchExact) {
 
-        System.out.println("IIIIIIIIIII **** Is match case : " + isMatchCase + ", isMatchExact=" + isMatchExact);
-
         // Check if attribute exists.
         checked(service.get(Attribute.class, attributeId));
 
@@ -121,14 +119,10 @@ public class AttributeResource extends AbstractResource {
         ApplicationContext appCtx = app.context();
 
         for (AttributeOption attributeOption : attrOptions) {
-            System.out.println("===========>>>>>>>>>>>> FOUND OPTION FOR " + term + ":: " + (attributeOption.getLabel() == null ? "??" : attributeOption.getLabel().getClosestValue()));
             if (attributeOption.getLabel() != null && attributeOption.getLabel().hasEntryFor(appCtx.getLanguage())) {
-                System.out.println("===========>>>>>>>>>>>> ADDING OPTION FOR " + term + ":: " + (attributeOption.getLabel() == null ? "??" : attributeOption.getLabel().getClosestValue()));
                 result.add(new Label(attributeOption.getId(), attributeOption.getLabel()));
             }
         }
-
-        System.out.println(Json.toJson(result));
 
         return ok("options", result);
     }
@@ -151,8 +145,6 @@ public class AttributeResource extends AbstractResource {
     @Path("{id}/options/positions")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void updateOptionPositions(@PathParam("id") Id id, HashMap<String, Integer> positionsMap) {
-        System.out.println(positionsMap);
-
         if (id != null && positionsMap != null && positionsMap.size() > 0) {
             Attribute attribute = checked(service.get(Attribute.class, id));
 
@@ -228,31 +220,10 @@ public class AttributeResource extends AbstractResource {
         }
 
         for (AttributeOption attributeOption : options) {
-            System.out.println("--- Removing option: " + attributeOption);
             service.remove(attributeOption);
         }
 
-        System.out.println("--- Removing attribute: " + attribute);
         service.remove(attribute);
-
-        // Map<String, Object> attributesPart = new HashMap<>();
-        //
-        // Map<String, Object> valuePart = new HashMap<>();
-        // valuePart.put(AttributeValue.Col.ATTRIBUTE_ID, id);
-        //
-        // Map<String, Object> elemMatchPart = new HashMap<>();
-        // elemMatchPart.put("$elemMatch", valuePart);
-        //
-        // attributesPart.put(AttributeSupport.AttributeSupportColumn.ATTRIBUTES,
-        // valuePart);
-        //
-        // System.out.println(attributesPart);
-
-        // service.get(Product., filter, queryOptions)
-
-        // db.products.find({ attributes: { $elemMatch : { attr_id:
-        // 3507493023010100 } }})
-
     }
 
     @POST
@@ -349,22 +320,12 @@ public class AttributeResource extends AbstractResource {
     @Path("input-conditions")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getAttributeInputConditions(@FilterParam Filter filter) {
-        long start = System.currentTimeMillis();
-
         if (filter == null) {
             filter = new Filter();
         }
 
         List<AttributeInputCondition> inputConditions = service.get(AttributeInputCondition.class, filter.getParams(),
             queryOptions(filter));
-
-        System.out.println("getAttributeInputConditions1a :: " + (System.currentTimeMillis() - start));
-
-        start = System.currentTimeMillis();
-
-        Json.toJson(appendMetadata(ResponseWrapper.builder().set(inputConditions)).build());
-
-        System.out.println("getAttributeInputConditions1b :: " + (System.currentTimeMillis() - start));
 
         return ok(inputConditions);
     }
@@ -389,8 +350,6 @@ public class AttributeResource extends AbstractResource {
 
         List<AttributeInputCondition> inputConditions = service.get(AttributeInputCondition.class, filter.getParams(),
             queryOptions(filter));
-
-        System.out.println("getAttributeInputConditions2 :: " + (System.currentTimeMillis() - start));
 
         return ok(inputConditions);
     }

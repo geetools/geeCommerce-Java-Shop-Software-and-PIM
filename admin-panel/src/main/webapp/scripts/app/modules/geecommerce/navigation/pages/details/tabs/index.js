@@ -7,7 +7,6 @@ define(
 			// Controller
 			// -----------------------------------------------------------------
 			function NavigationDetailsIndexController(options) {
-				console.log("Navigation details index start");
 				// Make sure that this object is being called with the 'new'
 				// keyword.
 				if (!(this instanceof NavigationDetailsIndexController)) {
@@ -23,26 +22,20 @@ define(
 				this.nodeTypes = ko.observableArray();
 
 				this.iconSystemPath = ko.observable();
-				console.log("Navigation details index end");
-				
+
 				// Solves the 'this' problem when a DOM event-handler is fired.
 				_.bindAll(this, 'activate');
 			}
-			
-			
 
 			NavigationDetailsIndexController.prototype = {
 				constructor : NavigationDetailsIndexController,
 				activate : function(nodeVM) {
-					console.log("TABS: Navigation details index activate start");
 					var self = this;
 					if (nodeVM) {
 						self.showNodeVM(true);
 					} else {
 						self.showNodeVM(false);
 					}
-
-					console.log(nodeVM)
 
 					if(nodeVM) {
 						var rootEl = nodeVM;
@@ -52,7 +45,6 @@ define(
 
 						this.iconSystemPath("system/navigation/" + rootEl.key() + "/icons")
 					}
-					console.log(this.iconSystemPath())
 
 					self.nodeVM = nodeVM;
 					self.productLists(self.app.sessionGet('product_list'));
@@ -80,7 +72,6 @@ define(
 
 					if (!_.isEmpty(nodeVM)) {
 					}
-					console.log("Navigation details index activate end");
 					
 					//if (attributeTabId == 'new') {
 					//	gc.app.pageTitle('New navigation');

@@ -22,8 +22,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc',
         return settingsAPI.getLanguages().then(function (data) {
             var languages = data.data.languages;
 
-            console.log(languages)
-
             self.options.push({
                 id : "",
                 text : " "

@@ -129,7 +129,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc', 'ckeditor'
 
 			ctxValue = gc.ctxobj.val(unwrappedCtxObject, item.code);
 
-			console.log("-----------------> item code: " + item.code + " value: " + ctxValue);
 			var editor = $(textarea).ckeditor().editor;
 			editor.setData(ctxValue, function () {
 				$(textarea).val(ctxValue);
@@ -139,13 +138,10 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'gc/gc', 'ckeditor'
 
 		if (!_.isUndefined(disabled) && ko.isObservable(disabled)) {
 			disabled.subscribe(function (isDisabled) {
-				console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1 DISABLED ::: ', isDisabled);
 				if (isDisabled === true) {
 					CKEDITOR.instances[elementName].setReadOnly();
-					console.log('!!!!!!!!!!!!!! disabed');
 				} else {
 					CKEDITOR.instances[elementName].setReadOnly(false);
-					console.log('!!!!!!!!!!!!!! enabled');
 				}
 			});
 		}

@@ -151,8 +151,6 @@ public class MediaAssetController extends BaseController {
                             // Target image.
                             op.addImage(imageType + ":-");
 
-                            System.out.println(op.toString());
-
                             Stream2BufferedImage s2b = new Stream2BufferedImage();
                             convert.setOutputConsumer(s2b);
 

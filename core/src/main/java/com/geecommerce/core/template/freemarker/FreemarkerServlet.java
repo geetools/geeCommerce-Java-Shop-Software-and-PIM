@@ -41,7 +41,6 @@ public class FreemarkerServlet extends freemarker.ext.servlet.FreemarkerServlet 
         if (viewPath == null && !Str.isEmpty(path)) {
             int pos1 = path.indexOf(BASE_PAGES_PATH) + BASE_PAGES_PATH.length();
             int pos2 = path.lastIndexOf(Char.DOT);
-            System.out.println("path2: " + path.substring(pos1, pos2));
 
             app.setViewPath(path.substring(pos1, pos2));
         }
@@ -72,12 +71,7 @@ public class FreemarkerServlet extends freemarker.ext.servlet.FreemarkerServlet 
 
             env.setLocale(conf.getLocale());
 
-            long start = System.currentTimeMillis();
-
             env.process(); // process the template
-
-            if ((System.currentTimeMillis() - start) > 5000)
-                System.out.println("Template '" + path + "' took: " + (System.currentTimeMillis() - start));
 
             response.getWriter().write(sw.toString());
         } catch (Throwable th) {

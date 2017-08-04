@@ -295,10 +295,4 @@ public class DefaultSearchService implements SearchService {
 
         return FilterBuilders.andFilter(filterBuilders.toArray(new FilterBuilder[filterBuilders.size()]));
     }
-
-    public static void main(String[] args) {
-        Matcher m = articleNumberPattern.matcher("12345.01 ");
-
-        System.out.println(m.find());
-    }
 }

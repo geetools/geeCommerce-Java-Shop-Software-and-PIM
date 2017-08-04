@@ -66,8 +66,6 @@ define([ 'knockout', 'gc/gc' ], function(ko, gc) {
             if(_.isEmpty(contextModel))
                 return;
 
-            console.log('+++++++++++++++++++++++ /// ', contextModel.merchantIds(), contextModel.storeIds(), contextModel.requestContextIds());
-
             this._merchantIds = contextModel.merchantIds();
             this._storeIds = contextModel.storeIds();
             this._requestContextIds = contextModel.requestContextIds();

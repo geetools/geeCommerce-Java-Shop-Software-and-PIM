@@ -41,7 +41,6 @@ public class FreemarkerDatabaseTemplateLoader implements TemplateLoader {
                 Matcher m = p.matcher(relativeName);
                 if(m.find()) {
                     Id id = Id.parseId(m.group(1));
-                    System.out.println("DB_LOADER: id " + id);
                     template = templates.findById(Template.class, id);
                     if(template != null){
                         c.put(relativeName, template);

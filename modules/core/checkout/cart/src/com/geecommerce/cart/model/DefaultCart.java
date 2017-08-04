@@ -331,8 +331,6 @@ public class DefaultCart extends AbstractModel implements Cart, CalculationData,
 
         if (product == null || product.getId() == null)
             return null;
-
-        System.out.println("ADDING CART ITEM TO CART :::::::::::::: " + product.getId() + " - " + product.isVariant());
         
         CartItem cartItem = findItem(product.getId());
 

@@ -127,8 +127,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-magazine', '
 
             if(!vm.isNew()){
                 magazineAPI.getMagazine(self.magazineId()).then(function(data) {
-                console.log('___data______ ', data, data.show);
-
                     vm.title(data.title);
                     vm.teaserText(data.teaserText);
                     vm.showFrom(gc.utils.fromServerTime(data.showFrom));

@@ -51,10 +51,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-slide-show',
 
             var updateModel = gc.app.newUpdateModel();
             updateModel.field('name', self.slideShowVM.name());
-            
-            
-            console.log('___________________ ', self.slideShowVM.label());
-            
             updateModel.field('label', self.slideShowVM.label(), true);
             updateModel.field('dateFrom', gc.utils.toServerTime(gc.utils.startOfTheDay(self.slideShowVM.dateFrom())));
             updateModel.field('dateTo', gc.utils.toServerTime(gc.utils.endOfTheDay(self.slideShowVM.dateTo())));
@@ -79,8 +75,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-slide-show',
 
             if(!vm.isNew()){
                 return slideShowAPI.getSlideShow(self.slideShowId()).then(function(data) {
-                console.log('##################### ', data);
-                
                     vm.name(data.name);
                     vm.label(data.label);
                     vm.dateFrom(gc.utils.fromServerTime(data.dateFrom));

@@ -16,19 +16,15 @@ define([ 'plugins/router', 'knockout', 'gc/gc' ], function(router, ko, gc) {
         // Filter
         // ---------------------------------------------------
         if (_.isObject(filter) && !_.isEmpty(filter)) {
-            // console.log('#################### USING FILTER', filter);
             for ( var propt in filter) {
                 requestData[propt] = filter[propt];
             }
-            // console.log('#################### USING requestData', requestData);
-
         }
 
         // ---------------------------------------------------
         // Fields
         // ---------------------------------------------------
         if (_.isArray(fields) && !_.isEmpty(fields)) {
-            // console.log('#################### USING FIELDS', fields);
             var fieldsCsv = fields.join(",");
             requestData.fields = fieldsCsv;
         }
@@ -45,7 +41,6 @@ define([ 'plugins/router', 'knockout', 'gc/gc' ], function(router, ko, gc) {
         // Sort
         // ---------------------------------------------------
         if (_.isArray(sortFields) && !_.isEmpty(sortFields)) {
-            // console.log('#################### USING SORT', sortFields);
             var sortFieldsCsv = sortFields.join(",");
             requestData.sort = sortFieldsCsv;
         }

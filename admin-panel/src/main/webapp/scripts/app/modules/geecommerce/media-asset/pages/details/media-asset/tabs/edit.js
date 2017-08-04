@@ -55,7 +55,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
                                 onSave: function (imageID, newURL) {
                                     var url = encodeURIComponent(newURL);
                                     mediaAssetAPI.updateMediaAssetFromUrl(/*self.tab.id*/ window.tabId, url).then(function (data) {
-                                        console.log(data)
                                     });
                                     // var img = document.getElementById(imageID);
                                     // img.src = newURL;
@@ -109,10 +108,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-media-asset'
 
         },
         compositionComplete : function() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-                console.log('_________$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$', e);
-            });
-
         },
         detached : function() {
         },

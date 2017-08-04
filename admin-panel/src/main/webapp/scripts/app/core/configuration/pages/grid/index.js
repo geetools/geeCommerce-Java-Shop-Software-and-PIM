@@ -27,13 +27,11 @@ define(
 				constructor : ConfigurationIndexController,
 				activateView : function(child) {
 					var self = this;
-					console.log("A1");
 					self.activeView({
 						model : 'core/configuration/pages/details/index',
 						transition : 'entrance',
 						activationData : child
 					});
-					console.log("A2");
 				},
 				saveConf : function(view, parent, toolbar)  {
 					
@@ -790,9 +788,6 @@ define(
 					$("#col-1").addClass("in");
 					$("#col-1").removeClass("collapsed");
 					
-					console.log("confTree:",self.confTree());
-					console.log("confTree.children.children.children:",self.confTree().children[0].children[0]);
-					
 					self.activeView({
 						model : 'core/configuration/pages/details/index',
 						transition : 'entrance',
@@ -805,14 +800,12 @@ define(
 				},
 				loadConfiguration : function(child) {
 					var self = this;
-					console.log("A1");
 
 					self.activeView({
 						model : 'core/configuration/pages/details/index',
 						transition : 'entrance',
 						activationData : child
 					});
-					console.log("A2");
 				}
 			}
 			return ConfigurationIndexController;

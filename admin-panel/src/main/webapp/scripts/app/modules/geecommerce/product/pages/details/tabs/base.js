@@ -516,8 +516,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
                 });
                 _.forEach(attrBundleGroup.options, function(option) {
                     if (option && option.id && option.label) {
-                        console.log("----")
-                        console.log(option.label.i18n)
                         self.bundleGroups.push({
                             id : option.id,
                             text : option.label.i18n
@@ -678,8 +676,6 @@ define([ 'durandal/app', 'knockout', 'plugins/router', 'gc/gc', 'gc-product', 'g
             var self = this;
             var vm = self.productVM();
             var formAttributes = ko.gc.unwrap(vm.formAttributeValues());
-
-console.log('------------------>>> formAttributes ', formAttributes);
 
             for (var i = 0; i < formAttributes.length; i++) {
                 var formAttributeArray = formAttributes[i];

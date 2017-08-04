@@ -22,8 +22,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 		activate : function(productId) {
 			var self = this;
 
-			console.log('ACTIVATING HISTORY!');
-
 			self.productVM = gc.app.sessionKGet('productVM');			
 			
 			var vm = self.productVM();
@@ -37,9 +35,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
             ];
 			
 			var pagingOptions = productAPI.historyPagingOptions( productId, { columns : pagerColumns } )
-
-			console.log('ACTIVATING HISTORY PO!', pagingOptions);
-
 			
 	    	// Init the pager.
         	self.historyPager = new gc.Pager(pagingOptions);
@@ -57,10 +52,6 @@ define([ 'durandal/app', 'knockout', 'gc/gc', 'gc-product' ], function( app, ko,
 				var $target = $(target);
 			    var data    = $target.data('bs.collapse');
 			    var option  = data ? 'toggle' : $this.data();
-
-				console.log('click.bs.collapse.data-api ////////// ', $(this), e, $target.hasClass('in'), data, option);
-
-				
 			});
 		}
 	};

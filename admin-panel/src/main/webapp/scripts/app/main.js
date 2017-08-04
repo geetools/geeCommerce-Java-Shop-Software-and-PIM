@@ -441,7 +441,7 @@ define(function(require) {
      */
     Dropzone.autoDiscover = false;
 
-    system.debug(true);
+    system.debug(false);
 
     // ----------------------------------------------------------
     // Require global libs
@@ -584,8 +584,6 @@ define(function(require) {
         decorateElement : true
     });
 
-    console.log(ko.bindingHandlers);
-
     widget.registerKind('toolbar');
     widget.registerKind('loader');
     widget.registerKind('alertInfo');
@@ -620,7 +618,6 @@ define(function(require) {
 
     kv.rules['require_i18n'] = {
         validator : function(val, lang) {
-            console.log(val);
             if (!val)
                 return false;
 
@@ -730,8 +727,6 @@ define(function(require) {
     return gc.rest.get({
         url : '/api/v1/settings'
     }).then(function(data) {
-        console.log('Settings loaded: ', data);
-
         var settings = data.data.settings;
 
         var defaultEditLang = settings.defaultEditLanguage || 'en';
@@ -796,28 +791,19 @@ define(function(require) {
                 lng = lng.substring(0, lng.indexOf('-'));
             }
 
-            console.log('--- Language from Browser: ', lng);
-
             if (!_.isUndefined(lng) && !_.contains(gc.app.confGet('availableUserLangCodes'), lng)) {
                 lng = gc.app.confGet('defaultUserLang');
-                console.log('--- Using default user language: ', lng);
             }
 
             if (_.isEmpty(lng)) {
                 lng = gc.app.confGet('fallbackUserLang');
-                console.log('--- Using fallback user language: ', lng);
             }
 
             if (_.isEmpty(lng)) {
                 lng = 'en';
-                console.log('--- Using default hard-coded language: ', lng);
             }
 
-            console.log('--- Adding language to cookie: ', lng);
-
             gc.app.cookiePut('lng', lng, (365 * 10));
-        } else {
-            console.log('--- Using cookie language: ', lng);
         }
 
         if (lng == fallbackUserLang) {
@@ -826,10 +812,7 @@ define(function(require) {
 
         // moment.lang(lng, fallbackUserLang);
         moment.locale(lng);
-        
         numeral.language(lng);
-        
-        console.log('TEST-NUMBER !!!!!!!!!!!! ' + numeral('12.99').format('0.00'));
 
         var i18NOptions = {
             detectFromHeaders : false,
@@ -841,8 +824,6 @@ define(function(require) {
             useCookie : false,
             debug : false
         };
-
-        console.log('--- i18NOptions: ', i18NOptions);
 
         app.title = 'CommerceBoard';
 
@@ -856,13 +837,8 @@ define(function(require) {
         // Start the durandal app.
         // -------------------------------------------------------
         app.start().then(function() {
-
-            console.time("PRELOAD-TIME");
-
             // Preload the attributes.
             gc.app.preloadData().then(function() {
-                console.timeEnd("PRELOAD-TIME");
-
                 // Replace 'viewmodels' in the moduleId with 'views' to locate the view.
                 // Look for partial views in a 'views' folder in the root.
                 viewLocator.useConvention();
@@ -896,7 +872,6 @@ define(function(require) {
                         // No session exists yet if we receive a 404,
                         // so we send him to the login page.
                     }, function(data) {
-                        console.log('FAAAAAAILL :::: ', data);
                         app.setRoot('login');
                     });
 

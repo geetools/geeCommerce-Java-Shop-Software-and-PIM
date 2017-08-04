@@ -37,8 +37,8 @@ public class CustomerWebResource extends AbstractWebResource {
     @GET
     @Path("/getLoggedInCustomer")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Customer getLoggedInCustomer(@PathParam("id") Id id) {
-        return checked(app.getLoggedInCustomer());
+    public Customer getLoggedInCustomer() {
+        return app.getLoggedInCustomer();
     }
 
 }

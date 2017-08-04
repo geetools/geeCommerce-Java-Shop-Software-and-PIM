@@ -37,7 +37,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
         self.uncheckedIds = ko.observableArray([]);
         
         self.uncheckedIds.subscribe(function(newVal) {
-            console.log('NEW VALUE UNCHECKEDIDS:::: ', newVal, self.selectMode);
         });
 		
         self.numSelectedRows = ko.observable(0);
@@ -103,8 +102,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
 
             if(!$(this).is(":checked")) {
                 if(self.selectMode === 'all_pages') {
-                    console.log('NOOOOT CHECKED --------------------> ', $(this).val());
-                    
                     if(self.uncheckedIds.indexOf(val) === -1) {
                         self.uncheckedIds.push(val);
                     }
@@ -119,10 +116,6 @@ define([ 'durandal/app', 'durandal/composition', 'knockout', 'i18next', 'gc/gc' 
         var self = this;
         
         var bodyEL = $(self.view).closest('body');
-        
-        console.log('ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ111111111111 view: ', $(self.view));
-        console.log('ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ111111111111 bodyEL: ', bodyEL);
-        
         
         var gridTableEL = bodyEL.find('.grid-table').first();
         var checkboxes = gridTableEL.find('th.td-select>input[type="checkbox"]:checked');

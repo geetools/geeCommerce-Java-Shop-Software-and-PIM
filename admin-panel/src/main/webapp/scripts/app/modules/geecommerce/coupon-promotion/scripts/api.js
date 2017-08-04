@@ -238,8 +238,6 @@ define(['knockout', 'gc/gc'], function (ko, gc) {
 			promise.error = promise.fail;
 			promise.complete = promise.done;
 
-			console.log('_____removeAttribute_____', id);
-
 			gc.rest.del({
 				url : '/api/v1/coupon-promotions/' + id,
 				success : function(data, status, xhr) {

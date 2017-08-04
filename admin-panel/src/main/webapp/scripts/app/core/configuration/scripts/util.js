@@ -44,16 +44,13 @@ define([ 'knockout', 'gc/gc', 'gc-conf' ], function(ko, gc, confAPI) {
 			var v1 = self.targetId();
 			var v2 = self.label();
 			var v3 = self.useTargetLabel()
-			console.log(self.controller);
+
 			if (self.controller && self.controller.labelsMap) {
 				if (self.useTargetLabel() && self.targetId()
 						&& self.controller.labelsMap[self.targetId()]) {
 					label = self.controller.labelsMap[self.targetId()]();
 				} else {
 					if (self.label()) {
-
-						console.log(gc.ctxobj.val(self.label(), gc.app
-								.currentUserLang(), 'any'));
 						label = gc.ctxobj.val(self.label(), gc.app
 								.currentUserLang(), 'any');
 					}
@@ -67,15 +64,12 @@ define([ 'knockout', 'gc/gc', 'gc-conf' ], function(ko, gc, confAPI) {
 		});
 
 		self.addNode = function() {
-			console.log("NavUtil: Adding node");
-
 			var data = {
 				'displayLabel' : '[ Newly created node ]',
 				'enabled' : false,
 				'useTargetLabel' : false,
 				'id' : ''
 			};
-			console.log(data);
 			var child = new Node(data, false, self.controller);
 			child.parent(self);
 			child.useTargetLabel(true);
@@ -85,8 +79,6 @@ define([ 'knockout', 'gc/gc', 'gc-conf' ], function(ko, gc, confAPI) {
 		}
 
 		self.deleteNode = function() {
-			console.log("NavUtil: Deleting node", self.id);
-
 			var index = self.parent().children.indexOf(self);
 			self.parent().children.splice(index, 1);
 		}
@@ -187,7 +179,6 @@ define([ 'knockout', 'gc/gc', 'gc-conf' ], function(ko, gc, confAPI) {
 		},
 		jsonToTree : function(jsonObject, controller, parentNode) {
 			var self = this;
-			console.log("INSIDE1:");
 			var newNode;
 			var i = 0;
 
@@ -202,16 +193,11 @@ define([ 'knockout', 'gc/gc', 'gc-conf' ], function(ko, gc, confAPI) {
 				parentNode = new Node(jsonObject, true, controller);
 			}
 			
-			console.log("INSIDE2:");
-
 			for (; i < jsonObject.children.length; i++) {
-				console.log("INSIDE LOOP1:");
 				var newNode = self.jsonToTree(jsonObject.children[i], controller, newNode);
-				console.log("INSIDE LOOP2:");
 				parentNode.children.push(newNode);
-				console.log("INSIDE LOOP3:");
 			}
-			console.log("INSIDE3:");
+
 			return parentNode;
 		}
 	}

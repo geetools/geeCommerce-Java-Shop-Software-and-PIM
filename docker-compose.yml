@@ -1,26 +1,28 @@
 version: '2'
 services:
   mysql:
-    image: geecommerce/demo-mysql:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-mysql:latest
     container_name: gc_demo_mysql
     ports:
     - 3306:3306
     restart: always
   mongo:
-    image: geecommerce/demo-mongodb:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-mongodb:latest
     container_name: gc_demo_mongodb
     ports:
     - 27017:27017
     restart: always
   tomcat:
-    image: geecommerce/tomcat8-java8:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/tomcat8-java8:latest
     container_name: gc_demo_tomcat
+    command: /bin/bash -c "envsubst '$${TOMCAT_HTTP_PORT},$${TOMCAT_REDIRECT_PORT},$${TOMCAT_SHUTDOWN_PORT}' < /usr/local/tomcat/conf/server.template > /usr/local/tomcat/conf/server.xml && /entrypoint.sh"
     environment:
       - GC_HOME=/usr/local/geecommerce-local
-    volumes:
-    - .:/usr/local/geecommerce-shared
+      - TOMCAT_HTTP_PORT=8585
+      - TOMCAT_REDIRECT_PORT=8443
+      - TOMCAT_SHUTDOWN_PORT=8005
     ports:
-    - 8080:8080
+    - 8585:8585
     - 8000:8000
     depends_on:
     - mysql
@@ -36,12 +38,14 @@ services:
         max-size: "200k"
         max-file: "10"    
   nginx:
-    image: geecommerce/demo-nginx:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-nginx:latest
     container_name: gc_demo_nginx
-    volumes:
-    - .:/usr/local/geecommerce:ro
+    command: /bin/bash -c "envsubst '$${NGINX_PORT},$${TOMCAT_PORT}' < /etc/nginx/conf.d/geecommerce_proxy.template > /etc/nginx/conf.d/geecommerce_proxy.conf && nginx -g 'daemon off;'"
+    environment:
+      - NGINX_PORT=85
+      - TOMCAT_PORT=8585
     ports:
-    - 80:80
+    - 85:85
     - 443:443
     depends_on:
     - tomcat
@@ -71,12 +75,10 @@ services:
       - 9300:9300
     restart: always
   jobsdaemon:
-    image: geecommerce/jobs-daemon:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/jobs-daemon:latest
     container_name: gc_demo_jobs_daemon
     environment:
       - GC_HOME=/usr/local/geecommerce
-    volumes:
-    - .:/usr/local/geecommerce
     ports:
     - 1099:1099
     depends_on:
@@ -89,7 +91,7 @@ services:
     - mongo
     - elasticsearch
   quartzdesk:
-    image: geecommerce/demo-quartzdesk:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-quartzdesk:1.0
     container_name: gc_demo_quartzdesk
     ports:
     - 8090:8080

@@ -19,7 +19,7 @@ fi
 
 
 
-URL_PREFIX=demo.geecommerce.local
+URL_PREFIX='demo.geecommerce.local${p}'
 
 WEBAPP_PATH=$( cd $CURRENT_DIR/../../webapp/src/main/webapp; pwd -P )
 LOG_PATH=$( cd $CURRENT_DIR/../../projects/demo/log/_demostore; pwd -P )

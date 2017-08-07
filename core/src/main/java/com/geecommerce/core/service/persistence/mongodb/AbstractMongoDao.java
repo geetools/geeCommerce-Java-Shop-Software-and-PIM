@@ -267,14 +267,8 @@ public abstract class AbstractMongoDao extends AbstractDao implements MongoDao {
 
         if (count == null) {
             DBObject dbObject = buildQueryFilter(modelClass, filter, queryOptions);
-
-            System.out.println("COUNT ::::: " + dbObject);
-
             DBCollection col = collection(modelClass);
-
             count = col.count(dbObject);
-
-            System.out.println("COUNT ::::: " + count);
         }
 
         if (count != null) {

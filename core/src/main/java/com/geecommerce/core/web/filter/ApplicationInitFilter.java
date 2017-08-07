@@ -623,10 +623,11 @@ public class ApplicationInitFilter implements Filter {
         SystemService systemService = App.get().systemService(SystemService.class);
 
         List<RequestContext> requestContexts = systemService.findRequestContextsForHost(host);
+        String url = Requests.getURLWithoutPortAndContextPath(httpRequest);
 
         RequestContext foundRequestCtx = null;
         for (RequestContext requestCtx : requestContexts) {
-            if (requestCtx.getUrlType().getUrlParser().isMatch(Requests.getURLWithoutPortAndContextPath(httpRequest),
+            if (requestCtx.getUrlType().getUrlParser().isMatch(url,
                 requestCtx)) {
                 foundRequestCtx = requestCtx;
                 break;

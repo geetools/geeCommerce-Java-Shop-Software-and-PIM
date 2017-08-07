@@ -63,7 +63,7 @@ public class PermissionInterceptor implements MethodInterceptor {
 
         Subject currentUser = SecurityUtils.getSubject();
 
-        if ("public-web-user".equals(request.getHeader("X-Requested-By"))) {
+        if ("public-web-user".equals(request.getHeader("X-Requested-By")) && uri.startsWith("/api/v1/web/")) {
             // Web user can only access web-resource.
             if (AbstractWebResource.class.isAssignableFrom(invocation.getThis().getClass())) {
                 if (currentUser == null || !currentUser.isAuthenticated())
@@ -71,6 +71,17 @@ public class PermissionInterceptor implements MethodInterceptor {
 
                 return invocation.proceed();
             }
+        }
+
+        if(currentUser.isAuthenticated()) {
+            Id userId = (Id) currentUser.getPrincipal();
+            User user = app.service(UserService.class).getUserForRealm(userId);
+
+            // Web-User attempting to access admin-functionality.
+            if (user != null && DefaultCredentialsMatcher.DEFAULT_WEB_USERNAME.equals(user.getUsername()) && uri.startsWith("/api/") && !uri.startsWith("/api/v1/web/")) {
+                System.out.println("The current session (web-user) is not valid for the admin panel. Logging web-user out. Consider using a different browser when accessing the admin panel.");
+                currentUser.logout();
+            }            
         }
 
         if ((("GET".equals(method) || "POST".equals(method)) && uri.matches("^\\/api\\/v[0-9]+\\/sessions[\\/]?$"))

@@ -1,5 +1,8 @@
 package com.geecommerce.core.template.freemarker.directive;
 
+import static com.geecommerce.core.util.Requests.buildAbsoluteURL;
+import static com.geecommerce.core.util.Requests.getHost;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +31,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import com.geecommerce.core.App;
-import com.geecommerce.core.util.Requests;
 
 import freemarker.core.Environment;
 import freemarker.template.SimpleScalar;
@@ -132,7 +134,7 @@ public class ImportDirective implements TemplateDirectiveModel {
             // Get content using URLConnection
             // ------------------------------------------------
             else {
-                String absoluteURL = Requests.buildAbsoluteURL(request, uri, queryString, true);
+                String absoluteURL = buildAbsoluteURL(request, uri, queryString, true);
 
                 String content = getContent(absoluteURL);
 
@@ -146,7 +148,7 @@ public class ImportDirective implements TemplateDirectiveModel {
     private void addHeaders(HttpGet httpget) {
         HttpServletRequest request = App.get().servletRequest();
 
-        httpget.setHeader("Host", Requests.getHost(request));
+        httpget.setHeader("Host", getHost(request));
         httpget.setHeader("User-Agent", USER_AGENT);
         httpget.setHeader("Referer", request.getRequestURI());
         httpget.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");

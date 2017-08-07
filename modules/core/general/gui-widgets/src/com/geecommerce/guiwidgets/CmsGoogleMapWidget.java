@@ -55,7 +55,11 @@ public class CmsGoogleMapWidget extends AbstractWidgetController implements Widg
         String mapUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCGjJC9SVFNZ8mtgDAlG71d8Rsr-ViJitM";
 
         if (StringUtils.isBlank(longitude) && StringUtils.isBlank(latitude)) {
-            mapUrl += "&q=" + location.replace(" ", "+");
+            if(StringUtils.isNotBlank(location)) {
+                mapUrl += "&q=" + location.replace(" ", "+");
+            } else {
+                mapUrl += "&q=europe";
+            }
         } else {
             mapUrl += "&center=" + latitude + "," + longitude;
         }

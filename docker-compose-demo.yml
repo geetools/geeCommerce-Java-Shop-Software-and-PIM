@@ -1,22 +1,22 @@
 version: '2'
 services:
   mysql:
-    image: dockerhub.geetools.net:5000/geecommerce/demo-mysql:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-mysql:latest
     container_name: gc_demo_mysql
     ports:
     - 3306:3306
     restart: always
   mongo:
-    image: dockerhub.geetools.net:5000/geecommerce/demo-mongodb:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-mongodb:latest
     container_name: gc_demo_mongodb
     ports:
     - 27017:27017
     restart: always
   tomcat:
-    image: dockerhub.geetools.net:5000/geecommerce/tomcat8-java8:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/tomcat8-java8:latest
     container_name: gc_demo_tomcat
     environment:
-      - GC_HOME=/usr/local/geecommerce
+      - GC_HOME=/usr/local/geecommerce-local
     ports:
     - 8080:8080
     - 8000:8000
@@ -28,8 +28,13 @@ services:
     - mysql
     - mongo
     - elasticsearch
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"    
   nginx:
-    image: dockerhub.geetools.net:5000/geecommerce/demo-nginx:1.0
+    image: dockerhub.geetools.net:5000/geecommerce/demo-nginx:latest
     container_name: gc_demo_nginx
     ports:
     - 80:80
@@ -38,6 +43,11 @@ services:
     - tomcat
     links:
     - tomcat
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   elasticsearch:
     image: elasticsearch:1.7.6
     container_name: gc_demo_es

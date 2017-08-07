@@ -60,7 +60,6 @@ public class WidgetWrapperDirective implements TemplateDirectiveModel {
             // widgetController.getClass().getSimpleName() + "' took: " +
             // (System.currentTimeMillis()-start));
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

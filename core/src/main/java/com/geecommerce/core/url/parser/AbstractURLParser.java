@@ -3,6 +3,8 @@ package com.geecommerce.core.url.parser;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.geecommerce.core.Str;
+
 public abstract class AbstractURLParser implements URLParser {
     public URL getURL(String requestUrl) {
         URL url = null;
@@ -15,10 +17,10 @@ public abstract class AbstractURLParser implements URLParser {
 
         return url;
     }
-
-    public String addProtocolToUrlPrefix(String urlPrefix, String requestURL) {
+    
+    public String prepareUrlPrefix(String urlPrefix, String requestURL) {
         URL url = getURL(requestURL);
 
-        return new StringBuilder(url.getProtocol()).append("://").append(urlPrefix).toString();
+        return new StringBuilder(url.getProtocol()).append("://").append(urlPrefix.replace("${p}", Str.EMPTY)).toString();
     }
 }

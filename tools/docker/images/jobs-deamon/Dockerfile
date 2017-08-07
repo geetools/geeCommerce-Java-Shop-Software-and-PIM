@@ -1,23 +1,8 @@
-FROM openjdk:8-alpine
-
-RUN \
-  apk update && apk add \
-  less \
-  bash
-
-RUN apk update && apk add dos2unix --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
+FROM openjdk:8-jre-alpine
 
 COPY ./scripts/entrypoint.sh /
 
-RUN \
-  mkdir -p /tmp && \
-  mkdir -p /usr/local/geecommerce && \
-  chmod +x /entrypoint.sh && \
-  dos2unix /entrypoint.sh && \
-  ls -l /
-
 WORKDIR /tmp
-
 COPY ./tmp/gc-admin-panel.tar.gz .
 COPY ./tmp/gc-modules.tar.gz .
 COPY ./tmp/gc-projects.tar.gz .
@@ -27,6 +12,13 @@ COPY ./tmp/gc-scripts.tar.gz .
 WORKDIR /usr/local/geecommerce
 
 RUN \
+  apk update && apk add less bash && \
+  apk update && apk add dos2unix --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted && \
+  mkdir -p /tmp && \
+  mkdir -p /usr/local/geecommerce && \
+  chmod +x /entrypoint.sh && \
+  dos2unix /entrypoint.sh && \
+  ls -l / && \
   ls -l /tmp/ && \
   ls -l /usr/local/geecommerce && \
   tar xfz /tmp/gc-admin-panel.tar.gz && \
@@ -46,10 +38,8 @@ RUN \
   ls -l /usr/local/geecommerce && \
   chmod +x tools/scripts/*
 
-
 EXPOSE 1099
 
 CMD ["bash"]
 CMD ["/entrypoint.sh"]
 
-# CMD ["ls", "-l", "/usr/local/geecommerce"]

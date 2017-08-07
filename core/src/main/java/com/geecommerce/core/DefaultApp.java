@@ -120,9 +120,17 @@ public class DefaultApp implements App {
 
     private static final String HTTPS_SCHEME_CONFIG_KEY = "general/web/https/scheme";
 
+    private static final String HTTP_PORT_CONFIG_KEY = "general/web/http/port";
+
+    private static final String HTTPS_PORT_CONFIG_KEY = "general/web/https/port";
+
     private static final String DEFAULT_HTTP_SCHEME = "http";
 
     private static final String DEFAULT_HTTPS_SCHEME = "https";
+
+    private static final int DEFAULT_HTTP_PORT = 80;
+
+    private static final int DEFAULT_HTTPS_PORT = 443;
 
     private static final String SKIN_DIR = "skin";
 
@@ -1479,8 +1487,19 @@ public class DefaultApp implements App {
         RequestContext requestCtx = context().getRequestContext();
 
         String httpsScheme = cpStr_(HTTPS_SCHEME_CONFIG_KEY, DEFAULT_HTTPS_SCHEME);
+        int httpsPort = cpInt_(HTTPS_PORT_CONFIG_KEY, DEFAULT_HTTPS_PORT);
 
-        return new StringBuilder(httpsScheme).append(Str.PROTOCOL_SUFFIX).append(requestCtx.getUrlPrefix()).toString();
+        if (httpsPort == DEFAULT_HTTPS_PORT) {
+            return new StringBuilder(httpsScheme)
+                .append(Str.PROTOCOL_SUFFIX)
+                .append(requestCtx.getUrlPrefix().replace("${p}", Str.EMPTY))
+                .toString();
+        } else {
+            return new StringBuilder(httpsScheme)
+                .append(Str.PROTOCOL_SUFFIX)
+                .append(requestCtx.getUrlPrefix().replace("${p}", ":" + httpsPort))
+                .toString();
+        }
     }
 
     @Override
@@ -1488,8 +1507,19 @@ public class DefaultApp implements App {
         RequestContext requestCtx = context().getRequestContext();
 
         String httpScheme = cpStr_(HTTP_SCHEME_CONFIG_KEY, DEFAULT_HTTP_SCHEME);
+        int httpPort = cpInt_(HTTP_PORT_CONFIG_KEY, DEFAULT_HTTP_PORT);
 
-        return new StringBuilder(httpScheme).append(Str.PROTOCOL_SUFFIX).append(requestCtx.getUrlPrefix()).toString();
+        if (httpPort == DEFAULT_HTTPS_PORT) {
+            return new StringBuilder(httpScheme)
+                .append(Str.PROTOCOL_SUFFIX)
+                .append(requestCtx.getUrlPrefix().replace("${p}", Str.EMPTY))
+                .toString();
+        } else {
+            return new StringBuilder(httpScheme)
+                .append(Str.PROTOCOL_SUFFIX)
+                .append(requestCtx.getUrlPrefix().replace("${p}", ":" + httpPort))
+                .toString();
+        }
     }
 
     @Override

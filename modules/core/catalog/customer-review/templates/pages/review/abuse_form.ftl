@@ -15,7 +15,7 @@
                 <h1 class="h1"><@message text='Report Abuse' lang="en" text2="Missbrauch melden" lang2="de"/></h1>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 
-                    <@login_form postLoginRedirect="${redirectUrl}" />
+                    <#--   --@login_form postLoginRedirect="${redirectUrl}" / -->
 
                     <#if customerLoggedIn>
                         <@f.form action="${formAction}" method="post" ssl=true autocomplete="off" class="form-horizontal"

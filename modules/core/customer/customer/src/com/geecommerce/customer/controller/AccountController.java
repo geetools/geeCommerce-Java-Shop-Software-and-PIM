@@ -66,13 +66,6 @@ public class AccountController extends BaseController {
         this.mailerService = mailerService;
         this.messageResolver = messageResolver;
     }
-    //
-    // @ValidationMethod(on = "createAccount", when = ValidationState.ALWAYS)
-    // public void fixUsernameError(ValidationErrors errors) {
-    // if (getUseEmail()) {
-    // errors.remove("username");
-    // }
-    // }
 
     @Request("/new")
     public Result newAccount() {

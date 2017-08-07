@@ -13,7 +13,7 @@ public class VC_L_2 extends AbstractURLParser implements URLParser {
         if (requestURL == null)
             throw new NullPointerException("Cannot parse null URL");
 
-        if (requestURL.startsWith(addProtocolToUrlPrefix(requestCtx.getUrlPrefix(), requestURL))) {
+        if (requestURL.startsWith(prepareUrlPrefix(requestCtx.getUrlPrefix(), requestURL))) {
             if (log.isTraceEnabled()) {
                 log.trace(requestURL + " matches url-prefix " + requestCtx.getUrlPrefix() + " using "
                     + this.getClass().getSimpleName());

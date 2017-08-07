@@ -16,5 +16,5 @@ cd C:\dev\github\geecommerce\tools\docker\images\nginx
 docker rm -f gc_demo_nginx
 rem docker rmi -f geecommerce/demo-nginx:1.0
 
-docker build -t geecommerce/demo-nginx:1.0 .
+docker build -t geecommerce/demo-nginx:latest .
 

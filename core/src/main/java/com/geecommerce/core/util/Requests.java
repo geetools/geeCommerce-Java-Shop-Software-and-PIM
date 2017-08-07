@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,17 +21,31 @@ import com.geecommerce.core.web.DefaultServletRequestWrapper;
 import com.geecommerce.core.web.DefaultServletResponseWrapper;
 
 public final class Requests {
+    private static final String HTTPS_ACTIVE_CONFIG_KEY = "general/web/https/active";
+
+    private static final String HTTPS_FORCE_SSL_FOR_URIS_CONFIG_KEY = "general/web/https/force_ssl_for_uris";
+
+    private static final String HTTPS_FORCE_HTTP_FOR_NON_SECURE_URIS_CONFIG_KEY = "general/web/force_http_for_nonsecure_uris";
+
+    private static final String HTTP_SCHEME_CONFIG_KEY = "general/web/http/scheme";
+
+    private static final String HTTPS_SCHEME_CONFIG_KEY = "general/web/https/scheme";
+
+    private static final String DEFAULT_HTTP_SCHEME = "http";
+
+    private static final String DEFAULT_HTTPS_SCHEME = "https";
+
+    private static final int DEFAULT_HTTP_PORT = 80;
+
+    private static final int DEFAULT_HTTPS_PORT = 443;
+
     private static final String API_URI_PREFIX = "/api/";
 
     private static final String CMS_URI_PREFIX = "/cms/";
 
-    private static final String DEFAULT_HTTPS_SCHEME = "https";
-
-    private static final int DEFAULT_HTTPS_PORT = 443;
-
     private static final String HTTPS_FORWARD_HEADERS_CONFIG_KEY = "general/web/https/forward_headers";
 
-    private static final String HTTPS_SCHEME_CONFIG_KEY = "general/web/https/scheme";
+    private static final String HTTP_PORT_CONFIG_KEY = "general/web/http/port";
 
     private static final String HTTPS_PORT_CONFIG_KEY = "general/web/https/port";
 
@@ -117,8 +132,7 @@ public final class Requests {
         return buildAbsoluteURL(request, uri, queryString, false);
     }
 
-    public static final String buildAbsoluteURL(HttpServletRequest request, String uri, String queryString,
-        boolean useLocalIP) {
+    public static final String buildAbsoluteURL(HttpServletRequest request, String uri, String queryString, boolean useLocalIP) {
         if (request == null)
             return null;
 
@@ -129,14 +143,87 @@ public final class Requests {
         String localIP = request.getLocalAddr();
         String contextPath = request.getContextPath();
 
-        StringBuilder sb = new StringBuilder(url.getProtocol()).append(Str.PROTOCOL_SUFFIX)
+        return new StringBuilder(url.getProtocol()).append(Str.PROTOCOL_SUFFIX)
             .append(useLocalIP ? localIP : host).append(port == 80 || port == -1 ? Str.EMPTY : Str.COLON)
             .append(port == 80 || port == -1 ? Str.EMPTY : url.getPort()).append(contextPath).append(uri)
-            .append(queryString == null ? Str.EMPTY : queryString);
-
-        return sb.toString();
+            .append(queryString == null ? Str.EMPTY : queryString).toString();
     }
 
+//    public static String buildAbsoluteURL(HttpServletRequest request, String uri, String queryString, boolean useLocalIP) {
+//        return buildAbsoluteURL(request, uri, queryString, useLocalIP, false);
+//    }
+//    
+//    public static String buildAbsoluteURL(HttpServletRequest request, String uri, String queryString, boolean useLocalIP, boolean forceSecure) {
+//        App app = App.get();
+//
+//        boolean isHttpsActive = app.cpBool__(HTTPS_ACTIVE_CONFIG_KEY, false);
+//
+//        String host = getURL(request).getHost();
+//        String localIP = request.getLocalAddr();
+//        String contextPath = request.getContextPath();
+//
+//        if (isHttpsActive) {
+//            boolean isSecureURI = request.isSecure() || forceSecure;
+//
+//            if (!isSecureURI) {
+//                List<String> forceSSLForURIs = app.cpStrList_(HTTPS_FORCE_SSL_FOR_URIS_CONFIG_KEY);
+//
+//                if (forceSSLForURIs != null && !forceSSLForURIs.isEmpty()) {
+//                    for (String uriPrefix : forceSSLForURIs) {
+//                        if (uri.startsWith(uriPrefix))
+//                            isSecureURI = true;
+//                    }
+//                }
+//            }
+//
+//            if (isSecureURI) {
+//                String httpsScheme = app.cpStr_(HTTPS_SCHEME_CONFIG_KEY, DEFAULT_HTTPS_SCHEME);
+//                int httpsPort = app.cpInt_(HTTPS_PORT_CONFIG_KEY, DEFAULT_HTTPS_PORT);
+//
+//                return new StringBuilder(httpsScheme).append(Str.PROTOCOL_SUFFIX)
+//                    .append(useLocalIP ? localIP : host)
+//                    .append(httpsPort == DEFAULT_HTTPS_PORT ? Str.EMPTY : Str.COLON)
+//                    .append(httpsPort == DEFAULT_HTTPS_PORT ? Str.EMPTY : httpsPort)
+//                    .append(contextPath)
+//                    .append(uri)
+//                    .append(queryString == null ? Str.EMPTY : Char.QUESTION_MARK)
+//                    .append(queryString == null ? Str.EMPTY : queryString).toString();
+//            }
+//        }
+//
+//        String httpScheme = app.cpStr_(HTTP_SCHEME_CONFIG_KEY, DEFAULT_HTTP_SCHEME);
+//        int httpPort = app.cpInt_(HTTP_PORT_CONFIG_KEY, DEFAULT_HTTP_PORT);
+//
+//        return new StringBuilder(httpScheme).append(Str.PROTOCOL_SUFFIX)
+//            .append(useLocalIP ? localIP : host)
+//            .append(httpPort == DEFAULT_HTTP_PORT ? Str.EMPTY : Str.COLON)
+//            .append(httpPort == DEFAULT_HTTP_PORT ? Str.EMPTY : httpPort)
+//            .append(contextPath)
+//            .append(uri)
+//            .append(queryString == null ? Str.EMPTY : Char.QUESTION_MARK)
+//            .append(queryString == null ? Str.EMPTY : queryString).toString();
+//    }
+
+//    public static final String getAbsoluteBaseSecureURL() {
+//        App app = App.get();
+//
+//        boolean isHttpsActive = app.cpBool__(HTTPS_ACTIVE_CONFIG_KEY, false);
+//
+//        String host = getURL(request).getHost();
+//        String localIP = request.getLocalAddr();
+//        String contextPath = request.getContextPath();
+//        
+//        String httpsScheme = app.cpStr_(HTTPS_SCHEME_CONFIG_KEY, DEFAULT_HTTPS_SCHEME);
+//        int httpsPort = app.cpInt_(HTTPS_PORT_CONFIG_KEY, DEFAULT_HTTPS_PORT);
+//
+//        return new StringBuilder(httpsScheme).append(Str.PROTOCOL_SUFFIX)
+//            .append(useLocalIP ? localIP : host)
+//            .append(httpsPort == DEFAULT_HTTPS_PORT ? Str.EMPTY : Str.COLON)
+//            .append(httpsPort == DEFAULT_HTTPS_PORT ? Str.EMPTY : httpsPort)
+//            .append(contextPath).
+//        
+//    }
+    
     public static final String getURLWithoutPortAndContextPath(HttpServletRequest request) {
         URL url = getURL(request);
 

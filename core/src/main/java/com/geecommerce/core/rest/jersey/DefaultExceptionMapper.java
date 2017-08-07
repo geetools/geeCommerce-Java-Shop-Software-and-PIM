@@ -15,14 +15,13 @@ import com.google.inject.Singleton;
 public class DefaultExceptionMapper implements ExceptionMapper<Throwable> {
     @Override
     public Response toResponse(Throwable t) {
-        t.printStackTrace();
-
         if (t instanceof AuthenticationException) {
             return Response.status(Status.FORBIDDEN).entity(t.getMessage()).build();
         }
         if (t instanceof WebApplicationException) {
             return ((WebApplicationException) t).getResponse();
         } else {
+            t.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(t.getMessage()).build();
         }
     }

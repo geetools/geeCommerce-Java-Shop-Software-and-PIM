@@ -1,5 +1,7 @@
 package com.geecommerce.core.system.widget.rest.v1;
 
+import java.util.Collections;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -38,13 +40,18 @@ public class WidgetResource extends AbstractResource {
         return ok(checked(service.get(Widget.class)));// WidgetHelper.locateWidgets()
     }
 
+    @SuppressWarnings("unchecked")
     @GET
     @Path("{widget}/options/{parameter}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getOptions(@PathParam("widget") String widgetCode, @PathParam("parameter") Id parameterId,
-        @FilterParam Filter filter) {
+    public Response getOptions(@PathParam("widget") String widgetCode, @PathParam("parameter") Id parameterId, @FilterParam Filter filter) {
         WidgetController widgetController = WidgetHelper.findWidgetByCode(widgetCode);
-        return ok(widgetController.getParameterOptions(parameterId));
+
+        if (widgetController != null) {
+            return ok(widgetController.getParameterOptions(parameterId));
+        }
+
+        return ok(Collections.EMPTY_LIST);
     }
 
     @GET

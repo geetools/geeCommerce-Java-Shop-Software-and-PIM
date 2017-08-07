@@ -1,4 +1,4 @@
-FROM tomcat:8.5-jre8-alpine
+FROM tomcat:8-jre8-alpine
 
 RUN \
   apk update && apk add \
